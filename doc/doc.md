@@ -68,7 +68,7 @@ Dans les assert, ensure & follow, on rajoute un $ pour différencier les référ
 
 Afin de permettre de muter le graphe de façon "atomique" et scalable, un langage de templates y est dédié.
 
-### Exemple/schéma
+### Exemple/schéma[Graph.js](..%2FApp%2FGraph.js)
 
     [
      {
