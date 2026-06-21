@@ -74,4 +74,48 @@ async function supervise( graph, spec ) {
 	return { resolved: !detectStuck(graph), attempts: attempts };
 }
 
-module.exports = { supervise, nextStable };
+/**
+ * The supervisor as a REACTIVE concept flow (vs the host-orchestrated `supervise` loop).
+ * Enabled by queued rollback (#11.c.4): a concept's provider can now trigger a rollback
+ * mid-stabilize and it defers safely. The flow:
+ *   Stuck ──require──▶ Supervise (hypothesizes a self-mod, records a rollback checkpoint)
+ *   Supervise+hypothesized ──require──▶ Evaluate (the supervisor/better-model verdict)
+ *   Evaluate, ensure verdict=='worse' ──▶ Revert (queued rollbackTo the checkpoint)
+ *
+ * Inject the policy (open R&D):
+ *   opts.hypothesize(graph, scope)  — apply a self-mod; the added/patched fix MUST post
+ *                                     `hypothesized: true` so Evaluate can fire after it lands
+ *                                     (and `resolved: true` + `Stuck: null` if it solves it).
+ *   opts.evaluate(graph, scope)     — return 'better' | 'worse' (the supervisor judgment).
+ *
+ * NOTE (open R&D): the rollback checkpoint is `graph._lastSettledRev` — the last clean
+ * snapshot. A robust multi-attempt reactive loop (a checkpoint that holds the problem but
+ * not the attempt, + strategy memory so retries differ) is the next research step; this
+ * tree demonstrates the reactive wiring and the queued-rollback Revert path.
+ */
+function reactiveSupervisorTree() {
+	return { childConcepts: {
+		Supervise: { _id: 'Supervise', _name: 'Supervise', require: ['Stuck'], provider: ['Sup::propose'] },
+		Evaluate:  { _id: 'Evaluate', _name: 'Evaluate', require: ['Supervise', 'hypothesized'], provider: ['Sup::judge'] },
+		Revert:    { _id: 'Revert', _name: 'Revert', require: ['Evaluate'], ensure: ["$verdict=='worse'"], provider: ['Sup::revert'] }
+	} };
+}
+
+function makeSupervisorProviders( opts ) {
+	var hypothesize = opts.hypothesize, evaluate = opts.evaluate;
+	return { Sup: {
+		propose: function ( graph, concept, scope, argz, cb ) {
+			hypothesize(graph, scope);// a self-mod (queued); its fix posts `hypothesized:true`
+			cb(null, { $_id: '_parent', Supervise: true, supRev: graph._lastSettledRev });
+		},
+		judge: function ( graph, concept, scope, argz, cb ) {
+			cb(null, { $_id: '_parent', Evaluate: true, verdict: evaluate(graph, scope) });
+		},
+		revert: function ( graph, concept, scope, argz, cb ) {
+			graph.rollbackTo(scope._.supRev);// queued (#11.c.4) -> applied at the quiescent boundary
+			cb(null, { $_id: '_parent', Revert: true });
+		}
+	} };
+}
+
+module.exports = { supervise, nextStable, reactiveSupervisorTree, makeSupervisorProviders };

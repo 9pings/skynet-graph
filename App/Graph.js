@@ -165,6 +165,7 @@ Graph.prototype = {
 		this._triggeredCast = {};
 		this._stabilizing      = false;// true while a stabilization pass is in flight (see stabilize.js / _applyStabilized)
 		this._pendingStructural = [];// add/patchConcept issued mid-stabilize, drained at the quiescent _loopTF boundary (#11.a)
+		this._pendingRollback   = null;// rollbackTo issued mid-stabilize, applied at the quiescent boundary (#11.c.4)
 		this.cfg            = { ...this.cfg, ...conf };
 		this._applyCount   = {};// per-(target/concept) apply tally within an episode; reset on settle (#11.c.1)
 		this._applyCap     = this.cfg.applyCap || 1000;// oscillation backstop ceiling (per target×concept per episode)
@@ -307,9 +308,19 @@ Graph.prototype = {
 			(me._triggeredCastCount || me._unstable.length) && flow.run();
 		});
 		if ( !me._unstable.length && !me._triggeredCastCount ) {
-			// quiescent boundary. Apply any structural ops (add/patchConcept) that were
-			// issued mid-stabilize, against the now-settled, consistent cast-state — then
-			// let the loop re-run (they write/destabilize) rather than declaring stable (#11.a).
+			// quiescent boundary. A rollback requested mid-stabilize supersedes everything —
+			// it re-mounts an earlier rev (and its concept-lib), so queued structural edits
+			// (issued after that rev) are discarded (#11.c.4).
+			if ( me._pendingRollback != null ) {
+				var _r = me._pendingRollback;
+				me._pendingRollback = null;
+				me._pendingStructural = [];
+				me._doRollback(_r);// mount + restore, no kick — the re-arm re-stabilizes
+				return;
+			}
+			// else apply any structural ops (add/patchConcept) issued mid-stabilize, against
+			// the now-settled, consistent cast-state — then let the loop re-run (they
+			// write/destabilize) rather than declaring stable (#11.a).
 			if ( me._pendingStructural && me._pendingStructural.length ) {
 				me._drainStructural();
 				return;
@@ -2013,6 +2024,7 @@ Graph.prototype = {
 		this._stabilized = true;
 		this._stabilizing = false;// pass complete — host ops (incl. those issued from onStabilize) apply immediately again
 		this._applyCount = {};// healthy settle ends the episode — clear the per-(target/concept) apply tally (#11.c.1)
+		this._lastSettledRev = this.getCurrentRevision();// last clean checkpoint (has a snapshot) for a reactive supervisor's rollback (#11.c.4)
 		me._running      = false;
 		// me._rev++;// graph inst revision
 		this._captureSnapshot();// checkpoint this coherent state so rollbackTo() can restore it
@@ -2160,14 +2172,36 @@ Graph.prototype = {
 		// a surviving concept re-casts and the rolled-back edit "resurrects".
 		if ( snap.concepts ) this._restoreConceptTree(snap.concepts);
 
-		this.mount(JSON.parse(snap.graph));// rebuild _objById at that rev, mark unstable, set _rev
-		Object.keys(this._snapshots).forEach(( r ) => {
-			if ( Number(r) > revisionNumber ) delete this._snapshots[r];// drop the abandoned future
-		});
-		this._stabilized = false;
+		// Issued mid-stabilize (e.g. from a supervisor concept's provider)? Defer to the
+		// quiescent _loopTF boundary — rollbackTo re-mounts, which must not happen mid-pass
+		// (#11.c.4). Multiple requests collapse to the EARLIEST rev (roll back furthest).
+		if ( this._stabilizing ) {
+			this._pendingRollback = (this._pendingRollback == null)
+				? revisionNumber : Math.min(this._pendingRollback, revisionNumber);
+			return revisionNumber;
+		}
+
+		this._doRollback(revisionNumber);
 		this._taskFlow.run();// re-stabilize -> re-fires _applyStabilized / onStabilize
 		this._running = true;
 		return revisionNumber;
+	},
+	/**
+	 * The re-mount body of rollbackTo WITHOUT the stabilize kick — restore the concept
+	 * lib (N6) then the facts, and drop the abandoned future. Used by the public method
+	 * (host path, then kicks) and by the mid-stabilize drain (`_loopTF`, no kick — the
+	 * re-arm re-stabilizes since mount leaves objects unstable). (#11.c.4)
+	 */
+	_doRollback: function ( revisionNumber ) {
+		var me   = this,
+		    snap = this._snapshots && this._snapshots[revisionNumber];
+		if ( !snap ) return;
+		if ( snap.concepts ) this._restoreConceptTree(snap.concepts);// N6: rules first
+		this.mount(JSON.parse(snap.graph));// rebuild _objById at that rev, mark unstable, set _rev
+		Object.keys(this._snapshots).forEach(function ( r ) {
+			if ( Number(r) > revisionNumber ) delete me._snapshots[r];// drop the abandoned future
+		});
+		this._stabilized = false;
 	},
 	// -------------------------------------------------------------------------- fork / merge
 	/**
