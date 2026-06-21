@@ -128,7 +128,14 @@ Graph.prototype = {
 					get( refId, cb ) {
 						refId = refId.split('#');
 						//debug.beep(refId)
-						require('App/db').get(refId[0], refId[1], cb);
+						// `App/db` is a HOST module (not shipped by the engine). Resolve it at
+						// runtime via webpack's escape hatch so the library bundle doesn't try to
+						// statically resolve it; fall back to plain require under node/babel, and
+						// degrade gracefully (cb error) if the host hasn't provided it.
+						var hostRequire = (typeof __non_webpack_require__ === 'function') ? __non_webpack_require__ : require, db;
+						try { db = hostRequire('App/db'); }
+						catch ( e ) { return cb(new Error("bagRefManager 'caipi': host module 'App/db' not available; pass cfg.bagRefManagers"), null); }
+						db.get(refId[0], refId[1], cb);
 					}
 				}
 			}
