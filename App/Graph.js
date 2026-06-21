@@ -821,8 +821,12 @@ Graph.prototype = {
 
 		concept.patch(updates);
 
-		Object.keys(this._objById).forEach(function ( id ) {
-			var etty       = me._objById[id]._etty;
+		// #11.b scoped re-eval: only the objects whose cast-state for C could change —
+		// not the whole graph (was O(graph) stop-the-world).
+		this._scopedReevalIds(concept).forEach(function ( id ) {
+			var o = me._objById[id];
+			if ( !o ) return;
+			var etty       = o._etty;
 			if ( !etty || etty._dead ) return;
 			var applicable = !!concept.isApplicableTo(etty, me),
 			    isCast     = !!etty._mappedConcepts[concept._name];
@@ -836,6 +840,30 @@ Graph.prototype = {
 			}
 		});
 		return concept;
+	},
+	/**
+	 * The objects whose cast-state for `concept` could change under a patch — its
+	 * sound, minimal re-eval frontier (#11.b):
+	 *   - `_mapsByConcept[C._name]` — objects where C is/was cast (the UNCAST direction
+	 *     on a tightening patch);
+	 *   - `_mapsByConcept[r]` for each simple `require` r — objects that carry a fact C
+	 *     needs, so a loosening patch could newly CAST C on them (incl. never-cast ones).
+	 * Falls back to the full object scan when it can't be soundly scoped: an assert-only
+	 * concept (no `require` ⇒ any object could apply) or a cross-object walk require
+	 * (`a:b` ⇒ the require fact lives on another object, not indexable here).
+	 */
+	_scopedReevalIds: function ( concept ) {
+		var me       = this,
+		    requires = isArray(concept._schema.require) ? concept._schema.require
+		             : concept._schema.require && [concept._schema.require] || [];
+		if ( !requires.length || requires.some(function ( r ) { return String(r).indexOf(':') !== -1; }) )
+			return Object.keys(me._objById);
+		var set = {};
+		(me._mapsByConcept[concept._name] || []).forEach(function ( id ) { set[id] = 1; });
+		requires.forEach(function ( r ) {
+			(me._mapsByConcept[r] || []).forEach(function ( id ) { set[id] = 1; });
+		});
+		return Object.keys(set);
 	},
 	/**
 	 * Install a NEW expert (concept) into the live library and re-evaluate the

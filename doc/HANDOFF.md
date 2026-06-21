@@ -8,7 +8,8 @@ barrier** (roadmap #1, the K1 keystone) built; **reactive synthesis** (#2) built
 concepts** (#3, K3) built; **freshness/TTL as facts** (N1) built; **declarative AI-authoring**
 (roadmap #10): `addConcept` + ref-soundness validation + a **CEGIS authoring loop** built;
 **live self-modification re-entrancy** (#11.a): a meta-concept can `add`/`patchConcept` mid-stabilize —
-deferred to a quiescent boundary (fixes the silently-dropped mid-apply patch). The engine library is
+deferred to a quiescent boundary (fixes the silently-dropped mid-apply patch); **scoped re-eval** (#11.b):
+`patchConcept` re-evaluates only the affected frontier, not the whole graph. The engine library is
 solid and heavily instrumented.
 
 Read this, then `doc/MODELISATION.md` (the definitive model + prioritized roadmap), then resume.
@@ -71,7 +72,8 @@ four rows are **session 3**, all **zero core-engine change** — they touch only
 | **addConcept (#10)** | `Graph.addConcept(parentNameOrId, schema, cb)` — symmetric twin of `patchConcept`: builds+registers a `new Concept` (auto-registers into `_conceptLib`, recursive children), attaches under `parent._openConcepts` keyed by `_id` (engine invariant), mirrors into `parent._schema.childConcepts` (serialize carries it), opens it in each live object's `_mapOpenConcepts` + re-sweeps. Reuses cast/sweep/stabilize only — **additive method, no semantic change to existing paths.** Deferred-`require` watcher fires when the fact later appears. | `9406694` |
 | **validator ref-soundness (#10)** | `_lab/validate.js` layer 3: collects `applyMutations`-template keys as produced facts; new **`unknown-ref`** check (gated on a host-declared `knownFacts` ref-alphabet — §6.5 "host owns the provider palette + ref alphabet") flags a `require`/`ensure` on a fact NO concept produces & the alphabet doesn't declare (the silent never-fires footgun); cross-walk (`a:b`) refs skipped (sound). Warning by default, `strict`→error. | `9406694` |
 | **CEGIS authoring (#10)** | `_lab/author.js#authorConcept(graph, spec)` — counterexample-guided synthesis: an **injected** proposer emits a concept term → **author-time oracle** (`validateConceptTree`, malformed → counterexample) → install (`addConcept`/`patchConcept`) → **behavioral oracle** (stabilize, test goal predicate, unmet → counterexample) → refine. Counterexamples threaded back each round → candidate space shrinks → convergence. Backend-agnostic (LLM in prod, stub in tests). **Zero core change.** | `9406694` |
-| **self-mod re-entrancy (#11.a)** | `add`/`patchConcept` issued **mid-stabilize** (from a meta-concept's provider) now defer to the quiescent `_loopTF` boundary via a `_pendingStructural` queue (drained by `_drainStructural`), gated by a `_stabilizing` flag (set in `stabilize.js`, cleared in `_applyStabilized`). Fixes the verified hazard: a patch of the concept **currently mid-apply** was silently dropped (its self-flag not yet written → re-eval saw it as not-cast → no retraction). Host-issued ops (incl. from `onStabilize`) still apply immediately. `patch`/`add` bodies split into kick-less `_doPatchConcept`/`_doAddConcept`. **Core change (the re-entrancy keystone for #11).** | *uncommitted* |
+| **self-mod re-entrancy (#11.a)** | `add`/`patchConcept` issued **mid-stabilize** (from a meta-concept's provider) now defer to the quiescent `_loopTF` boundary via a `_pendingStructural` queue (drained by `_drainStructural`), gated by a `_stabilizing` flag (set in `stabilize.js`, cleared in `_applyStabilized`). Fixes the verified hazard: a patch of the concept **currently mid-apply** was silently dropped (its self-flag not yet written → re-eval saw it as not-cast → no retraction). Host-issued ops (incl. from `onStabilize`) still apply immediately. `patch`/`add` bodies split into kick-less `_doPatchConcept`/`_doAddConcept`. **Core change (the re-entrancy keystone for #11).** | `b4b0821` |
+| **self-mod scoped re-eval (#11.b)** | `_doPatchConcept` re-evaluated **every** object (`Object.keys(_objById)`, O(graph) stop-the-world). Now `_scopedReevalIds(concept)` returns only the frontier whose cast-state could change: `_mapsByConcept[C._name]` (cast/was-cast → uncast direction) ∪ `_mapsByConcept[r]` per simple `require` r (holds a needed fact → cast direction, incl. never-cast objects). Falls back to the full scan when unscopable (no `require`, or a cross-object `a:b` require). Proven: 53 objects → 3 candidates; behaviour-preserving (characterization test). | *uncommitted* |
 
 Specs: `f2434d2`,`d74dcab`,`27a0322` (inspector spec + roadmap).
 
@@ -80,7 +82,7 @@ Specs: `f2434d2`,`d74dcab`,`27a0322` (inspector spec + roadmap).
 ## 2. How to run
 
 ```bash
-npm test                  # 98 tests (node:test). Per-file count is deterministic; the AGGREGATE
+npm test                  # 99 tests (node:test). Per-file count is deterministic; the AGGREGATE
                           #   count can race-undercount under --test-force-exit (all pass; verify per-file).
 node _lab/run-basic.js    # non-LLM stabilization over the real `common` set
 node _lab/run-prompt.js   # decompose→synthesize→answer vs a local LLM (LLM_BASE=...); writes a trace
@@ -199,12 +201,9 @@ Done: inspector · answer-loop · memory-on-retraction + learning loop · `{__pu
 **freshness/TTL (N1)** · **declarative AI-authoring (#10)** · **self-mod re-entrancy (#11.a)**.
 
 Next, highest-leverage first — **finishing #11 (live self-modification, the highest-risk tier).** #11.a
-(re-entrancy: mid-stabilize `add`/`patchConcept` defer to the quiescent boundary) is DONE. Remaining:
-1. **#11.b — scoped re-eval** (perf + blast-radius): `_doPatchConcept` today re-evals *every* object
-   (`Object.keys(this._objById)`, O(graph) stop-the-world). Scope it to objects where C is/was applicable
-   (`_mapsByConcept[C._name]` ∪ the `require`-root matches), turning O(graph) into O(affected). Cheap, safe,
-   unblocks self-mod at scale.
-2. **#11.c — the safe self-mod regime** (gate behind #11.b + the existing instruments):
+(re-entrancy: mid-stabilize `add`/`patchConcept` defer to the quiescent boundary) and #11.b (scoped
+re-eval: `_scopedReevalIds` frontier, not O(graph)) are DONE. Remaining:
+1. **#11.c — the safe self-mod regime** (gate behind the existing instruments):
    - a single-writer **meta-concept on a `Stuck` fact** (a subtree exhausted strategies / blew budget), not
      continuous polling;
    - **apply-count ceiling** in the stabilize loop (per `(target, conceptName)`) writing a `divergent` fact
@@ -237,9 +236,9 @@ App/objects/Concept.js     patch()/_compileAssert(); _computeWhy(); applyTo thre
 App/objects/Entity.js      empty _openConcepts guard; {__push} array-append in set()
 App/tasks/stabilize.js     drains _triggeredCast; sets _stabilizing=true (#11.a re-entrancy bracket)
 App/Graph.js               patchConcept/addConcept (+kick-less _doPatchConcept/_doAddConcept, #10/#11.a);
-                           _pendingStructural queue + _drainStructural at the _loopTF quiescent boundary;
-                           getConceptByName; getSnapshot/diffRevisions; onConceptApply + traceProvider;
-                           App/db runtime-require (build fix)
+                           _scopedReevalIds frontier (#11.b); _pendingStructural queue + _drainStructural
+                           at the _loopTF quiescent boundary; getConceptByName; getSnapshot/diffRevisions;
+                           onConceptApply + traceProvider; App/db runtime-require (build fix)
 providers/{geo,llm,index}  packaged base providers + register()
 providers/canonicalize.js  deterministic fact snapping (enum/grain/type) + stable digest — the K1 grid
 providers/verify.js        checker lib + Verify::check (verdict facts) + Vote::tally (k-of-n) — #3 (K3)
@@ -256,8 +255,8 @@ doc/API.md                 public API reference
 doc/MODELISATION.md        the model + prioritized roadmap (READ THIS)
 doc/ideation/01-04*.md     the 4-lens agent ideation raw findings
 docs/superpowers/specs/2026-06-21-moe-graph-inspector-design.md   inspector spec + §4b/4c roadmap detail
-tests/integration/*        26 integration files (+add-concept, author-cegis, self-mod on top of
-                           canon-barrier, reactive-synth, verification, freshness)
+tests/integration/*        27 integration files (+add-concept, author-cegis, self-mod, patch-scoped on
+                           top of canon-barrier, reactive-synth, verification, freshness)
 tests/unit/*               6 unit files (expr, concept-wiring, providers, canonicalize, validate, verify)
 ```
 
