@@ -92,8 +92,8 @@ tu # Plan de Développement - Skynet-Graph V1
 
 | Tâche | Effort | Priorité | Livrable |
 |-------|--------|----------|----------|
-| Système de scoring des experts | 3-5j | HIGH | Champ `confidence` + métriques |
-| Détection de cycles basique | 3-5j | HIGH | Timeout + depth limit |
+| ~~Système de scoring des experts~~ → scoring = facts ordinaires | ~0.5j | HIGH | Test de verrouillage (cf. #4) — aucun feature d'engine |
+| ~~Détection de cycles~~ → HORS PÉRIMÈTRE (graphe dirigé acyclique par construction : on part d'un segment racine, on ajoute des paths enfants) | — | — | — |
 | Méthodes de fork/merge de graphe | 5-7j | HIGH | `graph.fork()`, `graph.merge()` |
 | API de patch d'experts à chaud | 2-3j | HIGH | `graph.patchConcept(name, updates)` |
 | Historique des révisions amélioré | 3-5j | MEDIUM | Indexation + recherche |
@@ -227,32 +227,24 @@ Graph.prototype.rollbackTo = function(revisionNumber) {
 
 ### HIGH Priority (Fonctionnalités principales)
 
-#### 4. Système de Scoring des Experts
+#### 4. Scoring des experts = des facts ordinaires (PAS un feature d'engine)
 
-**Objectif** : Permettre aux experts de voter/pondérer leurs contributions.
+**Révisé (2026-06-19).** La version initiale proposait des champs de schéma `confidence`/`weight`/`confidenceProvider` + une « résolution de conflits » (le plus haut `confidence*weight` gagne quand deux experts écrivent la même prop). **C'est la mauvaise raison** : le graphe est *fact-driven et additif* — un concept ajoute des props et de **nouveaux segments/paths**, ce qui déclenche d'autres concepts en cascade. Les experts ne se disputent pas une propriété ; ils font croître le graphe en branches alternatives. Donc **aucune machinerie de scoring n'est nécessaire** : `confidence` (ou tout score) est un **fact comme un autre**.
 
-**Implémentation** :
-```json
-{
-  "require": [...],
-  "provider": [...],
-  "confidenceProvider": "ExpertScoring::Evaluate",  // Optionnel
-  "confidence": 0.95,  // Score par défaut
-  "weight": 1.0  // Poids dans les décisions
-}
-```
+Tout le contexte d'application d'un concept étant déjà accessible, un score se manipule sans aucun code d'engine :
 
-**Résolution de conflits** :
-```javascript
-// Si deux experts écrivent la même propriété :
-if (expertA.confidence * expertA.weight > expertB.confidence * expertB.weight) {
-  // Garder la valeur de expertA
-} else {
-  // Garder la valeur de expertB (ou fusionner)
-}
-```
+- **Déclenchement par seuil (B)** — lisible directement dans les `assert` :
+  ```json
+  { "require": ["Theoric"], "assert": ["$confidence > 0.7"] }
+  ```
+  (géré tel quel par le parseur d'expressions, cf. `App/expr.js`).
+- **Input de prompt** — le provider reçoit `scope`, donc `confidence`, `depth`, ou n'importe quel fact du contexte peut nourrir le prompt de l'expert (via `graph.getRef('confidence', scope)`).
+- **Écriture** — un expert écrit `confidence` comme un prop ordinaire sur ses segments via `pushMutation`.
+- **Classement des paths (A)** — agréger `confidence` le long d'un path avec le `PathMap` existant (`getAllPropsInPath`, `pathDescriptor`) pour ranker/sélectionner les branches alternatives.
 
-**Effort** : 3-5 jours
+**Livrable** : pas de feature. Un test de verrouillage (`tests/integration/scoring.test.js`) prouve que (A) et (B) marchent déjà avec le moteur + le parseur, sans nouveau code.
+
+**Effort** : ~0.5j (test + doc). `confidenceProvider` dynamique : seulement si un besoin réel émerge (YAGNI).
 
 ---
 
