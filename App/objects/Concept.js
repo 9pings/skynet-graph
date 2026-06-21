@@ -128,6 +128,20 @@ Concept.prototype = {
         
         return function ( graph, flow ) {
             //debug.log(graph.cfg.label + " : Do cast ", me._id, 'on', scope._._id);
+
+            // oscillation backstop (#11.c.1): bound how many times this (target, concept)
+            // applies within an episode (the tally resets on each healthy settle). Over the
+            // ceiling -> record WHY in the `divergent` array fact + skip this apply; that
+            // fact is a non-cast condition (Concept.isApplicableTo) so the concept de-casts.
+            if ( graph._applyCount ) {
+                var _ck = scope._._id + '/' + me._name;
+                graph._applyCount[_ck] = (graph._applyCount[_ck] || 0) + 1;
+                if ( graph._applyCount[_ck] > graph._applyCap ) {
+                    graph._markDivergent && graph._markDivergent(scope, me, graph._applyCount[_ck]);
+                    return;
+                }
+            }
+
             // trace context: attributes the mutation(s) this apply produces back to
             // this concept (read by Graph.pushMutation -> cfg.onConceptApply).
             var startTm = Date.now(),
@@ -251,7 +265,14 @@ Concept.prototype = {
         if ( this._schema.autoCast === false ) {
             return;
         }
-        
+
+        // divergent fact = non-cast condition (#11.c.1): a (target, concept) that blew the
+        // apply ceiling carries a reason record in `divergent`; it must not (re)cast.
+        var _dv = scope._ && scope._.divergent;
+        if ( _dv && _dv.length )
+            for ( var _i = 0; _i < _dv.length; _i++ )
+                if ( _dv[_i] && _dv[_i].concept === this._name ) return false;
+
         var me       = this,
             requires = isArray(me._schema.require) && me._schema.require
                 || me._schema.require && [me._schema.require]

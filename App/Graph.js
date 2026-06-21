@@ -166,6 +166,8 @@ Graph.prototype = {
 		this._stabilizing      = false;// true while a stabilization pass is in flight (see stabilize.js / _applyStabilized)
 		this._pendingStructural = [];// add/patchConcept issued mid-stabilize, drained at the quiescent _loopTF boundary (#11.a)
 		this.cfg            = { ...this.cfg, ...conf };
+		this._applyCount   = {};// per-(target/concept) apply tally within an episode; reset on settle (#11.c.1)
+		this._applyCap     = this.cfg.applyCap || 1000;// oscillation backstop ceiling (per target×concept per episode)
 		this.cfg.conceptSets.map(( k ) => concepts = dmerge(concepts, conceptMap[k]));
 		me._conceptMap     = conceptMap;// kept so fork() can seed children with the same library
 		me._conceptLib     = {};
@@ -864,6 +866,33 @@ Graph.prototype = {
 			(me._mapsByConcept[r] || []).forEach(function ( id ) { set[id] = 1; });
 		});
 		return Object.keys(set);
+	},
+	/**
+	 * Apply-ceiling backstop (#11.c.1): a (target, concept) pair has applied past the
+	 * `_applyCap` within one episode. NOTE the framing: a self-destabilizing re-cast loop
+	 * is NOT inherently pathological — it is a legitimate *iterative-trial* technique
+	 * (the engine's own way to stabilize / try paths & casts). So the cap is a BACKSTOP
+	 * (default high, reset on each settle so a converging trial loop is never killed), and
+	 * `divergent` is the "did not converge within the ceiling" *outcome* — a reusable trial
+	 * signal, not just an error. (Future: an explicit per-concept iteration budget could
+	 * turn this into a controlled explore-variations loop — AO-star/beam + the learning loop.)
+	 *
+	 * Record WHY — a reason record pushed (race-free `{__push}`) into the target's
+	 * `divergent` array fact. That fact is a NON-CAST CONDITION (Concept.isApplicableTo
+	 * reads it), so the concept de-casts and stops re-firing; it is also a retraction
+	 * trigger a host / meta-concept can `ensure`-gate on. Idempotent (one record per pair).
+	 */
+	_markDivergent: function ( scope, concept, count ) {
+		var cur = scope._ && scope._.divergent;
+		if ( cur && cur.length )
+			for ( var i = 0; i < cur.length; i++ )
+				if ( cur[i] && cur[i].concept === concept._name ) return;// already recorded
+		debug.error("DIVERGENT: %s blew the apply ceiling (%s) on %s — de-casting + flagging why",
+		            concept._name, this._applyCap, scope._._id);
+		this.pushMutation({
+			$_id     : "_parent",
+			divergent: { __push: { concept: concept._name, applies: count, cap: this._applyCap, reason: "apply-cap" } }
+		}, scope._._id);
 	},
 	/**
 	 * Install a NEW expert (concept) into the live library and re-evaluate the
@@ -1981,6 +2010,7 @@ Graph.prototype = {
 		var me           = this;
 		this._stabilized = true;
 		this._stabilizing = false;// pass complete — host ops (incl. those issued from onStabilize) apply immediately again
+		this._applyCount = {};// healthy settle ends the episode — clear the per-(target/concept) apply tally (#11.c.1)
 		me._running      = false;
 		// me._rev++;// graph inst revision
 		this._captureSnapshot();// checkpoint this coherent state so rollbackTo() can restore it
