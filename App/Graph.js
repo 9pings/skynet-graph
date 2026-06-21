@@ -822,6 +822,7 @@ Graph.prototype = {
 			throw new Error("patchConcept: no concept '" + nameOrId + "'");
 
 		concept.patch(updates);
+		this._conceptSnapshot = null;// concept lib changed — invalidate the N6 schema snapshot cache
 
 		// #11.b scoped re-eval: only the objects whose cast-state for C could change —
 		// not the whole graph (was O(graph) stop-the-world).
@@ -975,6 +976,7 @@ Graph.prototype = {
 		// mirror into the parent's live schema so serialize()/snapshots carry it
 		parent._schema.childConcepts = parent._schema.childConcepts || {};
 		parent._schema.childConcepts[schema._id] = schema;
+		this._conceptSnapshot = null;// concept lib changed — invalidate the N6 schema snapshot cache
 
 		// open + re-sweep every live object the new concept could apply to: the root
 		// container reaches all objects; a real parent reaches objects it is cast on.
@@ -2035,7 +2037,46 @@ Graph.prototype = {
 	_captureSnapshot: function () {
 		this._snapshots = this._snapshots || {};
 		var rev = this.getCurrentRevision();
-		if ( !this._snapshots[rev] ) this._snapshots[rev] = this.serialize();
+		if ( !this._snapshots[rev] ) {
+			var snap = this.serialize();// { lastRev, graph } — the FACT state
+			// N6 (#11.c.2): also snapshot the FULL live concept schema tree, so rollbackTo()
+			// restores the rules (runtime add/patchConcept), not just the facts. Cached and
+			// invalidated on each concept-lib edit, so unchanged libs aren't re-serialized.
+			snap.concepts = this._conceptSnapshot || (this._conceptSnapshot = this._serializeConceptTree());
+			this._snapshots[rev] = snap;
+		}
+	},
+	/**
+	 * Serialize the LIVE concept tree (reflecting runtime add/patchConcept) into a nested
+	 * record `new Concept(...)` can rebuild — walking `_openConcepts` (so adds are caught)
+	 * and reading each concept's current `_schema` (so patches are caught; the parent's
+	 * `_schema.childConcepts` is NOT authoritative after a patch). JSON-cloned (schemas are
+	 * JSON-safe: providers are string refs, no functions). (#11.c.2 / N6)
+	 */
+	_serializeConceptTree: function () {
+		function ser( c ) {
+			var out = {}, s = c._schema || {};
+			Object.keys(s).forEach(function ( k ) { if ( k !== 'childConcepts' ) out[k] = s[k]; });
+			if ( c._openConcepts ) {
+				var ids = Object.keys(c._openConcepts);
+				if ( ids.length ) {
+					out.childConcepts = {};
+					ids.forEach(function ( id ) { out.childConcepts[id] = ser(c._openConcepts[id]); });
+				}
+			}
+			return out;
+		}
+		return JSON.parse(JSON.stringify(ser(this._rootConcept)));
+	},
+	/**
+	 * Rebuild the concept library from a snapshotted schema tree (deep-cloned so later
+	 * edits don't mutate the stored snapshot). Used by rollbackTo. (#11.c.2 / N6)
+	 */
+	_restoreConceptTree: function ( tree ) {
+		this._conceptLib  = {};
+		this._mapsByConcept = this._mapsByConcept || {};
+		this._rootConcept = new Concept(JSON.parse(JSON.stringify(tree)), this);
+		this._conceptSnapshot = null;// the live lib changed — force a fresh capture next settle
 	},
 	/**
 	 * @returns {number[]} revisions available to rollbackTo(), ascending
@@ -2113,6 +2154,11 @@ Graph.prototype = {
 		if ( !snap )
 			throw new Error("rollbackTo: no snapshot for revision " + revisionNumber +
 			                " (available: " + this.getRevisions().join(', ') + ")");
+
+		// N6 (#11.c.2): restore the concept LIBRARY first (before mount re-evaluates objects
+		// against it), so a runtime add/patchConcept made after this rev is undone too — else
+		// a surviving concept re-casts and the rolled-back edit "resurrects".
+		if ( snap.concepts ) this._restoreConceptTree(snap.concepts);
 
 		this.mount(JSON.parse(snap.graph));// rebuild _objById at that rev, mark unstable, set _rev
 		Object.keys(this._snapshots).forEach(( r ) => {

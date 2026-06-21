@@ -10,8 +10,9 @@ concepts** (#3, K3) built; **freshness/TTL as facts** (N1) built; **declarative 
 **live self-modification re-entrancy** (#11.a): a meta-concept can `add`/`patchConcept` mid-stabilize —
 deferred to a quiescent boundary (fixes the silently-dropped mid-apply patch); **scoped re-eval** (#11.b):
 `patchConcept` re-evaluates only the affected frontier, not the whole graph; **apply-ceiling backstop**
-(#11.c.1): a runaway (target, concept) loop is bounded + flagged `divergent` (a non-cast condition). The
-engine library is solid and heavily instrumented.
+(#11.c.1): a runaway (target, concept) loop is bounded + flagged `divergent` (a non-cast condition);
+**concept-lib versioning** (#11.c.2 / N6): `rollbackTo` restores the rules too (full schema snapshot), so a
+rolled-back self-mod doesn't resurrect. The engine library is solid and heavily instrumented.
 
 Read this, then `doc/MODELISATION.md` (the definitive model + prioritized roadmap), then resume.
 
@@ -75,7 +76,8 @@ four rows are **session 3**, all **zero core-engine change** — they touch only
 | **CEGIS authoring (#10)** | `_lab/author.js#authorConcept(graph, spec)` — counterexample-guided synthesis: an **injected** proposer emits a concept term → **author-time oracle** (`validateConceptTree`, malformed → counterexample) → install (`addConcept`/`patchConcept`) → **behavioral oracle** (stabilize, test goal predicate, unmet → counterexample) → refine. Counterexamples threaded back each round → candidate space shrinks → convergence. Backend-agnostic (LLM in prod, stub in tests). **Zero core change.** | `9406694` |
 | **self-mod re-entrancy (#11.a)** | `add`/`patchConcept` issued **mid-stabilize** (from a meta-concept's provider) now defer to the quiescent `_loopTF` boundary via a `_pendingStructural` queue (drained by `_drainStructural`), gated by a `_stabilizing` flag (set in `stabilize.js`, cleared in `_applyStabilized`). Fixes the verified hazard: a patch of the concept **currently mid-apply** was silently dropped (its self-flag not yet written → re-eval saw it as not-cast → no retraction). Host-issued ops (incl. from `onStabilize`) still apply immediately. `patch`/`add` bodies split into kick-less `_doPatchConcept`/`_doAddConcept`. **Core change (the re-entrancy keystone for #11).** | `b4b0821` |
 | **self-mod scoped re-eval (#11.b)** | `_doPatchConcept` re-evaluated **every** object (`Object.keys(_objById)`, O(graph) stop-the-world). Now `_scopedReevalIds(concept)` returns only the frontier whose cast-state could change: `_mapsByConcept[C._name]` (cast/was-cast → uncast direction) ∪ `_mapsByConcept[r]` per simple `require` r (holds a needed fact → cast direction, incl. never-cast objects). Falls back to the full scan when unscopable (no `require`, or a cross-object `a:b` require). Proven: 53 objects → 3 candidates; behaviour-preserving (characterization test). | `f702211` |
-| **apply-ceiling backstop (#11.c.1)** | per-`(target/concept)` apply tally (`_applyCount`, reset on each settle) with a `cfg.applyCap` ceiling (default 1000). Over the cap → `_markDivergent` `{__push}`es a reason record `{concept, applies, reason:'apply-cap'}` into the target's **`divergent` array fact** — which `Concept.isApplicableTo` reads as a **NON-CAST CONDITION** (so the runaway concept de-casts + stops; the record says WHY). Framing (engine author): a self-destabilizing re-cast loop is a legitimate *iterative-trial* technique, so this is a BACKSTOP (high default, per-episode reset never kills a converging trial), and `divergent` = "didn't converge in the ceiling" outcome, not an error. | *uncommitted* |
+| **apply-ceiling backstop (#11.c.1)** | per-`(target/concept)` apply tally (`_applyCount`, reset on each settle) with a `cfg.applyCap` ceiling (default 1000). Over the cap → `_markDivergent` `{__push}`es a reason record `{concept, applies, reason:'apply-cap'}` into the target's **`divergent` array fact** — which `Concept.isApplicableTo` reads as a **NON-CAST CONDITION** (so the runaway concept de-casts + stops; the record says WHY). Framing (engine author): a self-destabilizing re-cast loop is a legitimate *iterative-trial* technique, so this is a BACKSTOP (high default, per-episode reset never kills a converging trial), and `divergent` = "didn't converge in the ceiling" outcome, not an error. | `a7415e1` |
+| **concept-lib versioning (#11.c.2 / N6)** | `rollbackTo` restored facts but NOT the concept library, so a runtime `add`/`patchConcept` survived a rollback and *resurrected* (a surviving concept re-cast). Now `_captureSnapshot` also stores the **full live schema tree** (`_serializeConceptTree` — walks `_openConcepts` for adds + reads each concept's current `_schema` for patches; cached, invalidated on edit), and `rollbackTo` calls `_restoreConceptTree` (rebuild `_conceptLib`/`_rootConcept` from a deep-cloned snapshot) **before** `mount`. "Git for reasoning" now covers data AND rules — the prerequisite for safe hypothesis-and-test. | *uncommitted* |
 
 Specs: `f2434d2`,`d74dcab`,`27a0322` (inspector spec + roadmap).
 
@@ -84,7 +86,7 @@ Specs: `f2434d2`,`d74dcab`,`27a0322` (inspector spec + roadmap).
 ## 2. How to run
 
 ```bash
-npm test                  # 101 tests (node:test). Per-file count is deterministic; the AGGREGATE
+npm test                  # 103 tests (node:test). Per-file count is deterministic; the AGGREGATE
                           #   count can race-undercount under --test-force-exit (all pass; verify per-file).
 node _lab/run-basic.js    # non-LLM stabilization over the real `common` set
 node _lab/run-prompt.js   # decompose→synthesize→answer vs a local LLM (LLM_BASE=...); writes a trace
@@ -217,12 +219,12 @@ Next, highest-leverage first — **finishing #11 (live self-modification, the hi
 (re-entrancy: mid-stabilize `add`/`patchConcept` defer to the quiescent boundary) and #11.b (scoped
 re-eval: `_scopedReevalIds` frontier, not O(graph)) are DONE. Remaining:
 1. **#11.c — the safe self-mod regime** (gate behind the existing instruments). #11.c.1 (apply-ceiling
-   backstop = `divergent` non-cast condition) is DONE. Remaining:
+   backstop = `divergent` non-cast condition) and #11.c.2 (N6 concept-lib versioning — rollback restores
+   rules too) are DONE. Remaining:
    - a single-writer **meta-concept on a `Stuck` fact** (a subtree exhausted strategies / blew budget), not
      continuous polling;
-   - **hypothesis-and-test**: patch/add → stabilize a bounded region → `rollbackTo` if worse + **N6
-     concept-lib versioning** (rollback restores facts, NOT concept-lib edits — snapshot the schema alongside
-     `_captureSnapshot`);
+   - **hypothesis-and-test**: patch/add → stabilize a bounded region → `rollbackTo` if worse (now safe — N6
+     restores the concept-lib edits too);
    - **probationary experts**: an AI-authored concept's first outputs are verification-gated (#3) until a
      reputation fact (via the memory machinery) clears it.
 2. (core, optional) **engine primitives now justified by the rungs built:**
@@ -251,8 +253,9 @@ App/tasks/stabilize.js     drains _triggeredCast; sets _stabilizing=true (#11.a 
 App/Graph.js               patchConcept/addConcept (+kick-less _doPatchConcept/_doAddConcept, #10/#11.a);
                            _scopedReevalIds frontier (#11.b); _markDivergent + _applyCount/_applyCap (#11.c.1);
                            _pendingStructural queue + _drainStructural at the _loopTF quiescent boundary;
-                           getConceptByName; getSnapshot/diffRevisions; onConceptApply + traceProvider;
-                           App/db runtime-require (build fix)
+                           getConceptByName; getSnapshot/diffRevisions; _serializeConceptTree/
+                           _restoreConceptTree — concept-lib snapshot+restore in _captureSnapshot/rollbackTo
+                           (#11.c.2/N6); onConceptApply + traceProvider; App/db runtime-require (build fix)
 providers/{geo,llm,index}  packaged base providers + register()
 providers/canonicalize.js  deterministic fact snapping (enum/grain/type) + stable digest — the K1 grid
 providers/verify.js        checker lib + Verify::check (verdict facts) + Vote::tally (k-of-n) — #3 (K3)
@@ -269,8 +272,8 @@ doc/API.md                 public API reference
 doc/MODELISATION.md        the model + prioritized roadmap (READ THIS)
 doc/ideation/01-04*.md     the 4-lens agent ideation raw findings
 docs/superpowers/specs/2026-06-21-moe-graph-inspector-design.md   inspector spec + §4b/4c roadmap detail
-tests/integration/*        28 integration files (+add-concept, author-cegis, self-mod, patch-scoped,
-                           apply-cap on top of canon-barrier, reactive-synth, verification, freshness)
+tests/integration/*        29 integration files (+add-concept, author-cegis, self-mod, patch-scoped,
+                           apply-cap, concept-versioning on top of canon-barrier, reactive-synth, etc.)
 tests/unit/*               6 unit files (expr, concept-wiring, providers, canonicalize, validate, verify)
 ```
 
