@@ -1,178 +1,158 @@
-# Handoff — Skynet-Graph V1 "MOE" — Phase 0/1
+# Handoff — Skynet-Graph V1 "MOE Graph"
 
 **Date:** 2026-06-21 · **Branch:** `feat/moe-graph-v1-phase0` (off `master` @ `0e65ab4`)
-**Status:** **53/53 tests green. Phase 0 + Phase 1 COMPLETE + Inspector v1 (concept-apply trace + `sg` CLI).**
-All three headline differentiators (rollback, fork/merge, patchConcept) + base providers + API docs +
-revision diff + production build fixed + the reasoning-loop tooling started.
+**Status:** **59/59 tests green.** Phase 0 + Phase 1 complete; Inspector v1 built; the
+decompose→synthesize **answer-loop** built; **memory-on-retraction + closed learning loop** built;
+**array-append primitive** + **reactive budget cap** built. The engine library is solid and
+heavily instrumented.
 
-**Active R&D direction (2026-06-21):** building the "answer huge prompts" loop (decompose→stabilize→
-**synthesize**→answer). Design + roadmap in `docs/superpowers/specs/2026-06-21-moe-graph-inspector-design.md`.
-Three user pillars captured & partly validated: (4b) **memory-on-retraction** — agent-validated as
-implementable with ZERO core changes; (4c) **declarative AI-authorable concepts** (LLM::complete already makes
-an expert pure JSON; needs `addConcept` + a validated schema); (4c-live) **online self-modification** (a
-meta-concept calls add/patchConcept mid-run). Inspector v1 is the feedback instrument all of these need.
-
-This is the live state for continuing `doc/PLAN_DEV_V1_MOE_GRAPHE.md`. Read it before resuming.
+Read this, then `doc/MODELISATION.md` (the definitive model + prioritized roadmap), then resume.
 
 ---
 
-## 0. Orientation (what this is)
+## 0. Orientation & standing directives (do not violate)
 
-Building the engine as a **MOE Graph** reasoning substrate, per `doc/PLAN_DEV_V1_MOE_GRAPHE.md`.
-Model is **fact-driven and additive, directed/acyclic**: a root segment = the problem/prompt;
-concepts (experts) apply → add **props + new child segments/paths** → cascade-trigger more
-concepts → prompts → facts. Experts don't contend for a property; the graph **grows in branches**.
+Building the engine as a **MOE Graph** reasoning substrate. Model: nodes + segments (directed edges)
+carry **typed facts**; **concepts** (declarative-JSON "experts") cast when their `require`/`assert`/
+`ensure` hold — adding facts + child segments, cascade-triggering more concepts; a forward-chaining
+**stabilization** loop runs to fixpoint; `ensure`/`unCast` **retracts** a concept + cascades when a
+premise falls (JTMS defeasance). Providers (incl. a generic `LLM::complete`) do effectful work.
 
-**Standing user directives (do not violate):**
-- **BUILD, not thin-layer.** The 5 studies in `doc/` recommend thin-layer; the user overrode that.
-  Implement the plan; don't re-litigate build-vs-thin-layer, don't downscope.
-- **Never cap expressiveness** of expressions / mutation templates.
-- Prefer **leveraging what's already in the engine** over new machinery (scoring and fork/merge
-  both turned out to need *no* new core feature).
+The flagship use: **answer enormous prompts without context-window blowup** — the graph is the working
+memory; each LLM call sees only bounded local context. Loop: seed a root segment (prompt) → DECOMPOSE
+into sub-path segments → stabilize → SYNTHESIZE bottom-up (bounded rollup) → answer.
+
+**Standing user directives:**
+- **BUILD, not thin-layer.** Implement the plan; don't re-litigate; don't downscope.
+- **Never cap expressiveness** of expressions / mutation templates. (Validate *structure*, not grammar.)
+- **Prefer leveraging what's already in the engine** over new machinery.
+- **R&D working mode:** act as the concept/prompt-designer pro; deduce + build tools; use subagents for
+  deep aspects; **step back between phases**; **verify-before-build** (reading the code has repeatedly
+  caught wrong "free lunch" assumptions — keep doing it). The user's worry is a "trou sans fond"; the
+  answer is *instrumented, incremental* R&D — each rung is tested + inspectable, so value is measurable.
 
 ---
 
-## 1. Done this session (with commits)
+## 1. What's built (commits, this branch vs master)
+
+Phase 0 + Phase 1 (earlier): safe `expr.js` (jsep, no `new Function`), `rollbackTo`/`getRevisions`,
+test harness, scoring=facts, `fork`/`merge`. Then this session:
 
 | # | Work | Commit |
 |---|------|--------|
-| 1 | **`new Function`/eval eliminated** (8 sites) → `App/expr.js` (jsep + safe interpreter) | `7d228ca` |
-| 2 | **`Graph.rollbackTo(rev)`** (snapshot-on-stabilize) + `getRevisions()` + filled `history_goto` | `7d228ca` |
-| 3 | **Test harness** (`node:test`) + bootstrap + unit/integration tests | `7d228ca` |
-| 4 | **Scoring = facts** (plan #4 rewritten; cycles marked out-of-scope) + lock-in test | `53d19ea` |
-| 5 | **`Graph.fork()` / `Graph.merge()`** — sub-agent sub-graphs, reintegrate via `pushMutation` | `f3a04fa` |
-| 6 | **`Graph.patchConcept(name, updates)`** — hot-patch an expert + bidirectional re-eval (cast/uncast cascade) | `ca108a4` |
-| 7 | **Base providers packaged** (`providers/`: Geo + backend-agnostic LLM + `register()`); `_lab` now consumes it | `6919623` |
-| 8 | **Public API docs** (`doc/API.md`) + readme pointer | `ff33281` |
-| 9 | **Serialization round-trip tests** (plain + grown graph; compares defined facts) | `76e8b63` |
-| 10 | **Revision indexing/search** — `getSnapshot(rev)` + `diffRevisions(a,b)` (added/removed/changed) | `a480f35` |
-| 11 | **Robustness:** empty/childless concept set guard (no `Object.keys(undefined)` crash) | `07cd384` |
-| 12 | **Build fixed:** host `App/db` resolved at runtime (not bundled) → `npm run build` emits `dist/` | `6f29120` |
-| 13 | **Coverage:** manual `castConcept`/`unCastConcept` (+cascade) lock-in | `b709195` |
-| 14 | **Coverage:** `getPaths` (linear/diamond/unreachable) | `6f0117c` |
-| 15 | **CLAUDE.md refresh** — stale Tests/providers/`new Function`/API sections corrected | `c44cb72` |
-| 16 | **Capstone:** "Git for reasoning" composition (grow→fork/merge→diff→rollback) | `ebd8e32` |
+| `patchConcept` | hot-patch an expert live + bidirectional re-eval (cast/uncast cascade) | `ca108a4` |
+| providers/ | packaged Geo + backend-agnostic LLM (`createLLMProvider`) + `register()` (host opt-in) | `6919623` |
+| doc/API.md | public API reference | `ff33281` |
+| serialize tests | round-trip characterization | `76e8b63` |
+| revision diff | `getSnapshot(rev)` + `diffRevisions(a,b)` | `a480f35` |
+| robustness | empty/childless concept-set guard | `07cd384` |
+| **build fixed** | host `App/db` resolved at runtime (`__non_webpack_require__`) → `npm run build` emits `dist/` | `6f29120` |
+| coverage | manual `castConcept`/`unCastConcept` + cascade; `getPaths` | `b709195`,`6f0117c` |
+| CLAUDE.md | refreshed stale Tests/providers/expr sections | `c44cb72` |
+| capstone | "Git for reasoning" composition (grow→fork/merge→diff→rollback) | `ebd8e32` |
+| **Inspector v1** | `cfg.onConceptApply` trace + `graph.traceProvider` (prompt capture) | `a3ae4f7`,`86e7307` |
+| trace + CLI | `_lab/trace.js` collector + `_lab/sg.js` (`trace`/`show`/`concepts`/`errors`) | `e4be256` |
+| **answer-loop** | `_lab/loop.js` (decompose concepts + `synthesize` bottom-up) + `_lab/run-prompt.js` | `36405c1` |
+| **MODELISATION** | 4-agent ideation → `doc/MODELISATION.md` (the model + roadmap) + `doc/ideation/*` | `5b65e93`,`39a12fc` |
+| **memory-on-retraction** | retracted concept's `cleaner` deposits a durable lesson on a surviving anchor | `f27d6fe` |
+| **learning loop** | adapt strategy from failures (try A→B→C, learn, converge) | `6a8bfd8` |
+| **{__push}** | array-append primitive — race-free fan-in (the aggregation-gap keystone) | `a26d13f` |
+| **budget cap** | assert-gated `$$budget:spent.length < CAP` bounds exploration (K2) | `02c9789` |
 
-### Details
-- **`App/expr.js`** — `compileExpression(source, {empty})` → `(resolve, names) => value`. jsep parses the
-  full expression grammar (members/index/calls/ternary/array/object/all operators). `$ref`/`$$ref`/`a:b:c`
-  walks are captured whole by the original regex and rewritten to `__ref("...")`, then handed verbatim to
-  `getRef`. **Security:** `constructor`/`__proto__`/`prototype` access is blocked (no Function escape).
-  Curated safe globals (Math, JSON, Number…). Runtime errors → `undefined` (faithful to the old try/catch).
-- **Wiring** — all 8 eval sites replaced: `Concept.js` assert compiler; `Graph.js` `queryMaps` +
-  `getChildMatching` (via `compileScopeQuery`); `Entity.js` `doEval` + `test` + the watcher-closure
-  (Category B, a plain closure now); `PathMap.js` ×2 (via `compilePathQuery`).
-- **rollbackTo** — `_applyStabilized` calls `_captureSnapshot()` (a full `serialize()` per coherent
-  revision). `rollbackTo(rev)` re-mounts that snapshot, drops snapshots after `rev` (linear undo),
-  re-stabilizes. Delta-replay (memory-light) deferred.
-- **Scoring** — confirmed a score is just a fact: readable in asserts (`$confidence > 0.7`), available to
-  providers via `scope` (prompt input), aggregatable along paths via `PathMap`. No schema fields, no
-  conflict resolution. See `tests/integration/scoring.test.js`.
-- **fork/merge** — `fork(seed, conf)` makes an independent child `Graph` (its own `conceptSets` =
-  capabilities); `conf.reintegrateInto` + `conf.project` auto-`merge` on the child's stabilize.
-  `merge(child, targetId, project)` does `pushMutation(project(child), targetId, true)` then
-  `child.destroy()`. `init` now stashes `this._conceptMap` so children reuse the library.
-- **patchConcept** — `patchConcept(nameOrId, updates, cb)`. `Concept.patch(updates)` deep-merges into
-  `_schema` (**arrays REPLACE, not concat** — so `{assert:[...]}` overrides) and recompiles
-  `_assertTest` via the new shared `Concept._compileAssert()` (extracted out of `Concept.init`). Then
-  re-evaluates **every** live object both ways: newly-applicable+not-cast → `castConcept`;
-  cast+no-longer-applicable → `Entity.unCast` (which **cascades** to child concepts — the subtle part),
-  then re-stabilize. `Graph.getConceptByName` resolves by `_conceptLib` id first, else by `_name`.
+Specs: `f2434d2`,`d74dcab`,`27a0322` (inspector spec + roadmap).
 
 ---
 
 ## 2. How to run
 
 ```bash
-npm test                 # 32 unit+integration tests (node:test, --test-force-exit)
-node _lab/run-basic.js   # non-LLM end-to-end stabilization over the real `common` concept set
-node _lab/run-problem.js # LLM-driven plan decomposition (needs an endpoint; see _lab/llm.js)
+npm test                  # 59 tests (node:test). Per-file count is deterministic; the AGGREGATE
+                          #   count race-undercounts under --test-force-exit (all pass; verify per-file).
+node _lab/run-basic.js    # non-LLM stabilization over the real `common` set
+node _lab/run-prompt.js   # decompose→synthesize→answer vs a local LLM (LLM_BASE=...); writes a trace
+node _lab/sg.js trace /tmp/run-prompt.trace.json    # inspect the reasoning trace
+npm run build             # now works -> dist/Skynet.js (one benign "Critical dependency" warning)
 ```
-
-- The engine loads in Node via **`_lab/_boot.js`** (`@babel/register` + `@babel/preset-env`).
-- **`_lab/concepts.js`** `buildConceptTree(setDir)` assembles the nested concept tree from the
-  `concepts/<set>/` directory hierarchy (JSON5). The host supplies `conceptMap` to `new Graph(...)`.
-- Tests live in `tests/unit/*.test.js` (pure) and `tests/integration/*.test.js` (load the engine).
+Engine loads under Node via `_lab/_boot.js` (@babel/register). `_lab/concepts.js#buildConceptTree`
+assembles a concept tree from `concepts/<set>/`.
 
 ---
 
-## 3. Caveats / known issues (pre-existing unless noted)
+## 3. KEY ENGINE FINDINGS / GOTCHAS (hard-won — read before building concepts)
 
-- **`npm run build` (webpack/lpack) fails** on `require('App/db')` (host module, `Graph.js` default
-  `bagRefManagers`). **FIXED** (`6f29120`): `App/db` now resolved at runtime via webpack's
-  `__non_webpack_require__` escape hatch (falls back to plain require under node/babel), so the bundle
-  no longer statically resolves it. `npm run build` succeeds and emits `dist/Skynet.js` (one benign
-  "Critical dependency" warning for the intentional host-resolved require).
-- ~~Empty `childConcepts: {}` crashes `Entity.init`~~ **FIXED** (`07cd384`): both Entity reads guard with
-  `|| {}`; a childless concept set now mounts/stabilizes (test: `tests/integration/empty-concepts.test.js`).
-- **`taskflows` needs `isfunction`** but doesn't declare it; npm pruned it → restored as a direct dep.
-- rollback/fork snapshots are **full `serialize()` copies** (fine at plan scale <10k nodes; delta-replay later).
-- **`npm test` count races** under `--test-force-exit` (the engine keeps timers/taskflow handles open):
-  the aggregate may report e.g. 43 vs 50 — all tests still pass; re-run a single file for a deterministic
-  count. (Deterministic fix would need per-test `g.destroy()` teardown or unref'd engine timers.)
-- **Template update gotcha:** to update an existing object via a mutation template use `$$_id` (a plain
-  `_id` creates a *new* object — surfaced while writing the revision-diff test).
-
----
-
-## 4. Next — pick up here
-
-**Phase 0 and Phase 1 of `doc/PLAN_DEV_V1_MOE_GRAPHE.md` are COMPLETE** (see §1, commits 1–16).
-The engine library is solid and tested (50 tests). What remains in the plan is **Phase 2/3 — product
-tooling**, which needs your direction before building (each is large, opinionated, or adds heavy deps):
-
-- **Phase 2:** CLI debugger (`sg log/rollback/diff/inspect`), graph visualizer (web/D3), Python SDK
-  (WASM or HTTP), worked examples, ready-made LLM providers (OpenAI/Mistral alongside the generic one),
-  structured logging (pluggable `cfg.logger` instead of `debug = console`).
-- **Phase 3:** perf/benchmarks, provider result cache (TTL/freshness — see `aspect-calcul-incremental.md`
-  K3), auth, REST/GraphQL server, monitoring.
-
-**Removed from scope:** cycle detection (DAG by construction); scoring machinery (facts).
-
-### Smaller decision-light follow-ups (could do without product calls)
-- Make `npm test` deterministic (per-test `g.destroy()` teardown or unref engine timers) — see §3 caveat.
-- `bagRefs` (external-data) test coverage; the `caipi` default now degrades gracefully if `App/db` absent.
-- A pluggable logger (`cfg.logger`) to silence the engine's `console` chatter cleanly (currently tests
-  monkeypatch `console.log/info/warn`).
-
-### Suggested next concrete step
-A **CLI debugger** is the highest-leverage Phase-2 item and reuses everything built: it's a thin wrapper
-over `serialize`/`getRevisions`/`getSnapshot`/`diffRevisions`/`rollbackTo`/`getPaths`. Good first user-facing
-deliverable. Confirm scope before building.
+1. **A concept MUST self-flag with its OWN `_name`** (e.g. set `Answer:true`), or `updateApplicableConcepts`
+   keeps seeing it applicable and **re-fires it forever** (manifests as a non-stabilizing/timeout). The
+   provider's mutation must include `{$_id:'_parent', <ConceptName>:true}`.
+2. **To UPDATE an existing object via a template use `$$_id`** (literal id). A plain `_id` creates a NEW object.
+3. **Arrays REPLACE on update** (`Entity.set`: `this._[key]=content`) — they do NOT concat. So a
+   read-modify-write append from a provider RACES. Use the **`{__push:x}`** primitive (appends at
+   serialized apply-time = race-free) for any fan-in counter/list. `[N×]` keys are also race-free (distinct).
+4. **Global node refs in expressions need DOUBLE-`$`**: `$$budget:spent` — the ref regex consumes one `$`.
+   (A single `$foo` is a key on the current scope.) `.length` resolves fine via `getRef`.
+5. **`assert` vs `ensure`:** `ensure` installs watchers AND is **defeasant** (retracts the concept when the
+   premise later falls). `assert` is a one-time gate at evaluation, **no watcher, no retraction**.
+   → completion-gating / reactive re-test = `ensure`; **budget / "don't undo work already done" = `assert`**.
+6. **The aggregation gap:** `getRef` walks SINGLE refs — no `forall`/`count`. Only `.length` on one array
+   works. Race-free counting = `{__push}` into an array + `$$x:arr.length` gate. (The one core primitive
+   still worth adding later: stratified set-aggregation `count`/`all`.)
+7. **`cleaner` hook** (`Entity.js` ~224) fires on uncast with `(graph, concept, scope, argz, cb)`; its
+   returned tpl is pushed. Mid-uncast `pushMutation` is **queue-safe** (the `_mutationThreadRunning` guard
+   defers it — no re-entrancy). This is what makes memory-on-retraction zero-core.
+8. **Reactive synthesis is NOT yet done** — the post-pass `synthesize` (in `_lab/loop.js`) is the current,
+   correct, race-free synthesis. A reactive Rollup concept is now UNBLOCKED by `{__push}` (gate
+   `$$x:answeredBy.length==$childCount`) but not built.
 
 ---
 
-## 5. File map (this branch vs master)
+## 4. The model (see doc/MODELISATION.md for the full thing)
+
+Substrate = demand-driven incremental compute (Adapton/Salsa) + forward-chaining production + JTMS
+defeasance over a typed-fact hypergraph. Workload = AND/OR graph search + bounded catamorphism (fold).
+One reused mechanism: **everything-is-a-fact gated by `ensure`/`assert`**. Honest limits: K1 prose
+memo-fragmentation (existential → typed-fact spine), coherence≠truth (K3 → verification), JTMS-not-ATMS
+(fork for multi-world), cost-explosion (K2 → budget, now demonstrated).
+
+---
+
+## 5. Roadmap — pick up here (from MODELISATION §9, adjusted for what's now built)
+
+Done: inspector · answer-loop · memory-on-retraction + learning loop · `{__push}` primitive · budget cap.
+
+Next, highest-leverage first:
+1. **Typed-fact spine + canonicalization barrier** (K1, the existential precondition) — discipline +
+   a structured-output concept that extracts discrete facts from LLM prose; a test proving downstream
+   concepts key on discrete facts, not prose.
+2. **Reactive synthesis** — now unblocked by `{__push}`: a `Rollup` concept gated on
+   `ensure:["$$<parent>:answeredBy.length == $childCount"]`, each child appends its id on Answer; provider
+   reads `expandedInto` children's bounded answers. Replaces the post-pass for the live regime.
+3. **Verification concepts** (K3) — a refuter writes a distinct verdict key; k-of-n voting via `{__push}`
+   + `.length`; gate downstream via `ensure`. Deterministic checkers >> LLM-refuters.
+4. **Freshness/TTL as facts** (N1) — timed-destabilize stale provider facts; enables the live/standing-paths
+   regime (prospective/live/`ActiveProblem` terminals — MODELISATION N10).
+5. **Declarative AI-authoring** — `addConcept` + a validated schema (validate structure, not grammar; vetted
+   provider palette); then **live self-modification** (meta-concept calls add/patchConcept mid-run) — LAST,
+   gated behind trace+memory+budget; verify re-entrancy.
+6. (core, optional) **stratified set-aggregation primitive** — generalizes `{__push}`+`.length`; unblocks
+   richer voting/beam.
+
+---
+
+## 6. File map (key additions this session)
 
 ```
-NEW   App/expr.js                         safe expression evaluator (jsep)
-NEW   tests/unit/expr.test.js             24 parser tests (grammar, security, aetheris coverage)
-NEW   tests/unit/concept-wiring.test.js   Concept._assertTest via the parser
-NEW   tests/integration/stabilize.test.js end-to-end stabilization (real `common` set)
-NEW   tests/integration/rollback.test.js  grow → re-stabilize → rollback → undone
-NEW   tests/integration/scoring.test.js   confidence-as-fact (assert gate, provider input, aggregate)
-NEW   tests/integration/fork.test.js      sub-agent fork + reintegrate
-NEW   tests/integration/patch-concept.test.js  hot-patch expert: tighten->uncast+cascade, loosen->cast
-NEW   providers/{geo,llm,index}.js        packaged base providers (Geo + LLM) + register() helper
-NEW   tests/unit/providers.test.js        haversine/parseJSON/createLLMProvider/register units
-NEW   tests/integration/providers.test.js packaged CommonGeo drives the real `common` Distance concept
-NEW   doc/API.md                          public API reference (readme.md points to it)
-NEW   tests/integration/serialize.test.js serialize -> new Graph round-trip (plain + grown)
-NEW   tests/integration/revisions.test.js getSnapshot + diffRevisions (added/removed/changed)
-NEW   tests/integration/empty-concepts.test.js  childless concept set mounts/stabilizes
-NEW   tests/integration/manual-cast.test.js     castConcept/unCastConcept + cascade lock-in
-NEW   tests/integration/getpaths.test.js  getPaths linear/diamond/unreachable
-NEW   tests/integration/git-for-reasoning.test.js  capstone: grow→fork/merge→diff→rollback
-EDIT  _lab/llm.js, _lab/run-basic.js      now consume providers/ instead of duplicating glue
-EDIT  App/Graph.js                        parser wiring; rollbackTo; fork/merge; patchConcept+getConceptByName; getSnapshot/diffRevisions/_snapshotFacts; App/db runtime-require
-EDIT  App/objects/Concept.js              assert compiler -> compileExpression; _compileAssert() extracted; patch()
-EDIT  App/objects/Entity.js               doEval/test/watcher -> compileExpression; empty _openConcepts guard
-EDIT  App/objects/PathMap.js              queries -> compilePathQuery
-EDIT  CLAUDE.md                           refreshed Tests/providers/expr/API sections
-EDIT  package.json / package-lock.json    deps (jsep, @jsep-plugin/*, isfunction) + test scripts
-EDIT  doc/PLAN_DEV_V1_MOE_GRAPHE.md       scoring=facts (#4), cycles out of scope
+App/objects/Concept.js     patch()/_compileAssert(); _computeWhy(); applyTo threads applyCtx for the trace
+App/objects/Entity.js      empty _openConcepts guard; {__push} array-append in set()
+App/Graph.js               patchConcept/getConceptByName; getSnapshot/diffRevisions; onConceptApply +
+                           traceProvider; App/db runtime-require (build fix)
+providers/{geo,llm,index}  packaged base providers + register()
+_lab/trace.js, sg.js       trace collector + inspector CLI
+_lab/loop.js, run-prompt.js  the decompose→synthesize answer-loop + LLM runner
+doc/API.md                 public API reference
+doc/MODELISATION.md        the model + prioritized roadmap (READ THIS)
+doc/ideation/01-04*.md     the 4-lens agent ideation raw findings
+docs/superpowers/specs/2026-06-21-moe-graph-inspector-design.md   inspector spec + §4b/4c roadmap detail
+tests/integration/*        18 integration tests; tests/unit/* 3 unit (expr/concept-wiring/providers)
 ```
 
-Uncommitted, NOT mine (left untouched): `doc/aspect-*.md`, `.claude/agents/Pascal.md`.
-`doc/HANDOFF.md` is an untracked working ledger (not committed); `doc/API.md` + `CLAUDE.md` ARE committed.
-Auto-memory updated: `skynet-graph-agent-substrate-exploration.md`.
+Untracked working docs left as-is: `doc/aspect-*.md` (the prior critical studies), `.claude/agents/Pascal.md`.
+Auto-memory: `skynet-graph-agent-substrate-exploration.md` + `skynet-graph-rd-working-mode.md`.
