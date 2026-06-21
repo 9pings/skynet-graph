@@ -119,6 +119,7 @@ Graph.prototype = {
 		autoMount     : true,
 		isMaster      : true,
 		onStabilize   : undefined, // should trigger synchronisation between graphs
+		onConceptApply: undefined, // (record) => {} : concept-apply trace sink (see traceProvider)
 		conceptSets   : ["common"],
 		defaultContext: "UserRecord",
 		bagRefManagers: {
@@ -836,7 +837,7 @@ Graph.prototype = {
 	 * @param keepRev
 	 * @param atomId
 	 */
-	pushMutation: function ( template, targetId, force, atomId, initialRefBag, cb ) {
+	pushMutation: function ( template, targetId, force, atomId, initialRefBag, cb, applyCtx ) {
 		//debug.log("Start pushing mutation %j", template);
 		
 		template           = isArray(template) ? template : [template];
@@ -1219,6 +1220,30 @@ Graph.prototype = {
 				&& this._on.mutation.map(( cb ) => cb(me));
 				this.cfg.onMutationApplied
 				&& this.cfg.onMutationApplied(this);
+				// concept-apply trace: this mutation was produced by a concept apply
+				// (applyCtx threaded from Concept.applyTo). Host/sync mutations have no
+				// applyCtx -> no record. prompt/reply are merged from traceProvider.
+				if ( applyCtx && (this.cfg.onConceptApply || (this._on && this._on.conceptApply)) ) {
+					var _rec = {
+						rev        : revNum,
+						conceptId  : applyCtx.conceptId,
+						conceptName: applyCtx.conceptName,
+						targetId   : applyCtx.targetId,
+						kind       : applyCtx.kind,
+						patch      : this._revs[revNum] && this._revs[revNum].tpl,
+						bagRefs    : this._revs[revNum] && this._revs[revNum].bagRefs,
+						ms         : applyCtx.ms,
+						why        : applyCtx.why
+					};
+					var _k = applyCtx.conceptId + '/' + applyCtx.targetId;
+					if ( this._traceByApply && this._traceByApply[_k] ) {
+						_rec.prompt = this._traceByApply[_k].prompt;
+						_rec.reply  = this._traceByApply[_k].reply;
+						delete this._traceByApply[_k];
+					}
+					this.cfg.onConceptApply && this.cfg.onConceptApply(_rec);
+					this._on.conceptApply && this._on.conceptApply.slice(0).map(( fn ) => fn(me, _rec));
+				}
 				this._mutationThreadRunning = false;
 				this._taskFlow.release();
 				cb && cb(refScope)
@@ -1761,6 +1786,20 @@ Graph.prototype = {
 		if ( !this._on[evt] ) return;
 		var i = this._on[evt].indexOf(cb);
 		this._on[evt].splice(i, 1);
+	},
+	/**
+	 * Provider trace hook: lets a provider report the prompt/reply (or any extra
+	 * payload) it produced for the current apply, WITHOUT coupling the engine to
+	 * providers. No-op unless a concept-apply trace sink is configured. The payload
+	 * is merged into the trace record emitted when the provider's mutation lands.
+	 * Keyed by concept+target so concurrent async providers don't collide.
+	 * @param concept the concept (provider's 2nd arg)
+	 * @param scope   the scope Entity (provider's 3rd arg)
+	 * @param payload e.g. { prompt, reply }
+	 */
+	traceProvider: function ( concept, scope, payload ) {
+		if ( !this.cfg.onConceptApply && !(this._on && this._on.conceptApply) ) return;
+		(this._traceByApply = this._traceByApply || {})[concept._id + '/' + scope._._id] = payload;
 	},
 	/**
 	 * Called once stabilized

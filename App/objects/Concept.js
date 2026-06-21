@@ -128,7 +128,14 @@ Concept.prototype = {
         
         return function ( graph, flow ) {
             //debug.log(graph.cfg.label + " : Do cast ", me._id, 'on', scope._._id);
-            
+            // trace context: attributes the mutation(s) this apply produces back to
+            // this concept (read by Graph.pushMutation -> cfg.onConceptApply).
+            var startTm = Date.now(),
+                why     = me._computeWhy(scope),
+                mkCtx   = function ( kind, ms ) {
+                    return { conceptId: me._id, conceptName: me._name, targetId: scope._._id, kind: kind, why: why, ms: ms };
+                };
+
             if ( me._schema.provider ) {// call the concept data provider
                 var p         = isArray(me._schema.provider) ? me._schema.provider[0] : me._schema.provider,
                     argz      = isArray(me._schema.provider) && me._schema.provider.slice(1),
@@ -161,7 +168,7 @@ Concept.prototype = {
                                 r && graph.pushMutation(r, scope._._id, 0, 0, 0, refs => {
                                     //debug.info(graph.cfg.label + " : Done provider ", p, 'on', scope._._id);
                                     flow.release()// w8 bagrefs b4 next cycle
-                                });// so bagrefs will be w8 before the graph restart ... :/
+                                }, mkCtx('provider', Date.now() - execTm));// so bagrefs will be w8 before the graph restart ... :/
                                 e && debug.log("Hum provider ", p, " has failed : \n", e, e.stack);
                                 ;// dec async flow
                             });
@@ -186,7 +193,7 @@ Concept.prototype = {
                         $_id      : "_parent",
                         [me._name]: me.isLeaf && [] || Object.keys(me._openConcepts)
                     },
-                    scope._._id
+                    scope._._id, 0, 0, 0, 0, mkCtx('enum', Date.now() - startTm)
                 );
             }
             else {
@@ -196,19 +203,42 @@ Concept.prototype = {
                         $_id      : "_parent",
                         [me._name]: me._schema.defaultValue || true
                     },
-                    scope._._id
+                    scope._._id, 0, 0, 0, 0, mkCtx('default', Date.now() - startTm)
                 );
             }
-            
+
             // if there a tpl in the concept definition apply it
             if ( me._schema.applyMutations ) {
-                graph.pushMutation(me._schema.applyMutations, scope._._id);
+                graph.pushMutation(me._schema.applyMutations, scope._._id, 0, 0, 0, 0, mkCtx('applyMutations', Date.now() - startTm));
             }
             // if the concept implies a graph sync (allowing concepts to be applied on server )
             if ( me._schema.syncAfter ) {
                 // graph.stabilize(()=>graph.sync());
             }
         };
+    },
+    /**
+     * "Why it fired": for each `require`, the resolved value and the revision of
+     * the object that holds it (object-granular — the _rev of the last mutation
+     * that touched that object, not necessarily the specific key). Used by the
+     * trace (cfg.onConceptApply). Resolves without `follow` so it adds no watchers.
+     * @param scope the Entity the concept is being cast on
+     */
+    _computeWhy   : function ( scope ) {
+        var requires = isArray(this._schema.require) && this._schema.require
+            || this._schema.require && [this._schema.require]
+            || [];
+        return requires.map(function ( c ) {
+            var value = scope.getRef(c), producedAtRev = null;
+            try {
+                if ( c.indexOf(':') !== -1 ) {
+                    var box       = scope.getRef(c.slice(0, c.lastIndexOf(':') + 1));// trailing-colon -> the object
+                    producedAtRev = box && box._ ? box._._rev : (box && box._rev) || null;
+                }
+                else producedAtRev = scope._ && scope._._rev;
+            } catch ( e ) { producedAtRev = null; }
+            return { require: c, value: value, producedAtRev: producedAtRev };
+        });
     },
     /**
      * return true if applicable (will ask ref with the follow param (so this concept will be retested if some of his
