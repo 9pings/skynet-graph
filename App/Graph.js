@@ -157,6 +157,7 @@ Graph.prototype = {
 		this._triggeredCast = {};
 		this.cfg            = { ...this.cfg, ...conf };
 		this.cfg.conceptSets.map(( k ) => concepts = dmerge(concepts, conceptMap[k]));
+		me._conceptMap     = conceptMap;// kept so fork() can seed children with the same library
 		me._conceptLib     = {};
 		me._syncTokens     = {};
 		me._syncTokensList = [];
@@ -1767,6 +1768,68 @@ Graph.prototype = {
 		this._taskFlow.run();// re-stabilize -> re-fires _applyStabilized / onStabilize
 		this._running = true;
 		return revisionNumber;
+	},
+	// -------------------------------------------------------------------------- fork / merge
+	/**
+	 * Fork an independent child Graph (a sub-agent sandbox) to develop a path /
+	 * sub-problem on its own, optionally with a different concept set (= different
+	 * capabilities). Reuses this graph's concept library unless `conf.conceptMap`
+	 * overrides it. Thin wrapper over `new Graph(...)` — no new core machinery.
+	 *
+	 * @param seed  serialized graph / {conceptMaps|nodes|segments} seeding the child;
+	 *              omitted -> forks this graph's current snapshot (serialize()).
+	 * @param conf  cfg overrides merged onto this graph's cfg. Extras:
+	 *              `conceptMap` (override library); `reintegrateInto` (targetId) +
+	 *              `project` -> auto-merge the child's result back here on its stabilize.
+	 * @returns {Graph} the child graph
+	 */
+	fork: function ( seed, conf ) {
+		var me              = this;
+		conf                = conf || {};
+		var reintegrateInto = conf.reintegrateInto,
+		    project         = conf.project,
+		    userOnStabilize = conf.onStabilize,
+		    conceptMap      = conf.conceptMap || this._conceptMap;
+
+		var childConf = { ...this.cfg, isMaster: true, autoMount: true, ...conf };
+		delete childConf.reintegrateInto;
+		delete childConf.project;
+		delete childConf.conceptMap;
+
+		if ( reintegrateInto != null ) {
+			childConf.onStabilize = function ( child, tokens ) {
+				userOnStabilize && userOnStabilize(child, tokens);
+				if ( !child._merged ) {
+					child._merged = true;
+					me.merge(child, reintegrateInto, project);
+				}
+			};
+		}
+
+		var record = seed || JSON.parse(this.serialize().graph);
+		var child  = new this.static(record, childConf, conceptMap);
+		(this._forks = this._forks || []).push(child);
+		return child;
+	},
+	/**
+	 * Reintegrate a forked child's result into this graph: apply project(child) (a
+	 * mutation template) onto `targetId`, then destroy the child.
+	 *
+	 * @param child     a Graph returned by fork()
+	 * @param targetId  the object in THIS graph to merge the result onto
+	 * @param project   (child) -> mutation template; default attaches child.serialize()
+	 * @returns {Graph} this
+	 */
+	merge: function ( child, targetId, project ) {
+		var tpl = project
+			? project(child)
+			: { $$_id: targetId, forkResult: JSON.parse(child.serialize().graph) };
+		if ( tpl ) this.pushMutation(tpl, targetId, true);
+
+		var i = this._forks ? this._forks.indexOf(child) : -1;
+		if ( i !== -1 ) this._forks.splice(i, 1);
+		child && !child._dead && child.destroy && child.destroy();
+		return this;
 	},
 	/**
 	 * clean & unref
