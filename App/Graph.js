@@ -163,6 +163,8 @@ Graph.prototype = {
 		}
 		
 		this._triggeredCast = {};
+		this._stabilizing      = false;// true while a stabilization pass is in flight (see stabilize.js / _applyStabilized)
+		this._pendingStructural = [];// add/patchConcept issued mid-stabilize, drained at the quiescent _loopTF boundary (#11.a)
 		this.cfg            = { ...this.cfg, ...conf };
 		this.cfg.conceptSets.map(( k ) => concepts = dmerge(concepts, conceptMap[k]));
 		me._conceptMap     = conceptMap;// kept so fork() can seed children with the same library
@@ -303,7 +305,13 @@ Graph.prototype = {
 			(me._triggeredCastCount || me._unstable.length) && flow.run();
 		});
 		if ( !me._unstable.length && !me._triggeredCastCount ) {
-			
+			// quiescent boundary. Apply any structural ops (add/patchConcept) that were
+			// issued mid-stabilize, against the now-settled, consistent cast-state — then
+			// let the loop re-run (they write/destabilize) rather than declaring stable (#11.a).
+			if ( me._pendingStructural && me._pendingStructural.length ) {
+				me._drainStructural();
+				return;
+			}
 			debug.log("end loop %s !! ", me.cfg.label);
 			me._applyStabilized();
 		}
@@ -788,6 +796,24 @@ Graph.prototype = {
 	 * @returns {Graph} this
 	 */
 	patchConcept  : function ( nameOrId, updates, cb ) {
+		// Issued mid-stabilize? Defer to the quiescent _loopTF boundary so the re-eval
+		// sees a settled cast-state (else a patch of the concept currently mid-apply is
+		// silently dropped — its self-flag is not written yet). (#11.a re-entrancy.)
+		if ( this._stabilizing ) {
+			this._pendingStructural.push({ op: 'patch', nameOrId: nameOrId, updates: updates, cb: cb });
+			return this;
+		}
+		this._doPatchConcept(nameOrId, updates);
+		this.stabilize(cb);
+		return this;
+	},
+	/**
+	 * The bidirectional re-eval body of patchConcept WITHOUT the stabilize kick.
+	 * Casts (no-kick: queue the apply + destabilize) newly-applicable objects and
+	 * uncasts (cascades) no-longer-applicable ones. Used by the public method (host
+	 * path, one kick at the end) and by the mid-stabilize drain.
+	 */
+	_doPatchConcept: function ( nameOrId, updates ) {
 		var me      = this,
 		    concept = this.getConceptByName(nameOrId);
 		if ( !concept )
@@ -800,16 +826,16 @@ Graph.prototype = {
 			if ( !etty || etty._dead ) return;
 			var applicable = !!concept.isApplicableTo(etty, me),
 			    isCast     = !!etty._mappedConcepts[concept._name];
-			if ( applicable && !isCast )
-				me.castConcept(id, concept._id);
+			if ( applicable && !isCast ) {
+				me._taskFlow.pushSubTask(concept.applyTo(etty, me));// no-kick cast
+				me.toggleGraphObjectState(id, "unstable");
+			}
 			else if ( !applicable && isCast ) {
 				etty.unCast(concept._name);
 				me.toggleGraphObjectState(id, "unstable");
 			}
 		});
-
-		this.stabilize(cb);
-		return this;
+		return concept;
 	},
 	/**
 	 * Install a NEW expert (concept) into the live library and re-evaluate the
@@ -847,6 +873,24 @@ Graph.prototype = {
 	 * @returns {Concept} the installed concept
 	 */
 	addConcept    : function ( parentNameOrId, schema, cb ) {
+		// Issued mid-stabilize (e.g. from a meta-concept's provider)? Defer to the
+		// quiescent _loopTF boundary, where cast-state is settled (#11.a re-entrancy).
+		// The deferred op installs at drain time; its cb gets (err, concept) then.
+		if ( this._stabilizing ) {
+			this._pendingStructural.push({ op: 'add', parentNameOrId: parentNameOrId, schema: schema, cb: cb });
+			return;
+		}
+		var concept = this._doAddConcept(parentNameOrId, schema);
+		this.stabilize(cb);
+		return concept;
+	},
+	/**
+	 * The structural body of addConcept WITHOUT the stabilize kick — builds+registers
+	 * the concept, attaches it to the parent, opens it on the live objects, and
+	 * destabilizes them. Used directly by the public method (host path) and by the
+	 * mid-stabilize drain (`_drainStructural`).
+	 */
+	_doAddConcept : function ( parentNameOrId, schema ) {
 		var me = this;
 		if ( !schema || !schema._id )
 			throw new Error("addConcept: schema must have a unique _id");
@@ -888,8 +932,27 @@ Graph.prototype = {
 			me.toggleGraphObjectState(id, "unstable");
 		});
 
-		this.stabilize(cb);
 		return concept;
+	},
+	/**
+	 * Drain structural ops (add/patchConcept) that were queued because they were
+	 * issued mid-stabilize. Runs at the quiescent _loopTF boundary, so the re-eval
+	 * sees a settled, consistent cast-state. Each op writes/destabilizes; _loopTF's
+	 * re-arm then re-stabilizes (no extra kick needed). (#11.a)
+	 */
+	_drainStructural: function () {
+		var me = this, q = this._pendingStructural;
+		this._pendingStructural = [];
+		q.forEach(function ( o ) {
+			try {
+				var r = o.op === 'patch' ? me._doPatchConcept(o.nameOrId, o.updates)
+				                         : me._doAddConcept(o.parentNameOrId, o.schema);
+				o.cb && o.cb(null, r);
+			} catch ( e ) {
+				debug.error("drainStructural %s failed: %s", o.op, e && e.message);
+				o.cb && o.cb(e);
+			}
+		});
 	},
 	pushAtomicData: function ( data, revFrom, token ) {
 		var me = this;
@@ -1889,6 +1952,7 @@ Graph.prototype = {
 		debug.warn('graph seems stable !');
 		var me           = this;
 		this._stabilized = true;
+		this._stabilizing = false;// pass complete — host ops (incl. those issued from onStabilize) apply immediately again
 		me._running      = false;
 		// me._rev++;// graph inst revision
 		this._captureSnapshot();// checkpoint this coherent state so rollbackTo() can restore it

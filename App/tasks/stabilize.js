@@ -12,7 +12,9 @@ var debug = console;
  * Launch concepts stabilisation on every unstable nodes
  */
 module.exports = function ( graph, flow ) {
-	
+
+	graph._stabilizing = true;// a pass is in flight — structural ops (add/patchConcept) issued from a
+	                          // provider now defer to the quiescent _loopTF boundary (#11.a re-entrancy)
 	debug.info("%s : Launch stabilisation on %s unstable obj, %s triggers", graph.cfg.label, graph._unstable.length,
 	           graph._triggeredCastCount);
 	//debugger;
