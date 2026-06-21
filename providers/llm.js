@@ -92,16 +92,16 @@ function createLLMProvider( opts ) {
 	ns[namespace] = {
 		complete: function ( graph, concept, scope, argz, cb ) {
 			var cfg  = Object.assign({}, concept._schema && concept._schema.prompt, argz && argz[0]),
-			    name = concept._name;
+			    name = concept._name,
+			    sys  = interpolate(cfg.system, graph, scope),
+			    usr  = interpolate(cfg.user, graph, scope);
 			Promise.resolve()
 				.then(function () {
-					return ask({
-						system   : interpolate(cfg.system, graph, scope),
-						user     : interpolate(cfg.user, graph, scope),
-						maxTokens: cfg.maxTokens
-					});
+					return ask({ system: sys, user: usr, maxTokens: cfg.maxTokens });
 				})
 				.then(function ( txt ) {
+					// report prompt+reply to the trace (no-op if no sink configured)
+					graph.traceProvider && graph.traceProvider(concept, scope, { prompt: { system: sys, user: usr }, reply: txt });
 					var result = cfg.json ? _parseJSON(txt) : txt;
 					var facts  = { $_id: '_parent' };
 					facts[name] = true;

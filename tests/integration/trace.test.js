@@ -7,6 +7,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../../_lab/_boot.js');
+const { register, createLLMProvider } = require('../../providers');
 console.log = console.info = console.warn = () => {};
 
 test('onConceptApply fires per concept-apply with attribution + why; host mutations do not', async () => {
@@ -60,4 +61,39 @@ test('onConceptApply fires per concept-apply with attribution + why; host mutati
 	});
 	assert.equal(records.length, before, 'host pushMutation emitted no concept-apply record');
 	assert.equal(g._objById['s']._etty._.note, 'host', 'host mutation still applied');
+});
+
+test('the bundled LLM provider reports prompt + reply into the trace record', async () => {
+	register(Graph, [createLLMProvider({ ask: async () => 'reasoning... {"atomic": false}' })]);
+	const conceptMap = {
+		common: {
+			childConcepts: {
+				Classify: {
+					_id: 'Classify', _name: 'Classify', require: 'Segment', provider: ['LLM::complete'],
+					prompt: { system: 'You judge.', user: 'Step: ${label}', json: true }
+				}
+			}
+		}
+	};
+	const seed = { lastRev: 0, nodes: [{ _id: 'a' }, { _id: 'b' }], segments: [{ _id: 's', originNode: 'a', targetNode: 'b', label: 'recon AD' }] };
+
+	const records = [];
+	await new Promise((resolve, reject) => {
+		const timer = setTimeout(() => reject(new Error('llm trace test timed out')), 15000);
+		let done = false;
+		new Graph(seed, {
+			label: 'trace-llm', isMaster: true, autoMount: true, conceptSets: ['common'], bagRefManagers: {},
+			onConceptApply(rec) { records.push(rec); },
+			onStabilize() { if (done) return; done = true; clearTimeout(timer); resolve(); }
+		}, conceptMap);
+	});
+
+	const rec = records.find((r) => r.conceptName === 'Classify');
+	assert.ok(rec, 'Classify apply traced');
+	assert.equal(rec.kind, 'provider');
+	assert.ok(rec.prompt, 'prompt captured from the provider');
+	assert.equal(rec.prompt.user, 'Step: recon AD', 'prompt user interpolated from scope');
+	assert.equal(rec.prompt.system, 'You judge.');
+	assert.ok(rec.reply.includes('atomic'), 'raw reply captured');
+	assert.equal(rec.patch[0].atomic, false, 'parsed JSON landed as a fact in the patch');
 });
