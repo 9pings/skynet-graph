@@ -293,7 +293,15 @@ Entity.prototype = {
 	set                     : function ( key, content, graph ) {
 		var old = this._[key], tmp;
 		if ( this._dead ) return;
-		
+
+		// array-append primitive: `{__push:x}` appends x to the existing array instead
+		// of replacing. Append happens here, at apply-time — and mutations are serialized
+		// (one mutation thread) — so concurrent fan-in (many writers -> one array) is
+		// race-free, unlike a provider-side read-modify-write.
+		if ( content && typeof content === 'object' && content.__push !== undefined ) {
+			content = (isArray(this._[key]) ? this._[key].slice() : []).concat([content.__push]);
+		}
+
 		this._[key]                     = content;
 		this._graph._mapsByConcept[key] = this._graph._mapsByConcept[key] || [];
 		(old === undefined) && this._graph._mapsByConcept[key].push(this._._id);
