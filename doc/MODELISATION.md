@@ -426,6 +426,16 @@ High-leverage mechanisms the lenses surfaced that are not in the planned five.
 | N7 | **Per-key revision stamping** | `_computeWhy` is object-granular (spec §2.4), not per-key | Opt-in `_revByKey[key]=rev` in `Entity.set` → retract/re-derive on the *exact* fact, sharpens blame (U5) and tightens memo invalidation. Deferred in spec; do when the first audited use-case lands. | `[C×2]` |
 | N8 | **Hysteresis/debounce on expensive nodes** | flapping live input re-fires an LLM node per flap | `debounceMs` and/or "only re-fire if the *canonical* projection crossed a grain boundary" — falls out of §4.2 for free (if the discrete key didn't change, don't destabilize the follower). | `[C×1]` |
 | N9 | **Signed/tamper-evident rev log** | regulated audit needs "trace wasn't edited after the fact" | Host-side hash chain `H(prev, rev.tpl, rev.parent)` over the append-only `_revs`. Zero engine change; mandatory the day a compliance customer is real. | `[C×1]` |
+| N10 | **Prospective / live / standing paths (terminal-type as a first-class device)** (user, 2026-06-21) | the graph is otherwise a finite "compute one answer & stop" — but "be attentive & solve problems" needs a *never-done* graph | Model a path's **terminal fact** as a type: `Speculative`/`MaybeUseful` (+confidence) = a low-priority **frontier node in the AO\*/beam** (§6.2), pursued only if budget/confidence allow; `LiveSource` = a node bound to a data source with **freshness/TTL** (N1) that re-destabilizes its path when the source changes; `ActiveProblem` = a sub-path spawned per detected problem. A **standing (non-terminating) agent** ("be attentive…") = one live path per info-source × sub-paths per active problem — the reactive regime. Needs N1 (freshness) + §6.2 (budget/beam) + the canonicalization barrier (§4.2). Adaptive concept-gen for new problem types is the hard, last-gated part; the rest composes from already-planned pieces. | `[C×1, user]` |
+
+> **Correction (2026-06-21, code-verified):** the §5.2 reactive-synthesis "grow-only `answeredBy` array
+> append, zero core change" is **WRONG** — `pushMutation` merges existing objects via `Entity.update→set`
+> which **replaces** array values (Graph.js:1138/1168 → Entity.js `set`: `this._[key]=content`), so an
+> append is a read-modify-write race (same bug as the counter). **Reactive completion-gating genuinely
+> requires a small core primitive** (an append/`$push` mutation op, or stratified set-aggregation — §5.3).
+> Until that deliberate core change, **synthesis stays the deterministic post-pass** (correct, race-free).
+> Mechanisms that use only **distinct keys** (e.g. memory-on-retraction's `failed_<ctx>` flags, verdict
+> keys) are unaffected by replace-semantics and remain zero-core.
 
 ---
 
