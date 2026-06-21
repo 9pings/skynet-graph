@@ -14,6 +14,7 @@
  */
 var geo = require('./geo');
 var llm = require('./llm');
+var canonicalize = require('./canonicalize');
 
 /**
  * Merge provider-map fragments onto Graph._providers (preserving any already set).
@@ -34,5 +35,8 @@ module.exports = {
 	createLLMProvider: llm.createLLMProvider,
 	makeAsk          : llm.makeAsk,
 	parseJSON        : llm.parseJSON,
+	canonFacts       : canonicalize.canonFacts,
+	canonValue       : canonicalize.canonValue,
+	digest           : canonicalize.digest,
 	register         : register
 };

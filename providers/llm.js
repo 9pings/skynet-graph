@@ -16,9 +16,16 @@
  *     via graph.getRef (objects are JSON-stringified).
  *   - `json:true` -> parse the reply; if it's a plain object (and no `as`), merge its
  *     keys as facts; with `as`, store the parsed/raw reply under that key.
+ *   - `facts:{<key>:<spec>}` -> the CANONICALIZATION BARRIER (doc/MODELISATION.md §4.2):
+ *     write ONLY those discrete keys (enum-snapped / grain-rounded / typed) as *tracked*
+ *     facts, the free reply text under an *untracked* `prose` key, and a stable
+ *     `<name>FactsDigest` memo key. This is what keeps downstream `require`/`ensure`
+ *     edges keyed on stable discrete facts instead of fragmenting on prose (K1).
  *   - on backend error the concept is still flagged + `llmError` recorded, so the graph
  *     can settle instead of hanging.
  */
+
+var canonicalize = require('./canonicalize');
 
 // ---- default Anthropic-style client (Node global fetch). Configurable via env / opts. ----
 function makeAsk( opts ) {
@@ -102,9 +109,25 @@ function createLLMProvider( opts ) {
 				.then(function ( txt ) {
 					// report prompt+reply to the trace (no-op if no sink configured)
 					graph.traceProvider && graph.traceProvider(concept, scope, { prompt: { system: sys, user: usr }, reply: txt });
-					var result = cfg.json ? _parseJSON(txt) : txt;
-					var facts  = { $_id: '_parent' };
+					var facts = { $_id: '_parent' };
 					facts[name] = true;
+
+					// --- canonicalization barrier: discrete facts tracked, prose untracked ---
+					if ( cfg.facts ) {
+						var raw  = _parseJSON(txt),                       // strict structured extraction
+						    cf   = canonicalize.canonFacts(raw, cfg.facts);
+						Object.assign(facts, cf.facts);                   // ONLY declared discrete keys, snapped -> TRACKED
+						if ( cf.misses.length ) facts[name + 'CanonMiss'] = cf.misses;  // visible, fail-closed (untracked)
+						var proseKey = cfg.prose || (name + 'Prose'),     // the terminal, UNTRACKED free text
+						    proseVal = cfg.proseFrom != null ? raw[cfg.proseFrom]
+						             : (raw && raw.prose != null ? raw.prose : txt);
+						facts[proseKey] = proseVal;
+						if ( cfg.digest !== false ) facts[name + 'FactsDigest'] = canonicalize.digest(cf.facts);
+						return cb(null, facts);
+					}
+
+					// --- legacy path (no facts schema): merge object / `as` / `<name>Result` ---
+					var result = cfg.json ? _parseJSON(txt) : txt;
 					if ( cfg.as ) facts[cfg.as] = result;
 					else if ( cfg.json && result && typeof result === 'object' && !Array.isArray(result) ) Object.assign(facts, result);
 					else facts[name + 'Result'] = result;

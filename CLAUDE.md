@@ -56,6 +56,8 @@ A concept's schema fields (handled in `Concept.js`):
 - `applyMutations` — a mutation template applied when the concept casts.
 - `type: "enum"`, `defaultValue`, `autoCast: false`, `syncAfter` — control casting behavior (`autoCast:false` opts out of automatic casting; `syncAfter` is currently a no-op stub).
 
+**Typed-fact discipline (the canonicalization barrier — never break it).** A `require`/`ensure`/`assert` must key only on **discrete, typed** facts (enums, ids, numbers, booleans), never on free-text **prose** — a prose dependency re-keys every run, so the memo never hits (risk K1). An `LLM::complete` concept that feeds downstream declares a `prompt.facts` schema: the provider writes only those canonicalized (enum-snapped / grain-rounded) keys as *tracked* facts, the reply text on an *untracked* `prose` key, and a stable `<name>FactsDigest`. `_lab/validate.js#validateConceptTree` enforces this at author time (rejects prose-on-dependency-edges, missing `_name`, unparseable exprs; validates **structure, not grammar**). See `doc/API.md` (the `facts`/`prose` contract) and `doc/MODELISATION.md` §4.2.
+
 ### Two embedded DSLs
 
 The same `$`-prefixed reference syntax appears in mutation templates and in query/assert strings.

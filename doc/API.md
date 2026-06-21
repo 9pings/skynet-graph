@@ -208,10 +208,55 @@ register(Graph, [ { CommonGeo }, createLLMProvider({ ask: myBackend }) ]);
   are captured as an `llmError` fact so the graph still settles. The backend is **pluggable** — pass
   any `ask({system,user,maxTokens})`; the bundled `makeAsk()` is an Anthropic-style default
   (configurable via `LLM_BASE`/`LLM_MODEL`/`LLM_KEY` or `{ base, model, key }`).
+
+#### Canonicalization barrier — the `facts` / `prose` contract
+
+An `LLM::complete` expert whose output **feeds downstream experts** must not let raw prose onto a
+dependency edge: two semantically-equal replies differ textually, so a `require`/`ensure` keyed on prose
+re-keys every run and the memo never hits (risk **K1**, `doc/MODELISATION.md` §4.2). Declare a `facts`
+schema and the provider writes **only** those discrete, canonicalized keys as *tracked* facts; the free
+text lands on an *untracked* prose key; a stable `<name>FactsDigest` is emitted as an explicit memo key.
+
+```json
+{ "provider": ["LLM::complete"],
+  "prompt": {
+    "system": "Classify the risk.", "user": "Step: ${label}",
+    "facts": {                                  // the tracked, discrete spine
+      "severity": { "enum": ["low","medium","high"] },   // snapped to a closed vocabulary
+      "priceK":   { "grain": 100, "from": "price" },      // numeric rounded to a grain; read raw `price`
+      "count":    { "type": "int" }                       // int | number | bool | id | string
+    },
+    "prose": "summary"                          // free text -> UNTRACKED key (default: `<name>Prose`)
+  } }
+```
+
+Snapping is **deterministic only** (never embedding similarity — a fuzzy false-hit graves a wrong fact
+that *propagates*). An out-of-vocabulary enum **fails closed**: the fact is `null` and the key is listed
+in `<name>CanonMiss` (visible, never a silent wrong snap). Helpers are exported for direct use:
+`canonFacts(raw, schema) -> { facts, misses }`, `canonValue(raw, spec)`, `digest(facts)`.
+With no `facts` schema declared, the provider keeps its legacy merge/`as` behavior (back-compatible).
 - **`register(Graph, fragments?)`** merges provider-map fragments onto `Graph._providers`, preserving
   any already set.
 
 ---
+
+## Author-time concept validation
+
+A host-side validator enforces the typed-fact discipline **before** a concept tree reaches the engine —
+the safety gate for hand- or AI-authored concepts. It validates *structure*, never the expression grammar.
+
+```js
+const { validateConceptTree, validateOrThrow } = require('./_lab/validate');
+const { errors, warnings } = validateConceptTree(tree, { palette: ['LLM::complete', 'CommonGeo::Distance'] });
+```
+
+Checks: every concept has a `_name` (the self-flag — without it the engine re-fires it forever);
+`assert`/`ensure` parse under the real evaluator (`App/expr.js`) and don't touch `constructor`/`__proto__`;
+`provider` ∈ a vetted `palette` (advisory warning, or an error under `{ strict: true }`); and the valuable
+one — **ref soundness**: a `require`/`ensure`/`assert` that keys on a **prose** fact (a declared `prose`
+key, or the `<name>Prose`/`<name>CanonMiss` defaults) is **rejected** (it would fragment the memo, K1),
+and a bare dependency on a child-set (`expandedInto`/`answeredBy`/…) without `.length` is **warned** (the
+"all-children-answered" footgun — `getRef` has no quantifier). `validateOrThrow` throws on the first error.
 
 ## Running in-repo
 

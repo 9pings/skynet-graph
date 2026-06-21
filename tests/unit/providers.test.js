@@ -84,6 +84,33 @@ test('createLLMProvider wraps the result under `as` when given, and degrades on 
 	assert.equal(degraded.X, true, 'concept still flagged so the graph can settle');
 });
 
+test('LLM::complete canonicalization barrier: discrete facts tracked, prose untracked, memo key stable across re-prose', async () => {
+	const concept = {
+		_name: 'Risk',
+		_schema: { prompt: { facts: { severity: { enum: ['low', 'high'] }, priceK: { grain: 100, from: 'price' } }, prose: 'note' } }
+	};
+	const graph = { getRef: () => undefined };
+	const run = (reply) => new Promise((res) =>
+		createLLMProvider({ ask: async () => reply }).LLM.complete(graph, concept, { _: {} }, [], (e, r) => res(r)));
+
+	// two semantically-equal replies, TEXTUALLY divergent (the K1 scenario)
+	const a = await run('{"severity":"HIGH","price":1203.40,"prose":"verbose flowery reply A"}');
+	const b = await run('reasoning... {"severity":"high","price":1188,"prose":"a totally different wording B"}');
+
+	assert.equal(a.severity, 'high'); assert.equal(a.priceK, 1200);
+	assert.equal(a.severity, b.severity, 'enum snapped to the SAME canonical value');
+	assert.equal(a.priceK, b.priceK, 'price wobble collapsed to the SAME bucket');
+	assert.equal(a.RiskFactsDigest, b.RiskFactsDigest, 'identical discrete memo key across runs (K1 defeated)');
+	assert.equal(a.Risk, true, 'self-flag set');
+	assert.equal(a.price, undefined, 'raw/untracked reply keys do NOT leak onto the object');
+	assert.equal(a.note, 'verbose flowery reply A', 'free text lands on the declared (untracked) prose key');
+	assert.notEqual(a.note, b.note, 'prose preserved and differs — it is terminal, never a dependency');
+
+	const miss = await run('{"severity":"apocalyptic","price":50}');
+	assert.deepEqual(miss.RiskCanonMiss, ['severity'], 'out-of-vocab enum fails CLOSED + visible');
+	assert.equal(miss.severity, null);
+});
+
 test('register wires base providers onto a Graph-like in one line', () => {
 	const G = {};
 	register(G); // defaults: CommonGeo + a default LLM
