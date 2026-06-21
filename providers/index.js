@@ -15,6 +15,7 @@
 var geo = require('./geo');
 var llm = require('./llm');
 var canonicalize = require('./canonicalize');
+var verify = require('./verify');
 
 /**
  * Merge provider-map fragments onto Graph._providers (preserving any already set).
@@ -38,5 +39,8 @@ module.exports = {
 	canonFacts       : canonicalize.canonFacts,
 	canonValue       : canonicalize.canonValue,
 	digest           : canonicalize.digest,
+	createVerifier   : verify.createVerifier,
+	checks           : verify.checks,
+	majority         : verify.majority,
 	register         : register
 };

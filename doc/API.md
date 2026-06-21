@@ -238,6 +238,33 @@ With no `facts` schema declared, the provider keeps its legacy merge/`as` behavi
 - **`register(Graph, fragments?)`** merges provider-map fragments onto `Graph._providers`, preserving
   any already set.
 
+### Verification — verdict facts + `ensure` defeasance
+
+The engine maintains **coherence**, never **truth** (K3): a hallucinated-but-valid fact propagates and
+retracts cleanly. Verification makes unreliability *visible and non-propagating* by emitting discrete
+**verdict facts** that downstream concepts gate on via `ensure` — a refuted fact auto-retracts its
+dependents (refutation *is* defeasance; no new engine path). Verdicts are discrete (the typed-fact spine),
+never prose, and **never overwrite** the checked fact. `createVerifier()` (from `skynet-graph/providers`)
+returns `{ Verify: { check }, Vote: { tally } }`; `checks` and `majority` are exported too.
+
+Three patterns (all engine-verified; pick by reactivity need):
+
+1. **Deterministic verifier = a concept whose `ensure` IS the invariant** — full `expr.js` grammar (uncapped):
+   `{ "_name":"BudgetOK", "require":["cost","cap"], "ensure":["$cost <= $cap"] }`. Its self-flag is the verdict;
+   a target change re-tests it and auto-retracts. A consumer **nested** under it (`childConcepts`) cascade-
+   retracts on refutation. Prefer this — deterministic checkers ≫ LLM-refuters, and it is reactive.
+2. **Independent verdict provider** `Verify::check` — for a check that runs as an effect (external lookup /
+   LLM-refuter): `{ "provider":["Verify::check"], "verify":{ "target":"$x", "check":"range", "params":{"min":0,"max":100}, "as":"x" } }`
+   writes `xVerdict`/`xVerified`/`xVerifiedAgainst` (provenance), never `$x`. Downstream gates `ensure:["$xVerified == true"]`.
+   (A provider verifier is **cast-once** — it re-runs only on uncast/recast; use pattern 1 for reactive re-checking.)
+3. **k-of-n voting** `Vote::tally` — self-consistency: n strategies `{__push}` a vote into a grow-only array;
+   a `Vote` concept gated `ensure:["$votes.length == $expected"]` emits `consensus` + `confidence = agree/n`;
+   downstream gates `ensure:["$confidence >= 0.7"]`. Treat `confidence` as a heuristic, never proof (a biased
+   model votes confidently wrong). Independence discipline: the refuter must not be the call that produced the fact.
+
+Deterministic checkers: `range`, `oneOf`, `equals`, `approx`, `nonEmpty` — `(value, params) -> { pass, reason }`,
+extend via `createVerifier({ checks: { … } })`.
+
 ---
 
 ## Author-time concept validation

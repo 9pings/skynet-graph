@@ -1,11 +1,11 @@
 # Handoff — Skynet-Graph V1 "MOE Graph"
 
 **Date:** 2026-06-21 · **Branch:** `feat/moe-graph-v1-phase0` (off `master` @ `0e65ab4`)
-**Status:** **77/77 tests green.** Phase 0 + Phase 1 complete; Inspector v1 built; the
+**Status:** **84/84 tests green.** Phase 0 + Phase 1 complete; Inspector v1 built; the
 decompose→synthesize **answer-loop** built; **memory-on-retraction + closed learning loop** built;
 **array-append primitive** + **reactive budget cap** built; **typed-fact spine + canonicalization
-barrier** (roadmap #1, the K1 keystone) built; **reactive synthesis** (#2) built. The engine library
-is solid and heavily instrumented.
+barrier** (roadmap #1, the K1 keystone) built; **reactive synthesis** (#2) built; **verification
+concepts** (#3, K3) built. The engine library is solid and heavily instrumented.
 
 Read this, then `doc/MODELISATION.md` (the definitive model + prioritized roadmap), then resume.
 
@@ -60,7 +60,8 @@ test harness, scoring=facts, `fork`/`merge`. Then this session:
 | **{__push}** | array-append primitive — race-free fan-in (the aggregation-gap keystone) | `a26d13f` |
 | **budget cap** | assert-gated `$$budget:spent.length < CAP` bounds exploration (K2) | `02c9789` |
 | **typed-fact spine** | canonicalization barrier (roadmap #1, K1): `LLM::complete` `{facts,prose}` contract (`providers/canonicalize.js`) + author-time validator (`_lab/validate.js`) rejecting prose-on-dependency-edges. **Zero core change.** | `be797c0` |
-| **reactive synthesis** | roadmap #2: `reactiveLoopConceptTree` — `ReportUp` (`{__push}` self-id into parent `answeredBy`) + `Rollup` gated `ensure:["$answeredBy.length==$expandedInto.length"]`; bottom-up synthesis IN stabilization, == the post-pass. **Zero core change.** | *this session* |
+| **reactive synthesis** | roadmap #2: `reactiveLoopConceptTree` — `ReportUp` (`{__push}` self-id into parent `answeredBy`) + `Rollup` gated `ensure:["$answeredBy.length==$expandedInto.length"]`; bottom-up synthesis IN stabilization, == the post-pass. **Zero core change.** | `73ea0fd` |
+| **verification (K3)** | roadmap #3: `providers/verify.js` — deterministic checker lib + `Verify::check` (distinct verdict fact + provenance, never overwrites target) + k-of-n `Vote::tally` (consensus + confidence over `{__push}` votes). Verdict facts gate downstream via `ensure` → refutation = defeasance. **Zero core change.** | *this session* |
 
 Specs: `f2434d2`,`d74dcab`,`27a0322` (inspector spec + roadmap).
 
@@ -110,7 +111,20 @@ assembles a concept tree from `concepts/<set>/`.
 9. **Cast-state ≠ a literal `true`.** `_etty._mappedConcepts[Name]` records cast-state but its *value* is
    not the boolean `true` — to test "is concept C cast on obj," read the **self-flag fact** `obj._etty._.<C>`
    (what a provider / default-cast writes), or test *key presence* in `_mappedConcepts`. (Cost me a red test.)
-10. **Why the canonicalization barrier works WITHOUT a core equality guard** (verified): `Entity.set`
+10. **Defeasance/retraction paths — which RELIABLY retract a downstream** (verified by probe; cost real
+   debugging in #3). A cast concept is uncast ONLY by its OWN `ensure` watcher (`static_ensure`) or by a
+   structural cascade — NOT by a `require` follower. So:
+   - **`require:['X']` does NOT retract on X falling** — `require` is a cast-time LHS pattern (watches for X
+     to *appear*), not defeasance. Downstream that must retract on refutation MUST gate via **`ensure`**.
+   - **RELIABLE:** (a) an `ensure`-invariant verifier auto-retracts when its target fact changes; (b) a
+     downstream **nested** under it (`childConcepts`) cascade-retracts; (c) a downstream `ensure:["$v=='pass'"]`
+     retracts when `v` is flipped by a **direct mutation / provider re-run**.
+   - **FLAKY — avoid:** flipping a verdict fact via a `cleaner` *during* the verifier's own uncast cascade did
+     NOT reliably re-fire a sibling's `ensure` watcher in the same settle. Use a nested consumer (cascade) or a
+     direct verdict mutation instead.
+   - A provider verifier is **cast-once** — it will NOT re-run on a target change (write the invariant as the
+     concept's `ensure` if you need reactive re-evaluation).
+11. **Why the canonicalization barrier works WITHOUT a core equality guard** (verified): `Entity.set`
    (Entity.js:330) destabilizes followers *unconditionally* (no `old===content` check). The memo / "don't
    re-fire" property is NOT from set-equality — it is from **cast-once + self-flag** (an already-cast concept
    is not re-fired) and **`ensure` re-test absorbing a same-value write** (unchanged discrete fact →
@@ -134,22 +148,21 @@ memo-fragmentation (existential → typed-fact spine), coherence≠truth (K3 →
 ## 5. Roadmap — pick up here (from MODELISATION §9, adjusted for what's now built)
 
 Done: inspector · answer-loop · memory-on-retraction + learning loop · `{__push}` primitive · budget cap ·
-**typed-fact spine + canonicalization barrier (#1)** · **reactive synthesis (#2)**.
+**typed-fact spine + canonicalization barrier (#1)** · **reactive synthesis (#2)** · **verification (#3)**.
 
 Next, highest-leverage first:
-1. **Verification concepts** (K3) — a refuter writes a distinct verdict key; k-of-n voting via `{__push}`
-   + `.length`; gate downstream via `ensure`. Deterministic checkers >> LLM-refuters. (Verdicts are exactly
-   the discrete facts the barrier mandates — author them with the `facts` contract; the validator guards them.
-   The `{__push}`+`.length` quorum pattern is now proven by #2 — reuse it for k-of-n.)
-2. **Freshness/TTL as facts** (N1) — timed-destabilize stale provider facts; enables the live/standing-paths
-   regime (prospective/live/`ActiveProblem` terminals — MODELISATION N10). Also unlocks the #2 *content*-reactive
-   re-roll (a leaf whose source changes re-answers → its parent should re-roll).
-3. **Declarative AI-authoring** — `addConcept` + the now-built validator (`_lab/validate.js` — extend it:
+1. **Freshness/TTL as facts** (N1) — timed-destabilize stale provider facts; enables the live/standing-paths
+   regime (prospective/live/`ActiveProblem` terminals — MODELISATION N10). Also unlocks BOTH the #2 *content*-
+   reactive re-roll (a leaf whose source changes re-answers → parent re-rolls) AND a re-running verifier (#3's
+   provider verifier is cast-once today). A global `clock` free-node experts `follow`; reuses the re-fire path.
+2. **Declarative AI-authoring** — `addConcept` + the now-built validator (`_lab/validate.js` — extend it:
    structure, expr parse, ref-soundness, self-flag, prose-edge rejection already done) from a vetted provider
-   palette; then **live self-modification** (meta-concept calls add/patchConcept mid-run) — LAST, gated behind
-   trace+memory+budget; verify re-entrancy.
-4. (core, optional) **stratified set-aggregation primitive** — generalizes `{__push}`+`.length`; unblocks
-   richer voting/beam AND the #2 content-reactive re-roll (a real `count`/`all` over children).
+   palette (now incl. `Verify::check`/`Vote::tally`); then **live self-modification** (meta-concept calls
+   add/patchConcept mid-run) — LAST, gated behind trace+memory+budget; verify re-entrancy.
+3. (core, optional) **stratified set-aggregation primitive** — generalizes `{__push}`+`.length`; unblocks
+   richer voting/beam AND the #2 content-reactive re-roll (a real `count`/`all` over children). NB: also add
+   the **Tarjan-SCC negative-cycle lint** (§5.3) — now that #3 adds `ensure`-aggregate gates + verdict
+   retraction, oscillation (K7) is a live risk; the lint gives `ensure` well-founded (stratified) semantics.
 
 ---
 
@@ -162,6 +175,7 @@ App/Graph.js               patchConcept/getConceptByName; getSnapshot/diffRevisi
                            traceProvider; App/db runtime-require (build fix)
 providers/{geo,llm,index}  packaged base providers + register()
 providers/canonicalize.js  deterministic fact snapping (enum/grain/type) + stable digest — the K1 grid
+providers/verify.js        checker lib + Verify::check (verdict facts) + Vote::tally (k-of-n) — #3 (K3)
 providers/llm.js           LLM::complete `{facts,prose}` canonicalization barrier (prompt.facts schema)
 _lab/validate.js           author-time concept validator (prose-edge rejection, self-flag, expr-parse, palette)
 _lab/trace.js, sg.js       trace collector + inspector CLI
