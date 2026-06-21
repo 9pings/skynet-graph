@@ -152,6 +152,73 @@ Rollup: {
 
 ---
 
+## 4b. Memory-on-retraction → live strategy adaptation (user idea, 2026-06-21 — MAJOR roadmap)
+
+When a path is retracted because it failed, don't let it vanish — have it **deposit a durable "memory"**
+of what was tried, the outcome, and *why*, anchored OUTSIDE the retracted subtree. Future strategy/
+decomposition concepts read that memory to avoid repeats and to **adapt strategy live** (change a prompt,
+cast a different strategy, or invent a new one from the lessons of failed paths). This makes the JTMS
+retraction *productive* — a differentiator no compared system has (LangGraph rolls back with no residue; a
+bare LLM has no cross-attempt memory).
+
+Maps onto existing/just-built mechanisms:
+- **`cleaner`** (runs in `Entity.unCast` ~222 at retraction time) = the natural emit point: the dying
+  concept's cleaner provider writes a memory fact.
+- **The concept-apply trace** (just built) = the raw "what was tried + why" (`why`, `prompt`, `reply`, `patch`).
+- **Anchor**: write memory to a stable survivor (root segment or a dedicated `memory` free-node) via
+  `pushMutation(tpl, anchorId)` / `$$_id:anchorId`, since the failing subtree is being deleted.
+- **`patchConcept` / `castConcept` / `fork`** (built) = the "change/create strategy" levers a meta-concept
+  uses after reading memory.
+
+Memory fact shape (bounded, discrete — NOT transcripts): `{ strategy, outcome:'failed', reason, atRev }`.
+
+Honest risks (must engineer):
+- **Termination/oscillation:** memory must be **append-only/monotonic** and strategy selection
+  **exclusionary** (the strategy concept's `assert` excludes already-recorded failures) — else
+  try-A→fail→try-B→fail→try-A loops. Same "dedup-vs-seen / loop-until-dry" discipline as a good search.
+- **Bounded memory:** discrete summarized facts only, or memory itself blows context.
+- **Mid-uncast safety:** writing a mutation during an unCast cascade must be verified safe (re-entrancy /
+  taskflow queue). *(A background research agent is validating this against the code; fold findings in.)*
+
+Sequence: **inspector (now) → memory-on-retraction → budget/retry-bound → strategy-adaptation (self-modifying
+tier, riskiest+coolest).** The trace built now is the prerequisite (it IS the "what worked and why").
+
+## 4c. Declarative, AI-authorable concept system (user idea, 2026-06-21 — MAJOR pillar)
+
+Make concept/trigger/prompt definition generic and clean enough that an **AI can create / modify / improve
+experts** itself. Much is already enabled:
+- Concepts are already declarative JSON (`require`/`assert`/`ensure`/`provider`/`applyMutations`/`childConcepts`).
+- The generic **`LLM::complete`** provider (built) means a *complete working expert is pure JSON* — trigger
+  (`require`/`assert`/`ensure`, safely evaluated by `expr.js`) + `prompt` block + a provider from a vetted palette.
+  No code needed for the common case.
+- **`patchConcept`** (built) already edits a concept live.
+
+To build:
+1. **`addConcept(parentNameOrId, def)`** — create a NEW concept at runtime (sibling to `patchConcept`; same
+   re-evaluate-everything afterward). The create half of live authoring.
+2. **Formal validated concept schema** (a JSON-schema) + AI-facing docs — emit valid concepts; reject malformed
+   ones before they break stabilization.
+3. **Self-improvement loop:** AI authors concept → run → **trace** (§2, built) shows fired/why → **memory-on-
+   retraction** (§4b) records failures → AI patches/improves. The trace + memory ARE the feedback signal.
+
+Design tension (resolve explicitly):
+- *Never cap expressiveness* (standing directive) → validation checks STRUCTURE (field names/types, asserts
+  parse, named provider exists), NOT the expression grammar.
+- *Safety boundary*: AI authors the DECLARATIVE parts (triggers/prompts/which-provider) from a HOST-VETTED
+  provider palette; it does NOT write arbitrary provider JS. `LLM::complete` being universal means it rarely
+  needs to. Powerful AND safe.
+
+Framing: "DSPy, but the AI authors the control structure, not just tunes prompts." Sequences after the inspector
+(the feedback instrument); pairs with §4b (the self-improvement signal).
+
+**LIVE / online (user, 2026-06-21).** Authoring is runtime, not design-time: a **meta-concept running inside the
+graph** observes (trace + memory) and calls `addConcept`/`patchConcept` **mid-run** to change/create strategy,
+then the graph re-stabilizes and continues — self-modification in the loop. `patchConcept` already re-stabilizes
+live; `addConcept` must too. **Re-entrancy to verify:** calling patch/add from *within* a provider cb during
+stabilization (the meta-concept IS a provider) — does the re-evaluate + re-stabilize compose safely with the
+in-flight loop? Same concern class as the mid-uncast memory write (§4b). This is the self-modifying tier:
+highest leverage, highest risk — gate it behind the trace+memory+budget being solid.
+
 ## 5. Testing (TDD)
 
 Engine instrumentation (unit/integration, `tests/`):
