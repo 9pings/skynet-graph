@@ -1,31 +1,14 @@
 const path = require('path');
 const Graph = require('./_boot.js');
 const { buildConceptTree } = require('./concepts.js');
+const { register, CommonGeo } = require('../providers');
 
 // ---- quiet the engine's chatter, keep a clean tagged printer + real errors ----
 const out = (...a) => process.stdout.write(a.join(' ') + '\n');
 console.log = console.info = console.warn = () => {};
 
-// ---- a real provider so the actual `common` Distance concept can fire ----
-function haversineKm(a, b) {
-  const R = 6371, toR = (x) => (x * Math.PI) / 180;
-  const dLat = toR(b.lat - a.lat), dLng = toR(b.lng - a.lng);
-  const s = Math.sin(dLat / 2) ** 2 +
-    Math.cos(toR(a.lat)) * Math.cos(toR(b.lat)) * Math.sin(dLng / 2) ** 2;
-  return 2 * R * Math.asin(Math.sqrt(s));
-}
-Graph._providers = {
-  CommonGeo: {
-    Distance(graph, concept, scope, argz, cb) {
-      const p1 = graph.getRef('originNode:Position', scope);
-      const p2 = graph.getRef('targetNode:Position', scope);
-      if (!p1 || !p2) return cb(null, null);
-      const inKm = Math.round(haversineKm(p1, p2));
-      out(`  [provider CommonGeo::Distance] ${scope._._id}: ${inKm} km`);
-      cb(null, { $_id: '_parent', Distance: { inKm } });
-    },
-  },
-};
+// ---- wire the packaged Geo provider in one line so the real `common` Distance concept can fire ----
+register(Graph, [{ CommonGeo }]);
 
 // ---- the concept set (exclude the `targetNode` concept: name collides with the data field) ----
 const tree = buildConceptTree(path.join(__dirname, '..', 'concepts', 'common'), { exclude: ['targetNode'] });
