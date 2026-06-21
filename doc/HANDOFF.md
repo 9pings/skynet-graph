@@ -12,7 +12,10 @@ deferred to a quiescent boundary (fixes the silently-dropped mid-apply patch); *
 `patchConcept` re-evaluates only the affected frontier, not the whole graph; **apply-ceiling backstop**
 (#11.c.1): a runaway (target, concept) loop is bounded + flagged `divergent` (a non-cast condition);
 **concept-lib versioning** (#11.c.2 / N6): `rollbackTo` restores the rules too (full schema snapshot), so a
-rolled-back self-mod doesn't resurrect. The engine library is solid and heavily instrumented.
+rolled-back self-mod doesn't resurrect; **hypothesis-and-test** (#11.c.3): a supervised loop *tries* a
+self-mod and cleanly *rolls back* if a better-model judge says it's worse. **Roadmap #10 + #11 (declarative
+AI-authoring + live self-modification) are mechanically complete and safe.** The engine library is solid
+and heavily instrumented.
 
 Read this, then `doc/MODELISATION.md` (the definitive model + prioritized roadmap), then resume.
 
@@ -77,7 +80,8 @@ four rows are **session 3**, all **zero core-engine change** — they touch only
 | **self-mod re-entrancy (#11.a)** | `add`/`patchConcept` issued **mid-stabilize** (from a meta-concept's provider) now defer to the quiescent `_loopTF` boundary via a `_pendingStructural` queue (drained by `_drainStructural`), gated by a `_stabilizing` flag (set in `stabilize.js`, cleared in `_applyStabilized`). Fixes the verified hazard: a patch of the concept **currently mid-apply** was silently dropped (its self-flag not yet written → re-eval saw it as not-cast → no retraction). Host-issued ops (incl. from `onStabilize`) still apply immediately. `patch`/`add` bodies split into kick-less `_doPatchConcept`/`_doAddConcept`. **Core change (the re-entrancy keystone for #11).** | `b4b0821` |
 | **self-mod scoped re-eval (#11.b)** | `_doPatchConcept` re-evaluated **every** object (`Object.keys(_objById)`, O(graph) stop-the-world). Now `_scopedReevalIds(concept)` returns only the frontier whose cast-state could change: `_mapsByConcept[C._name]` (cast/was-cast → uncast direction) ∪ `_mapsByConcept[r]` per simple `require` r (holds a needed fact → cast direction, incl. never-cast objects). Falls back to the full scan when unscopable (no `require`, or a cross-object `a:b` require). Proven: 53 objects → 3 candidates; behaviour-preserving (characterization test). | `f702211` |
 | **apply-ceiling backstop (#11.c.1)** | per-`(target/concept)` apply tally (`_applyCount`, reset on each settle) with a `cfg.applyCap` ceiling (default 1000). Over the cap → `_markDivergent` `{__push}`es a reason record `{concept, applies, reason:'apply-cap'}` into the target's **`divergent` array fact** — which `Concept.isApplicableTo` reads as a **NON-CAST CONDITION** (so the runaway concept de-casts + stops; the record says WHY). Framing (engine author): a self-destabilizing re-cast loop is a legitimate *iterative-trial* technique, so this is a BACKSTOP (high default, per-episode reset never kills a converging trial), and `divergent` = "didn't converge in the ceiling" outcome, not an error. | `a7415e1` |
-| **concept-lib versioning (#11.c.2 / N6)** | `rollbackTo` restored facts but NOT the concept library, so a runtime `add`/`patchConcept` survived a rollback and *resurrected* (a surviving concept re-cast). Now `_captureSnapshot` also stores the **full live schema tree** (`_serializeConceptTree` — walks `_openConcepts` for adds + reads each concept's current `_schema` for patches; cached, invalidated on edit), and `rollbackTo` calls `_restoreConceptTree` (rebuild `_conceptLib`/`_rootConcept` from a deep-cloned snapshot) **before** `mount`. "Git for reasoning" now covers data AND rules — the prerequisite for safe hypothesis-and-test. | *uncommitted* |
+| **concept-lib versioning (#11.c.2 / N6)** | `rollbackTo` restored facts but NOT the concept library, so a runtime `add`/`patchConcept` survived a rollback and *resurrected* (a surviving concept re-cast). Now `_captureSnapshot` also stores the **full live schema tree** (`_serializeConceptTree` — walks `_openConcepts` for adds + reads each concept's current `_schema` for patches; cached, invalidated on edit), and `rollbackTo` calls `_restoreConceptTree` (rebuild `_conceptLib`/`_rootConcept` from a deep-cloned snapshot) **before** `mount`. "Git for reasoning" now covers data AND rules — the prerequisite for safe hypothesis-and-test. | `311bddb` |
+| **hypothesis-and-test (#11.c.3)** | `_lab/supervise.js#supervise(graph, spec)` — the self-mod capstone, **zero core**: a `Stuck` (human-vocabulary) sub-problem → an INJECTED `hypothesize` applies a self-mod (add/patchConcept) → re-stabilize → an INJECTED `evaluate` (the *supervisor / better-model* judgment; budget-spent is only the trigger) → if worse, `rollbackTo` the pre-hypothesis rev (safe: N6 leaves a bad hypothesis NO trace) → repeat. The apply-ceiling backstop (#11.c.1) guards the supervisor. Strategies + the judge are pluggable (open R&D). Host-orchestrated (rollback needs a quiescent boundary). `tests/integration/supervise.test.js` (bad reverted+gone, good kept; all-revert stays clean). | *uncommitted* |
 
 Specs: `f2434d2`,`d74dcab`,`27a0322` (inspector spec + roadmap).
 
@@ -86,7 +90,7 @@ Specs: `f2434d2`,`d74dcab`,`27a0322` (inspector spec + roadmap).
 ## 2. How to run
 
 ```bash
-npm test                  # 103 tests (node:test). Per-file count is deterministic; the AGGREGATE
+npm test                  # 105 tests (node:test). Per-file count is deterministic; the AGGREGATE
                           #   count can race-undercount under --test-force-exit (all pass; verify per-file).
 node _lab/run-basic.js    # non-LLM stabilization over the real `common` set
 node _lab/run-prompt.js   # decompose→synthesize→answer vs a local LLM (LLM_BASE=...); writes a trace
@@ -218,15 +222,21 @@ Done: inspector · answer-loop · memory-on-retraction + learning loop · `{__pu
 Next, highest-leverage first — **finishing #11 (live self-modification, the highest-risk tier).** #11.a
 (re-entrancy: mid-stabilize `add`/`patchConcept` defer to the quiescent boundary) and #11.b (scoped
 re-eval: `_scopedReevalIds` frontier, not O(graph)) are DONE. Remaining:
-1. **#11.c — the safe self-mod regime** (gate behind the existing instruments). #11.c.1 (apply-ceiling
-   backstop = `divergent` non-cast condition) and #11.c.2 (N6 concept-lib versioning — rollback restores
-   rules too) are DONE. Remaining:
-   - a single-writer **meta-concept on a `Stuck` fact** (a subtree exhausted strategies / blew budget), not
-     continuous polling;
-   - **hypothesis-and-test**: patch/add → stabilize a bounded region → `rollbackTo` if worse (now safe — N6
-     restores the concept-lib edits too);
-   - **probationary experts**: an AI-authored concept's first outputs are verification-gated (#3) until a
-     reputation fact (via the memory machinery) clears it.
+1. **#11.c — DONE (the mechanism).** #11.c.1 (apply-ceiling backstop), #11.c.2 (N6 concept-lib versioning),
+   #11.c.3 (hypothesis-and-test = `supervise`) are all built. **Roadmap #10 + #11 are mechanically complete:
+   declarative AI-authoring + live self-modification, safe (re-entrancy, backstop, reversible rules).**
+   What remains is **OPEN R&D the user scoped (2026-06-21)**, not a fixed rung — this is the "ceiling":
+   - **concept organization around HUMAN VOCABULARY** — a semantically-meaningful, hierarchical concept
+     corpus (`Stuck`, `Supervisor`, …) is itself the research; the engine is now the substrate for it;
+   - **the supervisor as a higher-level concept with a BETTER MODEL** — the `evaluate` judgment (currently an
+     injected host hook) should be a real higher-tier expert; budget-spent is only the trigger, the judgment
+     is supervisory;
+   - **plural strategies** — `hypothesize`/`evaluate` are injected so different repair strategies can be
+     A/B-tested; the right set is open R&D;
+   - **fully-reactive supervisor** — make `Stuck`→`Supervisor` a reactive concept flow (needs *queued
+     rollback* at the `_loopTF` boundary, like #11.a's structural queue) so the loop isn't host-orchestrated;
+   - **probationary experts** — an AI-authored concept's first outputs verification-gated (#3) until a
+     reputation fact (memory machinery) clears it.
 2. (core, optional) **engine primitives now justified by the rungs built:**
    - **stratified set-aggregation `count`/`all`** — generalizes `{__push}`+`.length`; unblocks richer voting/beam
      AND the #2 content-reactive re-roll (a real `count`/`all` over children).
@@ -264,6 +274,8 @@ _lab/validate.js           author-time concept validator (prose-edge rejection, 
                            +#10 ref-soundness/`unknown-ref` gated on a host `knownFacts` ref-alphabet)
 _lab/author.js             #10 CEGIS authoring loop: validate→addConcept/patchConcept→stabilize→goal-oracle→
                            refine; injected proposer (LLM in prod, stub in tests); host-side `applyOp` no-op guard
+_lab/supervise.js          #11.c.3 hypothesis-and-test: Stuck→hypothesize(self-mod)→stabilize→evaluate(better
+                           model)→rollbackTo if worse (N6-safe); injected hypothesize/evaluate (pluggable strategies)
 _lab/clock.js              freshness/TTL (N1): clock free-node + advanceClock/clockNow/refetch helpers
 _lab/trace.js, sg.js       trace collector + inspector CLI
 _lab/loop.js, run-prompt.js  the decompose→synthesize answer-loop + LLM runner
@@ -272,8 +284,8 @@ doc/API.md                 public API reference
 doc/MODELISATION.md        the model + prioritized roadmap (READ THIS)
 doc/ideation/01-04*.md     the 4-lens agent ideation raw findings
 docs/superpowers/specs/2026-06-21-moe-graph-inspector-design.md   inspector spec + §4b/4c roadmap detail
-tests/integration/*        29 integration files (+add-concept, author-cegis, self-mod, patch-scoped,
-                           apply-cap, concept-versioning on top of canon-barrier, reactive-synth, etc.)
+tests/integration/*        30 integration files (+add-concept, author-cegis, self-mod, patch-scoped,
+                           apply-cap, concept-versioning, supervise on top of canon-barrier, reactive-synth, etc.)
 tests/unit/*               6 unit files (expr, concept-wiring, providers, canonicalize, validate, verify)
 ```
 
