@@ -1,10 +1,11 @@
 # Handoff — Skynet-Graph V1 "MOE Graph"
 
 **Date:** 2026-06-21 · **Branch:** `feat/moe-graph-v1-phase0` (off `master` @ `0e65ab4`)
-**Status:** **76/76 tests green.** Phase 0 + Phase 1 complete; Inspector v1 built; the
+**Status:** **77/77 tests green.** Phase 0 + Phase 1 complete; Inspector v1 built; the
 decompose→synthesize **answer-loop** built; **memory-on-retraction + closed learning loop** built;
 **array-append primitive** + **reactive budget cap** built; **typed-fact spine + canonicalization
-barrier** (roadmap #1, the K1 keystone) built. The engine library is solid and heavily instrumented.
+barrier** (roadmap #1, the K1 keystone) built; **reactive synthesis** (#2) built. The engine library
+is solid and heavily instrumented.
 
 Read this, then `doc/MODELISATION.md` (the definitive model + prioritized roadmap), then resume.
 
@@ -58,7 +59,8 @@ test harness, scoring=facts, `fork`/`merge`. Then this session:
 | **learning loop** | adapt strategy from failures (try A→B→C, learn, converge) | `6a8bfd8` |
 | **{__push}** | array-append primitive — race-free fan-in (the aggregation-gap keystone) | `a26d13f` |
 | **budget cap** | assert-gated `$$budget:spent.length < CAP` bounds exploration (K2) | `02c9789` |
-| **typed-fact spine** | canonicalization barrier (roadmap #1, K1): `LLM::complete` `{facts,prose}` contract (`providers/canonicalize.js`) + author-time validator (`_lab/validate.js`) rejecting prose-on-dependency-edges. **Zero core change.** | *this session* |
+| **typed-fact spine** | canonicalization barrier (roadmap #1, K1): `LLM::complete` `{facts,prose}` contract (`providers/canonicalize.js`) + author-time validator (`_lab/validate.js`) rejecting prose-on-dependency-edges. **Zero core change.** | `be797c0` |
+| **reactive synthesis** | roadmap #2: `reactiveLoopConceptTree` — `ReportUp` (`{__push}` self-id into parent `answeredBy`) + `Rollup` gated `ensure:["$answeredBy.length==$expandedInto.length"]`; bottom-up synthesis IN stabilization, == the post-pass. **Zero core change.** | *this session* |
 
 Specs: `f2434d2`,`d74dcab`,`27a0322` (inspector spec + roadmap).
 
@@ -99,9 +101,12 @@ assembles a concept tree from `concepts/<set>/`.
 7. **`cleaner` hook** (`Entity.js` ~224) fires on uncast with `(graph, concept, scope, argz, cb)`; its
    returned tpl is pushed. Mid-uncast `pushMutation` is **queue-safe** (the `_mutationThreadRunning` guard
    defers it — no re-entrancy). This is what makes memory-on-retraction zero-core.
-8. **Reactive synthesis is NOT yet done** — the post-pass `synthesize` (in `_lab/loop.js`) is the current,
-   correct, race-free synthesis. A reactive Rollup concept is now UNBLOCKED by `{__push}` (gate
-   `$$x:answeredBy.length==$childCount`) but not built.
+8. **Reactive synthesis is BUILT** (#2, `_lab/loop.js#reactiveLoopConceptTree`) — `Rollup` gated
+   `ensure:["$answeredBy.length==$expandedInto.length"]`, children append via `{__push}`. Bottom-up
+   synthesis runs IN stabilization and equals the post-pass. The deterministic post-pass `synthesize`
+   stays the one-shot default (reactivity buys nothing cold). KNOWN LIMIT: it is reactive on
+   *completion*, not on a live leaf-answer *content* change (re-roll needs per-child answer-following =
+   the aggregation gap, roadmap #5/§5.3).
 9. **Cast-state ≠ a literal `true`.** `_etty._mappedConcepts[Name]` records cast-state but its *value* is
    not the boolean `true` — to test "is concept C cast on obj," read the **self-flag fact** `obj._etty._.<C>`
    (what a provider / default-cast writes), or test *key presence* in `_mappedConcepts`. (Cost me a red test.)
@@ -129,24 +134,22 @@ memo-fragmentation (existential → typed-fact spine), coherence≠truth (K3 →
 ## 5. Roadmap — pick up here (from MODELISATION §9, adjusted for what's now built)
 
 Done: inspector · answer-loop · memory-on-retraction + learning loop · `{__push}` primitive · budget cap ·
-**typed-fact spine + canonicalization barrier (#1)**.
+**typed-fact spine + canonicalization barrier (#1)** · **reactive synthesis (#2)**.
 
 Next, highest-leverage first:
-1. **Reactive synthesis** — now unblocked by `{__push}`: a `Rollup` concept gated on
-   `ensure:["$$<parent>:answeredBy.length == $childCount"]`, each child appends its id on Answer; provider
-   reads `expandedInto` children's bounded answers. Replaces the post-pass for the live regime.
-   (The barrier now in place keeps the rollup's child gates keyed on discrete facts — the #1→#2 dependency.)
-2. **Verification concepts** (K3) — a refuter writes a distinct verdict key; k-of-n voting via `{__push}`
+1. **Verification concepts** (K3) — a refuter writes a distinct verdict key; k-of-n voting via `{__push}`
    + `.length`; gate downstream via `ensure`. Deterministic checkers >> LLM-refuters. (Verdicts are exactly
-   the discrete facts the barrier mandates — author them with the `facts` contract; the validator guards them.)
-3. **Freshness/TTL as facts** (N1) — timed-destabilize stale provider facts; enables the live/standing-paths
-   regime (prospective/live/`ActiveProblem` terminals — MODELISATION N10).
-4. **Declarative AI-authoring** — `addConcept` + the now-built validator (`_lab/validate.js` — extend it:
+   the discrete facts the barrier mandates — author them with the `facts` contract; the validator guards them.
+   The `{__push}`+`.length` quorum pattern is now proven by #2 — reuse it for k-of-n.)
+2. **Freshness/TTL as facts** (N1) — timed-destabilize stale provider facts; enables the live/standing-paths
+   regime (prospective/live/`ActiveProblem` terminals — MODELISATION N10). Also unlocks the #2 *content*-reactive
+   re-roll (a leaf whose source changes re-answers → its parent should re-roll).
+3. **Declarative AI-authoring** — `addConcept` + the now-built validator (`_lab/validate.js` — extend it:
    structure, expr parse, ref-soundness, self-flag, prose-edge rejection already done) from a vetted provider
    palette; then **live self-modification** (meta-concept calls add/patchConcept mid-run) — LAST, gated behind
    trace+memory+budget; verify re-entrancy.
-5. (core, optional) **stratified set-aggregation primitive** — generalizes `{__push}`+`.length`; unblocks
-   richer voting/beam.
+4. (core, optional) **stratified set-aggregation primitive** — generalizes `{__push}`+`.length`; unblocks
+   richer voting/beam AND the #2 content-reactive re-roll (a real `count`/`all` over children).
 
 ---
 
@@ -163,6 +166,7 @@ providers/llm.js           LLM::complete `{facts,prose}` canonicalization barrie
 _lab/validate.js           author-time concept validator (prose-edge rejection, self-flag, expr-parse, palette)
 _lab/trace.js, sg.js       trace collector + inspector CLI
 _lab/loop.js, run-prompt.js  the decompose→synthesize answer-loop + LLM runner
+                           (loop.js now also exports `reactiveLoopConceptTree` + reportUp/rollup providers)
 doc/API.md                 public API reference
 doc/MODELISATION.md        the model + prioritized roadmap (READ THIS)
 doc/ideation/01-04*.md     the 4-lens agent ideation raw findings
