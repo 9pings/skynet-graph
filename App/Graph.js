@@ -1796,6 +1796,61 @@ Graph.prototype = {
 		return Object.keys(this._snapshots || {}).map(Number).sort(( a, b ) => a - b);
 	},
 	/**
+	 * The serialized snapshot captured at `revisionNumber` (as serialize() yields:
+	 * `{ lastRev, graph: "<json>" }`), or null if no snapshot was captured for it.
+	 * @param revisionNumber
+	 */
+	getSnapshot: function ( revisionNumber ) {
+		return (this._snapshots && this._snapshots[revisionNumber]) || null;
+	},
+	/**
+	 * Parse a snapshot into a { objectId -> facts } map (the serialized
+	 * conceptMaps, keyed by _id). `_rev` is dropped (volatile per-object marker).
+	 * @private
+	 */
+	_snapshotFacts: function ( snap ) {
+		var maps = (JSON.parse(snap.graph).conceptMaps) || [], by = {};
+		maps.forEach(function ( m ) {
+			var f = {};
+			Object.keys(m).forEach(function ( k ) { if ( k !== '_rev' ) f[k] = m[k]; });
+			by[m._id] = f;
+		});
+		return by;
+	},
+	/**
+	 * Diff two captured revisions: what revision `b` added / removed / changed
+	 * versus revision `a`. The inspection layer of "Git for reasoning".
+	 *
+	 * @param a revision (from getRevisions())
+	 * @param b revision (from getRevisions())
+	 * @returns {{added:Object, removed:Object, changed:Object}}
+	 *   added/removed: { id -> facts }; changed: { id -> { key -> [beforeVal, afterVal] } }
+	 * @throws if either revision has no snapshot
+	 */
+	diffRevisions: function ( a, b ) {
+		var snapA = this.getSnapshot(a), snapB = this.getSnapshot(b);
+		if ( !snapA ) throw new Error("diffRevisions: no snapshot for revision " + a);
+		if ( !snapB ) throw new Error("diffRevisions: no snapshot for revision " + b);
+
+		var fa = this._snapshotFacts(snapA), fb = this._snapshotFacts(snapB),
+		    added = {}, removed = {}, changed = {};
+
+		Object.keys(fb).forEach(function ( id ) { if ( !fa[id] ) added[id] = fb[id]; });
+		Object.keys(fa).forEach(function ( id ) { if ( !fb[id] ) removed[id] = fa[id]; });
+		Object.keys(fa).forEach(function ( id ) {
+			if ( !fb[id] ) return;
+			var keys = {}, d = {};
+			Object.keys(fa[id]).forEach(function ( k ) { keys[k] = 1; });
+			Object.keys(fb[id]).forEach(function ( k ) { keys[k] = 1; });
+			Object.keys(keys).forEach(function ( k ) {
+				if ( JSON.stringify(fa[id][k]) !== JSON.stringify(fb[id][k]) )
+					d[k] = [fa[id][k], fb[id][k]];
+			});
+			if ( Object.keys(d).length ) changed[id] = d;
+		});
+		return { added: added, removed: removed, changed: changed };
+	},
+	/**
 	 * Roll the whole graph back to a previously stabilized revision: re-mount that
 	 * snapshot and re-stabilize (re-fires onStabilize). Snapshots strictly after
 	 * `revisionNumber` are discarded — this is a linear undo, the restored timeline
