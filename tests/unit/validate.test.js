@@ -93,3 +93,53 @@ test('REGRESSION: the shipped concepts/common set and the answer-loop validate c
 	assert.equal(validateConceptTree(common).errors.length, 0, 'no false positives on the real concept set');
 	assert.equal(validateConceptTree(loopConceptTree).errors.length, 0, 'the decompose loop validates clean');
 });
+
+// --- ref-soundness layer 3 (roadmap #10 / MODELISATION §6.5): catch a require/ensure
+//     that references a fact NO concept produces and the host's ref-alphabet does not
+//     declare — the "silently never fires" footgun an AI author makes. Gated on a
+//     declared `knownFacts` alphabet so it stays sound (no false positives otherwise).
+
+test('without a declared ref-alphabet, the unknown-ref check is inactive', () => {
+	const t = { childConcepts: { C: { _id: 'C', _name: 'C', require: ['Imaginary'], provider: ['AI::act'] } } };
+	const { warnings, errors } = validateConceptTree(t);
+	assert.equal(warnings.filter((w) => w.kind === 'unknown-ref').length, 0, 'no ref alphabet -> no unknown-ref noise');
+	assert.equal(errors.filter((e) => e.kind === 'unknown-ref').length, 0);
+});
+
+test('with a ref-alphabet, flags a require on a fact no concept produces nor the alphabet declares', () => {
+	const t = {
+		childConcepts: {
+			C: { _id: 'C', _name: 'C', require: ['Segment'], provider: ['AI::act'] },          // Segment in alphabet -> clean
+			D: { _id: 'D', _name: 'D', require: ['Imaginary'], provider: ['AI::act'] }          // produced by nobody -> flagged
+		}
+	};
+	const { warnings } = validateConceptTree(t, { knownFacts: ['Segment'] });
+	const unk = warnings.filter((w) => w.kind === 'unknown-ref');
+	assert.equal(unk.length, 1, 'exactly the never-resolves ref is flagged');
+	assert.equal(unk[0].concept, 'D');
+	assert.match(unk[0].message, /Imaginary/);
+});
+
+test('a fact produced by a sibling concept (self-flag or applyMutations key) is NOT flagged', () => {
+	const t = {
+		childConcepts: {
+			// Producer writes `Ready` via its applyMutations template (a produced fact, not a self-flag)
+			Producer: { _id: 'Producer', _name: 'Producer', require: ['Segment'], applyMutations: [{ $_id: '_parent', Producer: true, Ready: true }] },
+			// Consumer depends on Producer (self-flag) AND Ready (template-produced) -> both sound
+			Consumer: { _id: 'Consumer', _name: 'Consumer', require: ['Producer'], ensure: ['$Ready == true'], provider: ['AI::act'] }
+		}
+	};
+	const { warnings } = validateConceptTree(t, { knownFacts: ['Segment'] });
+	assert.equal(warnings.filter((w) => w.kind === 'unknown-ref').length, 0, 'produced facts resolve — no false positive');
+});
+
+test('cross-object walk refs (a:b) are not flagged — too dynamic to judge soundly', () => {
+	const t = { childConcepts: { C: { _id: 'C', _name: 'C', require: ['originNode:Position'], provider: ['AI::act'] } } };
+	const { warnings } = validateConceptTree(t, { knownFacts: ['Segment'] });
+	assert.equal(warnings.filter((w) => w.kind === 'unknown-ref').length, 0, 'cross-walk skipped (no false positive)');
+});
+
+test('strict promotes an unknown-ref to an error', () => {
+	const t = { childConcepts: { D: { _id: 'D', _name: 'D', require: ['Imaginary'], provider: ['AI::act'] } } };
+	assert.ok(validateConceptTree(t, { knownFacts: [], strict: true }).errors.some((e) => e.kind === 'unknown-ref'));
+});

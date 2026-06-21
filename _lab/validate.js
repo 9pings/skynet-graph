@@ -27,6 +27,30 @@ const BLOCKED = /(?:^|[^\w$])(constructor|__proto__|prototype)(?![\w$])/;
 const asArray = (v) => (v == null ? [] : Array.isArray(v) ? v : [v]);
 const providerName = (p) => (Array.isArray(p) ? p[0] : p);
 
+// Structural keys the engine always resolves — never "unknown" regardless of the
+// declared ref alphabet. (Domain facts are declared by the host via opts.knownFacts.)
+const BUILTIN_KEYS = new Set(['_parent', '_id', '_name', '_incoming', '_outgoing', 'originNode', 'targetNode']);
+
+// The fact keys a mutation template WRITES (so a dependency on one is sound). A
+// template is an object (or array of objects); we collect its plain data keys,
+// dropping `$`-control markers ($_id/$$_id/$ref) and structural nesting keys.
+function templateKeys( tpl, out ) {
+	out = out || [];
+	for ( const obj of asArray(tpl) ) {
+		if ( !obj || typeof obj !== 'object' ) continue;
+		for ( const raw of Object.keys(obj) ) {
+			const k = raw.replace(/^\$+/, '');               // `$key`/`$$key` -> key
+			if ( k === '_incoming' || k === '_outgoing' ) {  // nested child segments — recurse
+				templateKeys(obj[raw], out);
+				continue;
+			}
+			if ( BUILTIN_KEYS.has(k) || k === '_id' ) continue;
+			out.push(k);
+		}
+	}
+	return out;
+}
+
 // The fact key a ref path actually reads + whether a `.member` (e.g. `.length`) is
 // applied. `$$budget:spent.length` -> { key:'spent', hasMember:true }; 'Task' -> { key:'Task' }.
 function refKeyOf( path ) {
@@ -88,14 +112,23 @@ function validateConceptTree( tree, opts ) {
 	eachConcept(tree, (c) => {
 		if ( !c._name ) return;                                   // a nameless node declares nothing (flagged in pass 2)
 		discrete.add(c._name);                                    // a self-flag is a discrete boolean fact
-		const prompt = c._schema && c._schema.prompt || c.prompt;
+		const schema = c._schema || c;
+		const prompt = schema.prompt;
 		if ( prompt && prompt.facts ) {
 			for ( const k of Object.keys(prompt.facts) ) discrete.add(k);
 			discrete.add(c._name + 'FactsDigest');
 			prose.add(prompt.prose || (c._name + 'Prose'));
 			prose.add(c._name + 'CanonMiss');
 		}
+		// facts written by the concept's applyMutations template are produced (sound to depend on)
+		for ( const k of templateKeys(schema.applyMutations) ) discrete.add(k);
 	});
+
+	// ref-soundness layer 3 (#10): only active when the host declares its ref alphabet
+	// (provider-emitted facts + seed/free-node keys it knows exist outside the tree).
+	// Without it we cannot soundly judge an "unknown" ref — so the check stays off.
+	const checkRefs = !!opts.knownFacts;
+	const known = new Set([...discrete, ...BUILTIN_KEYS, ...(opts.knownFacts || [])]);
 
 	// --- pass 2: per-concept structural + expression + ref-soundness checks ---
 	eachConcept(tree, (c, key) => {
@@ -133,10 +166,13 @@ function validateConceptTree( tree, opts ) {
 		];
 		for ( const { r, fld } of edges ) {
 			const { key, hasMember } = refKeyOf(r);
+			const isCrossWalk = /:/.test(String(r).replace(/^\$+/, ''));   // a:b walk — resolves on another object
 			if ( prose.has(key) )
 				err(name, 'prose-dependency', `${fld} depends on prose key "${key}" — fragments the memo every run (K1); key on a discrete fact instead`, r);
 			else if ( collectionKeys.has(key) && !hasMember )
 				warn(name, 'aggregating-dependency', `${fld} depends on child-set "${key}" without .length — getRef cannot quantify; use a {__push}+\`.length\` completion gate`, r);
+			else if ( checkRefs && !isCrossWalk && !known.has(key) )
+				(opts.strict ? err : warn)(name, 'unknown-ref', `${fld} keys on "${key}" — no concept produces it and the ref-alphabet does not declare it; this dependency may never resolve (silent never-fires)`, r);
 		}
 	});
 

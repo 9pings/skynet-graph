@@ -811,6 +811,86 @@ Graph.prototype = {
 		this.stabilize(cb);
 		return this;
 	},
+	/**
+	 * Install a NEW expert (concept) into the live library and re-evaluate the
+	 * graph against it — the symmetric twin of `patchConcept`, no restart/rebuild.
+	 * This is the engine half of declarative AI-authoring (roadmap #10): an
+	 * authoring loop proposes a concept term, the host validator gates it, this
+	 * installs it.
+	 *
+	 * It composes existing machinery only (Concept ctor + the cast/sweep/stabilize
+	 * path), so there is no new evaluation code:
+	 *   - `new Concept` registers itself (and any nested `childConcepts`) into
+	 *     `_conceptLib` keyed by `_id`, and recompiles its applicability test;
+	 *   - it is attached under `parent._openConcepts` keyed by `_id` (the engine
+	 *     invariant: a child's key in `_openConcepts`/`childConcepts` IS its `_id`,
+	 *     because `updateApplicableConcepts` pushes those keys straight into
+	 *     `_conceptLib[...]`), and mirrored into `parent._schema.childConcepts` so
+	 *     serialize() carries the new capability;
+	 *   - every live object under the (cast) parent has the new concept opened in
+	 *     its `_mapOpenConcepts` and is re-swept — exactly how an object discovers
+	 *     a root concept at mount. Unresolved `require`s install their follow-watcher
+	 *     during the sweep, so a dormant concept fires when its fact later appears.
+	 *
+	 * Re-entrancy note: like `patchConcept`, this casts/uncasts + `stabilize()`s
+	 * directly (not via the mutation queue). It is meant to be called from the host
+	 * at a quiescent boundary (between stabilizations). Calling it from *inside* a
+	 * provider mid-stabilize is the self-modification tier (roadmap #11) and needs
+	 * the queued/scoped variant (MODELISATION §6.4) — not done here.
+	 *
+	 * @param parentNameOrId  parent concept id/`_name`; null/undefined = top-level
+	 *                        (child of the root container)
+	 * @param schema          a concept schema: `{ _id, _name?, require?, assert?,
+	 *                        ensure?, provider?, applyMutations?, childConcepts? }`.
+	 *                        `_id` must be globally unique; `_name` defaults to `_id`.
+	 * @param cb              optional stabilize callback
+	 * @returns {Concept} the installed concept
+	 */
+	addConcept    : function ( parentNameOrId, schema, cb ) {
+		var me = this;
+		if ( !schema || !schema._id )
+			throw new Error("addConcept: schema must have a unique _id");
+		if ( this._conceptLib[schema._id] )
+			throw new Error("addConcept: concept '" + schema._id + "' already exists (duplicate _id)");
+		if ( !schema._name ) schema._name = schema._id;
+
+		var parent = parentNameOrId ? this.getConceptByName(parentNameOrId) : this._rootConcept;
+		if ( !parent )
+			throw new Error("addConcept: no parent concept '" + parentNameOrId + "'");
+
+		// build + register (Concept.init does graph._conceptLib[_id]=this, recursively
+		// for nested childConcepts, and compiles the applicability test)
+		var concept = new Concept(schema, this, parent === this._rootConcept ? undefined : parent);
+
+		// attach under the parent's open-concept map (key === _id, the engine invariant)
+		if ( !parent._openConcepts ) {
+			parent._openConcepts         = {};
+			parent._openConceptsRequires = {};
+			parent.isLeaf                = false;
+		}
+		parent._openConcepts[schema._id]         = concept;
+		parent._openConceptsRequires[schema._id] =
+			isArray(schema.require) ? schema.require : schema.require && [schema.require] || [];
+		// mirror into the parent's live schema so serialize()/snapshots carry it
+		parent._schema.childConcepts = parent._schema.childConcepts || {};
+		parent._schema.childConcepts[schema._id] = schema;
+
+		// open + re-sweep every live object the new concept could apply to: the root
+		// container reaches all objects; a real parent reaches objects it is cast on.
+		var atRoot = parent === this._rootConcept;
+		Object.keys(this._objById).forEach(function ( id ) {
+			var etty = me._objById[id]._etty;
+			if ( !etty || etty._dead ) return;
+			if ( !atRoot && !etty._mappedConcepts[parent._name] ) return;
+			if ( etty._mapOpenConcepts.indexOf(schema._id) === -1 )
+				etty._mapOpenConcepts.push(schema._id);
+			etty.updateApplicableConcepts(me);
+			me.toggleGraphObjectState(id, "unstable");
+		});
+
+		this.stabilize(cb);
+		return concept;
+	},
 	pushAtomicData: function ( data, revFrom, token ) {
 		var me = this;
 		debug.log("Start pushing from client %j", revFrom);

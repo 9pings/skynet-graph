@@ -1,12 +1,13 @@
 # Handoff — Skynet-Graph V1 "MOE Graph"
 
 **Date:** 2026-06-21 · **Branch:** `feat/moe-graph-v1-phase0` (off `master` @ `0e65ab4`)
-**Status:** **85/85 tests green.** Phase 0 + Phase 1 complete; Inspector v1 built; the
+**Status:** **96/96 tests green.** Phase 0 + Phase 1 complete; Inspector v1 built; the
 decompose→synthesize **answer-loop** built; **memory-on-retraction + closed learning loop** built;
 **array-append primitive** + **reactive budget cap** built; **typed-fact spine + canonicalization
 barrier** (roadmap #1, the K1 keystone) built; **reactive synthesis** (#2) built; **verification
-concepts** (#3, K3) built; **freshness/TTL as facts** (N1) built. The engine library is solid and
-heavily instrumented.
+concepts** (#3, K3) built; **freshness/TTL as facts** (N1) built; **declarative AI-authoring**
+(roadmap #10): `addConcept` + ref-soundness validation + a **CEGIS authoring loop** built. The engine
+library is solid and heavily instrumented.
 
 Read this, then `doc/MODELISATION.md` (the definitive model + prioritized roadmap), then resume.
 
@@ -65,6 +66,9 @@ four rows are **session 3**, all **zero core-engine change** — they touch only
 | **reactive synthesis** | roadmap #2: `reactiveLoopConceptTree` — `ReportUp` (`{__push}` self-id into parent `answeredBy`) + `Rollup` gated `ensure:["$answeredBy.length==$expandedInto.length"]`; bottom-up synthesis IN stabilization, == the post-pass. **Zero core change.** | `73ea0fd` |
 | **verification (K3)** | roadmap #3: `providers/verify.js` — deterministic checker lib + `Verify::check` (distinct verdict fact + provenance, never overwrites target) + k-of-n `Vote::tally` (consensus + confidence over `{__push}` votes). Verdict facts gate downstream via `ensure` → refutation = defeasance. **Zero core change.** | `194bcea` |
 | **freshness/TTL (N1)** | `_lab/clock.js` — host-driven `clock` free-node; `ensure:["$$clock:tick - $sensedAt < ttl"]` auto-retracts stale facts + cascades (cache-poisoning fix); `advanceClock`/`refetch` helpers. INVALIDATION automatic; REFETCH host-triggered (cast-once). **Zero core change.** | `23b2b70` |
+| **addConcept (#10)** | `Graph.addConcept(parentNameOrId, schema, cb)` — symmetric twin of `patchConcept`: builds+registers a `new Concept` (auto-registers into `_conceptLib`, recursive children), attaches under `parent._openConcepts` keyed by `_id` (engine invariant), mirrors into `parent._schema.childConcepts` (serialize carries it), opens it in each live object's `_mapOpenConcepts` + re-sweeps. Reuses cast/sweep/stabilize only — **additive method, no semantic change to existing paths.** Deferred-`require` watcher fires when the fact later appears. | *uncommitted* |
+| **validator ref-soundness (#10)** | `_lab/validate.js` layer 3: collects `applyMutations`-template keys as produced facts; new **`unknown-ref`** check (gated on a host-declared `knownFacts` ref-alphabet — §6.5 "host owns the provider palette + ref alphabet") flags a `require`/`ensure` on a fact NO concept produces & the alphabet doesn't declare (the silent never-fires footgun); cross-walk (`a:b`) refs skipped (sound). Warning by default, `strict`→error. | *uncommitted* |
+| **CEGIS authoring (#10)** | `_lab/author.js#authorConcept(graph, spec)` — counterexample-guided synthesis: an **injected** proposer emits a concept term → **author-time oracle** (`validateConceptTree`, malformed → counterexample) → install (`addConcept`/`patchConcept`) → **behavioral oracle** (stabilize, test goal predicate, unmet → counterexample) → refine. Counterexamples threaded back each round → candidate space shrinks → convergence. Backend-agnostic (LLM in prod, stub in tests). **Zero core change.** | *uncommitted* |
 
 Specs: `f2434d2`,`d74dcab`,`27a0322` (inspector spec + roadmap).
 
@@ -73,7 +77,7 @@ Specs: `f2434d2`,`d74dcab`,`27a0322` (inspector spec + roadmap).
 ## 2. How to run
 
 ```bash
-npm test                  # 85 tests (node:test). Per-file count is deterministic; the AGGREGATE
+npm test                  # 96 tests (node:test). Per-file count is deterministic; the AGGREGATE
                           #   count can race-undercount under --test-force-exit (all pass; verify per-file).
 node _lab/run-basic.js    # non-LLM stabilization over the real `common` set
 node _lab/run-prompt.js   # decompose→synthesize→answer vs a local LLM (LLM_BASE=...); writes a trace
@@ -135,6 +139,21 @@ assembles a concept tree from `concepts/<set>/`.
    what keeps the discrete fact *actually* stable so the gate doesn't spuriously flip. A prose-keyed gate
    flips every run → uncast → fragmentation. The optional N8 `old!==content` guard (literal hysteresis,
    skips even the re-sweep) stays out — `[C×1]`, and the barrier is correct without it.
+13. **`stabilize(cb)` is a SETTLE-HOOK — a write is what produces a settle (BY DESIGN, confirmed with the
+   engine author + empirically).** `cb` fires only when the graph actually settles, and it only settles if
+   the op **wrote/destabilized** something. A NO-OP op — a `patchConcept` changing no cast-state (e.g.
+   `$x>500`→`$x>600` when the concept was never cast), an `addConcept` matching nothing, or even a bare
+   `stabilize(cb)` on an already-quiescent graph (`running=false, unstable=0`) — destabilizes nothing → no
+   settle → `cb` never fires. This is the engine's **auto-throttle**, not a bug: *(a)* `toggleGraphObjectState`
+   `return false`s if the object is already in `_unstable` (idempotent — "already unstable → it just
+   continues"); *(b)* `stabilize` is `if (!_taskFlow.running) _taskFlow.run()` ("else check what's pending +
+   launch"); *(c)* `release` drops `running` to false at locks-0, so a burst of writes coalesces into one
+   run. **You can always get a settle by WRITING** (a real op leaves `_unstable.length`/`_triggeredCastCount`
+   non-empty → fires in ms). The host handling for a no-op is therefore *"nothing to wait for"*, NOT an
+   engine change: `_lab/author.js#applyOp` resolves on the next tick when `!_unstable.length &&
+   !_triggeredCastCount`. (Do NOT "fix" `stabilize` to fire `cb` when already stable — it would break the
+   settle-hook contract and can double-fire `cfg.onStabilize`.) `addConcept` always writes in the
+   matching case, so it settles normally; only the genuine no-op needs the guard.
 12. **Freshness/TTL (N1) — global clock ref needs DOUBLE-`$`** (re-bit me): `ensure:["$$clock:tick - $x < t"]`
    — `$clock` is a (nonexistent) key on the current scope; `$$clock` is the global free-node (gotcha #4).
    Time enters as a fact on a `clock` free-node (`_lab/clock.js`); `advanceClock` re-tests exactly the
@@ -161,21 +180,30 @@ memo-fragmentation (existential → typed-fact spine), coherence≠truth (K3 →
 
 Done: inspector · answer-loop · memory-on-retraction + learning loop · `{__push}` primitive · budget cap ·
 **typed-fact spine + canonicalization barrier (#1)** · **reactive synthesis (#2)** · **verification (#3)** ·
-**freshness/TTL (N1)**.
+**freshness/TTL (N1)** · **declarative AI-authoring (#10)** (`addConcept` + ref-soundness validation + CEGIS loop).
 
 Next, highest-leverage first:
-1. **Declarative AI-authoring** — `addConcept` (engine has `patchConcept`; add `addConcept`) + the now-built
-   validator (`_lab/validate.js` — extend it: structure, expr parse, ref-soundness, self-flag, prose-edge
-   rejection already done) from a vetted provider palette (now incl. `Verify::check`/`Vote::tally`); CEGIS loop
-   using the trace + memory as counterexamples. Then **live self-modification** (meta-concept calls
-   add/patchConcept mid-run) — LAST, gated behind trace+memory+budget; verify re-entrancy.
+1. **Live self-modification (#11) — LAST, the highest-risk tier.** Now unblocked: every instrument exists
+   (`addConcept`/`patchConcept`, trace, memory, budget, verification, validator). The remaining work is the
+   *safety wiring* (MODELISATION §6.4), because today's `addConcept`/`patchConcept` are **host-called at a
+   quiescent boundary** — calling them from INSIDE a provider mid-stabilize is the unsolved part:
+   - a single-writer **meta-concept on a `Stuck` fact** (not continuous polling);
+   - **route add/patchConcept issued during stabilization through a pending queue drained at the top of
+     `_loopTF`** (re-entrancy / no mid-apply structural change) + **scoped re-eval** (patchConcept today
+     re-evals *every* object — O(graph); scope to `_mapsByConcept[C]` ∪ require-roots);
+   - **hypothesis-and-test**: patch/add → stabilize a bounded region → `rollbackTo` if worse (every self-mod
+     is already a revision) + **N6 concept-lib versioning** (rollback restores facts, NOT concept-lib edits);
+   - **probationary experts**: an AI-authored concept's first outputs are verification-gated (#3) until a
+     reputation fact (via the memory machinery) clears it; apply-count ceiling as the oscillation backstop.
 2. (core, optional) **engine primitives now justified by the rungs built:**
    - **stratified set-aggregation `count`/`all`** — generalizes `{__push}`+`.length`; unblocks richer voting/beam
      AND the #2 content-reactive re-roll (a real `count`/`all` over children).
    - **Tarjan-SCC negative-cycle lint** (§5.3) — #3's `ensure`-aggregate gates + verdict retraction make
-     oscillation (K7) a live risk; the lint gives `ensure` well-founded (stratified) semantics.
+     oscillation (K7) a live risk; the lint gives `ensure` well-founded (stratified) semantics. *(The
+     validator already builds the concept-dependency edges for ref-soundness — natural place to add the lint.)*
    - **autonomous freshness reaper** — a `_loopTF`-piggybacked destabilize+recast of stale nodes, so N1's
-     refetch is automatic (today it's host-triggered via `refetch()`).
+     refetch is automatic (today it's host-triggered via `refetch()`). (This is the *write-to-destabilize*
+     pattern of finding #13 made autonomous — the reaper writes/destabilizes, the existing settle fires.)
 3. **The live/standing regime (MODELISATION N10)** — compose N1 + the budget *cap* (built; full AO\*/beam
    from §6.2 is still only the cap, not the priority-heap/beam-by-retraction) + the barrier into
    prospective/live/`ActiveProblem` terminal-typed paths: a never-terminating "be attentive & solve problems"
@@ -188,13 +216,16 @@ Next, highest-leverage first:
 ```
 App/objects/Concept.js     patch()/_compileAssert(); _computeWhy(); applyTo threads applyCtx for the trace
 App/objects/Entity.js      empty _openConcepts guard; {__push} array-append in set()
-App/Graph.js               patchConcept/getConceptByName; getSnapshot/diffRevisions; onConceptApply +
-                           traceProvider; App/db runtime-require (build fix)
+App/Graph.js               patchConcept/getConceptByName/addConcept (#10, additive); getSnapshot/
+                           diffRevisions; onConceptApply + traceProvider; App/db runtime-require (build fix)
 providers/{geo,llm,index}  packaged base providers + register()
 providers/canonicalize.js  deterministic fact snapping (enum/grain/type) + stable digest — the K1 grid
 providers/verify.js        checker lib + Verify::check (verdict facts) + Vote::tally (k-of-n) — #3 (K3)
 providers/llm.js           LLM::complete `{facts,prose}` canonicalization barrier (prompt.facts schema)
-_lab/validate.js           author-time concept validator (prose-edge rejection, self-flag, expr-parse, palette)
+_lab/validate.js           author-time concept validator (prose-edge rejection, self-flag, expr-parse, palette,
+                           +#10 ref-soundness/`unknown-ref` gated on a host `knownFacts` ref-alphabet)
+_lab/author.js             #10 CEGIS authoring loop: validate→addConcept/patchConcept→stabilize→goal-oracle→
+                           refine; injected proposer (LLM in prod, stub in tests); host-side `applyOp` no-op guard
 _lab/clock.js              freshness/TTL (N1): clock free-node + advanceClock/clockNow/refetch helpers
 _lab/trace.js, sg.js       trace collector + inspector CLI
 _lab/loop.js, run-prompt.js  the decompose→synthesize answer-loop + LLM runner
@@ -203,7 +234,8 @@ doc/API.md                 public API reference
 doc/MODELISATION.md        the model + prioritized roadmap (READ THIS)
 doc/ideation/01-04*.md     the 4-lens agent ideation raw findings
 docs/superpowers/specs/2026-06-21-moe-graph-inspector-design.md   inspector spec + §4b/4c roadmap detail
-tests/integration/*        23 integration files (+canon-barrier, reactive-synth, verification, freshness)
+tests/integration/*        25 integration files (+add-concept, author-cegis on top of canon-barrier,
+                           reactive-synth, verification, freshness)
 tests/unit/*               6 unit files (expr, concept-wiring, providers, canonicalize, validate, verify)
 ```
 
