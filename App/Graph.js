@@ -752,6 +752,57 @@ Graph.prototype = {
 		this.toggleGraphObjectState(cmapId, "unstable");
 		this.stabilize(cb);
 	},
+	/**
+	 * Resolve a concept by its id (`_conceptLib` key) or, failing that, by its
+	 * `_name`. Returns the Concept instance or null.
+	 * @param nameOrId
+	 */
+	getConceptByName: function ( nameOrId ) {
+		if ( this._conceptLib[nameOrId] ) return this._conceptLib[nameOrId];
+		var ids = Object.keys(this._conceptLib);
+		for ( var i = 0; i < ids.length; i++ )
+			if ( this._conceptLib[ids[i]]._name === nameOrId )
+				return this._conceptLib[ids[i]];
+		return null;
+	},
+	/**
+	 * Hot-patch an expert (concept) and re-evaluate the WHOLE graph against it,
+	 * in both directions — no restart, no rebuild:
+	 *   - patch the concept's schema + recompile its applicability test
+	 *     (delegated to Concept.patch);
+	 *   - for every live object: newly-applicable + not cast -> castConcept;
+	 *     cast + no-longer-applicable -> unCast (which cascades to children);
+	 *   - re-stabilize.
+	 *
+	 * @param nameOrId  concept id (`_conceptLib` key) or `_name`
+	 * @param updates   partial concept schema (e.g. `{ assert: ["$x > 5"] }`)
+	 * @param cb        optional stabilize callback
+	 * @returns {Graph} this
+	 */
+	patchConcept  : function ( nameOrId, updates, cb ) {
+		var me      = this,
+		    concept = this.getConceptByName(nameOrId);
+		if ( !concept )
+			throw new Error("patchConcept: no concept '" + nameOrId + "'");
+
+		concept.patch(updates);
+
+		Object.keys(this._objById).forEach(function ( id ) {
+			var etty       = me._objById[id]._etty;
+			if ( !etty || etty._dead ) return;
+			var applicable = !!concept.isApplicableTo(etty, me),
+			    isCast     = !!etty._mappedConcepts[concept._name];
+			if ( applicable && !isCast )
+				me.castConcept(id, concept._id);
+			else if ( !applicable && isCast ) {
+				etty.unCast(concept._name);
+				me.toggleGraphObjectState(id, "unstable");
+			}
+		});
+
+		this.stabilize(cb);
+		return this;
+	},
 	pushAtomicData: function ( data, revFrom, token ) {
 		var me = this;
 		debug.log("Start pushing from client %j", revFrom);

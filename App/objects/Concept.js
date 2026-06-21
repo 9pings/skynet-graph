@@ -8,6 +8,7 @@
  */
 var isArray  = require('is').array;
 var debug  = console;
+var dmerge = require('deepmerge');
 var { compileExpression } = require('../expr');
 // var cutils   = require('../../TimingUtils');
 
@@ -30,23 +31,14 @@ Concept.prototype = {
      */
     init          : function ( record, graph, parent ) {
         var me      = this,
-            cKeys   = record.childConcepts && Object.keys(record.childConcepts) || [],
-            asserts = isArray(record.assert) && record.assert
-                || record.assert && [record.assert]
-                || [],
-        
-            ensure  = isArray(record.ensure) && record.ensure
-                || record.ensure && [record.ensure]
-                || [];
-        
-        asserts.push.apply(asserts, ensure);
-        
+            cKeys   = record.childConcepts && Object.keys(record.childConcepts) || [];
+
         me._schema                    = record;
         graph._conceptLib[record._id] = this;
         if ( cKeys.length ) {
             this._openConcepts         = {};
             this._openConceptsRequires = {};
-            
+
             cKeys.map(
                 function ( v ) {
                     me._openConcepts[v]         = new Concept(record.childConcepts[v], graph, me);
@@ -58,17 +50,49 @@ Concept.prototype = {
         }
         else
             this.isLeaf = true;
-        
-        // generate the assert fn
+
+        // generate the assert fn (asserts + ensure, &&-joined)
+        this._compileAssert();
+        this._id         = record._id;
+        this._name       = record._name;
+        this._parent     = parent;
+
+
+    },
+    /**
+     * (Re)compile this concept's applicability test from its current `_schema`
+     * (assert + ensure expressions, &&-joined). Called at init and again by
+     * `patch()` so a hot-patched assert takes effect immediately.
+     */
+    _compileAssert: function () {
+        var record  = this._schema,
+            asserts = isArray(record.assert) && record.assert
+                || record.assert && [record.assert]
+                || [],
+            ensure  = isArray(record.ensure) && record.ensure
+                || record.ensure && [record.ensure]
+                || [];
+
+        asserts = asserts.concat(ensure);
+
         var _assertFn    = compileExpression(asserts, { empty: true });
         this._assertTest = function ( scope, graph ) {
             return _assertFn(function ( ref ) { return scope.getRef(ref); });
         };
-        this._id         = record._id;
-        this._name       = record._name;
-        this._parent     = parent;
-        
-        
+        return this;
+    },
+    /**
+     * Hot-patch this expert: deep-merge `updates` into `_schema` and recompile
+     * the applicability test. Arrays (assert/ensure/require/provider) are
+     * REPLACED, not concatenated, so patching an assert overrides the old one.
+     * Re-evaluating live objects against the patched expert is the graph's job
+     * (see Graph.patchConcept).
+     * @param updates partial concept schema
+     */
+    patch         : function ( updates ) {
+        this._schema = dmerge(this._schema, updates, { arrayMerge: function ( dest, src ) { return src; } });
+        this._compileAssert();
+        return this;
     },
     /**
      * Search Parent concept by name
