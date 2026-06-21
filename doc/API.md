@@ -265,6 +265,29 @@ Three patterns (all engine-verified; pick by reactivity need):
 Deterministic checkers: `range`, `oneOf`, `equals`, `approx`, `nonEmpty` — `(value, params) -> { pass, reason }`,
 extend via `createVerifier({ checks: { … } })`.
 
+### Freshness / TTL — time as a fact
+
+The engine has no internal wall-clock (replay stays hermetic). Time enters as an ordinary fact on a
+`clock` free-node; a time-bound concept gates freshness in an `ensure`. Advancing the clock re-tests
+exactly the concepts that follow it, so a fact that has gone **stale auto-retracts** (and its dependents
+cascade) — the cache-poisoning fix (an LLM/API fact otherwise lives forever). `_lab/clock.js` provides
+the helpers:
+
+```js
+const { clockSeed, clockNow, advanceClock, refetch } = require('./_lab/clock');
+// seed: { freeNodes: [ clockSeed(0) ], nodes: [ { _id:'n', source:'db', sensedAt:0 } ] }
+// concept: { "require":["source"], "ensure":["$$clock:tick - $sensedAt < 2"], "provider":["AI::sense"] }
+//   ($$clock — DOUBLE-$, a GLOBAL free-node ref; a single $clock is a key on the current scope)
+advanceClock(g, 3);          // tick 0 -> 3: the fact is now stale -> retracts + cascades
+refetch(g, 'n', 'Live');     // host-triggered re-run against the current clock
+```
+
+- **Invalidation is automatic and reliable.** **Refetch is host-triggered** — a provider is cast-once, so a
+  stale provider-fact re-derives only on uncast→recast (`refetch`). A fully-autonomous reaper is an optional
+  core primitive. A provider stamps its fetch time with `clockNow(graph)`.
+- Pitfall: an `ensure` with `||` (`"$x==null || $$clock:tick-$x<t"`) **short-circuits watcher registration** —
+  seed the stamp so the freshness operand always evaluates, or split the fetch from the freshness gate.
+
 ---
 
 ## Author-time concept validation

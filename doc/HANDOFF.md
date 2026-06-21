@@ -1,11 +1,12 @@
 # Handoff — Skynet-Graph V1 "MOE Graph"
 
 **Date:** 2026-06-21 · **Branch:** `feat/moe-graph-v1-phase0` (off `master` @ `0e65ab4`)
-**Status:** **84/84 tests green.** Phase 0 + Phase 1 complete; Inspector v1 built; the
+**Status:** **85/85 tests green.** Phase 0 + Phase 1 complete; Inspector v1 built; the
 decompose→synthesize **answer-loop** built; **memory-on-retraction + closed learning loop** built;
 **array-append primitive** + **reactive budget cap** built; **typed-fact spine + canonicalization
 barrier** (roadmap #1, the K1 keystone) built; **reactive synthesis** (#2) built; **verification
-concepts** (#3, K3) built. The engine library is solid and heavily instrumented.
+concepts** (#3, K3) built; **freshness/TTL as facts** (N1) built. The engine library is solid and
+heavily instrumented.
 
 Read this, then `doc/MODELISATION.md` (the definitive model + prioritized roadmap), then resume.
 
@@ -61,7 +62,8 @@ test harness, scoring=facts, `fork`/`merge`. Then this session:
 | **budget cap** | assert-gated `$$budget:spent.length < CAP` bounds exploration (K2) | `02c9789` |
 | **typed-fact spine** | canonicalization barrier (roadmap #1, K1): `LLM::complete` `{facts,prose}` contract (`providers/canonicalize.js`) + author-time validator (`_lab/validate.js`) rejecting prose-on-dependency-edges. **Zero core change.** | `be797c0` |
 | **reactive synthesis** | roadmap #2: `reactiveLoopConceptTree` — `ReportUp` (`{__push}` self-id into parent `answeredBy`) + `Rollup` gated `ensure:["$answeredBy.length==$expandedInto.length"]`; bottom-up synthesis IN stabilization, == the post-pass. **Zero core change.** | `73ea0fd` |
-| **verification (K3)** | roadmap #3: `providers/verify.js` — deterministic checker lib + `Verify::check` (distinct verdict fact + provenance, never overwrites target) + k-of-n `Vote::tally` (consensus + confidence over `{__push}` votes). Verdict facts gate downstream via `ensure` → refutation = defeasance. **Zero core change.** | *this session* |
+| **verification (K3)** | roadmap #3: `providers/verify.js` — deterministic checker lib + `Verify::check` (distinct verdict fact + provenance, never overwrites target) + k-of-n `Vote::tally` (consensus + confidence over `{__push}` votes). Verdict facts gate downstream via `ensure` → refutation = defeasance. **Zero core change.** | `194bcea` |
+| **freshness/TTL (N1)** | `_lab/clock.js` — host-driven `clock` free-node; `ensure:["$$clock:tick - $sensedAt < ttl"]` auto-retracts stale facts + cascades (cache-poisoning fix); `advanceClock`/`refetch` helpers. INVALIDATION automatic; REFETCH host-triggered (cast-once). **Zero core change.** | *this session* |
 
 Specs: `f2434d2`,`d74dcab`,`27a0322` (inspector spec + roadmap).
 
@@ -132,6 +134,15 @@ assembles a concept tree from `concepts/<set>/`.
    what keeps the discrete fact *actually* stable so the gate doesn't spuriously flip. A prose-keyed gate
    flips every run → uncast → fragmentation. The optional N8 `old!==content` guard (literal hysteresis,
    skips even the re-sweep) stays out — `[C×1]`, and the barrier is correct without it.
+12. **Freshness/TTL (N1) — global clock ref needs DOUBLE-`$`** (re-bit me): `ensure:["$$clock:tick - $x < t"]`
+   — `$clock` is a (nonexistent) key on the current scope; `$$clock` is the global free-node (gotcha #4).
+   Time enters as a fact on a `clock` free-node (`_lab/clock.js`); `advanceClock` re-tests exactly the
+   `$$clock`-following concepts. **Invalidation is automatic + reliable** (stale fact + dependents retract).
+   **Refetch is NOT automatic** — a provider is cast-once; `refetch()` (uncast/recast) re-runs it. A
+   self-autonomous reaper is optional-core. Also: an `ensure` with `||` (e.g. `$x==null || $$clock:tick-$x<t`)
+   **short-circuits watcher registration** — if the first operand is true at eval time the second operand's
+   ref watcher is never installed, so later changes don't re-fire it. Seed the stamp so the gate doesn't
+   short-circuit, or split the fetch from the freshness gate.
 
 ---
 
@@ -148,21 +159,25 @@ memo-fragmentation (existential → typed-fact spine), coherence≠truth (K3 →
 ## 5. Roadmap — pick up here (from MODELISATION §9, adjusted for what's now built)
 
 Done: inspector · answer-loop · memory-on-retraction + learning loop · `{__push}` primitive · budget cap ·
-**typed-fact spine + canonicalization barrier (#1)** · **reactive synthesis (#2)** · **verification (#3)**.
+**typed-fact spine + canonicalization barrier (#1)** · **reactive synthesis (#2)** · **verification (#3)** ·
+**freshness/TTL (N1)**.
 
 Next, highest-leverage first:
-1. **Freshness/TTL as facts** (N1) — timed-destabilize stale provider facts; enables the live/standing-paths
-   regime (prospective/live/`ActiveProblem` terminals — MODELISATION N10). Also unlocks BOTH the #2 *content*-
-   reactive re-roll (a leaf whose source changes re-answers → parent re-rolls) AND a re-running verifier (#3's
-   provider verifier is cast-once today). A global `clock` free-node experts `follow`; reuses the re-fire path.
-2. **Declarative AI-authoring** — `addConcept` + the now-built validator (`_lab/validate.js` — extend it:
-   structure, expr parse, ref-soundness, self-flag, prose-edge rejection already done) from a vetted provider
-   palette (now incl. `Verify::check`/`Vote::tally`); then **live self-modification** (meta-concept calls
+1. **Declarative AI-authoring** — `addConcept` (engine has `patchConcept`; add `addConcept`) + the now-built
+   validator (`_lab/validate.js` — extend it: structure, expr parse, ref-soundness, self-flag, prose-edge
+   rejection already done) from a vetted provider palette (now incl. `Verify::check`/`Vote::tally`); CEGIS loop
+   using the trace + memory as counterexamples. Then **live self-modification** (meta-concept calls
    add/patchConcept mid-run) — LAST, gated behind trace+memory+budget; verify re-entrancy.
-3. (core, optional) **stratified set-aggregation primitive** — generalizes `{__push}`+`.length`; unblocks
-   richer voting/beam AND the #2 content-reactive re-roll (a real `count`/`all` over children). NB: also add
-   the **Tarjan-SCC negative-cycle lint** (§5.3) — now that #3 adds `ensure`-aggregate gates + verdict
-   retraction, oscillation (K7) is a live risk; the lint gives `ensure` well-founded (stratified) semantics.
+2. (core, optional) **engine primitives now justified by the rungs built:**
+   - **stratified set-aggregation `count`/`all`** — generalizes `{__push}`+`.length`; unblocks richer voting/beam
+     AND the #2 content-reactive re-roll (a real `count`/`all` over children).
+   - **Tarjan-SCC negative-cycle lint** (§5.3) — #3's `ensure`-aggregate gates + verdict retraction make
+     oscillation (K7) a live risk; the lint gives `ensure` well-founded (stratified) semantics.
+   - **autonomous freshness reaper** — a `_loopTF`-piggybacked destabilize+recast of stale nodes, so N1's
+     refetch is automatic (today it's host-triggered via `refetch()`).
+3. **The live/standing regime (MODELISATION N10)** — compose N1 + #4(budget/beam, built) + the barrier into
+   prospective/live/`ActiveProblem` terminal-typed paths: a never-terminating "be attentive & solve problems"
+   graph. The pieces now exist; this is the integration capstone.
 
 ---
 
@@ -178,6 +193,7 @@ providers/canonicalize.js  deterministic fact snapping (enum/grain/type) + stabl
 providers/verify.js        checker lib + Verify::check (verdict facts) + Vote::tally (k-of-n) — #3 (K3)
 providers/llm.js           LLM::complete `{facts,prose}` canonicalization barrier (prompt.facts schema)
 _lab/validate.js           author-time concept validator (prose-edge rejection, self-flag, expr-parse, palette)
+_lab/clock.js              freshness/TTL (N1): clock free-node + advanceClock/clockNow/refetch helpers
 _lab/trace.js, sg.js       trace collector + inspector CLI
 _lab/loop.js, run-prompt.js  the decompose→synthesize answer-loop + LLM runner
                            (loop.js now also exports `reactiveLoopConceptTree` + reportUp/rollup providers)
