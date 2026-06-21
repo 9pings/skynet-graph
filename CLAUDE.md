@@ -15,10 +15,12 @@ npm run devLib       # staging build in watch mode (lpack :staging -w)
 ```
 Build output lands in `dist/` (gitignored). The package `main` is `dist/Comp.js`; the engine entry is `App/index.js`, which re-exports `App/Graph.js`.
 
-**Tests — read before trusting:**
-- `npm test` is a placeholder that echoes "ok". `npm run testAuto` watches paths that **do not exist** in this repo (`./dist/react-voodoo.js`, `./etc/tests/**/*.js`) — leftover from another project. Neither runs the tests.
-- `tests/Graph.test.js` is a Mocha-style spec but is currently **not runnable as-is**: it `require('../dist/graph')` (needs a build), uses a `QueryBased` concept set that does not exist here (only `common` does), and references `CommonTravel`/`../TimingUtils` that are absent. Treat it as a reference for the intended bootstrap, not a passing suite.
-- The intended flow a test demonstrates: `npm run build` → `require` the built engine → `new Graph(initialTpl, cfg, conceptMap)` with `cfg.onStabilize` firing once the graph settles. Run specs directly via `@babel/register` (Babel config is `tests/.babelrc`: React + ES2015 + stage-0).
+**Tests:**
+- `npm test` runs the suite via Node's built-in runner (`node --test --test-force-exit tests/unit/*.test.js tests/integration/*.test.js`). Unit tests (`tests/unit/`) are pure; integration tests (`tests/integration/`) load the engine via `_lab/_boot.js` (`@babel/register`).
+- `--test-force-exit` is required (the engine keeps timers/taskflow handles open). Side effect: the **aggregate** test COUNT can race-undercount across files (e.g. 43 vs 49) — tests still all pass; re-run a single file to get a deterministic count.
+- `_lab/concepts.js#buildConceptTree(dir)` builds a concept tree from `concepts/<set>/`; the host passes `{ common: tree }` as `conceptMap` to `new Graph(...)`.
+- Lab demos: `node _lab/run-basic.js` (non-LLM stabilization over the real `common` set) and `node _lab/run-problem.js` (LLM-driven plan decomposition; needs an endpoint — see `providers/llm.js`).
+- Ignore `tests/Graph.test.js` — dead legacy (requires `../dist/graph`, a `QueryBased` set and `CommonTravel`/`../TimingUtils` that don't exist here).
 
 ## Architecture
 
@@ -41,6 +43,8 @@ The central engine owns every object (`_objById`), the concept registry (`_conce
 
 **Mutations** (`pushMutation`) apply a template that creates or updates objects and marks them unstable. **Atomic updates + revisions** (`pushAtomicUpdates`, `_rev`, `_revs`) support master/client sync: when `cfg.isMaster` is false, mutations are forwarded to the master via `cfg.pushToMaster` and applied results stream back. `serialize()` produces a JSON snapshot.
 
+**V1 "MOE" public API** (added on `feat/moe-graph-v1-phase0`; full reference in `doc/API.md`): `rollbackTo(rev)` / `getRevisions()` / `getSnapshot(rev)` / `diffRevisions(a,b)` (revision history — snapshots captured on each stabilize); `fork(seed,conf)` / `merge(child,targetId,project)` (sub-agent sub-graphs); `patchConcept(nameOrId,updates)` / `getConceptByName` (hot-patch an expert + re-evaluate). To update an existing object via a template, use `$$_id` (a plain `_id` creates a new object).
+
 ### Concept rules (`concepts/common/`)
 
 Concept definitions are **JSONC** (JSON with `//` comments) — do not parse them as strict JSON. Files form a hierarchy via `childConcepts`; `Vertice.json` and `Edge.json` are the entry points for nodes and segments, and subdirectories specialize them (`Edge/Distance.json`, `Edge/Travel/*`, `Edge/Stay/*`, `Document/*`).
@@ -48,7 +52,7 @@ Concept definitions are **JSONC** (JSON with `//` comments) — do not parse the
 A concept's schema fields (handled in `Concept.js`):
 - `require` — preconditions that must resolve before the concept is even considered. Unresolved requires register a watcher (`getRef(..., follow=true)`) so the object is retested when the referenced value appears. This is distinct from `assert`.
 - `assert` / `ensure` — boolean expressions (joined with `&&`) compiled into `_assertTest`. Determines applicability once requires are satisfied.
-- `provider` — `"Namespace::fn"` (optionally an array `["ns::fn", ...args]`). Looked up in `Graph.static._providers`. **Gotcha:** `Graph._providers` is commented out (`Graph.js:98`) and there is no `providers/` dir in this repo, so any concept with a `provider` silently falls back to flagging itself `true`. A host app must wire providers up.
+- `provider` — `"Namespace::fn"` (optionally an array `["ns::fn", ...args]`). Looked up in `Graph.static._providers`. The core does **not** auto-wire providers (host opt-in): use the packaged `providers/` — `register(Graph, [{ CommonGeo }, createLLMProvider({ ask })])` — or set `Graph._providers` directly. A concept whose provider is missing/unwired silently falls back to flagging itself `true`. Provider fn signature: `(graph, concept, scope, argz, cb)`, `cb(err, mutationTemplate)`.
 - `applyMutations` — a mutation template applied when the concept casts.
 - `type: "enum"`, `defaultValue`, `autoCast: false`, `syncAfter` — control casting behavior (`autoCast:false` opts out of automatic casting; `syncAfter` is currently a no-op stub).
 
@@ -62,7 +66,7 @@ The same `$`-prefixed reference syntax appears in mutation templates and in quer
 - `_parent` — the mutation's target object; aliases declared in a template resolve within it.
 - In templates: `$_id` sets/derives the object id from a ref, `$$_id` forces a literal id, `$someKey` makes `someKey` a reference, `$$someKey` marks a **bagRef** (external data, see below), and `_incoming`/`_outgoing` nest child segments. See the worked airport example in the `Graph.js` header comment.
 
-**Query / assert expressions** (`queryMaps`, `getChildMatching`, `_assertTest`): a string or array of strings where `$ref` tokens are rewritten to `scope.getRef("ref")` and `&&`-joined, then compiled with `new Function`. Example: `"$Distance.inKm!=0"`.
+**Query / assert expressions** (`queryMaps`, `getChildMatching`, `_assertTest`): a string or array of strings where `$ref` tokens resolve via `scope.getRef("ref")` and are `&&`-joined, then compiled by **`App/expr.js`** — a safe jsep-based evaluator (no `new Function`/eval; `constructor`/`__proto__`/`prototype` access blocked). Example: `"$Distance.inKm!=0"`.
 
 **bagRefs** are references to data living outside the graph (e.g. a DB record). They match `cfg.bagRefManagers[*].test` (default manager `caipi` matches `/^db:(.+)$/`) and are loaded asynchronously via `_preloadBagRefs` before mutations using them complete.
 
@@ -72,4 +76,4 @@ Uses **layer-pack** (`lpack`), configured in `.layers.json` with two profiles: `
 
 ## Reference docs
 
-`doc/doc.md` (French) is the full concept-schema specification; `doc/analysis.md` holds supplementary analysis. Consult them for concept-definition details beyond the summary above.
+`doc/API.md` is the public API reference (construction, lifecycle, mutations, history/rollback, fork/merge, patchConcept, providers). `doc/doc.md` (French) is the full concept-schema specification; `doc/analysis.md` holds supplementary analysis. Consult them for concept-definition details beyond the summary above.
