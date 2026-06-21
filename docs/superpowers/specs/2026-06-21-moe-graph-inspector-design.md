@@ -177,8 +177,19 @@ Honest risks (must engineer):
   **exclusionary** (the strategy concept's `assert` excludes already-recorded failures) — else
   try-A→fail→try-B→fail→try-A loops. Same "dedup-vs-seen / loop-until-dry" discipline as a good search.
 - **Bounded memory:** discrete summarized facts only, or memory itself blows context.
-- **Mid-uncast safety:** writing a mutation during an unCast cascade must be verified safe (re-entrancy /
-  taskflow queue). *(A background research agent is validating this against the code; fold findings in.)*
+- **Mid-uncast safety:** VALIDATED (agent, 2026-06-21) — **implementable with ZERO required core changes.**
+  Findings: `cleaner` (Entity.js:224-239) is the emit point; at that moment the retracted concept's own key
+  is already `delete`d (Entity.js:205) but sibling/parent facts survive. A cleaner's nested `pushMutation` is
+  **queued** by the `_mutationThreadRunning` guard (Graph.js:903-907) and drained after the in-flight mutation
+  (1250-1252) — no re-entrancy. Anchor = a dedicated free-node `{_id:'memory', memory:[]}`; cleaner writes to
+  it cross-object via `$$_id:'memory'` (works today). Feedback: strategy providers read the full list via
+  `getEtty('memory')._.memory`; exclusion is assertable via flat boolean projection keys `failed_<ctx>_<strat>`
+  (since `getRef` can't aggregate a list — established constraint). Termination: append-only memory +
+  **negative-only** dependence (a strategy concept depends on memory only to be *disabled*, never re-enabled) +
+  self-flag + exclusion-key-set-atomically-with-the-record ⇒ strictly shrinking strategy set per context ⇒
+  well-founded. Only OPTIONAL engine change: pass `unReachable`/reason into the cleaner call (Entity.js:231-234,
+  one line) so the recorded `reason` is precise rather than inferred. The host keeps a trace-index keyed by
+  targetId (subscribe `graph.on('conceptApply', …)`) since the engine drops `_traceByApply` after emit.
 
 Sequence: **inspector (now) → memory-on-retraction → budget/retry-bound → strategy-adaptation (self-modifying
 tier, riskiest+coolest).** The trace built now is the prerequisite (it IS the "what worked and why").
