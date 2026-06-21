@@ -41,7 +41,9 @@ Entity.prototype = {
 		this._                = _;
 		// if (!graph) debugger;
 		this._graph           = graph;
-		this._mapOpenConcepts = Object.keys(graph._rootConcept._openConcepts);
+		// `|| {}`: a root concept set with no childConcepts has no _openConcepts —
+		// a graph with zero capabilities is degenerate but valid (mounts, stabilizes).
+		this._mapOpenConcepts = Object.keys(graph._rootConcept._openConcepts || {});
 		this._mappedConcepts  = {};
 		this._extOpenConcepts = [];
 		
@@ -407,7 +409,7 @@ Entity.prototype = {
 	 * dirty reset/clean of the box
 	 */
 	reset   : function () {
-		this._mapOpenConcepts        = Object.keys(this._graph._rootConcept._openConcepts);
+		this._mapOpenConcepts        = Object.keys(this._graph._rootConcept._openConcepts || {});
 		this._mappedConcepts         = {};
 		this._followersByConceptName = {};
 		this._watcherByConceptName   = {};
