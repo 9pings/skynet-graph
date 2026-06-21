@@ -8,6 +8,7 @@
  */
 var isArray  = require('is').array;
 var debug  = console;
+var { compileExpression } = require('../expr');
 // var cutils   = require('../../TimingUtils');
 
 var conceptLib = {};
@@ -59,21 +60,10 @@ Concept.prototype = {
             this.isLeaf = true;
         
         // generate the assert fn
-        this._assertTest =//@todo : mk a parser -.-
-            new Function("scope", "graph",
-                "try{" +
-                "return (" +
-                (
-                    asserts.length &&
-                    asserts.join(") && (")
-                           .replace(/\$(\$?[a-zA-Z\_][\w\.\:\$]+)/ig, "scope.getRef(\"$1\")")
-                    || "true"
-                )
-                + ");" +
-                "}catch(e){" +
-                "return undefined;" +
-                "}"
-            );
+        var _assertFn    = compileExpression(asserts, { empty: true });
+        this._assertTest = function ( scope, graph ) {
+            return _assertFn(function ( ref ) { return scope.getRef(ref); });
+        };
         this._id         = record._id;
         this._name       = record._name;
         this._parent     = parent;

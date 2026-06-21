@@ -18,6 +18,17 @@ var isObject    = require('is').object;
 var isArray     = require('is').array;
 var isFunction  = require('is').fn;
 var isString    = require('is').string;
+var { compileExpression } = require('./expr');
+
+// Wrap a query (string | array | fn) into a predicate fn(scope) that resolves
+// $refs via scope.getRef — replaces the old `new Function` query compiler.
+function compileScopeQuery ( query, emptyValue ) {
+	if ( isFunction(query) ) return query;
+	var _q = compileExpression(query, { empty: emptyValue });
+	return function ( scope ) {
+		return _q(function ( ref ) { return scope.getRef(ref); });
+	};
+}
 var shortid     = require('shortid');
 var dmerge      = require('deepmerge');
 var intersect   = require('intersect');
@@ -1397,22 +1408,7 @@ Graph.prototype = {
 	 */
 	getChildMatching: function ( edgeId, query ) {
 		let newPath  = this.getChildPath(edgeId),
-		    fn       = isFunction(query) ? query : new Function("scope",
-		                                                        "try{" +
-			                                                        "return (" +
-			                                                        (
-				                                                        (
-					                                                        isArray(query)
-					                                                        ? query.length && query.join(") && (")
-					                                                        : query
-				                                                        ).replace(/\$(\$?[a-zA-Z\_][\w\.\:\$]+)/ig, "scope.getRef(\"$1\")")
-				                                                        || "false"
-			                                                        )
-			                                                        + ");" +
-			                                                        "}catch(e){" +
-			                                                        "return undefined;" +
-			                                                        "}"
-		    ),
+		    fn       = compileScopeQuery(query, false),
 		    nextTheo = newPath.filter(( item ) => fn(item._etty));
 		
 		return nextTheo
@@ -1651,22 +1647,7 @@ Graph.prototype = {
 		
 		var me   = this,
 		    maps = this._objById,
-		    fn   = isFunction(query) ? query : new Function("scope",
-		                                                    "try{" +
-			                                                    "return (" +
-			                                                    (
-				                                                    (
-					                                                    isArray(query)
-					                                                    ? query.length && query.join(") && (")
-					                                                    : query
-				                                                    ).replace(/\$(\$?[a-zA-Z\_][\w\.\:\$]+)/ig, "scope.getRef(\"$1\")")
-				                                                    || "true"
-			                                                    )
-			                                                    + ");" +
-			                                                    "}catch(e){" +
-			                                                    "return undefined;" +
-			                                                    "}"
-		    )
+		    fn   = compileScopeQuery(query, true)
 		
 		
 		;
@@ -1732,6 +1713,7 @@ Graph.prototype = {
 		this._stabilized = true;
 		me._running      = false;
 		// me._rev++;// graph inst revision
+		this._captureSnapshot();// checkpoint this coherent state so rollbackTo() can restore it
 		this._on.stabilize
 		&& this._on.stabilize.slice(0).map(( cb ) => cb(me, me._syncTokensList));
 		this.cfg.onStabilize
@@ -1741,6 +1723,50 @@ Graph.prototype = {
 	history_push    : function ( mutation, targetId, isStep ) {
 	},
 	history_goto    : function ( to ) {
+		return this.rollbackTo(to);
+	},
+	// -------------------------------------------------------------------------- rollback
+	/**
+	 * Checkpoint the current stabilized (coherent) state so rollbackTo() can
+	 * restore it later. Keyed by the current revision; no-op if already captured.
+	 * Snapshots are full serialized states (delta replay is left for later).
+	 * @private
+	 */
+	_captureSnapshot: function () {
+		this._snapshots = this._snapshots || {};
+		var rev = this.getCurrentRevision();
+		if ( !this._snapshots[rev] ) this._snapshots[rev] = this.serialize();
+	},
+	/**
+	 * @returns {number[]} revisions available to rollbackTo(), ascending
+	 */
+	getRevisions: function () {
+		return Object.keys(this._snapshots || {}).map(Number).sort(( a, b ) => a - b);
+	},
+	/**
+	 * Roll the whole graph back to a previously stabilized revision: re-mount that
+	 * snapshot and re-stabilize (re-fires onStabilize). Snapshots strictly after
+	 * `revisionNumber` are discarded — this is a linear undo, the restored timeline
+	 * replaces the abandoned one.
+	 *
+	 * @param   revisionNumber  a revision from getRevisions() / getCurrentRevision()
+	 * @returns {number} the restored revision
+	 * @throws  {Error} if no snapshot exists for that revision
+	 */
+	rollbackTo: function ( revisionNumber ) {
+		var snap = this._snapshots && this._snapshots[revisionNumber];
+		if ( !snap )
+			throw new Error("rollbackTo: no snapshot for revision " + revisionNumber +
+			                " (available: " + this.getRevisions().join(', ') + ")");
+
+		this.mount(JSON.parse(snap.graph));// rebuild _objById at that rev, mark unstable, set _rev
+		Object.keys(this._snapshots).forEach(( r ) => {
+			if ( Number(r) > revisionNumber ) delete this._snapshots[r];// drop the abandoned future
+		});
+		this._stabilized = false;
+		this._taskFlow.run();// re-stabilize -> re-fires _applyStabilized / onStabilize
+		this._running = true;
+		return revisionNumber;
 	},
 	/**
 	 * clean & unref

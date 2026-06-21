@@ -10,6 +10,7 @@ var debug = console;
 
 var isArray    = require('is').array;
 var isFunction = require('is').fn;
+var { compileExpression } = require('../expr');
 
 
 let evalReplaceRE = /\$(\$?[a-zA-Z\_][\w\.\:\$]+)/ig;// 30mn;
@@ -117,13 +118,9 @@ Entity.prototype = {
 					});
 				}
 				cSchema.follow && cSchema.follow.reduce(function ( v, ref ) {//@todo : big optims
-					var wfn = (
-						(new Function("c", "graph", "me",
-						              "return function b_" + cname.replace(/[^\w]/ig, '_') + "(){" +
-							              "graph._conceptLib[c].isApplicableTo(me, graph)&&" +
-							              "graph.castConcept(me._._id, c)};" +
-							              ""))(c, graph, me)
-					);
+					var wfn = function () {
+							graph._conceptLib[c].isApplicableTo(me, graph) && graph.castConcept(me._._id, c);
+						};
 					me._watchers[cname].push(ref, wfn);
 					return graph.getRef(ref, me, wfn) && v;
 				}, true);
@@ -361,22 +358,11 @@ Entity.prototype = {
 	},
 	// -------------------------------------------------- refs & events
 	doEval                  : function ( asserts = "", refMap ) {
-		
-		let expr   = isArray(asserts) &&
-			asserts.join(") && (")
-			       .replace(evalReplaceRE, "scope.getRef(\"$1\")")
-			|| asserts.replace(evalReplaceRE, "scope.getRef(\"$1\")"),
-		    testFn =
-			    // TCache.get(expr)
-			    // || TCache.set(
-			    // expr,
-			    new Function("scope", "graph", "refMap",
-			                 "with(refMap){return (" + expr + ");}"
-			    )
-		// );
-		// if (refMap) debugger;
+		var me  = this,
+		    _fn = compileExpression(asserts, { empty: true });
 		try {
-			return testFn(this, this._graph, refMap || {});
+			// `refMap` resolves bare identifiers (the old `with(refMap)`).
+			return _fn(function ( ref ) { return me.getRef(ref); }, refMap || {});
 		} catch ( e ) {
 			debug.error("Eval fail : ", asserts, " using ", refMap, e);
 			return undefined;
@@ -450,28 +436,8 @@ Entity.prototype = {
 	test: function ( query ) {// only for ui !
 		
 		var me = this,
-		    fn = isFunction(query) ? query :
-		         new Function(
-			         "scope",
-			         "try{" +
-				         "return (" +
-				         (
-					         (
-						         isArray(query) ?
-						         query.length && query.join(") && (")
-						                        :
-						         query
-					         ).replace(/\$(\$?[a-zA-Z\_][\w\.\:\$]+)/ig, "scope.getRef(\"$1\")")
-					         || "false"
-				         )
-				         + ");" +
-				         "}catch(e){" +
-				         "return undefined;" +
-				         "}"
-		         )
-		
-		
-		;
+		    _q = isFunction(query) ? null : compileExpression(query, { empty: false }),
+		    fn = isFunction(query) ? query : function ( scope ) { return _q(function ( ref ) { return scope.getRef(ref); }); };
 		// debugger;
 		return fn(this);
 		

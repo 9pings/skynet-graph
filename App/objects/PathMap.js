@@ -10,7 +10,18 @@
 var isArray    = require('is').array;
 var isFunction = require('is').fn;
 var isString   = require('is').string;
+var { compileExpression } = require('../expr');
 import shortid from "shortid";
+
+// Wrap a query (string | array | fn) into a predicate fn(me, map) that resolves
+// $refs via me.getRef(ref, map) — replaces the old `new Function` query compiler.
+function compilePathQuery ( query ) {
+	if ( isFunction(query) ) return query;
+	var _q = compileExpression(query, { empty: true });
+	return function ( me, map ) {
+		return _q(function ( ref ) { return me.getRef(ref, map); });
+	};
+}
 
 //import {Skycube, SkycubeBuilder} from "@aetheris/skycube";
 
@@ -182,22 +193,7 @@ PathMap.prototype = {
 		    selected        = [],
 		    selectedPOI     = [],
 		    cpath,
-		    fn              = isFunction(query) ? query : new Function("me", "map",
-		                                                               "try{" +
-			                                                               "return (" +
-			                                                               (
-				                                                               (
-					                                                               isArray(query)
-					                                                               ? query.length && query.join(") && (")
-					                                                               : query
-				                                                               ).replace(/\$(\$?[a-zA-Z\_][\w\.\:\$]+)/ig, "me.getRef(\"$1\", map)")
-				                                                               || "true"
-			                                                               )
-			                                                               + ");" +
-			                                                               "}catch(e){" +
-			                                                               "return undefined;" +
-			                                                               "}"
-		    );
+		    fn              = compilePathQuery(query);
 		
 		for ( ; i < this._.paths.length; i++ ) {
 			p     = this._.paths[i];
@@ -235,22 +231,7 @@ PathMap.prototype = {
 		var me       = this,
 		    selected = path._isPath ? path.tpl : this._paths[path] || [],
 		    maps     = this._.maps,
-		    fn       = isFunction(query) ? query : new Function("me", "map",
-		                                                        "try{" +
-			                                                        "return (" +
-			                                                        (
-				                                                        (
-					                                                        isArray(query)
-					                                                        ? query.length && query.join(") && (")
-					                                                        : query
-				                                                        ).replace(/\$(\$?[a-zA-Z\_][\w\.\:\$]+)/ig, "me.getRef(\"$1\", map)")
-				                                                        || "true"
-			                                                        )
-			                                                        + ");" +
-			                                                        "}catch(e){" +
-			                                                        "return undefined;" +
-			                                                        "}"
-		    )
+		    fn       = compilePathQuery(query)
 		
 		
 		;
