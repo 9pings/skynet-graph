@@ -99,3 +99,20 @@ body { margin: 0; font: 13px/1.5 ui-sans-serif, system-ui, "Segoe UI", Roboto, s
 .fk-id:hover { color: var(--accent); }
 .fk-merge { background: none; border: 1px solid var(--border); color: var(--muted); border-radius: 6px; padding: 1px 7px; cursor: pointer; font-size: 11px; }
 .fk-merge:hover { border-color: var(--good); color: var(--good); }
+
+/* prompt console (T12) */
+.prompt { border-top: 1px solid var(--border); background: var(--panel); }
+.pr-out { max-height: 180px; overflow: auto; padding: 8px 14px; font-family: ui-monospace, monospace; font-size: 12px; border-bottom: 1px solid var(--border); }
+.pr-err { color: var(--bad); }
+.pr-step { color: var(--muted); padding: 1px 0; }
+.pr-step.pr-eval { color: var(--accent); }
+.pr-step.pr-expand { color: var(--warn); }
+.pr-step.pr-answer { color: var(--good); }
+.pr-step.pr-rollup { color: #c792ea; }
+.pr-answer { margin-top: 8px; color: var(--fg); }
+.pr-answer b { color: var(--good); display: block; margin-bottom: 4px; }
+.pr-bar { display: flex; gap: 8px; padding: 8px 14px; }
+.pr-bar input { flex: 1; background: #0d1218; color: var(--fg); border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px; font: inherit; }
+.pr-bar input:focus { outline: none; border-color: var(--accent); }
+.pr-bar button { background: var(--accent); color: #0b1017; border: none; border-radius: 6px; padding: 6px 16px; font-weight: 600; cursor: pointer; }
+.pr-bar button:disabled { opacity: .4; cursor: default; }

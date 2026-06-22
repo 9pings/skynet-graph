@@ -97,6 +97,13 @@ try {
 	await new Promise(( r ) => setTimeout(r, 900));
 	const forkNodeMerged = await page.evaluate(async () => ((await window.__sgApi.call('state', {}, 'root')).objects || []).some(( o ) => /^fork-/.test(o._id)));
 
+	// T12: prompt console — submit without an LLM backend -> graceful error notice (no crash)
+	await page.evaluate(() => { const i = document.querySelector('.pr-bar input'); if ( i ) { const set = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set; set.call(i, 'plan a trip to tokyo'); i.dispatchEvent(new Event('input', { bubbles: true })); } });
+	await new Promise(( r ) => setTimeout(r, 200));
+	await page.evaluate(() => { const b = [...document.querySelectorAll('.pr-bar button')].find(( x ) => /run/.test(x.textContent)); if ( b ) b.click(); });
+	await new Promise(( r ) => setTimeout(r, 700));
+	const promptErr = await page.evaluate(() => { const e = document.querySelector('.pr-err'); return e ? e.textContent.trim().slice(0, 40) : null; });
+
 	await page.select('.lyt select', 'elk');
 	await new Promise(( r ) => setTimeout(r, 600));
 	await page.screenshot({ path: '/tmp/studio-smoke.png', fullPage: true });
@@ -104,6 +111,7 @@ try {
 	console.log('T9 timeline: checkpoints=' + ckpts + ' diffShown=' + diffShown + ' noteAfterRollback=' + noteAfter);
 	console.log('T10 editor: validation=' + validation + ' closedAfterApply=' + editorClosed);
 	console.log('T11 forks: activeAfterFork=' + activeAfterFork + ' forkCount=' + forkCount + ' forkNodeMerged=' + forkNodeMerged);
+	console.log('T12 prompt: error(no-LLM)=' + JSON.stringify(promptErr));
 } catch ( e ) {
 	errors.push('SCRIPT: ' + e.message);
 } finally {
