@@ -9,7 +9,8 @@
   },
   "scripts": {
     "test": "node --test --test-force-exit tests/unit/*.test.js tests/integration/*.test.js",
-    "test:watch": "node --test --watch tests/unit/*.test.js"
+    "test:watch": "node --test --watch tests/unit/*.test.js",
+    "test:studio": "node scripts/studio-smoke.mjs"
   },
   "dependencies": {
     "@jsep-plugin/object": "^1.2.2",
@@ -22,5 +23,8 @@
     "json5": "^2.2.3",
     "shortid": "^2.2.16",
     "ws": "^8.21.0"
+  },
+  "devDependencies": {
+    "puppeteer": "^25.1.0"
   }
 }
