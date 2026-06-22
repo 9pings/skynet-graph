@@ -57,8 +57,32 @@ try {
 		await new Promise(( r ) => setTimeout(r, 900));
 	}
 
+	// T9: create a 2nd checkpoint (mutate -> settle), then scrub + diff + rollback for real
+	await page.evaluate(() => window.__sgApi && window.__sgApi.call('mutate', { template: { $$_id: 's', note: 'x' }, targetId: 's' }));
+	await new Promise(( r ) => setTimeout(r, 1300));
+	const ckpts = await page.evaluate(async () => ((await window.__sgApi.call('state')).revs || []).length);
+	await page.evaluate(() => {
+		const r = document.querySelector('.tl-range');
+		if ( r && Number(r.max) > 0 ) {
+			const set = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+			set.call(r, '0');
+			r.dispatchEvent(new Event('input', { bubbles: true }));
+		}
+	});
+	await new Promise(( r ) => setTimeout(r, 300));
+	await page.evaluate(() => { const b = [...document.querySelectorAll('.timeline button')].find(( x ) => /diff/.test(x.textContent) && !x.disabled); if ( b ) b.click(); });
+	await new Promise(( r ) => setTimeout(r, 400));
+	const diffShown = await page.evaluate(() => !!document.querySelector('.diffpanel'));
+	await page.evaluate(() => { const c = document.querySelector('.diffpanel .dp-head button'); if ( c ) c.click(); });
+	await page.evaluate(() => { const b = [...document.querySelectorAll('.timeline button')].find(( x ) => /rollback/.test(x.textContent) && !x.disabled); if ( b ) b.click(); });
+	await new Promise(( r ) => setTimeout(r, 800));
+	const noteAfter = await page.evaluate(async () => { const s = ((await window.__sgApi.call('state')).objects || []).find(( o ) => o._id === 's'); return s ? (s.note == null ? 'gone' : s.note) : 'no-seg'; });
+
+	await page.select('.lyt select', 'elk');
+	await new Promise(( r ) => setTimeout(r, 600));
 	await page.screenshot({ path: '/tmp/studio-smoke.png', fullPage: true });
 	console.log('rendered: nodes=' + nodes + ' edges=' + edges + ' | layouts: ' + layouts.join(','));
+	console.log('T9 timeline: checkpoints=' + ckpts + ' diffShown=' + diffShown + ' noteAfterRollback=' + noteAfter);
 } catch ( e ) {
 	errors.push('SCRIPT: ' + e.message);
 } finally {

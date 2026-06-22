@@ -40,3 +40,23 @@ body { margin: 0; font: 13px/1.5 ui-sans-serif, system-ui, "Segoe UI", Roboto, s
 .tracerow { display: flex; flex-wrap: wrap; gap: 6px; }
 .tchip { font-family: ui-monospace, monospace; font-size: 11px; padding: 2px 7px; background: #11171f; border: 1px solid var(--border); border-radius: 10px; color: var(--muted); }
 .tchip b { color: var(--good); font-weight: 600; }
+
+/* timeline (T9) */
+.timeline { display: flex; align-items: center; gap: 10px; padding: 6px 14px; background: #11171f; border-bottom: 1px solid var(--border); }
+.timeline .tl-lbl { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+.timeline .tl-range { flex: 1; accent-color: var(--accent); }
+.timeline .tl-cur { color: var(--muted); font-family: ui-monospace, monospace; font-size: 12px; min-width: 96px; }
+.timeline button { background: #222b36; color: var(--fg); border: 1px solid var(--border); border-radius: 6px; padding: 3px 9px; cursor: pointer; font: inherit; }
+.timeline button:hover:not(:disabled) { border-color: var(--accent); }
+.timeline button:disabled { opacity: .4; cursor: default; }
+
+/* diff panel (T9) */
+.diffpanel { position: fixed; right: 16px; bottom: 16px; width: 360px; max-height: 50vh; overflow: auto; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 8px 30px rgba(0,0,0,.5); z-index: 10; }
+.dp-head { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border-bottom: 1px solid var(--border); color: var(--accent); font-family: ui-monospace, monospace; }
+.dp-head button { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 14px; }
+.dp-body { padding: 10px 12px; font-family: ui-monospace, monospace; font-size: 12px; }
+.dp-sec { margin: 4px 0; }
+.dp-sec.added { color: var(--good); }
+.dp-sec.removed { color: var(--bad); }
+.dp-sec.changed { color: var(--warn); }
+.dp-chg { color: var(--muted); padding-left: 12px; }
