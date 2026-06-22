@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" font-family="ui-sans-serif,system-ui,Segoe UI,Roboto,sans-serif">
+  <defs>
+    <marker id="s" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#475569"/>
+    </marker>
+    <marker id="sr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#ef4444"/>
+    </marker>
+  </defs>
+  <text x="22" y="30" font-size="15" font-weight="700" fill="#1e293b">Stabilization: forward-chain to a fixpoint, retract on premise-fall (JTMS)</text>
+
+  <rect x="22"  y="64" width="120" height="48" rx="8" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+  <text x="82" y="84" font-size="12" font-weight="700" fill="#3730a3" text-anchor="middle">mutation</text>
+  <text x="82" y="101" font-size="10.5" fill="#475569" text-anchor="middle">create / update</text>
+
+  <rect x="182" y="64" width="120" height="48" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+  <text x="242" y="84" font-size="12" font-weight="700" fill="#334155" text-anchor="middle">unstable</text>
+  <text x="242" y="101" font-size="10.5" fill="#475569" text-anchor="middle">objects marked</text>
+
+  <rect x="342" y="64" width="140" height="48" rx="8" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+  <text x="412" y="84" font-size="12" font-weight="700" fill="#3730a3" text-anchor="middle">match concepts</text>
+  <text x="412" y="101" font-size="10.5" fill="#475569" text-anchor="middle">require / assert / ensure</text>
+
+  <rect x="522" y="64" width="150" height="48" rx="8" fill="#fff7ed" stroke="#f59e0b" stroke-width="2"/>
+  <text x="597" y="84" font-size="12" font-weight="700" fill="#92400e" text-anchor="middle">cast</text>
+  <text x="597" y="101" font-size="10.5" fill="#78350f" text-anchor="middle">+facts +child segments</text>
+
+  <line x1="142" y1="88" x2="176" y2="88" stroke="#475569" stroke-width="2" marker-end="url(#s)"/>
+  <line x1="302" y1="88" x2="336" y2="88" stroke="#475569" stroke-width="2" marker-end="url(#s)"/>
+  <line x1="482" y1="88" x2="516" y2="88" stroke="#475569" stroke-width="2" marker-end="url(#s)"/>
+
+  <!-- feedback loop: cast destabilizes more -->
+  <path d="M597,112 L597,150 L242,150 L242,114" fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#s)"/>
+  <text x="420" y="145" font-size="11" fill="#475569" text-anchor="middle">new facts trigger more concepts — repeat until nothing fires</text>
+
+  <!-- fixpoint -->
+  <rect x="300" y="190" width="180" height="44" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+  <text x="390" y="217" font-size="12.5" font-weight="700" fill="#065f46" text-anchor="middle">fixpoint = stable</text>
+  <line x1="540" y1="112" x2="470" y2="188" stroke="#10b981" stroke-width="2" marker-end="url(#s)"/>
+  <text x="556" y="150" font-size="11" fill="#10b981">no more</text>
+  <text x="556" y="164" font-size="11" fill="#10b981">triggers</text>
+
+  <!-- retraction -->
+  <rect x="22" y="270" width="710" height="50" rx="8" fill="#fef2f2" stroke="#ef4444" stroke-width="1.6"/>
+  <text x="40" y="292" font-size="12" font-weight="700" fill="#991b1b">retraction (defeasance)</text>
+  <text x="40" y="310" font-size="11" fill="#7f1d1d">an `ensure` premise later becomes false → the concept un-casts → its consequences un-cast in cascade (cleaners run). No hand-written rollback.</text>
+  <line x1="390" y1="234" x2="390" y2="268" stroke="#ef4444" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#sr)"/>
+</svg>
