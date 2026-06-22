@@ -60,3 +60,28 @@ body { margin: 0; font: 13px/1.5 ui-sans-serif, system-ui, "Segoe UI", Roboto, s
 .dp-sec.removed { color: var(--bad); }
 .dp-sec.changed { color: var(--warn); }
 .dp-chg { color: var(--muted); padding-left: 12px; }
+
+/* concept tree (T10) */
+.concepts { width: 220px; border-right: 1px solid var(--border); padding: 10px 0; overflow: auto; background: var(--panel); flex-shrink: 0; }
+.concepts h3 { margin: 0 0 8px 14px; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+.concepts .empty { color: var(--muted); padding: 0 14px; }
+.cset { margin-bottom: 8px; }
+.csetname { color: var(--accent); font-family: ui-monospace, monospace; font-size: 11px; padding: 2px 14px; opacity: .8; }
+.cname { display: block; padding: 2px 14px; font-family: ui-monospace, monospace; font-size: 12px; color: var(--fg); cursor: pointer; }
+.cname:hover { background: #11171f; color: var(--accent); }
+
+/* concept editor modal (T10) */
+.editor-modal { position: fixed; inset: 0; background: rgba(0,0,0,.5); display: flex; align-items: center; justify-content: center; z-index: 20; }
+.em-box { width: 560px; max-width: 92vw; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 12px 40px rgba(0,0,0,.6); display: flex; flex-direction: column; }
+.em-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--fg); }
+.em-head b { color: var(--accent); font-family: ui-monospace, monospace; }
+.em-head button { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 15px; }
+.em-text { margin: 12px 14px 0; height: 320px; background: #0d1218; color: var(--fg); border: 1px solid var(--border); border-radius: 6px; padding: 10px; font-family: ui-monospace, monospace; font-size: 12px; resize: vertical; }
+.em-validation { margin: 8px 14px 0; font-family: ui-monospace, monospace; font-size: 12px; }
+.em-validation.ok { color: var(--good); }
+.em-validation.bad { color: var(--bad); }
+.em-warn { color: var(--warn); margin-top: 4px; }
+.em-actions { display: flex; gap: 8px; justify-content: flex-end; padding: 12px 14px; }
+.em-actions button { background: #222b36; color: var(--fg); border: 1px solid var(--border); border-radius: 6px; padding: 5px 12px; cursor: pointer; font: inherit; }
+.em-actions button.primary { background: var(--accent); color: #0b1017; border-color: var(--accent); font-weight: 600; }
+.em-actions button:disabled { opacity: .4; cursor: default; }

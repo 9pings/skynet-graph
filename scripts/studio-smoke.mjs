@@ -78,11 +78,22 @@ try {
 	await new Promise(( r ) => setTimeout(r, 800));
 	const noteAfter = await page.evaluate(async () => { const s = ((await window.__sgApi.call('state')).objects || []).find(( o ) => o._id === 's'); return s ? (s.note == null ? 'gone' : s.note) : 'no-seg'; });
 
+	// T10: open the concept editor, validate, apply (benign re-patch of Distance)
+	await page.evaluate(() => { const c = [...document.querySelectorAll('.concepts .cname')].find(( x ) => x.textContent.trim() === 'Distance'); if ( c ) c.click(); });
+	await page.waitForSelector('.em-box', { timeout: 8000 });
+	await page.evaluate(() => { const b = [...document.querySelectorAll('.em-actions button')].find(( x ) => /validate/.test(x.textContent)); if ( b ) b.click(); });
+	await new Promise(( r ) => setTimeout(r, 500));
+	const validation = await page.evaluate(() => { const v = document.querySelector('.em-validation'); return v ? v.className.replace('em-validation ', '').trim() : null; });
+	await page.evaluate(() => { const b = [...document.querySelectorAll('.em-actions button')].find(( x ) => /apply/.test(x.textContent) && !x.disabled); if ( b ) b.click(); });
+	await new Promise(( r ) => setTimeout(r, 700));
+	const editorClosed = await page.evaluate(() => !document.querySelector('.em-box'));
+
 	await page.select('.lyt select', 'elk');
 	await new Promise(( r ) => setTimeout(r, 600));
 	await page.screenshot({ path: '/tmp/studio-smoke.png', fullPage: true });
 	console.log('rendered: nodes=' + nodes + ' edges=' + edges + ' | layouts: ' + layouts.join(','));
 	console.log('T9 timeline: checkpoints=' + ckpts + ' diffShown=' + diffShown + ' noteAfterRollback=' + noteAfter);
+	console.log('T10 editor: validation=' + validation + ' closedAfterApply=' + editorClosed);
 } catch ( e ) {
 	errors.push('SCRIPT: ' + e.message);
 } finally {
