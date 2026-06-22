@@ -13,7 +13,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const Graph = require('../../_lab/_boot.js');
+const Graph = require('../_boot.js');
 console.log = console.info = console.warn = () => {};
 
 test('#11.c.1 the apply-count ceiling breaks a runaway oscillation and flags it divergent', async () => {

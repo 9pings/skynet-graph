@@ -1,15 +1,15 @@
 // End-to-end "answer a (huge) prompt" loop against a local LLM server:
 //   seed root segment (prompt) -> DECOMPOSE (reactive concepts) -> stabilize
 //   -> SYNTHESIZE bottom-up (bounded LLM rollup) -> print root answer.
-// Every concept-apply is traced; the artifact is written so `node _lab/sg.js` can inspect it.
+// Every concept-apply is traced; the artifact is written so `node lib/sg/cli.js` can inspect it.
 //
-//   LLM_BASE=http://localhost:8080 OBJECTIVE="..." node _lab/run-prompt.js
-//   node _lab/sg.js trace /tmp/run-prompt.trace.json
+//   LLM_BASE=http://localhost:8080 OBJECTIVE="..." node examples/run-prompt.js
+//   node lib/sg/cli.js trace /tmp/run-prompt.trace.json
 const path = require('path');
-const Graph = require('./_boot.js');
-const { loopConceptTree, makeDecomposeProviders, synthesize } = require('./loop.js');
+const Graph = require('../tests/_boot.js');
+const { loopConceptTree, makeDecomposeProviders, synthesize } = require('../lib/authoring/loop.js');
 const { ask, parseJSON, BASE, MODEL } = require('./llm.js');
-const { createTrace } = require('./trace.js');
+const { createTrace } = require('../lib/sg/trace.js');
 
 const out = (...a) => process.stdout.write(a.join(' ') + '\n');
 console.log = console.info = console.warn = () => {};
@@ -85,7 +85,7 @@ const g = new Graph(seed, {
 		trace.write(TRACE_FILE, graph, { objective: OBJECTIVE, model: MODEL, llmCalls });
 		const segs = Object.keys(graph._objById).filter(k => graph._objById[k]._etty._.Segment).length;
 		out('\n=== RÉPONSE ===\n' + answer);
-		out(`\n(${segs} segments, ${llmCalls} appels LLM · trace: ${TRACE_FILE} — \`node _lab/sg.js trace ${TRACE_FILE}\`)`);
+		out(`\n(${segs} segments, ${llmCalls} appels LLM · trace: ${TRACE_FILE} — \`node lib/sg/cli.js trace ${TRACE_FILE}\`)`);
 		setTimeout(() => process.exit(0), 50);
 	}
 }, { common: loopConceptTree });

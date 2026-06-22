@@ -7,7 +7,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const Concept = require('../../App/objects/Concept');
+const Concept = require('../../lib/graph/objects/Concept');
 
 // Minimal graph stub: Concept.init only needs `_conceptLib` to register itself.
 function makeConcept(schema) {

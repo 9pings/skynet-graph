@@ -10,7 +10,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 
-const { CommonGeo, haversineKm, createLLMProvider, parseJSON, register } = require('../../providers');
+const { CommonGeo, haversineKm, createLLMProvider, parseJSON, register } = require('../../lib/providers');
 
 test('haversineKm computes great-circle distance in km', () => {
 	const paris = { lat: 48.8566, lng: 2.3522 };

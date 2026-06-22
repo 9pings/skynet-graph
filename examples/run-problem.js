@@ -7,7 +7,7 @@
 //
 // Termination: each pair sets its own flag (no re-fire) + the depth floor makes the recursion well-founded.
 const path = require('path');
-const Graph = require('./_boot.js');
+const Graph = require('../tests/_boot.js');
 const { ask, parseJSON, BASE, MODEL } = require('./llm.js');
 
 const out = (...a) => process.stdout.write(a.join(' ') + '\n');

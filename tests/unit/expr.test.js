@@ -11,7 +11,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { compileExpression } = require('../../App/expr');
+const { compileExpression } = require('../../lib/graph/expr');
 
 // A resolver standing in for `scope.getRef(refName)`: the engine delegates
 // dotted/colon path walking to getRef, so the resolver is keyed by the full

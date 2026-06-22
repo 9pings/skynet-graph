@@ -8,9 +8,9 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const path = require('node:path');
-const { validateConceptTree, validateOrThrow } = require('../../_lab/validate');
-const { buildConceptTree } = require('../../_lab/concepts');
-const { loopConceptTree } = require('../../_lab/loop');
+const { validateConceptTree, validateOrThrow } = require('../../lib/authoring/validate');
+const { buildConceptTree } = require('../../lib/authoring/concepts');
+const { loopConceptTree } = require('../../lib/authoring/loop');
 
 // An upstream classifier with the {facts, prose} contract + two downstreams: one keyed
 // on the discrete fact (sound), one keyed on the prose key (the K1 violation).

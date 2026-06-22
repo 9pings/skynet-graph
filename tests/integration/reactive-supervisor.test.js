@@ -9,8 +9,8 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const Graph = require('../../_lab/_boot.js');
-const { reactiveSupervisorTree, makeSupervisorProviders } = require('../../_lab/supervise.js');
+const Graph = require('../_boot.js');
+const { reactiveSupervisorTree, makeSupervisorProviders } = require('../../lib/authoring/supervise.js');
 console.log = console.info = console.warn = () => {};
 
 const seg = (g) => g._objById['seg']._etty;

@@ -13,8 +13,8 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const Graph = require('../../_lab/_boot.js');
-const { clockSeed, clockNow, advanceClock, refetch } = require('../../_lab/clock.js');
+const Graph = require('../_boot.js');
+const { clockSeed, clockNow, advanceClock, refetch } = require('../../lib/authoring/clock.js');
 console.log = console.info = console.warn = () => {};
 
 test('clock advance invalidates a stale fact + cascades; host refetch restores it fresh', async () => {

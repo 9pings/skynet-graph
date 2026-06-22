@@ -6,4 +6,4 @@ require('@babel/register')({
   extensions: ['.js'],
   cache: true,
 });
-module.exports = require('../App/index.js'); // -> Graph
+module.exports = require('../lib/graph/index.js'); // -> Graph

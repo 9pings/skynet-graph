@@ -8,8 +8,8 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const path = require('path');
 
-const Graph = require('../../_lab/_boot.js');
-const { buildConceptTree } = require('../../_lab/concepts.js');
+const Graph = require('../_boot.js');
+const { buildConceptTree } = require('../../lib/authoring/concepts.js');
 console.log = console.info = console.warn = () => {};
 
 function haversineKm(a, b) {

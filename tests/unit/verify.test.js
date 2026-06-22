@@ -5,7 +5,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { createVerifier, checks, majority } = require('../../providers/verify');
+const { createVerifier, checks, majority } = require('../../lib/providers/verify');
 
 test('deterministic checkers are total and side-effect-free', () => {
 	assert.equal(checks.range(50, { min: 0, max: 100 }).pass, true);

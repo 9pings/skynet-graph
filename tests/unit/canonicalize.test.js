@@ -6,7 +6,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { canonValue, canonFacts, digest } = require('../../providers/canonicalize');
+const { canonValue, canonFacts, digest } = require('../../lib/providers/canonicalize');
 
 test('enum snaps to a closed vocabulary (exact, then case/whitespace-normalized)', () => {
 	const spec = { enum: ['low', 'medium', 'high'] };

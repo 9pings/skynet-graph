@@ -7,8 +7,8 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const Graph = require('../../_lab/_boot.js');
-const { createTrace, summarizeTrace, perConcept, formatRecord } = require('../../_lab/trace.js');
+const Graph = require('../_boot.js');
+const { createTrace, summarizeTrace, perConcept, formatRecord } = require('../../lib/sg/trace.js');
 console.log = console.info = console.warn = () => {};
 
 function run() {

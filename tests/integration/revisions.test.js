@@ -9,9 +9,9 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const path = require('path');
-const Graph = require('../../_lab/_boot.js');
-const { buildConceptTree } = require('../../_lab/concepts.js');
-const { register, CommonGeo } = require('../../providers');
+const Graph = require('../_boot.js');
+const { buildConceptTree } = require('../../lib/authoring/concepts.js');
+const { register, CommonGeo } = require('../../lib/providers');
 console.log = console.info = console.warn = () => {};
 
 register(Graph, [{ CommonGeo }]);

@@ -6,8 +6,8 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const Graph = require('../../_lab/_boot.js');
-const { register, createLLMProvider } = require('../../providers');
+const Graph = require('../_boot.js');
+const { register, createLLMProvider } = require('../../lib/providers');
 console.log = console.info = console.warn = () => {};
 
 test('onConceptApply fires per concept-apply with attribution + why; host mutations do not', async () => {

@@ -11,8 +11,8 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const Graph = require('../../_lab/_boot.js');
-const { createVerifier } = require('../../providers/verify');
+const Graph = require('../_boot.js');
+const { createVerifier } = require('../../lib/providers/verify');
 console.log = console.info = console.warn = () => {};
 
 const mark = (g, c, scope, argz, cb) => { const f = { $_id: '_parent' }; f[c._name] = true; cb(null, f); };

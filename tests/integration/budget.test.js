@@ -8,7 +8,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const Graph = require('../../_lab/_boot.js');
+const Graph = require('../_boot.js');
 console.log = console.info = console.warn = () => {};
 
 test('an ensure-gated budget bounds an otherwise-unbounded decomposition', async () => {
