@@ -19,13 +19,22 @@ body { margin: 0; font: 13px/1.5 ui-sans-serif, system-ui, "Segoe UI", Roboto, s
 .rev { color: var(--muted); font-family: ui-monospace, monospace; }
 
 .panels { flex: 1; display: flex; min-height: 0; }
-.canvas { flex: 1; padding: 14px; overflow: auto; }
-.canvas .hint { color: var(--muted); margin-bottom: 10px; }
-.trace { width: 300px; border-left: 1px solid var(--border); padding: 10px 14px; overflow: auto; background: var(--panel); }
-.trace h3 { margin: 0 0 8px; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+.cy { flex: 1; min-width: 0; background: radial-gradient(circle at 50% 40%, #131a23, #0f1419); }
 
-ul { margin: 0; padding: 0; list-style: none; }
-li { padding: 2px 0; font-family: ui-monospace, monospace; font-size: 12px; }
-.objs .oid { color: var(--accent); margin-right: 8px; }
-.objs .ofacts { color: var(--muted); }
-.trace .cn { color: var(--good); }
+.inspector { width: 320px; border-left: 1px solid var(--border); padding: 12px 14px; overflow: auto; background: var(--panel); }
+.inspector h3 { margin: 0 0 10px; color: var(--accent); font-family: ui-monospace, monospace; }
+.inspector h4 { margin: 14px 0 6px; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+.inspector .empty { color: var(--muted); }
+.fact { display: flex; justify-content: space-between; gap: 10px; padding: 2px 0; font-family: ui-monospace, monospace; font-size: 12px; border-bottom: 1px solid rgba(255,255,255,.04); }
+.fact .k { color: var(--fg); }
+.fact .v { color: var(--muted); text-align: right; word-break: break-word; }
+.cast { margin: 6px 0; padding: 6px 8px; background: #11171f; border-left: 2px solid var(--good); border-radius: 0 4px 4px 0; }
+.cast .cn { color: var(--good); font-family: ui-monospace, monospace; font-size: 12px; }
+.cast .ms { color: var(--muted); }
+.cast .why { color: var(--muted); font-family: ui-monospace, monospace; font-size: 11px; padding-left: 8px; }
+
+.bottom { border-top: 1px solid var(--border); padding: 8px 14px; background: var(--panel); max-height: 150px; overflow: auto; }
+.bottom h3 { margin: 0 0 6px; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+.tracerow { display: flex; flex-wrap: wrap; gap: 6px; }
+.tchip { font-family: ui-monospace, monospace; font-size: 11px; padding: 2px 7px; background: #11171f; border: 1px solid var(--border); border-radius: 10px; color: var(--muted); }
+.tchip b { color: var(--good); font-weight: 600; }
