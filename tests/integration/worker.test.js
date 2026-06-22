@@ -52,3 +52,29 @@ test('a worker provider proxies a model call back to the parent ask()', async ()
 	assert.ok(sg && sg.Remote === true, 'Remote concept cast on the segment');
 	assert.equal(sg.work, 99, 'the proxied model result was written back as a fact');
 });
+
+test('logs a worker provider emits surface in the parent logger (tagged {worker})', async () => {
+	const { createLogger } = require('../../lib/graph/log.js');
+	const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'sg-worker-log-'));
+	fs.writeFileSync(path.join(dir, 'note.js'),
+		'module.exports = () => ({ Note: { work(graph, concept, scope, argz, cb) {\n' +
+		'  scope.log.warn("worker note on " + scope._._id);\n' +
+		'  concept.log(scope).info("worker detail");\n' +
+		'  cb(null, { $_id: "_parent", Noted: true });\n' +
+		'} } });\n');
+
+	const conceptMap = { common: { childConcepts: {
+		Noted: { _id: 'Noted', _name: 'Noted', require: 'Segment', provider: ['Note::work'] }
+	} } };
+	const seed = { nodes: [{ _id: 'n1' }, { _id: 'n2' }], segments: [{ _id: 'sg', originNode: 'n1', targetNode: 'n2' }] };
+
+	const logger = createLogger({ label: 'parent', level: 'verbose', console: false });
+	const snapshot = await Graph.spawnGraph({ conceptMap, providers: dir, logger, seed });
+	fs.rmSync(dir, { recursive: true, force: true });
+
+	const fromWorker = logger.records.filter(r => r.ctx && r.ctx.worker);
+	assert.ok(fromWorker.length >= 1, 'worker provider logs surfaced in the parent logger');
+	const noted = JSON.parse(snapshot.graph).conceptMaps.find(o => o._id === 'sg');
+	assert.ok(noted && noted.Noted === true, 'Noted concept cast (provider ran)');
+	assert.ok(fromWorker.some(r => r.ctx.concept === 'Noted'), 'a forwarded record carries the concept context');
+});
