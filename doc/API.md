@@ -352,9 +352,11 @@ storing anything on the graph objects** (logs live in the logger, never as facts
 the bounded buffer, attach a sink (file/studio).
 
 **CLI:** `sg run … [--log-level <lvl>] [--log-mode dashboard|plain] [--log-plain] [--log-file <path>]
-[--log-file-level <lvl>]`. `dashboard` = TTY split-screen (stats pane + scrolling logs, degrades to plain);
-`plain` = line output (logs → stderr, run summary → stdout). `--log-file` writes `.jsonl` (machine-readable)
-or formatted text. **Workers:** pass `logger` to `createGraphWorker`/`spawnGraph` and a dispatched graph's
+[--log-file-level <lvl>]`. A styled boot banner prints at startup. `dashboard` = TTY mode where colored
+logs scroll normally under a live **status bar pinned at the bottom** (graph state, unstable node/segment
+counts, main-loop queue size, rev, applies, provider time, elapsed); degrades to plain off a TTY. `plain` =
+line output (logs → stderr, run summary → stdout). `--log-file` writes `.jsonl` (machine-readable) or
+formatted text. **Workers:** pass `logger` to `createGraphWorker`/`spawnGraph` and a dispatched graph's
 log records re-emit into it, tagged `{worker:true}`.
 
 `Graph.createLogger({ label, level, onRecord, capacity, console })` builds a logger standalone.

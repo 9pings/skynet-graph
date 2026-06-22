@@ -175,8 +175,11 @@ node bin/sg run --concepts ./concepts --builtins \
                 --log-file-level verbose  # separate level for the file (default verbose)
 ```
 
-- **dashboard** — a live split-screen on a TTY: a fixed top pane (rev, stable/unstable/pending counts,
-  provider timings, elapsed) over a scrolling log region. Degrades to plain off a TTY.
+A styled banner (`SKYNET·GRAPH v<version>`) prints at boot.
+
+- **dashboard** — on a TTY: normal **colored logs scroll** as usual, with a live **status bar pinned at
+  the bottom** showing the graph state (`stable`/`stabilizing`), the unstable node/segment counts, the
+  main-loop queue size, current rev, applies, provider time and elapsed. Degrades to plain off a TTY.
 - **plain** (`--log-plain`) — one clean line per record, no cursor control; logs go to **stderr** so the
   stabilized-facts summary on **stdout** stays pipeable.
 
