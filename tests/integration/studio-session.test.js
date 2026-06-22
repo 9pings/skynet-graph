@@ -43,3 +43,36 @@ test('conceptTree + getConcept expose the loaded corpus', () => {
 	const distance = s.getConcept('Distance');
 	assert.ok(distance && distance._name === 'Distance', 'getConcept returns the Distance schema');
 });
+
+test('validateConcept: a well-formed concept passes; a missing _name fails', () => {
+	const s = new Session('root', { Graph });
+	s.loadCorpus({ conceptsDir: CONCEPTS, builtins: true, seed: SEED });
+	const good = s.validateConcept({ _id: 'Probe', _name: 'Probe', require: ['Segment'] });
+	assert.ok(good.ok, 'well-formed concept validates clean: ' + JSON.stringify(good.errors));
+	const bad = s.validateConcept({ _id: 'NoName', require: ['Segment'] });
+	assert.ok(!bad.ok && bad.errors.length, 'missing _name is rejected');
+});
+
+test('history: mutate -> diff shows the change -> rollback removes it', async () => {
+	const s = new Session('root', { Graph });
+	const settled = () => new Promise(( r ) => s.once('stabilize', r));
+	let p = settled();
+	s.loadCorpus({ conceptsDir: CONCEPTS, builtins: true, seed: SEED });
+	await p;
+	const r0 = s.state().currentRev;
+
+	p = settled();
+	s.mutate({ $$_id: 's', tag: 7 }, 's');
+	await p;
+	const r1 = s.state().currentRev;
+	assert.ok(r1 > r0, 'mutation advanced the revision');
+	assert.equal(s.state().objects.find(o => o._id === 's').tag, 7, 'tag applied');
+
+	const d = s.diff(r0, r1);
+	assert.ok((d.changed && d.changed.s) || (d.added && d.added.s), 'diff shows segment s changed between r0 and r1');
+
+	p = settled();
+	s.rollback(r0);
+	await p;
+	assert.equal(s.state().objects.find(o => o._id === 's').tag, undefined, 'rollback removed the tag');
+});
