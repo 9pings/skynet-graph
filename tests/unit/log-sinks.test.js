@@ -87,6 +87,31 @@ test('banner shows the version (plain + colored)', () => {
 	assert.match(S.banner('1.2.3', true), /\x1b\[/); // contains ANSI when colored
 });
 
+test('dashboard accepts getGraph() and shows an idle bar when it returns null', () => {
+	const writes = [];
+	const stream = { isTTY: true, rows: 10, columns: 120, write: ( s ) => writes.push(s) };
+	let current = null;
+	const sink = S.createDashboardSink({ getGraph: () => current, stream, level: 'verbose' });
+	sink(rec({ msg: 'x' }));                 // no graph yet -> idle bar
+	assert.match(writes.join(''), /idle/);
+	current = { _unstable: [], _stable: [{}], _taskFlow: {}, _rev: 9 };
+	writes.length = 0;
+	sink(rec({ msg: 'y' }));                 // now reflects the graph
+	assert.match(writes.join(''), /rev 9/);
+	sink.close();
+});
+
+test('startStatsLogger emits periodic stats into the log stream', async () => {
+	const seen = [];
+	const logger = { info: ( ...a ) => seen.push(a) };
+	let g = { _unstable: [{ _etty: { _: { Node: true } } }], _stable: [], _taskFlow: {}, _rev: 1 };
+	const t = S.startStatsLogger(logger, () => g, 10);
+	await new Promise(( r ) => setTimeout(r, 35));
+	clearInterval(t);
+	assert.ok(seen.length >= 1, 'logged at least once');
+	assert.match(seen[0][0], /stats —/);
+});
+
 test('dashboard (fake TTY) draws a status bar and scrolls the log line', () => {
 	const writes = [];
 	const stream = { isTTY: true, rows: 10, columns: 60, write: ( s ) => writes.push(s) };

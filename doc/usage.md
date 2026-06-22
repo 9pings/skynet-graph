@@ -166,10 +166,12 @@ node bin/sg errors   out.json        # applies whose patch flagged an llmError
 ### Logging
 
 Both graph-running commands — `sg run` and `sg studio` — print the boot banner and stream the
-engine's logs (`run` uses the dashboard/plain modes below; `studio` streams plain colored logs to
-stderr as sessions load/run, so the web UI on stdout/HTTP stays clean). The `trace`/`show`/`concepts`/
-`errors` commands only inspect a saved artifact — there is no live graph, so they print their data
-directly with no engine logs. `sg studio` accepts `--log-level` and `--log-file`.
+engine's logs. Both default to the **dashboard** on a TTY (a fixed bottom status bar over scrolling
+colored logs — stats live only in the bar) and fall back to **plain / log-only** off a TTY or with
+`--log-plain` (no bar; the stats are emitted as periodic log lines instead). For `sg studio` the bar
+reflects the **active session's** graph (root, a fork, or the selected session). The
+`trace`/`show`/`concepts`/`errors` commands only inspect a saved artifact — there is no live graph, so
+they print their data directly with no engine logs. `sg studio` also accepts `--log-level`/`--log-file`.
 
 `sg run` takes the full set of logging flags:
 
