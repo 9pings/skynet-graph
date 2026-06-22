@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "AGPL-3.0-or-later",
   "main": "./lib/index.js",
-  "author": "Nathanael Braun <@pp9ping@gmail.com>",
+  "author": "Nathanael Braun <pp9ping@gmail.com>",
   "bin": {
     "sg": "bin/sg"
   },

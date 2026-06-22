@@ -65,14 +65,25 @@ one effect that can't be shipped — a parent-bound model `ask` — is **proxied
 
 ![distributed sub-graphs + ask proxy](doc/img/distributed.svg)
 
+## Observability
+
+Every graph owns a leveled logger (`graph.logger`: `error > warn > log > info > verbose`, sinks,
+`tail(n, {concept|applyId})`, a bounded ring buffer). Providers log with context via `scope.log` /
+`concept.log(scope)` — apply-correlated, so you can pull *the logs a concept produced while applying*
+without storing anything on the graph. The `sg` CLI (`run` and `studio`) prints a boot banner and a
+live **status bar** (graph state, unstable node/segment counts, main-loop queue, rev, applies) over
+scrolling colored logs, with `--log-level` / `--log-mode dashboard|plain` / `--log-file <.jsonl>`;
+worker sub-graphs forward their logs to the parent. See [doc/API.md](doc/API.md#logging--diagnostics).
+
 ## Quick start
 
 ```bash
 npm install            # no build step — pure CommonJS, runs natively on Node 18+
-npm test               # 111 tests (node:test)
+npm test               # 141 tests (node:test)
 
-# run a graph standalone from plain folders:
+# run a graph standalone from plain folders (live status bar + colored logs on a TTY):
 node bin/sg run --concepts ./concepts --builtins --seed ./my-seed.json
+node bin/sg run --concepts ./concepts --builtins --log-level verbose --log-file run.jsonl
 ```
 
 ```js
@@ -133,4 +144,4 @@ bin/sg          CLI entry
 
 GNU AGPL v3 — see [LICENSE](./LICENSE).
 
-Copyright 2026 Nathanael Braun &lt;@pp9ping@gmail.com&gt;
+Copyright 2026 Nathanael Braun &lt;pp9ping@gmail.com&gt;
