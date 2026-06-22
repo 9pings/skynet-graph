@@ -1,9 +1,9 @@
 {
   "name": "skynet-graph",
   "version": "1.0.0",
-  "license": "private",
+  "license": "AGPL-3.0-or-later",
   "main": "./lib/index.js",
-  "author": "Nathan Braun <n8tz.js@gmail.com>",
+  "author": "Nathanael Braun <@pp9ping@gmail.com>",
   "bin": {
     "sg": "bin/sg"
   },

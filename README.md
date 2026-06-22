@@ -128,3 +128,9 @@ concepts/       example concept sets (the `common` set)
 examples/       runnable demos (run-basic / run-prompt / run-problem)
 bin/sg          CLI entry
 ```
+
+## License
+
+GNU AGPL v3 — see [LICENSE](./LICENSE).
+
+Copyright 2026 Nathanael Braun &lt;@pp9ping@gmail.com&gt;
