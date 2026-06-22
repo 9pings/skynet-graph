@@ -33,3 +33,5 @@ node_modules
 /dist
 /upload
 /public
+/docs/
+/.claude/
