@@ -2,32 +2,21 @@
   "name": "skynet-graph",
   "version": "1.0.0",
   "license": "private",
-  "main": "./dist/Comp.js",
+  "main": "./lib/graph/index.js",
   "author": "Nathan Braun <n8tz.js@gmail.com>",
   "scripts": {
-    "build": "lpack",
-    "devLib": "lpack :staging -w",
     "test": "node --test --test-force-exit tests/unit/*.test.js tests/integration/*.test.js",
     "test:watch": "node --test --watch tests/unit/*.test.js"
   },
-  "peerDependencies": {
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2"
-  },
   "dependencies": {
-    "@babel/runtime": "^7.3.1",
     "@jsep-plugin/object": "^1.2.2",
     "@jsep-plugin/ternary": "^1.1.4",
     "array-differ": "^2.1.0",
     "deepmerge": "^3.2.0",
     "intersect": "^1.0.1",
     "is": "^3.2.1",
-    "isfunction": "^0.0.6",
-    "jsep": "^1.4.0"
-  },
-  "devDependencies": {
-    "@babel/register": "^7.12.10",
-    "layer-pack": "^1.2.4",
-    "lpack-react": "^1.2.3"
+    "jsep": "^1.4.0",
+    "json5": "^2.2.3",
+    "shortid": "^2.2.16"
   }
 }
