@@ -122,6 +122,7 @@ test('dashboard (fake TTY) draws a status bar and scrolls the log line', () => {
 	assert.match(out, /hello-world/);      // the log line scrolled normally
 	assert.match(out, /stable/);           // the status bar was drawn
 	assert.match(out, /\x1b\[7m/);         // reverse-video bar
+	assert.ok(out.trimEnd().endsWith('\r') || /\x1b\[0m\r$/.test(out), 'bar is the last write and ends parked (no trailing newline)');
 	sink.close();
-	assert.match(writes.join(''), /\x1b\[r/); // scroll region reset on close
+	assert.match(writes.join(''), /\x1b\[2K/); // bar line cleared on close
 });
