@@ -88,12 +88,22 @@ try {
 	await new Promise(( r ) => setTimeout(r, 700));
 	const editorClosed = await page.evaluate(() => !document.querySelector('.em-box'));
 
+	// T11: fork the active session, verify the switch, then merge back
+	await page.evaluate(() => { const b = [...document.querySelectorAll('.fk-head button')].find(( x ) => /fork/.test(x.textContent)); if ( b ) b.click(); });
+	await page.waitForFunction(() => { const a = document.querySelector('.fk-item.active .fk-id'); return a && /fork-/.test(a.textContent); }, { timeout: 8000 });
+	const activeAfterFork = await page.evaluate(() => { const a = document.querySelector('.fk-item.active .fk-id'); return a ? a.textContent.trim() : null; });
+	const forkCount = await page.evaluate(() => document.querySelectorAll('.fk-item').length);
+	await page.evaluate(() => { const b = document.querySelector('.fk-merge'); if ( b ) b.click(); });
+	await new Promise(( r ) => setTimeout(r, 900));
+	const forkNodeMerged = await page.evaluate(async () => ((await window.__sgApi.call('state', {}, 'root')).objects || []).some(( o ) => /^fork-/.test(o._id)));
+
 	await page.select('.lyt select', 'elk');
 	await new Promise(( r ) => setTimeout(r, 600));
 	await page.screenshot({ path: '/tmp/studio-smoke.png', fullPage: true });
 	console.log('rendered: nodes=' + nodes + ' edges=' + edges + ' | layouts: ' + layouts.join(','));
 	console.log('T9 timeline: checkpoints=' + ckpts + ' diffShown=' + diffShown + ' noteAfterRollback=' + noteAfter);
 	console.log('T10 editor: validation=' + validation + ' closedAfterApply=' + editorClosed);
+	console.log('T11 forks: activeAfterFork=' + activeAfterFork + ' forkCount=' + forkCount + ' forkNodeMerged=' + forkNodeMerged);
 } catch ( e ) {
 	errors.push('SCRIPT: ' + e.message);
 } finally {
