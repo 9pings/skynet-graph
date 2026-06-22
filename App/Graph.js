@@ -6,7 +6,7 @@
  * Date: 14/01/2016
  * Time: 09:32
  */
-import TaskFlow from "taskflows";
+import TaskFlow from "./tasks/taskflow";
 import Node     from "./objects/Node";
 import Segment  from "./objects/Segment";
 import PathMap  from "./objects/PathMap";

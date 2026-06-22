@@ -23,8 +23,7 @@
     "intersect": "^1.0.1",
     "is": "^3.2.1",
     "isfunction": "^0.0.6",
-    "jsep": "^1.4.0",
-    "taskflows": "^1.0.0"
+    "jsep": "^1.4.0"
   },
   "devDependencies": {
     "@babel/register": "^7.12.10",
