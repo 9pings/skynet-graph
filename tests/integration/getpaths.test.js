@@ -2,8 +2,8 @@
 /**
  * getPaths(from, to): core path discovery over the directed segment topology
  * (node._outgoing). Returns { maps, paths } where each path is an alternating
- * [node, seg, node, seg, ..., node] list. This is what the MOE "rank/select
- * alternative branches" use-case is built on.
+ * [node, seg, node, seg, ..., node] list. This is what the Reactive-Graph-of-Experts
+ * "rank/select alternative branches" use-case is built on.
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
