@@ -43,13 +43,23 @@ The central engine owns every object (`_objById`), the concept registry (`_conce
 ### Library surface (facade, CLI, runtime)
 
 Beyond the engine core (`lib/graph/`, filesystem-free), the package ships:
-- **`lib/index.js`** — the facade: `require('skynet-graph')` returns `Graph` with `fromDirs` / `loadConceptMap` / `loadProviders` / `register` / `providers` / `createGraphWorker` / `spawnGraph` attached as statics. `Graph.fromDirs({concepts, providers, builtins, seed, conf})` boots a stabilizing graph from plain folders.
+- **`lib/index.js`** — the facade: `require('skynet-graph')` returns `Graph` with `fromDirs` / `loadConceptMap` / `loadProviders` / `register` / `providers` / `createGraphWorker` / `spawnGraph` / `createLogger` attached as statics. `Graph.fromDirs({concepts, providers, builtins, seed, conf})` boots a stabilizing graph from plain folders.
+- **`lib/graph/log.js`** — the logger core (fs-free, lives in the engine): `createLogger`, five levels `error>warn>log>info>verbose`, `child(ctx)`, sinks, a bounded ring buffer.
 - **`lib/load.js`** — directory loaders (`loadConceptMap`, `loadProviders`); kept out of the engine so the core stays fs-free.
 - **`lib/providers/`** — packaged providers (`geo`, `llm`, `canonicalize`, `verify`) + `register`.
 - **`lib/authoring/`** — `concepts.js` (tree builder), `validate.js` (author-time validator), `author.js` (CEGIS), `supervise.js`, `loop.js`, `clock.js` (R&D tooling).
 - **`lib/sg/` + `bin/sg`** — the CLI: `sg run --concepts <dir> [--providers <dir>] [--builtins] [--seed f] [--trace out]` plus the trace inspector (`trace`/`show`/`concepts`/`errors`).
 - **`lib/runtime/`** — distributed sub-graphs over `worker_threads`: `createGraphWorker` / `spawnGraph` ship a JSON conceptMap + seed + provider-dir to a worker and proxy a parent-bound model `ask` back over the channel. The protocol is plain-JSON so a cross-instance transport can replace `worker_threads` later.
 - **`examples/`** — runnable demos (`run-basic`, `run-prompt`, `run-problem`).
+
+### Logging (`lib/graph/log.js` + `lib/sg/log-sinks.js`)
+
+The engine uses **one logger per graph** (`graph._log`, exposed as `graph.logger`); the old `var debug = console` indirection now routes there. Levels, severity descending: `error > warn > log > info > verbose` (emit iff `rank(level) <= rank(threshold)`; default `warn`, or env `SG_LOG_LEVEL`). A host configures it via `cfg.logger` (inject your own), `cfg.logLevel`, or `cfg.onLog(record)`.
+
+- **Debugger/host interface:** `graph.logger.addSink(fn)` / `removeSink` / `tail(n, {concept|target|applyId|level})` / `records` / `setLevel`. Logs live in the logger (bounded ring buffer + sinks) — **never as facts on the graph objects**.
+- **Provider access (no signature change):** a provider reaches a context logger via `scope.log` (ctx `{target,type}`) or `concept.log(scope)` (ctx `{concept,target,type,applyId}`, apply-correlated). Each apply mints `graph._applyId`, stamped into both the contextual logger and the `cfg.onConceptApply` trace record, so an apply's logs are retrievable with `graph.logger.tail(n,{applyId})` and join the trace by `applyId`.
+- **CLI:** `sg run … [--log-level <lvl>] [--log-mode dashboard|plain] [--log-plain] [--log-file <path>] [--log-file-level <lvl>]`. `dashboard` is a TTY split-screen (fixed stats pane + scrolling logs, zero-dep ANSI, degrades to plain off a TTY); `plain` is line-oriented (logs → stderr, summary → stdout). `--log-file` writes `.jsonl` (machine) or formatted text. Sinks live in `lib/sg/` (the engine core stays fs-free).
+- **Workers:** a dispatched graph's logs are forwarded to the parent — pass `logger` to `createGraphWorker`/`spawnGraph` and worker records re-emit into it, tagged `{worker:true}`.
 
 ### Concept rules (`concepts/common/`)
 

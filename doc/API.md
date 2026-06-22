@@ -308,13 +308,65 @@ key, or the `<name>Prose`/`<name>CanonMiss` defaults) is **rejected** (it would 
 and a bare dependency on a child-set (`expandedInto`/`answeredBy`/…) without `.length` is **warned** (the
 "all-children-answered" footgun — `getRef` has no quantifier). `validateOrThrow` throws on the first error.
 
+## Logging & diagnostics
+
+One logger per graph (`graph._log`, exposed as `graph.logger`). Levels, severity descending:
+`error > warn > log > info > verbose` — a record reaches sinks iff `rank(level) <= rank(threshold)`
+(default `warn`, or env `SG_LOG_LEVEL`). A `LogRecord` is `{ level, ts, label, ctx, msg, args }` and is
+JSON-serializable (Errors in `args` are reduced to `{name,message,stack}`).
+
+**Configure** (in `cfg`, e.g. via `new Graph(seed, conf, conceptMap)` or `Graph.fromDirs({conf})`):
+
+| key | meaning |
+|---|---|
+| `cfg.logger` | inject a logger instance (`Graph.createLogger(...)`); overrides the rest |
+| `cfg.logLevel` | threshold name for the auto-built logger |
+| `cfg.onLog(record)` | convenience sink fn |
+
+**`graph.logger` interface** (the debugger/host hook):
+
+| method | returns |
+|---|---|
+| `addSink(fn)` / `removeSink(fn)` | register/unregister `fn(record)` |
+| `tail(n, filter?)` | last `n` records; `filter` = `{concept?, target?, applyId?, level?}` |
+| `records` | the bounded ring buffer (default 500) |
+| `setLevel(name)` / `level` | get/set the threshold |
+| `child(ctx)` | a logger that merges `ctx` into every record |
+
+**Provider logging contract** (no provider-signature change): inside a provider, reach a context logger via
+`scope.log` (ctx `{target,type}`) or `concept.log(scope)` (ctx `{concept,target,type,applyId}`):
+
+```js
+function work ( graph, concept, scope, argz, cb ) {
+  const log = concept.log(scope);          // capture early (freezes applyId for async)
+  log.verbose('prompt', prompt);
+  log.warn('input missing on %s', scope._._id);
+  cb(null, { $_id: '_parent', Worked: true });
+}
+```
+
+Each concept-apply mints `graph._applyId`, stamped into **both** the contextual logger and the
+`cfg.onConceptApply` trace record. So the logs a concept produced *while applying* are retrievable with
+`graph.logger.tail(n, { concept })` or `{ applyId }`, and join the trace by `applyId` — all **without
+storing anything on the graph objects** (logs live in the logger, never as facts). For full history beyond
+the bounded buffer, attach a sink (file/studio).
+
+**CLI:** `sg run … [--log-level <lvl>] [--log-mode dashboard|plain] [--log-plain] [--log-file <path>]
+[--log-file-level <lvl>]`. `dashboard` = TTY split-screen (stats pane + scrolling logs, degrades to plain);
+`plain` = line output (logs → stderr, run summary → stdout). `--log-file` writes `.jsonl` (machine-readable)
+or formatted text. **Workers:** pass `logger` to `createGraphWorker`/`spawnGraph` and a dispatched graph's
+log records re-emit into it, tagged `{worker:true}`.
+
+`Graph.createLogger({ label, level, onRecord, capacity, console })` builds a logger standalone.
+
 ## Running in-repo
 
 ```bash
-npm test                 # unit + integration (node:test)
-node _lab/run-basic.js   # non-LLM end-to-end stabilization over the real `common` set
-node _lab/run-problem.js # LLM-driven plan decomposition (needs an endpoint; see providers/llm.js)
+npm test                     # unit + integration (node:test, native CJS — no Babel)
+node examples/run-basic.js   # non-LLM end-to-end stabilization over the real `common` set
+node examples/run-problem.js # LLM-driven plan decomposition (needs an endpoint; see lib/providers/llm.js)
+node bin/sg run --concepts ./concepts --builtins   # standalone CLI boot
 ```
 
-The engine loads under Node via `_lab/_boot.js` (`@babel/register`). The production `npm run build`
-(lpack) currently fails on a host `require('App/db')` and is unrelated to the above.
+The engine is native CommonJS and runs directly under Node (no build step; `tests/_boot.js` just sets
+`__SERVER__`).

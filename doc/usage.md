@@ -163,6 +163,26 @@ node bin/sg concepts out.json        # per-concept rollup (count + total ms), he
 node bin/sg errors   out.json        # applies whose patch flagged an llmError
 ```
 
+### Logging
+
+`sg run` also takes logging flags:
+
+```bash
+node bin/sg run --concepts ./concepts --builtins \
+                --log-level info          # error|warn|log|info|verbose (default info)
+                --log-mode dashboard      # dashboard | plain (default: dashboard on a TTY, else plain)
+                --log-file run.jsonl      # journal (.jsonl = machine-readable, else formatted text)
+                --log-file-level verbose  # separate level for the file (default verbose)
+```
+
+- **dashboard** — a live split-screen on a TTY: a fixed top pane (rev, stable/unstable/pending counts,
+  provider timings, elapsed) over a scrolling log region. Degrades to plain off a TTY.
+- **plain** (`--log-plain`) — one clean line per record, no cursor control; logs go to **stderr** so the
+  stabilized-facts summary on **stdout** stays pipeable.
+
+Programmatically, every graph exposes `graph.logger` (`addSink`/`tail(n, {concept|applyId})`/`setLevel`);
+providers log with context via `scope.log` / `concept.log(scope)`. See `doc/API.md` → *Logging & diagnostics*.
+
 With `package.json` `bin`, this is also available as `sg …` once installed.
 
 ## 8. Distributed execution
