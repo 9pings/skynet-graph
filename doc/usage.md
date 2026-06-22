@@ -165,7 +165,13 @@ node bin/sg errors   out.json        # applies whose patch flagged an llmError
 
 ### Logging
 
-`sg run` also takes logging flags:
+Both graph-running commands — `sg run` and `sg studio` — print the boot banner and stream the
+engine's logs (`run` uses the dashboard/plain modes below; `studio` streams plain colored logs to
+stderr as sessions load/run, so the web UI on stdout/HTTP stays clean). The `trace`/`show`/`concepts`/
+`errors` commands only inspect a saved artifact — there is no live graph, so they print their data
+directly with no engine logs. `sg studio` accepts `--log-level` and `--log-file`.
+
+`sg run` takes the full set of logging flags:
 
 ```bash
 node bin/sg run --concepts ./concepts --builtins \
