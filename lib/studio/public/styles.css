@@ -13,6 +13,8 @@ body { margin: 0; font: 13px/1.5 ui-sans-serif, system-ui, "Segoe UI", Roboto, s
 .toolbar button { cursor: pointer; }
 .toolbar button:hover:not(:disabled) { border-color: var(--accent); }
 .toolbar button:disabled { opacity: .4; cursor: default; }
+.toolbar .sep { width: 1px; height: 20px; background: var(--border); margin: 0 2px; }
+.toolbar .lyt { display: flex; align-items: center; gap: 5px; color: var(--muted); font-size: 12px; }
 .status { margin-left: auto; font-weight: 600; }
 .status.live { color: var(--good); }
 .status.down, .status.connecting { color: var(--warn); }
