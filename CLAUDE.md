@@ -4,27 +4,22 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Skynet-graph is a **library**, not a runnable app (`readme.md`: "not a ready to run instance"). It is a rule-driven knowledge graph engine: data objects (nodes, segments, documents) are automatically enriched by a **concept system** — a grammar-like rule engine that casts transformations onto objects when conditions are met and uncasts them when they are not. A host application embeds the engine, supplies the concept definitions, and wires up provider functions.
+Skynet-graph is a **library** to embed (and a standalone `sg` CLI), not a ready-to-run product (see `README.md`). It is a rule-driven knowledge graph engine: data objects (nodes, segments, documents) are automatically enriched by a **concept system** — a grammar-like rule engine that casts transformations onto objects when conditions are met and uncasts them when they are not. A host application embeds the engine, supplies the concept definitions, and wires up provider functions.
 
 ## Commands
 
-**Build:**
-```bash
-npm run build        # production build via layer-pack (lpack) -> dist/
-npm run devLib       # staging build in watch mode (lpack :staging -w)
-```
-Build output lands in `dist/` (gitignored). The package `main` is `dist/Comp.js`; the engine entry is `App/index.js`, which re-exports `App/Graph.js`.
+**No build step.** The library is pure CommonJS and runs natively on Node 18+ (`npm install` fetches deps only — layer-pack/Babel/React were removed during industrialization). The package `main` is `lib/index.js` (a facade exposing the `Graph` constructor + `fromDirs` / `loadConceptMap` / `loadProviders` / `createGraphWorker` / `spawnGraph` statics); the engine entry is `lib/graph/index.js`, which re-exports `lib/graph/Graph.js`.
 
 **Tests:**
-- `npm test` runs the suite via Node's built-in runner (`node --test --test-force-exit tests/unit/*.test.js tests/integration/*.test.js`). Unit tests (`tests/unit/`) are pure; integration tests (`tests/integration/`) load the engine via `_lab/_boot.js` (`@babel/register`).
-- `--test-force-exit` is required (the engine keeps timers/taskflow handles open). Side effect: the **aggregate** test COUNT can race-undercount across files (e.g. 43 vs 49) — tests still all pass; re-run a single file to get a deterministic count.
-- `_lab/concepts.js#buildConceptTree(dir)` builds a concept tree from `concepts/<set>/`; the host passes `{ common: tree }` as `conceptMap` to `new Graph(...)`.
-- Lab demos: `node _lab/run-basic.js` (non-LLM stabilization over the real `common` set) and `node _lab/run-problem.js` (LLM-driven plan decomposition; needs an endpoint — see `providers/llm.js`).
-- Ignore `tests/Graph.test.js` — dead legacy (requires `../dist/graph`, a `QueryBased` set and `CommonTravel`/`../TimingUtils` that don't exist here).
+- `npm test` runs the suite via Node's built-in runner (`node --test --test-force-exit tests/unit/*.test.js tests/integration/*.test.js`), 111 tests. Unit tests (`tests/unit/`) are pure; integration tests (`tests/integration/`) load the engine via `tests/_boot.js` (which sets `__SERVER__` and requires the engine — **no Babel**; the source is native CommonJS).
+- `--test-force-exit` is required (the engine keeps timers/scheduler handles open). Side effect: the **aggregate** test COUNT can race-undercount across files — tests still all pass; re-run a single file for a deterministic count.
+- `lib/authoring/concepts.js#buildConceptTree(dir)` builds a concept tree from `concepts/<set>/`; or use `Graph.fromDirs({concepts})` / `Graph.loadConceptMap(dir)`. The host passes `{ common: tree }` as `conceptMap` to `new Graph(...)`.
+- Standalone: `node bin/sg run --concepts ./concepts --builtins`. Demos: `node examples/run-basic.js` (non-LLM stabilization over the real `common` set) and `node examples/run-problem.js` (LLM-driven plan decomposition; needs an endpoint — see `lib/providers/llm.js`).
+- Ignore `tests/Graph.test.js` — dead legacy (requires modules that don't exist here).
 
 ## Architecture
 
-### Core objects (`App/objects/`)
+### Core objects (`lib/graph/objects/`)
 
 - **Entity.js** — Base class for all graph objects. Manages concept casting/uncasting, watchers, and cross-object references. Every graph object wraps an Entity, reached via `obj._etty`; the raw serialized data is `_etty._`.
 - **Node.js** — Graph vertex. Tracks `_incoming` / `_outgoing` segments.
@@ -32,18 +27,29 @@ Build output lands in `dist/` (gitignored). The package `main` is `dist/Comp.js`
 - **Concept.js** — A single rule. See "Concept rules" below.
 - **PathMap.js** — Path discovery, selection, and traversal over results from `Graph.getPaths`.
 
-### Graph engine (`App/Graph.js`)
+### Graph engine (`lib/graph/Graph.js`)
 
 The central engine owns every object (`_objById`), the concept registry (`_conceptLib`), and revision history (`_revs`). It is constructed as `new Graph(record, conf, conceptMap)`:
 - `record` is either a serialized graph or `{graph: "<json string>"}`.
 - `conf` overrides `Graph.prototype.cfg` (label, `autoMount`, `isMaster`, `conceptSets`, `defaultContext`, sync callbacks, `bagRefManagers`).
 - `conceptMap` is supplied **by the host app**, keyed by concept-set name; `cfg.conceptSets` (default `["common"]`) selects which sets are `deepmerge`d into the active concept tree. This repo only ships the `common` set under `concepts/`.
 
-**Stabilization** is the heart of the engine. A `taskflows` TaskFlow runs `App/tasks/stabilize.js` in a loop (`_loopTF`) that keeps applying applicable concepts to `_unstable` objects until nothing more can fire, then calls `_applyStabilized` (which fires the `stabilize` event and `cfg.onStabilize`). Mutations destabilize objects; stabilization re-casts/uncasts concepts; repeat until fixpoint.
+**Stabilization** is the heart of the engine. A vendored zero-dep `TaskFlow` (`lib/graph/tasks/taskflow.js`) runs `lib/graph/tasks/stabilize.js` in a loop (`_loopTF`) that keeps applying applicable concepts to `_unstable` objects until nothing more can fire, then calls `_applyStabilized` (which fires the `stabilize` event and `cfg.onStabilize`). Mutations destabilize objects; stabilization re-casts/uncasts concepts; repeat until fixpoint.
 
 **Mutations** (`pushMutation`) apply a template that creates or updates objects and marks them unstable. **Atomic updates + revisions** (`pushAtomicUpdates`, `_rev`, `_revs`) support master/client sync: when `cfg.isMaster` is false, mutations are forwarded to the master via `cfg.pushToMaster` and applied results stream back. `serialize()` produces a JSON snapshot.
 
 **V1 "MOE" public API** (added on `feat/moe-graph-v1-phase0`; full reference in `doc/API.md`): `rollbackTo(rev)` / `getRevisions()` / `getSnapshot(rev)` / `diffRevisions(a,b)` (revision history — snapshots captured on each stabilize); `fork(seed,conf)` / `merge(child,targetId,project)` (sub-agent sub-graphs); `patchConcept(nameOrId,updates)` / `getConceptByName` (hot-patch an expert + re-evaluate). To update an existing object via a template, use `$$_id` (a plain `_id` creates a new object).
+
+### Library surface (facade, CLI, runtime)
+
+Beyond the engine core (`lib/graph/`, filesystem-free), the package ships:
+- **`lib/index.js`** — the facade: `require('skynet-graph')` returns `Graph` with `fromDirs` / `loadConceptMap` / `loadProviders` / `register` / `providers` / `createGraphWorker` / `spawnGraph` attached as statics. `Graph.fromDirs({concepts, providers, builtins, seed, conf})` boots a stabilizing graph from plain folders.
+- **`lib/load.js`** — directory loaders (`loadConceptMap`, `loadProviders`); kept out of the engine so the core stays fs-free.
+- **`lib/providers/`** — packaged providers (`geo`, `llm`, `canonicalize`, `verify`) + `register`.
+- **`lib/authoring/`** — `concepts.js` (tree builder), `validate.js` (author-time validator), `author.js` (CEGIS), `supervise.js`, `loop.js`, `clock.js` (R&D tooling).
+- **`lib/sg/` + `bin/sg`** — the CLI: `sg run --concepts <dir> [--providers <dir>] [--builtins] [--seed f] [--trace out]` plus the trace inspector (`trace`/`show`/`concepts`/`errors`).
+- **`lib/runtime/`** — distributed sub-graphs over `worker_threads`: `createGraphWorker` / `spawnGraph` ship a JSON conceptMap + seed + provider-dir to a worker and proxy a parent-bound model `ask` back over the channel. The protocol is plain-JSON so a cross-instance transport can replace `worker_threads` later.
+- **`examples/`** — runnable demos (`run-basic`, `run-prompt`, `run-problem`).
 
 ### Concept rules (`concepts/common/`)
 
@@ -56,7 +62,7 @@ A concept's schema fields (handled in `Concept.js`):
 - `applyMutations` — a mutation template applied when the concept casts.
 - `type: "enum"`, `defaultValue`, `autoCast: false`, `syncAfter` — control casting behavior (`autoCast:false` opts out of automatic casting; `syncAfter` is currently a no-op stub).
 
-**Typed-fact discipline (the canonicalization barrier — never break it).** A `require`/`ensure`/`assert` must key only on **discrete, typed** facts (enums, ids, numbers, booleans), never on free-text **prose** — a prose dependency re-keys every run, so the memo never hits (risk K1). An `LLM::complete` concept that feeds downstream declares a `prompt.facts` schema: the provider writes only those canonicalized (enum-snapped / grain-rounded) keys as *tracked* facts, the reply text on an *untracked* `prose` key, and a stable `<name>FactsDigest`. `_lab/validate.js#validateConceptTree` enforces this at author time (rejects prose-on-dependency-edges, missing `_name`, unparseable exprs; validates **structure, not grammar**). See `doc/API.md` (the `facts`/`prose` contract) and `doc/MODELISATION.md` §4.2.
+**Typed-fact discipline (the canonicalization barrier — never break it).** A `require`/`ensure`/`assert` must key only on **discrete, typed** facts (enums, ids, numbers, booleans), never on free-text **prose** — a prose dependency re-keys every run, so the memo never hits (risk K1). An `LLM::complete` concept that feeds downstream declares a `prompt.facts` schema: the provider writes only those canonicalized (enum-snapped / grain-rounded) keys as *tracked* facts, the reply text on an *untracked* `prose` key, and a stable `<name>FactsDigest`. `lib/authoring/validate.js#validateConceptTree` enforces this at author time (rejects prose-on-dependency-edges, missing `_name`, unparseable exprs; validates **structure, not grammar**). See `doc/API.md` (the `facts`/`prose` contract) and `doc/MODELISATION.md` §4.2.
 
 ### Two embedded DSLs
 
@@ -66,16 +72,16 @@ The same `$`-prefixed reference syntax appears in mutation templates and in quer
 - `$key` — global reference into a named scope/object by id.
 - `a:b:c` — walk references across linked objects (e.g. `_parent:originNode`).
 - `_parent` — the mutation's target object; aliases declared in a template resolve within it.
-- In templates: `$_id` sets/derives the object id from a ref, `$$_id` forces a literal id, `$someKey` makes `someKey` a reference, `$$someKey` marks a **bagRef** (external data, see below), and `_incoming`/`_outgoing` nest child segments. See the worked airport example in the `Graph.js` header comment.
+- In templates: `$_id` sets/derives the object id from a ref, `$$_id` forces a literal id, `$someKey` makes `someKey` a reference, `$$someKey` marks a **bagRef** (external data, see below), and `_incoming`/`_outgoing` nest child segments. See the worked airport example in the `lib/graph/Graph.js` header comment.
 
-**Query / assert expressions** (`queryMaps`, `getChildMatching`, `_assertTest`): a string or array of strings where `$ref` tokens resolve via `scope.getRef("ref")` and are `&&`-joined, then compiled by **`App/expr.js`** — a safe jsep-based evaluator (no `new Function`/eval; `constructor`/`__proto__`/`prototype` access blocked). Example: `"$Distance.inKm!=0"`.
+**Query / assert expressions** (`queryMaps`, `getChildMatching`, `_assertTest`): a string or array of strings where `$ref` tokens resolve via `scope.getRef("ref")` and are `&&`-joined, then compiled by **`lib/graph/expr.js`** — a safe jsep-based evaluator (no `new Function`/eval; `constructor`/`__proto__`/`prototype` access blocked). Example: `"$Distance.inKm!=0"`.
 
 **bagRefs** are references to data living outside the graph (e.g. a DB record). They match `cfg.bagRefManagers[*].test` (default manager `caipi` matches `/^db:(.+)$/`) and are loaded asynchronously via `_preloadBagRefs` before mutations using them complete.
 
-### Build system
+### No build system
 
-Uses **layer-pack** (`lpack`), configured in `.layers.json` with two profiles: `default` (production) and `staging` (dev/watch). Both root at `App`, alias the root to `Skynet`, extend `lpack-react`, and externalize peer deps (React 16.3+) rather than bundling them.
+Native CommonJS — **no bundler/transpiler** (layer-pack, Babel, React were removed during industrialization). `node lib/...` and `node --test` run the source directly (real line numbers when debugging). The only runtime global is `__SERVER__` (true=node / false=browser), defaulted to server at the engine entry (`lib/graph/index.js`) so the lib loads standalone. An optional single-file esbuild bundle can be added on demand but is not required.
 
 ## Reference docs
 
-`doc/API.md` is the public API reference (construction, lifecycle, mutations, history/rollback, fork/merge, patchConcept, providers). `doc/doc.md` (French) is the full concept-schema specification; `doc/analysis.md` holds supplementary analysis. Consult them for concept-definition details beyond the summary above.
+Start with the root `README.md`, then `doc/architecture.md` (how it works + vision + honest limits) and `doc/usage.md` (practical guide: `fromDirs`, concept sets, providers, the `sg` CLI, distributed exec). `doc/API.md` is the public API reference; `doc/doc.md` (French) is the full concept-schema specification; `doc/MODELISATION.md` is the model + roadmap. The R&D working trail — critical studies, ideation, plans, and the live `HANDOFF.md` ledger — lives under `doc/WIP/`.
