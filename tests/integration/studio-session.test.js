@@ -44,6 +44,21 @@ test('conceptTree + getConcept expose the loaded corpus', () => {
 	assert.ok(distance && distance._name === 'Distance', 'getConcept returns the Distance schema');
 });
 
+test('forkPlan op derives the tiling of the loaded corpus (the TilingOverlay)', () => {
+	const s = new Session('root', { Graph });
+	s.loadCorpus({ conceptsDir: CONCEPTS, builtins: true, seed: SEED });
+	const plan = s.forkPlan();
+	assert.ok(plan && Array.isArray(plan.separators), 'forkPlan returns a tiling');
+	assert.ok(Array.isArray(plan.forks) && plan.forks.length > 0, 'derives forks/tiles');
+	assert.equal(typeof plan.partitionPays, 'boolean');
+	// every fork frontier is a subset of the derived separators (the contract closes)
+	for ( const f of plan.forks ) for ( const sep of f.frontier ) assert.ok(plan.separators.includes(sep), 'frontier ⊆ separators');
+});
+
+test('the facade exposes createStudioServer (embeddable as a library)', () => {
+	assert.equal(typeof Graph.createStudioServer, 'function', 'createStudioServer is exported from the facade');
+});
+
 test('validateConcept: a well-formed concept passes; a missing _name fails', () => {
 	const s = new Session('root', { Graph });
 	s.loadCorpus({ conceptsDir: CONCEPTS, builtins: true, seed: SEED });
