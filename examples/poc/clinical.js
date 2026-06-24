@@ -13,11 +13,12 @@ global.__SERVER__ = true;
 const path = require('path');
 const Graph = require('../../lib/graph/index.js');
 const { buildConceptTree } = require('../../lib/authoring/concepts');
+const { createConstat } = require('../../lib/providers/constat');
 
 const CLINICAL = path.join(__dirname, '..', '..', 'concepts', 'clinical');
 
 function makeClinicalProviders() {
-	return {
+	return Object.assign({
 		Dx: {
 			diagnose( graph, concept, scope, argz, cb ) {       // the LLM writes the typed diagnosis enum (stubbed)
 				cb(null, { $_id: '_parent', Diagnosis: true, diagnosis: 'ckd', confBand: 'high' });
@@ -25,19 +26,8 @@ function makeClinicalProviders() {
 			prescribe( graph, concept, scope, argz, cb ) {
 				cb(null, { $_id: '_parent', Medication: true, medication: 'lisinopril' });
 			}
-		},
-		Memory: {
-			recordRetraction( graph, concept, scope, argz, cb ) {   // Q6 typed constat record, on a surviving anchor
-				cb(null, { $$_id: 'mem', lessons: { __push: {
-					kind: concept._name,
-					claim: scope._.diagnosis || null,
-					retractedBecause: 'labVerdict',
-					certaintyBand: scope._.confBand || null,
-					atRev: graph.getCurrentRevision()
-				} } });
-			}
 		}
-	};
+	}, createConstat());   // Q6 typed constat record (Constat::record cleaner), on a surviving anchor
 }
 
 function clinicalSeed() {

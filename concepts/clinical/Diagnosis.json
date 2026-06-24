@@ -6,7 +6,8 @@
   "require": ["Observation", "LabValue"],
   "ensure": ["$labVerdict == 'pass'"],
   "provider": ["Dx::diagnose"],
-  "cleaner": ["Memory::recordRetraction"],
+  "cleaner": ["Constat::record"],
+  "constat": { "claimKey": "diagnosis", "because": "labVerdict" },
   "prompt": {
     "facts": { "diagnosis": { "enum": ["t2dm", "ckd", "hyperkalemia", "anemia"] } },
     "prose": "diagnosisRationale"
