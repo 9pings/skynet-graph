@@ -8,9 +8,10 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const path = require('node:path');
 const {
-	treeDecomposition, decomposeCliques, conceptCliques, articulationPoints, primalAdj
+	treeDecomposition, decomposeCliques, conceptCliques, articulationPoints, primalAdj, forkPlan
 } = require('../../lib/authoring/decompose');
 const { buildConceptTree } = require('../../lib/authoring/concepts');
+const { validateMergeProjection } = require('../../lib/authoring/validate');
 
 // --- E7a: synthetic corpus, KNOWN structure. 3 biconnected domains (triangles) joined
 // by 2 shared bridge facts {cost, risk}. Ground truth: separators={cost,risk}, 3 tiles. ---
@@ -84,4 +85,45 @@ test('primalAdj builds an undirected clique per fact-set', () => {
 	const adj = primalAdj([['a', 'b', 'c']]);
 	assert.deepEqual([...adj.get('a')].sort(), ['b', 'c']);
 	assert.equal(articulationPoints(adj).size, 0, 'a single triangle is biconnected');
+});
+
+// --- forkPlan: the interface-derivation half of auto-tiling (Tier 4) ---
+
+const domainTree = {
+	childConcepts: {
+		Diagnose: { _id: 'Diagnose', _name: 'Diagnose', require: ['symptom'], ensure: ['$risk != null'], applyMutations: [{ $_id: '_parent', diagnosis: true }] },
+		TravelRisk: { _id: 'TravelRisk', _name: 'TravelRisk', require: ['distance'], ensure: ['$risk != null', '$mode != null'] },
+		TravelCost: { _id: 'TravelCost', _name: 'TravelCost', require: ['distance'], ensure: ['$cost != null', '$mode != null'] },
+		Reorder: { _id: 'Reorder', _name: 'Reorder', require: ['stock'], ensure: ['$cost != null'], applyMutations: [{ $_id: '_parent', order: true }] }
+	}
+};
+const forkWith = (plan, name) => plan.forks.find((f) => f.concepts.includes(name));
+
+test('forkPlan assigns concepts to forks and derives each fork frontier alphabet', () => {
+	const plan = forkPlan(domainTree);
+	assert.deepEqual(plan.separators, ['cost', 'risk'], 'separators = the bridge facts');
+	assert.equal(plan.forks.length, 3, 'one fork per domain tile');
+	// the clinical fork crosses risk; the supply fork crosses cost; the travel fork crosses both
+	assert.deepEqual(forkWith(plan, 'Diagnose').frontier, ['risk']);
+	assert.deepEqual(forkWith(plan, 'Reorder').frontier, ['cost']);
+	assert.deepEqual(forkWith(plan, 'TravelCost').frontier, ['cost', 'risk']);
+	assert.equal(forkWith(plan, 'TravelRisk'), forkWith(plan, 'TravelCost'), 'both travel concepts share one fork');
+});
+
+test('the derived frontier alphabet feeds validateMergeProjection (the contract closes)', () => {
+	const plan = forkPlan(domainTree);
+	const clinical = forkWith(plan, 'Diagnose');           // frontier ['risk']
+	// a projection crossing the derived alphabet is clean; an off-alphabet key is a leak
+	assert.equal(validateMergeProjection({ $$_id: 'p', risk: 'high' }, { frontierAlphabet: clinical.frontier }).warnings.length, 0);
+	assert.equal(validateMergeProjection({ $$_id: 'p', risk: 'high', secret: 1 }, { frontierAlphabet: clinical.frontier })
+		.warnings.filter((w) => w.kind === 'frontier-leak').length, 1, 'a key outside the derived frontier is flagged');
+});
+
+test('forkPlan on the real common set: forks crossing only the derived hub facts', () => {
+	const common = buildConceptTree(path.join(__dirname, '..', '..', 'concepts', 'common'), { exclude: ['targetNode'] });
+	const plan = forkPlan(common);
+	assert.deepEqual(plan.separators, ['Distance', 'Stay']);
+	// every fork's frontier is a subset of the derived separators
+	for (const f of plan.forks) for (const s of f.frontier) assert.ok(plan.separators.includes(s), 'frontier ⊆ separators');
+	assert.ok(plan.forks.length >= 2);
 });
