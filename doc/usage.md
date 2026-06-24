@@ -196,6 +196,33 @@ providers log with context via `scope.log` / `concept.log(scope)`. See `doc/API.
 
 With `package.json` `bin`, this is also available as `sg …` once installed.
 
+### The Studio (`sg studio`) — the web inspector & console
+
+A browser front-end for the engine: a registry of live `Graph` sessions (a root + a tree of
+forks) over WebSocket, with a no-build React UI.
+
+```bash
+node bin/sg studio [--root <dir>] [--port 4848] [--open] [--log-level <lvl>] [--log-file <path>]
+# corpora are auto-discovered under --root (default cwd); the prompt console uses LLM_BASE if set
+```
+
+It visualizes and drives the full V1 API: the **graph canvas** (cast-concept flags on each edge,
+a pulse on the target of the most recent `conceptApply`), the **concept tree** + a live **editor**
+(edit → validate → patch), the **fork tree** (fork / switch / merge), the **revision timeline**
+(rollback / diff), and a **prompt console** (the decompose → synthesize answer-loop). The
+`forkPlan` op exposes the tree-decomposition **tiling** (separators + tiles + frontier alphabets)
+of the active corpus. The engine core stays fs-free — all fs/serving lives in `lib/studio`.
+
+Embeddable as a library (not only via the CLI):
+
+```js
+const Graph  = require('skynet-graph');
+const server = Graph.createStudioServer({ Graph, root: './', ask: myLLM, logger });
+```
+
+The wire contract is `lib/studio/protocol.js` (`OPS` client→server, `EVENTS` server→client). The
+browser pulls React/cytoscape from a CDN (esm.sh) — vendor them for an offline / air-gapped demo.
+
 ## 8. Distributed execution
 
 Stabilize sub-graphs in separate worker processes; dispatch graph parts to warm workers.
