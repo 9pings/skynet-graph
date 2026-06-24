@@ -463,6 +463,11 @@ ATMS (it's a JTMS); that memoization controls cost (it controls redundancy); det
 
 ## 9. Prioritized roadmap (single ordered list, highest leverage first)
 
+> **Note (2026-06-24).** This roadmap (#1–#12, N1–N10) is mechanically complete and STANDS. An **additive** track —
+> *probabilistic/learning uses + the Mixture-of-Reasoners sub-graph architecture* — was opened and experimentally
+> de-risked this session; its own prioritized roadmap (Tier 0 bug → Tier 4 research) is in **`doc/WIP/HANDOFF.md` §7**,
+> with the study trail under the "Fil 2026-06-24" in `doc/WIP/README.md`.
+
 Merged across all lenses; dependencies noted. The shape: **canonicalization + the completion-gating
 primitive unblock reactive synthesis + budget + verification; verification & memory need the trace, which
 already exists.**
