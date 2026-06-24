@@ -1,0 +1,5 @@
+{
+  // Transport tile — emits the `eta` separator fact + the shipStatus. R2: ORIENTS.
+  "require": ["shipReq"],
+  "applyMutations": [{ "$_id": "_parent", "shipStatus": "intransit", "eta": 10 }]
+}

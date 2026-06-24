@@ -1,0 +1,10 @@
+{
+  // The HUB: it consumes the three SEPARATOR facts {leadTime, onHand, eta} — the narrow
+  // interface across the tiles (the frontier alphabet) — and stays committed only while the
+  // shipment is on-time AND not flagged delayed. TTL defeasance (the N1 polarity: committed
+  // WHILE valid, retract WHEN stale — an `ensure` drives the cast->uncast direction, not the
+  // reverse): when the clock passes the ETA, Fulfillment RETRACTS = the re-plan trigger. R2: GATES.
+  "require": ["leadTime", "onHand", "eta"],
+  "ensure": ["$$clock:tick < $eta", "$shipStatus != 'delayed'"],
+  "applyMutations": [{ "$_id": "_parent", "fulfilled": true }]
+}

@@ -1,0 +1,5 @@
+{
+  // Inventory tile — emits the `onHand` separator fact. R2: ORIENTS.
+  "require": ["stockReq"],
+  "applyMutations": [{ "$_id": "_parent", "stockState": "low", "onHand": 3 }]
+}

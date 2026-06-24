@@ -1,0 +1,6 @@
+{
+  // emits the `leadTime` SEPARATOR fact once the order is confirmed. R2: GATES on a typed enum.
+  "require": ["Procurement"],
+  "ensure": ["$orderStatus == 'confirmed'"],
+  "applyMutations": [{ "$_id": "_parent", "leadTime": 5 }]
+}

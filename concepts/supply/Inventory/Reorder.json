@@ -1,0 +1,7 @@
+{
+  // deterministic R2-safe CHECKER: reorder when on-hand drops below the reorder point
+  // (bounds are data, not judgment). It CHECKS, it does not DECIDE.
+  "require": ["Inventory"],
+  "ensure": ["$onHand < $reorderPoint"],
+  "applyMutations": [{ "$_id": "_parent", "reordered": true }]
+}

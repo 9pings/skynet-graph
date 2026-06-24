@@ -1,0 +1,8 @@
+{
+  // Supply-chain domain — the PAVAGE demonstrator: 3 weakly-coupled sub-domains
+  // (Procurement / Inventory / Transport) joined by a narrow interface of separator facts
+  // {leadTime, onHand, eta} that a Fulfillment hub consumes (a tree-decomposition tiling).
+  // Procurement tile. R2: ORIENTS.
+  "require": ["orderReq"],
+  "applyMutations": [{ "$_id": "_parent", "orderStatus": "confirmed" }]
+}
