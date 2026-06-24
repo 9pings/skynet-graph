@@ -1,0 +1,6 @@
+{
+  // Independent verdict as a SIBLING fact (never overwrites the claim). The deterministic
+  // checker is R2-safe (a range/schema check is verification, not domain decision).
+  "require": ["Claim"],
+  "provider": ["Verify::check"]
+}

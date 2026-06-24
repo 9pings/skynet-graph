@@ -1,0 +1,6 @@
+{
+  // Trust gate on the SNAPPED band. R2 audit: GATES on a discrete enum the LLM wrote; a
+  // low-confidence claim uncasts its dependents (defeasance via the watched ensure).
+  "require": ["Confidence"],
+  "ensure": ["$confBand == 'high'"]
+}

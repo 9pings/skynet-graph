@@ -1,0 +1,6 @@
+{
+  // The compound branch. R2 audit: GATES on the LLM enum verdict; the split itself is the
+  // provider's job (Expansion), not a rule.
+  "require": ["Complexity"],
+  "ensure": ["$complexityClass == 'compound'"]
+}

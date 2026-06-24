@@ -1,0 +1,6 @@
+{
+  // No strategy left -> triggers the supervisor / self-mod (supervise.js). R2 audit:
+  // ORIENTS the supervisor; does not itself decide the repair.
+  "require": ["Frontier"],
+  "ensure": ["$strategiesExhausted"]
+}

@@ -1,0 +1,12 @@
+{
+  // Leaf answer for an atomic task. The answer is TERMINAL prose (untracked); only the
+  // discrete `Answered` flag crosses downstream (the K1 barrier — prose never on an edge).
+  "require": ["Task", "Atomic"],
+  "provider": ["AI::answer"],
+  "prompt": {
+    "system": "Answer this atomic step directly and concisely.",
+    "user": "Step: ${label}",
+    "prose": "answer"
+  },
+  "applyMutations": { "$_id": "_parent", "Answered": true }
+}

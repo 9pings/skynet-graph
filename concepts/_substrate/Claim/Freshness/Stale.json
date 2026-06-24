@@ -1,0 +1,7 @@
+{
+  // Cast == "is fresh"; when the clock passes the TTL the ensure falls -> uncast -> the
+  // stale claim's dependents cascade-retract (cache-poisoning fix). Note the DOUBLE-$ on the
+  // global clock free-node (a single $clock would read the local scope, the #1 standing bug).
+  "require": ["Freshness", "producedAt"],
+  "ensure": ["$$clock:tick - $producedAt < $ttl"]
+}

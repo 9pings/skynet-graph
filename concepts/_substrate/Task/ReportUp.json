@@ -1,0 +1,6 @@
+{
+  // Orchestration: post self-id upward (race-free {__push} into the parent's answeredBy);
+  // calls no other concept. R2 audit: ORCHESTRATES (stigmergic), decides nothing.
+  "require": ["Task", "Answered", "parentSeg"],
+  "provider": ["AI::reportUp"]
+}

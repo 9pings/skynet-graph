@@ -1,0 +1,5 @@
+{
+  // Universal layer — the answer-loop spine root. A Segment carrying a sub-problem.
+  // R2 audit: ORIENTS (declares a unit of work); decides nothing.
+  "require": "Segment"
+}

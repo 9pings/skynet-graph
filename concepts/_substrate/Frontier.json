@@ -1,0 +1,5 @@
+{
+  // An open node competing for budget. Cast while NOT yet answered. R2 audit: ORIENTS.
+  "require": ["Task"],
+  "assert": ["!$Answered"]
+}

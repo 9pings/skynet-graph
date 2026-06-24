@@ -1,0 +1,6 @@
+{
+  // Structural classifier node. The mutually-exclusive Atomic/Compound branches nest under
+  // it and gate on the LLM's `complexityClass` enum fact (the engine's `type:"enum"` self-cast
+  // is unused — Concept.js:239 — so the discriminant is a fact, not the cast machinery).
+  "require": ["EvalComplexity"]
+}

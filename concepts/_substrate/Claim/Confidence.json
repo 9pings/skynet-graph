@@ -1,0 +1,10 @@
+{
+  // Graded confidence SNAPPED to a band (enum, not a raw float — gating on a raw float
+  // churns the memo every run, K1/A2). The LLM grades; the rule carries the snapped fact.
+  "require": ["Claim"],
+  "provider": ["AI::confidence"],
+  "prompt": {
+    "facts": { "confBand": { "enum": ["low", "medium", "high"] } },
+    "prose": "confRationale"
+  }
+}

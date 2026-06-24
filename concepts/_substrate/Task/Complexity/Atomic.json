@@ -1,0 +1,5 @@
+{
+  // Gate on the LLM's verdict; do not re-decide. R2 audit: GATES on a fact the LLM wrote.
+  "require": ["Complexity"],
+  "ensure": ["$complexityClass == 'atomic'"]
+}

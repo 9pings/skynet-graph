@@ -1,0 +1,4 @@
+{
+  // An answered task asserts something verifiable. R2 audit: ORIENTS (marks "checkable").
+  "require": ["Task", "Answered"]
+}

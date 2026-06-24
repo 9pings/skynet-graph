@@ -1,0 +1,13 @@
+{
+  // The LLM JUDGES atomic-vs-compound; the rule only structures the verdict into a typed
+  // enum fact. R2 audit: the LLM decides (prompt.facts.Complexity); the rule never gates on
+  // domain judgment.
+  "require": ["Task"],
+  "provider": ["AI::evalComplexity"],
+  "prompt": {
+    "system": "Classify whether this step is atomic or needs decomposition.",
+    "user": "Step: ${label}",
+    "facts": { "complexityClass": { "enum": ["atomic", "compound"] } },
+    "prose": "complexityRationale"
+  }
+}

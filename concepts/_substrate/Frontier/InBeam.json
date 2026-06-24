@@ -1,0 +1,6 @@
+{
+  // Beam membership by budget (the global budget free-node, double-$). Eviction (budget
+  // falls below estCost) uncasts -> the sub-tree cascade-retracts (beam-by-retraction).
+  "require": ["Frontier", "estCost"],
+  "ensure": ["$$budget:remaining > $estCost"]
+}

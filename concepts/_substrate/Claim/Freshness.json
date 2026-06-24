@@ -1,0 +1,5 @@
+{
+  // Attaches a TTL to a claim (N1). R2 audit: ORIENTS (declares a freshness budget).
+  "require": ["Claim"],
+  "applyMutations": { "$_id": "_parent", "ttl": 100 }
+}

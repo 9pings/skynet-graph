@@ -1,0 +1,7 @@
+{
+  // LLM-meta: the provider SYNTHESIZES the expansion template (the AND hyper-edge of child
+  // sub-segments) and writes `expandedInto`. R2 audit: carries STRUCTURE, not the "how to
+  // split" judgment (that is the provider's).
+  "require": ["Compound"],
+  "provider": ["AI::expand"]
+}

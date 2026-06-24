@@ -1,0 +1,10 @@
+{
+  // Bounded bottom-up synthesis. GATES on a DISCRETE cardinality equality (.length on both
+  // sides — never on prose), so it fires exactly once when the last child has reported. The
+  // fold is the LLM's job; the rule carries only the bounded-cardinality trigger.
+  "require": ["Task", "Expansion"],
+  "ensure": ["$answeredBy.length == $expandedInto.length"],
+  "provider": ["AI::rollup"],
+  "prompt": { "system": "Synthesize one bounded answer from the child answers.", "prose": "answer" },
+  "applyMutations": { "$_id": "_parent", "Answered": true }
+}

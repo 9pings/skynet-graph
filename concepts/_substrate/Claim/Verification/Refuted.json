@@ -1,0 +1,6 @@
+{
+  // Refutation = defeasance. Exists only to CARRY the retraction: when the verdict flips
+  // to 'fail', dependents nested under the claim cascade-uncast (the Zep foil). R2-safe.
+  "require": ["Verification"],
+  "ensure": ["$claimVerdict == 'fail'"]
+}
