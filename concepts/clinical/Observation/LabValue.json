@@ -1,0 +1,5 @@
+{
+  // A typed lab measurement. In production an LLM::complete extracts the enum/grain facts
+  // (analyte, value, unit) via prompt.facts (the barrier); here they are seeded. R2: ORIENTS.
+  "require": ["Observation"]
+}

@@ -1,0 +1,14 @@
+{
+  // THE niche edge (the Zep foil). The LLM writes the diagnosis enum (prompt.facts.diagnosis);
+  // the rule only GATES on the lab verdict and RETRACTS when it falls (defeasance) — it never
+  // decides the diagnosis itself (R2). A refuted/corrected lab => labVerdict flips => Diagnosis
+  // uncasts => Medication (nested child) cascade-retracts => the cleaner deposits a constat.
+  "require": ["Observation", "LabValue"],
+  "ensure": ["$labVerdict == 'pass'"],
+  "provider": ["Dx::diagnose"],
+  "cleaner": ["Memory::recordRetraction"],
+  "prompt": {
+    "facts": { "diagnosis": { "enum": ["t2dm", "ckd", "hyperkalemia", "anemia"] } },
+    "prose": "diagnosisRationale"
+  }
+}

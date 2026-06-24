@@ -34,4 +34,9 @@ test('the PoC demo runs decompose -> tiling -> solve+merge -> learn end-to-end',
 	assert.equal(r.learn.warmRuns, 2);
 	assert.ok(r.learn.warmRuns < r.learn.coldRuns, 'learning shrank the warm episode');
 	assert.deepEqual(r.learn.learned, ['routeA', 'routeB']);
+
+	// 5 — the niche: a refuted lab deterministically retracted the diagnosis + cascade, with a constat
+	assert.equal(r.defeasance.retracted, true, 'diagnosis retracted on refutation');
+	assert.equal(r.defeasance.cascaded, true, 'medication cascade-retracted');
+	assert.equal(r.defeasance.constat.retractedBecause, 'labVerdict', 'typed constat records why');
 });

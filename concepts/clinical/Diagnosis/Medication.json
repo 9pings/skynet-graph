@@ -1,0 +1,6 @@
+{
+  // Nested under Diagnosis so a refuted diagnosis CASCADE-retracts it (finding #10b: a child
+  // concept un-casts when its parent falls — `require` alone would NOT defease). R2: ORIENTS.
+  "require": ["Diagnosis"],
+  "provider": ["Dx::prescribe"]
+}

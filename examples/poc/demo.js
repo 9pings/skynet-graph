@@ -23,6 +23,7 @@ const { createSolver, snappedFrontier, solverConceptTree } = require('../../lib/
 const { runTripDecompose } = require('./trip-decompose.js');
 const { forkSolveAndMerge } = require('./fork-driver.js');
 const { runNogoodEpisodes } = require('./learn-nogood.js');
+const { runClinicalDefeasance } = require('./clinical.js');
 
 // a small 3-domain tree (clinical/travel/supply) sharing two bridge facts {cost, risk} —
 // the planted structure forkPlan recovers as the separator interface + 3 tiles.
@@ -75,7 +76,15 @@ async function runDemo() {
 	// 4 — LEARN (cross-episode)
 	const learn = await runNogoodEpisodes();
 
-	return { decompose, tiling, solve, learn };
+	// 5 — DEFEASANCE (the niche): a refuted lab retracts the diagnosis + cascades the medication
+	const d = await runClinicalDefeasance();
+	const defeasance = {
+		retracted: d.before.Diagnosis && !d.after.Diagnosis,
+		cascaded: d.before.Medication && !d.after.Medication,
+		constat: d.after.lessons[0]
+	};
+
+	return { decompose, tiling, solve, learn, defeasance };
 }
 
 module.exports = { runDemo, domainTree };
@@ -87,7 +96,9 @@ if ( require.main === module ) {
 		console.log('2. TILING     : separators =', JSON.stringify(r.tiling.separators), '|', r.tiling.forks, 'tiles (pavage)');
 		console.log('3. SOLVE+MERGE: sat =', r.solve.sat, '| model crossed =', r.solve.modelSize, 'nodes | steps leaked =', r.solve.stepsLeaked, '| D-verified =', r.solve.valid);
 		console.log('4. LEARN      : cold episode =', r.learn.coldRuns, 'trials -> warm =', r.learn.warmRuns, '(learned', JSON.stringify(r.learn.learned) + ')');
-		console.log('\nall four axes ran on the real engine, zero core change.\n');
+		console.log('5. DEFEASANCE : refuted lab -> diagnosis retracted =', r.defeasance.retracted, '| medication cascaded =', r.defeasance.cascaded,
+			'| constat =', JSON.stringify(r.defeasance.constat));
+		console.log('\nall five axes ran on the real engine, zero core change.\n');
 		process.exit(0);
 	}).catch(( e ) => { console.error(e); process.exit(1); });
 }

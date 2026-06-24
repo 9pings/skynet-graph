@@ -1,0 +1,6 @@
+{
+  // Clinical domain grammar — plugs under the universal Claim (here rooted at an encounter
+  // for a self-contained defeasance demo). A clinical observation on an encounter.
+  // R2 audit: ORIENTS (declares a verifiable observation); decides nothing.
+  "require": ["encounter"]
+}

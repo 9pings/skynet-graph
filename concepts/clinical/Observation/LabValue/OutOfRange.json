@@ -1,0 +1,6 @@
+{
+  // Deterministic R2-SAFE checker: the reference bounds are DATA, not judgment — it CHECKS
+  // whether the value is out of range, it does not DECIDE a diagnosis (R11.3).
+  "require": ["LabValue"],
+  "ensure": ["$value > $refHigh || $value < $refLow"]
+}
