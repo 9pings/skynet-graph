@@ -1,6 +1,6 @@
 'use strict';
 /**
- * Manual Reactive-Graph-of-Experts control: castConcept / unCastConcept (documented public API).
+ * Manual Neurosymbolic Reasoning Graph control: castConcept / unCastConcept (documented public API).
  * Force-cast a concept the engine would not auto-apply (`autoCast:false`),
  * watch a dependent child auto-cast under it, then force-uncast and watch the
  * retraction cascade to the child.

@@ -2,7 +2,7 @@
 /**
  * getPaths(from, to): core path discovery over the directed segment topology
  * (node._outgoing). Returns { maps, paths } where each path is an alternating
- * [node, seg, node, seg, ..., node] list. This is what the Reactive-Graph-of-Experts
+ * [node, seg, node, seg, ..., node] list. This is what the Neurosymbolic Reasoning Graph
  * "rank/select alternative branches" use-case is built on.
  */
 const { test } = require('node:test');

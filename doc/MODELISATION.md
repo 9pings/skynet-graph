@@ -1,4 +1,4 @@
-# MODELISATION — skynet-graph "Reactive Graph of Experts" reasoning substrate
+# MODELISATION — skynet-graph "Neurosymbolic Reasoning Graph" (NRG) substrate
 
 *The definitive synthesis. Four R&D ideation lenses (agents/reasoning, live/reactive,
 truth-maintenance/audit, modeling/abstraction) plus two prior critical studies
@@ -134,7 +134,7 @@ What the system solves uniquely or better, one line each, honest. `[C×N]` marks
 
 - **"Reasoning is in the data / in the rules, not the weights."** Half-true. *Orchestration* of
   judgment is in the rules; *judgment* (split? atomic? good answer?) is in the LLM provider `[C×4]`.
-- **"MOE / mixture of experts" — the misnomer this project is renamed away from (→ Reactive Graph of Experts).** It is an LLM-knowledge-source **blackboard** (Hearsay-II, 1980s) with
+- **"MOE / mixture of experts" — the misnomer this project is renamed away from (→ Neurosymbolic Reasoning Graph).** It is an LLM-knowledge-source **blackboard** (Hearsay-II, 1980s) with
   state-conditioned activation. Added value over a classic blackboard = retraction + replay +
   provenance, **not** the routing `[C×2]`.
 - **"Convergence = reproducibility."** Reproducible at the **trigger** level (do we re-call?), *not* the

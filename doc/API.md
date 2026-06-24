@@ -1,6 +1,6 @@
 # Skynet-Graph — Public API
 
-The stable surface of the engine as of the V1 "Reactive Graph of Experts" (formerly "MOE Graph") Phase-0 work. Skynet-graph is a
+The stable surface of the engine as of the V1 "Neurosymbolic Reasoning Graph" (formerly "MOE Graph") Phase-0 work. Skynet-graph is a
 **library**: a host app embeds the engine, supplies *concept definitions* (the experts) and
 *provider functions* (the effectful work), and drives the graph through mutations.
 
