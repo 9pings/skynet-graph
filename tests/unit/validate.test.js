@@ -143,3 +143,45 @@ test('strict promotes an unknown-ref to an error', () => {
 	const t = { childConcepts: { D: { _id: 'D', _name: 'D', require: ['Imaginary'], provider: ['AI::act'] } } };
 	assert.ok(validateConceptTree(t, { knownFacts: [], strict: true }).errors.some((e) => e.kind === 'unknown-ref'));
 });
+
+// --- continuous-vs-snapped axis (#P4): catch a raw float on a defeasant gate (the A2
+//     footgun the bricks rely on snapping away). Opt-in so it never false-flags by default.
+
+const rawGate = () => ({ childConcepts: {
+	Up: { _id: 'Up', _name: 'Up', require: ['Segment'], provider: ['AI::est'], applyMutations: [{ $_id: '_parent', pHat: 0.5, relRank: 1 }] },
+	// THE A2 FAILURE: a defeasant gate on a raw continuous value
+	Audit: { _id: 'Audit', _name: 'Audit', require: ['Up'], ensure: ['$pHat >= 0.7'], provider: ['AI::act'] },
+	// the barrier-clean equivalent: gate on the SNAPPED rank
+	AuditOk: { _id: 'AuditOk', _name: 'AuditOk', require: ['Up'], ensure: ['$relRank >= 1'], provider: ['AI::act'] }
+} });
+
+test('continuous-gate check is OFF by default (no false positives, never caps the grammar)', () => {
+	const { warnings, errors } = validateConceptTree(rawGate());
+	assert.equal(warnings.filter((w) => w.kind === 'continuous-gate').length, 0);
+	assert.equal(errors.filter((e) => e.kind === 'continuous-gate').length, 0);
+});
+
+test('opt-in flags a raw float on a defeasant ensure gate (A2), not the snapped-rank gate', () => {
+	const { warnings } = validateConceptTree(rawGate(), { flagContinuousGates: true });
+	const cg = warnings.filter((w) => w.kind === 'continuous-gate');
+	assert.equal(cg.length, 1, 'exactly the raw-float gate is flagged');
+	assert.equal(cg[0].concept, 'Audit');
+	assert.match(cg[0].message, /"pHat" against fractional 0\.7/);
+	// $relRank >= 1 (integer, snapped rank) is NOT flagged
+	assert.equal(cg.filter((w) => w.concept === 'AuditOk').length, 0, 'snapped-rank gate is clean');
+});
+
+test('opt-in: snapped-convention facts and host-exempted facts are not flagged', () => {
+	const t = { childConcepts: {
+		Up: { _id: 'Up', _name: 'Up', require: ['Segment'], provider: ['AI::est'] },
+		A: { _id: 'A', _name: 'A', require: ['Up'], ensure: ['$scoreBucket >= 0.5'], provider: ['AI::act'] },   // …Bucket convention -> snapped
+		C: { _id: 'C', _name: 'C', require: ['Up'], ensure: ['$confidence >= 0.7'], provider: ['AI::act'] }       // exempted (k-of-n confidence)
+	} };
+	const { warnings } = validateConceptTree(t, { flagContinuousGates: true, continuousExempt: ['confidence'] });
+	assert.equal(warnings.filter((w) => w.kind === 'continuous-gate').length, 0, 'convention + exempt both suppressed');
+});
+
+test('strict promotes a continuous-gate to an error', () => {
+	const { errors } = validateConceptTree(rawGate(), { flagContinuousGates: true, strict: true });
+	assert.ok(errors.some((e) => e.kind === 'continuous-gate' && e.concept === 'Audit'));
+});
