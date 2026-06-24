@@ -184,3 +184,37 @@ test('constructor/__proto__ access is blocked (no Function escape)', () => {
 	assert.equal(compileExpression("$o['constructor']")(resolverFrom({ o: {} })), undefined); // computed too
 });
 
+// ---- Stratified set-aggregation (#8): count / all / any over a {__push}ed value array ----
+
+test('count over a value array with a comparison predicate (k-of-n gate)', () => {
+	const votes = ['yes', 'no', 'yes', 'yes'];
+	assert.equal(compileExpression("count($votes,'==','yes')")(resolverFrom({ votes })), 3);
+	// the canonical k-of-n consensus gate
+	assert.equal(compileExpression("count($votes,'==','yes') >= 3")(resolverFrom({ votes })), true);
+	assert.equal(compileExpression("count($votes,'==','no') >= 3")(resolverFrom({ votes })), false);
+	// numeric predicate
+	assert.equal(compileExpression("count($s,'>=',0.5)")(resolverFrom({ s: [0.2, 0.7, 0.9, 0.4] })), 2);
+});
+
+test('count with no predicate = count of truthy values', () => {
+	assert.equal(compileExpression('count($a)')(resolverFrom({ a: [1, 0, 3, '', 'x'] })), 3);
+	// an all-truthy array: count == its length (provide the walked "a.length" key like getRef would)
+	assert.equal(compileExpression('count($a) == $a.length')(resolverFrom({ a: [1, 2, 3], 'a.length': 3 })), true);
+});
+
+test('all / any over a value array', () => {
+	assert.equal(compileExpression("all($s,'>=',0.5)")(resolverFrom({ s: [0.6, 0.9, 0.5] })), true);
+	assert.equal(compileExpression("all($s,'>=',0.5)")(resolverFrom({ s: [0.6, 0.4] })), false);
+	assert.equal(compileExpression("any($s,'>',0.9)")(resolverFrom({ s: [0.6, 0.95] })), true);
+	assert.equal(compileExpression('all($flags)')(resolverFrom({ flags: [true, true] })), true);
+	assert.equal(compileExpression('any($flags)')(resolverFrom({ flags: [false, false] })), false);
+});
+
+test('aggregation edge cases: empty is vacuously all-true; a not-yet-present ref is all-false', () => {
+	assert.equal(compileExpression('all($s)')(resolverFrom({ s: [] })), true, 'vacuous all on []');
+	assert.equal(compileExpression('any($s)')(resolverFrom({ s: [] })), false);
+	// a ref that has not appeared yet (undefined) -> all/any false (gate stays closed), count 0
+	assert.equal(compileExpression('all($missing)')(resolverFrom({})), false, 'non-array -> not satisfied');
+	assert.equal(compileExpression('count($missing)')(resolverFrom({})), 0);
+});
+
