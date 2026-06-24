@@ -8,7 +8,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const path = require('node:path');
-const { validateConceptTree, validateOrThrow, stratificationWarnings } = require('../../lib/authoring/validate');
+const { validateConceptTree, validateOrThrow, stratificationWarnings, validateMergeProjection } = require('../../lib/authoring/validate');
 const { buildConceptTree } = require('../../lib/authoring/concepts');
 const { loopConceptTree } = require('../../lib/authoring/loop');
 
@@ -221,4 +221,32 @@ test('strict promotes an unstratified cycle to an error; skipStratification disa
 	} };
 	assert.ok(validateConceptTree(t, { strict: true }).errors.some((e) => e.kind === 'unstratified-cycle'));
 	assert.equal(validateConceptTree(t, { skipStratification: true }).warnings.filter((w) => w.kind === 'unstratified-cycle').length, 0);
+});
+
+// --- merge-projection contract validator (#P4 part b): the fork/merge frontier as a checked contract.
+
+test('merge-projection: an undeclared crossing is flagged; declared keys are clean', () => {
+	// the C1 contract: only ellA/ellB may cross
+	const ok = validateMergeProjection({ $$_id: 'belief', ellA: 0.6 }, { frontierAlphabet: ['ellA', 'ellB'] });
+	assert.equal(ok.warnings.length, 0, 'a declared snapped/contract key crosses cleanly');
+	// a projection that leaks an undeclared key (e.g. search internals)
+	const leak = validateMergeProjection({ $$_id: 'prob', sat: true, steps: 99 }, { frontierAlphabet: ['sat', 'coloring'] });
+	const fl = leak.warnings.filter((w) => w.kind === 'frontier-leak');
+	assert.equal(fl.length, 1);
+	assert.match(fl[0].message, /"steps"/, 'the undeclared "steps" crossing is flagged');
+});
+
+test('merge-projection: inactive without a declared alphabet; strict promotes to error', () => {
+	assert.equal(validateMergeProjection({ $$_id: 'x', whatever: 1 }, {}).warnings.length, 0, 'no alphabet -> no judgement');
+	assert.ok(validateMergeProjection({ $$_id: 'x', z: 1 }, { frontierAlphabet: ['y'], strict: true }).errors.some((e) => e.kind === 'frontier-leak'));
+});
+
+test('merge-projection: flagContinuous warns on a raw float crossing (advisory; C1 still crosses it)', () => {
+	const r = validateMergeProjection({ $$_id: 'belief', ellA: 0.6 }, { frontierAlphabet: ['ellA'], flagContinuous: true });
+	const cc = r.warnings.filter((w) => w.kind === 'continuous-crossing');
+	assert.equal(cc.length, 1, 'the raw-float crossing is surfaced (sound only if the parent snaps before gating)');
+	assert.equal(r.warnings.filter((w) => w.kind === 'frontier-leak').length, 0, 'declared, so not a leak');
+	// a snapped enum crossing is clean under flagContinuous
+	assert.equal(validateMergeProjection({ $$_id: 'b', band: 'high' }, { frontierAlphabet: ['band'], flagContinuous: true })
+		.warnings.filter((w) => w.kind === 'continuous-crossing').length, 0);
 });
