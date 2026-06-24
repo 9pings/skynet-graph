@@ -8,7 +8,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const path = require('node:path');
-const { validateConceptTree, validateOrThrow } = require('../../lib/authoring/validate');
+const { validateConceptTree, validateOrThrow, stratificationWarnings } = require('../../lib/authoring/validate');
 const { buildConceptTree } = require('../../lib/authoring/concepts');
 const { loopConceptTree } = require('../../lib/authoring/loop');
 
@@ -184,4 +184,41 @@ test('opt-in: snapped-convention facts and host-exempted facts are not flagged',
 test('strict promotes a continuous-gate to an error', () => {
 	const { errors } = validateConceptTree(rawGate(), { flagContinuousGates: true, strict: true });
 	assert.ok(errors.some((e) => e.kind === 'continuous-gate' && e.concept === 'Audit'));
+});
+
+// --- stratification lint (#5.3 / P-K7): a dependency cycle through a NEGATED edge may oscillate.
+
+test('flags a dependency cycle through a negated edge (unstratified, K7)', () => {
+	const t = { childConcepts: {
+		// A depends on B (positive, require) and produces fA; B depends on fA NEGATIVELY (ensure !$fA)
+		A: { _id: 'A', _name: 'A', require: ['B'], applyMutations: [{ $_id: '_parent', A: true, fA: true }] },
+		B: { _id: 'B', _name: 'B', require: ['Seg'], ensure: ['!$fA'], applyMutations: [{ $_id: '_parent', B: true }] }
+	} };
+	const { warnings } = validateConceptTree(t);
+	const cyc = warnings.filter((w) => w.kind === 'unstratified-cycle');
+	assert.equal(cyc.length, 1, 'the negated cycle is flagged once');
+	assert.deepEqual([...cyc[0].cycle].sort(), ['A', 'B']);
+});
+
+test('a PURELY POSITIVE cycle is NOT flagged (monotone mutual support)', () => {
+	const t = { childConcepts: {
+		A: { _id: 'A', _name: 'A', require: ['B'], applyMutations: [{ $_id: '_parent', A: true }] },
+		B: { _id: 'B', _name: 'B', require: ['A'], applyMutations: [{ $_id: '_parent', B: true }] }
+	} };
+	assert.equal(validateConceptTree(t).warnings.filter((w) => w.kind === 'unstratified-cycle').length, 0);
+});
+
+test('the shipped common set and the answer-loop are stratified (no false positives)', () => {
+	const common = buildConceptTree(path.join(__dirname, '..', '..', 'concepts', 'common'));
+	assert.equal(stratificationWarnings(common).length, 0, 'common set is stratified');
+	assert.equal(stratificationWarnings(loopConceptTree).length, 0, 'answer-loop is stratified');
+});
+
+test('strict promotes an unstratified cycle to an error; skipStratification disables it', () => {
+	const t = { childConcepts: {
+		A: { _id: 'A', _name: 'A', require: ['B'], applyMutations: [{ $_id: '_parent', A: true, fA: true }] },
+		B: { _id: 'B', _name: 'B', require: ['Seg'], ensure: ['!$fA'], applyMutations: [{ $_id: '_parent', B: true }] }
+	} };
+	assert.ok(validateConceptTree(t, { strict: true }).errors.some((e) => e.kind === 'unstratified-cycle'));
+	assert.equal(validateConceptTree(t, { skipStratification: true }).warnings.filter((w) => w.kind === 'unstratified-cycle').length, 0);
 });
