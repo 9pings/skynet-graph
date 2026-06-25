@@ -8,7 +8,17 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { makeOpenAIAsk, makeAsk } = require('../../lib/providers/llm.js');
+const { makeOpenAIAsk, makeAsk, parseJSON } = require('../../lib/providers/llm.js');
+
+test('parseJSON keeps a nested WRAPPER object (strict-parse-first), not the last inner element', () => {
+	// regression: the salvage heuristic returned the LAST balanced {…} = an inner element, dropping the
+	// wrapper key (`steps`/`candidates` came back undefined). A clean whole-reply must parse verbatim.
+	const r = parseJSON('{"steps":[{"name":"a","result":1},{"name":"b","result":2}]}');
+	assert.equal(r.steps.length, 2, 'the wrapper key survives');
+	assert.equal(r.steps[1].result, 2);
+	// salvage still works when the reply is prose + a trailing object
+	assert.equal(parseJSON('thinking... the answer is {"answer":42}').answer, 42);
+});
 
 // swap global.fetch for one call, capturing the request and returning a canned response
 function withFetch( responder, fn ) {
