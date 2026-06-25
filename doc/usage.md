@@ -288,3 +288,22 @@ node examples/run-basic.js     # non-LLM stabilization over the real `common` se
 node examples/run-prompt.js    # decompose → synthesize vs a local LLM (set LLM_BASE), writes a trace
 node examples/run-problem.js   # LLM-driven plan decomposition
 ```
+
+### LLM backend (`ask`)
+
+The packaged `LLM::complete` provider is backend-agnostic — a host injects an async
+`ask({system,user,maxTokens})`. The bundled `makeAsk(opts)` dispatches on the API flavour
+(`opts.api` or env `LLM_API`):
+
+- **`anthropic`** (default) — `POST <LLM_BASE>/v1/messages` (default base `:3000`).
+- **`openai`** — `POST <LLM_BASE>/v1/chat/completions` (vLLM / llama.cpp / LM Studio / any
+  OpenAI-compatible server). Reads `choices[0].message.content`, and for **reasoning models**
+  that return an empty `content` plus a separate `reasoning_content`, falls back to the latter.
+
+```bash
+LLM_API=openai LLM_BASE=http://localhost:5000 LLM_MODEL=my-model node examples/run-prompt.js
+```
+
+Env: `LLM_API` · `LLM_BASE` · `LLM_MODEL` · `LLM_KEY`. `makeOpenAIAsk` / `makeAnthropicAsk` are
+exported directly too. A live end-to-end check of the canonicalization barrier against a real model
+is the gated test `tests/integration/llm-live.test.js` (`LLM_LIVE=1`).
