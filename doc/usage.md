@@ -213,6 +213,35 @@ a pulse on the target of the most recent `conceptApply`), the **concept tree** +
 `forkPlan` op exposes the tree-decomposition **tiling** (separators + tiles + frontier alphabets)
 of the active corpus. The engine core stays fs-free — all fs/serving lives in `lib/studio`.
 
+#### Grammar workbench & corpus exchange
+
+A **data / grammar** view toggle in the toolbar switches the centre canvas between the *instance*
+graph (the running objects, above) and the **grammar graph** — the second, orthogonal view of a
+corpus: its **concepts ↔ facts** flux graph. A concept *writes* facts (green edges = self-flag +
+`applyMutations` keys) and *reads* them (blue = positive support, **red dashed = a negated /
+defeasance dependency**); separator facts (the narrow waist) are gold diamonds, external **entry
+points** are hollow, and concepts are coloured by their set. The side panel surfaces the derived
+**manifest** (the produces/consumes alphabet, the required providers), the **cross-corpus links**
+(a fact one set produces and another consumes) and any silent **fact collisions** (a fact two sets
+both write — the `leadTime` trap). This is the view for perfecting *grammars and their interactions*.
+
+- **Corpus exchange (`.sgc`)** — *export .sgc* packs the live corpus (reflecting runtime
+  add/patchConcept edits) into a portable single-file bundle `{ manifest, conceptMap, seed? }`;
+  *import .sgc* validates it on load (hard errors block, warnings surface) and runs it. The on-disk
+  JSONC tree stays canonical for editing; `Graph.exportConcepts()` + `lib/load.js#exportConceptsToDir`
+  / `lib/authoring/corpus-pack.js` are the programmatic equivalents.
+- **Provider trace** — the apply-correlated log records (`graph.logger.tail(n, { applyId })`) for the
+  active session, joining each apply's provider calls to its trace.
+- **Retraction flash** — when a concept is *retracted* (JTMS defeasance / cascade), the affected
+  object flashes red on the canvas. The Studio derives this from the state diff (no engine change)
+  and emits a `retract` event.
+- **Sub-graph split** — with a fork selected, *split* shows the parent and the fork side by side and
+  previews the **merge projection** (`validateMergeProjection`): what crosses the frontier and any
+  `frontier-leak` (a fact not in the declared alphabet) — before you merge.
+
+New ops: `grammarGraph`, `corpusManifest`, `exportCorpus`, `importCorpus`, `providerTrace`,
+`mergePreview`; new event: `retract`.
+
 Embeddable as a library (not only via the CLI):
 
 ```js

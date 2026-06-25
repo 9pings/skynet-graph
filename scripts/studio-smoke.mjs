@@ -104,10 +104,42 @@ try {
 	await new Promise(( r ) => setTimeout(r, 700));
 	const promptErr = await page.evaluate(() => { const e = document.querySelector('.pr-err'); return e ? e.textContent.trim().slice(0, 40) : null; });
 
+	// T13: switch to the GRAMMAR view — the concept↔fact graph renders (its own cytoscape)
+	await page.evaluate(() => { const b = [...document.querySelectorAll('.viewtoggle button')].find(( x ) => x.textContent.trim() === 'grammar'); if ( b ) b.click(); });
+	await page.waitForFunction(() => window.__sgGrammarCy && window.__sgGrammarCy.nodes().length >= 3, { timeout: 15000 });
+	const gNodes = await page.evaluate(() => window.__sgGrammarCy.nodes().length);
+	const gEdges = await page.evaluate(() => window.__sgGrammarCy.edges().length);
+	if ( !(gNodes >= 3 && gEdges >= 1) ) errors.push('T13: grammar graph did not render (nodes=' + gNodes + ' edges=' + gEdges + ')');
+
+	// T14: corpus exchange — export .sgc (UI button) then re-import via the API (round-trip)
+	await page.evaluate(() => { const b = document.querySelector('.cp-export'); if ( b ) b.click(); });
+	await page.waitForFunction(() => window.__sgLastBundle && window.__sgLastBundle.format === 'sgc', { timeout: 8000 });
+	const exported = await page.evaluate(() => ({ fmt: window.__sgLastBundle.format, sets: Object.keys(window.__sgLastBundle.conceptMap || {}).length, prov: (window.__sgLastBundle.manifest.providersRequired || []).length }));
+	const reimported = await page.evaluate(async () => { const r = await window.__sgApi.call('importCorpus', { bundle: window.__sgLastBundle, opts: { builtins: true } }, 'root'); return !!r.ok; });
+	if ( exported.fmt !== 'sgc' || !reimported ) errors.push('T14: .sgc export/import round-trip failed (' + JSON.stringify(exported) + ' reimported=' + reimported + ')');
+
+	// T15: retraction — a synthetic ensure-gated concept retracts when its fact falls; the
+	//      Session emits 'retract', the app records it (and flashes the node red).
+	const retracted = await page.evaluate(async () => {
+		window.__sgRetracts = [];
+		const conceptMap = { test: { childConcepts: { Tagged: { _id: 'Tagged', _name: 'Tagged', require: 'Segment', ensure: ['$keep==true'] } } } };
+		const seed = { conceptMaps: [ { _id: 'a', Node: true }, { _id: 'b', Node: true }, { _id: 's', Segment: true, originNode: 'a', targetNode: 'b', keep: true } ] };
+		await window.__sgApi.call('loadCorpus', { conceptMap, sets: ['test'], seed }, 'root');
+		await new Promise(( r ) => setTimeout(r, 600));
+		await window.__sgApi.call('mutate', { template: { $$_id: 's', keep: false }, targetId: 's' }, 'root');
+		await new Promise(( r ) => setTimeout(r, 900));
+		return (window.__sgRetracts || []).some(( x ) => x.targetId === 's' && (x.concepts || []).includes('Tagged'));
+	});
+	if ( !retracted ) errors.push('T15: retraction was not detected/emitted');
+
+	await page.evaluate(() => { const b = [...document.querySelectorAll('.viewtoggle button')].find(( x ) => x.textContent.trim() === 'data'); if ( b ) b.click(); });
 	await page.select('.lyt select', 'elk');
 	await new Promise(( r ) => setTimeout(r, 600));
 	await page.screenshot({ path: '/tmp/studio-smoke.png', fullPage: true });
 	console.log('rendered: nodes=' + nodes + ' edges=' + edges + ' | layouts: ' + layouts.join(','));
+	console.log('T13 grammar: nodes=' + gNodes + ' edges=' + gEdges);
+	console.log('T14 corpus: exported=' + JSON.stringify(exported) + ' reimported=' + reimported);
+	console.log('T15 retraction: detected=' + retracted);
 	console.log('T9 timeline: checkpoints=' + ckpts + ' diffShown=' + diffShown + ' noteAfterRollback=' + noteAfter);
 	console.log('T10 editor: validation=' + validation + ' closedAfterApply=' + editorClosed);
 	console.log('T11 forks: activeAfterFork=' + activeAfterFork + ' forkCount=' + forkCount + ' forkNodeMerged=' + forkNodeMerged);
