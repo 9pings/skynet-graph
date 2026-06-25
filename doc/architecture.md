@@ -79,6 +79,33 @@ scheduler) driving `lib/graph/tasks/stabilize.js`. Self-modification issued *mid
 (a meta-concept patching rules) defers to the next quiescent boundary, and a runaway
 re-cast loop is bounded by an apply-ceiling backstop and flagged `divergent`.
 
+## 4b. Reasoning regimes — a Mixture of Reasoners
+
+The same forward-chaining machine, **parameterized by the certainty algebra**, expresses four
+regimes — an **architecture-level Mixture of Reasoners** over one auditable substrate, with a
+deliberately-poor "narrow-waist" interface (snapped enums + a log-odds channel = a tree-
+decomposition separator = an assume-guarantee contract). **Not** a weight-level MoE; everything
+below is **additive** over the deterministic core and ships as host-opt-in providers:
+
+- **D — deterministic JTMS socle** (§3–§4): the foundation.
+- **P — probabilistic / log-linear**: `Semiring::reduce` folds `{__push}`ed contributions under a
+  commutative semiring — `boolean` (D's "any holds"), `logodds` (certainty, readout σ), `maxplus`
+  (best-path), `probor` (noisy-OR), or **`pareto`** (a multi-criteria **skyline SELECT** — keep the
+  non-dominated trade-offs, no forced weighting). Order-independent ⟺ the combine is a commutative
+  monoid (the coherence theorem). Plus `Stats::shrink` (hierarchical Beta-Binomial) and
+  `Nogood::guard` (learned dead-ends, sound-skip).
+- **C — search / constraint**: a `Solve::run` **fork** searches (a dependency-free backtracking CSP
+  by default; inject Z3 / CP-SAT in prod) and merges back **only** the snapped model — search
+  internals stay in the fork (barrier preserved).
+- **M — meta / blackboard**: a better-model **supervisor** detects `Stuck`, hypothesizes a
+  self-modification, evaluates it, and reverts cleanly if worse.
+
+Cross-fork recombination (`Merge::combine` — sheaf-style agree/borderline/conflict bands) and
+**tree-decomposition tiling** (`forkPlan` derives the candidate forks + each fork's frontier
+alphabet straight off the concept-dependency graph) close the loop. D & P are literally *one fold
+parameterized by a semiring* (provenance semirings, Green-Tannen 2007); the full study trail and
+the on-engine experiments are in [WIP/](WIP/).
+
 ## 5. What we want to build with it
 
 The flagship: **answer an enormous prompt without a context-window blow-up.** The graph is
@@ -103,6 +130,17 @@ bottom-up (bounded rollup) → answer. Built on top, as instrumented R&D rungs:
 - **Safe live self-modification.** A supervised loop can hypothesize a self-mod, evaluate
   it with a better-model judge, and `rollbackTo` cleanly if it's worse — re-entrancy-safe,
   backstopped, and reversible (rules included).
+- **The support grammar** (`lib/authoring/support.js`). The thesis made runnable: *structure
+  and search are reified in the graph, not held in the model's context*. A problem decomposes;
+  each bounded atomic segment **proposes K candidate answers**; a `pareto` SELECT keeps the
+  non-dominated front and picks one; a segment that stays below the quality bar (`Stuck`)
+  **escalates** to a better tier; the parent synthesizes bottom-up. So a *small* local model
+  need only be locally competent on a bounded sub-problem.
+
+Two front-ends drive all of this: the **`sg` CLI** (`run` / `studio`) and the **Studio** — a
+no-build web workbench (graph canvas with retraction flash, a concept↔fact **grammar graph**
+with polarity + cross-corpus links + the tiling overlay, fork/split + merge-preview, timeline,
+provider trace, live concept editor, and **`.sgc` corpus import/export** with a derived manifest).
 
 ## 5b. Distributed execution
 
@@ -127,8 +165,10 @@ the "a model call is a generic, templated request, dispatchable anywhere" path.
 ## 6. Status & what's R&D
 
 The **engine** is mechanically complete and heavily tested (declarative AI-authoring + safe
-live self-modification included). What remains is **open research**, and the biggest piece
-is **how to organize concepts** — the current bet is a semantically-meaningful hierarchical
+live self-modification included), and the **additive Mixture-of-Reasoners layer** (the P / C / M
+regime providers, verification, tiling), the **support grammar**, the **Studio**, and the
+`.sgc` corpus exchange are all shipped (284 tests). What remains is **open research**, and the
+biggest piece is **how to organize concepts** — the current bet is a semantically-meaningful hierarchical
 corpus keyed on *human vocabulary*, with judgment delegated to a better-model supervisor
 while the rules handle orchestration + coherence. The shipped `concepts/common/` set is an
 *illustration*, not a recommended ontology. The detailed, evolving roadmap and the critical

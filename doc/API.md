@@ -86,7 +86,9 @@ Providers emit the same templates from their callback (see Providers). After mut
 | `graph.serialize()` | `{ lastRev, graph: "<json>" }` snapshot of the whole graph |
 | `graph.getCurrentRevision()` | current revision number |
 | `graph.getRevisions()` | ascending list of revisions with captured snapshots |
-| `graph.rollbackTo(rev)` | re-mount that snapshot, drop later ones (linear undo), re-stabilize |
+| `graph.getSnapshot(rev)` / `graph.diffRevisions(a, b)` | snapshot at `rev` / added·removed·changed between revs |
+| `graph.rollbackTo(rev)` | re-mount that snapshot, drop later ones (linear undo), re-stabilize — restores **rules too** |
+| `graph.exportConcepts()` | the LIVE concept tree as a serializable record (reflects `addConcept`/`patchConcept`) — feed to `corpus-pack` / `exportConceptsToDir` |
 
 ```js
 const revA = g.getCurrentRevision();
@@ -206,8 +208,11 @@ register(Graph, [ { CommonGeo }, createLLMProvider({ ask: myBackend }) ]);
   `json:true` salvages the reply (robust to "thinking" preambles — returns the last balanced JSON);
   the result is written back as facts (merged if a plain object, or stored under `as`). Backend errors
   are captured as an `llmError` fact so the graph still settles. The backend is **pluggable** — pass
-  any `ask({system,user,maxTokens})`; the bundled `makeAsk()` is an Anthropic-style default
-  (configurable via `LLM_BASE`/`LLM_MODEL`/`LLM_KEY` or `{ base, model, key }`).
+  any `ask({system,user,maxTokens})`; the bundled `makeAsk(opts)` **dispatches on `opts.api` / env
+  `LLM_API`** — `anthropic` (default, `/v1/messages`) or `openai` (`/v1/chat/completions`, for
+  vLLM / llama.cpp / LM-Studio; reads `choices[0].message.content` and falls back to
+  `reasoning_content` for reasoning models). `makeOpenAIAsk` / `makeAnthropicAsk` are exported too.
+  All configurable via `LLM_BASE` / `LLM_MODEL` / `LLM_KEY` or `{ base, model, key }`.
 
 #### Canonicalization barrier — the `facts` / `prose` contract
 
@@ -307,6 +312,52 @@ one — **ref soundness**: a `require`/`ensure`/`assert` that keys on a **prose*
 key, or the `<name>Prose`/`<name>CanonMiss` defaults) is **rejected** (it would fragment the memo, K1),
 and a bare dependency on a child-set (`expandedInto`/`answeredBy`/…) without `.length` is **warned** (the
 "all-children-answered" footgun — `getRef` has no quantifier). `validateOrThrow` throws on the first error.
+
+### Mixture-of-Reasoners regime providers (host opt-in, additive)
+
+All are `require('skynet-graph/providers')` factories; pair each with its ready-made concept-tree
+fragment. The deterministic core is untouched.
+
+| factory | wires | concept-tree helper |
+|---|---|---|
+| `createSemiring()` | `Semiring::reduce` — fold `{__push}`ed contributions under `boolean`/`logodds`/`maxplus`/`probor` | `semiringConceptTree({ semiring, contribKey, bands? })` |
+| `createSemiring()` (pareto family) | multi-criteria **skyline SELECT** → `selectedId`/`frontIds`/`frontSize` | `selectConceptTree({ criteria, lex })` — the Candidate→Selected cluster |
+| `createStats()` | `Stats::{report,grandMean,shrink}` — hierarchical Beta-Binomial shrinkage | `shrinkageConceptTree(...)` |
+| `createNogood()` | `Nogood::guard` — learned sound-skip of dead-ends | `nogoodGuardConcept()` / `guardTrial(schema)` |
+| `createVerifier()` | `Verify::check` (verdict facts) + `Vote::tally` (k-of-n) | — |
+| `createConsistency()` | `Merge::combine` — sheaf-style agree/borderline/conflict bands | `consistencyConceptTree()` |
+| `createSolver({ solve })` | `Solve::run` — a C-regime **fork** that searches; crosses only the snapped model | `solverConceptTree()` |
+| `createConstat()` | `Constat::record` — typed lesson-on-retraction `{claim,retractedBecause,certaintyBand,atRev}` | — |
+
+Pure helpers: `paretoFront` / `paretoSelect` / `makePareto` / `dominates` / `reduceSemiring`
+(`lib/providers/semiring.js`).
+
+### Tiling, grammar graph & corpus exchange (`lib/authoring/`)
+
+- **`treeDecomposition(tree)` / `forkPlan(tree)`** (`decompose.js`) — derive, off the concept-dependency
+  graph, the separator interface + the candidate forks + each fork's **frontier alphabet** + the treewidth
+  cost bound (`partitionPays`). Feeds `fork`/`merge` and `validateMergeProjection`.
+- **`conceptFactGraph(conceptMap)`** (`grammar-graph.js`) — the concept↔fact flux graph: produced /
+  consumed facts **with polarity**, cross-corpus links, writer-collisions, entry points, tiling overlay.
+- **`.sgc` corpus exchange** (`corpus-pack.js`): `deriveManifest` (produces/consumes alphabet, required
+  providers), `packCorpus` / `unpackCorpus` (a portable bundle). Disk round-trip:
+  `Graph.loadConceptMap(dir, { validate })` ↔ `exportConceptsToDir(tree, dir)` (`lib/load.js`).
+
+### The support grammar (`lib/authoring/support.js`)
+
+`supportConceptTree({ criteria, lex })` + `makeSupportProviders({ evalFn, expandFn, proposeFn,
+escalateFn, escalateBar, rollupFn })` compose the decompose loop with the per-segment
+**Propose → Pareto-SELECT → Adopt** alternative-search trio + escalation on `Stuck`. Inject the content
+functions (deterministic in tests, an LLM in production).
+
+### Studio (embeddable web workbench)
+
+`const server = Graph.createStudioServer({ Graph, root, ask, logger })` — an http+ws server over a
+registry of live `Graph` sessions, driving a no-build React UI. Wire ops (`lib/studio/protocol.js`):
+`grammarGraph` · `corpusManifest` · `exportCorpus` / `importCorpus` (`.sgc`) · `providerTrace` ·
+`mergePreview` · `forkPlan` · `fork`/`merge`/`selectSession` · `mutate`/`run`/`state` ·
+`revisions`/`snapshot`/`rollback`/`diff` · `validateConcept`/`patchConcept`/`addConcept` · `prompt`.
+Events include a Session-derived `retract` (the red-flash signal). Also via `bin/sg studio`.
 
 ## Logging & diagnostics
 
