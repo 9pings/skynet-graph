@@ -138,6 +138,30 @@ quiet failure is a plastic output leaking onto a typed gate, collapsing the incr
 tooling for all of this lives in [`lib/authoring/`](../lib/authoring/) (`memo-stability`, `abstraction`, `mine`,
 `crystallize`, `lifecycle`), built and tested ZERO-CORE; it is R&D, the deterministic core is the foundation.
 
+## 4d. Learned concepts — training the population at the fixpoint
+
+Because a population of concept-units run to a fixpoint **is** a quantized equilibrium GNN (§4c), it can be **trained**,
+not just authored. A concept-unit is a **gate-NN** (decides whether to cast) × an **update-NN** (generates the value it
+writes). The training subsystem (host-side, ZERO-CORE) is a small, composable pipeline:
+
+- **The math — `equilibrium.js`.** The stabilization is a Picard iteration `z_{t+1}=F(z_t,θ)` to a fixpoint `z*=F(z*,θ)`.
+  We get `dL/dθ` **without unrolling** by differentiating the fixpoint condition (Deep Equilibrium Models / implicit
+  differentiation): solve the adjoint `(I−J_z)^T u = ∇_z L` at `z*`, then `dL/dθ = J_θ^T u`. Well-posed iff the iteration
+  contracts (`ρ(J_z)<1`); the engine's apply-cap is the analogue of the Neumann truncation depth; the hard cast is bridged
+  by a straight-through estimator (hard forward, smooth backward).
+- **The substrate — `concept-net.js`.** Builds a population (`ring`/`chain`/`wide`), `train`s it end-to-end, `evolve`s its
+  **form** by success (grow a unit only if it beats a utility/MDL margin), and `bakePopulation` **serves a frozen result as
+  real engine concepts** (train offline plastic → freeze → bake → cascade in stabilization). A cyclic population is served
+  by `unrollPopulation` (unroll the fixpoint to depth N — a direct cyclic bake would deadlock).
+- **The knob — `lifecycle.js`.** One plasticity scalar `p∈[0,1]` per concept switches train↔serve (plastic→soft/explore,
+  frozen→hard/deterministic) and modulates the actual provider (LLM temperature / NN noise).
+
+This converges (a student recovers a teacher's fixpoint map), scales (2→6 units), evolves its form, and round-trips to the
+real engine — all measured. **Honest limits:** it is a differentiable *mirror* + a serving bridge (the engine itself does
+not train); a *chain* topology collapses in depth (use width); cyclic serving is unrolled (N× the concepts); and
+non-differentiable concepts (LLM/rules) stay frozen / off-gradient (a Mixture of Reasoners, not a uniform net). Full
+walk-through: **[concept-learning.md](concept-learning.md)**.
+
 ## 5. What we want to build with it
 
 The flagship: **answer an enormous prompt without a context-window blow-up.** The graph is

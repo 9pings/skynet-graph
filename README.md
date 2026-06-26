@@ -161,6 +161,14 @@ shipped `concepts/common/` set as an illustrative example, **not** a recommended
 Authoring-and-maintenance cost is the dominant risk; the validator + CEGIS authoring loop
 exist to attack it. This part will change.
 
+A second, **complementary** attack on the authoring cost is to **learn** concepts rather than
+hand-write them: a concept is provably an MPNN layer (a hard cast = a quantized activation), so a
+*population* of concept-units (each a gate-NN that decides whether to cast × an update-NN that
+generates the value) run to a fixpoint is a quantized equilibrium GNN — trainable end-to-end by
+**implicit differentiation (DEQ)**, growable by success, and **bakeable back into the real engine**
+(train offline plastic, serve frozen). All host-side and zero-core. See
+[doc/concept-learning.md](doc/concept-learning.md).
+
 ## Documentation
 
 | Doc | What |
@@ -169,6 +177,7 @@ exist to attack it. This part will change.
 | [doc/usage.md](doc/usage.md) | Practical guide — embedding, concept sets, providers, CLI, distributed exec |
 | [doc/API.md](doc/API.md) | Public API reference (construction, lifecycle, history, fork/merge, patchConcept) |
 | [doc/MODELISATION.md](doc/MODELISATION.md) | The model + the prioritized R&D roadmap |
+| [doc/concept-learning.md](doc/concept-learning.md) | **Learned concepts** — training a population of concept-units at the fixpoint (DEQ), plasticity, serving them in the engine |
 | [doc/doc.md](doc/doc.md) | Concept-schema & DSL specification (reference) |
 | [doc/WIP/](doc/WIP/) | The R&D working trail — critical studies, ideation, plans, the live handoff ledger |
 
@@ -180,7 +189,9 @@ lib/
   providers/    packaged effectful providers — host opt-in: geo, llm, canonicalize, verify,
                 semiring (incl. pareto/skyline), stats, nogood, merge-consistency, solver-fork, constat
   authoring/    loader + validator + CEGIS author + supervise + decompose/forkPlan (tiling) +
-                grammar-graph + corpus-pack (.sgc) + support (the support grammar) + ste + clock
+                grammar-graph + corpus-pack (.sgc) + support (the support grammar) + ste + clock +
+                LEARNED CONCEPTS: equilibrium (DEQ) + concept-net (population, train/evolve/bake/unroll)
+                + lifecycle (plasticity) + memo-stability + abstraction + mine + crystallize
   studio/       the web workbench (http+ws server, session registry, no-build React UI)
   sg/           the `sg` CLI (`run` / `studio`) + trace inspector
   runtime/      distributed sub-graphs (worker_threads + ask-proxy)

@@ -350,6 +350,27 @@ escalateFn, escalateBar, rollupFn })` compose the decompose loop with the per-se
 **Propose → Pareto-SELECT → Adopt** alternative-search trio + escalation on `Stuck`. Inject the content
 functions (deterministic in tests, an LLM in production).
 
+### Learned concepts — population training, plasticity & serving (`lib/authoring/`)
+
+Train concepts as neural-net populations instead of hand-authoring them, then bake the frozen result
+back into the engine. Host-side, ZERO-CORE. Full guide: [concept-learning.md](concept-learning.md).
+
+- **`equilibrium.js`** — gradient through a fixpoint (Deep Equilibrium Models / implicit diff):
+  `solveFixpoint(F, z0, {maxIter,tol})` (Picard to `z*`), `implicitGrad(Jz, Jtheta, gradL, {mode})`
+  (`mode:'direct'` dense adjoint solve or `{neumann:K}`), `spectralRadius(Jz)` (the `ρ` regime
+  instrument), `numJac(fn, point)` (finite-difference Jacobian of one sweep).
+- **`concept-net.js`** — a population of concept-units (gate-NN × update-NN):
+  `ringPopulation(K)` / `chainPopulation(K)` / `widePopulation(K)` (builders) →
+  `train(pop, {X,T,steps,lr,hard})` (learn at the fixpoint, returns `{theta,loss0,loss,rho}`),
+  `grad` / `loss`, `evolve({makePop,X,T,maxK,margin})` (grow the form by success, utility-gated),
+  `bakePopulation(pop, theta)` → `{conceptTree, providers}` (serve a frozen population as real engine
+  concepts), `unrollPopulation(pop, N)` → `{pop, tieTheta, readout}` (serve a *cyclic* population by
+  unrolling its fixpoint to depth N; a direct cyclic bake deadlocks).
+- **`lifecycle.js`** — the plasticity ledger: `createLifecycle()` → `register` / `record(name, ok)` /
+  `plasticity(name)` (the unified knob `p∈[0,1]`) / `regime(name)` / `reputation(name)`. Thread
+  `plasticity` into `createLLMProvider({ ask, plasticity })` (→ temperature) or `createNet(net,
+  { plasticity })` (→ STE exploration noise) so `p=1` explores / `p=0` serves deterministically.
+
 ### Studio (embeddable web workbench)
 
 `const server = Graph.createStudioServer({ Graph, root, ask, logger })` — an http+ws server over a
