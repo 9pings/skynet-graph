@@ -14,7 +14,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
 const { nextStable } = require('../../lib/authoring/supervise.js');
-const { memoSnapshot, memoDiff } = require('../../lib/authoring/memo-stability.js');
+const { memoSnapshot, memoDiff, assertMemoStable } = require('../../lib/authoring/memo-stability.js');
 const canon = require('../../lib/providers/canonicalize.js');
 console.log = console.info = console.warn = () => {};
 
@@ -73,4 +73,18 @@ test('Mode B: a new concept overwriting an incumbent memo key is flagged (unstab
 	const d = memoDiff(before, memoSnapshot(g, ['Consume']));
 	assert.equal(d.stable, false);
 	assert.ok(d.changed.some((c) => /Consume/.test(c.key)), 'the perturbed incumbent must be named');
+});
+
+test('assertMemoStable passes a memo-surface-preserving change (the CI gate)', async () => {
+	const g = await boot(TREE, 'guard-A');
+	const d = await assertMemoStable(g, ['Consume'], () => addConceptP(g, { _id: 'Aux', _name: 'Aux', require: ['cat'], provider: ['Cn::aux'] }));
+	assert.equal(d.stable, true);
+});
+
+test('assertMemoStable throws on a memo-surface-perturbing change (fail-closed)', async () => {
+	const g = await boot(TREE, 'guard-B');
+	await assert.rejects(
+		() => assertMemoStable(g, ['Consume'], () => addConceptP(g, { _id: 'Recanon', _name: 'Recanon', require: ['Canon'], provider: ['Cn::refine'] })),
+		/memo-stability violation/
+	);
 });
