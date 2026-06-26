@@ -101,28 +101,35 @@ const conceptTree = { common: { childConcepts: {
 	Summarize: { _id: 'Summarize', _name: 'Summarize', require: ['Root', 'targetNode:reached'], provider: ['P::summarize'] } // once GOAL is reached, write the bounded plan in-graph
 } } };
 
-function providers( C ) {
+function providers( C, opts ) {
+	opts = opts || {};
+	const maxDepth = opts.maxDepth != null ? opts.maxDepth : MAXDEPTH, nAlts = opts.alts != null ? opts.alts : ALTS;
 	const stateOf   = ( graph, id ) => { const e = graph.getEtty(id); return e ? e._.state : undefined; };
 	const reachedOf = ( graph, id ) => { const e = graph.getEtty(id); return e ? e._.reached : undefined; };
 	const labelOf   = ( graph, id ) => { const e = graph.getEtty(id); return e ? e._.label : undefined; };
+	const kindOf    = ( graph, id ) => { const e = graph.getEtty(id); return e ? e._.kind : undefined; };   // typed-domain discriminant (enum); undefined = untyped
 	return { P: {
 		plan: function ( graph, concept, scope, argz, cb ) {
 			const seg = scope._, depth = seg.depth || 0;
-			if ( depth >= MAXDEPTH ) return cb(null, { $_id: '_parent', Plan: true, Atomic: true });
+			if ( depth >= maxDepth ) return cb(null, { $_id: '_parent', Plan: true, Atomic: true });
 			const from = stateOf(graph, seg.originNode), to = stateOf(graph, seg.targetNode);
 			// adjacency UP: the parent step's endpoint states (one bounded level), as framing for the planner.
 			let parent = null, parentFrom = null, parentTo = null;
 			if ( seg.parentSeg ) { const p = graph.getEtty(seg.parentSeg); if ( p ) { parent = p._.label; parentFrom = stateOf(graph, p._.originNode); parentTo = stateOf(graph, p._.targetNode); } }
-			Promise.resolve(C.plan({ from, to, parent, parentFrom, parentTo })).then(function ( r ) {
+			// typed-domain context: the endpoint KINDS let a domain content fn ground the decomposition
+			// (a known route → deterministic mids, no LLM); untyped endpoints (undefined) fall back to the LLM.
+			const originKind = kindOf(graph, seg.originNode), targetKind = kindOf(graph, seg.targetNode);
+			Promise.resolve(C.plan({ from, to, parent, parentFrom, parentTo, originKind, targetKind })).then(function ( r ) {
 				if ( !r || r.atomic || !r.mids || !r.mids.length ) return cb(null, { $_id: '_parent', Plan: true, Atomic: true });
 				// Decomposed segments carry the backtrack ledger: `stuck` (grow-only signals from dead-ended
 				// descendants) and `attempt` (how many alternatives tried) — the Reselect gate reads both.
 				const base = seg._id, alts = [], tpl = [{ $_id: '_parent', Plan: true, Decomposed: true, stuck: [], attempt: 1 }];
-				r.mids.slice(0, ALTS).forEach(function ( m, i ) {
-					const mid = (m && m.state != null) ? m.state : m, why = (m && m.why) || null;
+				r.mids.slice(0, nAlts).forEach(function ( m, i ) {
+					const mid = (m && m.state != null) ? m.state : m, why = (m && m.why) || null, mkind = (m && m.kind) || null;
 					const midN = base + '_m' + i, segA = base + '_a' + i, segB = base + '_b' + i;
 					alts.push({ mid: mid, why: why, segA: segA, segB: segB });
-					tpl.push({ _id: midN, Node: true, state: mid });
+					// a domain may TYPE the intermediate state (kind) so the next hop stays grounded.
+					tpl.push(mkind ? { _id: midN, Node: true, state: mid, kind: mkind } : { _id: midN, Node: true, state: mid });
 					tpl.push({ _id: segA, Segment: true, originNode: seg.originNode, targetNode: midN, depth: depth + 1, parentSeg: base, label: 'reach ' + mid, cand: true });
 					tpl.push({ _id: segB, Segment: true, originNode: midN, targetNode: seg.targetNode, depth: depth + 1, parentSeg: base, label: 'from ' + mid, cand: true });
 				});
@@ -154,7 +161,8 @@ function providers( C ) {
 		resolve: function ( graph, concept, scope, argz, cb ) {
 			const seg = scope._, from = stateOf(graph, seg.originNode), to = stateOf(graph, seg.targetNode);
 			const prev = reachedOf(graph, seg.originNode);
-			Promise.resolve(C.resolve({ from: from, to: to, prev: prev })).then(function ( r ) {
+			const originKind = kindOf(graph, seg.originNode), targetKind = kindOf(graph, seg.targetNode);
+			Promise.resolve(C.resolve({ from: from, to: to, prev: prev, originKind: originKind, targetKind: targetKind })).then(function ( r ) {
 				const stuck = r && typeof r === 'object' && r.stuck;
 				const step  = (r && typeof r === 'object') ? r.step : r;
 				if ( stuck || step == null ) {                       // dead-end: signal the deciding segment, no hand-off forward
@@ -223,13 +231,17 @@ function pathSteps( graph, startId, goalId ) {
 	return steps;
 }
 
-async function solve( problem, C ) {
-	Graph._providers = providers(C);
-	const seed = { lastRev: 0,
-		// START is seeded `reached` (the spine's root) — a truthy string so a 0/'' state can't read as un-reached.
-		nodes: [{ _id: 'S', Node: true, state: problem.start, isStart: true, reached: 'start: ' + problem.start }, { _id: 'G', Node: true, state: problem.goal, isGoal: true }],
+async function solve( problem, C, opts ) {
+	opts = opts || {};
+	Graph._providers = providers(C, opts);
+	// START/GOAL may carry a typed `kind` (typed-domain mode) so a domain content fn can ground the search.
+	const sNode = { _id: 'S', Node: true, state: problem.start, isStart: true, reached: 'start: ' + problem.start };
+	const gNode = { _id: 'G', Node: true, state: problem.goal, isGoal: true };
+	if ( problem.startKind ) sNode.kind = problem.startKind;
+	if ( problem.goalKind ) gNode.kind = problem.goalKind;
+	const seed = { lastRev: 0, nodes: [sNode, gNode],
 		segments: [{ _id: 'root', Segment: true, Root: true, originNode: 'S', targetNode: 'G', depth: 0, onPath: true, label: 'solve the problem' }] };
-	const g = new Graph(seed, { label: 'problem-paths', isMaster: true, autoMount: true, conceptSets: ['common'], bagRefManagers: {}, logLevel: 'error' }, conceptTree);
+	const g = new Graph(seed, { label: opts.label || 'problem-paths', isMaster: true, autoMount: true, conceptSets: ['common'], bagRefManagers: {}, logLevel: 'error' }, conceptTree);
 	await nextStable(g);
 	const root = g.getEtty('root');
 	return { graph: g, steps: pathSteps(g, 'S', 'G'), solution: root && root._.solution };
