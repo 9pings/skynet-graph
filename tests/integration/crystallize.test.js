@@ -9,7 +9,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
 const { nextStable } = require('../../lib/authoring/supervise.js');
-const { crystallize, adopt } = require('../../lib/authoring/crystallize.js');
+const { crystallize, adopt, consolidate } = require('../../lib/authoring/crystallize.js');
 console.log = console.info = console.warn = () => {};
 
 const Comp = {
@@ -41,6 +41,15 @@ test('adopt installs the crystallized concept on a fresh graph under a memo-stab
 	assert.equal(diff.stable, true);                            // empty graph -> nothing to perturb
 	assert.ok(g.getConceptByName(res.candidate.schema._id), 'the crystallized concept is installed');
 	assert.equal(fact(g, 'D1', 'amplified'), 300);             // it reproduces the chain output in one cast
+});
+
+test('consolidate adopts the crystal (offline refactor) and freezes it as reliability proves out', async () => {
+	const res = await consolidate({ episodeTree: chainTree, seed: SEED, providers: { Comp }, equivKeys: ['normalized', 'amplified'], rounds: 3 });
+	assert.equal(res.applies.chain, 6);
+	assert.equal(res.applies.adopted, 3);          // the refactor win materialized (chain removed, crystal in)
+	assert.equal(res.regime, 'frozen');            // proven over the rounds -> consolidated
+	assert.equal(res.plasticity, 0);
+	assert.equal(res.consolidated, true);
 });
 
 test('crystallize returns no candidate when no frequent chain is observed', async () => {
