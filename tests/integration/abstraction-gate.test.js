@@ -8,7 +8,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { evaluate } = require('../../lib/authoring/abstraction.js');
+const { evaluate, makeAbstractionGate } = require('../../lib/authoring/abstraction.js');
 console.log = console.info = console.warn = () => {};
 
 const SEED = { lastRev: 0, nodes: [{ _id: 'D1', raw: 100 }, { _id: 'D2', raw: 200 }, { _id: 'D3', raw: 300 }], segments: [] };
@@ -48,6 +48,14 @@ test('rejects keeping the macro alongside its constituents (the utility tax, Min
 	assert.equal(res.abstractApplies, 9);
 	assert.ok(res.gain < 0, 'keeping the macro is a net tax');
 	assert.equal(res.admit, false);
+});
+
+test('makeAbstractionGate yields a CEGIS gate: admits the refactor M, rejects a non-equivalent M', async () => {
+	const gate = makeAbstractionGate({ seed: SEED, providers, chainTree, equivKeys: ['normalized', 'amplified'] });
+	const good = await gate(null, { op: 'add', schema: { _id: 'DirectAmplify', _name: 'DirectAmplify', require: ['raw'], provider: ['Comp::directAmplify'] } });
+	assert.equal(good.admit, true);
+	const bad = await gate(null, { op: 'add', schema: { _id: 'DirectBad', _name: 'DirectBad', require: ['raw'], provider: ['Comp::directBad'] } });
+	assert.equal(bad.admit, false);
 });
 
 test('rejects a non-equivalent abstract method even if it is cheaper', async () => {
