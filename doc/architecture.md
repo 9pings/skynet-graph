@@ -106,6 +106,38 @@ alphabet straight off the concept-dependency graph) close the loop. D & P are li
 parameterized by a semiring* (provenance semirings, Green-Tannen 2007); the full study trail and
 the on-engine experiments are in [WIP/](WIP/).
 
+## 4c. Two levels — ecosystems and the concept population
+
+The system factors on **two orthogonal axes** (verified — see [`WIP/sota/2026-06-26-two-level-coherence-review.md`](WIP/sota/2026-06-26-two-level-coherence-review.md)
+and the full statement in [`WIP/studies/2026-06-26-concepts-dynamiques-grammaire-induction.md` §5ter](WIP/studies/2026-06-26-concepts-dynamiques-grammaire-induction.md)).
+
+**Level 1 — ecosystems (worlds).** `fork`/`merge` are boundaries between interdependent sub-worlds: each fork is a
+possible world with its own concept pool and a deliberately **narrow snapped *interface grammar*** (the separator
+alphabet that crosses a cut). This is the sub-problem-delegation regime — one-shot scatter-gather over nested graph
+frames under an assume-guarantee contract; treewidth bounds each ecosystem's internal inference (which is what keeps it
+in **P**). Reserve the word "fork" for this level.
+
+**Level 2 — the concept population (grammar).** Inside one ecosystem a **concept is a local neighbourhood operator**: it
+reads typed facts on its reference segment, its neighbours, its parent and the path's endpoints, and writes relative
+updates on the same surface. On the typed-fact (K1) fragment this is provably *the same object under three names* — a
+bounded-context **graph-rewriting production** ≡ a **stratified-Datalog-with-aggregation rule** ≡ a **message-passing
+(GNN) layer** — with the boolean **cast** as a hard (quantized) activation, trained, when learned, by a straight-through
+estimator. The population **grows** (author a variant), **hybridizes** (compose two concepts into one — a reusable
+abstract method, admitted only by an MDL/utility gate), and **consolidates**: every concept carries one **plasticity**
+scalar `p∈[0,1]` — the unified creativity/learning knob for *both* a small-NN concept (noise/learning-rate) and an
+LLM-calling concept (temperature) — `p=1` plastic/exploring, `p=0` frozen/deterministic, annealing toward 0 as its
+reliability is proven (Complementary-Learning-Systems style: fast-plastic → slow-consolidated).
+
+**The invariants that make it safe** (and that an implementer must not break): "accumulative" means *push to a list then
+fold after quiescence by a commutative monoid*, never an in-stream read-modify-write; plasticity is **control-plane** (it
+modulates a provider, it never *gates* applicability — a continuous gate would shatter the memo); **selection affects
+ordering/latency, never the truth of a cast** (correctness comes from the deterministic gate + the verifier); structural
+evolution must **preserve the interface** (a new/merged concept may not change which facts cross an ecosystem boundary —
+a treewidth-non-regression check); and a learned/plastic output must be **snapped before any gate reads it** (the single
+quiet failure is a plastic output leaking onto a typed gate, collapsing the incremental memo). The structure-learning
+tooling for all of this lives in [`lib/authoring/`](../lib/authoring/) (`memo-stability`, `abstraction`, `mine`,
+`crystallize`, `lifecycle`), built and tested ZERO-CORE; it is R&D, the deterministic core is the foundation.
+
 ## 5. What we want to build with it
 
 The flagship: **answer an enormous prompt without a context-window blow-up.** The graph is
