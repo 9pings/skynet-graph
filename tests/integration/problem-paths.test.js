@@ -28,3 +28,18 @@ test('a problem decomposes into a contiguous start→goal path of locally-resolv
 	for ( const id in graph._objById ) { const e = graph._objById[id]._etty._; if ( e && e.Segment && e.step != null ) { resolved++; assert.ok(e.Atomic, 'a resolved segment is atomic'); } }
 	assert.ok(resolved >= 2, 'multiple atomic segments were resolved on local context');
 });
+
+test('best-path selection: alternatives are proposed, the best is chosen, the rest are pruned', async () => {
+	const { graph } = await solve({ start: 0, goal: 16 }, makeContent());   // ALTS=2 by default
+	let decomposed = 0, chosen = 0, candidates = 0, prunedCand = 0;
+	for ( const id in graph._objById ) {
+		const e = graph._objById[id]._etty._; if ( !e || !e.Segment ) continue;
+		if ( e.Decomposed ) decomposed++;
+		if ( e.chosen != null ) chosen++;                 // the Select concept fired here
+		if ( e.cand ) { candidates++; if ( !e.onPath ) prunedCand++; }
+	}
+	assert.ok(decomposed >= 1, 'the problem was decomposed');
+	assert.equal(chosen, decomposed, 'every decomposed segment ran SELECT (Propose→Select→Adopt)');
+	assert.ok(candidates > 2 * chosen, 'more candidate segments existed than the chosen path used — i.e. real alternatives');
+	assert.ok(prunedCand > 0, 'some alternatives were PRUNED (not on the best path)');
+});
