@@ -127,7 +127,7 @@ function providers( C, opts ) {
 				r.mids.slice(0, nAlts).forEach(function ( m, i ) {
 					const mid = (m && m.state != null) ? m.state : m, why = (m && m.why) || null, mkind = (m && m.kind) || null;
 					const midN = base + '_m' + i, segA = base + '_a' + i, segB = base + '_b' + i;
-					alts.push({ mid: mid, why: why, segA: segA, segB: segB });
+					alts.push({ mid: mid, why: why, segA: segA, segB: segB, kind: mkind });   // kind: typed-domain route discriminant (null = untyped) — lets Select rank ROUTES by kind
 					// a domain may TYPE the intermediate state (kind) so the next hop stays grounded.
 					tpl.push(mkind ? { _id: midN, Node: true, state: mid, kind: mkind } : { _id: midN, Node: true, state: mid });
 					tpl.push({ _id: segA, Segment: true, originNode: seg.originNode, targetNode: midN, depth: depth + 1, parentSeg: base, label: 'reach ' + mid, cand: true });
@@ -142,7 +142,8 @@ function providers( C, opts ) {
 		select: function ( graph, concept, scope, argz, cb ) {
 			const seg = scope._, alts = seg.alts || [];
 			const from = stateOf(graph, seg.originNode), to = stateOf(graph, seg.targetNode);
-			Promise.all(alts.map(function ( a ) { return Promise.resolve(C.score({ from: from, to: to, mid: a.mid, why: a.why })); })).then(function ( scores ) {
+			const originKind = kindOf(graph, seg.originNode), targetKind = kindOf(graph, seg.targetNode);   // typed-domain: let score rank ROUTES by the first-hop + remaining cost
+			Promise.all(alts.map(function ( a ) { return Promise.resolve(C.score({ from: from, to: to, mid: a.mid, why: a.why, kind: a.kind, originKind: originKind, targetKind: targetKind })); })).then(function ( scores ) {
 				let best = 0; for ( let i = 1; i < alts.length; i++ ) if ( scores[i] > scores[best] ) best = i;
 				const win = alts[best];
 				out(`  [select  ] picked «${win.mid}»   (scores: ${scores.map((s) => Number(s).toFixed(1)).join(', ')})`);
