@@ -134,6 +134,16 @@ snapshotted records — *not* a durable workflow executor. For real durability i
 stream engine runs it. The defensible niche is *typed, defeasible, auditable, versioned* belief-
 retraction over external records — what value-IVM systems (Materialize / DBSP) don't provide.
 
+**The capstone — the master-graph supervisor.** Where this is all heading: a master graph that *is*
+an LLM supervisor's bounded working context — it distils LLM knowledge into typed methods, switches
+each between a live graph and a frozen workflow, retrieves a matching method when one exists (else
+forges one), and **partial-collapses + re-forges** a method when its guaranteeing values drift. The
+keystone that makes a method a re-mountable, transferable graph (cross-problem structural transfer,
+sound) is built — `lib/authoring/abstract.js` (the F6 abstractivation, on the engine-native
+`Graph#getMutationFromPath`). The full formalization, feasibility map, hard lines, and the next-build
+PoC are the canonical capstone study:
+[doc/WIP/studies/2026-06-27-master-graph-supervisor.md](doc/WIP/studies/2026-06-27-master-graph-supervisor.md).
+
 ## Run it distributed
 
 Sub-graphs can stabilize in **separate worker processes**, and graph parts can be
