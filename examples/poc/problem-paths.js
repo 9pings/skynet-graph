@@ -111,6 +111,7 @@ function providers( C, opts ) {
 	return { P: {
 		plan: function ( graph, concept, scope, argz, cb ) {
 			const seg = scope._, depth = seg.depth || 0;
+			if ( seg.toDelegate ) return cb(null, { $_id: '_parent', Plan: true });   // a delegated sub-problem is solved by a forked sub-agent (Delegate), not decomposed inline
 			if ( depth >= maxDepth ) return cb(null, { $_id: '_parent', Plan: true, Atomic: true });
 			const from = stateOf(graph, seg.originNode), to = stateOf(graph, seg.targetNode);
 			// adjacency UP: the parent step's endpoint states (one bounded level), as framing for the planner.
@@ -120,6 +121,10 @@ function providers( C, opts ) {
 			// (a known route → deterministic mids, no LLM); untyped endpoints (undefined) fall back to the LLM.
 			const originKind = kindOf(graph, seg.originNode), targetKind = kindOf(graph, seg.targetNode);
 			Promise.resolve(C.plan({ from, to, parent, parentFrom, parentTo, originKind, targetKind })).then(function ( r ) {
+				// DELEGATION: the content can flag a self-contained sub-problem to be solved by a forked
+				// sub-agent (Delegate) instead of decomposed inline — carry the sub-problem spec onto the segment.
+				if ( r && r.delegate ) return cb(null, { $_id: '_parent', Plan: true, toDelegate: true,
+					subStart: r.delegate.from, subGoal: r.delegate.to, subStartKind: r.delegate.startKind, subGoalKind: r.delegate.goalKind });
 				if ( !r || r.atomic || !r.mids || !r.mids.length ) return cb(null, { $_id: '_parent', Plan: true, Atomic: true });
 				// Decomposed segments carry the backtrack ledger: `stuck` (grow-only signals from dead-ended
 				// descendants) and `attempt` (how many alternatives tried) — the Reselect gate reads both.
