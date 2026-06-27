@@ -104,13 +104,16 @@ const conceptTree = { common: { childConcepts: {
 function providers( C, opts ) {
 	opts = opts || {};
 	const maxDepth = opts.maxDepth != null ? opts.maxDepth : MAXDEPTH, nAlts = opts.alts != null ? opts.alts : ALTS;
+	const WINDOW   = opts.window != null ? opts.window : 1;   // bounded adjacency WINDOW: how many prior steps a resolve sees (1 = immediate only; keeps context ≤ B)
 	const stateOf   = ( graph, id ) => { const e = graph.getEtty(id); return e ? e._.state : undefined; };
 	const reachedOf = ( graph, id ) => { const e = graph.getEtty(id); return e ? e._.reached : undefined; };
+	const trailOf   = ( graph, id ) => { const e = graph.getEtty(id); return (e && e._.trail) || []; };   // the bounded window of prior steps handed along the spine
 	const labelOf   = ( graph, id ) => { const e = graph.getEtty(id); return e ? e._.label : undefined; };
 	const kindOf    = ( graph, id ) => { const e = graph.getEtty(id); return e ? e._.kind : undefined; };   // typed-domain discriminant (enum); undefined = untyped
 	return { P: {
 		plan: function ( graph, concept, scope, argz, cb ) {
 			const seg = scope._, depth = seg.depth || 0;
+			if ( seg.toDelegate ) return cb(null, { $_id: '_parent', Plan: true });   // a delegated sub-problem is solved by a forked sub-agent (Delegate), not decomposed inline
 			if ( depth >= maxDepth ) return cb(null, { $_id: '_parent', Plan: true, Atomic: true });
 			const from = stateOf(graph, seg.originNode), to = stateOf(graph, seg.targetNode);
 			// adjacency UP: the parent step's endpoint states (one bounded level), as framing for the planner.
@@ -120,6 +123,10 @@ function providers( C, opts ) {
 			// (a known route → deterministic mids, no LLM); untyped endpoints (undefined) fall back to the LLM.
 			const originKind = kindOf(graph, seg.originNode), targetKind = kindOf(graph, seg.targetNode);
 			Promise.resolve(C.plan({ from, to, parent, parentFrom, parentTo, originKind, targetKind })).then(function ( r ) {
+				// DELEGATION: the content can flag a self-contained sub-problem to be solved by a forked
+				// sub-agent (Delegate) instead of decomposed inline — carry the sub-problem spec onto the segment.
+				if ( r && r.delegate ) return cb(null, { $_id: '_parent', Plan: true, toDelegate: true,
+					subStart: r.delegate.from, subGoal: r.delegate.to, subStartKind: r.delegate.startKind, subGoalKind: r.delegate.goalKind });
 				if ( !r || r.atomic || !r.mids || !r.mids.length ) return cb(null, { $_id: '_parent', Plan: true, Atomic: true });
 				// Decomposed segments carry the backtrack ledger: `stuck` (grow-only signals from dead-ended
 				// descendants) and `attempt` (how many alternatives tried) — the Reselect gate reads both.
@@ -127,7 +134,7 @@ function providers( C, opts ) {
 				r.mids.slice(0, nAlts).forEach(function ( m, i ) {
 					const mid = (m && m.state != null) ? m.state : m, why = (m && m.why) || null, mkind = (m && m.kind) || null;
 					const midN = base + '_m' + i, segA = base + '_a' + i, segB = base + '_b' + i;
-					alts.push({ mid: mid, why: why, segA: segA, segB: segB });
+					alts.push({ mid: mid, why: why, segA: segA, segB: segB, kind: mkind });   // kind: typed-domain route discriminant (null = untyped) — lets Select rank ROUTES by kind
 					// a domain may TYPE the intermediate state (kind) so the next hop stays grounded.
 					tpl.push(mkind ? { _id: midN, Node: true, state: mid, kind: mkind } : { _id: midN, Node: true, state: mid });
 					tpl.push({ _id: segA, Segment: true, originNode: seg.originNode, targetNode: midN, depth: depth + 1, parentSeg: base, label: 'reach ' + mid, cand: true });
@@ -142,7 +149,8 @@ function providers( C, opts ) {
 		select: function ( graph, concept, scope, argz, cb ) {
 			const seg = scope._, alts = seg.alts || [];
 			const from = stateOf(graph, seg.originNode), to = stateOf(graph, seg.targetNode);
-			Promise.all(alts.map(function ( a ) { return Promise.resolve(C.score({ from: from, to: to, mid: a.mid, why: a.why })); })).then(function ( scores ) {
+			const originKind = kindOf(graph, seg.originNode), targetKind = kindOf(graph, seg.targetNode);   // typed-domain: let score rank ROUTES by the first-hop + remaining cost
+			Promise.all(alts.map(function ( a ) { return Promise.resolve(C.score({ from: from, to: to, mid: a.mid, why: a.why, kind: a.kind, originKind: originKind, targetKind: targetKind })); })).then(function ( scores ) {
 				let best = 0; for ( let i = 1; i < alts.length; i++ ) if ( scores[i] > scores[best] ) best = i;
 				const win = alts[best];
 				out(`  [select  ] picked «${win.mid}»   (scores: ${scores.map((s) => Number(s).toFixed(1)).join(', ')})`);
@@ -161,8 +169,9 @@ function providers( C, opts ) {
 		resolve: function ( graph, concept, scope, argz, cb ) {
 			const seg = scope._, from = stateOf(graph, seg.originNode), to = stateOf(graph, seg.targetNode);
 			const prev = reachedOf(graph, seg.originNode);
+			const window = trailOf(graph, seg.originNode);    // the bounded window of the last WINDOW resolved steps (not just `prev`)
 			const originKind = kindOf(graph, seg.originNode), targetKind = kindOf(graph, seg.targetNode);
-			Promise.resolve(C.resolve({ from: from, to: to, prev: prev, originKind: originKind, targetKind: targetKind })).then(function ( r ) {
+			Promise.resolve(C.resolve({ from: from, to: to, prev: prev, window: window, originKind: originKind, targetKind: targetKind })).then(function ( r ) {
 				const stuck = r && typeof r === 'object' && r.stuck;
 				const step  = (r && typeof r === 'object') ? r.step : r;
 				if ( stuck || step == null ) {                       // dead-end: signal the deciding segment, no hand-off forward
@@ -172,9 +181,10 @@ function providers( C, opts ) {
 					return cb(null, tpl);
 				}
 				out(`  [resolve ] ${from}  ⟶  ${to}`);
+				const trail = window.concat([step]).slice(-WINDOW);   // hand forward a BOUNDED window (last WINDOW steps), not an unbounded history
 				cb(null, [
 					{ $_id: '_parent', Resolve: true, step: step },
-					{ $$_id: seg.targetNode, reached: step }   // ADJACENT hand-off forward: the next step reads this as its `prev`
+					{ $$_id: seg.targetNode, reached: step, trail: trail }   // ADJACENT hand-off forward: `reached` = immediate prev, `trail` = bounded window
 				]);
 			});
 		},
