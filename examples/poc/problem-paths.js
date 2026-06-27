@@ -104,8 +104,10 @@ const conceptTree = { common: { childConcepts: {
 function providers( C, opts ) {
 	opts = opts || {};
 	const maxDepth = opts.maxDepth != null ? opts.maxDepth : MAXDEPTH, nAlts = opts.alts != null ? opts.alts : ALTS;
+	const WINDOW   = opts.window != null ? opts.window : 1;   // bounded adjacency WINDOW: how many prior steps a resolve sees (1 = immediate only; keeps context ≤ B)
 	const stateOf   = ( graph, id ) => { const e = graph.getEtty(id); return e ? e._.state : undefined; };
 	const reachedOf = ( graph, id ) => { const e = graph.getEtty(id); return e ? e._.reached : undefined; };
+	const trailOf   = ( graph, id ) => { const e = graph.getEtty(id); return (e && e._.trail) || []; };   // the bounded window of prior steps handed along the spine
 	const labelOf   = ( graph, id ) => { const e = graph.getEtty(id); return e ? e._.label : undefined; };
 	const kindOf    = ( graph, id ) => { const e = graph.getEtty(id); return e ? e._.kind : undefined; };   // typed-domain discriminant (enum); undefined = untyped
 	return { P: {
@@ -167,8 +169,9 @@ function providers( C, opts ) {
 		resolve: function ( graph, concept, scope, argz, cb ) {
 			const seg = scope._, from = stateOf(graph, seg.originNode), to = stateOf(graph, seg.targetNode);
 			const prev = reachedOf(graph, seg.originNode);
+			const window = trailOf(graph, seg.originNode);    // the bounded window of the last WINDOW resolved steps (not just `prev`)
 			const originKind = kindOf(graph, seg.originNode), targetKind = kindOf(graph, seg.targetNode);
-			Promise.resolve(C.resolve({ from: from, to: to, prev: prev, originKind: originKind, targetKind: targetKind })).then(function ( r ) {
+			Promise.resolve(C.resolve({ from: from, to: to, prev: prev, window: window, originKind: originKind, targetKind: targetKind })).then(function ( r ) {
 				const stuck = r && typeof r === 'object' && r.stuck;
 				const step  = (r && typeof r === 'object') ? r.step : r;
 				if ( stuck || step == null ) {                       // dead-end: signal the deciding segment, no hand-off forward
@@ -178,9 +181,10 @@ function providers( C, opts ) {
 					return cb(null, tpl);
 				}
 				out(`  [resolve ] ${from}  ⟶  ${to}`);
+				const trail = window.concat([step]).slice(-WINDOW);   // hand forward a BOUNDED window (last WINDOW steps), not an unbounded history
 				cb(null, [
 					{ $_id: '_parent', Resolve: true, step: step },
-					{ $$_id: seg.targetNode, reached: step }   // ADJACENT hand-off forward: the next step reads this as its `prev`
+					{ $$_id: seg.targetNode, reached: step, trail: trail }   // ADJACENT hand-off forward: `reached` = immediate prev, `trail` = bounded window
 				]);
 			});
 		},
