@@ -340,8 +340,9 @@ Pure helpers: `paretoFront` / `paretoSelect` / `makePareto` / `dominates` / `red
 - **`conceptFactGraph(conceptMap)`** (`grammar-graph.js`) — the concept↔fact flux graph: produced /
   consumed facts **with polarity**, cross-corpus links, writer-collisions, entry points, tiling overlay.
 - **`.sgc` corpus exchange** (`corpus-pack.js`): `deriveManifest` (produces/consumes alphabet, required
-  providers), `packCorpus` / `unpackCorpus` (a portable bundle). Disk round-trip:
-  `Graph.loadConceptMap(dir, { validate })` ↔ `exportConceptsToDir(tree, dir)` (`lib/load.js`).
+  providers), `packCorpus` / `unpackCorpus` (a portable bundle of the *authored grammar*). Disk round-trip:
+  `Graph.loadConceptMap(dir, { validate })` ↔ `exportConceptsToDir(tree, dir)` (`lib/load.js`). The sibling
+  that packs the *learned method library* is `method-pack.js` (next section).
 
 ### The support grammar (`lib/authoring/support.js`)
 
@@ -349,6 +350,33 @@ Pure helpers: `paretoFront` / `paretoSelect` / `makePareto` / `dominates` / `red
 escalateFn, escalateBar, rollupFn })` compose the decompose loop with the per-segment
 **Propose → Pareto-SELECT → Adopt** alternative-search trio + escalation on `Stuck`. Inject the content
 functions (deterministic in tests, an LLM in production).
+
+### Master-graph supervisor & method library (`lib/authoring/`)
+
+The LLM-driven **use 2** surface — forge / crystallize / reuse typed methods on top of the substrate. Host-side,
+ZERO-CORE, additive (the base hand-authoring use needs none of it). Full guide: [supervisor.md](supervisor.md).
+
+- **`master-loop.js`** — `createMasterLoop({ signature, forge, reForge, cache, index, mount })` → `{ solve,
+  drift, stats, cache, index, mount, keyOf, idOf }`. The cost-ladder controller MATCH→RETRIEVE→FORGE→ESCALATE;
+  `solve(p)` → `{ result, arm, regime, cost }`; `drift(p)` invalidates a method (cache + index) + records a deopt.
+- **`recall.js`** — fuzzy-recall → typed-verify: `createRecallIndex()` (`add`/`recall`/`remove`), `verify(q,
+  cand)` → `full`/`partial`/`reject` (the soundness gate — structure decides, never the similarity score),
+  `recallAndVerify`.
+- **`mount.js`** — `createMountController()` → `decide(id, signals)` (instance/inline/frozen/escalate, hysteresis
+  + a deopt-budget rank), `recordDeopt`, `regimeOf`, `deoptBudget`.
+- **`abstract.js`** — F6 abstractivation: `relativize`/`instantiate` (id/frontier holes), `antiUnify` (Plotkin
+  LGG), `methodTransform` (the cache `{onStore,onReplay}`), `emitMethodAsSubgraph` (re-mountable parameterized
+  method via `Graph#getMutationFromPath`). The cross-problem structural-transfer keystone.
+- **`crystallize.js`** (+ `mine.js`, `abstraction.js`, `memo-stability.js`) — `crystallize`/`adopt`/`consolidate`:
+  mine a producer→consumer chain → compose → MDL/utility gate (`abstraction.evaluate` scores model calls) →
+  install fail-closed (memo-stability). `reaggregate.js` — defeasible re-aggregation (a summary updates on drift);
+  `bounded-merge.js` — `boundedProject` (cross only Σ_sep at a merge).
+- **Persistence & portability.** `store.js` — `createFileStore(path)` (write-through Map-like cache/store),
+  `saveIndex`/`loadIndex`, `saveSgc`/`loadSgc` (any `.sgc` file). `method-pack.js` — the `.sgc` **methods**
+  package: `packMethods(loop, { name, version })` / `loadMethods(bundle, host, { version })` /
+  `unpackMethods` / `deriveMethodSchema`. The **B8 version gate** covers both replay paths (versions agree →
+  hydrate index + exact cache; differ → re-forge, no stale verbatim replay), and the receiver's typed verify
+  rejects a structurally-foreign method.
 
 ### Learned concepts — population training, plasticity & serving (`lib/authoring/`)
 

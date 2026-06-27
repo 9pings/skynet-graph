@@ -5,11 +5,19 @@
 > for the full API surface see [API.md](API.md). The **concept-organization strategy is
 > still WIP** — treat `concepts/common/` as an example, not a recommended ontology.
 
+> **Scope of this guide — the BASE use, standalone.** §1–§9 below cover the foundational use:
+> **authoring a concept grammar by hand** to model and enrich a domain, with deterministic
+> providers and **no LLM required** (the geo `Distance` rule in §2/§3 is a complete worked
+> example). This use stands on its own. The LLM-driven **master-graph supervisor** that forges
+> and crystallizes methods on top is the project's R&D *target*, layered over exactly this
+> substrate — see the README "Two ways to use it" and the capstone study; it is additive, never
+> a prerequisite for the above.
+
 ## 1. Install & load
 
 ```bash
 npm install        # deps only; no compile
-npm test           # 111 tests (node --test)
+npm test           # 413 tests (node --test)
 ```
 
 ```js
