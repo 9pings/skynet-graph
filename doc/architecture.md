@@ -222,10 +222,13 @@ the "a model call is a generic, templated request, dispatchable anywhere" path.
 
 The **engine** is mechanically complete and heavily tested (declarative AI-authoring + safe
 live self-modification included), and the **additive Mixture-of-Reasoners layer** (the P / C / M
-regime providers, verification, tiling), the **support grammar**, the **Studio**, and the
-`.sgc` corpus exchange are all shipped (284 tests). What remains is **open research**, and the
-biggest piece is **how to organize concepts** — the current bet is a semantically-meaningful hierarchical
-corpus keyed on *human vocabulary*, with judgment delegated to a better-model supervisor
-while the rules handle orchestration + coherence. The shipped `concepts/common/` set is an
+regime providers, verification, tiling), the **support grammar**, the **Studio**, the
+`.sgc` corpus exchange, and the **master-graph supervisor / method library** (use 2 — see
+[supervisor.md](supervisor.md): master-loop, recall→verify, mount policy, derivation cache, F6
+abstractivation, persistence + the `.sgc` method package) are all shipped (413 tests). What remains is
+**open research** + the product step (M4 — wiring the supervisor's forge to the real engine on a real
+workload), and the biggest research piece is **how to organize concepts** — the current bet is a
+semantically-meaningful hierarchical corpus keyed on *human vocabulary*, with judgment delegated to a
+better-model supervisor while the rules handle orchestration + coherence. The shipped `concepts/common/` set is an
 *illustration*, not a recommended ontology. The detailed, evolving roadmap and the critical
 self-studies live in [doc/WIP/](WIP/) (start with `WIP/HANDOFF.md` and `MODELISATION.md`).
