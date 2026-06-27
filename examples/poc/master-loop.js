@@ -12,7 +12,8 @@ const fs = require('fs');
 const ROOT = path.resolve(__dirname, '../..');
 const { createMasterLoop } = require(ROOT + '/lib/authoring/master-loop.js');
 const { createMountController } = require(ROOT + '/lib/authoring/mount.js');
-const { createFileStore } = require(ROOT + '/lib/authoring/store.js');
+const { createFileStore, saveSgc, loadSgc } = require(ROOT + '/lib/authoring/store.js');
+const { packMethods, loadMethods } = require(ROOT + '/lib/authoring/method-pack.js');
 const out = ( ...a ) => process.stdout.write(a.join(' ') + '\n');
 
 const signature = ( p ) => ({ structure: { oKind: p.oKind, tKind: p.tKind }, content: { variant: p.variant } });
@@ -45,6 +46,21 @@ async function main() {
 	const loop2 = createMasterLoop({ signature, forge: L2.forge, reForge: L2.reForge, cache: createFileStore(cacheFile), mount: createMountController() });
 	const after = await loop2.solve({ oKind: 'A', tKind: 'B', variant: 'v1' });
 	out(`\n   RESTART (fresh process, same file): A->B|v1 → ${after.arm} cost=${after.cost}  (the warm library survived; forges this process=${L2.n.forge})`);
+
+	// ── SHIP (M3): pack the library as a portable .sgc → a DIFFERENT deployment loads it → replays at 0 calls.
+	const sgcFile = path.join(dir, 'travel.sgc');
+	saveSgc(packMethods(loop, { name: 'travel', version: 'v1' }), sgcFile);
+	const L3 = lib();
+	const dep2 = createMasterLoop({ signature, forge: L3.forge, reForge: L3.reForge });   // a fresh, EMPTY deployment
+	const ship = loadMethods(loadSgc(sgcFile), dep2, { version: 'v1' });
+	const s1 = await dep2.solve({ oKind: 'A', tKind: 'B', variant: 'v1' });
+	out(`   SHIP (.sgc → another deployment): loaded ${ship.added} methods; A->B|v1 → ${s1.arm} cost=${s1.cost}  (forges in the receiver=${L3.n.forge})`);
+	// version mismatch is REFUSED (B8) — a stale library never silently replays.
+	const L4 = lib();
+	const dep3 = createMasterLoop({ signature, forge: L4.forge, reForge: L4.reForge });
+	const bad = loadMethods(loadSgc(sgcFile), dep3, { version: 'v2' });
+	const s2 = await dep3.solve({ oKind: 'A', tKind: 'B', variant: 'v1' });
+	out(`   SHIP cross-version (pkg v1 → host v2): loaded=${bad.added} skipped=${bad.skipped}; A->B|v1 → ${s2.arm}  (re-forged, not stale)`);
 
 	// ── DRIFT: a premise of C->D changed → re-derive (not stale replay); a 2nd drift pins it to ESCALATE.
 	loop.drift({ oKind: 'C', tKind: 'D', variant: 'v1' });
