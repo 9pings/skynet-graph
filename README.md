@@ -65,27 +65,74 @@ Verification (`Verify::check` + `Vote::tally`), cross-fork recombination
 frontier alphabets) round it out. The composite — deterministic structural retraction of
 LLM-derived facts + a typed-fact-keyed memo + a bisectable belief state — is the bet.
 
-## What we hope to do with it
+## The problem-solving grammar — what's built
 
-The flagship use is to **answer an enormous prompt without a context-window blow-up**:
-the graph is the working memory, and each LLM call sees only bounded local context.
+The flagship use is to **solve a problem (or answer an enormous prompt) without a
+context-window blow-up**: the graph is the working memory, and **every** call sees only
+bounded local context.
 
 ![the decompose → synthesize answer loop](doc/img/answer-loop.svg)
 
-Seed a root segment (the prompt) → **decompose** into sub-problem segments (concepts cast
-bounded LLM calls) → stabilize → **synthesize** bottom-up (bounded rollup) → answer. On
-top of this the R&D has built: a **canonicalization barrier** (typed facts, not prose, on
-dependency edges — so the memo actually hits), **verification** concepts (coherence ≠
-truth → checkers + voting), **freshness/TTL** as facts, **declarative AI-authoring**
-(`addConcept` + a validator + a CEGIS loop), and **safe live self-modification** (a
-meta-concept can patch the rules mid-run, bounded and reversible).
+A problem is a **segment from a START state to a GOAL state**. Concepts apply *on* a segment
+and **decompose or resolve** it using only its **local neighbourhood** — its endpoint states,
+its parent step, and a bounded window of the previous resolved steps. The grammar is built and
+*measured* (deterministic stub tests with negative controls + real-LLM verification), in
+`examples/poc/problem-*.js`:
 
-A **support grammar** (`lib/authoring/support.js`) composes these into the thesis that
-*structure and search live in the graph, not the model's context*: a problem decomposes,
-each bounded segment **generates several candidate answers**, a multi-criteria **Pareto
-SELECT** keeps the non-dominated ones and picks one, a segment that stays weak **escalates**
-to a better tier (on a mono server, the same model with reasoning on) — so a *small* local
-model only has to be locally competent.
+- **Decompose → best path.** `Plan` proposes alternative intermediate states, `Select` scores
+  them and marks the winning sub-path; only the chosen path recurses, the losers stay inspectable.
+- **Adjacency spine.** A `reached` hand-off forces resolution in path order and feeds each step
+  its predecessor; a bounded **K-step window** (`trail`) gives a recent-history horizon at
+  *constant* context size.
+- **Backtrack / escalation.** A dead-ended step bubbles a `Stuck` signal to its deciding segment,
+  which adopts the next-best untried alternative (re-using stored scores) or escalates to its own
+  parent — AO\*-style search with nogood, composed from `{__push}` fan-in + the ensure-gated
+  iterative-trial re-cast (no core change).
+- **Typed-domain grounding.** A domain corpus types states by a discrete `kind` enum (a **DAG of
+  kinds** — e.g. an online DB migration: downtime / expand-contract / blue-green routes), so an
+  in-vocabulary problem is solved by the *same* engine at **0 LLM calls**; the model is spent only
+  on genuine gaps (measured: +1 call per missing operator), and a feasibility wall (a zero-downtime
+  SLA) makes the search backtrack to the right alternative route.
+- **Delegation & parallelism.** A self-contained sub-problem is **delegated** to a forked sub-agent
+  (its own concept pool under a distinct namespace; only the bounded plan crosses back, through a
+  frontier-checked boundary) or to a real **worker thread** (the model `ask` proxied to the parent);
+  **competitive rollout** elaborates N alternatives concurrently and selects by *realized* cost
+  (it beats a greedy heuristic exactly when the static prior mis-ranks).
+
+**Measured:** per-call context is **constant** as the problem grows, vs a naive carry-everything
+baseline that grows linearly (engine O(N) total vs baseline O(N²)); on a small local model, an
+8-step *legacy → PyPI package* plan and a *"p99 latency, cause unknown" → "root cause found + fix
+deployed"* diagnostic each decompose into a coherent ordered chain, every call on bounded context.
+
+On top of the core the R&D also built: a **canonicalization barrier** (typed facts, not prose, on
+dependency edges — so the memo actually hits), **verification** concepts (coherence ≠ truth →
+checkers + voting), **freshness/TTL** as facts, **declarative AI-authoring** (`addConcept` + a
+validator + a CEGIS loop), and **safe live self-modification** (a meta-concept patches the rules
+mid-run, bounded and reversible).
+
+### An adaptive method, records as instances
+
+Stepping back, the graph **builds a METHOD** — a structured, reusable, *live-modifiable*
+representation of how to go from state A to state B (the AND/OR graph above: **AND** = parallel
+sub-tasks + a join, **OR** = competing lenses that get pruned). External DB **records then flow
+through that method as instances** — formally a *workflow net + its cases*. The method is
+**adaptive**: it *crystallizes* recurrent, canonicalizable structure into named concepts and is
+refined by the supervisor — it learns from the instances flowing through it.
+
+A **derivation cache** (`providers/cache.js` — additive, zero-core) makes this affordable: a
+provider's result is content-addressed on the **canonical justification** of the cast, so a
+retract→re-derive (which would otherwise re-run the model) becomes a hash lookup, and a **second
+identical instance runs at ~0 model calls** (measured: warm = 0 vs cold = 48 calls, while a
+genuinely different instance correctly pays full price — it keys on the justification, never a
+false replay). It is the fast/episodic half of a Complementary-Learning-Systems loop whose slow
+half (`crystallize`) was already built. The full design + the blocking points are in
+[doc/WIP/studies/2026-06-27-method-instance-workflow-cache-control.md](doc/WIP/studies/2026-06-27-method-instance-workflow-cache-control.md).
+
+The honest line (from that study): the engine is a **reactive, retractable belief-view** over
+snapshotted records — *not* a durable workflow executor. For real durability it sits **atop** one
+(the cache is the idempotency key); at high volume it **compiles/crystallizes** the method while a
+stream engine runs it. The defensible niche is *typed, defeasible, auditable, versioned* belief-
+retraction over external records — what value-IVM systems (Materialize / DBSP) don't provide.
 
 ## Run it distributed
 
@@ -122,7 +169,7 @@ manifest — the provides/consumes alphabet, required providers). Embeddable via
 
 ```bash
 npm install            # no build step — pure CommonJS, runs natively on Node 18+
-npm test               # 284 tests (node:test)
+npm test               # 365 tests (node:test)
 
 # run a graph standalone from plain folders (live status bar + colored logs on a TTY):
 node bin/sg run --concepts ./concepts --builtins --seed ./my-seed.json
@@ -187,7 +234,8 @@ generates the value) run to a fixpoint is a quantized equilibrium GNN — traina
 lib/
   graph/        the engine (filesystem-free, portable core) — Graph, objects, tasks, expr
   providers/    packaged effectful providers — host opt-in: geo, llm, canonicalize, verify,
-                semiring (incl. pareto/skyline), stats, nogood, merge-consistency, solver-fork, constat
+                semiring (incl. pareto/skyline), stats, nogood, merge-consistency, solver-fork, constat,
+                cache (content-addressed derivation memo — additive, zero-core)
   authoring/    loader + validator + CEGIS author + supervise + decompose/forkPlan (tiling) +
                 grammar-graph + corpus-pack (.sgc) + support (the support grammar) + ste + clock +
                 LEARNED CONCEPTS: equilibrium (DEQ) + concept-net (population, train/evolve/bake/unroll)
@@ -197,7 +245,9 @@ lib/
   runtime/      distributed sub-graphs (worker_threads + ask-proxy)
   load.js       directory loaders ;  index.js  the package facade (Graph + fromDirs + statics)
 concepts/       example concept sets — common, _substrate (universal spine), clinical, supply
-examples/       runnable demos (run-basic / run-prompt / run-problem) + poc/
+examples/       runnable demos (run-basic / run-prompt / run-problem) + poc/ (the problem-solving
+                grammar: problem-paths / -domain[-dag] / -delegate / -compete / -adjacency / -bounded /
+                -worker, and cache-instances — the method/instance derivation cache)
 bin/sg          CLI entry
 ```
 
