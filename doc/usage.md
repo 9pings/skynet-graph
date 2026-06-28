@@ -1,23 +1,23 @@
-# Usage guide
+# Usage guide (Use 1 — the substrate)
 
 > **R&D library.** Pure CommonJS, runs natively on Node 18+ — **no build step**. For the
 > model see [architecture.md](architecture.md); for the concept schema see [doc.md](doc.md);
 > for the full API surface see [API.md](API.md). The **concept-organization strategy is
 > still WIP** — treat `concepts/common/` as an example, not a recommended ontology.
 
-> **Scope of this guide — the BASE use, standalone.** §1–§9 below cover the foundational use:
+> **Scope of this guide — Use 1, the substrate, standalone.** §1–§9 below cover the foundational use:
 > **authoring a concept grammar by hand** to model and enrich a domain, with deterministic
 > providers and **no LLM required** (the geo `Distance` rule in §2/§3 is a complete worked
-> example). This use stands on its own. The LLM-driven **master-graph supervisor** that forges
-> and crystallizes methods on top is the project's R&D *target*, layered over exactly this
-> substrate — see the README "Two ways to use it" and the capstone study; it is additive, never
-> a prerequisite for the above.
+> example). This use stands on its own. The LLM-driven **Use 2** target system — concept-graphs as
+> composable methods, forged / crystallized / reused on top, with a durable executor and a contract —
+> is layered over exactly this substrate (**[concept-as-graph.md](concept-as-graph.md)**); it is
+> additive, never a prerequisite for the above.
 
 ## 1. Install & load
 
 ```bash
 npm install        # deps only; no compile
-npm test           # 413 tests (node --test)
+npm test           # 510 tests (node --test)
 ```
 
 ```js
@@ -217,7 +217,7 @@ node bin/sg studio [--root <dir>] [--port 4848] [--open] [--log-level <lvl>] [--
 It visualizes and drives the full V1 API: the **graph canvas** (cast-concept flags on each edge,
 a pulse on the target of the most recent `conceptApply`), the **concept tree** + a live **editor**
 (edit → validate → patch), the **fork tree** (fork / switch / merge), the **revision timeline**
-(rollback / diff), and a **prompt console** (the decompose → synthesize answer-loop). The
+(rollback / diff), and a **prompt console** (the decompose → synthesize loop). The
 `forkPlan` op exposes the tree-decomposition **tiling** (separators + tiles + frontier alphabets)
 of the active corpus. The engine core stays fs-free — all fs/serving lives in `lib/studio`.
 

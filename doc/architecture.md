@@ -1,9 +1,11 @@
-# Architecture — how skynet-graph works
+# Architecture — how skynet-graph works (Use 1, the substrate)
 
-> **R&D.** This explains the model as it stands. The engine is stable and tested; the
-> *concept-organization strategy* is open research (see [§6](#6-status--whats-r--d)).
-> The authoritative model + roadmap is [MODELISATION.md](MODELISATION.md); the concept
-> schema reference is [doc.md](doc.md); the public API is [API.md](API.md).
+> **R&D.** This explains the **substrate** (Use 1 — the standalone reactive engine; see the [README](../README.md)
+> for the two uses). The engine is stable and tested; the *concept-organization strategy* is open research (see
+> [§6](#6-status--whats-r--d)). The high-level target system built on this substrate (Use 2 — concept-graphs as
+> composable methods, the durable executor, the contract) is **[concept-as-graph.md](concept-as-graph.md)**. The
+> authoritative model + roadmap is [MODELISATION.md](MODELISATION.md); the concept schema is [doc.md](doc.md); the
+> public API is [API.md](API.md).
 
 ## 1. The substrate in one paragraph
 
@@ -162,15 +164,13 @@ not train); a *chain* topology collapses in depth (use width); cyclic serving is
 non-differentiable concepts (LLM/rules) stay frozen / off-gradient (a Mixture of Reasoners, not a uniform net). Full
 walk-through: **[concept-learning.md](concept-learning.md)**.
 
-## 5. What we want to build with it
+## 5. What the substrate is for — and the building blocks Use 2 leans on
 
-The flagship: **answer an enormous prompt without a context-window blow-up.** The graph is
-the working memory; each LLM call sees only bounded local context.
-
-![decompose → synthesize](img/answer-loop.svg)
-
-Root segment (prompt) → **decompose** into sub-problem segments → stabilize → **synthesize**
-bottom-up (bounded rollup) → answer. Built on top, as instrumented R&D rungs:
+The substrate's job is to be **bounded, structured, reversible working memory** so that reasoning over a large
+problem happens in **bounded local steps** — the graph holds the global state, the dependencies and the
+justifications, while each step sees only a small neighbourhood. The high-level system that turns this into
+*composable methods with typed contracts + a durable executor* is **Use 2 → [concept-as-graph.md](concept-as-graph.md)**.
+The substrate ships the pieces that make Use 2 possible, each usable **à nu**:
 
 - **Canonicalization barrier (K1).** An `LLM::complete` concept writes only *canonicalized*
   (enum-snapped / grain-rounded) keys as tracked facts, the reply text on an *untracked*
@@ -186,12 +186,11 @@ bottom-up (bounded rollup) → answer. Built on top, as instrumented R&D rungs:
 - **Safe live self-modification.** A supervised loop can hypothesize a self-mod, evaluate
   it with a better-model judge, and `rollbackTo` cleanly if it's worse — re-entrancy-safe,
   backstopped, and reversible (rules included).
-- **The support grammar** (`lib/authoring/support.js`). The thesis made runnable: *structure
-  and search are reified in the graph, not held in the model's context*. A problem decomposes;
-  each bounded atomic segment **proposes K candidate answers**; a `pareto` SELECT keeps the
-  non-dominated front and picks one; a segment that stays below the quality bar (`Stuck`)
-  **escalates** to a better tier; the parent synthesizes bottom-up. So a *small* local model
-  need only be locally competent on a bounded sub-problem.
+- **The support grammar** (`lib/authoring/support.js`). *Structure and search are reified in the graph, not held
+  in the model's context*: a problem decomposes; each bounded atomic segment **proposes K candidate answers**; a
+  `pareto` SELECT keeps the non-dominated front; a `Stuck` segment **escalates** to a better tier; the parent
+  synthesizes bottom-up. So a *small* local model need only be locally competent on a bounded sub-problem. This is
+  the seed of Use 2's forge/compose loop.
 
 Two front-ends drive all of this: the **`sg` CLI** (`run` / `studio`) and the **Studio** — a
 no-build web workbench (graph canvas with retraction flash, a concept↔fact **grammar graph**
@@ -222,12 +221,11 @@ the "a model call is a generic, templated request, dispatchable anywhere" path.
 
 The **engine** is mechanically complete and heavily tested (declarative AI-authoring + safe
 live self-modification included), and the **additive Mixture-of-Reasoners layer** (the P / C / M
-regime providers, verification, tiling), the **support grammar**, the **Studio**, the
-`.sgc` corpus exchange, and the **master-graph supervisor / method library** (use 2 — see
-[supervisor.md](supervisor.md): master-loop, recall→verify, mount policy, derivation cache, F6
-abstractivation, persistence + the `.sgc` method package) are all shipped (413 tests). What remains is
-**open research** + the product step (M4 — wiring the supervisor's forge to the real engine on a real
-workload), and the biggest research piece is **how to organize concepts** — the current bet is a
+regime providers, verification, tiling), the **support grammar**, the **Studio**, and the
+`.sgc` corpus exchange are all shipped. The **Use-2 target system** built on top — concept-graphs as
+composable methods, the durable executor, and the C-contract / un-learn loop — is documented in
+**[concept-as-graph.md](concept-as-graph.md)** (510 tests). What remains is **open research** + the deferred
+performance work, and the biggest research piece is **how to organize concepts** — the current bet is a
 semantically-meaningful hierarchical corpus keyed on *human vocabulary*, with judgment delegated to a
 better-model supervisor while the rules handle orchestration + coherence. The shipped `concepts/common/` set is an
 *illustration*, not a recommended ontology. The detailed, evolving roadmap and the critical

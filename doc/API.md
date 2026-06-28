@@ -351,10 +351,11 @@ escalateFn, escalateBar, rollupFn })` compose the decompose loop with the per-se
 **Propose → Pareto-SELECT → Adopt** alternative-search trio + escalation on `Stuck`. Inject the content
 functions (deterministic in tests, an LLM in production).
 
-### Master-graph supervisor & method library (`lib/authoring/`)
+### Concept-as-graph: the method library & supervisor (`lib/authoring/`)
 
-The LLM-driven **use 2** surface — forge / crystallize / reuse typed methods on top of the substrate. Host-side,
-ZERO-CORE, additive (the base hand-authoring use needs none of it). Full guide: [supervisor.md](supervisor.md).
+The LLM-driven **Use 2** surface — forge / crystallize / reuse / compose typed methods on top of the substrate.
+Host-side, ZERO-CORE, additive (the base hand-authoring use needs none of it). Full guide:
+[concept-as-graph.md](concept-as-graph.md).
 
 - **`master-loop.js`** — `createMasterLoop({ signature, forge, reForge, cache, index, mount })` → `{ solve,
   drift, stats, cache, index, mount, keyOf, idOf }`. The cost-ladder controller MATCH→RETRIEVE→FORGE→ESCALATE;
@@ -377,6 +378,47 @@ ZERO-CORE, additive (the base hand-authoring use needs none of it). Full guide: 
   `unpackMethods` / `deriveMethodSchema`. The **B8 version gate** covers both replay paths (versions agree →
   hydrate index + exact cache; differ → re-forge, no stale verbatim replay), and the receiver's typed verify
   rejects a structurally-foreign method.
+- **`method.js`** — the concept-as-graph host toolkit (the middle spine): `applySubgraphArg` / `mapTemplate` /
+  `mapSubgraph` (a method receives + applies a sub-graph param; `Map` fans a body per element with fresh ids),
+  `lintMethod(def)` (the decidability invariants + the footprint/frame check), `selectCluster` (case-parameterized
+  selection by mutually-exclusive typed gates).
+
+### C-contract — composition soundness & the un-learn loop (`lib/authoring/contract.js`)
+
+The defeasible separation-triple checker (Use 2's soundness). Exposed on the facade as deep-path; ZERO-CORE.
+
+- **`checkCompose(m1, m2, opts)`** → `{ verdict:'sound'|'unsound'|'escalate', shared, perKey, reasons, needsOracle }`
+  — `post(m1) ⊨ pre(m2)` over `write(m1)∩read(m2)`, by per-key **abstract-domain** entailment (`normalize` /
+  `entailsKey`); never false-accepts (out-of-fragment / under-determined → `escalate`). `opts.oracle` for an
+  effecting m1 (G2).
+- **`assertPost(contract, factsAfter, touchedKeys, opts)`** → `{ ok, violations, blame }` — the runtime monitor:
+  G1 frame-completeness (touched ⊆ declared write), the post must hold, G2 the effect-tag oracle.
+- **`footprintCycles(methods)`** → cycles of retractable methods (Tarjan-SCC; G3, reject before they oscillate).
+- **`reviseOnBlame(contract, {key,value})`** → a NEW contract with the pre specialized (CEGIS — un-learn, not
+  removal). **`satisfies(atoms, facts)`** — is a method applicable to a case (selection after a revision).
+  **`acceptRate(verdicts)`** — the measured typed-coverage fraction.
+
+### Durable executor — run methods as workflow-nets (`lib/durable/`)
+
+The "execute" half of the build/execute separation: a thin durable substrate that runs case records through a
+compiled method-net (the belief / durable boundary). ZERO-CORE; on the facade as `Graph.durable` +
+`Graph.createCheckpointStore({file})`.
+
+- **`checkpoint-store.js`** — `createMemoryCheckpointStore()` / `createSqliteCheckpointStore({file})` (one
+  contract). The durable **marking** (`ensureRun`/`inject`/`claim`/`move`/`fail`/`joinArrive`/`failGroup`/
+  `track`/`rollbackInflight`/`marking`/`stats`), the content-addressed **memo** (`memoGet`/`memoSet`), the
+  createdRefs rollback. Crash-safety = lease-expiry + `rollbackInflight` + a **fencing token** (a monotonic
+  persisted leaseId; a re-claimed lease fences out a zombie worker).
+- **`xlate.js`** — `compileMethod(spec) → net` (a select+task+map+reduce spec → a workflow-net), `validateNet`
+  (structural lint), `indexByFrom`.
+- **`interpreter.js`** — `runFlow(store, runId, net, { runTask, keyOf?, foldKeyOf?, oracle?, assertStep?, lease?,
+  batch?, maxSteps? })` → measured counters. Drains records: typed `select`, content-memoized `task`, `map`
+  fan-out, the fold-back `join`/`fold`. A per-step `contract` is asserted before commit (a violation quarantines
+  + blames). Async (real LLM micro-tasks). Resumable (call again after `rollbackInflight`).
+- **`fold.js`** — `foldSiblings(siblings, reduce)` (the JOIN's monoid algebra; commutative = order-independent),
+  `monoids()`, `isCommutative(name)`.
+- **`audit.js`** — `auditRun(store, runId)` → `{ records: { <id>: {status, terminal, result, blame, lineage…} },
+  totals }` (the derivation forest + verdict + blame), `auditSummary(audit)` (one line per record).
 
 ### Learned concepts — population training, plasticity & serving (`lib/authoring/`)
 

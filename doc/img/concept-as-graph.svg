@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 330" font-family="ui-sans-serif,system-ui,Segoe UI,Roboto,sans-serif">
+  <defs>
+    <marker id="cg" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#06b6d4"/>
+    </marker>
+    <marker id="cgb" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#64748b"/>
+    </marker>
+  </defs>
+  <text x="24" y="30" font-size="15" font-weight="700" fill="#1e293b">A concept-graph = a two-faced method — carry the CONTRACT, open the BODY only to refine</text>
+
+  <!-- OUTER face: the contract -->
+  <rect x="28" y="56" width="318" height="214" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+  <text x="187" y="82" font-size="13" font-weight="700" fill="#3730a3" text-anchor="middle">method  “convert-POIs”</text>
+  <rect x="52" y="98" width="270" height="126" rx="8" fill="#ffffff" stroke="#a5b4fc" stroke-width="1.5"/>
+  <text x="64" y="120" font-size="11.5" font-weight="700" fill="#3730a3">defeasible typed contract</text>
+  <text x="64" y="142" font-size="11" fill="#475569">pre   — over the read-footprint</text>
+  <text x="64" y="162" font-size="11" fill="#475569">post  — over the write-footprint (asserted at runtime)</text>
+  <text x="64" y="182" font-size="11" fill="#475569">reads / writes — the typed K1 keys</text>
+  <text x="64" y="202" font-size="11" fill="#475569">effect — pure | external</text>
+  <text x="187" y="252" font-size="11" fill="#64748b" text-anchor="middle">the OUTER face — what a caller COMPOSES on</text>
+  <text x="187" y="267" font-size="11" font-weight="700" fill="#155e75" text-anchor="middle">bounded context = this barrier</text>
+
+  <!-- abstraction barrier -->
+  <line x1="390" y1="56" x2="390" y2="270" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="390" y="48" font-size="10.5" fill="#64748b" text-anchor="middle">abstraction barrier</text>
+
+  <!-- INNER face: the productions -->
+  <rect x="434" y="56" width="318" height="214" rx="10" fill="#ecfeff" stroke="#06b6d4" stroke-width="2"/>
+  <text x="593" y="82" font-size="13" font-weight="700" fill="#155e75" text-anchor="middle">productions (the body)</text>
+  <circle cx="470" cy="140" r="16" fill="#fff" stroke="#06b6d4" stroke-width="2"/>
+  <text x="470" y="144" font-size="11" font-weight="700" fill="#155e75" text-anchor="middle">A</text>
+  <circle cx="716" cy="140" r="16" fill="#fff" stroke="#06b6d4" stroke-width="2"/>
+  <text x="716" y="144" font-size="11" font-weight="700" fill="#155e75" text-anchor="middle">B</text>
+  <line x1="486" y1="140" x2="540" y2="140" stroke="#06b6d4" stroke-width="2" marker-end="url(#cg)"/>
+  <rect x="540" y="123" width="60" height="34" rx="6" fill="#fff7ed" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="570" y="144" font-size="10.5" font-weight="700" fill="#92400e" text-anchor="middle">map</text>
+  <line x1="600" y1="140" x2="700" y2="140" stroke="#06b6d4" stroke-width="2" marker-end="url(#cg)"/>
+  <text x="650" y="132" font-size="9.5" fill="#94a3b8" text-anchor="middle">for/while/fold</text>
+  <text x="593" y="200" font-size="11" fill="#475569" text-anchor="middle">the concrete ways to realize A → B</text>
+  <text x="593" y="252" font-size="11" fill="#64748b" text-anchor="middle">the INNER face — opened only to REFINE</text>
+  <text x="593" y="267" font-size="11" font-weight="700" fill="#155e75" text-anchor="middle">refine = a new version, never in-place</text>
+
+  <line x1="346" y1="300" x2="434" y2="300" stroke="#64748b" stroke-width="1.6" marker-end="url(#cgb)"/>
+  <text x="24" y="304" font-size="10.5" fill="#64748b">compose on the contract →</text>
+  <text x="448" y="304" font-size="10.5" fill="#64748b">→ realize / refine the body</text>
+</svg>

@@ -1,5 +1,11 @@
 # Learned concepts — training a population at the fixpoint
 
+> **Status: optional / shelved advanced track.** This subsystem (a tiny gate×update NN trained at the
+> fixpoint) is a premature, narrow accelerator — a solution looking for a deployed hot-spot, and it does
+> **not** replace an LLM. The mainline Use-2 path is [concept-as-graph.md](concept-as-graph.md) (methods +
+> contracts + the durable executor); this stays shelved until a proven recurrent + structured + high-volume
+> sub-task justifies it. The work is real, tested, and de-risked — revisit it then. Documented here for completeness.
+
 > **Audience:** a fresh reader (AI or human) who knows what the engine is (a rule-driven graph that
 > stabilizes typed-fact concepts to a fixpoint — see [architecture.md](architecture.md)) and wants to
 > understand the **learning** subsystem under `lib/authoring/`. Everything here is **host-side and
