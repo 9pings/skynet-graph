@@ -122,6 +122,18 @@ function runCheckpointContract( label, makeStore, deps ) {
 		} finally { done(); }
 	});
 
+	test(`[${label}] fan-out with per-child payloads gives each child its OWN element (the map case)`, () => {
+		const { s, done } = open();
+		try {
+			s.ensureRun('r1', { start: 'start', sinks: ['end'] });
+			s.inject('r1', [{ id: 'a', shared: 'X' }]);
+			const [t] = s.claim('r1', { limit: 1, lease: 5000 });
+			const kids = s.move(t, ['body', 'body', 'body'], { payloads: [{ shared: 'X', elem: 'e0' }, { shared: 'X', elem: 'e1' }, { shared: 'X', elem: 'e2' }] });
+			assert.deepEqual(kids.map(( k ) => k.payload.elem).sort(), ['e0', 'e1', 'e2'], 'each child carries its own element');
+			assert.ok(kids.every(( k ) => k.payload.shared === 'X' && k.recordId === 'a'), 'shared context + recordId preserved per child');
+		} finally { done(); }
+	});
+
 	test(`[${label}] move carries a payload patch forward`, () => {
 		const { s, done } = open();
 		try {
