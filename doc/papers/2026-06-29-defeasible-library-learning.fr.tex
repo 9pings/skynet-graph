@@ -48,7 +48,10 @@ apparentées tenues à l'écart, tandis que l'ablation sans transformation est n
 ne permet pas de les distinguer ; (E3) une vérification de composition en boîte fermée coïncide avec le résultat en
 boîte ouverte sur chaque paire évaluée (aucun faux-admis), chacune des trois barrières de sûreté étant porteuse ;
 (P4) l'amortissement est un gradient de la fraction canonicalisable, avec sûreté à chaque couverture et non-sûreté
-au-delà. Aucun mécanisme n'est nouveau (JTMS, contrats à blâme, apprentissage de bibliothèque, révision de théorie,
+au-delà ; (E6) en tête-à-tête face aux systèmes de mémoire d'agents \emph{nommés} (MemGPT, Reflexion, GraphRAG),
+chacun --- dans sa configuration la plus favorable --- peut récupérer à la dérive, mais seul le contrat typé
+récupère au moindre coût sur (appels $\times$ exactitude $\times$ contexte) \emph{simultanément} : l'unique point
+Pareto-optimal. Aucun mécanisme n'est nouveau (JTMS, contrats à blâme, apprentissage de bibliothèque, révision de théorie,
 logique de séparation) ; la contribution est leur composition en une bibliothèque apprise de méthodes typées qui
 réalise un désapprentissage principiel et sélectif à la dérive --- ce que les mémoires par rappel seul ne font pas
 --- bornée par un plafond \K{} mesuré.
@@ -266,6 +269,49 @@ bornée par le nombre de classes (trivialement) ; une dérive ne rétracte que l
 typé n'est pas le goulet. Il ne teste \textbf{pas} l'échelle dans la dimension qui compte (bibliothèque croissante
 de méthodes \emph{distinctes}, corpus réel, modèle réel sur tous les bras) --- travail futur.
 
+\subsection{E6 --- tête-à-tête face aux systèmes de mémoire d'agents nommés}\label{sec:e6}
+Les références du Dispositif sont génériques (RAG/CBR/Compétence) ; les systèmes attendus en comparaison sont les
+systèmes \emph{nommés}. Nous ajoutons une ré-implémentation minimale fidèle de MemGPT/Letta~\cite{packer2023}
+(mémoire à étages auto-éditée), Reflexion~\cite{shinn2023} (réflexion verbale pilotée par l'échec, sans mémo) et
+GraphRAG~\cite{edge2024} (index de résumés de communautés hors-ligne) derrière la même interface, chacun dans sa
+configuration \emph{la plus favorable} avec une ablation appariée (le contrôle négatif). Stub déterministe, $N=78$,
+deux classes auditées (Table~\ref{tab:e6}).
+
+\begin{table}[h]\centering
+\begin{tabular}{lrrrr}
+\toprule
+bras & appels & exact. & exact.-dérive & ctx max \\
+\midrule
+Naïf & 78 & 1,00 & 1,00 & 290 \\
+MemGPT (audit paginé en core) & 23 & 1,00 & 1,00 & 320 \\
+\quad $-$pagination (ablation) & 18 & 0,92 & 0,00 & 258 \\
+Reflexion (signal d'échec différé) & 82 & 1,00 & 1,00 & 332 \\
+\quad $-$signal (ablation) & 78 & 0,92 & 0,00 & 258 \\
+GraphRAG (index hors-ligne) & 87 & 0,92 & 0,00 & 336 \\
+\quad $+$ré-index (ablation) & 89 & 1,00 & 1,00 & 336 \\
+\textbf{Struct} & \textbf{20} & \textbf{1,00} & \textbf{1,00} & \textbf{290} \\
+\bottomrule
+\end{tabular}
+\caption{E6. Dans sa configuration la plus favorable chaque système nommé peut récupérer ; seul Struct est Pareto-optimal sur (appels, exact.-dérive, contexte).}
+\label{tab:e6}
+\end{table}
+
+La lecture honnête n'est \emph{pas} « seul Struct récupère » : dans sa configuration la plus favorable, chaque
+système nommé peut récupérer à la dérive. Le propos est que Struct récupère au moindre coût sur les trois axes à la
+fois --- l'\textbf{unique point Pareto-optimal} sur (appels $\times$ correct-à-la-dérive $\times$ contexte par
+appel) ; aucun autre bras ne l'égale-ou-le-bat sur les trois. Chaque système nommé paie une taxe propre : MemGPT ne
+récupère qu'en paginant l'audit fait-surface en mémoire core (un tour modèle), puis \emph{grossièrement} (un
+drapeau de classe entière re-décidant même les membres non concernés) avec un bloc core dans chaque invite ;
+Reflexion n'a \emph{aucun} mémo adressé par contenu, donc émet un appel modèle sur \emph{chaque} enregistrement
+(appels $\approx N$) et ne récupère que réactivement après un échec observé ; l'index hors-ligne de GraphRAG est
+aveugle à l'audit silencieux (périmé), ne récupérant que par un \emph{ré-résumé par lot} (grossier, hors-bande),
+jamais un défaiseur par entrée. Les ablations confirment que chaque mécanisme est porteur (éteint $\to$
+exact.-dérive 0,00). En isolation, la taxe de récupération de Struct est la re-dérivation des seules entrées
+\emph{violées} (sélectif) et la ré-assertion du contrat est intra-moteur (\textbf{zéro} appel modèle). Un essai en
+direct (\texttt{qwen36-q2-vram}, $N=32$) reproduit l'ordre : Struct 9 appels / 1,9\,s, MemGPT 11 / 2,3\,s,
+Reflexion 34 / 7,1\,s, GraphRAG 36 / 7,7\,s (périmé). Ce sont des ré-implémentations minimales fidèles, pas les
+systèmes complets.
+
 \section{Travaux apparentés}
 \textbf{Recherche et mémoire de cas.} RAG~\cite{lewis2020} et CBR rappellent par similarité ; ils ne représentent
 pas une \emph{prémisse devenant invalide} (E2). Les bibliothèques de compétences (Voyager~\cite{wang2023}) stockent
@@ -274,7 +320,9 @@ de la \emph{prose} sans prémisse défaisable.
 \textbf{Mémoire des agents LLM.} MemGPT/Letta~\cite{packer2023}, Reflexion~\cite{shinn2023}, GraphRAG~\cite{edge2024}
 gèrent \emph{quoi} garder/rappeler finement, mais par pertinence/récence/similarité ; aucun ne représente une
 prémisse typée dont la falsification rétracte une réutilisation. Ils sont complémentaires : un contrat défaisable
-pourrait s'y placer comme couche de rétractation.
+pourrait s'y placer comme couche de rétractation. Nous menons ce tête-à-tête en E6 (\S\ref{sec:e6}) : chacun, dans
+sa configuration la plus favorable, peut récupérer, mais seul le contrat défaisable le fait au moindre coût sur
+(appels $\times$ exactitude $\times$ contexte) simultanément.
 
 \textbf{Apprentissage de bibliothèque.} DreamCoder~\cite{ellis2021} et Stitch~\cite{bowers2023} font croître une
 bibliothèque par abstraction~\cite{plotkin1970} ; sans contrat d'exécution défaisable.
@@ -309,13 +357,18 @@ absolue d'une charge de production est dépendante du domaine.
 
 \textbf{Force des références.} RAG/CBR/Compétence sont nos implémentations ; le bras Invalidant isole « possède un
 crochet » de « possède un contrat typé », d'où l'affirmation précise. Une RAG/CBR à invalidation-événementielle
-ajustée est essentiellement l'Invalidant.
+ajustée est essentiellement l'Invalidant. Les systèmes \emph{nommés} sont évalués en E6 (\S\ref{sec:e6}) : des
+ré-implémentations minimales fidèles de chaque mécanisme (pas d'édition mémoire réellement pilotée par le LLM, ni
+modèle de récompense appris, ni communautés Leiden), chacune dans sa configuration la plus favorable et
+\emph{charitable} --- des bornes supérieures du comportement à la dérive, non des hommes de paille.
 
 \textbf{Nouveauté / positionnement.} Aucun mécanisme n'est nouveau ; le travail est une \emph{composition}. Nous le
 positionnons comme une unification opérationnelle, non un nouvel algorithme.
 
 \textbf{Échelle et étendue.} Mécanismes à $N$ modeste sur deux domaines synthétiques ; E5 est un coût de
-bookkeeping. Un corpus réel et un face-à-face contre les mémoires d'agents modernes restent des travaux futurs.
+bookkeeping. Le tête-à-tête face aux mémoires d'agents modernes est désormais E6 (\S\ref{sec:e6}, ré-implémentations
+minimales fidèles) ; un corpus réel sur un exécuteur durable et une comparaison face aux systèmes \emph{déployés}
+restent des travaux futurs.
 
 \textbf{Sûreté éventuelle, non statique.} L'applicabilité d'une méthode apprise est indécidable en général (Rice) ;
 la garantie est une sûreté éventuelle via un moniteur d'exécution porteur au-dessus d'une barrière saine-incomplète.

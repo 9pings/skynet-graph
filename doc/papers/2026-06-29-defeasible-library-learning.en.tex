@@ -46,7 +46,11 @@ and composition-safety; all at bounded per-call context, confirmed on a live loc
 unsound --- and call-count alone cannot tell them apart, only the soundness check can. (E3) a box-closed composition
 check matches open-the-box reality on every evaluated pair (no false-admits), and each of three soundness gates is
 load-bearing. (P4) amortization is a \textbf{gradient} in the canonicalizable fraction, soundness holds at
-every coverage, and amortizing \emph{beyond} that fraction is unsound by construction. No mechanism here is new
+every coverage, and amortizing \emph{beyond} that fraction is unsound by construction. (E6) in a head-to-head
+against the \emph{named} agent-memory systems (MemGPT, Reflexion, GraphRAG), each --- given its fairest shot ---
+can recover on drift, but only the typed contract recovers at the lowest cost on (calls $\times$ correctness
+$\times$ per-call context) \emph{simultaneously}: the unique Pareto-optimal point, the others paying a paging /
+per-record / batch-re-index tax (stub + live). No mechanism here is new
 (JTMS, contracts-with-blame, library learning, theory revision, separation-logic footprints); the contribution is
 their \textbf{composition} into a learned method library that performs \emph{principled, selective un-learning on
 drift}, which recall-only agent memories do not --- bounded by a measured \K{} ceiling.
@@ -272,6 +276,46 @@ typed bookkeeping does not become the bottleneck as the stream grows. It does \t
 dimension that matters --- a growing library of \emph{distinct} methods, a real corpus, or a live model across all
 arms --- which we leave to future work.
 
+\subsection{E6 --- head-to-head against named agent-memory systems}\label{sec:e6}
+The Setup baselines are generic (RAG/CBR/Skill); the systems a reviewer compares against are the \emph{named}
+ones. We add a faithful minimal re-implementation of MemGPT/Letta~\cite{packer2023} (tiered self-editing memory),
+Reflexion~\cite{shinn2023} (failure-driven verbal reflection, no decision memo), and GraphRAG~\cite{edge2024} (an
+offline community-summary index) behind the same interface, each in its \emph{fairest} configuration with a paired
+ablation (the negative control). Deterministic stub, $N=78$, two audited classes (Table~\ref{tab:e6}).
+
+\begin{table}[h]\centering
+\begin{tabular}{lrrrr}
+\toprule
+arm & calls & acc & drift-acc & max ctx \\
+\midrule
+Naive & 78 & 1.00 & 1.00 & 290 \\
+MemGPT (audit paged into core) & 23 & 1.00 & 1.00 & 320 \\
+\quad $-$paging (ablation) & 18 & 0.92 & 0.00 & 258 \\
+Reflexion (delayed failure signal) & 82 & 1.00 & 1.00 & 332 \\
+\quad $-$signal (ablation) & 78 & 0.92 & 0.00 & 258 \\
+GraphRAG (offline index) & 87 & 0.92 & 0.00 & 336 \\
+\quad $+$re-index (ablation) & 89 & 1.00 & 1.00 & 336 \\
+\textbf{Struct} & \textbf{20} & \textbf{1.00} & \textbf{1.00} & \textbf{290} \\
+\bottomrule
+\end{tabular}
+\caption{E6. Given its fairest shot each named system can recover; only Struct is Pareto-optimal on (calls, drift-acc, context).}
+\label{tab:e6}
+\end{table}
+
+The honest reading is \emph{not} ``only Struct recovers'': given its fairest shot each named system can recover on
+drift. The claim is that Struct recovers at the lowest cost on all three axes at once --- the \textbf{unique
+Pareto-optimal point} on (calls $\times$ correct-on-drift $\times$ per-call context); no other arm matches-or-beats
+it on all three. Each named system pays a mechanism-specific tax: MemGPT recovers only by paging the surfaced audit
+into core memory (a model turn), then \emph{coarsely} (a whole-class flag re-deciding even unaffected members) with
+a core block carried in every prompt; Reflexion has \emph{no} content-addressed memo, so it issues a model call on
+\emph{every} record (calls $\approx N$) and recovers only reactively after an observed failure; GraphRAG's offline
+index is blind to the silent audit (stale), recovering only by a \emph{batch} re-summarization (coarse, off-band),
+never a per-entry defeater. The ablations confirm each mechanism is load-bearing (off $\to$ drift-acc 0.00). In
+isolation, Struct's recovery tax is the re-derivation of only the \emph{violated} entries (selective) and the
+contract re-assertion is in-engine (\textbf{zero} model calls). A live run (\texttt{qwen36-q2-vram}, $N=32$)
+reproduces the ordering: Struct 9 calls / 1.9\,s, MemGPT 11 / 2.3\,s, Reflexion 34 / 7.1\,s, GraphRAG 36 / 7.7\,s
+(stale). These are minimal faithful re-implementations, not the full systems.
+
 \section{Related Work}
 \textbf{Retrieval and case memory.} RAG~\cite{lewis2020} and CBR recall by similarity and reuse-or-adapt; they
 cannot represent a \emph{premise becoming invalid}, so an exogenous change that leaves the query unchanged leaves the
@@ -282,7 +326,9 @@ typed defeasible premise; a stale skill stays applicable and must be re-applied 
 buffer~\cite{shinn2023}, and graph-structured retrieval (GraphRAG~\cite{edge2024}) manage \emph{what to keep and
 recall} cleverly, but recall by relevance/recency/similarity; to our knowledge none represent a typed premise whose
 falsification retracts a prior reuse. They are complementary: a defeasible contract could sit beneath any of them as
-the retraction layer. A tuned head-to-head is the clearest next evaluation.
+the retraction layer. We run this head-to-head in E6 (\S\ref{sec:e6}): each, given its fairest shot, can recover on
+drift, but only the defeasible contract does so at the lowest cost on (calls $\times$ correctness $\times$ context)
+simultaneously.
 
 \textbf{Library learning / EBL.} DreamCoder~\cite{ellis2021} and Stitch~\cite{bowers2023} grow a library by
 abstraction~\cite{plotkin1970}; these learn \emph{what} to reuse but attach no defeasible runtime contract.
@@ -326,14 +372,18 @@ canonicalizable fraction of a production workload is domain-dependent.
 invalidation hook'' from ``has a typed contract,'' so the claim is precise: recall-only memory \emph{cannot}
 recover, and a declarative typed contract recovers selectively/generally/composition-safely. A tuned
 event-invalidating RAG/CBR is essentially the Invalidating arm and
-should match Struct on drift-accuracy, differing on selectivity/generality.
+should match Struct on drift-accuracy, differing on selectivity/generality. The \emph{named} systems are evaluated
+directly in E6 (\S\ref{sec:e6}); they are minimal faithful re-implementations of each mechanism (no real LLM-driven
+memory edits, learned reward model, or Leiden communities), each granted its fairest, \emph{charitable}
+configuration --- upper bounds on its drift behavior, not strawmen.
 
 \textbf{Novelty / positioning.} No mechanism is new; the work is a \emph{composition} of JTMS,
 contracts-with-blame, library learning, theory revision, and separation-logic footprints. We position it as an
 operational unification, not a new algorithm.
 
 \textbf{Scale and breadth.} Mechanism experiments use modest $N$ over two synthetic domains; E5 is bookkeeping cost.
-A real corpus on a durable executor and a head-to-head vs modern agent-memory systems remain future work.
+The head-to-head vs modern agent-memory systems is now E6 (\S\ref{sec:e6}, minimal faithful re-implementations); a
+real corpus on a durable executor and a comparison vs the \emph{deployed} systems remain future work.
 
 \textbf{Soundness is eventual, not static.} Applicability of a learned method is undecidable in general (Rice); the
 guarantee is eventual soundness via a load-bearing runtime monitor over a sound-but-incomplete compose-time gate.
