@@ -134,6 +134,53 @@ function runCheckpointContract( label, makeStore, deps ) {
 		} finally { done(); }
 	});
 
+	test(`[${label}] joinArrive parks contributions; the cardinality JOIN fires only when ALL siblings arrive (neg ctrl)`, () => {
+		const { s, done } = open();
+		try {
+			s.ensureRun('r1', { start: 'start', sinks: ['out'] });
+			s.inject('r1', [{ id: 'a' }]);
+			const [t] = s.claim('r1', { limit: 1, lease: 5000 });
+			s.move(t, ['body', 'body', 'body'], { payloads: [{ v: 10, _i: 0 }, { v: 20, _i: 1 }, { v: 30, _i: 2 }] });
+			// NEGATIVE CONTROL: the join must NOT fire until ALL `expected` siblings have arrived.
+			const c1 = s.claim('r1', { limit: 1, lease: 5000 });
+			const r1 = s.joinArrive(c1[0], 'join', { expected: 3, foldPlace: 'fold' });
+			assert.equal(r1.ready, false, 'first arrival parks, does not complete the join');
+			assert.equal(s.marking('r1').join.length, 1, 'one parked (joined) at the join place');
+			const c2 = s.claim('r1', { limit: 1, lease: 5000 });
+			assert.equal(s.joinArrive(c2[0], 'join', { expected: 3, foldPlace: 'fold' }).ready, false, '2<3 still incomplete');
+			assert.ok(!s.marking('r1').fold, 'no collector spawned while incomplete');
+			// the THIRD arrival meets the cardinality → exactly ONE collector with every sibling payload.
+			const c3 = s.claim('r1', { limit: 1, lease: 5000 });
+			const r3 = s.joinArrive(c3[0], 'join', { expected: 3, foldPlace: 'fold' });
+			assert.equal(r3.ready, true, 'the completing arrival fires the join');
+			assert.equal(r3.n, 3, 'all three contributions collected');
+			const fold = s.marking('r1').fold;
+			assert.equal(fold.length, 1, 'exactly ONE collector token spawned (no double-fire)');
+			assert.equal(fold[0].recordId, 'a', 'collector attributed to the record');
+			assert.equal(fold[0].payload._n, 3, 'collector carries the expected cardinality');
+			assert.deepEqual(fold[0].payload._siblings.map(( p ) => p.v).sort(( x, y ) => x - y), [10, 20, 30], 'collector carries every sibling payload');
+			assert.equal(s.marking('r1').join.length, 3, 'the contributions are RETAINED for audit (bounded projection: N kept → 1 out)');
+		} finally { done(); }
+	});
+
+	test(`[${label}] joinArrive respects the fencing token — a stale child cannot fire the join (neg ctrl)`, () => {
+		const { s, clock, done } = open();
+		try {
+			s.ensureRun('r1', { start: 'start', sinks: ['out'] });
+			s.inject('r1', [{ id: 'a' }]);
+			const [t] = s.claim('r1', { limit: 1, lease: 5000 });
+			s.move(t, ['body'], { payloads: [{ _i: 0 }] });
+			const [stale] = s.claim('r1', { limit: 1, lease: 5000 });   // worker 1 claims the child
+			clock.t += 6000;                                            // worker 1's lease lapses
+			const [fresh] = s.claim('r1', { limit: 1, lease: 5000 });   // worker 2 re-claims it
+			assert.equal(s.joinArrive(stale, 'join', { expected: 1, foldPlace: 'fold' }), null, 'the zombie holder is fenced out');
+			assert.ok(!s.marking('r1').join, 'no contribution parked by the zombie');
+			const ok = s.joinArrive(fresh, 'join', { expected: 1, foldPlace: 'fold' });
+			assert.equal(ok.ready, true, 'the current lease holder completes the cardinality-1 join');
+			assert.equal(s.marking('r1').fold.length, 1, 'exactly one collector');
+		} finally { done(); }
+	});
+
 	test(`[${label}] move carries a payload patch forward`, () => {
 		const { s, done } = open();
 		try {
