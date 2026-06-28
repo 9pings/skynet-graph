@@ -18,8 +18,8 @@ const { amortize, crossRestart, crashResume } = require('../../examples/poc/dura
 
 function tmpFile() { return path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'sg-df-')), 'flow.sqlite'); }
 
-test('select routing + content-memo amortization + map fan-out (measured, sound)', () => {
-	const r = amortize();
+test('select routing + content-memo amortization + map fan-out (measured, sound)', async () => {
+	const r = await amortize();
 	// content-memo: 7 real task calls for a stream a naive replay would cost 11 (4 elided on RELATED records).
 	assert.equal(r.taskCalls, 7, 'engine task calls');
 	assert.equal(r.c.memoHits, 4, 'memo hits = elided calls');
@@ -39,17 +39,17 @@ test('select routing + content-memo amortization + map fan-out (measured, sound)
 	assert.deepEqual(byRec('d').map(( t ) => t.payload.converted).sort(), ['c(x)', 'c(z)'], 'collection d → map; shared x replayed');
 });
 
-test('the durable content-memo replays ACROSS a process restart (warm class → 0 calls)', () => {
+test('the durable content-memo replays ACROSS a process restart (warm class → 0 calls)', async () => {
 	const file = tmpFile();
-	const r = crossRestart(file);
+	const r = await crossRestart(file);
 	assert.equal(r.warmCalls, 2, 'cold: classify + sum');
 	assert.equal(r.replayCalls, 0, 'a same-class record in a FRESH process replays at 0 task calls (C5 survives restart)');
 	fs.rmSync(path.dirname(file), { recursive: true, force: true });
 });
 
-test('CRASH-RESUME: an in-flight token is recovered, no work lost or duplicated', () => {
+test('CRASH-RESUME: an in-flight token is recovered, no work lost or duplicated', async () => {
 	const file = tmpFile();
-	const r = crashResume(file);
+	const r = await crashResume(file);
 	assert.equal(r.leasedAtCrash, 1, 'the fuel-cut left exactly one token in-flight (leased)');
 	assert.equal(r.resetCount, 1, 'rollbackInflight recovered it');
 	assert.equal(r.done, 3, 'all three records completed after resume (nothing lost)');

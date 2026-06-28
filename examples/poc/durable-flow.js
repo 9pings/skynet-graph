@@ -69,42 +69,42 @@ const STREAM = [
 ];
 
 // 1-3 — route + amortize + fan-out on one in-memory run.
-function amortize() {
+async function amortize() {
 	const store = createMemoryCheckpointStore();
 	const { runTask, counts, total } = makeRunTask();
 	store.ensureRun('run', net);
 	store.inject('run', STREAM);
-	const c = runFlow(store, 'run', net, { runTask, keyOf });
+	const c = await runFlow(store, 'run', net, { runTask, keyOf });
 	return { c, counts, taskCalls: total(), marking: store.marking('run'), stats: store.stats('run') };
 }
 
 // 4 — the durable memo survives a restart: warm the scalar class, reopen the file, a fresh scalar record costs 0.
-function crossRestart( file ) {
+async function crossRestart( file ) {
 	let store = createSqliteCheckpointStore({ file });
 	const t1 = makeRunTask();
 	store.ensureRun('r', net);
 	store.inject('r', [{ id: 'a', kind: 'scalar' }]);
-	runFlow(store, 'r', net, { runTask: t1.runTask, keyOf });
+	await runFlow(store, 'r', net, { runTask: t1.runTask, keyOf });
 	const warmCalls = t1.total();                                 // cold: classify + sum = 2
 	store.close();                                               // ── restart ──
 
 	store = createSqliteCheckpointStore({ file });
 	const t2 = makeRunTask();
 	store.inject('r', [{ id: 'b', kind: 'scalar' }]);            // same class, fresh process
-	runFlow(store, 'r', net, { runTask: t2.runTask, keyOf });
+	await runFlow(store, 'r', net, { runTask: t2.runTask, keyOf });
 	const replayCalls = t2.total();                              // warm across restart: 0
 	store.close();
 	return { warmCalls, replayCalls };
 }
 
 // 5 — crash mid-flow, resume: in-flight token recovered, nothing lost or double-run.
-function crashResume( file ) {
+async function crashResume( file ) {
 	// baseline: 3 scalar records, uninterrupted, single run.
 	const base = createMemoryCheckpointStore();
 	const tb = makeRunTask();
 	base.ensureRun('b', net);
 	base.inject('b', [{ id: 'a', kind: 'scalar' }, { id: 'b', kind: 'scalar' }, { id: 'c', kind: 'scalar' }]);
-	runFlow(base, 'b', net, { runTask: tb.runTask, keyOf });
+	await runFlow(base, 'b', net, { runTask: tb.runTask, keyOf });
 	const baseline = tb.total();                                  // = 2 (classify + sum, the rest replay)
 
 	// crash run: fuel-cut leaves a claimed-but-unprocessed token LEASED (a worker died holding it).
@@ -112,14 +112,14 @@ function crashResume( file ) {
 	const t1 = makeRunTask();
 	store.ensureRun('c', net);
 	store.inject('c', [{ id: 'a', kind: 'scalar' }, { id: 'b', kind: 'scalar' }, { id: 'c', kind: 'scalar' }]);
-	runFlow(store, 'c', net, { runTask: t1.runTask, keyOf, batch: 8, maxSteps: 2 });  // routes 2, leaves 1 in-flight
+	await runFlow(store, 'c', net, { runTask: t1.runTask, keyOf, batch: 8, maxSteps: 2 });  // routes 2, leaves 1 in-flight
 	const leasedAtCrash = store.stats('c').leased;
 	store.close();                                              // ── crash ──
 
 	store = createSqliteCheckpointStore({ file });
 	const rb = store.rollbackInflight('c');                     // orphan-scan
 	const t2 = makeRunTask();
-	runFlow(store, 'c', net, { runTask: t2.runTask, keyOf });   // resume to completion
+	await runFlow(store, 'c', net, { runTask: t2.runTask, keyOf });   // resume to completion
 	const done = store.stats('c').done, failed = store.stats('c').failed;
 	const totalCalls = t1.total() + t2.total();
 	store.close();
@@ -129,7 +129,6 @@ function crashResume( file ) {
 module.exports = { spec, net, keyOf, makeRunTask, STREAM, amortize, crossRestart, crashResume };
 
 if ( require.main === module ) {
-	const a = amortize();
-	console.log('[amortize] taskCalls=%d memoHits=%d routed=%d fanOut=%d done=%d (naive would be 11)',
-		a.taskCalls, a.c.memoHits, a.c.routed, a.c.fanOut, a.stats.done);
+	amortize().then(( a ) => console.log('[amortize] taskCalls=%d memoHits=%d routed=%d fanOut=%d done=%d (naive would be 11)',
+		a.taskCalls, a.c.memoHits, a.c.routed, a.c.fanOut, a.stats.done));
 }

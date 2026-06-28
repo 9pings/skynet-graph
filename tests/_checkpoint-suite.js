@@ -230,6 +230,17 @@ function runCheckpointContract( label, makeStore, deps ) {
 		} finally { done(); }
 	});
 
+	test(`[${label}] a NUMERIC record id round-trips as a stable string (no '0.0' coercion)`, () => {
+		const { s, done } = open();
+		try {
+			s.ensureRun('r1', { start: 'start' });
+			const [t] = s.inject('r1', [{ id: 0, kind: 'x' }]);   // a numeric id — must not become '0.0' via a TEXT column
+			assert.equal(t.recordId, '0', 'recordId is the faithful string "0"');
+			const got = s.claim('r1', { limit: 1, lease: 5000 })[0];
+			assert.equal(got.recordId, '0', 'and it survives a claim round-trip identically');
+		} finally { done(); }
+	});
+
 	test(`[${label}] runs are isolated — claim/marking never cross runId (negative control)`, () => {
 		const { s, done } = open();
 		try {
