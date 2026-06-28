@@ -145,4 +145,6 @@ async function struct( stream, env ) {
 }
 
 const ARMS = { NAIVE: naive, 'LONG-CONTEXT': longContext, RAG: rag, CBR: cbr, SKILL: skillLibrary, INVALIDATING: invalidatingCache, STRUCT: struct };
-module.exports = { ARMS, typedKey, surfaceKey, auditKey };
+// track/newCounters/finalize are exported so sibling arm-sets (named-arms.js: MemGPT/Reflexion/GraphRAG)
+// share IDENTICAL accounting — same call/token/maxContext attribution, no measurement drift across files.
+module.exports = { ARMS, typedKey, surfaceKey, auditKey, track, newCounters, finalize };

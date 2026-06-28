@@ -6,8 +6,10 @@ private material is required. The paper's broader R&D trail is intentionally not
 
 ## Layout
 - `workload.js` — the typed approval workload (recurrent stream + external mid-stream premise-invalidation; known ground truth).
-- `arms.js` — the seven arms behind one interface (Naive, Long-context, RAG, CBR, Skill, **Invalidating**, **STRUCT**).
+- `arms.js` — the seven generic arms behind one interface (Naive, Long-context, RAG, CBR, Skill, **Invalidating**, **STRUCT**).
+- `named-arms.js` — faithful minimal re-implementations of the **named** agent-memory systems (**MemGPT**, **Reflexion**, **GraphRAG**), each with its fairest-shot headline arm + a paired ablation (the negative control). Behind the same interface.
 - `harness.js` — deterministic-stub / live model, instrumentation (calls / tokens / wall / per-call context), scoring, the `#34` self-test.
+- `measure-named-h2h.js` — the head-to-head vs the named systems (stub mechanism table + live), the Pareto verdict, the recovery-tax measure.
 - `e1-transfer.js` — E1, structural transfer + the −F6 ablation (bundles `F6-transfer.js`, its dependency).
 - `e3-compose.js` — E3, composition soundness + the G1/G2/G3 gate ablations (uses `examples/poc/contract-compose.js`).
 - `p4-coverage.js` — P4, the K1-coverage gradient + soundness boundary.
@@ -26,6 +28,13 @@ npm test            # incl. tests/integration/paper-*.test.js (the deterministic
 E2 stub results are produced by `tests/integration/paper-harness.test.js`. The live E2 table:
 ```
 MODEL=<model> BASE=http://localhost:5000 node artifact/paper-dll/measure-e2-live.js
+```
+
+The head-to-head vs the named systems (MemGPT / Reflexion / GraphRAG) — its deterministic regression is
+`tests/integration/paper-named-systems.test.js`:
+```
+node artifact/paper-dll/measure-named-h2h.js                                          # deterministic stub table
+MODEL=<model> BASE=http://localhost:5000 node artifact/paper-dll/measure-named-h2h.js  # live
 ```
 
 The deterministic stub is a perfect oracle of the *current* rule given only what each arm's prompt reveals, so all

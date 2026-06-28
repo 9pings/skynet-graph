@@ -24,7 +24,11 @@ model. (E1) cross-problem **structural transfer** is sound and free on the held-
 no-transform ablation is unsound — and call-count alone cannot tell them apart, only the soundness check can.
 (E3) a box-closed composition check matches open-the-box reality on every evaluated pair (no false-admits), and
 each of three soundness gates is load-bearing. (P4) amortization is a **gradient** in the canonicalizable
-fraction, soundness holds at every coverage, and amortizing *beyond* that fraction is unsound by construction. No
+fraction, soundness holds at every coverage, and amortizing *beyond* that fraction is unsound by construction.
+(E6) in a head-to-head against the *named* agent-memory systems (MemGPT, Reflexion, GraphRAG), each — given its
+fairest configuration — can recover on drift, but only the typed contract recovers at the lowest cost on (model
+calls × correctness × per-call context) *simultaneously*: it is the unique Pareto-optimal point, the others
+paying a paging / per-record / batch-re-index tax (stub + live). No
 mechanism here is new (each is prior art — JTMS, contracts-with-blame, library learning, separation-logic
 footprints); the contribution is their **composition** into a learned method library that performs *principled,
 selective un-learning on drift*, which recall-only agent memories do not — bounded by a measured K1 ceiling.
@@ -280,6 +284,52 @@ narrow: the typed bookkeeping (key, memo, selective eviction) does not become th
 It does **not** test scaling in the dimension that matters — a growing library of *distinct* methods, a real
 corpus, or a live model across all arms — which we leave to future work (§6).
 
+### 4.7 E6 — head-to-head against named agent-memory systems
+
+The §4.1 baselines are generic (RAG / CBR / Skill). The systems a reviewer compares against are the *named*
+ones: **MemGPT/Letta** (tiered virtual context with self-editing memory) [Packer et al. 2023], **Reflexion**
+(an episodic verbal-reflection retry driven by a failure signal) [Shinn et al. 2023], and **GraphRAG** (an
+offline knowledge-graph index with LLM community summaries) [Edge et al. 2024]. We add a faithful minimal
+re-implementation of each behind the same interface, each in its *fairest* configuration, with a paired
+ablation that turns its distinctive mechanism off (the negative control). Deterministic stub, N = 78, two
+audited classes, six drift cases:
+
+| arm | model calls | acc | drift-acc | max ctx |
+|---|---|---|---|---|
+| Naive | 78 | 1.00 | 1.00 | 290 |
+| **MemGPT** (audit paged into core) | 23 | 1.00 | 1.00 | 320 |
+| MemGPT − paging (ablation) | 18 | 0.92 | 0.00 | 258 |
+| **Reflexion** (delayed failure signal) | 82 | 1.00 | 1.00 | 332 |
+| Reflexion − signal (ablation) | 78 | 0.92 | 0.00 | 258 |
+| **GraphRAG** (offline index) | 87 | 0.92 | 0.00 | 336 |
+| GraphRAG + re-index (ablation) | 89 | 1.00 | 1.00 | 336 |
+| **Struct** | **20** | **1.00** | **1.00** | **290** |
+
+The honest reading is *not* "only Struct recovers": given its fairest shot, each named system **can** recover
+correctness on drift (MemGPT and Reflexion reach drift-acc 1.00; GraphRAG does once it re-indexes). The claim is
+that Struct recovers at the lowest cost on all three axes *at once* — it is the **unique Pareto-optimal point**
+on (model calls × correct-on-drift × per-call context); no other arm matches-or-beats it on all three. Each
+named system pays a different mechanism-specific tax:
+
+- **MemGPT** recovers only once the exogenous audit is surfaced and self-edited into core memory (a model
+  turn); the recovery is then *coarse* — a whole-(region,kind)-class flag that re-decides even the unaffected
+  low-score members (over-eviction, +calls) — and a core-memory block rides in every prompt (+context).
+- **Reflexion** has *no content-addressed memo*, so it issues a model call on **every** record (calls ≈ N — the
+  decisive gap), and recovers only *reactively*, after observing a failure, via a stored prose reflection (a
+  recovery lag + prepended context).
+- **GraphRAG**'s offline index is blind to the silent audit, so it is stale by default; recovery requires a
+  **batch re-summarization** of affected communities (coarse, per-community, off-band), never a per-entry
+  defeater. (GraphRAG is off-design for point decisions — its strength is global sensemaking; this stress-tests
+  the named graph-retrieval system on the defeasance axis.)
+
+The ablations confirm each mechanism is load-bearing (turn it off → drift-acc 0.00). Measured *in isolation*
+(calls on the drifting stream minus calls on a no-drift twin), Struct's recovery tax is the re-derivation of
+only the **violated** cached entries (2; selective), and the contract re-assertion itself is in-engine —
+**zero** model calls — strictly below each named system's. A live run (`qwen36-q2-vram`, N = 32) reproduces the
+ordering: Struct **9** calls / 1.9 s, MemGPT 11 / 2.3 s, Reflexion 34 / 7.1 s, GraphRAG 36 / 7.7 s (stale);
+Struct is the unique Pareto point live too. These are minimal faithful re-implementations of each mechanism,
+not the full systems (§6).
+
 ---
 
 ## 5. Related Work
@@ -296,7 +346,9 @@ RAG — MemGPT/Letta's tiered virtual context [Packer et al. 2023], Reflexion's 
 [Shinn et al. 2023], and graph-structured retrieval such as GraphRAG [Edge et al. 2024]. But they recall and reuse
 by relevance, recency, or similarity and, to our knowledge, none represent a *typed premise whose falsification
 retracts a prior reuse*. They are complementary rather than competing: a defeasible contract could sit beneath any
-of them as the retraction layer. A tuned head-to-head against these systems is the clearest next evaluation (§6).
+of them as the retraction layer. We run this head-to-head in **§4.7 (E6)**: each, given its fairest shot, can
+recover on drift, but only the defeasible contract does so at the lowest cost on (calls × correctness ×
+context) simultaneously — the others pay a paging / per-record / batch-re-index tax.
 
 **Long context.** Carrying full history per call is correct but O(N) in per-call context (E2: 2062 vs 290) with no
 structural reuse.
@@ -362,7 +414,16 @@ production workload is domain-dependent and not claimed to be high everywhere.
 invalidation hook" from "has a typed contract," so the claim is precise: recall-only memory cannot recover, while a
 *declarative typed contract* recovers selectively (post-violated only), generally (any premise), and
 composition-safely. A *tuned* event-invalidating RAG/CBR is essentially the Invalidating arm and is expected to
-match Struct on drift-accuracy, differing only on selectivity/generality — a head-to-head we name as future work.
+match Struct on drift-accuracy, differing only on selectivity/generality. The **named** agent-memory systems are
+evaluated directly in E6 (§4.7).
+
+**Named-system fidelity (E6).** MemGPT, Reflexion, and GraphRAG are reproduced as *minimal faithful arms* — each
+captures its distinctive mechanism (tiered self-editing memory / failure-driven verbal reflection / offline
+community-summary index) in its fairest configuration, but none is the full deployed system (no real LLM-driven
+memory edits, no learned reward model, no Leiden communities or embedding retrieval). Every simplification is
+*charitable* — idealized audit surfacing, lossless summaries, exact retrieval — so each arm is an upper bound on
+its system's drift behavior, not a strawman; the load-bearing weakness we exhibit (coarse prose memory / no
+typed memo / blind offline index) is intrinsic to each design, not an artifact of the reduction.
 
 **Novelty / positioning.** No mechanism is new; the work is a *composition* of JTMS, contracts-with-blame, library
 learning, and separation-logic footprints, and `reviseOnBlame` is theory revision (EITHER/FORTE). We position the
@@ -371,9 +432,10 @@ one representation — not as a new learning or revision algorithm.
 
 **Scale and breadth.** The mechanism experiments (E2–E4) use modest N (≤ 80 per E2 run) over two synthetic domains
 with known ground truth; E5 extends the *deterministic* measurements to N ≈ 20 k and a 200-method library (showing
-amortization, bounded growth, and selective retraction hold with cheap per-op costs). What remains future work is
-scale with a *live* model and a *real* corpus on a durable executor, and a **tuned head-to-head against modern
-agent-memory systems** (MemGPT/Letta, Reflexion, GraphRAG) rather than the in-paper baselines.
+amortization, bounded growth, and selective retraction hold with cheap per-op costs). The head-to-head against
+modern agent-memory systems (MemGPT/Letta, Reflexion, GraphRAG) is now E6 (§4.7), albeit with minimal faithful
+re-implementations; what remains future work is scale with a *live* model and a *real* corpus on a durable
+executor, and a comparison against the **deployed** systems rather than mechanism re-implementations.
 
 **Soundness is eventual, not static.** Applicability of a learned method is undecidable in general (Rice), so the
 guarantee is eventual soundness via a load-bearing runtime monitor over a sound-but-incomplete compose-time gate.
