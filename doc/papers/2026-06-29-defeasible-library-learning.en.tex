@@ -1,0 +1,392 @@
+\documentclass[11pt]{article}
+
+% Defeasible Library Learning — submission draft (EN). Compile: pdflatex (twice).
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  breaklines=true,
+  columns=fullflexible,
+  frame=single,
+  framesep=4pt,
+  xleftmargin=2pt,
+}
+
+\newcommand{\K}{\textsf{K1}}
+\title{\textbf{Defeasible Library Learning:\\ Typed Methods with Runtime Contracts that Un-learn on Drift}}
+\author{Nathanael Braun}
+\date{2026 \\[2pt] {\normalsize\itshape Preprint v1 --- system / experience report}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+LLM agents reuse past work through \emph{fuzzy} memory --- retrieval (RAG), case-based reasoning (CBR), and prose
+skill libraries --- which recalls by surface similarity and has no notion of a premise becoming false. When the
+world drifts in a way that does not alter the query itself, these stores keep serving a \emph{stale} answer. We
+present \textbf{defeasible library learning}: a learned library of typed, composable \emph{methods}, each carrying a
+\textbf{defeasible runtime contract}. A method is assumed at compose time, \textbf{asserted at run time}, and ---
+when its induced postcondition fails --- \textbf{retracted with blame} (a JTMS un-learning), after which the library
+is surgically revised rather than discarded. The same typed structure that makes a method canonicalizable also makes
+its reuse \emph{amortizable} and its composition \emph{checkable on contracts alone}, with bounded per-call context.
+We evaluate the claims on a real rule-driven, JTMS-coherent engine, isolating each mechanism (deterministic stub for
+the model, plus one live-model confirmation). Findings: (E2) under an external mid-stream
+premise-invalidation, recall-only memories serve \textbf{stale} (0 of the drift cases), whereas \emph{any} cache
+with an invalidation hook recovers --- what a \emph{declarative typed contract} adds over a hand-coded invalidation
+callback is \emph{selective}, principled eviction (re-assert the post; evict only what is violated), plus generality
+and composition-safety; all at bounded per-call context, confirmed on a live local model. (E1) cross-problem
+\textbf{structural transfer} is sound and free on the held-out related instances while the no-transform ablation is
+unsound --- and call-count alone cannot tell them apart, only the soundness check can. (E3) a box-closed composition
+check matches open-the-box reality on every evaluated pair (no false-admits), and each of three soundness gates is
+load-bearing. (P4) amortization is a \textbf{gradient} in the canonicalizable fraction, soundness holds at
+every coverage, and amortizing \emph{beyond} that fraction is unsound by construction. No mechanism here is new
+(JTMS, contracts-with-blame, library learning, theory revision, separation-logic footprints); the contribution is
+their \textbf{composition} into a learned method library that performs \emph{principled, selective un-learning on
+drift}, which recall-only agent memories do not --- bounded by a measured \K{} ceiling.
+\end{abstract}
+
+\section{Introduction}
+An agent that solves many related problems should get cheaper and more reliable over time. The dominant approach is
+to remember and recall: store past solutions or skills, retrieve the nearest for a new case, reuse or adapt.
+Retrieval-augmented generation~\cite{lewis2020}, case-based reasoning, and prose skill libraries such as
+Voyager~\cite{wang2023} share this shape and a blind spot: they recall by \emph{surface} similarity and have no
+representation of a \emph{premise that has become false}. When the world changes in a way that does \textbf{not}
+change the query --- a regulation tightened, a fact audited and found wrong, a policy revoked --- the cached answer
+is still the nearest neighbour, and is still served. The memory is confidently stale. Static libraries (learned
+programs, distilled skills~\cite{ellis2021,bowers2023}) have the opposite problem: sound when learned, but they
+cannot \emph{un-learn}.
+
+We argue the missing ingredient is a \textbf{defeasible typed contract} on each reusable unit. Borrowing from
+software contracts with blame~\cite{findler2002} and gradual verification~\cite{bader2018}, a method declares what
+it reads, writes, requires, and guarantees over a \emph{typed} fact alphabet. The guarantee of a \emph{learned}
+method is an induced hypothesis, so it is \textbf{assumed} at compose time, \textbf{asserted} at run time, and
+\textbf{retracted with blame} when violated --- a truth-maintenance operation~\cite{doyle1979,dekleer1986} --- after
+which the library is revised by \emph{specializing} the failed precondition, not by deletion (theory
+revision~\cite{ourston1994,richards1995}; belief revision~\cite{agm1985}). The same typed structure makes reuse
+\textbf{amortize} (a stable canonical key) and composition \textbf{checkable without opening the box} (post of one
+entails pre of the next over the shared typed footprint~\cite{ohearn2001,reynolds2002}). This power is bounded by a
+single honest constraint, \K{}: only typed, canonicalizable structure amortizes; genuine prose stays in the model.
+
+We use \emph{library learning} in the established sense of DreamCoder/Stitch~\cite{ellis2021,bowers2023} (inducing
+reusable typed methods by abstraction~\cite{plotkin1970}), not statistical parameter fitting; one could equally call
+it \emph{method induction}. The novelty is \textbf{not} the induction but the \emph{defeasible contract} that lets
+an induced method be un-learned. The change is control-flow: where a similarity memory does
+\texttt{query $\to$ retrieve $\to$ reuse}, ours does
+\texttt{query $\to$ retrieve-contract $\to$ assert $\to$ execute $\to$ verify $\to$ retract $\to$ specialize}. The
+verify-and-retract suffix --- absent from retrieval, CBR, and skill libraries --- is the difference, and what the
+experiments isolate.
+
+\paragraph{Contributions.} (1) The framing of reusable agent methods as \textbf{two-faced typed non-terminals with
+a defeasible runtime contract}, and the assume/assert/retract-blame/revise loop that un-learns on drift. (2) A
+reproducible, mechanism-isolating evaluation on a real engine --- recall-only memory cannot un-learn while a
+declarative typed contract recovers drift \emph{selectively, generally, composition-safely} (E2, stub + live, with a
+fair invalidating-cache baseline); sound structural transfer that call-count alone cannot certify (E1); no
+false-admits on the evaluated compositions, each of three gates ablated (E3); amortization as a gradient in
+the canonicalizable fraction (P4) --- stating explicitly what each experiment does and does not establish.
+
+\section{Approach}
+\subsection{The object: a two-faced method}
+A \textbf{method} is, to its caller, a single black box with a typed contract; inside, one or more \emph{productions}
+realize it (sequence, branch, map, fold). Formally it is a hyperedge-replacement non-terminal~\cite{habel1992,
+drewes1997} with precondition-gated selection~\cite{erol1994}. We keep two regimes apart \emph{by design intent} (we
+do not prove decidability here): the \textbf{method grammar} (selection, parameterization, composition) is
+\emph{intended} to stay decidable via a well-founded mount-rank and typing invariants --- recursive HTN
+plan-existence is undecidable in general~\cite{erol1996}, which is why we restrict to the well-founded fragment ---
+while \textbf{execution} over runtime-sized data is an explicitly fuel-bounded, Turing-complete layer. The connection
+to monadic-second-order definability~\cite{courcelle1990} is motivation for why grammar-level checks \emph{can} be
+tractable, not a theorem established here.
+
+\subsection{The contract: a defeasible separation triple}
+A method declares a read-footprint, a write-footprint, a precondition over what it reads, a postcondition over what
+it writes, and an effect tag. Composition under shared state is the frame problem~\cite{mccarthy1969}; we discharge
+it with a separation-logic footprint discipline~\cite{ohearn2001,reynolds2002} over the finite typed alphabet. For a
+\emph{learned} method the postcondition is an induced hypothesis: \textbf{assumed at compose time, asserted at
+settle time, retracted with blame on violation}~\cite{findler2002,bader2018}. The runtime monitor is the
+JTMS~\cite{doyle1979}, giving \emph{eventual} (not static) soundness --- exactly the un-learning the baselines lack.
+
+\subsection{Pipeline and the \K{} floor}
+A formulation is typed into a goal; a method is selected and composed on contracts; cases flow through it; traces
+distil (anti-unify~\cite{plotkin1970}; MDL-gated~\cite{ellis2021,bowers2023}) into new typed methods; drift
+retracts. The universal fallback is the \emph{micro-task floor}: anything that does not reduce to a cached typed
+method reduces to a micro-task a small model does easily. A \emph{missing} contract costs a cheap model call (a
+graceful cost gradient); a \emph{wrong} contract is caught by the runtime assert --- the two failure modes degrade
+cost and trigger un-learning respectively, never silent error.
+
+\section{Implementation}
+All mechanisms are realized on an existing rule-driven, JTMS-coherent typed-fact graph engine with declarative
+concepts and forward-chaining stabilization, with no core change beyond one additive, backward-compatible query
+option. The typed memo key is the engine's canonicalization digest; the defeasible-contract checker (compose-time
+entailment over abstract domains, a runtime post-assertion, three soundness gates) and the structural-transfer
+transform (relativize-on-store / bind-on-replay) are host libraries over the engine. A case executor that runs
+validated methods durably at scale is a known artifact (a workflow net~\cite{vanderaalst1998} over a durable store,
+in the lineage of AWS Step Functions Distributed Map~\cite{aws2022}, Prefect's content cache, and
+DBOS~\cite{dbos2022}); our belief view sits above it. The defeasible lifecycle ---
+\textbf{assume $\to$ assert $\to$ verify $\to$ retract $\to$ specialize} --- maps one-to-one onto the engine
+functions it calls:
+
+\begin{lstlisting}
+select(goal):                            # ASSUME (compose time)
+  M <- library.match(goal.typed_facts)   #   typed key; a miss falls to the micro-task floor
+  assume M.contract                      #   checkCompose: post(prev) |= pre(M); escalate, never false-admit
+
+apply(M, case):                          # ASSERT + VERIFY (run time)
+  key <- digest(case.typed_premise)      #   K1 canonical key
+  if memo.has(key): return memo[key]     #   amortize a recurrent typed case
+  out <- run(M, case)                    #   else derive (model call / sub-graph)
+  if not assertPost(M.contract, out):    #   post holds? + G1 frame-completeness + G2 effect-oracle
+    quarantine(case); blame(M.contract)  #   never commit a bad output
+    return
+  memo[key] <- out; return out
+
+on ingest(fact):                         # RETRACT + SPECIALIZE (drift)
+  for e in memo s.t. e depends on fact:  #   JTMS: re-assert each affected post against the new fact
+    if not satisfies(e.contract.post, e.facts + {fact}):
+      retract(e); blame(e.contract)      #   un-learn: evict the invalidated entry + assign blame
+  library.revise(blame): pre <- specialize(pre)  # reviseOnBlame (CEGIS): narrow the pre, do not delete
+\end{lstlisting}
+
+The verify-and-retract suffix is the only part absent from a similarity memory, and it is exactly the part the
+experiments isolate.
+
+\section{Experiments}
+\subsection{Setup}
+Experiments use the real engine's mechanisms at two stated fidelities. \textbf{E1 and E3 instantiate the full
+engine} (graph + stabilization + JTMS): E1 mounts structural methods and transfers them via relativize/bind; E3
+composes real concepts and compares the box-closed \texttt{checkCompose} verdict to the engine's actual
+stabilization outcome. \textbf{E2, P4, and E5 isolate the relevant engine functions} --- the canonicalization key
+(\texttt{digest}), the contract re-assertion (\texttt{satisfies}), the canonicalization barrier
+(\texttt{canonValue}) --- driving them from a harness rather than the full loop, so the \emph{mechanism} is measured
+without the scheduler. We do not claim E2 exercises the engine's native JTMS retraction (it re-implements that
+retraction over the same real predicate). The model runs as a \textbf{deterministic stub} (a perfect oracle of the
+\emph{current} rule given only what each arm's prompt reveals --- so all staleness/cost come from the arm's
+mechanism, not model error) or as a \textbf{live} local model (\texttt{qwen36-q2-vram}). Every run is gated by a
+\textbf{harness self-test} (under the stub the naive arm must be perfect, else abort --- a direct response to a
+prior 0/24 instrumentation bug). Stub results are deterministic. Seven arms share one interface: Naive,
+Long-context, RAG, CBR (typed key, no re-validation), Skill (prose), \textbf{Invalidating} (typed-key cache + a
+coarse hand-coded class-callback: an invalidation hook but no typed contract), and \textbf{Struct} (the typed
+library with the defeasible contract). The Invalidating arm exists to separate ``has an invalidation mechanism''
+from ``has a typed defeasible contract.''
+
+\subsection{E2 --- defeasance on drift}
+A typed approval domain ($N{=}80$, two audited classes; the live run uses $N{=}48$, one audited class) with an
+\emph{external} mid-stream premise-invalidation: a compliance audit marks a class non-compliant, flipping its
+previously-approved cases to reject. The audit is \textbf{not a record field}, so a recall-only cache retrieves the
+same unchanged record and serves its cached pre-audit answer (Table~\ref{tab:e2}).
+
+\begin{table}[h]\centering
+\begin{tabular}{lrrrr}
+\toprule
+arm & calls & overall acc & \textbf{drift acc} & max ctx \\
+\midrule
+\textbf{Struct} (typed contract) & \textbf{26} & \textbf{1.00} & \textbf{1.00} & \textbf{290} \\
+Invalidating (hook, no contract) & 28 & 1.00 & 1.00 & 290 \\
+Naive & 80 & 1.00 & 1.00 & 290 \\
+Long-context & 80 & 1.00 & 1.00 & 2062 \\
+RAG & 48 & 0.95 & 0.00 & 290 \\
+CBR (typed key, no re-validation) & 24 & 0.95 & 0.00 & 290 \\
+Skill (prose) & 80 & 0.95 & 0.00 & 297 \\
+\bottomrule
+\end{tabular}
+\caption{E2 (stub). Recall-only arms (RAG/CBR/Skill) serve stale; both Invalidating and Struct recover.}
+\label{tab:e2}
+\end{table}
+
+The reading is three-fold. \textbf{Recall-only memories serve stale} --- recall alone cannot recover,
+because the audit never enters their reuse path. \textbf{Recovery requires an invalidation mechanism}, and both the
+Invalidating cache and Struct have one, so both reach drift-acc $1.00$. What the \textbf{typed defeasible contract
+adds over the hand-coded callback} is (i) \emph{selectivity} --- Struct re-asserts the post per entry
+(\texttt{satisfies}) and evicts only the 2 \emph{violated} (approve) classes, where the callback coarsely drops
+whole classes (4 entries) and pays the extra re-derivations ($26$ vs $28$ calls); (ii) \emph{generality} --- the
+same \texttt{assertPost} handles any premise; (iii) \emph{composition-safety} (\S\ref{sec:e3}). The live run
+(\texttt{qwen36-q2-vram}, $N{=}48$) reproduces this: RAG/CBR/Skill drift-acc $0.00$; Invalidating 14 calls / drift
+$1.00$; Struct 13 calls / $2.8$\,s / drift $1.00$ / ctx 278 vs Long-context 1304. The defensible claim is not ``only
+Struct recovers'' but ``recall-only memory cannot un-learn, and a declarative typed contract provides the recovery
+selectively, generally, and composition-safely.''
+
+\subsection{E1 --- amortization and structural transfer}
+A structural-decomposition domain (a method that \emph{creates} a sub-graph with object ids), on the full engine.
+Split: train, held-out related (same typed transitions, fresh id-spaces), held-out novel. This is an
+existence-and-soundness check on a small set (2 held-out related, 1 novel), not a population rate: with the
+relativize/bind transform, all held-out related instances transfer at 0 calls and \textbf{sound}, the novel
+transition pays (no false replay), totals 3 calls vs the no-cache baseline's 5. The no-transform ablation (a flat
+content cache) ``hits'' the related instances but replays the \emph{wrong id-space} --- \textbf{unsound}. The point
+is qualitative: a call-count-only metric ranks the flat cache equal to the transform (both elide), so \emph{only the
+soundness check distinguishes sound reuse from a wrong-id-space replay}. Scaling to a transfer \emph{rate} over many
+methods is future work.
+
+\subsection{E3 --- composition soundness}\label{sec:e3}
+Composing method pairs purely on their typed contracts (box closed) and comparing to the open-the-box engine outcome
+(full engine), the box-closed decision matches reality on every evaluated pair, with \textbf{no false-admits} --- the
+checker never false-accepts; under-determined or out-of-fragment pairs \emph{escalate} (to a micro-task) rather than
+admit. This is shown on a small, hand-constructed set (3 pairs spanning sound / unsound / escalate; a 4th adds the
+oracle case): an existence demonstration of soundness, not a population rate. Each of three gates is shown
+load-bearing on a dedicated example: removing frame-completeness misses an undeclared write; removing the effect-tag
+gate silently admits an unverified external effect; removing footprint-cycle detection admits a coupled-retractable
+cycle. The decision reads only the shared footprint, never the body. The checker itself (per-key abstract-domain
+entailment, sound-but-incomplete, escalate-on-doubt) is the most developed formal artifact and, if anything,
+under-evaluated here. A larger, non-hand-picked corpus is future work.
+
+\subsection{P4 --- the \K{}-coverage ceiling}
+On a mixed workload (fraction $p$ fully typed; the rest carrying a prose component that overrides the typed rule),
+with \K{}-membership decided by the real canonicalization barrier, amortization is a \textbf{gradient in coverage}
+(approval: $0\to19\to44\to69\to94\%$ elided at $p=0/.25/.5/.75/1$; triage: $0\to22\to47\to72\to97\%$). Struct's
+accuracy is $1.00$ at every coverage --- the non-typed fraction is a micro-task \emph{cost}, never a soundness
+\emph{cliff}. A greedy variant that memoizes prose-bearing records on their typed key drops to an accuracy equal to
+the clean fraction: amortizing beyond the canonicalizable fraction is unsound. We are explicit that this is a
+\textbf{constructed illustration}, not a real-workload measurement: we \emph{set} $p$ and \emph{define} prose
+records to override the typed rule, so ``amortizing past \K{} is unsound'' follows by construction. What it
+establishes is the \emph{shape} (amortization proportional to coverage) and that soundness holds at every level; the
+canonicalizable fraction of a real corpus is domain-dependent and not measured here.
+
+\subsection{E5 --- bookkeeping cost at stream scale}
+A bookkeeping-cost check, not a claim about scaling the hard part: over a 200-class typed space with one audit, as
+stream length $N$ grows $1{,}320\to20{,}320$ (the class set is fixed; no new methods, no model), Table~\ref{tab:e5}.
+
+\begin{table}[h]\centering
+\begin{tabular}{rrrrrr}
+\toprule
+$N$ & Struct calls & calls/$N$ & Naive calls & library (memo) & evicted on drift \\
+\midrule
+1{,}320 & 202 & 0.153 & 1{,}320 & 200 & 2 \\
+5{,}320 & 202 & 0.038 & 5{,}320 & 200 & 2 \\
+20{,}320 & 202 & 0.010 & 20{,}320 & 200 & 2 \\
+\bottomrule
+\end{tabular}
+\caption{E5. Struct calls stay constant; library bounded by the (fixed) class set; eviction selective.}
+\label{tab:e5}
+\end{table}
+
+Struct's call count stays constant (distinct classes plus drift re-derivations), so calls/$N\to0$ while Naive stays
+at one; the library is bounded by the class count (trivially --- a map over a bounded class set); a drift event
+retracts only the invalidated classes ($O(\text{invalidated})$: 2 of 200). Per-op costs are small:
+canonicalization $\approx0.5$--$3.5\,\mu$s/call (the spread is JIT warmup --- $\sim3.5\,\mu$s cold, settling to
+$\sim0.5\,\mu$s), one drift's eviction pass $\approx0.5$\,ms over the library. What E5 establishes is narrow: the
+typed bookkeeping does not become the bottleneck as the stream grows. It does \textbf{not} test scaling in the
+dimension that matters --- a growing library of \emph{distinct} methods, a real corpus, or a live model across all
+arms --- which we leave to future work.
+
+\section{Related Work}
+\textbf{Retrieval and case memory.} RAG~\cite{lewis2020} and CBR recall by similarity and reuse-or-adapt; they
+cannot represent a \emph{premise becoming invalid}, so an exogenous change that leaves the query unchanged leaves the
+cached answer retrievable and stale (E2). Skill libraries (Voyager~\cite{wang2023}) store \emph{prose} skills with no
+typed defeasible premise; a stale skill stays applicable and must be re-applied by the model.
+
+\textbf{LLM agent memory.} MemGPT/Letta's tiered virtual context~\cite{packer2023}, Reflexion's episodic
+buffer~\cite{shinn2023}, and graph-structured retrieval (GraphRAG~\cite{edge2024}) manage \emph{what to keep and
+recall} cleverly, but recall by relevance/recency/similarity; to our knowledge none represent a typed premise whose
+falsification retracts a prior reuse. They are complementary: a defeasible contract could sit beneath any of them as
+the retraction layer. A tuned head-to-head is the clearest next evaluation.
+
+\textbf{Library learning / EBL.} DreamCoder~\cite{ellis2021} and Stitch~\cite{bowers2023} grow a library by
+abstraction~\cite{plotkin1970}; these learn \emph{what} to reuse but attach no defeasible runtime contract.
+
+\textbf{Contracts, blame, gradual verification.} Higher-order contracts with blame~\cite{findler2002} and
+gradual/hybrid verification~\cite{bader2018} are the lineage of our assume/assert/retract-blame discipline, applied
+to \emph{learned} methods.
+
+\textbf{Composition: graph grammars, HTN, separation logic.} A two-faced HRG non-terminal~\cite{habel1992,drewes1997,
+courcelle1990} with HTN precondition-gated selection~\cite{erol1994}; recursive HTN plan-existence is
+undecidable~\cite{erol1996}. Sound composition under shared state is the frame problem~\cite{mccarthy1969},
+discharged by a separation-logic footprint discipline~\cite{ohearn2001,reynolds2002} (E3).
+
+\textbf{Theory revision and belief revision (the nearest neighbor).} \texttt{reviseOnBlame} --- specialize a learned
+precondition from a counterexample rather than delete the method --- is theory revision of a \emph{learned} rule
+base: EITHER~\cite{ourston1994} and FORTE~\cite{richards1995} revise Horn-clause theories on contradicting examples,
+exactly our blame$\to$specialize step; the contraction/revision of a belief set is AGM~\cite{agm1985}. We claim no
+new revision operator; our contribution relative to this line is operational --- attaching the revision to a
+\emph{typed, composable, canonicalizable method library} with a runtime contract, so amortization,
+composition-checking, and un-learning share one representation.
+
+\textbf{Truth maintenance.} The un-learn mechanism is a JTMS~\cite{doyle1979,dekleer1986}.
+
+\textbf{Durable execution / IVM.} A case is a 1-safe marking over a workflow net~\cite{vanderaalst1998}; the durable
+executor is a known artifact~\cite{aws2022,dbos2022}. DBSP~\cite{budiu2023}/Materialize maintain \emph{values}
+incrementally, and production caches invalidate on source change --- both are, in effect, the ``invalidation hook''
+our fair baseline models; we claim no novelty over them for \emph{recovering} on drift. The narrower difference: our
+invalidation is \emph{derived from a declarative contract} (re-assert the post; blame; specialize), so it generalizes
+across premises and feeds library revision.
+
+\section{Threats to Validity}
+\textbf{Stub vs.\ live.} The deterministic stub removes model error to isolate each arm's \emph{mechanism}; the live
+E2 confirms the ordering with a real model. The stub does not predict absolute live accuracy; running more arms live
+is future work.
+
+\textbf{\K{}-coverage is parameterized.} P4 \emph{sets} the typed fraction; the non-circular claims are the
+\emph{shape} (a gradient), universality of soundness, and that greedy amortization is unsound. The absolute
+canonicalizable fraction of a production workload is domain-dependent.
+
+\textbf{Baseline strength.} RAG/CBR/Skill are our implementations; the Invalidating baseline isolates ``has an
+invalidation hook'' from ``has a typed contract,'' so the claim is precise: recall-only memory \emph{cannot}
+recover, and a declarative typed contract recovers selectively/generally/composition-safely. A tuned
+event-invalidating RAG/CBR is essentially the Invalidating arm and
+should match Struct on drift-accuracy, differing on selectivity/generality.
+
+\textbf{Novelty / positioning.} No mechanism is new; the work is a \emph{composition} of JTMS,
+contracts-with-blame, library learning, theory revision, and separation-logic footprints. We position it as an
+operational unification, not a new algorithm.
+
+\textbf{Scale and breadth.} Mechanism experiments use modest $N$ over two synthetic domains; E5 is bookkeeping cost.
+A real corpus on a durable executor and a head-to-head vs modern agent-memory systems remain future work.
+
+\textbf{Soundness is eventual, not static.} Applicability of a learned method is undecidable in general (Rice); the
+guarantee is eventual soundness via a load-bearing runtime monitor over a sound-but-incomplete compose-time gate.
+
+\textbf{Single engine / author.} All results are on one implementation; independent reproduction would strengthen
+the structural claims.
+
+\section{Conclusion}
+Recall-only agent memory cannot un-learn; static libraries are sound but frozen. A learned library of typed methods
+with a \textbf{defeasible runtime contract} gets both: it amortizes and composes on typed structure, and when a
+premise drifts it \emph{retracts with blame and revises} --- recovering correctness where retrieval, CBR, and skill
+libraries serve stale. Our experiments isolate this: recall alone cannot recover; an invalidation hook can;
+a \emph{declarative typed contract} provides that recovery selectively, generally, and composition-safely, at
+bounded per-call context, on a real engine and confirmed live --- bounded by a canonicalizable fraction that is
+itself a soundness boundary. Every mechanism is prior art; the contribution is their composition into a single typed
+representation in which amortization, composition-checking, and un-learning coincide. It is, deliberately, an
+engineering synthesis with a testable emergent property --- principled, selective un-learning --- rather than a new
+algorithm; we think that property is worth naming and measuring.
+
+\paragraph{Code \& reproducibility.} The engine and a self-contained experiment artifact are public at
+\texttt{github.com/9pings/skynet-graph} --- \texttt{artifact/paper-dll/} (workload/arms/harness +
+\texttt{e1-transfer}, \texttt{e3-compose}, \texttt{p4-coverage}, \texttt{scale}, \texttt{measure-e2-live},
+\texttt{F6-transfer}) with the deterministic suite \texttt{tests/integration/paper-*.test.js} (\texttt{npm test}).
+The live E2 uses a local OpenAI-compatible endpoint (\texttt{qwen36-q2-vram}). Licensed AGPL-3.0-or-later.
+
+\begin{thebibliography}{99}
+\bibitem{agm1985} C.~E. Alchourr\'on, P.~G\"ardenfors, D.~Makinson. On the Logic of Theory Change. \emph{J. Symbolic Logic} 50(2):510--530, 1985.
+\bibitem{aws2022} AWS. Step Functions Distributed Map. 2022.
+\bibitem{bader2018} J.~Bader, J.~Aldrich, \'E.~Tanter. Gradual Program Verification. \emph{VMCAI} 2018, LNCS 10747:25--46.
+\bibitem{bowers2023} M.~Bowers et al. Top-Down Synthesis for Library Learning. \emph{POPL} 2023; PACMPL 7(POPL).
+\bibitem{budiu2023} M.~Budiu et al. DBSP: Automatic Incremental View Maintenance for Rich Query Languages. \emph{PVLDB} 16(7):1601--1614, 2023.
+\bibitem{courcelle1990} B.~Courcelle. The Monadic Second-Order Logic of Graphs I. \emph{Inf. Comput.} 85(1):12--75, 1990.
+\bibitem{dekleer1986} J.~de~Kleer. An Assumption-based TMS. \emph{Artificial Intelligence} 28(2):127--162, 1986.
+\bibitem{doyle1979} J.~Doyle. A Truth Maintenance System. \emph{Artificial Intelligence} 12(3):231--272, 1979.
+\bibitem{drewes1997} F.~Drewes, H.-J.~Kreowski, A.~Habel. Hyperedge Replacement Graph Grammars. In \emph{Handbook of Graph Grammars} Vol.~1, World Scientific, 95--162, 1997.
+\bibitem{edge2024} D.~Edge et al. From Local to Global: A Graph RAG Approach to Query-Focused Summarization. arXiv:2404.16130, 2024.
+\bibitem{ellis2021} K.~Ellis et al. DreamCoder: Bootstrapping Inductive Program Synthesis with Wake-Sleep Library Learning. \emph{PLDI} 2021.
+\bibitem{erol1994} K.~Erol, J.~Hendler, D.~S.~Nau. UMCP: A Sound and Complete Procedure for HTN Planning. \emph{AIPS} 1994.
+\bibitem{erol1996} K.~Erol, J.~Hendler, D.~S.~Nau. Complexity Results for HTN Planning. \emph{Ann. Math. AI} 18:69--93, 1996.
+\bibitem{findler2002} R.~B.~Findler, M.~Felleisen. Contracts for Higher-Order Functions. \emph{ICFP} 2002, 48--59.
+\bibitem{habel1992} A.~Habel. Hyperedge Replacement: Grammars and Languages. LNCS 643, Springer, 1992.
+\bibitem{lewis2020} P.~Lewis et al. Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. \emph{NeurIPS} 2020.
+\bibitem{mccarthy1969} J.~McCarthy, P.~J.~Hayes. Some Philosophical Problems from the Standpoint of AI. \emph{Machine Intelligence} 4, 1969.
+\bibitem{ohearn2001} P.~W.~O'Hearn, J.~C.~Reynolds, H.~Yang. Local Reasoning about Programs that Alter Data Structures. \emph{CSL} 2001, LNCS 2142:1--19.
+\bibitem{ourston1994} D.~Ourston, R.~J.~Mooney. Theory Refinement Combining Analytical and Empirical Methods. \emph{Artificial Intelligence} 66(2):273--309, 1994.
+\bibitem{packer2023} C.~Packer et al. MemGPT: Towards LLMs as Operating Systems. arXiv:2310.08560, 2023.
+\bibitem{plotkin1970} G.~D.~Plotkin. A Note on Inductive Generalization. \emph{Machine Intelligence} 5:153--163, 1970.
+\bibitem{reynolds2002} J.~C.~Reynolds. Separation Logic: A Logic for Shared Mutable Data Structures. \emph{LICS} 2002, 55--74.
+\bibitem{richards1995} B.~L.~Richards, R.~J.~Mooney. Automated Refinement of First-Order Horn-Clause Domain Theories. \emph{Machine Learning} 19(2):95--131, 1995.
+\bibitem{shinn2023} N.~Shinn et al. Reflexion: Language Agents with Verbal Reinforcement Learning. \emph{NeurIPS} 2023.
+\bibitem{dbos2022} A.~Skiadopoulos et al. DBOS: A DBMS-oriented Operating System. \emph{PVLDB} 15(1):21--30, 2022.
+\bibitem{vanderaalst1998} W.~M.~P.~van~der~Aalst. The Application of Petri Nets to Workflow Management. \emph{J. Circuits, Systems and Computers} 8(1):21--66, 1998.
+\bibitem{wang2023} G.~Wang et al. Voyager: An Open-Ended Embodied Agent with Large Language Models. arXiv:2305.16291, 2023.
+\end{thebibliography}
+
+\end{document}

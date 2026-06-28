@@ -1,0 +1,373 @@
+\documentclass[11pt]{article}
+
+% Apprentissage de bibliothèque défaisable — brouillon de soumission (FR). Compile : pdflatex (deux fois).
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  breaklines=true,
+  columns=fullflexible,
+  frame=single,
+  framesep=4pt,
+  xleftmargin=2pt,
+}
+
+\newcommand{\K}{\textsf{K1}}
+\renewcommand{\abstractname}{Résumé}
+\renewcommand{\refname}{Références}
+\title{\textbf{Apprentissage de bibliothèque défaisable :\\ des méthodes typées à contrats d'exécution qui se désapprennent à la dérive}}
+\author{Nathanael Braun}
+\date{2026 \\[2pt] {\normalsize\itshape Préprint v1 --- rapport de système / d'expérience}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Les agents fondés sur de grands modèles de langage réutilisent leur travail passé via une mémoire floue ---
+recherche (RAG), raisonnement à partir de cas, bibliothèques de compétences --- qui rappelle par similarité de
+surface et n'a aucune notion d'une prémisse devenue fausse. Lorsque le monde dérive d'une manière qui ne change pas
+la requête, ces mémoires continuent de servir une réponse périmée. Nous présentons l'\textbf{apprentissage de
+bibliothèque défaisable} : une bibliothèque apprise de méthodes typées et composables, chacune dotée d'un
+\textbf{contrat d'exécution défaisable}. Une méthode est supposée à la composition, vérifiée à l'exécution, et ---
+lorsque sa postcondition induite échoue --- rétractée avec attribution de blâme (un désapprentissage de type JTMS),
+après quoi la bibliothèque est révisée, non jetée. La structure typée qui rend une méthode canonicalisable rend
+aussi sa réutilisation amortissable et sa composition vérifiable sur les seuls contrats, à contexte par appel
+borné. Sur un moteur réel à base de règles, cohérent par maintien de la vérité (JTMS), en isolant chaque mécanisme :
+(E2) sous une invalidation de prémisse externe en cours de flux, les mémoires par rappel seul servent du périmé,
+tandis que tout cache doté d'un crochet d'invalidation récupère --- ce qu'un contrat typé déclaratif ajoute à un
+rappel codé à la main, c'est une éviction sélective et principielle, plus la généralité et la sûreté de composition
+(confirmé sur modèle réel) ; (E1) le transfert structurel inter-problèmes est correct et gratuit sur des instances
+apparentées tenues à l'écart, tandis que l'ablation sans transformation est non saine, et le seul nombre d'appels
+ne permet pas de les distinguer ; (E3) une vérification de composition en boîte fermée coïncide avec le résultat en
+boîte ouverte sur chaque paire évaluée (aucun faux-admis), chacune des trois barrières de sûreté étant porteuse ;
+(P4) l'amortissement est un gradient de la fraction canonicalisable, avec sûreté à chaque couverture et non-sûreté
+au-delà. Aucun mécanisme n'est nouveau (JTMS, contrats à blâme, apprentissage de bibliothèque, révision de théorie,
+logique de séparation) ; la contribution est leur composition en une bibliothèque apprise de méthodes typées qui
+réalise un désapprentissage principiel et sélectif à la dérive --- ce que les mémoires par rappel seul ne font pas
+--- bornée par un plafond \K{} mesuré.
+\end{abstract}
+
+\section{Introduction}
+Un agent qui résout de nombreux problèmes apparentés devrait devenir moins coûteux et plus fiable avec le temps.
+La voie dominante consiste à mémoriser et rappeler : stocker des solutions ou compétences passées, retrouver la
+plus proche, la réutiliser ou l'adapter. La génération augmentée par recherche~\cite{lewis2020}, le raisonnement à
+partir de cas et les bibliothèques de compétences comme Voyager~\cite{wang2023} partagent cette forme et le même
+angle mort : ils rappellent par similarité de \emph{surface} et ne représentent pas une \emph{prémisse devenue
+fausse}. Quand le monde change d'une manière qui ne change \textbf{pas} la requête --- une réglementation se
+durcit, un fait est audité et trouvé faux, une politique est révoquée --- la réponse en cache reste le plus proche
+voisin, et elle est toujours servie. Les bibliothèques statiques (programmes appris, compétences
+distillées~\cite{ellis2021,bowers2023}) ont le problème inverse : saines à l'apprentissage, elles ne savent pas
+\emph{désapprendre}.
+
+L'ingrédient manquant est un \textbf{contrat typé défaisable} sur chaque unité réutilisable. Empruntant aux
+contrats logiciels avec blâme~\cite{findler2002} et à la vérification graduelle~\cite{bader2018}, une méthode
+déclare ce qu'elle lit, écrit, exige et garantit, sur un alphabet de faits \emph{typé}. Pour une méthode
+\emph{apprise} la garantie est une hypothèse induite : \textbf{supposée à la composition, vérifiée à l'exécution,
+rétractée avec blâme} en cas de violation --- une opération de maintien de la vérité~\cite{doyle1979,dekleer1986}
+--- après quoi la bibliothèque est révisée en \emph{spécialisant} la précondition fautive, non en la supprimant
+(révision de théorie~\cite{ourston1994,richards1995} ; révision de croyances~\cite{agm1985}). La même structure
+typée rend la réutilisation \textbf{amortissable} (une clé canonique stable) et la composition \textbf{vérifiable
+sans ouvrir la boîte}~\cite{ohearn2001,reynolds2002}. Le tout est borné par une unique contrainte honnête, \K{} :
+seule la structure typée, canonicalisable, amortit ; la prose véritable reste dans le modèle.
+
+Nous employons \emph{apprentissage de bibliothèque} au sens de DreamCoder/Stitch~\cite{ellis2021,bowers2023}
+(induire des méthodes typées réutilisables par abstraction~\cite{plotkin1970}), non un ajustement statistique ; on
+pourrait parler d'\emph{induction de méthodes}. La nouveauté n'est \textbf{pas} l'induction mais le \textbf{contrat
+défaisable} qui permet de \emph{désapprendre} une méthode induite. Le changement est de flot de contrôle : là où
+une mémoire par similarité fait \texttt{requête $\to$ retrouver $\to$ réutiliser}, la nôtre fait
+\texttt{requête $\to$ retrouver-le-contrat $\to$ vérifier $\to$ exécuter $\to$ contrôler $\to$ rétracter $\to$
+spécialiser}. Le suffixe contrôler-et-rétracter est ce que les expériences isolent.
+
+\paragraph{Contributions.} (1) Le cadrage des méthodes d'agent réutilisables comme \textbf{non-terminaux typés à
+deux faces dotés d'un contrat d'exécution défaisable}, et la boucle supposer/vérifier/rétracter-blâmer/réviser. (2)
+Une évaluation reproductible, isolant les mécanismes, sur un moteur réel --- la mémoire par rappel seul ne peut pas
+désapprendre tandis qu'un contrat typé déclaratif récupère la dérive \emph{sélectivement, généralement,
+sûrement-en-composition} (E2, simu + réel, avec une référence Invalidant équitable) ; transfert structurel sain que
+le seul nombre d'appels ne certifie pas (E1) ; aucun faux-admis sur les compositions évaluées, chacune des trois
+barrières ablée (E3) ; amortissement en gradient de la fraction canonicalisable (P4) --- en explicitant ce que
+chaque expérience établit ou non.
+
+\section{Approche}
+\subsection{L'objet : une méthode à deux faces}
+Une \textbf{méthode} est, pour son appelant, une boîte noire à contrat typé ; à l'intérieur, des
+\emph{productions} la réalisent (séquence, branchement, map, fold). Formellement, un non-terminal de remplacement
+d'hyperarêtes~\cite{habel1992,drewes1997} à sélection conditionnée par précondition~\cite{erol1994}. Nous tenons
+deux régimes séparés par \emph{intention de conception} (nous ne prouvons pas la décidabilité ici) : la
+\textbf{grammaire des méthodes} est \emph{censée} rester décidable via un rang de montage bien fondé et des
+invariants de typage --- l'existence d'un plan HTN récursif est indécidable en général~\cite{erol1996} --- tandis
+que l'\textbf{exécution} sur des données de taille d'exécution est une couche explicitement bornée par budget,
+Turing-complète. Le lien à la logique monadique du second ordre~\cite{courcelle1990} est une motivation, non un
+théorème établi ici.
+
+\subsection{Le contrat : un triplet de séparation défaisable}
+Une méthode déclare une empreinte de lecture, une empreinte d'écriture, une précondition, une postcondition et une
+étiquette d'effet. La composition sous état partagé est le problème du cadre~\cite{mccarthy1969} ; nous le levons
+par une discipline d'empreintes de logique de séparation~\cite{ohearn2001,reynolds2002} sur l'alphabet typé fini.
+Pour une méthode \emph{apprise} la postcondition est une hypothèse induite : \textbf{supposée à la composition,
+vérifiée à la stabilisation, rétractée avec blâme}~\cite{findler2002,bader2018}. Le moniteur d'exécution est le
+JTMS~\cite{doyle1979}, donnant une sûreté \emph{éventuelle} (non statique) --- précisément le désapprentissage qui
+manque aux références.
+
+\subsection{Pipeline et le plancher \K{}}
+Une formulation est typée en un but ; une méthode est sélectionnée et composée sur contrats ; les cas la traversent ;
+les traces distillent (anti-unification~\cite{plotkin1970} ; filtrées par MDL~\cite{ellis2021,bowers2023}) en de
+nouvelles méthodes typées ; la dérive rétracte. Le repli universel est le \emph{plancher de micro-tâches} : tout ce
+qui ne se réduit pas à une méthode typée en cache se réduit à une micro-tâche qu'un petit modèle traite aisément.
+Un contrat \emph{manquant} coûte un appel modèle bon marché ; un contrat \emph{faux} est rattrapé par la
+vérification d'exécution --- jamais une erreur silencieuse.
+
+\section{Mise en œuvre}
+Tous les mécanismes sont réalisés sur un moteur existant de graphe de faits typés à base de règles, cohérent par
+JTMS, à concepts déclaratifs et stabilisation par chaînage avant, sans modification du cœur hormis une option de
+requête additive. La clé de mémoïsation typée est le condensé de canonicalisation du moteur ; le vérificateur de
+contrat défaisable (entailment à la composition sur domaines abstraits, assertion de postcondition à l'exécution,
+trois barrières de sûreté) et la transformation de transfert structurel (relativiser-au-stockage /
+lier-au-rejeu) sont des bibliothèques hôtes. Un exécuteur de cas durable à l'échelle est un artefact connu (un
+réseau de workflow~\cite{vanderaalst1998} sur un magasin durable, dans la lignée d'AWS Step Functions Distributed
+Map~\cite{aws2022}, du cache de contenu de Prefect, et de DBOS~\cite{dbos2022}) ; notre vue-croyance se situe
+au-dessus. Le cycle de vie défaisable --- \textbf{supposer $\to$ vérifier $\to$ contrôler $\to$ rétracter $\to$
+spécialiser} --- correspond un-à-un aux fonctions du moteur :
+
+\begin{lstlisting}
+select(but):                             # SUPPOSER (a la composition)
+  M <- bibliotheque.match(but.faits_typ) #   cle typee ; un echec -> plancher de micro-taches
+  supposer M.contrat                     #   checkCompose: post(prec) |= pre(M); escalade, jamais faux-admis
+
+apply(M, cas):                           # VERIFIER + CONTROLER (a l'execution)
+  cle <- digest(cas.premisse_typee)      #   cle canonique K1
+  si memo.has(cle): retourner memo[cle]  #   amortir un cas type recurrent
+  sortie <- run(M, cas)                  #   sinon deriver (appel modele / sous-graphe)
+  si non assertPost(M.contrat, sortie):  #   la post tient ? + G1 cadre + G2 oracle-d'effet
+    quarantaine(cas); blamer(M.contrat)  #   ne jamais valider une mauvaise sortie
+    retourner
+  memo[cle] <- sortie; retourner sortie
+
+on ingest(fait):                         # RETRACTER + SPECIALISER (derive)
+  pour e dans memo dependant de fait:    #   JTMS: re-verifier chaque post affectee
+    si non satisfies(e.contrat.post, e.faits + {fait}):
+      retracter(e); blamer(e.contrat)    #   desapprendre: evincer + attribuer le blame
+  bibliotheque.reviser(blame): pre <- specialiser(pre)  # reviseOnBlame (CEGIS): restreindre, sans supprimer
+\end{lstlisting}
+
+\section{Expériences}
+\subsection{Dispositif}
+Les expériences utilisent les mécanismes réels du moteur à deux fidélités explicites. \textbf{E1 et E3 instancient
+le moteur complet} (graphe + stabilisation + JTMS) ; \textbf{E2, P4 et E5 isolent les fonctions} réelles
+(\texttt{digest}, \texttt{satisfies}, \texttt{canonValue}) depuis un banc, sans la boucle complète --- nous ne
+prétendons pas qu'E2 exerce la rétractation JTMS native (il la ré-implémente sur le même prédicat réel). Le modèle
+est un \textbf{simulateur déterministe} (oracle parfait de la règle \emph{courante} étant donné seulement ce que
+révèle l'invite --- toute péremption/coût vient du mécanisme, non d'une erreur modèle) ou un \textbf{modèle local
+réel} (\texttt{qwen36-q2-vram}). Chaque exécution est conditionnée par un \textbf{auto-test du banc} (sous le
+simulateur le bras naïf doit être parfait, sinon avortement). Sept bras partagent une interface : Naïf,
+Long-contexte, RAG, CBR (clé typée, sans re-vérification), Compétence (prose), \textbf{Invalidant} (cache à clé
+typée + rappel grossier codé à la main : crochet d'invalidation, sans contrat typé), et \textbf{Struct} (la
+bibliothèque typée au contrat défaisable). L'Invalidant sépare « possède une invalidation » de « possède un contrat
+typé ».
+
+\subsection{E2 --- défaisance à la dérive}
+Un domaine d'approbation typé ($N{=}80$, deux classes auditées ; l'exécution réelle utilise $N{=}48$, une classe)
+avec une invalidation de prémisse \emph{externe} en cours de flux : un audit de conformité marque une classe non
+conforme, faisant basculer ses cas approuvés vers le refus. L'audit n'est \textbf{pas un champ d'enregistrement},
+donc un cache par rappel seul retrouve le même enregistrement et sert sa réponse pré-audit (Table~\ref{tab:e2}).
+
+\begin{table}[h]\centering
+\begin{tabular}{lrrrr}
+\toprule
+bras & appels & exact. & \textbf{exact. dérive} & ctx max \\
+\midrule
+\textbf{Struct} (contrat typé) & \textbf{26} & \textbf{1.00} & \textbf{1.00} & \textbf{290} \\
+Invalidant (crochet, sans contrat) & 28 & 1.00 & 1.00 & 290 \\
+Naïf & 80 & 1.00 & 1.00 & 290 \\
+Long-contexte & 80 & 1.00 & 1.00 & 2062 \\
+RAG & 48 & 0.95 & 0.00 & 290 \\
+CBR (clé typée, sans re-vérif.) & 24 & 0.95 & 0.00 & 290 \\
+Compétence (prose) & 80 & 0.95 & 0.00 & 297 \\
+\bottomrule
+\end{tabular}
+\caption{E2 (simu). Les bras par rappel seul (RAG/CBR/Compétence) servent du périmé ; Invalidant et Struct récupèrent.}
+\label{tab:e2}
+\end{table}
+
+La lecture est triple. Les \textbf{mémoires par rappel seul servent du périmé} --- le rappel seul ne récupère pas,
+l'audit n'entrant jamais dans leur chemin de réutilisation. La \textbf{récupération exige un mécanisme
+d'invalidation}, et l'Invalidant comme Struct en ont un (exactitude-dérive 1.00). Ce que le \textbf{contrat
+défaisable typé ajoute au rappel codé à la main} : (i) la \emph{sélectivité} --- Struct re-vérifie la post par
+entrée (\texttt{satisfies}) et n'évince que les 2 classes \emph{violées} (approve), là où le rappel jette des
+classes entières (4 entrées) et paie les re-dérivations supplémentaires (26 vs 28 appels) ; (ii) la
+\emph{généralité} ; (iii) la \emph{sûreté de composition} (§\ref{sec:e3}). L'exécution réelle
+(\texttt{qwen36-q2-vram}, $N{=}48$) reproduit ceci : RAG/CBR/Compétence 0.00 ; Invalidant 14 appels / 1.00 ; Struct
+13 appels / 2.8\,s / 1.00 / ctx 278 vs Long-contexte 1304. L'affirmation défendable n'est pas « seul Struct
+récupère » mais « la mémoire par rappel seul ne sait pas désapprendre, et un contrat typé déclaratif fournit la
+récupération de façon sélective, générale et sûre en composition ».
+
+\subsection{E1 --- amortissement et transfert structurel}
+Un domaine de décomposition structurelle (une méthode qui \emph{crée} un sous-graphe avec des identifiants), sur le
+moteur complet. Partition : entraînement, apparentés tenus à l'écart, nouveau tenu à l'écart. C'est un contrôle
+d'\textbf{existence-et-sûreté sur un petit ensemble} (2 apparentés, 1 nouveau), \textbf{pas un taux} : avec la
+transformation relativiser/lier, \emph{toutes} les instances apparentées transfèrent à 0 appel et \textbf{sainement},
+le nouveau paie (pas de faux rejeu), totaux 3 appels contre 5. L'ablation sans transformation « touche » mais
+rejoue le \emph{mauvais espace d'identifiants} --- \textbf{non sain}. \textbf{Seule la vérification de sûreté}
+distingue une réutilisation saine d'un rejeu erroné ; le seul nombre d'appels les classe à égalité. (Un \emph{taux}
+de transfert sur de nombreuses méthodes est un travail futur.)
+
+\subsection{E3 --- sûreté de composition}\label{sec:e3}
+En composant des paires sur leurs seuls contrats typés (boîte fermée) et en comparant au résultat moteur (moteur
+complet), la décision \textbf{coïncide avec la réalité sur chaque paire évaluée, sans faux-admis} --- le
+vérificateur n'accepte jamais à tort ; les paires sous-déterminées ou hors-fragment \emph{escaladent}. C'est montré
+sur un petit ensemble construit (3 paires sain/non-sain/escalade ; une 4\textsuperscript{e} ajoute l'oracle) : une
+\textbf{démonstration d'existence}, pas un taux de population. Chaque barrière est porteuse sur un exemple :
+retirer la complétude de cadre manque une écriture non déclarée ; retirer l'étiquette d'effet admet un effet
+externe non vérifié ; retirer la détection de cycle admet un cycle couplé rétractable. La décision ne lit que
+l'empreinte partagée ; le vérificateur (entailment par domaines abstraits, sain-mais-incomplet) est l'artefact le
+plus développé, plutôt sous-évalué ici. (Un corpus plus grand, non trié à la main, est un travail futur.)
+
+\subsection{P4 --- le plafond de couverture \K{}}
+Sur une charge mixte (fraction $p$ entièrement typée ; le reste portant un composant en prose qui prime sur la règle
+typée), l'appartenance à \K{} décidée par la \textbf{vraie} barrière de canonicalisation, l'amortissement est un
+\textbf{gradient en couverture} (approbation : $0\to19\to44\to69\to94\%$ ; tri : $0\to22\to47\to72\to97\%$).
+L'exactitude de Struct est $1.00$ à chaque couverture --- la fraction non typée est un \emph{coût} de micro-tâche,
+jamais une \emph{falaise} de sûreté. Une variante gloutonne mémoïsant les enregistrements en prose sur leur clé
+typée chute à une exactitude égale à la fraction propre : amortir au-delà de \K{} est non sain. Nous sommes
+explicites : c'est une \textbf{illustration construite}, pas une mesure réelle --- nous \emph{fixons} $p$ et
+\emph{définissons} les enregistrements en prose pour primer, donc « non sain au-delà de \K{} » découle par
+construction. Elle établit la \emph{forme} et la sûreté à chaque niveau ; la fraction canonicalisable d'un corpus
+réel est dépendante du domaine et non mesurée ici.
+
+\subsection{E5 --- coût de bookkeeping à l'échelle du flux}
+Un contrôle de coût de bookkeeping, pas une affirmation sur le passage à l'échelle de la partie difficile : sur un
+espace typé de 200 classes avec un audit, quand la longueur du flux $N$ croît de $1{,}320\to20{,}320$
+(l'ensemble des classes est fixe ; aucune méthode nouvelle, aucun modèle), Table~\ref{tab:e5}.
+
+\begin{table}[h]\centering
+\begin{tabular}{rrrrrr}
+\toprule
+$N$ & appels Struct & appels/$N$ & appels Naïf & bibliothèque & évincés \\
+\midrule
+1{,}320 & 202 & 0,153 & 1{,}320 & 200 & 2 \\
+5{,}320 & 202 & 0,038 & 5{,}320 & 200 & 2 \\
+20{,}320 & 202 & 0,010 & 20{,}320 & 200 & 2 \\
+\bottomrule
+\end{tabular}
+\caption{E5. Les appels de Struct restent constants ; bibliothèque bornée par l'ensemble (fixe) des classes ; éviction sélective.}
+\label{tab:e5}
+\end{table}
+
+Les appels de Struct restent constants ($\to$ appels/$N\to0$ tandis que Naïf reste à un) ; la bibliothèque est
+bornée par le nombre de classes (trivialement) ; une dérive ne rétracte que les classes invalidées
+($O(\text{invalidé})$ : 2 sur 200). Coûts par opération : canonicalisation $\approx0{,}5$--$3{,}5\,\mu$s/appel
+(l'écart = chauffe JIT), une passe d'éviction $\approx0{,}5$\,ms. Le contenu honnête est étroit : le bookkeeping
+typé n'est pas le goulet. Il ne teste \textbf{pas} l'échelle dans la dimension qui compte (bibliothèque croissante
+de méthodes \emph{distinctes}, corpus réel, modèle réel sur tous les bras) --- travail futur.
+
+\section{Travaux apparentés}
+\textbf{Recherche et mémoire de cas.} RAG~\cite{lewis2020} et CBR rappellent par similarité ; ils ne représentent
+pas une \emph{prémisse devenant invalide} (E2). Les bibliothèques de compétences (Voyager~\cite{wang2023}) stockent
+de la \emph{prose} sans prémisse défaisable.
+
+\textbf{Mémoire des agents LLM.} MemGPT/Letta~\cite{packer2023}, Reflexion~\cite{shinn2023}, GraphRAG~\cite{edge2024}
+gèrent \emph{quoi} garder/rappeler finement, mais par pertinence/récence/similarité ; aucun ne représente une
+prémisse typée dont la falsification rétracte une réutilisation. Ils sont complémentaires : un contrat défaisable
+pourrait s'y placer comme couche de rétractation.
+
+\textbf{Apprentissage de bibliothèque.} DreamCoder~\cite{ellis2021} et Stitch~\cite{bowers2023} font croître une
+bibliothèque par abstraction~\cite{plotkin1970} ; sans contrat d'exécution défaisable.
+
+\textbf{Contrats, blâme, vérification graduelle.}~\cite{findler2002,bader2018} sont la lignée de notre discipline,
+appliquée aux méthodes \emph{apprises}.
+
+\textbf{Composition.} Non-terminal HRG à deux faces~\cite{habel1992,drewes1997,courcelle1990} à sélection
+HTN~\cite{erol1994} ; plan HTN récursif indécidable~\cite{erol1996} ; composition saine via empreintes de
+séparation~\cite{ohearn2001,reynolds2002}, problème du cadre~\cite{mccarthy1969} (E3).
+
+\textbf{Révision de théorie/croyances (le voisin le plus proche).} \texttt{reviseOnBlame} relève de la révision de
+théorie d'une base de règles \emph{apprise} : EITHER~\cite{ourston1994} et FORTE~\cite{richards1995} révisent des
+théories Horn sur contre-exemples ; la révision d'un ensemble de croyances est l'AGM~\cite{agm1985}. Notre apport
+est opérationnel : attacher la révision à une bibliothèque de méthodes \emph{typée, composable, canonicalisable}.
+
+\textbf{Maintien de la vérité.} Un JTMS~\cite{doyle1979,dekleer1986}.
+
+\textbf{Exécution durable / IVM.} Un cas est un marquage 1-sûr sur un réseau de workflow~\cite{vanderaalst1998} ;
+l'exécuteur durable est un artefact connu~\cite{aws2022,dbos2022}. DBSP~\cite{budiu2023}/Materialize maintiennent
+des \emph{valeurs} ; nous ne revendiquons pas la nouveauté pour \emph{récupérer} sur dérive --- la différence est
+que notre invalidation est \emph{dérivée d'un contrat déclaratif} (re-vérifier la post ; blâmer ; spécialiser).
+
+\section{Menaces à la validité}
+\textbf{Simulateur vs réel.} Le simulateur retire l'erreur du modèle pour isoler le \emph{mécanisme} ; l'E2 réel
+confirme l'ordre. Le simulateur ne prédit pas l'exactitude absolue en réel ; exécuter plus de bras en réel est un
+travail futur.
+
+\textbf{\K{}-couverture paramétrée.} P4 \emph{fixe} la fraction typée ; les affirmations non circulaires sont la
+\emph{forme} (un gradient), l'universalité de la sûreté, et la non-sûreté de l'amortissement glouton. La fraction
+absolue d'une charge de production est dépendante du domaine.
+
+\textbf{Force des références.} RAG/CBR/Compétence sont nos implémentations ; le bras Invalidant isole « possède un
+crochet » de « possède un contrat typé », d'où l'affirmation précise. Une RAG/CBR à invalidation-événementielle
+ajustée est essentiellement l'Invalidant.
+
+\textbf{Nouveauté / positionnement.} Aucun mécanisme n'est nouveau ; le travail est une \emph{composition}. Nous le
+positionnons comme une unification opérationnelle, non un nouvel algorithme.
+
+\textbf{Échelle et étendue.} Mécanismes à $N$ modeste sur deux domaines synthétiques ; E5 est un coût de
+bookkeeping. Un corpus réel et un face-à-face contre les mémoires d'agents modernes restent des travaux futurs.
+
+\textbf{Sûreté éventuelle, non statique.} L'applicabilité d'une méthode apprise est indécidable en général (Rice) ;
+la garantie est une sûreté éventuelle via un moniteur d'exécution porteur au-dessus d'une barrière saine-incomplète.
+
+\textbf{Moteur unique / auteur unique.} Une reproduction indépendante renforcerait les affirmations structurelles.
+
+\section{Conclusion}
+La mémoire par rappel seul ne sait pas désapprendre ; les bibliothèques statiques sont saines mais figées. Une
+bibliothèque apprise de méthodes typées dotée d'un \textbf{contrat d'exécution défaisable} obtient les deux : elle
+amortit et compose sur la structure typée, et lorsqu'une prémisse dérive elle \emph{rétracte avec blâme et révise}
+--- récupérant l'exactitude là où la recherche, le CBR et les bibliothèques de compétences servent du périmé. Nos
+expériences l'isolent : le rappel seul ne récupère pas ; un crochet d'invalidation le peut ; un contrat typé
+\emph{déclaratif} fournit cette récupération de façon sélective, générale et sûre-en-composition, à contexte borné,
+sur un moteur réel et confirmé en réel --- borné par une fraction canonicalisable elle-même frontière de sûreté.
+Chaque mécanisme relève de l'état de l'art ; la contribution est leur composition en une représentation typée
+unique où amortissement, vérification de composition et désapprentissage coïncident. C'est, délibérément, une
+synthèse d'ingénierie avec une propriété émergente testable --- un désapprentissage principiel et sélectif ---
+plutôt qu'un nouvel algorithme.
+
+\paragraph{Code \& reproductibilité.} Le moteur et un artefact d'expérience autonome sont publics sur
+\texttt{github.com/9pings/skynet-graph} --- \texttt{artifact/paper-dll/} avec la suite déterministe
+\texttt{tests/integration/paper-*.test.js} (\texttt{npm test}). L'E2 en réel utilise un endpoint local compatible
+OpenAI. Sous licence AGPL-3.0-or-later.
+
+\begin{thebibliography}{99}
+\bibitem{agm1985} C.~E. Alchourr\'on, P.~G\"ardenfors, D.~Makinson. On the Logic of Theory Change. \emph{J. Symbolic Logic} 50(2):510--530, 1985.
+\bibitem{aws2022} AWS. Step Functions Distributed Map. 2022.
+\bibitem{bader2018} J.~Bader, J.~Aldrich, \'E.~Tanter. Gradual Program Verification. \emph{VMCAI} 2018, LNCS 10747:25--46.
+\bibitem{bowers2023} M.~Bowers et al. Top-Down Synthesis for Library Learning. \emph{POPL} 2023; PACMPL 7(POPL).
+\bibitem{budiu2023} M.~Budiu et al. DBSP: Automatic Incremental View Maintenance for Rich Query Languages. \emph{PVLDB} 16(7):1601--1614, 2023.
+\bibitem{courcelle1990} B.~Courcelle. The Monadic Second-Order Logic of Graphs I. \emph{Inf. Comput.} 85(1):12--75, 1990.
+\bibitem{dekleer1986} J.~de~Kleer. An Assumption-based TMS. \emph{Artificial Intelligence} 28(2):127--162, 1986.
+\bibitem{doyle1979} J.~Doyle. A Truth Maintenance System. \emph{Artificial Intelligence} 12(3):231--272, 1979.
+\bibitem{drewes1997} F.~Drewes, H.-J.~Kreowski, A.~Habel. Hyperedge Replacement Graph Grammars. In \emph{Handbook of Graph Grammars} Vol.~1, World Scientific, 95--162, 1997.
+\bibitem{edge2024} D.~Edge et al. From Local to Global: A Graph RAG Approach to Query-Focused Summarization. arXiv:2404.16130, 2024.
+\bibitem{ellis2021} K.~Ellis et al. DreamCoder. \emph{PLDI} 2021.
+\bibitem{erol1994} K.~Erol, J.~Hendler, D.~S.~Nau. UMCP: A Sound and Complete Procedure for HTN Planning. \emph{AIPS} 1994.
+\bibitem{erol1996} K.~Erol, J.~Hendler, D.~S.~Nau. Complexity Results for HTN Planning. \emph{Ann. Math. AI} 18:69--93, 1996.
+\bibitem{findler2002} R.~B.~Findler, M.~Felleisen. Contracts for Higher-Order Functions. \emph{ICFP} 2002, 48--59.
+\bibitem{habel1992} A.~Habel. Hyperedge Replacement: Grammars and Languages. LNCS 643, Springer, 1992.
+\bibitem{lewis2020} P.~Lewis et al. Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. \emph{NeurIPS} 2020.
+\bibitem{mccarthy1969} J.~McCarthy, P.~J.~Hayes. Some Philosophical Problems from the Standpoint of AI. \emph{Machine Intelligence} 4, 1969.
+\bibitem{ohearn2001} P.~W.~O'Hearn, J.~C.~Reynolds, H.~Yang. Local Reasoning about Programs that Alter Data Structures. \emph{CSL} 2001, LNCS 2142:1--19.
+\bibitem{ourston1994} D.~Ourston, R.~J.~Mooney. Theory Refinement Combining Analytical and Empirical Methods. \emph{Artificial Intelligence} 66(2):273--309, 1994.
+\bibitem{packer2023} C.~Packer et al. MemGPT: Towards LLMs as Operating Systems. arXiv:2310.08560, 2023.
+\bibitem{plotkin1970} G.~D.~Plotkin. A Note on Inductive Generalization. \emph{Machine Intelligence} 5:153--163, 1970.
+\bibitem{reynolds2002} J.~C.~Reynolds. Separation Logic. \emph{LICS} 2002, 55--74.
+\bibitem{richards1995} B.~L.~Richards, R.~J.~Mooney. Automated Refinement of First-Order Horn-Clause Domain Theories. \emph{Machine Learning} 19(2):95--131, 1995.
+\bibitem{shinn2023} N.~Shinn et al. Reflexion: Language Agents with Verbal Reinforcement Learning. \emph{NeurIPS} 2023.
+\bibitem{dbos2022} A.~Skiadopoulos et al. DBOS: A DBMS-oriented Operating System. \emph{PVLDB} 15(1):21--30, 2022.
+\bibitem{vanderaalst1998} W.~M.~P.~van~der~Aalst. The Application of Petri Nets to Workflow Management. \emph{J. Circuits, Systems and Computers} 8(1):21--66, 1998.
+\bibitem{wang2023} G.~Wang et al. Voyager: An Open-Ended Embodied Agent with Large Language Models. arXiv:2305.16291, 2023.
+\end{thebibliography}
+
+\end{document}
