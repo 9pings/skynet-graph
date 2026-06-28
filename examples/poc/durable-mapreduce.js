@@ -154,8 +154,29 @@ async function crashResume( file, fuel ) {
 		midDone: mid.done, reset: rb.reset.length, done: st.done, failed: st.failed, totalCalls };
 }
 
+// 6 — C-FAIL: a map child that fails (a contract violation OR an erroring task) must NOT hang its join. Fail-fast:
+// the whole group fails (the record fails cleanly), never a silent partial fold (the "no wrong derivation" line).
+// A guarded score∈[0,100] body; one out-of-range element violates → the group fails-fast (regression: it used to hang).
+const guardedSum = { name: 'guardedSum', methods: { guardedSum: { map: { over: 'items', elemKey: 'n',
+	body: [{ task: 'T::gscore', contract: { write: ['score'], post: ['score>=0 && score<=100'], effect: 'pure' } }],
+	reduce: { monoid: 'sum', key: 'score', into: 'total' } } } } };
+const guardedNet = compileMethod(guardedSum);
+
+async function failFast( makeStore, items, mode ) {
+	const store = makeStore(); store.ensureRun('r', guardedNet); store.inject('r', [{ id: 'rec', items }]);
+	const runTask = ( task, t ) => {
+		if ( mode === 'throw' && t.payload.n < 0 ) throw new Error('boom on ' + t.payload.n);   // an erroring task
+		return { payload: { score: t.payload.n } };                                             // no clamp → >100 violates the guard
+	};
+	const c = await runFlow(store, 'r', guardedNet, { runTask, keyOf: ( tr, t ) => 'g:' + t.payload.n });
+	const st = store.stats('r');
+	const done = store.marking('r').done || [];
+	return { blamed: c.blamed, joins: c.joins, folds: c.folds, done: st.done, failed: st.failed, joined: st.joined,
+		total: done[0] && done[0].payload ? done[0].payload.total : undefined };
+}
+
 module.exports = { specSum, specCat, specTask, netSum, netCat, netTask, keyOf, foldKeyOf, makeRunTask, score,
-	openBoxSum, openBoxCat, soundAndOrder, amortize, crossRestart, crashResume };
+	openBoxSum, openBoxCat, soundAndOrder, amortize, crossRestart, crashResume, guardedNet, failFast };
 
 if ( require.main === module ) {
 	(async () => {

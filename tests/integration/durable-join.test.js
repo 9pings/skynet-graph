@@ -19,6 +19,7 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const mr = require('../../examples/poc/durable-mapreduce.js');
+const { createMemoryCheckpointStore, createSqliteCheckpointStore } = require('../../lib/durable/checkpoint-store.js');
 
 function tmpDir() { return fs.mkdtempSync(path.join(os.tmpdir(), 'sg-mrj-')); }
 
@@ -79,4 +80,24 @@ test('CRASH-RESUME of a half-complete JOIN is SOUND at EVERY fuel cut (no work l
 		assert.ok(sawLeased, 'some cut left an in-flight (leased) token — a real crash window');
 		assert.ok(sawJoined, 'some cut left a PARTIALLY-joined group — committed parks + recovered in-flight');
 	} finally { fs.rmSync(dir, { recursive: true, force: true }); }
+});
+
+test('C-FAIL: a map child that fails does NOT hang its join — fail-fast (regression: it used to hang forever)', async () => {
+	for ( const mk of [createMemoryCheckpointStore, () => createSqliteCheckpointStore({})] ) {
+		// one out-of-range element (999) violates the score∈[0,100] guard → the WHOLE group fails-fast, no hang.
+		const bad = await mr.failFast(mk, [10, 999, 30]);
+		assert.equal(bad.folds, 0, 'no partial fold over a failed group (never present a partial as complete)');
+		assert.equal(bad.done, 0, 'the record fails cleanly');
+		assert.equal(bad.failed, 3, 'the violating child AND its siblings all fail (fail-fast); nothing parked forever');
+		assert.equal(bad.joined, 0, 'no token is left parked (the hang is gone)');
+		// negative control: an all-valid group still folds correctly (fail-fast did not break the happy path)
+		const good = await mr.failFast(mk, [10, 20, 30]);
+		assert.equal(good.folds, 1, 'a clean group still folds');
+		assert.equal(good.total, 60, 'with the correct total');
+		assert.equal(good.failed, 0, 'no spurious failures');
+		// an ERRORING task fails-fast too (and does NOT crash the drain)
+		const threw = await mr.failFast(mk, [1, -5, 3], 'throw');
+		assert.equal(threw.done, 0, 'an erroring child fails its group');
+		assert.equal(threw.failed, 3, 'the drain caught the throw and fail-fasted the group (no crash)');
+	}
 });
