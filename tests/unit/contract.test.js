@@ -139,6 +139,20 @@ test('reviseOnBlame — a violated post SPECIALIZES the precondition (CEGIS), it
 	assert.deepEqual(contract.pre, [], 'the original contract is not mutated (a new version)');
 });
 
+test('satisfies + reviseOnBlame CLOSE the un-learn loop: the revised pre excludes the failing case, admits others', () => {
+	const contract = { read: ['score'], write: ['decision'], pre: ['score>=700'], post: ["decision=='approve'"], effect: 'internal' };
+	// before: a EU app and a US app (both score 720) are BOTH admitted by the over-general pre
+	assert.equal(C.satisfies(contract.pre, { score: 720, region: 'EU' }), true, 'EU admitted before revision');
+	assert.equal(C.satisfies(contract.pre, { score: 720, region: 'US' }), true, 'US admitted before revision');
+	// a EU case failed (non-compliant) → revise the pre with the discriminating fact
+	const revised = C.reviseOnBlame(contract, { key: 'region', value: 'EU' });
+	// after: EU is EXCLUDED (the library un-learned the over-general claim) but US still ADMITTED (surgical, not removal)
+	assert.equal(C.satisfies(revised.pre, { score: 720, region: 'EU' }), false, 'EU now excluded (un-learned)');
+	assert.equal(C.satisfies(revised.pre, { score: 720, region: 'US' }), true, 'US still admitted (not over-retracted)');
+	// negative control: a low score is excluded by the original gate regardless
+	assert.equal(C.satisfies(revised.pre, { score: 650, region: 'US' }), false, 'the original score gate still holds');
+});
+
 test('acceptRate — the MEASURED typed-coverage fraction (refuse-everything does not trivially pass)', () => {
 	const r = C.acceptRate(['sound', 'sound', 'escalate', 'unsound', 'sound']);
 	assert.equal(r.sound, 3); assert.equal(r.escalate, 1); assert.equal(r.unsound, 1); assert.equal(r.n, 5);
