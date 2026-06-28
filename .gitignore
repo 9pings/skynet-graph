@@ -37,7 +37,6 @@ node_modules
 /.claude/
 # R&D working trail + offline papers — kept local, not published
 /doc/WIP/
-# paper/experiment tests that depend on the offline doc/WIP harnesses — kept local
-/tests/integration/paper-*.test.js
+# pre-DLL-campaign experiment tests that import other offline doc/WIP harnesses — kept local
 /tests/integration/f6-transfer.test.js
 /tests/integration/defeasance-wedge.test.js
