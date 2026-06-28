@@ -74,7 +74,7 @@ canonicalizable structure amortizes; genuinely novel reasoning stays in the mode
 Per-call context stays **constant** as the problem grows — engine **O(N)** total vs a naive **O(N²)**.
 
 **Amortization + drift (the durable executor, Use 2).** A recurrent typed stream of 24 cases with a mid-stream
-policy drift, live local model (`doc/WIP/experiments/2026-06-28-durable-executor/measure-live.js`):
+policy drift, live local model:
 
 |                          | model calls | wall  | correct on drift |
 |--------------------------|------------:|------:|------------------|
@@ -130,7 +130,6 @@ The `LLM::complete` provider is backend-agnostic: inject any async `ask`, or use
 | [doc/concept-as-graph.md](doc/concept-as-graph.md) | The conception: the two-faced method, bounded context by contract, forge / reuse, the durable executor, the un-learn moat |
 | [doc/MODELISATION.md](doc/MODELISATION.md) | The full model + R&D roadmap |
 | [doc/concept-learning.md](doc/concept-learning.md) | *(optional, shelved)* training concept-populations at the fixpoint |
-| [doc/WIP/](doc/WIP/) | The R&D trail — studies, experiments, the live handoff ledger |
 
 > **Heads-up.** Active R&D. Use 1 is solid and tested; Use 2 is an advancing conception with measured PoCs (not a
 > product). **How best to organize concepts is still open** — treat the shipped `concepts/` sets as illustrative,

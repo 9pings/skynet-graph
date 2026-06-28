@@ -106,12 +106,12 @@ Cross-fork recombination (`Merge::combine` — sheaf-style agree/borderline/conf
 **tree-decomposition tiling** (`forkPlan` derives the candidate forks + each fork's frontier
 alphabet straight off the concept-dependency graph) close the loop. D & P are literally *one fold
 parameterized by a semiring* (provenance semirings, Green-Tannen 2007); the full study trail and
-the on-engine experiments are in [WIP/](WIP/).
+the on-engine experiments are kept in the project's local R&D notes.
 
 ## 4c. Two levels — ecosystems and the concept population
 
-The system factors on **two orthogonal axes** (verified — see [`WIP/sota/2026-06-26-two-level-coherence-review.md`](WIP/sota/2026-06-26-two-level-coherence-review.md)
-and the full statement in [`WIP/studies/2026-06-26-concepts-dynamiques-grammaire-induction.md` §5ter](WIP/studies/2026-06-26-concepts-dynamiques-grammaire-induction.md)).
+The system factors on **two orthogonal axes** (verified against the project's local two-level-coherence
+review and grammar-induction study).
 
 **Level 1 — ecosystems (worlds).** `fork`/`merge` are boundaries between interdependent sub-worlds: each fork is a
 possible world with its own concept pool and a deliberately **narrow snapped *interface grammar*** (the separator
@@ -228,5 +228,5 @@ composable methods, the durable executor, and the C-contract / un-learn loop —
 performance work, and the biggest research piece is **how to organize concepts** — the current bet is a
 semantically-meaningful hierarchical corpus keyed on *human vocabulary*, with judgment delegated to a
 better-model supervisor while the rules handle orchestration + coherence. The shipped `concepts/common/` set is an
-*illustration*, not a recommended ontology. The detailed, evolving roadmap and the critical
-self-studies live in [doc/WIP/](WIP/) (start with `WIP/HANDOFF.md` and `MODELISATION.md`).
+*illustration*, not a recommended ontology. The detailed, evolving roadmap is in
+[MODELISATION.md](MODELISATION.md); the critical self-studies are kept in the project's local R&D trail.

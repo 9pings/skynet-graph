@@ -10,8 +10,7 @@
 > stabilizes typed-fact concepts to a fixpoint — see [architecture.md](architecture.md)) and wants to
 > understand the **learning** subsystem under `lib/authoring/`. Everything here is **host-side and
 > ZERO-CORE** — it does not touch `lib/graph/`. The full R&D trail (with the per-step measurements
-> "F1…F9") is in [doc/WIP/experiments/2026-06-26-dynamic-concepts/LOG.md](WIP/experiments/2026-06-26-dynamic-concepts/LOG.md);
-> this doc is the durable summary.
+> "F1…F9") is kept in the project's local R&D notes; this doc is the durable summary.
 
 ## 1. The question
 
@@ -166,4 +165,4 @@ recurring sub-derivation into one typed production; this subsystem learns and se
 NN populations. They share the **memo-stability discipline** (a learned output must not leak onto a
 snapped gate/memo surface — `memo-stability.js`). The open frontier: an engine-internal feedback loop
 (no unroll), deeper/heterogeneous topologies, a self-training loop (the population observes episodes and
-trains itself), and non-toy distillation. See the live ledger in [doc/WIP/HANDOFF.md](WIP/HANDOFF.md).
+trains itself), and non-toy distillation.

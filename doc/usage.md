@@ -127,7 +127,7 @@ Graph.register(Graph.loadProviders('./my-providers', { ask: myModelBackend }));
 g.pushMutation(template, targetId);   // create/update objects, mark unstable
 ```
 
-Key rules (hard-won — see `doc/WIP/HANDOFF.md` §3):
+Key rules (hard-won):
 
 - **A concept must self-flag** with its own `_name` (e.g. write `Distance: true` /
   `{$_id:'_parent', <Name>: true}`) or it re-fires forever.

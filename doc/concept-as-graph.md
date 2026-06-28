@@ -3,9 +3,8 @@
 > **Audience:** a reader who knows the substrate (Use 1 — a rule-driven graph that stabilizes typed-fact concepts
 > to a fixpoint, with JTMS retraction and git-like revisions; see [architecture.md](architecture.md)) and wants
 > the high-level goal built on top of it. Everything here is **host-side and ZERO-CORE** — it does not touch
-> `lib/graph/`, and it is **additive**: Use 1 needs none of it. The canonical, specialist-confronted design is
-> [WIP/studies/2026-06-28-concept-as-graph-conception-assembled.md](WIP/studies/2026-06-28-concept-as-graph-conception-assembled.md);
-> the build LOGs are under [WIP/experiments/2026-06-28-*](WIP/experiments/). This doc is the durable summary.
+> `lib/graph/`, and it is **additive**: Use 1 needs none of it. The canonical, specialist-confronted design and
+> the build LOGs are kept in the project's local R&D notes. This doc is the durable summary.
 
 ## 0. The thesis, in one paragraph
 
