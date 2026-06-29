@@ -41,7 +41,7 @@ après quoi la bibliothèque est révisée, non jetée. La structure typée qui 
 aussi sa réutilisation amortissable et sa composition vérifiable sur les seuls contrats, à contexte par appel
 borné. Sur un moteur réel à base de règles, cohérent par maintien de la vérité (JTMS), en isolant chaque mécanisme :
 (E2) sous une invalidation de prémisse externe en cours de flux, les mémoires par rappel seul servent du périmé,
-tandis que tout cache doté d'un crochet d'invalidation récupère --- ce qu'un contrat typé déclaratif ajoute à un
+tandis que tout cache doté d'un crochet d'invalidation récupère. Ce qu'un contrat typé déclaratif ajoute à un
 rappel codé à la main, c'est une éviction sélective et principielle, plus la généralité et la sûreté de composition
 (confirmé sur modèle réel) ; (E1) le transfert structurel inter-problèmes est correct et gratuit sur des instances
 apparentées tenues à l'écart, tandis que l'ablation sans transformation est non saine, et le seul nombre d'appels
@@ -50,12 +50,18 @@ boîte ouverte sur chaque paire évaluée (aucun faux-admis), chacune des trois 
 (P4) l'amortissement est un gradient de la fraction canonicalisable, avec sûreté à chaque couverture et non-sûreté
 au-delà ; (E6) en tête-à-tête face aux systèmes de mémoire d'agents \emph{nommés} (MemGPT, Reflexion, GraphRAG),
 chacun --- dans sa configuration la plus favorable --- peut récupérer à la dérive, mais seul le contrat typé
-récupère au moindre coût sur (appels $\times$ exactitude $\times$ contexte) \emph{simultanément} : l'unique point
-Pareto-optimal. (E7) à travers une \textbf{chaîne} apprise de méthodes à deux maillons, le coin tient et se
-\emph{renforce} : la péremption d'une mémoire par rappel seul se compose de maillon en maillon (et $\propto$
-profondeur de chaîne) tandis que le contrat typé récupère \textbf{les deux} maillons sélectivement à un coût de
-récupération en $O(1)$ en la longueur de la chaîne --- mesuré sur la vue-croyance, reproduit sur le vrai exécuteur
-durable (avec redémarrage et reprise-après-crash), et confirmé sur un modèle local réel. Aucun mécanisme n'est nouveau (JTMS, contrats à blâme, apprentissage de bibliothèque, révision de théorie,
+récupère au moindre coût sur (appels $\times$ exactitude $\times$ contexte) \emph{simultanément} : le seul bras qui
+récupère à la dérive tout en restant non-dominé (aucun bras ne l'égale-ou-bat sur les appels ET le contexte par
+appel tout en récupérant ; les bras moins chers sont sur la frontière de coût mais échouent à la dérive). (E7) à
+travers une \textbf{chaîne} apprise de méthodes à deux maillons, le coin tient et se
+\emph{renforce} : la péremption d'une mémoire par rappel seul se cumule de maillon en maillon tandis que le contrat
+typé récupère \textbf{les deux} maillons sélectivement --- mesuré sur la vue-croyance et confirmé sur un modèle
+local réel pour le tête-à-tête à deux maillons ; reproduit sur le vrai exécuteur durable (redémarrage et
+reprise-après-crash) et montré passer à l'échelle en profondeur (péremption $\propto L$, récupération en $O(1)$) sur
+le simulateur déterministe. (E8) la moitié \emph{réviser} de la boucle --- spécialiser la précondition d'une méthode
+sur blâme --- désapprend une affirmation trop générale en un seul blâme puis se stabilise (0 re-blâme, faux-admis
+$\to$ 0), là où la seule éviction de cache re-blâme et re-dérive la classe périmée à chaque épisode (coût
+$\propto K$). Aucun mécanisme n'est nouveau (JTMS, contrats à blâme, apprentissage de bibliothèque, révision de théorie,
 logique de séparation) ; la contribution est leur composition en une bibliothèque apprise de méthodes typées qui
 réalise un désapprentissage principiel et sélectif à la dérive --- ce que les mémoires par rappel seul ne font pas
 --- bornée par un plafond \K{} mesuré.
@@ -106,11 +112,11 @@ chaque expérience établit ou non.
 Une \textbf{méthode} est, pour son appelant, une boîte noire à contrat typé ; à l'intérieur, des
 \emph{productions} la réalisent (séquence, branchement, map, fold). Formellement, un non-terminal de remplacement
 d'hyperarêtes~\cite{habel1992,drewes1997} à sélection conditionnée par précondition~\cite{erol1994}. Nous tenons
-deux régimes séparés par \emph{intention de conception} (nous ne prouvons pas la décidabilité ici) : la
-\textbf{grammaire des méthodes} est \emph{censée} rester décidable via un rang de montage bien fondé et des
-invariants de typage --- l'existence d'un plan HTN récursif est indécidable en général~\cite{erol1996} --- tandis
-que l'\textbf{exécution} sur des données de taille d'exécution est une couche explicitement bornée par budget,
-Turing-complète. Le lien à la logique monadique du second ordre~\cite{courcelle1990} est une motivation, non un
+deux régimes séparés par \emph{intention de conception} (nous ne prouvons pas la décidabilité ici). La
+\textbf{grammaire des méthodes} est \emph{censée} rester décidable, via un rang de montage bien fondé et des
+invariants de typage ; l'existence d'un plan HTN récursif étant indécidable en général~\cite{erol1996}, nous nous
+restreignons au fragment bien fondé. L'\textbf{exécution} sur des données de taille d'exécution est l'inverse : une
+couche explicitement bornée par budget, Turing-complète. Le lien à la logique monadique du second ordre~\cite{courcelle1990} est une motivation, non un
 théorème établi ici.
 
 \subsection{Le contrat : un triplet de séparation défaisable}
@@ -120,7 +126,9 @@ par une discipline d'empreintes de logique de séparation~\cite{ohearn2001,reyno
 Pour une méthode \emph{apprise} la postcondition est une hypothèse induite : \textbf{supposée à la composition,
 vérifiée à la stabilisation, rétractée avec blâme}~\cite{findler2002,bader2018}. Le moniteur d'exécution est le
 JTMS~\cite{doyle1979}, donnant une sûreté \emph{éventuelle} (non statique) --- précisément le désapprentissage qui
-manque aux références.
+manque aux références. Ce désapprentissage est symbolique (une rétractation de croyance par JTMS) et distinct du
+\emph{machine unlearning} paramétrique~\cite{bourtoule2021}, qui efface l'influence de données d'entraînement des
+poids d'un modèle.
 
 \subsection{Pipeline et le plancher \K{}}
 Une formulation est typée en un but ; une méthode est sélectionnée et composée sur contrats ; les cas la traversent ;
@@ -171,7 +179,7 @@ le moteur complet} (graphe + stabilisation + JTMS) ; \textbf{E2, P4 et E5 isolen
 prétendons pas qu'E2 exerce la rétractation JTMS native (il la ré-implémente sur le même prédicat réel). Le modèle
 est un \textbf{simulateur déterministe} (oracle parfait de la règle \emph{courante} étant donné seulement ce que
 révèle l'invite --- toute péremption/coût vient du mécanisme, non d'une erreur modèle) ou un \textbf{modèle local
-réel} (\texttt{qwen36-q2-vram}). Chaque exécution est conditionnée par un \textbf{auto-test du banc} (sous le
+réel} (Qwen3.6-27B (Q2\_K\_XL, MTP)). Chaque exécution est conditionnée par un \textbf{auto-test du banc} (sous le
 simulateur le bras naïf doit être parfait, sinon avortement). Sept bras partagent une interface : Naïf,
 Long-contexte, RAG, CBR (clé typée, sans re-vérification), Compétence (prose), \textbf{Invalidant} (cache à clé
 typée + rappel grossier codé à la main : crochet d'invalidation, sans contrat typé), et \textbf{Struct} (la
@@ -208,9 +216,11 @@ d'invalidation}, et l'Invalidant comme Struct en ont un (exactitude-dérive 1.00
 défaisable typé ajoute au rappel codé à la main} : (i) la \emph{sélectivité} --- Struct re-vérifie la post par
 entrée (\texttt{satisfies}) et n'évince que les 2 classes \emph{violées} (approve), là où le rappel jette des
 classes entières (4 entrées) et paie les re-dérivations supplémentaires (26 vs 28 appels) ; (ii) la
-\emph{généralité} ; (iii) la \emph{sûreté de composition} (§\ref{sec:e3}). L'exécution réelle
-(\texttt{qwen36-q2-vram}, $N{=}48$) reproduit ceci : RAG/CBR/Compétence 0.00 ; Invalidant 14 appels / 1.00 ; Struct
-13 appels / 2.8\,s / 1.00 / ctx 278 vs Long-contexte 1304. L'affirmation défendable n'est pas « seul Struct
+\emph{généralité} --- le même \texttt{assertPost}, agnostique-à-la-prémisse par construction (les expériences
+n'exercent qu'un seul type de prémisse, un basculement de drapeau de conformité) ; (iii) la \emph{sûreté de
+composition} (§\ref{sec:e3}). L'exécution réelle (Qwen3.6-27B (Q2\_K\_XL, MTP), $N{=}48$) reproduit ceci :
+RAG/CBR/Compétence 0.00 ; Invalidant 14 appels / 1.00 ; Struct 13 appels / 2.6\,s / 1.00 / ctx 278 vs
+Long-contexte 1304. L'affirmation défendable n'est pas « seul Struct
 récupère » mais « la mémoire par rappel seul ne sait pas désapprendre, et un contrat typé déclaratif fournit la
 récupération de façon sélective, générale et sûre en composition ».
 
@@ -268,8 +278,8 @@ $N$ & appels Struct & appels/$N$ & appels Naïf & bibliothèque & évincés \\
 
 Les appels de Struct restent constants ($\to$ appels/$N\to0$ tandis que Naïf reste à un) ; la bibliothèque est
 bornée par le nombre de classes (trivialement) ; une dérive ne rétracte que les classes invalidées
-($O(\text{invalidé})$ : 2 sur 200). Coûts par opération : canonicalisation $\approx0{,}5$--$3{,}5\,\mu$s/appel
-(l'écart = chauffe JIT), une passe d'éviction $\approx0{,}5$\,ms. Le contenu honnête est étroit : le bookkeeping
+($O(\text{invalidé})$ : 2 sur 200). Coûts par opération : canonicalisation de quelques $\mu$s/appel
+(dépend de l'environnement), une passe d'éviction $\approx0{,}5$\,ms. Le contenu honnête est étroit : le bookkeeping
 typé n'est pas le goulet. Il ne teste \textbf{pas} l'échelle dans la dimension qui compte (bibliothèque croissante
 de méthodes \emph{distinctes}, corpus réel, modèle réel sur tous les bras) --- travail futur.
 
@@ -296,36 +306,38 @@ GraphRAG (index hors-ligne) & 87 & 0,92 & 0,00 & 336 \\
 \textbf{Struct} & \textbf{20} & \textbf{1,00} & \textbf{1,00} & \textbf{290} \\
 \bottomrule
 \end{tabular}
-\caption{E6. Dans sa configuration la plus favorable chaque système nommé peut récupérer ; seul Struct est Pareto-optimal sur (appels, exact.-dérive, contexte).}
+\caption{E6. Dans sa configuration la plus favorable chaque système nommé peut récupérer ; seul Struct récupère à la dérive tout en restant non-dominé sur (appels, exact.-dérive, contexte).}
 \label{tab:e6}
 \end{table}
 
 La lecture honnête n'est \emph{pas} « seul Struct récupère » : dans sa configuration la plus favorable, chaque
 système nommé peut récupérer à la dérive. Le propos est que Struct récupère au moindre coût sur les trois axes à la
-fois --- l'\textbf{unique point Pareto-optimal} sur (appels $\times$ correct-à-la-dérive $\times$ contexte par
-appel) ; aucun autre bras ne l'égale-ou-le-bat sur les trois. Chaque système nommé paie une taxe propre : MemGPT ne
+fois --- c'est le seul bras qui récupère à la dérive tout en restant non-dominé (aucun bras ne l'égale-ou-bat sur
+les appels ET le contexte par appel tout en récupérant ; les bras moins chers sont sur la frontière de coût mais
+échouent à la dérive). Chaque système nommé paie une taxe propre : MemGPT ne
 récupère qu'en paginant l'audit fait-surface en mémoire core (un tour modèle), puis \emph{grossièrement} (un
 drapeau de classe entière re-décidant même les membres non concernés) avec un bloc core dans chaque invite ;
 Reflexion n'a \emph{aucun} mémo adressé par contenu, donc émet un appel modèle sur \emph{chaque} enregistrement
 (appels $\approx N$) et ne récupère que réactivement après un échec observé ; l'index hors-ligne de GraphRAG est
 aveugle à l'audit silencieux (périmé), ne récupérant que par un \emph{ré-résumé par lot} (grossier, hors-bande),
-jamais un défaiseur par entrée. Les ablations confirment que chaque mécanisme est porteur (éteint $\to$
-exact.-dérive 0,00). En isolation, la taxe de récupération de Struct est la re-dérivation des seules entrées
-\emph{violées} (sélectif) et la ré-assertion du contrat est intra-moteur (\textbf{zéro} appel modèle). Un essai en
-direct (\texttt{qwen36-q2-vram}, $N=32$) reproduit l'ordre : Struct 9 appels / 1,9\,s, MemGPT 11 / 2,3\,s,
-Reflexion 34 / 7,1\,s, GraphRAG 36 / 7,7\,s (périmé). Ce sont des ré-implémentations minimales fidèles, pas les
-systèmes complets.
+jamais un défaiseur par entrée. Les systèmes nommés n'ont pas été conçus pour amortir des décisions ponctuelles
+typées récurrentes ; cette charge les éprouve hors de leur domaine de conception, de sorte que la « taxe » est le
+coût d'un outil inadapté, non une infériorité à leur propre tâche. Les ablations confirment que chaque mécanisme
+est porteur (éteint $\to$ exact.-dérive 0,00). En isolation, la taxe de récupération de Struct est la re-dérivation
+des seules entrées \emph{violées} (sélectif) et la ré-assertion du contrat est intra-moteur (\textbf{zéro} appel
+modèle). Un essai en direct (Qwen3.6-27B (Q2\_K\_XL, MTP), $N=32$) reproduit l'ordre : Struct 9 appels / 1,9\,s,
+MemGPT 11 / 2,3\,s, Reflexion 34 / 7,1\,s, GraphRAG 36 / 7,7\,s (périmé). Ce sont des ré-implémentations minimales
+fidèles, pas les systèmes complets.
 
-\subsection{E7 --- composition à la dérive}\label{sec:e7}
+\subsection{E7 --- composition à la dérive}
 E6 mesure une \emph{seule} méthode. Le différenciateur d'une \emph{bibliothèque} est la composition : lorsque la
 prémisse d'une méthode amont tombe, la récupération se propage-t-elle dans la chaîne ? Nous étendons la charge à une
 chaîne à deux maillons --- \texttt{decide $\to$ disburse}, où \texttt{disbursement = disbursed iff decision ==
 approve} (le maillon 2 lit le fait-résultat du maillon 1) --- et ré-exécutons le tête-à-tête en notant les
 \textbf{deux} maillons. Le même audit exogène se propage désormais en cascade : un cas audité à score élevé doit
 faire basculer \texttt{decision} approve$\to$reject \textbf{et} \texttt{disbursement} disbursed$\to$held.
-Simulateur déterministe ($N{=}78$, deux classes auditées) et une exécution réelle (\texttt{qwen3.6-27b-mtp} dans LM
-Studio, $N{=}48$, quatre classes auditées, bras répartis en éventail sur 4 voies sur le serveur parallèle),
-Table~\ref{tab:e7}.
+Simulateur déterministe ($N{=}78$, deux classes auditées) et une exécution réelle (Qwen3.6-27B (Q2\_K\_XL, MTP),
+$N{=}48$), Table~\ref{tab:e7}.
 
 \begin{table}[h]\centering
 \begin{tabular}{lccc}
@@ -333,7 +345,7 @@ Table~\ref{tab:e7}.
 bras & appels (simu / réel) & exact.-dérive maillon 1 & exact.-dérive maillon 2 \\
 \midrule
 Naïf & 156 / 96 & 1,00 & 1,00 \\
-CBR ($=$ Struct $-$ contrat) & 36 / 24 & \textbf{0,00 / 0,50} & \textbf{0,00 / 0,50} \\
+CBR ($=$ Struct $-$ contrat) & 36 / 24 & \textbf{0,00} & \textbf{0,00} \\
 MemGPT (le plus favorable) & 45 / 41 & 1,00 & 1,00 \\
 Reflexion (le plus favorable) & 160 / 108 & 1,00 & 1,00 \\
 GraphRAG $+$ ré-index & 178 / 116 & 1,00 & 1,00 \\
@@ -341,22 +353,24 @@ GraphRAG $+$ ré-index & 178 / 116 & 1,00 & 1,00 \\
 Struct (moteur complet) & 38 / 27 & 1,00 & 1,00 \\
 \bottomrule
 \end{tabular}
-\caption{E7 (simu / réel). Chaîne à deux maillons \texttt{decide $\to$ disburse} : la péremption par rappel seul se compose aux deux maillons ; Struct récupère les deux sélectivement et est l'unique point Pareto sur (appels, exact.-dérive maillon 1, exact.-dérive maillon 2, contexte).}
+\caption{E7 (simu / réel). Chaîne à deux maillons \texttt{decide $\to$ disburse} : la péremption par rappel seul se cumule aux deux maillons ; Struct récupère les deux sélectivement et est l'unique point Pareto-optimal parmi les bras corrects-à-la-dérive sur (appels, exact.-dérive maillon 1, exact.-dérive maillon 2, contexte).}
 \label{tab:e7}
 \end{table}
 
-Trois choses sont mesurées. (i) \textbf{La péremption se compose.} Tout bras par rappel seul ou aveugle (CBR, et
+Trois choses sont mesurées. (i) \textbf{La péremption se cumule.} Tout bras par rappel seul ou aveugle (CBR, et
 l'ablation de chaque système nommé) est faux au maillon 1 \emph{et} au maillon 2 : une réponse amont périmée
-empoisonne le maillon aval qui la lit (dérive en simu $0{,}00\to0{,}00$ ; les partiels en réel $0{,}38$--$0{,}75$
-sont la même péremption, diluée par les erreurs pré-audit propres au modèle --- voir \S6). (ii) \textbf{La taxe de
+empoisonne le maillon aval qui la lit. L'exactitude à la dérive est mesurée sur l'oracle déterministe ; l'exécution
+réelle confirme l'ordre des appels et du temps (le modèle réel est imparfait à petit $N$, nous ne lisons donc pas
+la dérive par enregistrement sur lui). (ii) \textbf{La taxe de
 récupération se multiplie le long de la chaîne.} Reflexion, sans mémo, paie un appel par enregistrement \emph{par
 maillon} (appels $\approx 2N$) ; GraphRAG ré-indexe les communautés concernées à \emph{chaque} maillon ; MemGPT
 paie la pagination $+$ un re-décodage grossier $+$ un contexte plus grand aux \emph{deux} maillons. (iii)
 \textbf{La cascade de Struct est sélective.} Une prémisse tombée dé-cast la croyance amont et le changement se
 propage à l'aval --- récupérant les deux maillons tout en re-dérivant \emph{seulement} l'entrée amont violée (la
 re-dérivation aval est élidée car sa clé de cache est l'ensemble de lecture réel de disburse
-\texttt{\{kind, region, decision\}}). Struct est l'unique point Pareto-optimal sur (appels $\times$ exact.-dérive
-maillon 1 $\times$ exact.-dérive maillon 2 $\times$ contexte par appel), en simu comme en réel ; la réalisation sur
+\texttt{\{kind, region, decision\}}). Struct est l'unique point Pareto-optimal parmi les bras corrects-à-la-dérive
+sur (appels $\times$ exact.-dérive maillon 1 $\times$ exact.-dérive maillon 2 $\times$ contexte par appel), en simu
+comme en réel ; la réalisation sur
 moteur complet (quatre concepts \emph{ensure}-gated au-dessus du cache de dérivation) la reproduit ($38{=}38$ en
 simu ; $26\approx27$ en réel, dans le non-déterminisme du modèle). C'est la capacité qui manque structurellement
 aux mémoires de surface nommées : une croyance qui dépend d'une prémisse qui vient de tomber, désapprise
@@ -364,12 +378,17 @@ aux mémoires de surface nommées : une croyance qui dépend d'une prémisse qui
 
 \textbf{Le coin s'élargit avec la profondeur de chaîne.} En généralisant la chaîne à $L$ maillons (chacun positif
 ssi le précédent l'est), la péremption et le coût croissent tous deux tandis que la récupération de Struct, non :
-la \emph{profondeur de composition} d'un cache par rappel seul (maillons faux sur une classe dérivée) vaut
+la \emph{profondeur de cumul} d'un cache par rappel seul (maillons faux sur une classe dérivée) vaut
 exactement $L$ ; Naïf et Reflexion paient $O(L{\cdot}N)$ appels ; mais la \textbf{taxe de dérive} de la
 récupération de Struct est en $O(1)$ en $L$ --- la cascade ne re-dérive que l'entrée amont violée, chaque
 re-dérivation aval réutilisant l'entrée d'ensemble-de-lecture d'un frère. Ainsi, plus la chaîne de méthodes
-apprises est profonde, plus l'avantage de Struct est grand sur l'écart d'exactitude (composition $\propto L$) et
-sur l'efficacité de récupération ($O(1)$ contre une reconstruction grossière en $O(L)$).
+apprises est profonde, plus l'avantage de Struct est grand sur l'écart d'exactitude (cumul $\propto L$) et
+sur l'efficacité de récupération ($O(1)$ contre une reconstruction grossière en $O(L)$). (La récupération en $O(1)$
+tient lorsque chaque re-dérivation aval retombe sur une clé de cache qu'un frère a déjà remplie --- vrai ici : la
+branche négative est partagée et les frères à faible score la pré-remplissent ; sous un fort éventail aval, la taxe
+de récupération croît vers $O(L)$. Le cumul $\propto L$ découle par construction du fait de définir le maillon $i$
+comme une fonction du maillon $i-1$, et est mesuré sur le simulateur déterministe --- le balayage en $L$ en réel est
+confondu par le bruit, \S6.)
 
 \textbf{Sur le vrai exécuteur durable.} Ce qui précède est la vue-croyance (le graphe à base de règles $+$ la
 rétractation JTMS). La même chaîne compilée en un réseau de workflow et exécutée comme un flot de jetons sur un
@@ -381,8 +400,42 @@ zéro appel modèle}, et une chaîne coupée en plein vol \textbf{reprend sans t
 en vue-croyance et l'exécution durable sont complémentaires : le contrat rétracte la croyance ; l'exécuteur rend le
 recalcul durable et sélectif.
 
+\subsection{E8 --- révision de bibliothèque sous dérive récurrente}\label{sec:e8}
+E2/E6/E7 mesurent le chemin \emph{rétracter $\to$ re-dériver} : une post violée évince la croyance en cache, qui est
+ensuite re-dérivée. L'autre moitié de la boucle --- \emph{réviser} : spécialiser la précondition de la méthode sur
+blâme, de sorte que la bibliothèque soit améliorée, non simplement ré-évaluée --- est évaluée ici. Nous exécutons
+$K{=}5$ épisodes de dérive récurrente (les mêmes classes reviennent à chaque épisode après qu'une précondition trop
+générale a été exposée) et comparons l'éviction-seule à la révision via le \texttt{reviseOnBlame} du moteur
+(Table~\ref{tab:e8}).
+
+\begin{table}[h]\centering
+\begin{tabular}{lcc}
+\toprule
+sur $K{=}5$ épisodes & Éviction-seule & Révision (\texttt{reviseOnBlame}) \\
+\midrule
+blâmes (par épisode $\to$ cumulatif) & 1,1,1,1,1 $\to$ 5 & 1,0,0,0,0 $\to$ 1 \\
+re-dérivations (appels modèle) & 4,1,1,1,1 $\to$ 8 & 4,1,0,0,0 $\to$ 5 \\
+taux de faux-admis & 0,25 à chaque épisode & 0,25 $\to$ 0,00 après e1 \\
+\bottomrule
+\end{tabular}
+\caption{E8. L'éviction-seule re-blâme et re-dérive la classe périmée à chaque épisode (coût $\propto K$) ; la révision spécialise la précondition une fois puis se stabilise (0 re-blâme, faux-admis $\to$ 0).}
+\label{tab:e8}
+\end{table}
+
+L'éviction-seule conserve la règle trop générale, donc elle ré-admet, re-blâme et re-dérive la même classe périmée
+à \emph{chaque} épisode (coût $\propto K$). La révision spécialise la précondition une seule fois --- en la
+restreignant avec l'atome discriminant du contre-exemple --- puis se stabilise : plus aucun blâme, faux-admis
+$\to$ 0. La révision est \emph{chirurgicale} : la précondition spécialisée exclut la classe fautive tout en
+admettant encore son frère (elle restreint, elle ne supprime pas la méthode). L'effet tient pour deux types de
+prémisse --- un basculement de conformité catégoriel (\texttt{\$compliant != false}) et une porte numérique
+(\texttt{\$score != 680}). \textbf{Limite honnête :} \texttt{reviseOnBlame} spécialise par exclusion ponctuelle de
+contre-exemple, non par resserrement de borne ; une dérive numérique couvrant $D$ valeurs distinctes converge en
+$D$ blâmes ponctuels (bornés, par valeur) plutôt qu'en un seul déplacement de borne --- toujours catégoriquement
+mieux que la récurrence par épisode de l'éviction-seule. C'est l'étape qui distingue le contrat de l'invalidation
+de cache (\S5) : le blâme alimente la \emph{révision de bibliothèque}, non le seul recalcul de valeurs.
+
 \section{Travaux apparentés}
-\textbf{Recherche et mémoire de cas.} RAG~\cite{lewis2020} et CBR rappellent par similarité ; ils ne représentent
+\textbf{Recherche et mémoire de cas.} RAG~\cite{lewis2020} et CBR~\cite{aamodt1994} rappellent par similarité ; ils ne représentent
 pas une \emph{prémisse devenant invalide} (E2). Les bibliothèques de compétences (Voyager~\cite{wang2023}) stockent
 de la \emph{prose} sans prémisse défaisable.
 
@@ -393,8 +446,9 @@ pourrait s'y placer comme couche de rétractation. Nous menons ce tête-à-tête
 sa configuration la plus favorable, peut récupérer, mais seul le contrat défaisable le fait au moindre coût sur
 (appels $\times$ exactitude $\times$ contexte) simultanément.
 
-\textbf{Apprentissage de bibliothèque.} DreamCoder~\cite{ellis2021} et Stitch~\cite{bowers2023} font croître une
-bibliothèque par abstraction~\cite{plotkin1970} ; sans contrat d'exécution défaisable.
+\textbf{Apprentissage de bibliothèque / EBL.} DreamCoder~\cite{ellis2021} et Stitch~\cite{bowers2023} font croître une
+bibliothèque par abstraction~\cite{plotkin1970} ; l'EBG~\cite{mitchell1986} spécialise depuis une seule preuve ;
+aucun n'attache de contrat d'exécution défaisable.
 
 \textbf{Contrats, blâme, vérification graduelle.}~\cite{findler2002,bader2018} sont la lignée de notre discipline,
 appliquée aux méthodes \emph{apprises}.
@@ -405,25 +459,26 @@ séparation~\cite{ohearn2001,reynolds2002}, problème du cadre~\cite{mccarthy196
 
 \textbf{Révision de théorie/croyances (le voisin le plus proche).} \texttt{reviseOnBlame} relève de la révision de
 théorie d'une base de règles \emph{apprise} : EITHER~\cite{ourston1994} et FORTE~\cite{richards1995} révisent des
-théories Horn sur contre-exemples ; la révision d'un ensemble de croyances est l'AGM~\cite{agm1985}. Notre apport
-est opérationnel : attacher la révision à une bibliothèque de méthodes \emph{typée, composable, canonicalisable}.
+théories Horn sur contre-exemples ; la révision d'un ensemble de croyances est l'AGM~\cite{agm1985}, et le moniteur
+d'exécution s'inscrit dans la tradition du raisonnement défaisable / non-monotone~\cite{reiter1980}. Notre apport
+est opérationnel : attacher la révision à une bibliothèque de méthodes \emph{typée, composable, canonicalisable} ;
+nous mesurons cette étape de révision sous dérive récurrente en E8 (\S\ref{sec:e8}).
 
 \textbf{Maintien de la vérité.} Un JTMS~\cite{doyle1979,dekleer1986}.
 
 \textbf{Exécution durable / IVM.} Un cas est un marquage 1-sûr sur un réseau de workflow~\cite{vanderaalst1998} ;
 l'exécuteur durable est un artefact connu~\cite{aws2022,dbos2022}. DBSP~\cite{budiu2023}/Materialize maintiennent
 des \emph{valeurs} ; nous ne revendiquons pas la nouveauté pour \emph{récupérer} sur dérive --- la différence est
-que notre invalidation est \emph{dérivée d'un contrat déclaratif} (re-vérifier la post ; blâmer ; spécialiser).
+que notre invalidation est \emph{dérivée d'un contrat déclaratif} (re-vérifier la post ; blâmer ; spécialiser). Le
+rejeu chaud et la reconstruction du seul maillon affecté (\S4.8) s'apparentent au calcul fonctionnel
+auto-ajustable~\cite{acar2002} et à la reconstruction incrémentale des systèmes de build~\cite{mokhov2018}.
 
 \section{Menaces à la validité}
 \textbf{Simulateur vs réel.} Le simulateur retire l'erreur du modèle pour isoler le \emph{mécanisme} ; l'E2 réel
 confirme l'ordre. Le simulateur ne prédit pas l'exactitude absolue en réel ; exécuter plus de bras en réel est un
-travail futur. Le verdict de \emph{dérive} en réel exige une charge comportant plusieurs classes de dérive
-distinctes : à très petit $N$, une seule erreur pré-audit du modèle réel (imparfait) sur l'unique classe de dérive
-peut masquer la péremption d'une référence par rappel seul, de sorte que l'affirmation d'exactitude par
-enregistrement est établie sur le simulateur à oracle déterministe tandis que les exécutions réelles confirment le
-coût, l'amortissement, le temps mural en éventail et la reproduction moteur-contre-proxy ; avec plusieurs classes
-de dérive (E7, $N{=}48$) le verdict est robustement mesurable en réel et Struct reste l'unique point Pareto.
+travail futur. L'exactitude à la dérive est mesurée sur l'oracle déterministe ; les exécutions réelles confirment
+l'ordre des appels et du temps (le modèle réel est imparfait à petit $N$, nous ne lisons donc pas la dérive par
+enregistrement sur lui).
 
 \textbf{\K{}-couverture paramétrée.} P4 \emph{fixe} la fraction typée ; les affirmations non circulaires sont la
 \emph{forme} (un gradient), l'universalité de la sûreté, et la non-sûreté de l'amortissement glouton. La fraction
@@ -467,14 +522,22 @@ synthèse d'ingénierie avec une propriété émergente testable --- un désappr
 plutôt qu'un nouvel algorithme.
 
 \paragraph{Code \& reproductibilité.} Le moteur et un artefact d'expérience autonome sont publics sur
-\texttt{github.com/9pings/skynet-graph} --- \texttt{artifact/paper-dll/} avec la suite déterministe
-\texttt{tests/integration/paper-*.test.js} (\texttt{npm test}). L'E2 en réel utilise un endpoint local compatible
-OpenAI. Sous licence AGPL-3.0-or-later.
+\texttt{github.com/9pings/skynet-graph} --- \texttt{artifact/paper-dll/} : mécanismes de base
+(\texttt{workload.js}, \texttt{arms.js}, \texttt{harness.js}, \texttt{e1-transfer.js}, \texttt{e3-compose.js},
+\texttt{p4-coverage.js}, \texttt{scale.js}, \texttt{measure-e2-live.js}, \texttt{F6-transfer.js}), le tête-à-tête
+E6 (\texttt{named-arms.js}, \texttt{struct-real.js}, \texttt{measure-named-h2h.js}), la suite E7
+composition-à-la-dérive (\texttt{composed-*.js}, \texttt{struct-real-composed.js}, \texttt{durable-composed.js},
+\texttt{chain-depth.js}) et la révision E8 (\texttt{revise.js}), avec la suite déterministe
+\texttt{tests/integration/paper-*.test.js} (\texttt{npm test}). Les exécutions en réel utilisent un endpoint local
+compatible OpenAI servant Qwen3.6-27B (Q2\_K\_XL, MTP). Sous licence AGPL-3.0-or-later.
 
 \begin{thebibliography}{99}
+\bibitem{aamodt1994} A.~Aamodt, E.~Plaza. Case-Based Reasoning: Foundational Issues, Methodological Variations, and System Approaches. \emph{AI Communications} 7(1):39--59, 1994.
+\bibitem{acar2002} U.~A.~Acar, G.~E.~Blelloch, R.~Harper. Adaptive Functional Programming. \emph{POPL} 2002, 247--259.
 \bibitem{agm1985} C.~E. Alchourr\'on, P.~G\"ardenfors, D.~Makinson. On the Logic of Theory Change. \emph{J. Symbolic Logic} 50(2):510--530, 1985.
 \bibitem{aws2022} AWS. Step Functions Distributed Map. 2022.
 \bibitem{bader2018} J.~Bader, J.~Aldrich, \'E.~Tanter. Gradual Program Verification. \emph{VMCAI} 2018, LNCS 10747:25--46.
+\bibitem{bourtoule2021} L.~Bourtoule, V.~Chandrasekaran, C.~A.~Choquette-Choo, H.~Jia, A.~Travers, B.~Zhang, D.~Lie, N.~Papernot. Machine Unlearning. \emph{IEEE S\&P} 2021, 141--159.
 \bibitem{bowers2023} M.~Bowers et al. Top-Down Synthesis for Library Learning. \emph{POPL} 2023; PACMPL 7(POPL).
 \bibitem{budiu2023} M.~Budiu et al. DBSP: Automatic Incremental View Maintenance for Rich Query Languages. \emph{PVLDB} 16(7):1601--1614, 2023.
 \bibitem{courcelle1990} B.~Courcelle. The Monadic Second-Order Logic of Graphs I. \emph{Inf. Comput.} 85(1):12--75, 1990.
@@ -489,14 +552,17 @@ OpenAI. Sous licence AGPL-3.0-or-later.
 \bibitem{habel1992} A.~Habel. Hyperedge Replacement: Grammars and Languages. LNCS 643, Springer, 1992.
 \bibitem{lewis2020} P.~Lewis et al. Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. \emph{NeurIPS} 2020.
 \bibitem{mccarthy1969} J.~McCarthy, P.~J.~Hayes. Some Philosophical Problems from the Standpoint of AI. \emph{Machine Intelligence} 4, 1969.
+\bibitem{mitchell1986} T.~M.~Mitchell, R.~M.~Keller, S.~T.~Kedar-Cabelli. Explanation-Based Generalization: A Unifying View. \emph{Machine Learning} 1(1):47--80, 1986.
+\bibitem{mokhov2018} A.~Mokhov, N.~Mitchell, S.~Peyton Jones. Build Systems à la Carte. \emph{Proc. ACM Program. Lang.} 2(ICFP), Art.~79, 2018.
 \bibitem{ohearn2001} P.~W.~O'Hearn, J.~C.~Reynolds, H.~Yang. Local Reasoning about Programs that Alter Data Structures. \emph{CSL} 2001, LNCS 2142:1--19.
 \bibitem{ourston1994} D.~Ourston, R.~J.~Mooney. Theory Refinement Combining Analytical and Empirical Methods. \emph{Artificial Intelligence} 66(2):273--309, 1994.
 \bibitem{packer2023} C.~Packer et al. MemGPT: Towards LLMs as Operating Systems. arXiv:2310.08560, 2023.
 \bibitem{plotkin1970} G.~D.~Plotkin. A Note on Inductive Generalization. \emph{Machine Intelligence} 5:153--163, 1970.
+\bibitem{reiter1980} R.~Reiter. A Logic for Default Reasoning. \emph{Artificial Intelligence} 13(1--2):81--132, 1980.
 \bibitem{reynolds2002} J.~C.~Reynolds. Separation Logic. \emph{LICS} 2002, 55--74.
 \bibitem{richards1995} B.~L.~Richards, R.~J.~Mooney. Automated Refinement of First-Order Horn-Clause Domain Theories. \emph{Machine Learning} 19(2):95--131, 1995.
 \bibitem{shinn2023} N.~Shinn et al. Reflexion: Language Agents with Verbal Reinforcement Learning. \emph{NeurIPS} 2023.
-\bibitem{dbos2022} A.~Skiadopoulos et al. DBOS: A DBMS-oriented Operating System. \emph{PVLDB} 15(1):21--30, 2022.
+\bibitem{dbos2022} A.~Skiadopoulos et al. DBOS: A DBMS-oriented Operating System. \emph{PVLDB} 15(1):21--30, 2021.
 \bibitem{vanderaalst1998} W.~M.~P.~van~der~Aalst. The Application of Petri Nets to Workflow Management. \emph{J. Circuits, Systems and Computers} 8(1):21--66, 1998.
 \bibitem{wang2023} G.~Wang et al. Voyager: An Open-Ended Embodied Agent with Large Language Models. arXiv:2305.16291, 2023.
 \end{thebibliography}

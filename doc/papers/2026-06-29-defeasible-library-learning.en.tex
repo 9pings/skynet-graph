@@ -39,9 +39,9 @@ its reuse \emph{amortizable} and its composition \emph{checkable on contracts al
 We evaluate the claims on a real rule-driven, JTMS-coherent engine, isolating each mechanism (deterministic stub for
 the model, plus one live-model confirmation). Findings: (E2) under an external mid-stream
 premise-invalidation, recall-only memories serve \textbf{stale} (0 of the drift cases), whereas \emph{any} cache
-with an invalidation hook recovers --- what a \emph{declarative typed contract} adds over a hand-coded invalidation
+with an invalidation hook recovers. What a \emph{declarative typed contract} adds over a hand-coded invalidation
 callback is \emph{selective}, principled eviction (re-assert the post; evict only what is violated), plus generality
-and composition-safety; all at bounded per-call context, confirmed on a live local model. (E1) cross-problem
+and composition-safety --- all at bounded per-call context, confirmed on a live local model. (E1) cross-problem
 \textbf{structural transfer} is sound and free on the held-out related instances while the no-transform ablation is
 unsound --- and call-count alone cannot tell them apart, only the soundness check can. (E3) a box-closed composition
 check matches open-the-box reality on every evaluated pair (no false-admits), and each of three soundness gates is
@@ -49,12 +49,15 @@ load-bearing. (P4) amortization is a \textbf{gradient} in the canonicalizable fr
 every coverage, and amortizing \emph{beyond} that fraction is unsound by construction. (E6) in a head-to-head
 against the \emph{named} agent-memory systems (MemGPT, Reflexion, GraphRAG), each --- given its fairest shot ---
 can recover on drift, but only the typed contract recovers at the lowest cost on (calls $\times$ correctness
-$\times$ per-call context) \emph{simultaneously}: the unique Pareto-optimal point, the others paying a paging /
-per-record / batch-re-index tax (stub + live). (E7) across a learned two-link method \textbf{chain}, the wedge
-holds and \emph{strengthens}: a recall-only memory's staleness compounds link-to-link (and $\propto$ chain depth)
-while the typed contract recovers \textbf{both} links selectively at $O(1)$ recovery cost in the chain length ---
-measured on the belief view, reproduced on the real durable executor (with cross-restart and crash-resume), and
-confirmed on a live local model. No mechanism here is new
+$\times$ per-call context) \emph{simultaneously}: the unique Pareto-optimal point among the drift-correct arms, the
+others paying a paging / per-record / batch-re-index tax (stub + live). (E7) across a learned two-link method
+\textbf{chain}, the wedge holds and \emph{strengthens}: a recall-only memory's staleness compounds link-to-link
+while the typed contract recovers \textbf{both} links selectively --- the two-link belief view confirmed on a live
+local model, with the depth-scaling (staleness $\propto L$, recovery $O(1)$ in chain length) and the
+durable-executor reproduction (cross-restart, crash-resume) measured on the deterministic stub. (E8) the loop's
+\emph{revise} half --- specializing a method's precondition on blame --- un-learns an over-general claim in a
+single blame and then flatlines (0 re-blame, false-admit $\to 0$), where cache-eviction alone re-blames and
+re-derives the stale class every episode (cost $\propto K$). No mechanism here is new
 (JTMS, contracts-with-blame, library learning, theory revision, separation-logic footprints); the contribution is
 their \textbf{composition} into a learned method library that performs \emph{principled, selective un-learning on
 drift}, which recall-only agent memories do not --- bounded by a measured \K{} ceiling.
@@ -104,10 +107,10 @@ the canonicalizable fraction (P4) --- stating explicitly what each experiment do
 A \textbf{method} is, to its caller, a single black box with a typed contract; inside, one or more \emph{productions}
 realize it (sequence, branch, map, fold). Formally it is a hyperedge-replacement non-terminal~\cite{habel1992,
 drewes1997} with precondition-gated selection~\cite{erol1994}. We keep two regimes apart \emph{by design intent} (we
-do not prove decidability here): the \textbf{method grammar} (selection, parameterization, composition) is
-\emph{intended} to stay decidable via a well-founded mount-rank and typing invariants --- recursive HTN
-plan-existence is undecidable in general~\cite{erol1996}, which is why we restrict to the well-founded fragment ---
-while \textbf{execution} over runtime-sized data is an explicitly fuel-bounded, Turing-complete layer. The connection
+do not prove decidability here). The \textbf{method grammar} --- selection, parameterization, composition --- is
+\emph{intended} to stay decidable, via a well-founded mount-rank and typing invariants; because recursive HTN
+plan-existence is undecidable in general~\cite{erol1996}, we deliberately restrict to the well-founded fragment.
+\textbf{Execution} over runtime-sized data is the opposite: an explicitly fuel-bounded, Turing-complete layer. The connection
 to monadic-second-order definability~\cite{courcelle1990} is motivation for why grammar-level checks \emph{can} be
 tractable, not a theorem established here.
 
@@ -118,6 +121,9 @@ it with a separation-logic footprint discipline~\cite{ohearn2001,reynolds2002} o
 \emph{learned} method the postcondition is an induced hypothesis: \textbf{assumed at compose time, asserted at
 settle time, retracted with blame on violation}~\cite{findler2002,bader2018}. The runtime monitor is the
 JTMS~\cite{doyle1979}, giving \emph{eventual} (not static) soundness --- exactly the un-learning the baselines lack.
+The runtime monitor sits in the defeasible/non-monotonic reasoning tradition~\cite{reiter1980}; this symbolic
+``un-learning'' is belief retraction over a justification graph, distinct from parametric \emph{machine
+unlearning}~\cite{bourtoule2021}, which removes a training example's influence from model weights.
 
 \subsection{Pipeline and the \K{} floor}
 A formulation is typed into a goal; a method is selected and composed on contracts; cases flow through it; traces
@@ -174,9 +180,8 @@ stabilization outcome. \textbf{E2, P4, and E5 isolate the relevant engine functi
 without the scheduler. We do not claim E2 exercises the engine's native JTMS retraction (it re-implements that
 retraction over the same real predicate). The model runs as a \textbf{deterministic stub} (a perfect oracle of the
 \emph{current} rule given only what each arm's prompt reveals --- so all staleness/cost come from the arm's
-mechanism, not model error) or as a \textbf{live} local model (\texttt{qwen36-q2-vram}). Every run is gated by a
-\textbf{harness self-test} (under the stub the naive arm must be perfect, else abort --- a direct response to a
-prior 0/24 instrumentation bug). Stub results are deterministic. Seven arms share one interface: Naive,
+mechanism, not model error) or as a \textbf{live} local model (Qwen3.6-27B (Q2\_K\_XL, MTP)). Every run is gated by a
+\textbf{harness self-test} (under the stub the naive arm must be perfect, else abort). Stub results are deterministic. Seven arms share one interface: Naive,
 Long-context, RAG, CBR (typed key, no re-validation), Skill (prose), \textbf{Invalidating} (typed-key cache + a
 coarse hand-coded class-callback: an invalidation hook but no typed contract), and \textbf{Struct} (the typed
 library with the defeasible contract). The Invalidating arm exists to separate ``has an invalidation mechanism''
@@ -212,9 +217,10 @@ Invalidating cache and Struct have one, so both reach drift-acc $1.00$. What the
 adds over the hand-coded callback} is (i) \emph{selectivity} --- Struct re-asserts the post per entry
 (\texttt{satisfies}) and evicts only the 2 \emph{violated} (approve) classes, where the callback coarsely drops
 whole classes (4 entries) and pays the extra re-derivations ($26$ vs $28$ calls); (ii) \emph{generality} --- the
-same \texttt{assertPost} handles any premise; (iii) \emph{composition-safety} (\S\ref{sec:e3}). The live run
-(\texttt{qwen36-q2-vram}, $N{=}48$) reproduces this: RAG/CBR/Skill drift-acc $0.00$; Invalidating 14 calls / drift
-$1.00$; Struct 13 calls / $2.8$\,s / drift $1.00$ / ctx 278 vs Long-context 1304. The defensible claim is not ``only
+same \texttt{assertPost} is premise-agnostic by construction (the experiments exercise one premise type, a
+compliance-flag flip); (iii) \emph{composition-safety} (\S\ref{sec:e3}). The live run
+(Qwen3.6-27B (Q2\_K\_XL, MTP), $N{=}48$) reproduces this: RAG/CBR/Skill drift-acc $0.00$; Invalidating 14 calls / drift
+$1.00$; Struct 13 calls / $2.6$\,s / drift $1.00$ / ctx 278 vs Long-context 1304. The defensible claim is not ``only
 Struct recovers'' but ``recall-only memory cannot un-learn, and a declarative typed contract provides the recovery
 selectively, generally, and composition-safely.''
 
@@ -274,8 +280,8 @@ $N$ & Struct calls & calls/$N$ & Naive calls & library (memo) & evicted on drift
 Struct's call count stays constant (distinct classes plus drift re-derivations), so calls/$N\to0$ while Naive stays
 at one; the library is bounded by the class count (trivially --- a map over a bounded class set); a drift event
 retracts only the invalidated classes ($O(\text{invalidated})$: 2 of 200). Per-op costs are small:
-canonicalization $\approx0.5$--$3.5\,\mu$s/call (the spread is JIT warmup --- $\sim3.5\,\mu$s cold, settling to
-$\sim0.5\,\mu$s), one drift's eviction pass $\approx0.5$\,ms over the library. What E5 establishes is narrow: the
+canonicalization is low-single-digit $\mu$s/call (environment-dependent), one drift's eviction pass
+$\approx0.5$\,ms over the library. What E5 establishes is narrow: the
 typed bookkeeping does not become the bottleneck as the stream grows. It does \textbf{not} test scaling in the
 dimension that matters --- a growing library of \emph{distinct} methods, a real corpus, or a live model across all
 arms --- which we leave to future work.
@@ -302,33 +308,35 @@ GraphRAG (offline index) & 87 & 0.92 & 0.00 & 336 \\
 \textbf{Struct} & \textbf{20} & \textbf{1.00} & \textbf{1.00} & \textbf{290} \\
 \bottomrule
 \end{tabular}
-\caption{E6. Given its fairest shot each named system can recover; only Struct is Pareto-optimal on (calls, drift-acc, context).}
+\caption{E6. Given its fairest shot each named system can recover; only Struct is Pareto-optimal among the drift-correct arms on (calls, drift-acc, context).}
 \label{tab:e6}
 \end{table}
 
 The honest reading is \emph{not} ``only Struct recovers'': given its fairest shot each named system can recover on
-drift. The claim is that Struct recovers at the lowest cost on all three axes at once --- the \textbf{unique
-Pareto-optimal point} on (calls $\times$ correct-on-drift $\times$ per-call context); no other arm matches-or-beats
-it on all three. Each named system pays a mechanism-specific tax: MemGPT recovers only by paging the surfaced audit
+drift. The claim is that Struct recovers at the lowest cost on all three axes at once --- the only arm that
+recovers on drift while remaining undominated (no arm beats-or-ties it on calls AND per-call context while also
+recovering; the cheaper arms sit on the cost frontier but fail on drift). Each named system pays a
+mechanism-specific tax: MemGPT recovers only by paging the surfaced audit
 into core memory (a model turn), then \emph{coarsely} (a whole-class flag re-deciding even unaffected members) with
 a core block carried in every prompt; Reflexion has \emph{no} content-addressed memo, so it issues a model call on
 \emph{every} record (calls $\approx N$) and recovers only reactively after an observed failure; GraphRAG's offline
 index is blind to the silent audit (stale), recovering only by a \emph{batch} re-summarization (coarse, off-band),
-never a per-entry defeater. The ablations confirm each mechanism is load-bearing (off $\to$ drift-acc 0.00). In
+never a per-entry defeater. The named systems were not designed to amortize recurrent typed point-decisions; this
+workload stresses them off-design, so the ``tax'' is the cost of a mismatched tool, not inferiority at their own
+task. The ablations confirm each mechanism is load-bearing (off $\to$ drift-acc 0.00). In
 isolation, Struct's recovery tax is the re-derivation of only the \emph{violated} entries (selective) and the
-contract re-assertion is in-engine (\textbf{zero} model calls). A live run (\texttt{qwen36-q2-vram}, $N=32$)
+contract re-assertion is in-engine (\textbf{zero} model calls). A live run (Qwen3.6-27B (Q2\_K\_XL, MTP), $N=32$)
 reproduces the ordering: Struct 9 calls / 1.9\,s, MemGPT 11 / 2.3\,s, Reflexion 34 / 7.1\,s, GraphRAG 36 / 7.7\,s
 (stale). These are minimal faithful re-implementations, not the full systems.
 
-\subsection{E7 --- composition under drift}\label{sec:e7}
+\subsection{E7 --- composition under drift}
 E6 measures a \emph{single} method. The differentiator of a \emph{library} is composition: when an upstream
 method's premise falls, does the recovery propagate through the chain? We extend the workload to a two-link chain
 --- \texttt{decide $\to$ disburse}, where \texttt{disbursement = disbursed iff decision == approve} (link 2 reads
 link 1's outcome fact) --- and re-run the head-to-head, scoring \textbf{both} links. The same exogenous audit now
 cascades: an audited high-score case must flip \texttt{decision} approve$\to$reject \textbf{and}
 \texttt{disbursement} disbursed$\to$held. Deterministic stub ($N{=}78$, two audited classes) and a live run
-(\texttt{qwen3.6-27b-mtp} in LM Studio, $N{=}48$, four audited classes, arms fanned 4-way across the parallel
-server), Table~\ref{tab:e7}.
+(Qwen3.6-27B (Q2\_K\_XL, MTP), $N{=}48$), Table~\ref{tab:e7}.
 
 \begin{table}[h]\centering
 \begin{tabular}{lccc}
@@ -336,7 +344,7 @@ server), Table~\ref{tab:e7}.
 arm & calls (stub / live) & drift-acc link 1 & drift-acc link 2 \\
 \midrule
 Naive & 156 / 96 & 1.00 & 1.00 \\
-CBR ($=$ Struct $-$ contract) & 36 / 24 & \textbf{0.00 / 0.50} & \textbf{0.00 / 0.50} \\
+CBR ($=$ Struct $-$ contract) & 36 / 24 & \textbf{0.00} & \textbf{0.00} \\
 MemGPT (fairest) & 45 / 41 & 1.00 & 1.00 \\
 Reflexion (fairest) & 160 / 108 & 1.00 & 1.00 \\
 GraphRAG $+$ re-index & 178 / 116 & 1.00 & 1.00 \\
@@ -344,20 +352,20 @@ GraphRAG $+$ re-index & 178 / 116 & 1.00 & 1.00 \\
 Struct (full engine) & 38 / 27 & 1.00 & 1.00 \\
 \bottomrule
 \end{tabular}
-\caption{E7 (stub / live). A two-link chain \texttt{decide $\to$ disburse}: recall-only staleness compounds at both links; Struct recovers both selectively and is the unique Pareto point on (calls, drift-acc link 1, drift-acc link 2, context).}
+\caption{E7 (stub / live). A two-link chain \texttt{decide $\to$ disburse}: recall-only staleness compounds at both links; Struct recovers both selectively and is the unique Pareto point among the drift-correct arms on (calls, drift-acc link 1, drift-acc link 2, context).}
 \label{tab:e7}
 \end{table}
 
 Three things are measured. (i) \textbf{Staleness compounds.} Every recall-only or blind arm (CBR, and each named
 system's ablation) is wrong at link 1 \emph{and} link 2: a stale upstream answer poisons the downstream that reads
-it (stub drift $0.00\to0.00$; the live partials $0.38$--$0.75$ are the same staleness, diluted by the model's own
-pre-audit errors --- see \S6). (ii) \textbf{The recovery tax multiplies down the chain.} Reflexion, having no
+it. Drift correctness is measured on the deterministic oracle; the live run confirms the call/wall ordering (the
+live model is imperfect at small $N$, so we do not read per-record drift off it). (ii) \textbf{The recovery tax multiplies down the chain.} Reflexion, having no
 memo, pays a call per record \emph{per link} (calls $\approx 2N$); GraphRAG re-indexes affected communities at
 \emph{each} link; MemGPT pays paging $+$ coarse re-decode $+$ a larger context at \emph{both} links. (iii)
 \textbf{Struct's cascade is selective.} A fallen premise un-casts the upstream belief and the change propagates to
 the downstream --- recovering both links while re-deriving \emph{only} the violated upstream entry (the downstream
 re-derivation is elided because its cache key is disburse's true read-set \texttt{\{kind, region, decision\}}).
-Struct is the unique Pareto-optimal point on (calls $\times$ drift-acc link 1 $\times$ drift-acc link 2 $\times$
+Struct is the unique Pareto-optimal point among the drift-correct arms on (calls $\times$ drift-acc link 1 $\times$ drift-acc link 2 $\times$
 per-call context), stub and live; the full-engine realization (four ensure-gated concepts over the derivation
 cache) reproduces it ($38{=}38$ stub; $26\approx27$ live, within model nondeterminism). This is the capability the
 named surface memories structurally lack: a belief that depends on a premise which just fell, un-learned
@@ -369,18 +377,56 @@ is), the staleness and the cost both scale while Struct's recovery does not: a r
 calls; but Struct's recovery \textbf{drift-tax is $O(1)$ in $L$} --- the cascade re-derives only the violated
 upstream entry, every downstream re-derivation reusing a sibling's read-set entry. So the deeper the learned method
 chain, the larger Struct's advantage on the correctness gap (compounding $\propto L$) and on recovery efficiency
-($O(1)$ vs an $O(L)$ coarse rebuild).
+($O(1)$ vs an $O(L)$ coarse rebuild). ($O(1)$ recovery holds when each downstream re-derivation collapses onto a
+cache key a sibling already filled --- true here: the negative branch is shared and low-score siblings pre-fill it;
+under high downstream fan-out the recovery tax grows toward $O(L)$. The compounding $\propto L$ follows by
+construction from defining link $i$ as a function of link $i-1$, and is \textbf{measured on the deterministic stub}
+--- the live $L$-sweep is noise-confounded, \S6.)
 
 \textbf{On the real durable executor.} The above is the belief view (the rule-driven graph $+$ JTMS retraction).
 The same chain compiled to a workflow net and run as a token-flow over a content-addressed, crash-resumable
 checkpoint store reproduces the result on the \emph{execution} layer: the chain amortizes and the drift cascades
 through both links (Struct-on-executor 24 calls, drift $1.00/1.00$; the premise-less key and a flat composed cache
 both compound), the warm composed library \textbf{replays across a process restart at zero model calls}, and a
-chain cut mid-flight \textbf{resumes with no work lost or duplicated}. Belief-view defeasance and durable execution
+chain cut mid-flight \textbf{resumes with no work lost or duplicated}. Rebuilding only the affected link rather than
+the whole chain places this in the lineage of self-adjusting computation~\cite{acar2002} and minimal-rebuild build
+systems~\cite{mokhov2018}. Belief-view defeasance and durable execution
 are complementary: the contract retracts the belief; the executor makes the recomputation durable and selective.
 
+\subsection{E8 --- library revision under recurrent drift}
+E2/E6/E7 measure the \emph{retract $\to$ re-derive} path: a violated post evicts the cached belief, which is then
+re-derived. The loop's other half --- \emph{revise}: specialize the method's precondition on blame, so the library
+is improved, not merely re-evaluated --- is evaluated here. We run $K=5$ recurrent-drift episodes (the same classes
+recur each episode after an over-general precondition is exposed) and compare evict-only against revision via the
+engine's \texttt{reviseOnBlame} (Table~\ref{tab:e8}).
+
+\begin{table}[h]\centering
+\begin{tabular}{lcc}
+\toprule
+over $K=5$ episodes & Evict-only & Revise (\texttt{reviseOnBlame}) \\
+\midrule
+blames (per episode $\to$ cumulative) & 1,1,1,1,1 $\to$ 5 & 1,0,0,0,0 $\to$ 1 \\
+re-derivations (model calls) & 4,1,1,1,1 $\to$ 8 & 4,1,0,0,0 $\to$ 5 \\
+false-admit rate & 0.25 every episode & 0.25 $\to$ 0.00 after e1 \\
+\bottomrule
+\end{tabular}
+\caption{E8. Evict-only re-blames and re-derives the stale class every episode (cost $\propto K$); revision specializes the precondition once, then flatlines (0 re-blame, false-admit $\to$ 0).}
+\label{tab:e8}
+\end{table}
+
+Evict-only keeps the over-general rule, so it re-admits, re-blames, and re-derives the same stale class \emph{every}
+episode (cost $\propto K$). Revision specializes the precondition once --- narrowing it with the counterexample's
+discriminating atom --- and then flatlines: no further blames, false-admit $\to 0$. The revision is \emph{surgical}:
+the specialized precondition excludes the failing class while still admitting its sibling (it narrows, it does not
+delete the method). The effect holds for two premise kinds --- a categorical compliance flip
+(\texttt{\$compliant != false}) and a numeric gate (\texttt{\$score != 680}). \textbf{Honest limit:}
+\texttt{reviseOnBlame} specializes by counterexample point-exclusion, not bound-tightening; a numeric drift spanning
+$D$ distinct values converges in $D$ one-time blames (bounded, per-value) rather than a single bound move --- still
+categorically better than evict-only's per-episode recurrence. This is the step that distinguishes the contract from
+cache invalidation (\S5): blame feeds \emph{library revision}, not just value recomputation.
+
 \section{Related Work}
-\textbf{Retrieval and case memory.} RAG~\cite{lewis2020} and CBR recall by similarity and reuse-or-adapt; they
+\textbf{Retrieval and case memory.} RAG~\cite{lewis2020} and CBR~\cite{aamodt1994} recall by similarity and reuse-or-adapt; they
 cannot represent a \emph{premise becoming invalid}, so an exogenous change that leaves the query unchanged leaves the
 cached answer retrievable and stale (E2). Skill libraries (Voyager~\cite{wang2023}) store \emph{prose} skills with no
 typed defeasible premise; a stale skill stays applicable and must be re-applied by the model.
@@ -394,7 +440,8 @@ drift, but only the defeasible contract does so at the lowest cost on (calls $\t
 simultaneously.
 
 \textbf{Library learning / EBL.} DreamCoder~\cite{ellis2021} and Stitch~\cite{bowers2023} grow a library by
-abstraction~\cite{plotkin1970}; these learn \emph{what} to reuse but attach no defeasible runtime contract.
+abstraction~\cite{plotkin1970}; EBG~\cite{mitchell1986} specializes from a single proof. These learn \emph{what} to
+reuse but attach no defeasible runtime contract.
 
 \textbf{Contracts, blame, gradual verification.} Higher-order contracts with blame~\cite{findler2002} and
 gradual/hybrid verification~\cite{bader2018} are the lineage of our assume/assert/retract-blame discipline, applied
@@ -418,18 +465,17 @@ composition-checking, and un-learning share one representation.
 \textbf{Durable execution / IVM.} A case is a 1-safe marking over a workflow net~\cite{vanderaalst1998}; the durable
 executor is a known artifact~\cite{aws2022,dbos2022}. DBSP~\cite{budiu2023}/Materialize maintain \emph{values}
 incrementally, and production caches invalidate on source change --- both are, in effect, the ``invalidation hook''
-our fair baseline models; we claim no novelty over them for \emph{recovering} on drift. The narrower difference: our
+our fair baseline models; we claim no novelty over them for \emph{recovering} on drift. Rebuilding only the affected
+derivation rather than the whole chain is the spirit of self-adjusting computation~\cite{acar2002} and
+minimal-rebuild build systems~\cite{mokhov2018}. The narrower difference: our
 invalidation is \emph{derived from a declarative contract} (re-assert the post; blame; specialize), so it generalizes
-across premises and feeds library revision.
+across premises and feeds library revision (measured in \S4.9, E8).
 
 \section{Threats to Validity}
 \textbf{Stub vs.\ live.} The deterministic stub removes model error to isolate each arm's \emph{mechanism}; the live
 E2 confirms the ordering with a real model. The stub does not predict absolute live accuracy; running more arms live
-is future work. The live \emph{drift} verdict requires a workload with several distinct drift classes: at very small
-$N$ a single pre-audit error by the (imperfect) live model on the lone drift class can mask a recall-only baseline's
-staleness, so the per-record correctness claim is established on the deterministic-oracle stub while the live runs
-confirm cost, amortization, fan-out wall-clock, and the engine-vs-proxy reproduction; with several drift classes
-(E7, $N{=}48$) the verdict is robustly live-measurable and Struct remains the unique Pareto point.
+is future work. Drift correctness is measured on the deterministic oracle; the live run confirms the call/wall
+ordering (the live model is imperfect at small $N$, so we do not read per-record drift off it).
 
 \textbf{\K{}-coverage is parameterized.} P4 \emph{sets} the typed fraction; the non-circular claims are the
 \emph{shape} (a gradient), universality of soundness, and that greedy amortization is unsound. The absolute
@@ -474,15 +520,23 @@ engineering synthesis with a testable emergent property --- principled, selectiv
 algorithm; we think that property is worth naming and measuring.
 
 \paragraph{Code \& reproducibility.} The engine and a self-contained experiment artifact are public at
-\texttt{github.com/9pings/skynet-graph} --- \texttt{artifact/paper-dll/} (workload/arms/harness +
-\texttt{e1-transfer}, \texttt{e3-compose}, \texttt{p4-coverage}, \texttt{scale}, \texttt{measure-e2-live},
-\texttt{F6-transfer}) with the deterministic suite \texttt{tests/integration/paper-*.test.js} (\texttt{npm test}).
-The live E2 uses a local OpenAI-compatible endpoint (\texttt{qwen36-q2-vram}). Licensed AGPL-3.0-or-later.
+\texttt{github.com/9pings/skynet-graph} --- \texttt{artifact/paper-dll/}: core mechanisms (\texttt{workload},
+\texttt{arms}, \texttt{harness}, \texttt{e1-transfer}, \texttt{e3-compose}, \texttt{p4-coverage}, \texttt{scale},
+\texttt{measure-e2-live}, \texttt{F6-transfer}); the E6 head-to-head (\texttt{named-arms}, \texttt{struct-real},
+\texttt{measure-named-h2h}); the E7 composition-under-drift suite (\texttt{composed-workload},
+\texttt{composed-harness}, \texttt{composed-arms}, \texttt{composed-named-arms}, \texttt{struct-real-composed},
+\texttt{durable-composed}, \texttt{chain-depth}, \texttt{measure-composed-h2h}, \texttt{measure-chain-depth}); the
+E8 revision suite (\texttt{revise}) --- with the deterministic suite \texttt{tests/integration/paper-*.test.js}
+(\texttt{npm test}). Live runs use a local OpenAI-compatible endpoint serving \textbf{Qwen3.6-27B (Q2\_K\_XL, MTP)}.
+Licensed AGPL-3.0-or-later.
 
 \begin{thebibliography}{99}
+\bibitem{aamodt1994} A.~Aamodt, E.~Plaza. Case-Based Reasoning: Foundational Issues, Methodological Variations, and System Approaches. \emph{AI Communications} 7(1):39--59, 1994.
+\bibitem{acar2002} U.~A.~Acar, G.~E.~Blelloch, R.~Harper. Adaptive Functional Programming. \emph{POPL} 2002, 247--259.
 \bibitem{agm1985} C.~E. Alchourr\'on, P.~G\"ardenfors, D.~Makinson. On the Logic of Theory Change. \emph{J. Symbolic Logic} 50(2):510--530, 1985.
 \bibitem{aws2022} AWS. Step Functions Distributed Map. 2022.
 \bibitem{bader2018} J.~Bader, J.~Aldrich, \'E.~Tanter. Gradual Program Verification. \emph{VMCAI} 2018, LNCS 10747:25--46.
+\bibitem{bourtoule2021} L.~Bourtoule, V.~Chandrasekaran, C.~A.~Choquette-Choo, H.~Jia, A.~Travers, B.~Zhang, D.~Lie, N.~Papernot. Machine Unlearning. \emph{IEEE S\&P} 2021, 141--159.
 \bibitem{bowers2023} M.~Bowers et al. Top-Down Synthesis for Library Learning. \emph{POPL} 2023; PACMPL 7(POPL).
 \bibitem{budiu2023} M.~Budiu et al. DBSP: Automatic Incremental View Maintenance for Rich Query Languages. \emph{PVLDB} 16(7):1601--1614, 2023.
 \bibitem{courcelle1990} B.~Courcelle. The Monadic Second-Order Logic of Graphs I. \emph{Inf. Comput.} 85(1):12--75, 1990.
@@ -497,14 +551,17 @@ The live E2 uses a local OpenAI-compatible endpoint (\texttt{qwen36-q2-vram}). L
 \bibitem{habel1992} A.~Habel. Hyperedge Replacement: Grammars and Languages. LNCS 643, Springer, 1992.
 \bibitem{lewis2020} P.~Lewis et al. Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. \emph{NeurIPS} 2020.
 \bibitem{mccarthy1969} J.~McCarthy, P.~J.~Hayes. Some Philosophical Problems from the Standpoint of AI. \emph{Machine Intelligence} 4, 1969.
+\bibitem{mitchell1986} T.~M.~Mitchell, R.~M.~Keller, S.~T.~Kedar-Cabelli. Explanation-Based Generalization: A Unifying View. \emph{Machine Learning} 1(1):47--80, 1986.
+\bibitem{mokhov2018} A.~Mokhov, N.~Mitchell, S.~Peyton~Jones. Build Systems \`a la Carte. \emph{Proc. ACM Program. Lang.} 2(ICFP), Art.~79, 2018.
 \bibitem{ohearn2001} P.~W.~O'Hearn, J.~C.~Reynolds, H.~Yang. Local Reasoning about Programs that Alter Data Structures. \emph{CSL} 2001, LNCS 2142:1--19.
 \bibitem{ourston1994} D.~Ourston, R.~J.~Mooney. Theory Refinement Combining Analytical and Empirical Methods. \emph{Artificial Intelligence} 66(2):273--309, 1994.
 \bibitem{packer2023} C.~Packer et al. MemGPT: Towards LLMs as Operating Systems. arXiv:2310.08560, 2023.
 \bibitem{plotkin1970} G.~D.~Plotkin. A Note on Inductive Generalization. \emph{Machine Intelligence} 5:153--163, 1970.
+\bibitem{reiter1980} R.~Reiter. A Logic for Default Reasoning. \emph{Artificial Intelligence} 13(1--2):81--132, 1980.
 \bibitem{reynolds2002} J.~C.~Reynolds. Separation Logic: A Logic for Shared Mutable Data Structures. \emph{LICS} 2002, 55--74.
 \bibitem{richards1995} B.~L.~Richards, R.~J.~Mooney. Automated Refinement of First-Order Horn-Clause Domain Theories. \emph{Machine Learning} 19(2):95--131, 1995.
 \bibitem{shinn2023} N.~Shinn et al. Reflexion: Language Agents with Verbal Reinforcement Learning. \emph{NeurIPS} 2023.
-\bibitem{dbos2022} A.~Skiadopoulos et al. DBOS: A DBMS-oriented Operating System. \emph{PVLDB} 15(1):21--30, 2022.
+\bibitem{dbos2022} A.~Skiadopoulos et al. DBOS: A DBMS-oriented Operating System. \emph{PVLDB} 15(1):21--30, 2021.
 \bibitem{vanderaalst1998} W.~M.~P.~van~der~Aalst. The Application of Petri Nets to Workflow Management. \emph{J. Circuits, Systems and Computers} 8(1):21--66, 1998.
 \bibitem{wang2023} G.~Wang et al. Voyager: An Open-Ended Embodied Agent with Large Language Models. arXiv:2305.16291, 2023.
 \end{thebibliography}
