@@ -147,4 +147,53 @@ async function unlearnDemo() {
 	return { before, after };
 }
 
-module.exports = { makeStructReal, STRUCT_REAL_ARMS, unlearnDemo, TREE, FLAT_TREE };
+// COMPOSED chain (M4.3): a downstream method B (Disburse/Hold) consumes the upstream outcome FACT `decision`.
+// KEY PATTERN (the engine finding): a runtime JTMS cascade through a method chain works iff each concept gates on
+// the upstream's OVERWRITTEN outcome fact (`$decision=="approve"`), NOT a cast marker or applyMutations — those do
+// NOT revert on un-cast; only the mutually-exclusive two-concept pattern (Approve↔Reject overwrites `decision`)
+// makes the fact genuinely CHANGE, which re-triggers the downstream gate. (Use "double quotes" for a string
+// literal in an ensure — single-quoted `'approve'` silently fails to parse.)
+const COMPOSED_TREE = { common: { childConcepts: {
+	ApproveDecision: { _id: 'ApproveDecision', _name: 'ApproveDecision', require: ['score'], ensure: ['$approvable'], provider: ['Dec::approve'] },
+	RejectDecision: { _id: 'RejectDecision', _name: 'RejectDecision', require: ['score'], ensure: ['$approvable==false'], provider: ['Dec::reject'] },
+	Disburse: { _id: 'Disburse', _name: 'Disburse', require: ['decision'], ensure: ['$decision=="approve"'], provider: ['Dec::disburse'] },
+	Hold: { _id: 'Hold', _name: 'Hold', require: ['decision'], ensure: ['$decision=="reject"'], provider: ['Dec::hold'] },
+} } };
+
+/**
+ * M4.3 — COMPOSITION UNDER DRIFT (the capability no named system has). A two-link chain decision→disbursement.
+ * On a premise-fall (audit ingest) the upstream RETRACTS (Approve→Reject) and the change CASCADES through the
+ * chain (Disburse un-casts, Hold casts) — the JTMS un-learns the WHOLE derivation, selectively (only the
+ * audited case). A similarity cache of the composed outcome serves STALE at BOTH links (the staleness COMPOUNDS).
+ */
+async function composedCascadeDemo() {
+	let calls = 0;
+	const mk = ( fact, val, name ) => ( g, c, s, a, cb ) => { calls++; cb(null, { $_id: '_parent', [fact]: val, [name]: true }); };
+	Graph._providers = { Dec: {
+		approve: mk('decision', 'approve', 'ApproveDecision'), reject: mk('decision', 'reject', 'RejectDecision'),
+		disburse: mk('disbursement', 'disbursed', 'Disburse'), hold: mk('disbursement', 'held', 'Hold'),
+	} };
+	const seed = { lastRev: 0, freeNodes: [], segments: [], nodes: [
+		{ _id: 'a1', Node: true, kind: 'loan', region: 'EU', score: 'high', compliant: true, approvable: true },
+		{ _id: 'a2', Node: true, kind: 'loan', region: 'EU', score: 'high', compliant: true, approvable: true },
+	] };
+	const g = new Graph(seed, { label: 'composed', isMaster: true, autoMount: true, conceptSets: ['common'], bagRefManagers: {}, logLevel: 'error' }, COMPOSED_TREE);
+	await nextStable(g);
+	const snap = ( id ) => { const e = g.getEtty(id)._, m = g._objById[id]._etty._mappedConcepts;
+		return { decision: e.decision, disbursement: e.disbursement, Disburse: !!m.Disburse, Hold: !!m.Hold }; };
+	const before = { a1: snap('a1'), a2: snap('a2') };
+
+	// the audit falls on a1's premise → the whole a1 chain must cascade (decision AND disbursement); a2 untouched.
+	await new Promise(( res ) => g.ingest({ a1: { compliant: false, approvable: false } }, res));
+	await nextStable(g);
+	const after = { a1: snap('a1'), a2: snap('a2') };
+
+	// CONTRAST / negative control: a FLAT similarity cache keyed on the surface class caches the composed outcome;
+	// the audit doesn't change the surface key, so a post-audit lookup serves the STALE pair at BOTH links.
+	const flat = new Map(); const k = ( r ) => `${r.kind}|${r.region}|${r.score}`;
+	flat.set(k({ kind: 'loan', region: 'EU', score: 'high' }), { decision: before.a1.decision, disbursement: before.a1.disbursement });
+	const flatAfter = flat.get('loan|EU|high');   // same key post-audit → stale approve + disbursed
+	return { before, after, flatAfter };
+}
+
+module.exports = { makeStructReal, STRUCT_REAL_ARMS, unlearnDemo, composedCascadeDemo, TREE, FLAT_TREE, COMPOSED_TREE };

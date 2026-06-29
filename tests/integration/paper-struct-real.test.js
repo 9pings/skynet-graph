@@ -16,7 +16,7 @@ const ROOT = path.resolve(__dirname, '../..');
 const fs = require('fs');
 const os = require('os');
 const { ARMS } = require(ROOT + '/artifact/paper-dll/arms.js');
-const { STRUCT_REAL_ARMS, makeStructReal, unlearnDemo } = require(ROOT + '/artifact/paper-dll/struct-real.js');
+const { STRUCT_REAL_ARMS, makeStructReal, unlearnDemo, composedCascadeDemo } = require(ROOT + '/artifact/paper-dll/struct-real.js');
 const { createFileStore } = require(ROOT + '/lib/authoring/store.js');
 const E = require(ROOT + '/artifact/paper-dll/workload.js');
 const H = require(ROOT + '/artifact/paper-dll/harness.js');
@@ -94,4 +94,26 @@ test('STRUCT-REAL persists cross-restart: a fresh process on the same file repla
 		const r3 = await makeStructReal({ store: createFileStore(cold) })(w.stream, env);
 		assert.equal(r3.calls, r1.calls, `a cold (fresh-file) process pays the same as process 1 (${r3.calls} == ${r1.calls})`);
 	} finally { for ( const f of [tmp, cold] ) { try { fs.unlinkSync(f); } catch ( e ) {} } }
+});
+
+// ── (5) M4.3 — composition under drift: a premise-fall cascades through the learned chain (the unique capability) ──
+test('STRUCT-REAL cascades through a composed chain on drift, selectively — staleness a flat cache compounds', async () => {
+	const { before, after, flatAfter } = await composedCascadeDemo();
+	// before: both cases approved AND disbursed (the full chain cast).
+	for ( const c of [before.a1, before.a2] ) {
+		assert.equal(c.decision, 'approve'); assert.equal(c.disbursement, 'disbursed');
+		assert.equal(c.Disburse, true); assert.equal(c.Hold, false);
+	}
+	// after the audit on a1: the WHOLE a1 chain cascades — upstream retracts (decision→reject) AND the downstream
+	// un-casts (Disburse false, Hold true → disbursement→held). The JTMS un-learned the entire derivation.
+	assert.equal(after.a1.decision, 'reject', 'upstream retracts');
+	assert.equal(after.a1.Disburse, false, 'downstream Disburse UN-CASTS (the cascade)');
+	assert.equal(after.a1.Hold, true, 'and Hold casts');
+	assert.equal(after.a1.disbursement, 'held', 'the downstream outcome flips too');
+	// SELECTIVE: a2 (same class, not audited) keeps its whole chain.
+	assert.equal(after.a2.decision, 'approve'); assert.equal(after.a2.disbursement, 'disbursed');
+	assert.equal(after.a2.Disburse, true);
+	// CONTRAST (neg control): a flat similarity cache serves the STALE pair at BOTH links — staleness compounds.
+	assert.equal(flatAfter.decision, 'approve', 'a flat cache is stale at the decision link');
+	assert.equal(flatAfter.disbursement, 'disbursed', 'AND stale at the disbursement link (compounded)');
 });
