@@ -31,40 +31,29 @@
 
 \begin{abstract}
 Les agents fondés sur de grands modèles de langage réutilisent leur travail passé via une mémoire floue ---
-recherche (RAG), raisonnement à partir de cas, bibliothèques de compétences --- qui rappelle par similarité de
-surface et n'a aucune notion d'une prémisse devenue fausse. Lorsque le monde dérive d'une manière qui ne change pas
-la requête, ces mémoires continuent de servir une réponse périmée. Nous présentons l'\textbf{apprentissage de
-bibliothèque défaisable} : une bibliothèque apprise de méthodes typées et composables, chacune dotée d'un
-\textbf{contrat d'exécution défaisable}. Une méthode est supposée à la composition, vérifiée à l'exécution, et ---
-lorsque sa postcondition induite échoue --- rétractée avec attribution de blâme (un désapprentissage de type JTMS),
-après quoi la bibliothèque est révisée, non jetée. La structure typée qui rend une méthode canonicalisable rend
-aussi sa réutilisation amortissable et sa composition vérifiable sur les seuls contrats, à contexte par appel
-borné. Sur un moteur réel à base de règles, cohérent par maintien de la vérité (JTMS), en isolant chaque mécanisme :
-(E2) sous une invalidation de prémisse externe en cours de flux, les mémoires par rappel seul servent du périmé,
-tandis que tout cache doté d'un crochet d'invalidation récupère. Ce qu'un contrat typé déclaratif ajoute à un
-rappel codé à la main, c'est une éviction sélective et principielle, plus la généralité et la sûreté de composition
-(confirmé sur modèle réel) ; (E1) le transfert structurel inter-problèmes est correct et gratuit sur des instances
-apparentées tenues à l'écart, tandis que l'ablation sans transformation est non saine, et le seul nombre d'appels
-ne permet pas de les distinguer ; (E3) une vérification de composition en boîte fermée coïncide avec le résultat en
-boîte ouverte sur chaque paire évaluée (aucun faux-admis), chacune des trois barrières de sûreté étant porteuse ;
-(P4) l'amortissement est un gradient de la fraction canonicalisable, avec sûreté à chaque couverture et non-sûreté
-au-delà ; (E6) en tête-à-tête face aux systèmes de mémoire d'agents \emph{nommés} (MemGPT, Reflexion, GraphRAG),
-chacun --- dans sa configuration la plus favorable --- peut récupérer à la dérive, mais seul le contrat typé
-récupère au moindre coût sur (appels $\times$ exactitude $\times$ contexte) \emph{simultanément} : le seul bras qui
-récupère à la dérive tout en restant non-dominé (aucun bras ne l'égale-ou-bat sur les appels ET le contexte par
-appel tout en récupérant ; les bras moins chers sont sur la frontière de coût mais échouent à la dérive). (E7) à
-travers une \textbf{chaîne} apprise de méthodes à deux maillons, le coin tient et se
-\emph{renforce} : la péremption d'une mémoire par rappel seul se cumule de maillon en maillon tandis que le contrat
-typé récupère \textbf{les deux} maillons sélectivement --- mesuré sur la vue-croyance et confirmé sur un modèle
-local réel pour le tête-à-tête à deux maillons ; reproduit sur le vrai exécuteur durable (redémarrage et
-reprise-après-crash) et montré passer à l'échelle en profondeur (péremption $\propto L$, récupération en $O(1)$) sur
-le simulateur déterministe. (E8) la moitié \emph{réviser} de la boucle --- spécialiser la précondition d'une méthode
-sur blâme --- désapprend une affirmation trop générale en un seul blâme puis se stabilise (0 re-blâme, faux-admis
-$\to$ 0), là où la seule éviction de cache re-blâme et re-dérive la classe périmée à chaque épisode (coût
-$\propto K$). Aucun mécanisme n'est nouveau (JTMS, contrats à blâme, apprentissage de bibliothèque, révision de théorie,
-logique de séparation) ; la contribution est leur composition en une bibliothèque apprise de méthodes typées qui
-réalise un désapprentissage principiel et sélectif à la dérive --- ce que les mémoires par rappel seul ne font pas
---- bornée par un plafond \K{} mesuré.
+recherche (RAG), raisonnement à partir de cas (CBR), bibliothèques de compétences en prose. Toutes rappellent par
+similarité de surface, et aucune ne sait représenter une \emph{prémisse devenue fausse} : quand le monde dérive sans
+changer la requête, la réponse en cache reste le plus proche voisin, et elle est servie quand même. Les
+bibliothèques apprises statiques ont le défaut inverse --- saines une fois apprises, mais incapables de
+\emph{désapprendre}.
+
+Nous présentons l'\textbf{apprentissage de bibliothèque défaisable} : une bibliothèque apprise de méthodes typées
+et composables, chacune dotée d'un \textbf{contrat d'exécution défaisable}. La garantie d'une méthode est
+\emph{supposée} à sa composition, \emph{vérifiée (assertée)} à son exécution, et \textbf{rétractée avec blâme}
+quand elle échoue --- une étape de maintenance de la vérité --- après quoi la bibliothèque est \emph{révisée}
+chirurgicalement, non jetée. La même structure typée qui rend une méthode canonicalisable rend aussi sa
+réutilisation amortissable et sa composition vérifiable sur les seuls contrats, à contexte par appel borné. Aucun
+mécanisme n'est nouveau en soi (JTMS, contrats à blâme, apprentissage de bibliothèque, logique de séparation) ; la
+contribution est leur \textbf{composition} en une représentation unique où amortissement, vérification de
+composition et \emph{désapprentissage principiel et sélectif à la dérive} coïncident --- ce qu'aucune des briques ne
+fournit seule.
+
+Nous évaluons chaque mécanisme isolément sur un moteur réel à base de règles (un simulateur déterministe plus un
+modèle local en réel). Sous une dérive externe en cours de flux, les mémoires par rappel seul servent du périmé
+tandis que le contrat déclaratif récupère l'exactitude \emph{sélectivement} et \emph{en sûreté de composition} ---
+pour une méthode seule, à travers une chaîne de méthodes apprise, et en tête-à-tête face aux systèmes de mémoire
+d'agents nommés (MemGPT, Reflexion, GraphRAG) --- borné par un plafond de canonicalisabilité mesuré que nous
+appelons \K{}.
 \end{abstract}
 
 \section{Introduction}
@@ -92,8 +81,11 @@ seule la structure typée, canonicalisable, amortit ; la prose véritable reste 
 
 Nous employons \emph{apprentissage de bibliothèque} au sens de DreamCoder/Stitch~\cite{ellis2021,bowers2023}
 (induire des méthodes typées réutilisables par abstraction~\cite{plotkin1970}), non un ajustement statistique ; on
-pourrait parler d'\emph{induction de méthodes}. La nouveauté n'est \textbf{pas} l'induction mais le \textbf{contrat
-défaisable} qui permet de \emph{désapprendre} une méthode induite. Le changement est de flot de contrôle : là où
+pourrait parler d'\emph{induction de méthodes}. La nouveauté n'est \textbf{aucun} mécanisme isolé --- ni l'induction
+ni la maintenance de la vérité, toutes deux d'un état de l'art vieux de plusieurs décennies --- mais leur
+\emph{composition} : attacher un contrat défaisable à une méthode \emph{typée et composable}, c'est ce qui fait
+tomber l'amortissement, la vérification de composition et le désapprentissage d'une seule représentation, là où
+chaque brique seule n'en livre qu'un au plus. Le changement est de flot de contrôle : là où
 une mémoire par similarité fait \texttt{requête $\to$ retrouver $\to$ réutiliser}, la nôtre fait
 \texttt{requête $\to$ retrouver-le-contrat $\to$ vérifier $\to$ exécuter $\to$ contrôler $\to$ rétracter $\to$
 spécialiser}. Le suffixe contrôler-et-rétracter est ce que les expériences isolent.

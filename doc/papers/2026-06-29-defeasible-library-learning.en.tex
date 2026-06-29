@@ -29,38 +29,26 @@
 
 \begin{abstract}
 LLM agents reuse past work through \emph{fuzzy} memory --- retrieval (RAG), case-based reasoning (CBR), and prose
-skill libraries --- which recalls by surface similarity and has no notion of a premise becoming false. When the
-world drifts in a way that does not alter the query itself, these stores keep serving a \emph{stale} answer. We
-present \textbf{defeasible library learning}: a learned library of typed, composable \emph{methods}, each carrying a
-\textbf{defeasible runtime contract}. A method is assumed at compose time, \textbf{asserted at run time}, and ---
-when its induced postcondition fails --- \textbf{retracted with blame} (a JTMS un-learning), after which the library
-is surgically revised rather than discarded. The same typed structure that makes a method canonicalizable also makes
-its reuse \emph{amortizable} and its composition \emph{checkable on contracts alone}, with bounded per-call context.
-We evaluate the claims on a real rule-driven, JTMS-coherent engine, isolating each mechanism (deterministic stub for
-the model, plus one live-model confirmation). Findings: (E2) under an external mid-stream
-premise-invalidation, recall-only memories serve \textbf{stale} (0 of the drift cases), whereas \emph{any} cache
-with an invalidation hook recovers. What a \emph{declarative typed contract} adds over a hand-coded invalidation
-callback is \emph{selective}, principled eviction (re-assert the post; evict only what is violated), plus generality
-and composition-safety --- all at bounded per-call context, confirmed on a live local model. (E1) cross-problem
-\textbf{structural transfer} is sound and free on the held-out related instances while the no-transform ablation is
-unsound --- and call-count alone cannot tell them apart, only the soundness check can. (E3) a box-closed composition
-check matches open-the-box reality on every evaluated pair (no false-admits), and each of three soundness gates is
-load-bearing. (P4) amortization is a \textbf{gradient} in the canonicalizable fraction, soundness holds at
-every coverage, and amortizing \emph{beyond} that fraction is unsound by construction. (E6) in a head-to-head
-against the \emph{named} agent-memory systems (MemGPT, Reflexion, GraphRAG), each --- given its fairest shot ---
-can recover on drift, but only the typed contract recovers at the lowest cost on (calls $\times$ correctness
-$\times$ per-call context) \emph{simultaneously}: the unique Pareto-optimal point among the drift-correct arms, the
-others paying a paging / per-record / batch-re-index tax (stub + live). (E7) across a learned two-link method
-\textbf{chain}, the wedge holds and \emph{strengthens}: a recall-only memory's staleness compounds link-to-link
-while the typed contract recovers \textbf{both} links selectively --- the two-link belief view confirmed on a live
-local model, with the depth-scaling (staleness $\propto L$, recovery $O(1)$ in chain length) and the
-durable-executor reproduction (cross-restart, crash-resume) measured on the deterministic stub. (E8) the loop's
-\emph{revise} half --- specializing a method's precondition on blame --- un-learns an over-general claim in a
-single blame and then flatlines (0 re-blame, false-admit $\to 0$), where cache-eviction alone re-blames and
-re-derives the stale class every episode (cost $\propto K$). No mechanism here is new
-(JTMS, contracts-with-blame, library learning, theory revision, separation-logic footprints); the contribution is
-their \textbf{composition} into a learned method library that performs \emph{principled, selective un-learning on
-drift}, which recall-only agent memories do not --- bounded by a measured \K{} ceiling.
+skill libraries. All recall by surface similarity, and none can represent a \emph{premise that has become false}:
+when the world drifts in a way that does not change the query, the cached answer is still the nearest neighbour, and
+it is still served. Static learned libraries have the opposite gap --- sound when learned, but unable to
+\emph{un-learn}.
+
+We present \textbf{defeasible library learning}: a learned library of typed, composable \emph{methods}, each
+carrying a \textbf{defeasible runtime contract}. A method's guarantee is \emph{assumed} when it is composed,
+\emph{asserted} when it runs, and \textbf{retracted with blame} when it fails --- a truth-maintenance step --- after
+which the library is surgically \emph{revised}, not discarded. The same typed structure that makes a method
+canonicalizable also makes its reuse \emph{amortizable} and its composition \emph{checkable on contracts alone}, at
+bounded per-call context. No single mechanism is new (JTMS, contracts-with-blame, library learning,
+separation-logic footprints); the contribution is their \textbf{composition} into one representation in which
+amortization, composition-checking, and \emph{principled, selective un-learning on drift} coincide --- something
+none of the parts provides alone.
+
+We evaluate each mechanism in isolation on a real rule-driven engine (a deterministic stub plus a live local
+model). Under an external mid-stream drift, recall-only memories serve \emph{stale} answers while the declarative
+contract recovers correctness \emph{selectively} and \emph{composition-safely} --- for a single method, across a
+learned method chain, and head-to-head against named agent-memory systems (MemGPT, Reflexion, GraphRAG) --- bounded
+by a measured canonicalizability ceiling we call \K{}.
 \end{abstract}
 
 \section{Introduction}
@@ -87,8 +75,10 @@ single honest constraint, \K{}: only typed, canonicalizable structure amortizes;
 
 We use \emph{library learning} in the established sense of DreamCoder/Stitch~\cite{ellis2021,bowers2023} (inducing
 reusable typed methods by abstraction~\cite{plotkin1970}), not statistical parameter fitting; one could equally call
-it \emph{method induction}. The novelty is \textbf{not} the induction but the \emph{defeasible contract} that lets
-an induced method be un-learned. The change is control-flow: where a similarity memory does
+it \emph{method induction}. The novelty is \textbf{not} any single mechanism --- neither the induction nor the
+truth-maintenance, both decades-old prior art --- but their \emph{composition}: attaching a defeasible contract to a
+\emph{typed, composable} method is what makes amortization, composition-checking, and un-learning fall out of one
+representation, where each ingredient alone delivers at most one of the three. The change is control-flow: where a similarity memory does
 \texttt{query $\to$ retrieve $\to$ reuse}, ours does
 \texttt{query $\to$ retrieve-contract $\to$ assert $\to$ execute $\to$ verify $\to$ retract $\to$ specialize}. The
 verify-and-retract suffix --- absent from retrieval, CBR, and skill libraries --- is the difference, and what the
