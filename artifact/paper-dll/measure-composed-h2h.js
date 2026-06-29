@@ -48,8 +48,15 @@ async function runArms( w, env, names ) {
 
 async function main() {
 	const live = !!process.env.MODEL;
+	// LIVE_BIG: a bigger, MORE-DIVERSE live workload (more audited classes) makes the drift/Pareto verdict
+	// live-MEASURABLE: a rival dominates only at drift==1, which a recall-only cache reaches only if the fallible
+	// model errs pre-audit on EVERY drift class — vanishingly unlikely across many classes (one class's error gives
+	// drift<1, no domination), so the model noise no longer flips the verdict. (Slower: more cold derivations.)
 	const cfg = live
-		? { kinds: ['loan', 'refund'], regions: ['EU', 'US'], heldOutRegion: 'none', audited: [{ region: 'EU', kind: 'loan' }], preCycles: 2, postCycles: 2 }
+		? (process.env.LIVE_BIG
+			? { kinds: ['loan', 'refund', 'wire'], regions: ['EU', 'US'], heldOutRegion: 'none',
+				audited: [{ region: 'EU', kind: 'loan' }, { region: 'US', kind: 'wire' }, { region: 'EU', kind: 'refund' }, { region: 'US', kind: 'loan' }], preCycles: 2, postCycles: 2 }
+			: { kinds: ['loan', 'refund'], regions: ['EU', 'US'], heldOutRegion: 'none', audited: [{ region: 'EU', kind: 'loan' }], preCycles: 2, postCycles: 2 })
 		: { kinds: ['loan', 'refund', 'wire'], regions: ['EU', 'US', 'APAC'], heldOutRegion: 'APAC', audited: [{ region: 'EU', kind: 'loan' }, { region: 'US', kind: 'wire' }], preCycles: 2, postCycles: 3 };
 	const w = W.makeComposedWorkload(cfg); w.feedback = makeFeedback(w);
 
@@ -116,7 +123,10 @@ async function main() {
 	}
 	if ( rows['STRUCT-REAL-2'] ) {
 		const R = rows['STRUCT-REAL-2'];
-		const same = R.calls === S.calls && Math.abs(R.driftAcc1 - S.driftAcc1) < 1e-9 && Math.abs(R.driftAcc2 - S.driftAcc2) < 1e-9;
+		// the engine reproduces the proxy EXACTLY on the deterministic stub; live, allow a ±2-call tolerance for
+		// model nondeterminism (a borderline decision flips one cache key) — the drift must still match exactly.
+		const callMatch = live ? Math.abs(R.calls - S.calls) <= 2 : R.calls === S.calls;
+		const same = callMatch && Math.abs(R.driftAcc1 - S.driftAcc1) < 1e-9 && Math.abs(R.driftAcc2 - S.driftAcc2) < 1e-9;
 		out(`  STRUCT-REAL-2 (the ACTUAL engine): calls ${R.calls}, drift1 ${R.driftAcc1.toFixed(2)}, drift2 ${R.driftAcc2.toFixed(2)}, maxCtx ${R.maxContext} ` +
 			`→ ${same ? 'REPRODUCES STRUCT-2 (the proxy is faithful for the composed measure too)' : 'DIVERGES from STRUCT-2 — investigate'}`);
 	}
