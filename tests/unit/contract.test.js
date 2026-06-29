@@ -121,6 +121,25 @@ test('assertPost — a violated INDUCED post fires blame; a holding post is ok',
 	assert.equal(bad.blame.kind, 'post-violated', 'blame attributed to the post');
 });
 
+test('assertPost — an OUT-OF-FRAGMENT post (||, relational) is ENFORCED via the expr.js fallback (regression)', () => {
+	// REGRESSION: a refused atom (disjunction / two-key relational) falls back to expr.js, which must resolve the
+	// post's BARE fact keys via `names` (2nd arg). The bug omitted `names` → bare keys → undefined → the post
+	// silently mis-evaluated (a `||` implication PASSED when it should FAIL). These cases would all have been wrong.
+	const impl = { write: ['decision'], post: ['decision != "approve" || $compliant'], effect: 'pure' };  // approve ⟹ compliant
+	assert.equal(C.assertPost(impl, { decision: 'approve', compliant: true }, ['decision']).ok, true, 'approve+compliant holds');
+	assert.equal(C.assertPost(impl, { decision: 'reject', compliant: false }, ['decision']).ok, true, 'antecedent false → holds');
+	const bad = C.assertPost(impl, { decision: 'approve', compliant: false }, ['decision']);              // the stale-approve case
+	assert.equal(bad.ok, false, 'approve on a NON-compliant case MUST be caught (the || post is enforced, not skipped)');
+	assert.equal(bad.blame.kind, 'post-violated');
+	// a two-key relational post (bare keys on both sides) → expr.js fallback, resolved through `names`.
+	const rel = { write: ['a'], post: ['a < b'], effect: 'pure' };
+	assert.equal(C.assertPost(rel, { a: 1, b: 2 }, ['a']).ok, true, 'a<b holds (bare keys resolve via names)');
+	assert.equal(C.assertPost(rel, { a: 5, b: 2 }, ['a']).ok, false, 'a<b violated is caught');
+	// the belief-side dual `satisfies` shares holdsAtoms → a bare-key truthiness gate now also resolves.
+	assert.equal(C.satisfies(['compliant'], { compliant: true }), true, 'bare-key truthiness gate holds (no $ needed)');
+	assert.equal(C.satisfies(['compliant'], { compliant: false }), false, 'and is refused when false');
+});
+
 test('assertPost — G2: an external-effect post is NOT trusted on the internal fact (oracle required)', () => {
 	const contract = { write: ['refund'], post: ["refund=='completed'"], effect: 'external' };
 	const facts = { refund: 'completed' };                      // the internal fact says success...
