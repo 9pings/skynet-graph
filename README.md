@@ -147,6 +147,8 @@ self-contained reproducibility package is [`artifact/paper-dll/`](artifact/paper
 
 **DOI: [10.5281/zenodo.21032471](https://doi.org/10.5281/zenodo.21032471)**
 
+**Preprint on [zenodo](https://zenodo.org/records/21032471)**
+
 ```bibtex
 @misc{braun2026dll,
   author    = {Braun, Nathanael},
