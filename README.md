@@ -8,6 +8,10 @@ falls</b>. A forward-chaining loop stabilizes the graph to a fixpoint; every rev
 
 <p align="center"><i>Active R&D · a CommonJS library to embed + an <code>sg</code> CLI · Node 18+, no build step · AGPL-3.0</i></p>
 
+<p align="center">
+<a href="https://doi.org/10.5281/zenodo.21032471"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.21032471.svg" alt="DOI"></a>
+</p>
+
 ---
 
 ## Two ways to use it
@@ -134,6 +138,25 @@ The `LLM::complete` provider is backend-agnostic: inject any async `ask`, or use
 > **Heads-up.** Active R&D. Use 1 is solid and tested; Use 2 is an advancing conception with measured PoCs (not a
 > product). **How best to organize concepts is still open** — treat the shipped `concepts/` sets as illustrative,
 > not a recommended ontology. `examples/poc/` holds the runnable problem-solving, durable-executor, and contract demos.
+
+## Paper
+
+The R&D is written up as a preprint — **“Defeasible Library Learning: Typed Methods with Runtime Contracts that
+Un-learn on Drift”** (Nathanael Braun, 2026), open access on Zenodo (CC BY 4.0), in English and French. The
+self-contained reproducibility package is [`artifact/paper-dll/`](artifact/paper-dll/) (run with `npm test`).
+
+**DOI: [10.5281/zenodo.21032471](https://doi.org/10.5281/zenodo.21032471)**
+
+```bibtex
+@misc{braun2026dll,
+  author    = {Braun, Nathanael},
+  title     = {Defeasible Library Learning: Typed Methods with Runtime Contracts that Un-learn on Drift},
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.21032471},
+  url       = {https://doi.org/10.5281/zenodo.21032471}
+}
+```
 
 ## License
 
