@@ -113,3 +113,60 @@ test('keyFromScope: digests facts + resolved refs; a missing required ref BYPASS
 	wrapped(null, C, noDst, null, () => {});
 	assert.equal(cache.stats.bypass, 2, 'an unresolved required ref bypasses both times');
 });
+
+// ── SINGLE-FLIGHT (in-flight dedup): concurrent same-key misses coalesce onto ONE provider run ──────
+// an ASYNC counting provider (resolves on a later tick) — the only way an in-flight window exists.
+function asyncCountingProvider() {
+	const calls = [];
+	const fn = ( g, c, s, a, cb ) => { calls.push(s._.x); setTimeout(() => cb(null, { $_id: '_parent', Done: true, y: s._.x * 10 }), 5); };
+	return { fn, calls };
+}
+const fireConcurrent = ( wrapped, x, n ) => Promise.all(Array.from({ length: n }, () =>
+	new Promise(( res ) => wrapped(null, C, scopeOf(x), null, ( e, t ) => res(t)))));
+
+test('SINGLE-FLIGHT: N concurrent same-key misses → ONE provider call; all N get the correct result', async () => {
+	const cache = createProviderCache();                                   // default: singleflight ON
+	const { fn, calls } = asyncCountingProvider();
+	const wrapped = cache.wrap(fn, keyByX);
+	const outs = await fireConcurrent(wrapped, 3, 8);                       // 8 concurrent casts, same key
+	assert.deepEqual(calls, [3], 'only ONE provider run for 8 concurrent same-key casts (coalesced)');
+	assert.ok(outs.every(( t ) => t.y === 30 ), 'every waiter received the correct template');
+	assert.equal(cache.stats.coalesced, 7, '7 of the 8 coalesced onto the in-flight run');
+	assert.equal(cache.stats.misses, 1);
+});
+
+test('SINGLE-FLIGHT negative control: opts.singleflight=false → every concurrent cast calls through', async () => {
+	const cache = createProviderCache({ singleflight: false });
+	const { fn, calls } = asyncCountingProvider();
+	const wrapped = cache.wrap(fn, keyByX);
+	await fireConcurrent(wrapped, 3, 8);
+	assert.equal(calls.length, 8, 'with single-flight OFF the race is real: 8 concurrent casts → 8 provider runs');
+	assert.equal(cache.stats.coalesced, 0);
+});
+
+test('SINGLE-FLIGHT does not over-coalesce: concurrent DIFFERENT keys each get their own call', async () => {
+	const cache = createProviderCache();
+	const { fn, calls } = asyncCountingProvider();
+	const wrapped = cache.wrap(fn, keyByX);
+	await Promise.all([fireConcurrent(wrapped, 1, 4), fireConcurrent(wrapped, 2, 4)]);   // two keys, 4 each
+	assert.deepEqual(calls.sort(), [1, 2], 'one provider run PER distinct key (no false coalescing across keys)');
+});
+
+test('SINGLE-FLIGHT replay is independent: a waiter mutating its copy does not poison others', async () => {
+	const cache = createProviderCache();
+	const { fn } = asyncCountingProvider();
+	const wrapped = cache.wrap(fn, keyByX);
+	const outs = await fireConcurrent(wrapped, 6, 5);
+	outs[0].y = 999; outs[0].injected = true;                              // corrupt one waiter's copy
+	assert.ok(outs.slice(1).every(( t ) => t.y === 60 && !('injected' in t) ), 'each waiter got an independent clone');
+});
+
+test('SINGLE-FLIGHT after resolution: a later same-key cast HITS the warm store (0 calls)', async () => {
+	const cache = createProviderCache();
+	const { fn, calls } = asyncCountingProvider();
+	const wrapped = cache.wrap(fn, keyByX);
+	await fireConcurrent(wrapped, 8, 3);                                    // 1 real call, store warmed
+	await new Promise(( res ) => wrapped(null, C, scopeOf(8), null, () => res()));   // later, serial cast
+	assert.deepEqual(calls, [8], 'the post-resolution cast replays from the store (still 1 total call)');
+	assert.ok(cache.stats.hits >= 1, 'the serial follow-up is a normal HIT');
+});
