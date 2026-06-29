@@ -13,8 +13,11 @@ const test = require('node:test');
 const assert = require('node:assert');
 const path = require('path');
 const ROOT = path.resolve(__dirname, '../..');
+const fs = require('fs');
+const os = require('os');
 const { ARMS } = require(ROOT + '/artifact/paper-dll/arms.js');
-const { STRUCT_REAL_ARMS, unlearnDemo } = require(ROOT + '/artifact/paper-dll/struct-real.js');
+const { STRUCT_REAL_ARMS, makeStructReal, unlearnDemo } = require(ROOT + '/artifact/paper-dll/struct-real.js');
+const { createFileStore } = require(ROOT + '/lib/authoring/store.js');
 const E = require(ROOT + '/artifact/paper-dll/workload.js');
 const H = require(ROOT + '/artifact/paper-dll/harness.js');
 
@@ -68,4 +71,27 @@ test('STRUCT-REAL un-learns SELECTIVELY: an ingested premise-fall retracts only 
 	assert.equal(after.a2, 'approve', 'a2 (same class, not audited) stays approved');
 	assert.equal(after.a2Approve, true);
 	assert.equal(after.driftCalls, 1, 'only the violated entry re-derives (selective): exactly 1 model call');
+});
+
+// ── (4) M4.2 — cross-restart persistence: a 2nd "process" replays the warm library at 0 model calls ──
+test('STRUCT-REAL persists cross-restart: a fresh process on the same file replays the library at 0 calls', async () => {
+	const w = build();
+	const env = { workload: w, model: H.makeModel('stub') };
+	const tmp = path.join(os.tmpdir(), 'sg-struct-real-persist.json');
+	const cold = path.join(os.tmpdir(), 'sg-struct-real-cold.json');
+	for ( const f of [tmp, cold] ) { try { fs.unlinkSync(f); } catch ( e ) {} }
+	try {
+		// process 1 — cold: warms the FILE-backed derivation cache.
+		const r1 = await makeStructReal({ store: createFileStore(tmp) })(w.stream, env);
+		assert.ok(r1.calls > 0, 'process 1 pays cold derivations');
+		// process 2 — a restart: a FRESH arm + a FRESH store re-hydrated from the same file → 0 model calls.
+		const r2 = await makeStructReal({ store: createFileStore(tmp) })(w.stream, env);
+		assert.equal(r2.calls, 0, `the warm library replays at 0 calls cross-restart (got ${r2.calls})`);
+		const s2 = H.score(r2.actions, w);
+		assert.equal(s2.acc, 1, 'and the persisted decisions are still correct');
+		assert.equal(s2.driftAcc, 1, 'including on drift');
+		// NEG CONTROL: a FRESH file (no persisted library) pays the cold cost again — persistence is load-bearing.
+		const r3 = await makeStructReal({ store: createFileStore(cold) })(w.stream, env);
+		assert.equal(r3.calls, r1.calls, `a cold (fresh-file) process pays the same as process 1 (${r3.calls} == ${r1.calls})`);
+	} finally { for ( const f of [tmp, cold] ) { try { fs.unlinkSync(f); } catch ( e ) {} } }
 });

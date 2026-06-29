@@ -64,7 +64,10 @@ function makeStructReal( opts ) {
 	return async function structReal( stream, env ) {
 		const counters = { calls: 0, tokens: 0, maxContext: 0 };
 		const actions = [];
-		const cache = createProviderCache({});
+		// opts.store (a Map-like, e.g. a file-backed createFileStore) makes the derivation cache PERSIST: a fresh
+		// "process" passing the same store re-hydrates the warm library and replays recurrent classes at 0 calls
+		// (cross-restart amortization, M4.2). Default = a fresh in-memory cache (no persistence).
+		const cache = createProviderCache(opts.store ? { store: opts.store } : {});
 
 		// the decide provider routes through env.model (same accounting as track()): a cold firing is one model
 		// call; a cache hit elides it. The prompt is built identically to the other arms (comparable maxContext).
@@ -82,21 +85,28 @@ function makeStructReal( opts ) {
 		}
 		Graph._providers = cache.wrapFragment({ Dec: { decide } }, { 'Dec::decide': makeKeyFn(keyIncludesPremise) });
 
-		// one graph; every record is a node carrying its audit-state-derived `approvable` (the audit is exogenous
-		// state read off env.workload, not a record field). One settle derives all decisions: the derivation cache
-		// amortizes recurrent classes (0 model calls); a drifted post-audit case (approvable=false) is a NEW key →
-		// a cold re-derive → reject (SELECTIVE — only the violated class re-derives). The mutation-sequencing
-		// constraint holds (all state enters via the seed = the rev-logged construction, never an out-of-band set).
-		const nodes = stream.map(( rec ) => {
-			const compliant = !env.workload.activeAuditAt(rec.index).has(auditKey(rec));
-			return { _id: 'r' + rec.index, Node: true, kind: rec.kind, region: rec.region, score: rec.score,
-				tier: rec.tier, compliant: compliant, approvable: rec.score === 'high' && compliant };
-		});
-		const g = new Graph({ lastRev: 0, freeNodes: [], segments: [], nodes }, { label: 'struct-real', isMaster: true,
+		// one graph; records are processed STREAMING — one node added + settled + awaited before the next. This
+		// SERIALIZES the derivations so the cache amortizes even under a slow async (live) model: node-2 of a class
+		// runs AFTER node-1's cache.set. (A batch seed fires all async providers concurrently → they race the cache
+		// before any set lands → no amortization under a live model; the deterministic stub hides it. Real finding.)
+		// The audit is exogenous state read off env.workload; the mutation-sequencing constraint holds (every node
+		// enters via a sequenced, rev-logged pushMutation — never an out-of-band set). pushMutation's cb is the 6th arg.
+		const g = new Graph({ lastRev: 0, freeNodes: [], segments: [], nodes: [] }, { label: 'struct-real', isMaster: true,
 			autoMount: true, conceptSets: ['common'], bagRefManagers: {}, logLevel: 'error' }, tree);
 		await nextStable(g);
 
-		for ( const rec of stream ) { const e = g.getEtty('r' + rec.index); actions[rec.index] = e ? e._.decision : undefined; }
+		for ( const rec of stream ) {
+			const compliant = !env.workload.activeAuditAt(rec.index).has(auditKey(rec));
+			const id = 'r' + rec.index;
+			// pushMutation's cb is the 6th arg and fires with the APPLIED-objects map (not an (err,res) convention) —
+			// resolve on its call (the mutation is sequenced + applied; nextStable then settles it).
+			await new Promise(( res ) => g.pushMutation({ _id: id, Node: true, kind: rec.kind, region: rec.region,
+				score: rec.score, tier: rec.tier, compliant: compliant, approvable: rec.score === 'high' && compliant },
+				null, undefined, undefined, undefined, () => res()));
+			await nextStable(g);
+			const e = g.getEtty(id);
+			actions[rec.index] = e ? e._.decision : undefined;
+		}
 		return { name: opts.name || 'STRUCT-REAL', calls: counters.calls, tokens: counters.tokens, maxContext: counters.maxContext, actions };
 	};
 }
