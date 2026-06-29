@@ -60,11 +60,16 @@ const g = Graph.fromDirs({
 `fromDirs` is sugar over `new Graph(record, conf, conceptMap)`:
 
 ```js
-const { buildConceptTree } = require('skynet-graph/lib/authoring/concepts');
+const { buildConceptTree } = Graph.authoring.concepts; // barrel; or require('skynet-graph/lib/authoring/concepts')
 const conceptMap = { common: buildConceptTree('./concepts/common') };
 Graph.register([{ CommonGeo: Graph.providers.CommonGeo }]); // wire providers
 const g = new Graph(seed, { conceptSets: ['common'], autoMount: true }, conceptMap);
 ```
+
+> **Authoring toolkit.** `Graph.authoring` namespaces the R&D/authoring tools (parity with `Graph.providers`),
+> so you reach them without deep paths — e.g. `Graph.authoring.concepts.buildConceptTree`, `.validate`,
+> `.contract`, `.method`, `.abstract`, `.crystallize`. Each module also stays importable on its own
+> (`require('skynet-graph/lib/authoring/<module>')`); the barrel is a convenience, not a gate.
 
 ## 3. Concept sets
 
