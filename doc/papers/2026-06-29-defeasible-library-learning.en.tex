@@ -50,7 +50,11 @@ every coverage, and amortizing \emph{beyond} that fraction is unsound by constru
 against the \emph{named} agent-memory systems (MemGPT, Reflexion, GraphRAG), each --- given its fairest shot ---
 can recover on drift, but only the typed contract recovers at the lowest cost on (calls $\times$ correctness
 $\times$ per-call context) \emph{simultaneously}: the unique Pareto-optimal point, the others paying a paging /
-per-record / batch-re-index tax (stub + live). No mechanism here is new
+per-record / batch-re-index tax (stub + live). (E7) across a learned two-link method \textbf{chain}, the wedge
+holds and \emph{strengthens}: a recall-only memory's staleness compounds link-to-link (and $\propto$ chain depth)
+while the typed contract recovers \textbf{both} links selectively at $O(1)$ recovery cost in the chain length ---
+measured on the belief view, reproduced on the real durable executor (with cross-restart and crash-resume), and
+confirmed on a live local model. No mechanism here is new
 (JTMS, contracts-with-blame, library learning, theory revision, separation-logic footprints); the contribution is
 their \textbf{composition} into a learned method library that performs \emph{principled, selective un-learning on
 drift}, which recall-only agent memories do not --- bounded by a measured \K{} ceiling.
@@ -316,6 +320,65 @@ contract re-assertion is in-engine (\textbf{zero} model calls). A live run (\tex
 reproduces the ordering: Struct 9 calls / 1.9\,s, MemGPT 11 / 2.3\,s, Reflexion 34 / 7.1\,s, GraphRAG 36 / 7.7\,s
 (stale). These are minimal faithful re-implementations, not the full systems.
 
+\subsection{E7 --- composition under drift}\label{sec:e7}
+E6 measures a \emph{single} method. The differentiator of a \emph{library} is composition: when an upstream
+method's premise falls, does the recovery propagate through the chain? We extend the workload to a two-link chain
+--- \texttt{decide $\to$ disburse}, where \texttt{disbursement = disbursed iff decision == approve} (link 2 reads
+link 1's outcome fact) --- and re-run the head-to-head, scoring \textbf{both} links. The same exogenous audit now
+cascades: an audited high-score case must flip \texttt{decision} approve$\to$reject \textbf{and}
+\texttt{disbursement} disbursed$\to$held. Deterministic stub ($N{=}78$, two audited classes) and a live run
+(\texttt{qwen3.6-27b-mtp} in LM Studio, $N{=}48$, four audited classes, arms fanned 4-way across the parallel
+server), Table~\ref{tab:e7}.
+
+\begin{table}[h]\centering
+\begin{tabular}{lccc}
+\toprule
+arm & calls (stub / live) & drift-acc link 1 & drift-acc link 2 \\
+\midrule
+Naive & 156 / 96 & 1.00 & 1.00 \\
+CBR ($=$ Struct $-$ contract) & 36 / 24 & \textbf{0.00 / 0.50} & \textbf{0.00 / 0.50} \\
+MemGPT (fairest) & 45 / 41 & 1.00 & 1.00 \\
+Reflexion (fairest) & 160 / 108 & 1.00 & 1.00 \\
+GraphRAG $+$ re-index & 178 / 116 & 1.00 & 1.00 \\
+\textbf{Struct} & \textbf{38 / 26} & \textbf{1.00} & \textbf{1.00} \\
+Struct (full engine) & 38 / 27 & 1.00 & 1.00 \\
+\bottomrule
+\end{tabular}
+\caption{E7 (stub / live). A two-link chain \texttt{decide $\to$ disburse}: recall-only staleness compounds at both links; Struct recovers both selectively and is the unique Pareto point on (calls, drift-acc link 1, drift-acc link 2, context).}
+\label{tab:e7}
+\end{table}
+
+Three things are measured. (i) \textbf{Staleness compounds.} Every recall-only or blind arm (CBR, and each named
+system's ablation) is wrong at link 1 \emph{and} link 2: a stale upstream answer poisons the downstream that reads
+it (stub drift $0.00\to0.00$; the live partials $0.38$--$0.75$ are the same staleness, diluted by the model's own
+pre-audit errors --- see \S6). (ii) \textbf{The recovery tax multiplies down the chain.} Reflexion, having no
+memo, pays a call per record \emph{per link} (calls $\approx 2N$); GraphRAG re-indexes affected communities at
+\emph{each} link; MemGPT pays paging $+$ coarse re-decode $+$ a larger context at \emph{both} links. (iii)
+\textbf{Struct's cascade is selective.} A fallen premise un-casts the upstream belief and the change propagates to
+the downstream --- recovering both links while re-deriving \emph{only} the violated upstream entry (the downstream
+re-derivation is elided because its cache key is disburse's true read-set \texttt{\{kind, region, decision\}}).
+Struct is the unique Pareto-optimal point on (calls $\times$ drift-acc link 1 $\times$ drift-acc link 2 $\times$
+per-call context), stub and live; the full-engine realization (four ensure-gated concepts over the derivation
+cache) reproduces it ($38{=}38$ stub; $26\approx27$ live, within model nondeterminism). This is the capability the
+named surface memories structurally lack: a belief that depends on a premise which just fell, un-learned
+\emph{across composition}.
+
+\textbf{The wedge widens with chain depth.} Generalising the chain to $L$ links (each positive iff the previous
+is), the staleness and the cost both scale while Struct's recovery does not: a recall-only cache's
+\emph{compounding depth} (links wrong on a drifted class) is exactly $L$; Naive and Reflexion pay $O(L{\cdot}N)$
+calls; but Struct's recovery \textbf{drift-tax is $O(1)$ in $L$} --- the cascade re-derives only the violated
+upstream entry, every downstream re-derivation reusing a sibling's read-set entry. So the deeper the learned method
+chain, the larger Struct's advantage on the correctness gap (compounding $\propto L$) and on recovery efficiency
+($O(1)$ vs an $O(L)$ coarse rebuild).
+
+\textbf{On the real durable executor.} The above is the belief view (the rule-driven graph $+$ JTMS retraction).
+The same chain compiled to a workflow net and run as a token-flow over a content-addressed, crash-resumable
+checkpoint store reproduces the result on the \emph{execution} layer: the chain amortizes and the drift cascades
+through both links (Struct-on-executor 24 calls, drift $1.00/1.00$; the premise-less key and a flat composed cache
+both compound), the warm composed library \textbf{replays across a process restart at zero model calls}, and a
+chain cut mid-flight \textbf{resumes with no work lost or duplicated}. Belief-view defeasance and durable execution
+are complementary: the contract retracts the belief; the executor makes the recomputation durable and selective.
+
 \section{Related Work}
 \textbf{Retrieval and case memory.} RAG~\cite{lewis2020} and CBR recall by similarity and reuse-or-adapt; they
 cannot represent a \emph{premise becoming invalid}, so an exogenous change that leaves the query unchanged leaves the
@@ -362,7 +425,11 @@ across premises and feeds library revision.
 \section{Threats to Validity}
 \textbf{Stub vs.\ live.} The deterministic stub removes model error to isolate each arm's \emph{mechanism}; the live
 E2 confirms the ordering with a real model. The stub does not predict absolute live accuracy; running more arms live
-is future work.
+is future work. The live \emph{drift} verdict requires a workload with several distinct drift classes: at very small
+$N$ a single pre-audit error by the (imperfect) live model on the lone drift class can mask a recall-only baseline's
+staleness, so the per-record correctness claim is established on the deterministic-oracle stub while the live runs
+confirm cost, amortization, fan-out wall-clock, and the engine-vs-proxy reproduction; with several drift classes
+(E7, $N{=}48$) the verdict is robustly live-measurable and Struct remains the unique Pareto point.
 
 \textbf{\K{}-coverage is parameterized.} P4 \emph{sets} the typed fraction; the non-circular claims are the
 \emph{shape} (a gradient), universality of soundness, and that greedy amortization is unsound. The absolute

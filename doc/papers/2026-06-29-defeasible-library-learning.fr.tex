@@ -51,7 +51,11 @@ boîte ouverte sur chaque paire évaluée (aucun faux-admis), chacune des trois 
 au-delà ; (E6) en tête-à-tête face aux systèmes de mémoire d'agents \emph{nommés} (MemGPT, Reflexion, GraphRAG),
 chacun --- dans sa configuration la plus favorable --- peut récupérer à la dérive, mais seul le contrat typé
 récupère au moindre coût sur (appels $\times$ exactitude $\times$ contexte) \emph{simultanément} : l'unique point
-Pareto-optimal. Aucun mécanisme n'est nouveau (JTMS, contrats à blâme, apprentissage de bibliothèque, révision de théorie,
+Pareto-optimal. (E7) à travers une \textbf{chaîne} apprise de méthodes à deux maillons, le coin tient et se
+\emph{renforce} : la péremption d'une mémoire par rappel seul se compose de maillon en maillon (et $\propto$
+profondeur de chaîne) tandis que le contrat typé récupère \textbf{les deux} maillons sélectivement à un coût de
+récupération en $O(1)$ en la longueur de la chaîne --- mesuré sur la vue-croyance, reproduit sur le vrai exécuteur
+durable (avec redémarrage et reprise-après-crash), et confirmé sur un modèle local réel. Aucun mécanisme n'est nouveau (JTMS, contrats à blâme, apprentissage de bibliothèque, révision de théorie,
 logique de séparation) ; la contribution est leur composition en une bibliothèque apprise de méthodes typées qui
 réalise un désapprentissage principiel et sélectif à la dérive --- ce que les mémoires par rappel seul ne font pas
 --- bornée par un plafond \K{} mesuré.
@@ -312,6 +316,71 @@ direct (\texttt{qwen36-q2-vram}, $N=32$) reproduit l'ordre : Struct 9 appels / 1
 Reflexion 34 / 7,1\,s, GraphRAG 36 / 7,7\,s (périmé). Ce sont des ré-implémentations minimales fidèles, pas les
 systèmes complets.
 
+\subsection{E7 --- composition à la dérive}\label{sec:e7}
+E6 mesure une \emph{seule} méthode. Le différenciateur d'une \emph{bibliothèque} est la composition : lorsque la
+prémisse d'une méthode amont tombe, la récupération se propage-t-elle dans la chaîne ? Nous étendons la charge à une
+chaîne à deux maillons --- \texttt{decide $\to$ disburse}, où \texttt{disbursement = disbursed iff decision ==
+approve} (le maillon 2 lit le fait-résultat du maillon 1) --- et ré-exécutons le tête-à-tête en notant les
+\textbf{deux} maillons. Le même audit exogène se propage désormais en cascade : un cas audité à score élevé doit
+faire basculer \texttt{decision} approve$\to$reject \textbf{et} \texttt{disbursement} disbursed$\to$held.
+Simulateur déterministe ($N{=}78$, deux classes auditées) et une exécution réelle (\texttt{qwen3.6-27b-mtp} dans LM
+Studio, $N{=}48$, quatre classes auditées, bras répartis en éventail sur 4 voies sur le serveur parallèle),
+Table~\ref{tab:e7}.
+
+\begin{table}[h]\centering
+\begin{tabular}{lccc}
+\toprule
+bras & appels (simu / réel) & exact.-dérive maillon 1 & exact.-dérive maillon 2 \\
+\midrule
+Naïf & 156 / 96 & 1,00 & 1,00 \\
+CBR ($=$ Struct $-$ contrat) & 36 / 24 & \textbf{0,00 / 0,50} & \textbf{0,00 / 0,50} \\
+MemGPT (le plus favorable) & 45 / 41 & 1,00 & 1,00 \\
+Reflexion (le plus favorable) & 160 / 108 & 1,00 & 1,00 \\
+GraphRAG $+$ ré-index & 178 / 116 & 1,00 & 1,00 \\
+\textbf{Struct} & \textbf{38 / 26} & \textbf{1,00} & \textbf{1,00} \\
+Struct (moteur complet) & 38 / 27 & 1,00 & 1,00 \\
+\bottomrule
+\end{tabular}
+\caption{E7 (simu / réel). Chaîne à deux maillons \texttt{decide $\to$ disburse} : la péremption par rappel seul se compose aux deux maillons ; Struct récupère les deux sélectivement et est l'unique point Pareto sur (appels, exact.-dérive maillon 1, exact.-dérive maillon 2, contexte).}
+\label{tab:e7}
+\end{table}
+
+Trois choses sont mesurées. (i) \textbf{La péremption se compose.} Tout bras par rappel seul ou aveugle (CBR, et
+l'ablation de chaque système nommé) est faux au maillon 1 \emph{et} au maillon 2 : une réponse amont périmée
+empoisonne le maillon aval qui la lit (dérive en simu $0{,}00\to0{,}00$ ; les partiels en réel $0{,}38$--$0{,}75$
+sont la même péremption, diluée par les erreurs pré-audit propres au modèle --- voir \S6). (ii) \textbf{La taxe de
+récupération se multiplie le long de la chaîne.} Reflexion, sans mémo, paie un appel par enregistrement \emph{par
+maillon} (appels $\approx 2N$) ; GraphRAG ré-indexe les communautés concernées à \emph{chaque} maillon ; MemGPT
+paie la pagination $+$ un re-décodage grossier $+$ un contexte plus grand aux \emph{deux} maillons. (iii)
+\textbf{La cascade de Struct est sélective.} Une prémisse tombée dé-cast la croyance amont et le changement se
+propage à l'aval --- récupérant les deux maillons tout en re-dérivant \emph{seulement} l'entrée amont violée (la
+re-dérivation aval est élidée car sa clé de cache est l'ensemble de lecture réel de disburse
+\texttt{\{kind, region, decision\}}). Struct est l'unique point Pareto-optimal sur (appels $\times$ exact.-dérive
+maillon 1 $\times$ exact.-dérive maillon 2 $\times$ contexte par appel), en simu comme en réel ; la réalisation sur
+moteur complet (quatre concepts \emph{ensure}-gated au-dessus du cache de dérivation) la reproduit ($38{=}38$ en
+simu ; $26\approx27$ en réel, dans le non-déterminisme du modèle). C'est la capacité qui manque structurellement
+aux mémoires de surface nommées : une croyance qui dépend d'une prémisse qui vient de tomber, désapprise
+\emph{à travers la composition}.
+
+\textbf{Le coin s'élargit avec la profondeur de chaîne.} En généralisant la chaîne à $L$ maillons (chacun positif
+ssi le précédent l'est), la péremption et le coût croissent tous deux tandis que la récupération de Struct, non :
+la \emph{profondeur de composition} d'un cache par rappel seul (maillons faux sur une classe dérivée) vaut
+exactement $L$ ; Naïf et Reflexion paient $O(L{\cdot}N)$ appels ; mais la \textbf{taxe de dérive} de la
+récupération de Struct est en $O(1)$ en $L$ --- la cascade ne re-dérive que l'entrée amont violée, chaque
+re-dérivation aval réutilisant l'entrée d'ensemble-de-lecture d'un frère. Ainsi, plus la chaîne de méthodes
+apprises est profonde, plus l'avantage de Struct est grand sur l'écart d'exactitude (composition $\propto L$) et
+sur l'efficacité de récupération ($O(1)$ contre une reconstruction grossière en $O(L)$).
+
+\textbf{Sur le vrai exécuteur durable.} Ce qui précède est la vue-croyance (le graphe à base de règles $+$ la
+rétractation JTMS). La même chaîne compilée en un réseau de workflow et exécutée comme un flot de jetons sur un
+magasin de points de reprise adressé par contenu et reprenable après crash reproduit le résultat sur la couche
+d'\emph{exécution} : la chaîne amortit et la dérive se propage en cascade à travers les deux maillons
+(Struct-sur-exécuteur 24 appels, dérive $1{,}00/1{,}00$ ; la clé sans-prémisse comme le cache composé plat y
+cumulent la péremption), la bibliothèque composée chaude \textbf{se rejoue à travers un redémarrage de processus à
+zéro appel modèle}, et une chaîne coupée en plein vol \textbf{reprend sans travail perdu ni dupliqué}. La défaisance
+en vue-croyance et l'exécution durable sont complémentaires : le contrat rétracte la croyance ; l'exécuteur rend le
+recalcul durable et sélectif.
+
 \section{Travaux apparentés}
 \textbf{Recherche et mémoire de cas.} RAG~\cite{lewis2020} et CBR rappellent par similarité ; ils ne représentent
 pas une \emph{prémisse devenant invalide} (E2). Les bibliothèques de compétences (Voyager~\cite{wang2023}) stockent
@@ -349,7 +418,12 @@ que notre invalidation est \emph{dérivée d'un contrat déclaratif} (re-vérifi
 \section{Menaces à la validité}
 \textbf{Simulateur vs réel.} Le simulateur retire l'erreur du modèle pour isoler le \emph{mécanisme} ; l'E2 réel
 confirme l'ordre. Le simulateur ne prédit pas l'exactitude absolue en réel ; exécuter plus de bras en réel est un
-travail futur.
+travail futur. Le verdict de \emph{dérive} en réel exige une charge comportant plusieurs classes de dérive
+distinctes : à très petit $N$, une seule erreur pré-audit du modèle réel (imparfait) sur l'unique classe de dérive
+peut masquer la péremption d'une référence par rappel seul, de sorte que l'affirmation d'exactitude par
+enregistrement est établie sur le simulateur à oracle déterministe tandis que les exécutions réelles confirment le
+coût, l'amortissement, le temps mural en éventail et la reproduction moteur-contre-proxy ; avec plusieurs classes
+de dérive (E7, $N{=}48$) le verdict est robustement mesurable en réel et Struct reste l'unique point Pareto.
 
 \textbf{\K{}-couverture paramétrée.} P4 \emph{fixe} la fraction typée ; les affirmations non circulaires sont la
 \emph{forme} (un gradient), l'universalité de la sûreté, et la non-sûreté de l'amortissement glouton. La fraction
