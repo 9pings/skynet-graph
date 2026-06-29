@@ -18,14 +18,16 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '../..');
 const { ARMS } = require('./arms.js');
 const { NAMED_ARMS, makeFeedback } = require('./named-arms.js');
+const { STRUCT_REAL_ARMS } = require('./struct-real.js');
 const E = require('./workload.js');
 const H = require('./harness.js');
 const out = ( ...a ) => process.stdout.write(a.join(' ') + '\n');
 
-const ALL = Object.assign({}, ARMS, NAMED_ARMS);
-// headline order (ablations grouped under their system); STRUCT last so the verdict reads against it.
+const ALL = Object.assign({}, ARMS, NAMED_ARMS, STRUCT_REAL_ARMS);
+// headline order (ablations grouped under their system); STRUCT then STRUCT-REAL last (the engine realization
+// CONFIRMS the Map proxy reproduces the corner — it is the same system, not a rival).
 const ORDER = ['NAIVE', 'LONG-CONTEXT', 'RAG', 'CBR', 'SKILL', 'INVALIDATING',
-	'MEMGPT', 'MEMGPT-BLIND', 'REFLEXION', 'REFLEXION-BLIND', 'GRAPHRAG', 'GRAPHRAG-REINDEX', 'STRUCT'];
+	'MEMGPT', 'MEMGPT-BLIND', 'REFLEXION', 'REFLEXION-BLIND', 'GRAPHRAG', 'GRAPHRAG-REINDEX', 'STRUCT', 'STRUCT-REAL'];
 
 async function runArms( w, env, names ) {
 	const rows = {};
@@ -64,7 +66,7 @@ async function main() {
 	out(`\n#10 HEAD-TO-HEAD ${live ? '(LIVE model=' + process.env.MODEL + ')' : '(deterministic stub)'} — ` +
 		`workload N=${w.meta.n} (pre ${w.meta.preCount}, post ${w.meta.postCount}, drift ${w.meta.driftCases}), audit=${w.meta.audited.join(',')}\n`);
 
-	const order = live ? ['NAIVE', 'CBR', 'INVALIDATING', 'MEMGPT', 'MEMGPT-BLIND', 'REFLEXION', 'REFLEXION-BLIND', 'GRAPHRAG', 'GRAPHRAG-REINDEX', 'STRUCT'] : ORDER;
+	const order = live ? ['NAIVE', 'CBR', 'INVALIDATING', 'MEMGPT', 'MEMGPT-BLIND', 'REFLEXION', 'REFLEXION-BLIND', 'GRAPHRAG', 'GRAPHRAG-REINDEX', 'STRUCT', 'STRUCT-REAL'] : ORDER;
 	const rows = await runArms(w, env, order);
 	out('arm              | calls |' + (live ? ' wall(s) |' : '') + '  acc | drift | maxCtx | low-calls correct-drift min-ctx');
 	out('-----------------|------:|' + (live ? '--------:|' : '') + '-----:|------:|-------:|--------------------------------');
@@ -80,13 +82,21 @@ async function main() {
 
 	// ── the Pareto / uniqueness verdict: does any arm match-or-beat STRUCT on ALL THREE corners? ──
 	out('\nVERDICT (#10) — STRUCT vs the named systems:');
-	const dominators = order.filter(( name ) => name !== 'STRUCT' ).filter(( name ) => {
+	// exclude the STRUCT* family from the RIVAL check: STRUCT-REAL is the engine realization of STRUCT (it ties
+	// by construction, confirming the proxy), not a competing memory system.
+	const dominators = order.filter(( name ) => !name.startsWith('STRUCT') ).filter(( name ) => {
 		const r = rows[name];
 		return r.calls <= S.calls && Math.abs(r.driftAcc - 1) < 1e-9 && r.maxContext <= S.maxContext;
 	});
 	out(`  STRUCT: calls ${S.calls}, drift ${S.driftAcc.toFixed(2)}, maxCtx ${S.maxContext} (the reference point)`);
 	out(`  arms that match-or-beat STRUCT on (calls ≤) ∧ (drift=1) ∧ (ctx ≤): ${dominators.length ? dominators.join(', ') : 'NONE'}`);
 	out(`  ⇒ STRUCT is ${dominators.length ? 'NOT' : 'the UNIQUE'} Pareto-optimal point ${dominators.length ? '(FAIL)' : '(PASS)'}`);
+	if ( rows['STRUCT-REAL'] ) {
+		const R = rows['STRUCT-REAL'];
+		const same = R.calls === S.calls && Math.abs(R.driftAcc - S.driftAcc) < 1e-9;
+		out(`  STRUCT-REAL (the ACTUAL engine, not a Map): calls ${R.calls}, drift ${R.driftAcc.toFixed(2)}, maxCtx ${R.maxContext} ` +
+			`→ ${same ? 'REPRODUCES STRUCT (the arm is a faithful proxy, not an unfair stub)' : 'DIVERGES from STRUCT — investigate'}`);
+	}
 
 	// per named system: recovery + its mechanism-specific tax (vs STRUCT). Negative controls in parentheses.
 	const tax = ( name ) => {
