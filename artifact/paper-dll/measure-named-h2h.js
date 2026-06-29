@@ -16,7 +16,7 @@
  */
 const path = require('path');
 const ROOT = path.resolve(__dirname, '../..');
-const { ARMS } = require('./arms.js');
+const { ARMS, pool } = require('./arms.js');
 const { NAMED_ARMS, makeFeedback } = require('./named-arms.js');
 const { STRUCT_REAL_ARMS } = require('./struct-real.js');
 const E = require('./workload.js');
@@ -29,14 +29,22 @@ const ALL = Object.assign({}, ARMS, NAMED_ARMS, STRUCT_REAL_ARMS);
 const ORDER = ['NAIVE', 'LONG-CONTEXT', 'RAG', 'CBR', 'SKILL', 'INVALIDATING',
 	'MEMGPT', 'MEMGPT-BLIND', 'REFLEXION', 'REFLEXION-BLIND', 'GRAPHRAG', 'GRAPHRAG-REINDEX', 'STRUCT', 'STRUCT-REAL'];
 
+// CONCURRENT_ARMS=N fans the independent arms across a PARALLEL llm server (N in flight). STRUCT-REAL* mutate the
+// GLOBAL Graph._providers → run them sequentially; pool only the pure Map arms. calls/acc/drift/ctx are
+// concurrency-invariant; per-arm `wall` is CONTENDED under the pool (headline = the TOTAL wall printed by main).
 async function runArms( w, env, names ) {
+	const conc = parseInt(process.env.CONCURRENT_ARMS || '1', 10);
 	const rows = {};
-	for ( const name of names ) {
+	const runOne = async ( name ) => {
 		const t0 = Date.now();
 		const res = await ALL[name](w.stream, env);
-		const wall = (Date.now() - t0) / 1000;
-		rows[name] = Object.assign({}, res, H.score(res.actions, w), { wall });
-	}
+		rows[name] = Object.assign({}, res, H.score(res.actions, w), { wall: (Date.now() - t0) / 1000 });
+	};
+	if ( conc > 1 ) {
+		const seq = names.filter(( n ) => /^STRUCT-REAL/.test(n) );
+		await pool(names.filter(( n ) => !/^STRUCT-REAL/.test(n) ), runOne, conc);
+		for ( const n of seq ) await runOne(n);
+	} else for ( const n of names ) await runOne(n);
 	return rows;
 }
 
@@ -57,8 +65,11 @@ async function main() {
 	let model;
 	if ( live ) {
 		const { makeAsk } = require(ROOT + '/lib/providers/llm.js');
-		const ask = makeAsk({ base: process.env.BASE || 'http://localhost:5000', api: 'openai',
-			model: process.env.MODEL, extraBody: { chat_template_kwargs: { enable_thinking: false } } });
+		// assistantPrefill = the no-think method that WORKS on LM Studio + Qwen3.x (chat_template_kwargs is a no-op
+		// there; the server returns only the continuation). Default endpoint = LM Studio (localhost:1234).
+		const ask = makeAsk({ base: process.env.BASE || 'http://localhost:1234', api: 'openai',
+			model: process.env.MODEL, extraBody: { chat_template_kwargs: { enable_thinking: false } },
+			assistantPrefill: '<think>\n\n</think>\n\n' });
 		model = H.makeModel('live', { ask });
 	} else model = H.makeModel('stub');
 	const env = { workload: w, model };
@@ -67,7 +78,10 @@ async function main() {
 		`workload N=${w.meta.n} (pre ${w.meta.preCount}, post ${w.meta.postCount}, drift ${w.meta.driftCases}), audit=${w.meta.audited.join(',')}\n`);
 
 	const order = live ? ['NAIVE', 'CBR', 'INVALIDATING', 'MEMGPT', 'MEMGPT-BLIND', 'REFLEXION', 'REFLEXION-BLIND', 'GRAPHRAG', 'GRAPHRAG-REINDEX', 'STRUCT', 'STRUCT-REAL'] : ORDER;
+	const conc = parseInt(process.env.CONCURRENT_ARMS || '1', 10);
+	const tAll = Date.now();
 	const rows = await runArms(w, env, order);
+	if ( live ) out(`(arms run ${conc > 1 ? conc + '-way concurrent — per-arm wall CONTENDED; headline = total' : 'sequentially'}; TOTAL wall ${((Date.now() - tAll) / 1000).toFixed(1)}s)\n`);
 	out('arm              | calls |' + (live ? ' wall(s) |' : '') + '  acc | drift | maxCtx | low-calls correct-drift min-ctx');
 	out('-----------------|------:|' + (live ? '--------:|' : '') + '-----:|------:|-------:|--------------------------------');
 	const S = rows.STRUCT, N = w.meta.n;

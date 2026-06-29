@@ -19,20 +19,30 @@ const path = require('path');
 const { COMPOSED_SURFACE_ARMS } = require('./composed-arms.js');
 const { COMPOSED_NAMED_ARMS, makeFeedback } = require('./composed-named-arms.js');
 const { STRUCT_REAL2_ARMS } = require('./struct-real-composed.js');
+const { pool } = require('./arms.js');
 const W = require('./composed-workload.js');
 const H = require('./composed-harness.js');
 const out = ( ...a ) => process.stdout.write(a.join(' ') + '\n');
 
 const ALL = Object.assign({}, COMPOSED_SURFACE_ARMS, COMPOSED_NAMED_ARMS, STRUCT_REAL2_ARMS);
 
+// CONCURRENT_ARMS=N fans the independent arms across a PARALLEL llm server (N in flight). The STRUCT-REAL* engine
+// arms mutate the GLOBAL Graph._providers → run them SEQUENTIALLY; pool only the pure Map arms. calls/drift/ctx are
+// concurrency-invariant (deterministic counts); per-arm `wall` is CONTENDED under the pool (the headline is the
+// TOTAL wall printed by main) — for a clean per-arm wall, run with CONCURRENT_ARMS unset (sequential).
 async function runArms( w, env, names ) {
+	const conc = parseInt(process.env.CONCURRENT_ARMS || '1', 10);
 	const rows = {};
-	for ( const name of names ) {
+	const runOne = async ( name ) => {
 		const t0 = Date.now();
 		const res = await ALL[name](w.stream, env);
-		const wall = (Date.now() - t0) / 1000;
-		rows[name] = Object.assign({}, res, H.score(res, w), { wall });
-	}
+		rows[name] = Object.assign({}, res, H.score(res, w), { wall: (Date.now() - t0) / 1000 });
+	};
+	if ( conc > 1 ) {
+		const seq = names.filter(( n ) => /^STRUCT-REAL/.test(n) );          // global Graph._providers → sequential
+		await pool(names.filter(( n ) => !/^STRUCT-REAL/.test(n) ), runOne, conc);
+		for ( const n of seq ) await runOne(n);
+	} else for ( const n of names ) await runOne(n);
 	return rows;
 }
 
@@ -51,8 +61,11 @@ async function main() {
 	let model;
 	if ( live ) {
 		const { makeAsk } = require(path.resolve(__dirname, '../..') + '/lib/providers/llm.js');
-		const ask = makeAsk({ base: process.env.BASE || 'http://localhost:5000', api: 'openai',
-			model: process.env.MODEL, extraBody: { chat_template_kwargs: { enable_thinking: false } } });
+		// assistantPrefill = the no-think method that WORKS on LM Studio + Qwen3.x (the chat_template_kwargs path is
+		// a no-op there); the server returns only the continuation. Default endpoint = LM Studio (localhost:1234).
+		const ask = makeAsk({ base: process.env.BASE || 'http://localhost:1234', api: 'openai',
+			model: process.env.MODEL, extraBody: { chat_template_kwargs: { enable_thinking: false } },
+			assistantPrefill: '<think>\n\n</think>\n\n' });
 		model = H.makeModel('live', { ask });
 	} else model = H.makeModel('stub');
 	const env = { workload: w, model };
@@ -63,7 +76,11 @@ async function main() {
 	const order = live
 		? ['NAIVE-2', 'CBR-2', 'MEMGPT-2', 'MEMGPT-2-BLIND', 'REFLEXION-2', 'REFLEXION-2-BLIND', 'GRAPHRAG-2', 'GRAPHRAG-2-REINDEX', 'STRUCT-2', 'STRUCT-REAL-2']
 		: ['NAIVE-2', 'CBR-2', 'MEMGPT-2', 'MEMGPT-2-BLIND', 'REFLEXION-2', 'REFLEXION-2-BLIND', 'GRAPHRAG-2', 'GRAPHRAG-2-REINDEX', 'STRUCT-2', 'STRUCT-REAL-2'];
+	const conc = parseInt(process.env.CONCURRENT_ARMS || '1', 10);
+	const tAll = Date.now();
 	const rows = await runArms(w, env, order);
+	const totalWall = (Date.now() - tAll) / 1000;
+	if ( live ) out(`(arms run ${conc > 1 ? conc + '-way concurrent — per-arm wall is CONTENDED; headline = total' : 'sequentially'}; TOTAL wall ${totalWall.toFixed(1)}s)\n`);
 	const S = rows['STRUCT-2'];
 	out('arm                | calls |' + (live ? ' wall(s) |' : '') + ' drift1 | drift2 | maxCtx | low-calls drift1=1 drift2=1 min-ctx');
 	out('-------------------|------:|' + (live ? '--------:|' : '') + '-------:|-------:|-------:|-----------------------------------');

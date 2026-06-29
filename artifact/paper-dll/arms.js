@@ -145,6 +145,19 @@ async function struct( stream, env ) {
 }
 
 const ARMS = { NAIVE: naive, 'LONG-CONTEXT': longContext, RAG: rag, CBR: cbr, SKILL: skillLibrary, INVALIDATING: invalidatingCache, STRUCT: struct };
+
+// bounded-concurrency pool — run `worker(item,i)` over `items`, ≤ `conc` in flight, results in order. Used by the
+// runners to fan independent ARMS across a PARALLEL llm server (LM Studio continuous batching). Pure Map arms are
+// concurrency-safe (own state); the STRUCT-REAL* engine arms mutate the GLOBAL Graph._providers → the runners keep
+// THOSE sequential and pool only the rest. (A cache hit / single-flight makes same-key derivations safe too.)
+async function pool( items, worker, conc ) {
+	conc = Math.max(1, conc || 1);
+	const out = new Array(items.length); let next = 0;
+	async function run() { while ( next < items.length ) { const i = next++; out[i] = await worker(items[i], i); } }
+	await Promise.all(Array.from({ length: Math.min(conc, items.length) }, run));
+	return out;
+}
+
 // track/newCounters/finalize are exported so sibling arm-sets (named-arms.js: MemGPT/Reflexion/GraphRAG)
 // share IDENTICAL accounting — same call/token/maxContext attribution, no measurement drift across files.
-module.exports = { ARMS, typedKey, surfaceKey, auditKey, track, newCounters, finalize };
+module.exports = { ARMS, typedKey, surfaceKey, auditKey, track, newCounters, finalize, pool };
