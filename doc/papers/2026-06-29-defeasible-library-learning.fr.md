@@ -441,7 +441,11 @@ appris, pas de communautés Leiden ni de recherche par plongement). Chaque simpl
 en lumière idéalisée de l'audit, résumés sans perte, recherche exacte — donc chaque bras est une borne supérieure
 du comportement à la dérive de son système, non un homme de paille ; la faiblesse porteuse que nous exhibons
 (mémoire en prose grossière / absence de mémo typé / index hors-ligne aveugle) est intrinsèque à chaque
-conception, non un artefact de la réduction.
+conception, non un artefact de la réduction. De façon symétrique, notre propre STRUCT n'est *pas* un stub : une
+réalisation sur le vrai moteur — des concepts à rétractation JTMS *ensure*-gated au-dessus du cache de dérivation —
+reproduit son coin mesuré en stub ET en réel (9 appels sur le N = 32 réel, identique au bras), et la bibliothèque
+chaude survit à un redémarrage à zéro appel modèle ; E6 confronte donc les *ré-implémentations* des systèmes nommés
+au *vrai* moteur, pas stub-contre-stub.
 
 **Nouveauté / positionnement.** Aucun mécanisme n'est nouveau ; le travail est une *composition* (JTMS,
 contrats-à-blâme, apprentissage de bibliothèque, révision de théorie, empreintes de séparation), et `reviseOnBlame`

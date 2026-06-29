@@ -360,7 +360,11 @@ crochet » de « possède un contrat typé », d'où l'affirmation précise. Une
 ajustée est essentiellement l'Invalidant. Les systèmes \emph{nommés} sont évalués en E6 (\S\ref{sec:e6}) : des
 ré-implémentations minimales fidèles de chaque mécanisme (pas d'édition mémoire réellement pilotée par le LLM, ni
 modèle de récompense appris, ni communautés Leiden), chacune dans sa configuration la plus favorable et
-\emph{charitable} --- des bornes supérieures du comportement à la dérive, non des hommes de paille.
+\emph{charitable} --- des bornes supérieures du comportement à la dérive, non des hommes de paille. De façon
+symétrique, notre STRUCT n'est pas un stub : une réalisation sur le vrai moteur (rétractation JTMS \emph{ensure}-gated
+au-dessus du cache de dérivation) reproduit son coin en stub et en réel (9 appels sur le $N=32$ réel) et la
+bibliothèque chaude survit à un redémarrage à zéro appel --- E6 confronte les ré-implémentations des systèmes nommés
+au \emph{vrai} moteur, pas stub-contre-stub.
 
 \textbf{Nouveauté / positionnement.} Aucun mécanisme n'est nouveau ; le travail est une \emph{composition}. Nous le
 positionnons comme une unification opérationnelle, non un nouvel algorithme.

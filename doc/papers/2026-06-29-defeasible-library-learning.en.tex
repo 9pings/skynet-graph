@@ -375,7 +375,10 @@ event-invalidating RAG/CBR is essentially the Invalidating arm and
 should match Struct on drift-accuracy, differing on selectivity/generality. The \emph{named} systems are evaluated
 directly in E6 (\S\ref{sec:e6}); they are minimal faithful re-implementations of each mechanism (no real LLM-driven
 memory edits, learned reward model, or Leiden communities), each granted its fairest, \emph{charitable}
-configuration --- upper bounds on its drift behavior, not strawmen.
+configuration --- upper bounds on its drift behavior, not strawmen. Symmetrically, our STRUCT is not a stub: a
+real-engine realization (ensure-gated JTMS retraction over the derivation cache) reproduces its corner stub and
+live (9 calls on the live $N=32$) and the warm library survives a restart at zero model calls --- E6 compares the
+named-system re-implementations against the \emph{actual} engine, not stub-against-stub.
 
 \textbf{Novelty / positioning.} No mechanism is new; the work is a \emph{composition} of JTMS,
 contracts-with-blame, library learning, theory revision, and separation-logic footprints. We position it as an

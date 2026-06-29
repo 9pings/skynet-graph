@@ -423,7 +423,11 @@ community-summary index) in its fairest configuration, but none is the full depl
 memory edits, no learned reward model, no Leiden communities or embedding retrieval). Every simplification is
 *charitable* — idealized audit surfacing, lossless summaries, exact retrieval — so each arm is an upper bound on
 its system's drift behavior, not a strawman; the load-bearing weakness we exhibit (coarse prose memory / no
-typed memo / blind offline index) is intrinsic to each design, not an artifact of the reduction.
+typed memo / blind offline index) is intrinsic to each design, not an artifact of the reduction. Symmetrically,
+our own STRUCT is *not* a stub: a real-engine realization — concepts with ensure-gated JTMS retraction over the
+derivation cache — reproduces its measured corner both stub and live (9 calls on the live N = 32, matching the
+arm) and the warm library survives a restart at zero model calls, so E6 compares the named-system
+*re-implementations* against the *actual* engine, not stub-against-stub.
 
 **Novelty / positioning.** No mechanism is new; the work is a *composition* of JTMS, contracts-with-blame, library
 learning, and separation-logic footprints, and `reviseOnBlame` is theory revision (EITHER/FORTE). We position the
