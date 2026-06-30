@@ -194,7 +194,7 @@ replays verbatim); the typed verify re-gates on the receiver, so a structurally-
 
 ## 8. Status & honest lines
 
-**Built + measured (2026-06-30, ZERO-CORE throughout, 669 tests):** the middle spine (Bricks 1–3:
+**Built + measured (2026-06-30, ZERO-CORE throughout, 743 tests):** the middle spine (Bricks 1–3:
 applySubgraphArg / lintMethod / selectCluster), the abstractivation slice (F6), the durable executor (Layer A +
 B + the fold-back JOIN + fail-fast / fold-survivors / nested-fold + C-fail retry/escalate + audit), C-xlate,
 C-contract (the checker · the §11.6 composition-soundness probe · the executor guard · the belief-view un-learn loop
@@ -204,12 +204,29 @@ the crystallization **structural miner** + the **declared-frontier** crystallize
 combinator **mount** + `adaptOrForge`, §6), persistence + `.sgc` packs. The §11 stream gate **passes** on a live local
 model (call-elision + wall-clock + durability + drift-soundness).
 
-**Still genuinely open (gated):** a **real-model streaming `adaptOrForge`** measurement (calls × correct-under-drift,
-like the paper's STRUCT arm but structure-mapping-driven); the **antiUnify content-forge** adapt built *into* the
-controller (today the host's forge labels adapt vs fresh); the **EAGER in-core `SubGraph`/`ZoomSegment` object**
-(fold/zoom/residency — orthogonal to recombination, higher-risk; FILED, gated on a measured residency need — the seam
-map is in the R&D notes); and the deferred **performance** work (fork deep-copies the whole graph per case →
-bounded-seed; Stitch corpus-global MDL > greedy mining).
+**The Construct → Method flex programme (built 2026-06-30, ZERO-CORE; each gated by an adversarial soundness review):**
+the K1 ceiling read as a *gradient* — a loose, multi-path `Construct` crystallizes its **recurrent + typed**
+fraction into an exact `Method`. **(§6.2) interface-only dispatch** — a loosened recall reaches a structurally-matching
+in-bucket donor that the exact gate dropped, re-forges the differing content, and verifies the *adapted* method's own
+contract (never replays the donor). **(§6.1) multi-path `Construct`** — a competition (propose N decompositions → pareto
+`Select`) whose **clean-dominance survivor crystallizes** (a tie → flat-skip, a winner that flips → `signatureDetermined`
+refuses): residency = isolated forks (the co-resident OR-forest = ATMS multi-context = FILED, justified — its one
+case is the non-local frontier G1 already forbids). **(§6.4) the bidirectional patch** — the symmetric **widen**
+(S-boundary climb) of the built narrow un-learn loop: ≥k verified positives generalise a method's pre to the LGG
+(`widenOnVerified`, additive enum-union, methodId-gated), `recordWiden` demotes FROZEN→INSTANCE before the gate-relax,
+and a reactive `Widen` loop (`widen.js`) drives it autonomously. **(§6.3) the ancestry oracle** — behind the now-sound
+**E7/Σ_sep gate** (the bag-intersection separator horizon, not the lossy scalar treewidth / size-1 articulation cuts):
+**(a)** monotone-safe digest-key enlargement gated by `separatorGate`; **(b)** content→param **promotion** — a leaf that
+is a function of a below-horizon ancestor (`value(f)=N(s).g`, GOLEM ij-determinacy) is rebound to it, gated by a
+**mandatory held-out strict-`===`** + an **exact relational post** (not the over-approximating band — the silent-
+unsoundness spine the review found). Measured live (qwen3-8b): a real decomposition's structured-echo content promotes
+(exact post), its novel content forges — the canon barrier read on the ancestry axis.
+
+**Still genuinely open (gated):** a **real-model streaming `adaptOrForge`** measurement (calls × correct-under-drift);
+the **§6.1 / §6.2 live deeper-measures** (the selection-K1 fraction over a real-fork rollout; the donor-skeleton token
+win); §6.3(b) **mapping-φ** promotion (affine / lookup beyond identity, behind a gate); the **EAGER in-core
+`SubGraph`/`ZoomSegment` object** (fold/zoom/residency — FILED, justified, gated on a measured residency need); and
+the deferred **performance** work (fork deep-copies the whole graph per case → bounded-seed; Stitch corpus-global MDL).
 
 **Hold these lines.** *Eventual*, not static, soundness for learned methods — via a load-bearing runtime monitor
 over a **sound-but-incomplete** compose gate (deciding fragment-membership is undecidable — Rice; so "compose
