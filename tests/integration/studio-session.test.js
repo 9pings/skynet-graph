@@ -68,6 +68,27 @@ test('validateConcept: a well-formed concept passes; a missing _name fails', () 
 	assert.ok(!bad.ok && bad.errors.length, 'missing _name is rejected');
 });
 
+test('deleteConcept: removes a concept from the live grammar, un-casts it + cascades (CRUD completion)', async () => {
+	const s = new Session('root', { Graph });
+	const settled = () => new Promise(( r ) => s.once('stabilize', r));
+	let p = settled();
+	s.loadCorpus({ conceptsDir: CONCEPTS, builtins: true, seed: SEED });
+	await p;
+	const seg0 = s.state().objects.find(o => o._id === 's');
+	assert.ok(s.getConcept('LongTravel') && seg0.LongTravel, 'precondition: LongTravel cast on s');
+
+	p = settled();
+	const res = s.deleteConcept('LongTravel');                        // a leaf concept (nothing requires it → no dependent stickiness)
+	assert.deepEqual(res, { ok: true }, 'the op returns ok');
+	await p;
+	assert.ok(!s.getConcept('LongTravel'), 'LongTravel removed from the live grammar');
+	const seg1 = s.state().objects.find(o => o._id === 's');
+	assert.ok(!seg1.LongTravel, 'LongTravel un-cast on the segment (the operator sees it disappear)');
+	// NOTE: an already-cast DEPENDENT (e.g. Travel requires Distance) is NOT auto-un-cast if its required concept is
+	// deleted — the engine's require-stickiness (a cast concept does not re-evaluate on a require change, finding #22).
+	// deleteConcept removes the TARGET (+ its subtree) soundly; cascading to stale dependents is a documented v0 limit.
+});
+
 test('history: mutate -> diff shows the change -> rollback removes it', async () => {
 	const s = new Session('root', { Graph });
 	const settled = () => new Promise(( r ) => s.once('stabilize', r));

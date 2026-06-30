@@ -84,6 +84,7 @@ body { margin: 0; font: 13px/1.5 ui-sans-serif, system-ui, "Segoe UI", Roboto, s
 .em-actions { display: flex; gap: 8px; justify-content: flex-end; padding: 12px 14px; }
 .em-actions button { background: #222b36; color: var(--fg); border: 1px solid var(--border); border-radius: 6px; padding: 5px 12px; cursor: pointer; font: inherit; }
 .em-actions button.primary { background: var(--accent); color: #0b1017; border-color: var(--accent); font-weight: 600; }
+.em-actions button.danger { background: #3a1f24; color: #ff9a9a; border-color: #6b2b33; margin-right: auto; }
 .em-actions button:disabled { opacity: .4; cursor: default; }
 
 /* fork tree (T11) — footer becomes a row: trace | forks */
