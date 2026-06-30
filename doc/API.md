@@ -370,8 +370,21 @@ Host-side, ZERO-CORE, additive (the base hand-authoring use needs none of it). F
   method via `Graph#getMutationFromPath`). The cross-problem structural-transfer keystone.
 - **`crystallize.js`** (+ `mine.js`, `abstraction.js`, `memo-stability.js`) — `crystallize`/`adopt`/`consolidate`:
   mine a producer→consumer chain → compose → MDL/utility gate (`abstraction.evaluate` scores model calls) →
-  install fail-closed (memo-stability). `reaggregate.js` — defeasible re-aggregation (a summary updates on drift);
-  `bounded-merge.js` — `boundedProject` (cross only Σ_sep at a merge).
+  install fail-closed (memo-stability). `crystallizeStructural` distils a recurrent **structural** cast into a
+  re-mountable defeasible method with a **declared** frontier (`mine.js#declaredCtx`) reified as
+  `schema.frontier` (a `FrontierSignature` — `{params:[{name,sort,field,role}], summaryFacts, appConditions}`,
+  serializes with the tree) + a `libraryKey` (the O(1) dispatch index) + `lintFrontier`; a soundness gate refuses a
+  method that would leak a learning id at replay (un-holed / base-prefix-phantom / collapsed endpoints).
+  `reaggregate.js` — defeasible re-aggregation (a summary updates on drift); `bounded-merge.js` — `boundedProject`
+  (cross only Σ_sep at a merge).
+- **The creative loop (`library.js` · `combinator.js` · `adapt.js`)** — the structuring↔concept-DLL juncture (one
+  graph-grammar, two levels). `library.js`: `makeLibrary`/`indexMethod`/`dispatch(lib, target, scopeFacts)` — an
+  **O(1) bucket lookup on `libraryKey`** → refine by application-conditions → ranked candidates (a lookup, never a
+  corpus search). `combinator.js`: `dispatchConcept`/`buildDispatchProvider` — a higher-order concept fills its
+  behavioral hole with a **dispatched** fragment + mounts it via `applySubgraphArg` (recombination at 0 calls; the
+  re-fire guard is a distinct durable fact, not the self-flag). `adapt.js`: `adaptOrForge({lib,target,scopeFacts,
+  forge,verify})` — retrieve(hit, 0 calls) / forge-or-adapt(reuse neighbours) / verifier-gate(contract) /
+  index-back(amortise). Structure-mapping (Gentner) over learned methods.
 - **Persistence & portability.** `store.js` — `createFileStore(path)` (write-through Map-like cache/store),
   `saveIndex`/`loadIndex`, `saveSgc`/`loadSgc` (any `.sgc` file). `method-pack.js` — the `.sgc` **methods**
   package: `packMethods(loop, { name, version })` / `loadMethods(bundle, host, { version })` /

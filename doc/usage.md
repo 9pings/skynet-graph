@@ -17,7 +17,7 @@
 
 ```bash
 npm install        # deps only; no compile
-npm test           # 510 tests (node --test)
+npm test           # 669 tests (node --test)
 ```
 
 ```js
@@ -68,7 +68,8 @@ const g = new Graph(seed, { conceptSets: ['common'], autoMount: true }, conceptM
 
 > **Authoring toolkit.** `Graph.authoring` namespaces the R&D/authoring tools (parity with `Graph.providers`),
 > so you reach them without deep paths — e.g. `Graph.authoring.concepts.buildConceptTree`, `.validate`,
-> `.contract`, `.method`, `.abstract`, `.crystallize`. Each module also stays importable on its own
+> `.contract`, `.method`, `.abstract`, `.crystallize`, `.library` / `.combinator` / `.adapt` (the creative loop:
+> dispatch → mount → adapt-or-forge). Each module also stays importable on its own
 > (`require('skynet-graph/lib/authoring/<module>')`); the barrel is a convenience, not a gate.
 
 ## 3. Concept sets

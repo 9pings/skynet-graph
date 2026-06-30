@@ -43,6 +43,15 @@ A method is parameterized by other sub-graphs (the loop *body*, a predicate, an 
 blocks: `applySubgraphArg` / `mapTemplate` (apply a sub-graph param, fan a body per element with fresh ids),
 `selectCluster` (case-parameterized selection by typed gates).
 
+The frontier itself is **declared, not inferred**, and **reified** as a first-class `FrontierSignature` on the
+crystallized schema (`schema.frontier`, a sibling of `schema.contract` — it serializes with the tree and round-trips
+through rollback): `{ params:[{name, sort, field, role, requiredFacts}], summaryFacts, appConditions }`. A param's
+**`sort ∈ node-ref | method-ref | predicate-ref`** makes an endpoint and a *behavioral* param (a sub-method body, a
+stop predicate) the **same** relativize/instantiate hole differing only by `sort` — so the library becomes an algebra
+of combinators, dispatch is keyed on the canonical interface, and an untyped behavioral param is rejected at author
+time (`lintFrontier`, reusing the lint above). `summaryFacts` (the sound post the abstraction barrier carries) and
+`appConditions` (the parent NACs) are the index's discriminants.
+
 ## 2. Bounded context = the abstraction barrier
 
 Composing abstract method-faces means **carrying the typed contract, not the body** — so the method library and
@@ -76,6 +85,15 @@ bound at the call site), `antiUnify` (the Plotkin LGG soundness check), `emitMet
 derived sub-graph into a re-mountable parameterized method via the engine-native `Graph#getMutationFromPath` — the
 generalization of travel-path mounting). This is what makes cross-problem **structural** transfer sound + non-zero
 (it was zero with a flat cache — the absolute ids didn't transfer).
+
+The crystallizer's frontier is **declared, not inferred** (`mine.js#declaredCtx` reads each endpoint off its declared
+field rather than scanning the literal-id surface gated on `knownIds`) — fixing the `$`-ref-endpoint and k-ary cases
+the scan missed, and reifying the `FrontierSignature` (§1). Declaring re-opens an id-space hazard the `knownIds` scan
+closed by construction, so a **soundness gate** refuses any method whose parameterized form would leak a learning id at
+replay: an **un-holed** segment endpoint (an endpoint the declaration missed), a **base-prefix phantom** (an external
+id colliding with `<base>_…` that `relativize` mis-folds into the base id-space — `hasHoles` cannot see it), or two
+endpoints that **collapse** to one hole by value-coincidence. Each refusal was adversarial-review-reproduced; together
+they restore *every created segment endpoint is base-derived or a bound, distinct frontier hole*.
 
 ## 4. Build / execute — the graph designs the method, a durable engine runs it
 
@@ -147,6 +165,19 @@ takes the first arm that resolves at acceptable cost:
 | **`../providers/cache.js`** | the derivation cache — content-addressed memo over a provider, keyed on the canonical justification of a cast (the fast/episodic half of CLS; the durable sibling lives in the executor's memo). |
 | **`crystallize.js` · `mine.js` · `abstraction.js` · `memo-stability.js`** | FORGE → library (§3): mine producer→consumer chains, compose, MDL-gate, install fail-closed. |
 | **`reaggregate.js`** | defeasible RE-AGGREGATION — a cleaner-on-retract un-pushes a contribution + re-folds, so a derived *summary* (not just the belief) updates on drift. |
+| **`library.js`** | the **O(1) dispatch index** (consume `libraryKey`): given a target `FrontierSignature` (the abstract mechanism), a bucket lookup → refine by application-conditions over the call-site → **ranked** candidates (weighted). A *lookup*, **never a corpus search** (HRG-parsing is NP-complete — Lange-Welzl 1987). This is the structuring↔concept-DLL juncture. |
+| **`combinator.js`** | the dispatch→**MOUNT** bridge: a higher-order concept fills its behavioral hole with a dispatched fragment via require-resolution + `applySubgraphArg` — so a concept **reuses another's** learned method when their signatures match (recombination at 0 calls). The re-fire guard is a distinct durable fact, **not** the self-flag (the `_name` marker uncasts on de-apply). |
+| **`adapt.js`** | `adaptOrForge` — the retrieve-or-forge drive *over* the dispatch: RETRIEVE (a template for this signature = a hit, 0 calls) / FORGE-or-ADAPT (the model builds it, reusing dispatched neighbours = structural reuse + content forge) / VERIFIER-GATE (a sound contract) / index-back (**amortise**: the next encounter hits). The structure-mapping realization of the ladder above. |
+
+**The two grammars are one, in two levels.** The supervisor's abstract mechanism is the *structuring* grammar (abstract
+productions with non-terminal holes); the library is the *concept-DLL* grammar (learned terminals). They are not rivals
+to reconcile (that implies a costly translator) but **two levels of one graph-grammar**; their juncture is a
+**K1-canonical interface alphabet** — the `FrontierSignature` + app-conditions, a *snapped separator* (the impedance is
+at the entrance: a prose scaffold needs C0; a typed scaffold couples cleanly). Formally this is **structure-mapping**
+(Gentner 1983: the abstract mechanism = the relational structure, library methods = source domains, a dispatch = the
+analogy) and **conceptual blending** (`antiUnify` = generalize-and-rebind). The result is **combinational + exploratory
+creativity** (Boden 1990) over a learned grammar — *verifier-gated search*, with the genuinely-novel primitive deferred
+to the model (K1) and a slow *transformational* loop alongside (crystallization invents new non-terminals).
 
 **Persistence & portability** (`store.js` · `method-pack.js`): the warm library survives a restart (a write-through
 `store` re-loads + replays at 0 calls) and **ships between deployments** as a `.sgc` **method package** (the sibling
@@ -163,17 +194,22 @@ replays verbatim); the typed verify re-gates on the receiver, so a structurally-
 
 ## 8. Status & honest lines
 
-**Built + measured (2026-06-28, ZERO-CORE throughout, 510 tests):** the middle spine (Bricks 1–3:
+**Built + measured (2026-06-30, ZERO-CORE throughout, 669 tests):** the middle spine (Bricks 1–3:
 applySubgraphArg / lintMethod / selectCluster), the abstractivation slice (F6), the durable executor (Layer A +
-B + the fold-back JOIN + fail-fast + audit), C-xlate, C-contract (the checker · the §11.6 composition-soundness
-probe · the executor guard · the belief-view un-learn loop), the supervisor loop + recall / mount / cache /
-reaggregate, persistence + `.sgc` packs. The §11 stream gate **passes** on a live local model (call-elision +
-wall-clock + durability + drift-soundness).
+B + the fold-back JOIN + fail-fast / fold-survivors / nested-fold + C-fail retry/escalate + audit), C-xlate,
+C-contract (the checker · the §11.6 composition-soundness probe · the executor guard · the belief-view un-learn loop
+· the **standing autonomous** revise loop, `relearn.js`), **C0 prose-intake** (the soundness front-door, `intake.js`),
+the crystallization **structural miner** + the **declared-frontier** crystallizer with its reified `FrontierSignature`
+(§1, §3), the supervisor loop + recall / mount / cache / reaggregate, and the **creative loop** (library **dispatch** +
+combinator **mount** + `adaptOrForge`, §6), persistence + `.sgc` packs. The §11 stream gate **passes** on a live local
+model (call-elision + wall-clock + durability + drift-soundness).
 
-**Still genuinely open (gated):** **C0** — prose-intake (the soundness boundary; needs the LLM intake design); the
-**standing autonomous** un-learn loop (today the host orchestrates the revise); **C-fail++** (richer recovery than
-fail-fast — retry a shard / fold-survivors / escalate); and the deferred **performance** work (fork deep-copies the
-whole graph per case → bounded-seed; Stitch corpus-global MDL > greedy mining).
+**Still genuinely open (gated):** a **real-model streaming `adaptOrForge`** measurement (calls × correct-under-drift,
+like the paper's STRUCT arm but structure-mapping-driven); the **antiUnify content-forge** adapt built *into* the
+controller (today the host's forge labels adapt vs fresh); the **EAGER in-core `SubGraph`/`ZoomSegment` object**
+(fold/zoom/residency — orthogonal to recombination, higher-risk; FILED, gated on a measured residency need — the seam
+map is in the R&D notes); and the deferred **performance** work (fork deep-copies the whole graph per case →
+bounded-seed; Stitch corpus-global MDL > greedy mining).
 
 **Hold these lines.** *Eventual*, not static, soundness for learned methods — via a load-bearing runtime monitor
 over a **sound-but-incomplete** compose gate (deciding fragment-membership is undecidable — Rice; so "compose

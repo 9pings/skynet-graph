@@ -92,7 +92,7 @@ process restart at **0 calls**. *(Both bounds are proven by accounting + a fair 
 
 ```bash
 npm install        # no build step — pure CommonJS, Node 18+
-npm test           # 510 tests
+npm test           # 669 tests
 
 node bin/sg run --concepts ./concepts --builtins --seed ./seed.json
 ```
@@ -131,7 +131,7 @@ The `LLM::complete` provider is backend-agnostic: inject any async `ask`, or use
 
 | | |
 |---|---|
-| [doc/concept-as-graph.md](doc/concept-as-graph.md) | The conception: the two-faced method, bounded context by contract, forge / reuse, the durable executor, the un-learn moat |
+| [doc/concept-as-graph.md](doc/concept-as-graph.md) | The conception: the two-faced method, bounded context by contract, forge / reuse, the durable executor, the un-learn moat, and the creative loop (library dispatch → mount → adapt-or-forge) |
 | [doc/MODELISATION.md](doc/MODELISATION.md) | The full model + R&D roadmap |
 | [doc/concept-learning.md](doc/concept-learning.md) | *(optional, shelved)* training concept-populations at the fixpoint |
 

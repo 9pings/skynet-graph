@@ -223,8 +223,10 @@ The **engine** is mechanically complete and heavily tested (declarative AI-autho
 live self-modification included), and the **additive Mixture-of-Reasoners layer** (the P / C / M
 regime providers, verification, tiling), the **support grammar**, the **Studio**, and the
 `.sgc` corpus exchange are all shipped. The **Use-2 target system** built on top — concept-graphs as
-composable methods, the durable executor, and the C-contract / un-learn loop — is documented in
-**[concept-as-graph.md](concept-as-graph.md)** (510 tests). What remains is **open research** + the deferred
+composable methods, the durable executor, the C-contract / un-learn loop, and the **creative loop** (a library
+**dispatch** over reified `FrontierSignature`s → combinator **mount** → `adaptOrForge`, so one method recombines
+another's learned method by structure-mapping) — is documented in **[concept-as-graph.md](concept-as-graph.md)**
+(669 tests). What remains is **open research** + the deferred
 performance work, and the biggest research piece is **how to organize concepts** — the current bet is a
 semantically-meaningful hierarchical corpus keyed on *human vocabulary*, with judgment delegated to a
 better-model supervisor while the rules handle orchestration + coherence. The shipped `concepts/common/` set is an
