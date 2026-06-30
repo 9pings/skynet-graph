@@ -11,7 +11,7 @@ const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
 const { nextStable } = require('../../lib/authoring/supervise.js');
 const { crystallizeStructural } = require('../../lib/authoring/crystallize.js');
-const { blendMethods, segmentSlots } = require('../../lib/authoring/adapt.js');
+const { blendMethods, segmentSlots, composeContract } = require('../../lib/authoring/adapt.js');
 const { blendAtSegment, instantiate, ctxFromScope, BASE, hasHoles } = require('../../lib/authoring/abstract.js');
 const { injectMarker, guardKey } = require('../../lib/authoring/combinator.js');
 console.log = console.info = console.warn = () => {};
@@ -88,6 +88,53 @@ test('blendMethods — a blended CANDIDATE keeps the host OUTER interface, inher
 	assert.equal(o('Z_a0_b0').targetNode, 'Z_m0', 'sub-path wired to the host mid');
 	assert.ok(gph.getRevisions().length < 100, 'bounded — no apply-cap runaway');
 	assert.ok(!gph._objById['hardE0'] && !gph._objById['easya0'], 'no learning-episode id-space leaked (sound)');
+});
+
+// mount a candidate's template at a fresh site via a Decompose combinator (instantiate + self-flag). Returns the graph.
+async function mountCandidate( cand, baseId ) {
+	const tpl = Object.values(cand.templatesBySig)[0];
+	const provider = function ( g, c, scope, argz, cb ) {
+		const ctx = ctxFromScope(scope, { frontier: { origin: 'originNode', target: 'targetNode' } });
+		const gr = ctx && instantiate(tpl, ctx);
+		return cb(null, gr ? injectMarker(gr, ctx.base, 'Decompose') : { $_id: '_parent', Decompose: true, [guardKey('Decompose')]: true });
+	};
+	Graph._providers = { Creative: { Decompose: provider } };
+	const D = { _id: 'Decompose', _name: 'Decompose', require: ['Segment', 'kind', 'toDecompose'], ensure: ['!$' + guardKey('Decompose')], provider: ['Creative::Decompose'] };
+	const g = new Graph({ lastRev: 0, nodes: [node('X'), node('Y')], segments: [] }, { label: 'mt', isMaster: true, autoMount: true, conceptSets: ['common'], bagRefManagers: {}, logLevel: 'error' }, { common: { childConcepts: { Decompose: D } } });
+	await nextStable(g);
+	await new Promise(( res ) => g.pushMutation(seg(baseId, 'X', 'Y', { kind: 'hard', toDecompose: true }), null, undefined, undefined, undefined, () => res()));
+	await nextStable(g);
+	return g;
+}
+
+test('BLEND = zero-shot compositional synthesis — a DEPTH-2 method built from ONE library part at 0 model calls, producing structure the parent ALONE cannot', async () => {
+	const m1 = await learn('hard');                                  // a depth-1 decompose method (kind-triggered)
+	// synthesize a depth-2 method by blending M1 into itself — 0 model calls, 0 training examples (pure surgery over
+	// the library). A cache can only REPLAY a derived method (it never derived this one); crystallize would need ≥2
+	// observed depth-2 traces (which do not exist). This is the one capability beyond both.
+	const blend = blendMethods(m1, m1);
+	assert.ok(blend && blend.contractDerived, 'the blend carries a DERIVED (composed) contract, not merely inherited');
+
+	// the blend produces a 2-LEVEL decomposition; M1 ALONE produces only 1 level (its children lack the `kind`
+	// trigger, so it does NOT recurse — the confound is closed). So the blend solves "reach depth 2" that M1 cannot.
+	const gBlend = await mountCandidate(blend, 'Z');
+	assert.ok(gBlend._objById['Z_m0'] && gBlend._objById['Z_a0_m0'], 'blend → a level-1 mid AND a level-2 sub-mid (depth-2)');
+
+	const gM1 = await mountCandidate(m1, 'Z');
+	assert.ok(gM1._objById['Z_m0'], 'M1 produced its level-1 mid');
+	assert.ok(!gM1._objById['Z_a0_m0'], 'M1 ALONE cannot reach depth-2 (no kind on its children → no recursion) — neither parent solves it');
+	assert.ok(gM1._objById['Z_a0'] && !gM1._objById['Z_a0']._etty._.Refined, 'M1’s child segment is NOT itself decomposed (depth-1 only)');
+});
+
+test('composeContract — the blend contract is the UNION of both parents (derived, not inherited); NEG: drops nothing', () => {
+	const a = { read: ['Segment', 'kind'], write: ['Refined', 'state'], pre: [], post: ['Refined==true'], effect: 'pure' };
+	const b = { read: ['Segment', 'priority'], write: ['Refined', 'subState'], pre: [], post: ['subState!=null'], effect: 'pure' };
+	const c = composeContract(a, b);
+	assert.deepEqual(c.read.sort(), ['Segment', 'kind', 'priority'].sort(), 'reads unioned');
+	assert.deepEqual(c.write.sort(), ['Refined', 'state', 'subState'].sort(), 'writes unioned (the donor’s writes are NOT dropped — closes the inherited-contract hole)');
+	assert.deepEqual(c.post.sort(), ['Refined==true', 'subState!=null'].sort(), 'both posts conjoined (the runtime monitor checks BOTH)');
+	assert.equal(composeContract(a, null).write.length, 2, 'a missing donor contract → host contract verbatim (no crash)');
+	assert.equal(composeContract(null, null), null, 'both absent → null');
 });
 
 test('segmentSlots — lists the GRAFTABLE child-segment slots of a method (the outer parent is not a slot)', async () => {
