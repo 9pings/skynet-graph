@@ -93,3 +93,30 @@ test('B-thin NEG — same bugClass, content NOT determined by it → refused (K1
 	const res = await crystallizeStructural({ episodeTree: TREE, seed, providers: { AI }, equivKeys: ['Decomposed'], idFor: () => 'CrystalDebug' });
 	assert.equal(res.admitted, false, 'content not a function of the typed signature → K1 refuses');
 });
+
+test('B-thin: a VARYING prose key blocks crystallization UNLESS declared via proseKeys (the canon-barrier split)', async () => {
+	// the typed content (bugClass/fixKind) is deterministic per class, but debugProse VARIES per call (like a
+	// real model's free text). Baked into the cast it reads as a content-var → not signature-determined → refused.
+	// Declaring it as a prose key strips it from the mined surface (mirroring llm.js's tracked/prose digest split)
+	// → the recurrent STRUCTURE crystallizes while the prose stays per-instance. (The live-run finding, made deterministic.)
+	let tick = 0;
+	const makeAI = () => ({ debugStep( g, c, s, a, cb ) {
+		const base = s._._id, o = s._.originNode, t = s._.targetNode, h = base + '_h', l = base + '_l';
+		cb(null, [
+			{ $_id: '_parent', DebugStep: true, Decomposed: true, bugClass: s._.kind, fixKind: 'adjust-bound', debugProse: 'reasoning-' + (tick++) },
+			{ _id: h, Node: true, role: 'hypothesis', fixKind: 'adjust-bound' },
+			{ _id: l, Node: true, role: 'localize' },
+			{ _id: base + '_a0', Segment: true, originNode: o, targetNode: h, parentSeg: base },
+			{ _id: base + '_a1', Segment: true, originNode: h, targetNode: l, parentSeg: base },
+			{ _id: base + '_a2', Segment: true, originNode: l, targetNode: t, parentSeg: base },
+		]);
+	} });
+	const seed = { lastRev: 0, nodes: [node('S'), node('G'), node('A'), node('B')],
+		segments: [ seg('E1', 'S', 'G', 'off-by-one'), seg('E2', 'A', 'B', 'off-by-one') ] };
+	tick = 0;
+	const without = await crystallizeStructural({ episodeTree: TREE, seed, providers: { AI: makeAI() }, equivKeys: ['Decomposed'], idFor: () => 'CrystalDebug' });
+	assert.equal(without.admitted, false, 'varying prose baked into the cast blocks signature-determination (the K1 refusal)');
+	tick = 0;
+	const withp = await crystallizeStructural({ episodeTree: TREE, seed, providers: { AI: makeAI() }, equivKeys: ['Decomposed'], idFor: () => 'CrystalDebug', proseKeys: ['debugProse'] });
+	assert.equal(withp.admitted, true, 'declaring the prose key lets the recurrent structure crystallize (prose stays per-instance)');
+});
