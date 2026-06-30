@@ -11,7 +11,8 @@ const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
 const { nextStable } = require('../../lib/authoring/supervise.js');
 const { crystallizeStructural } = require('../../lib/authoring/crystallize.js');
-const { blendMethods, segmentSlots, composeContract } = require('../../lib/authoring/adapt.js');
+const { blendMethods, segmentSlots, composeContract, synthesizeByBlend, methodDepth } = require('../../lib/authoring/adapt.js');
+const { makeLibrary, indexMethod } = require('../../lib/authoring/library.js');
 const { blendAtSegment, instantiate, ctxFromScope, BASE, hasHoles } = require('../../lib/authoring/abstract.js');
 const { injectMarker, guardKey } = require('../../lib/authoring/combinator.js');
 console.log = console.info = console.warn = () => {};
@@ -124,6 +125,41 @@ test('BLEND = zero-shot compositional synthesis — a DEPTH-2 method built from 
 	assert.ok(gM1._objById['Z_m0'], 'M1 produced its level-1 mid');
 	assert.ok(!gM1._objById['Z_a0_m0'], 'M1 ALONE cannot reach depth-2 (no kind on its children → no recursion) — neither parent solves it');
 	assert.ok(gM1._objById['Z_a0'] && !gM1._objById['Z_a0']._etty._.Refined, 'M1’s child segment is NOT itself decomposed (depth-1 only)');
+});
+
+test('synthesizeByBlend — the controller AUTO-DISCOVERS the blend to reach a goal depth, at 0 model calls, with bounded μ-descent termination', async () => {
+	const m1 = await learn('hard');                                  // a depth-1 library method
+	assert.equal(methodDepth(m1), 1, 'M1 is depth-1');
+	const lib = makeLibrary(); indexMethod(lib, m1);
+	const target = { frontier: m1.schema.frontier, signatureKeys: m1.signatureKeys };
+	const scopeFacts = { Segment: true, kind: 'hard' };
+	const deep = ( n ) => ( c ) => methodDepth(c) >= n;              // the goal: reach structural depth n
+
+	// goal depth-1 → a single dispatched method SATISFIES → no blend (retrieve).
+	const r0 = synthesizeByBlend({ lib, target, scopeFacts, satisfies: deep(1), maxDepth: 3 });
+	assert.equal(r0.outcome, 'retrieve'); assert.equal(r0.calls, 0);
+
+	// goal depth-2 → the controller BLENDS once (synthesizes depth-2) at 0 model calls.
+	const r2 = synthesizeByBlend({ lib, target, scopeFacts, satisfies: deep(2), maxDepth: 3 });
+	assert.equal(r2.outcome, 'blend'); assert.equal(r2.depth, 2); assert.equal(r2.calls, 0, 'compositional synthesis is 0 model calls');
+
+	// goal depth-3 → iterated deepening at the DEEPEST slot reaches depth-3 (still 0 calls).
+	const r3 = synthesizeByBlend({ lib, target, scopeFacts, satisfies: deep(3), maxDepth: 4 });
+	assert.equal(r3.outcome, 'blend'); assert.equal(r3.depth, 3);
+	// the depth-3 synthesized method is SOUND (instantiates with all-unique ids, no leftover hole).
+	const g = instantiate(Object.values(r3.candidate.templatesBySig)[0], { base: 'Z', refs: { origin: 'X', target: 'Y' } });
+	const ids = g.map(( o ) => o.$$_id || o.$_id || o._id);
+	assert.equal(new Set(ids).size, ids.length, 'depth-3 synthesis: all ids unique (no collision)');
+	assert.ok(!JSON.stringify(g).includes('⟦@'), 'depth-3 synthesis: fully ground');
+
+	// NEG (TERMINATION) — an unsatisfiable goal (depth-9) under maxDepth → bounded reject, NO runaway.
+	const rej = synthesizeByBlend({ lib, target, scopeFacts, satisfies: deep(9), maxDepth: 3 });
+	assert.equal(rej.outcome, 'reject'); assert.match(rej.reason, /maxDepth|μ-descent/);
+	assert.ok(rej.depth <= 4, 'bounded: depth reached ≤ 1 + maxDepth (the μ-measure terminated the search)');
+
+	// NEG — an empty library → reject (nothing to compose), not a crash.
+	const empty = synthesizeByBlend({ lib: makeLibrary(), target, scopeFacts, satisfies: deep(2), maxDepth: 3 });
+	assert.equal(empty.outcome, 'reject'); assert.match(empty.reason, /no neighbour/);
 });
 
 test('composeContract — the blend contract is the UNION of both parents (derived, not inherited); NEG: drops nothing', () => {
