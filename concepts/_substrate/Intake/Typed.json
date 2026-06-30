@@ -1,0 +1,10 @@
+{
+  // The downstream-gate CONTRACT, made explicit and re-usable: anything that consumes intake
+  // facts MUST gate on the discrete `IntakeStatus=='typed'`, NEVER on the (untracked) prose.
+  // A required out-of-vocabulary miss makes the intake `untyped`, so this gate does NOT cast —
+  // the boundary is gated, not crossed silently; a later premise fall (re-intake flips the
+  // status) auto-retracts this and its dependents (JTMS). No provider: a pure assert gate that
+  // self-casts when the typed projection is faithful.
+  "require": ["Intake"],
+  "ensure": ["$IntakeStatus=='typed'"]
+}

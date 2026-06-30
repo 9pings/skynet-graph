@@ -1,0 +1,21 @@
+{
+  // C0 — the prose→typed FRONT DOOR (roadmap §3.2): the ONE place free text crosses into the
+  // typed world, and the system's declared SOUNDNESS BOUNDARY. `Intake::type` reuses the
+  // canonicalization barrier (lib/providers/canonicalize.js) and adds a discrete gate fact
+  // `IntakeStatus ∈ typed|partial|untyped`. A host wires `createIntake({ ask })`
+  // (lib/providers/intake.js) and supplies the CLOSED `facts` vocabulary for its domain.
+  //
+  // This shipped `facts` vocab is a domain-NEUTRAL template (classify an inbound message kind);
+  // a real domain specializes it via childConcepts. Fires on any object carrying inbound prose
+  // (`rawText`); a required key that comes back out-of-vocabulary makes the intake `untyped`
+  // (visible + escalated), never a silent wrong snap.
+  "require": ["rawText"],
+  "provider": ["Intake::type"],
+  "prompt": {
+    "system": "Classify the inbound message kind. Reply only JSON with a 'kind' field (one of question, request, statement) and a short 'prose' restatement.",
+    "user": "${rawText}",
+    "facts": { "kind": { "enum": ["question", "request", "statement"] } },
+    "prose": "intakeNarrative"
+  },
+  "intake": { "required": ["kind"] }
+}
