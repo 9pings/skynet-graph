@@ -6,6 +6,10 @@ rules that cast facts when their preconditions hold and <b>retract them, cascadi
 falls</b>. A forward-chaining loop stabilizes the graph to a fixpoint; every revision is snapshotted.
 </p>
 
+<p align="center">
+<img src="./doc/img/headImg.png">
+</p>
+
 <p align="center"><i>Active R&D · a CommonJS library to embed + an <code>sg</code> CLI · Node 18+, no build step · AGPL-3.0</i></p>
 
 <p align="center">
