@@ -71,6 +71,14 @@ Quand une expérience **ne converge pas / surprend**, AVANT toute conclusion :
 3. **Si limite réelle : résoluble par une ADAPTATION ACCEPTABLE de l'existant** (discipline, pattern,
    primitif déjà là), ou exige un nouveau primitif cœur ? Marquer `[NO-CORE-CHANGE]` vs `[NEEDS-PRIMITIVE: X]`.
 4. **Journaliser** l'adaptation (objectif · approche · adaptation critique-driven · résultat · verdict).
+5. **Sur une CONCLUSION NÉGATIVE, ne pas s'arrêter : patcher / composer, borné.** Le SOTA est un *prior*, pas un
+   plafond — qu'un mécanisme ne soit pas décrit par une publication ne veut pas dire qu'il ne marche pas. Un négatif
+   ne vaut que pour la **config exacte** testée. AVANT d'écrire le verdict d'échec : lister **2-3 variations / patches
+   du mécanisme** + **1-2 compositions avec des mécanismes déjà présents**, les mesurer **avec le harness existant**
+   (réutiliser, ne pas reconstruire), borné à ~un cycle. Deux issues, toutes deux utiles : un variant **réhabilite** le
+   mécanisme (verdict positif-nuancé), ou le négatif est **robuste à l'espace des variations raisonnables** (verdict
+   bien plus solide qu'un point unique). C'est le pendant du confront (§6) : le confront cadre AVANT de construire, ce
+   point rouvre APRÈS un échec — au lieu de refermer sur le premier « non ».
 
 ## 4. Vérifier avant de conclure
 
