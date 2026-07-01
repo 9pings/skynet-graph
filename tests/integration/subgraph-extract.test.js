@@ -64,6 +64,20 @@ test('extractSubgraph — a segment-closed 1-hop ball: focus A → {A, s_AB, s_A
 	g.destroy && g.destroy();
 });
 
+test('extractSubgraph hops:2 — interior grows one ring (A + B,C); frontier at 2 hops (D); s_CD included, s_DE excluded', async () => {
+	const g = boot(); await settle(g);
+	assert.equal(fact(g, 's_CD', 'SameRegion'), true, 'parent: s_CD (US/US) casts SameRegion');
+	const ex = extractSubgraph(g, 'A', { hops: 2 });
+	assert.deepEqual(ex.interior.sort(), ['A', 'B', 'C'], 'interior = focus + its 1-hop neighbours (B, C)');
+	assert.deepEqual(ex.frontier.sort(), ['D'], 'the 2-hop node D is the frozen frontier (E, F beyond are excluded)');
+	assert.deepEqual(ex.segments.sort(), ['s_AB', 's_AC', 's_CD'], 's_CD (C→D) is included; s_DE and beyond are excluded (bounded at 2 hops)');
+	// a 2-HOP-dependent cast: s_CD.SameRegion reads C (interior) and D (FROZEN 2-hop frontier) — re-derives from frozen D.
+	stripFromSeed(ex, 's_CD', 'SameRegion');
+	const child = g.fork(ex.seed); await settle(child);
+	assert.equal(fact(child, 's_CD', 'SameRegion'), true, 'the 2-hop slice re-derives s_CD SameRegion from the frozen 2-hop frontier D (US==US)');
+	child.destroy && child.destroy(); g.destroy && g.destroy();
+});
+
 test('SOUNDNESS (positive) — the slice, forked, RE-DERIVES SameRegion identically to the in-parent counterpart', async () => {
 	const g = boot(); await settle(g);
 	const ex = extractSubgraph(g, 'A');
