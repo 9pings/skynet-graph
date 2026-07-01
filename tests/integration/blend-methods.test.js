@@ -190,3 +190,31 @@ test('blendMethods / blendAtSegment — NEG controls (no false blend)', async ()
 	const leaf = { schema: { _id: 'Leaf', contract: { post: [] } }, signatureKeys: ['k'], templatesBySig: { x: [{ $_id: '_parent', Leaf: true, $$_id: BASE }] } };
 	assert.equal(blendMethods(leaf, donor), null, 'no segment slot in the host → null');
 });
+
+// H2 (confront cont.⁷) — the graft was contract-UNCHECKED: `composeContract` blindly unioned reads/writes and conjoined
+// posts, but `contract.js#checkCompose` was never called, so a composite whose donor REQUIRES what the host PROVABLY
+// contradicts was still built + accepted by `hasSoundContract`. Fix wires checkCompose into `blendMethods`. Defeasible
+// ("formal systems are a GROUND not a ceiling"): unsound→refuse, sound→proceed, escalate(under-determined)→admit+flag.
+test('blendMethods — H2: the graft is CONTRACT-CHECKED — a provably-unsound interface is REFUSED; sound/under-determined still blend', async () => {
+	const host = await learn('hard'), donor = await learn('easy');
+	// SOUND — the host establishes route=='store'; the donor reads route and requires route=='store' → consistent → blends.
+	// (categorical constants are QUOTED — a bare rhs is refused as an ambiguous two-key compare, contract.js#parseValue.)
+	host.schema.contract  = { read: ['Segment', 'kind'], write: ['route'], pre: [], post: ["route=='store'"], effect: 'pure' };
+	donor.schema.contract = { read: ['route'], write: ['done'], pre: ["route=='store'"], post: ['done==true'], effect: 'pure' };
+	const okBlend = blendMethods(host, donor);
+	assert.ok(okBlend, "a contract-consistent graft blends (host.post route=='store' ⊨ donor.pre route=='store')");
+	assert.equal(okBlend.composeVerdict, 'sound', 'and the verdict is RECORDED (sound), not assumed');
+
+	// UNSOUND — flip the donor to require route=='emit' on the SAME shared key the host fixes to 'store' → provable contradiction.
+	donor.schema.contract.pre = ["route=='emit'"];
+	assert.equal(blendMethods(host, donor), null,
+		"the provably-unsound graft (host.post route=='store' vs donor.pre route=='emit') is REFUSED — no more blind union (H2)");
+
+	// DEFEASIBLE — the host WRITES route but leaves it FREE in its post (under-determined); the donor requires route=='store'.
+	// checkCompose cannot decide in-fragment → escalate → ADMIT + flag (NOT over-refuse — the formal check is a ground, not a ceiling).
+	host.schema.contract  = { read: ['Segment'], write: ['route'], pre: [], post: ['other==1'], effect: 'pure' };
+	donor.schema.contract = { read: ['route'], write: ['done'], pre: ["route=='store'"], post: ['done==true'], effect: 'pure' };
+	const esc = blendMethods(host, donor);
+	assert.ok(esc, 'an under-determined graft is ADMITTED (not over-refused) — grounds, not ceilings');
+	assert.equal(esc.composeVerdict, 'escalate', 'but flagged escalate → the runtime assertPost monitor is the moat');
+});
