@@ -355,3 +355,16 @@ Grammar guarantees valid *format*, not correct *content* — keep the C-contract
 and reserve a bigger/remote model for the META/supervisor tier. Per-concept **multi-model** = one `makeLocalAsk`
 per `namespace` (a specialist GGUF, or one base + a per-context LoRA). The no-build/browser sibling is `wllama`
 (same GGUF, WASM, CPU-only — no GPU) — a future `makeWasmAsk`.
+
+**Centralized host (GPU/VRAM + prompt cache).** Every `makeLocalAsk` is a thin handle over a **process-wide shared
+host** (`createLocalModelHost`): N handles / namespaces of the *same* GGUF share **one** VRAM load, several
+constrained grammars share that load (grammar is applied per-call), identical deterministic (temp-0) prompts are
+served from an in-memory cache, and VRAM is bounded by **LRU eviction** — set `SG_LOCAL_VRAM_BUDGET_GB` /
+`SG_LOCAL_MAX_MODELS`, or pass `opts.host = createLocalModelHost({ vramBudgetGB, maxModels, cacheSize })` for a
+dedicated budget. (In-process analogue of a grant-based GPU orchestrator; the model loader is injectable, so the
+registry/cache/eviction logic is unit-testable without a GPU.)
+
+**Request/response (`sg ask`).** The reasoning-appliance endpoint: `sg ask "<question>" --local-model <gguf>` runs
+the decompose→synthesize answer loop over the embedded model and prints the answer (self-contained, no HTTP
+endpoint; `--json` for the structured result). Programmatically, `session.answer(text)` resolves with `{answer,
+state}` and `Graph.settle(g)` is the promise-returning settle verb.
