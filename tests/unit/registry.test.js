@@ -7,7 +7,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { deriveRegistry, freezeRegistry, specForKey, resolveFactsSchema, mergeRingProposals, checkTreeAgainstRegistry, validateWithRegistry } = require('../../lib/authoring/registry');
+const { deriveRegistry, freezeRegistry, specForKey, resolveFactsSchema, mergeRingProposals, retractRingAlias, checkTreeAgainstRegistry, validateWithRegistry } = require('../../lib/authoring/registry');
 const { createIntake } = require('../../lib/providers');
 
 const q = ( s ) => "$status=='" + s + "'";
@@ -122,4 +122,46 @@ test('deriveRegistry — a cross-producer ring intent-collision is RECORDED in c
 	assert.equal(reg.conflicts.length, 1, 'the union of the two rings is non-confluent → recorded');
 	assert.equal(reg.conflicts[0].key, 'sev');
 	assert.match(reg.conflicts[0].error, /severe/);
+});
+
+// ─────────────────────────── retractRingAlias — the un-learn verb + confluence DE-LOCK (Laurie confront) ───────────────
+// Soundness rests on RECOVERABILITY, not oracle certification ("8/8" ≠ certified; Rule-of-Three 95% bound ≈ 37% on 8).
+// A strong model lowers the RATE of a wrong autonomous admit; retraction bounds the DAMAGE. Each claim has a NEG.
+const sevReg = () => freezeRegistry(deriveRegistry({ childConcepts: { Sev: { _id: 'Sev', _name: 'Sev',
+	require: ['Segment'], provider: ['LLM::complete'], prompt: { facts: { severity: { enum: ['low', 'high'] } }, prose: 's' } } } }), 'v1');
+
+test('retractRingAlias — removes an admitted alias, bumps the version, drops its provenance', () => {
+	let reg = mergeRingProposals(sevReg(), [{ key: 'severity', alias: 'severe', member: 'high', via: 'llm-borderline' }]).registry;
+	assert.deepEqual(reg.keys.severity.synonyms.high, ['severe'], 'admitted');
+	assert.equal(reg.ringProvenance['severity::severe'].via, 'llm-borderline', 'provenance tagged on admit');
+	const v = reg.version;
+	const r = retractRingAlias(reg, 'severity', 'severe');
+	assert.equal(r.retracted, true);
+	assert.equal(r.member, 'high', 'reports the member the alias mapped to');
+	assert.equal(r.registry.keys.severity.synonyms, undefined, 'the ring is emptied (no dangling member key)');
+	assert.notEqual(r.registry.version, v, 'the version bumped (= the B8 invalidation signal)');
+	assert.equal(r.registry.ringProvenance['severity::severe'], undefined, 'provenance dropped');
+});
+
+test('DE-LOCK (the killer) — a WRONG admit locks the correct alias via confluence; retraction UN-locks it', () => {
+	// a bad autonomous admit: catastrophic→low (the docstring's own wrong-guess example).
+	let reg = mergeRingProposals(sevReg(), [{ key: 'severity', alias: 'catastrophic', member: 'low' }]).registry;
+	// the CORRECT proposal is now blocked — first-writer-wins under confluence (this IS the poison's teeth).
+	const blocked = mergeRingProposals(reg, [{ key: 'severity', alias: 'catastrophic', member: 'high' }]);
+	assert.equal(blocked.admitted.length, 0);
+	assert.match(blocked.rejected[0].reason, /confluence/, 'without retraction the correction is rejected — permanently locked');
+	// retract → de-lock → the correction is admissible.
+	reg = retractRingAlias(reg, 'severity', 'catastrophic').registry;
+	const fixed = mergeRingProposals(reg, [{ key: 'severity', alias: 'catastrophic', member: 'high' }]);
+	assert.equal(fixed.admitted.length, 1, 'after retraction the corrected alias is admitted (de-locked)');
+	assert.deepEqual(fixed.registry.keys.severity.synonyms.high, ['catastrophic'], 'catastrophic now maps to high');
+	assert.equal(specForKey(fixed.registry, 'severity').synonyms.high[0], 'catastrophic', 'the barrier spec reflects the correction');
+});
+
+test('NEG — retracting an absent alias is a no-op (no version bump, retracted:false)', () => {
+	const reg = sevReg();
+	const r = retractRingAlias(reg, 'severity', 'nonesuch');
+	assert.equal(r.retracted, false);
+	assert.equal(r.registry.version, reg.version, 'no spurious version bump');
+	assert.equal(r.member, null);
 });
