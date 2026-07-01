@@ -295,7 +295,11 @@ LLM-call/token **elision + drift-robustness + auditability**, not CPU speed. Bou
 Not a glossary: a **generative composite of ~9 formal systems**, each seeding one layer of the design, cross-checked by
 two adversarial SOTA passes (2026-07-01). Every piece skynet already has maps to a named formal object; exactly ONE
 operator is missing and exactly ONE thing is open research. Use this as the compass — it says *how* to build each layer;
-the STAGE-0 gate (§8, `compose-hotspot`) says *when* it is warranted.
+the STAGE-0 gate (§8, `compose-hotspot`) says *when* it is warranted. **(2026-07-01) the gate is now interleave-robust**
+— a PROVENANCE data-flow-edge tally replaces the positional contiguous tally (the flat screen is UNSOUND on the
+stabilize fixpoint's non-deterministic emission order: it both fabricates spurious cross-lane composites and misses real
+ones — proven live). The antiUnify certification + MDL selection remain compress.js's front half, still FILED. See the
+composed-roadmap graft **G-0**.
 
 | layer | formal home | status in skynet |
 |---|---|---|
