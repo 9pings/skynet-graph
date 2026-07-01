@@ -241,6 +241,22 @@ graph, cross-process proven). And the library can now run its **small functional
 decoding** enforces the canonicalization barrier at the *decode* level (a small model *cannot* emit a malformed typed
 fact) — the self-contained-appliance endpoint and the signature-stability lever.
 
+**Signature-stability screen (2026-07-01, ZERO-CORE) — the roadmap's 2-phase-minimum make-or-break, run + a decisive
+finding.** *Does constrained decoding keep a small model's typed signature paraphrase-stable?* — instrumented live behind
+an adversarial confront (formal + SOTA). Built the tracked paraphrase-stability profiler (`lib/authoring/emittability.js`,
+the roadmap's Grammar-P1 instrument): unbiased-Simpson within-task collision + the pooled **V-measure homogeneity** that
+catches the correctness-fatal COLLISION mode a naive within-task metric misses + a Fleiss-κ **vacuousness alarm** +
+per-field marginals + a format-netting cross-arm compare. Four arms on vibethinker-3b (temp 0, deterministic) **INVERT the
+roadmap's convergence #3**: grammar-constrained decoding is a signature-stability **hazard**, not its enabler. Format
+closure is obtainable from a strong closed-vocab PROMPT alone (typedRate 1.00 on the 3B); once format is already closed the
+grammar **distorts** the semantic choice (Park et al. 2024, Grammar-Aligned Decoding — κ 0.61 grammar vs 0.92 prompt-only,
+flipping `severity`/`bugClass` across paraphrases the prompt-only arm keeps stable). ⇒ constrained decoding is **demoted to
+format INSURANCE** (for unreliable prompt-compliance) with a measured distortion cost; the signature-stability lever is the
+strong prompt + the (unchanged) Σ_sep / canon-vocabulary keystone. The screen passes on *stability IS achievable on a small
+model* — via the prompt. The confront earned its keep: the naive arm-pair (grammar-vs-weak-free-text) reads "huge win" and
+would have shipped "constrained decoding fixes stability"; the mechanism-isolating arm showed the win is pure format and the
+semantics are hurt.
+
 **⇒ The target-system ROADMAP** (`doc/WIP/studies/2026-07-01-composed-roadmap.md`) composes five grounded strategy axes
 (compositional distillation · grammar/vocabulary design · small-LLM controller · evaluation · embedded inference) into a
 staged plan whose spine is: one shared front gate (*does the real workload compose/recur?* — currently it does NOT, per
