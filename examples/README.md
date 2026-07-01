@@ -8,6 +8,8 @@ set `LLM_BASE` / `LLM_MODEL` / `LLM_API=openai`; see `llm.js`). Run any with `no
 - **`run-basic.js`** — the engine's INITIAL objective: a rule-driven knowledge graph. Mounts the shipped `common`
   concept set (travel/geo) and **stabilizes** — nodes become `Vertice`, edges get `Distance`/`Travel`/`LongTravel`
   enriched by the grammar. No LLM. This is the deterministic heart (concepts + stabilization) with nothing else.
+- **`seed-travel.json`** — the same travel graph as a standalone seed file, so the base runs à-nu through the CLI:
+  `node bin/sg run --concepts ./concepts/common --builtins --seed examples/seed-travel.json` (→ 5 stabilized objects).
 
 ## The creative loop — authoring à nu (offline)
 - **`creative-loop.js`** — the five authoring tools end-to-end, deterministic: **crystallize** a re-mountable

@@ -169,8 +169,13 @@ See [API.md](API.md) for exact signatures and semantics.
 ## 7. The `sg` CLI
 
 ```bash
-# boot a graph from folders and print the stabilized facts:
-node bin/sg run --concepts ./concepts --builtins --seed ./seed.json [--sets common]
+# boot a graph from folders and print the stabilized facts. A runnable seed ships in the repo
+# (the Paris→Singapore/Versailles travel graph, the same one examples/run-basic.js builds inline):
+node bin/sg run --concepts ./concepts/common --builtins --seed examples/seed-travel.json
+#   -> stabilized: 5 object(s); long -> Distance/Travel/LongTravel, short -> Distance.inKm=18/ShortTravel
+
+# the general form:
+node bin/sg run --concepts ./concepts --builtins --seed <file.json> [--sets common]
                 [--providers ./my-providers] [--trace out.json] [--json] [--timeout 8000]
 
 # inspect a trace artifact (written by --trace, or by lib/sg/trace.js):

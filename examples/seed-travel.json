@@ -1,0 +1,12 @@
+{
+  "lastRev": 0,
+  "nodes": [
+    { "_id": "paris",      "Position": { "lat": 48.8566, "lng": 2.3522 } },
+    { "_id": "singapore",  "Position": { "lat": 1.3521,  "lng": 103.8198 } },
+    { "_id": "versailles", "Position": { "lat": 48.8049, "lng": 2.1204 } }
+  ],
+  "segments": [
+    { "_id": "long",  "originNode": "paris", "targetNode": "singapore" },
+    { "_id": "short", "originNode": "paris", "targetNode": "versailles", "Theoric": true }
+  ]
+}
