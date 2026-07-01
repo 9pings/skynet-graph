@@ -1,6 +1,6 @@
 ---
-name: instrumented-rd-loop
-description: Use when doing open-ended R&D, a feasibility study, or design/architecture exploration on a real system — when intuitions must become verified, MEASURED findings grounded in the actual code rather than arguments; when a result surprises and you must understand the mechanism before concluding; or when tempted to conclude from a green check or a second-hand subagent diagnosis. Keywords: feasibility, ideation follow-through, negative control, verify-before-build, root cause, minimal repro, instrumented, measurable.
+name: skynet-graph-skills/instrumented-rd-loop
+description: "Use when doing open-ended R&D, a feasibility study, or design/architecture exploration on a real system — when intuitions must become verified, MEASURED findings grounded in the actual code rather than arguments; when a result surprises and you must understand the mechanism before concluding; or when tempted to conclude from a green check or a second-hand subagent diagnosis. Keywords: feasibility, ideation follow-through, negative control, verify-before-build, root cause, minimal repro, instrumented, measurable."             
 author: NBraun - https://github.com/9pings
 ---
 
