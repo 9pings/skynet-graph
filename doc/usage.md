@@ -329,3 +329,29 @@ LLM_API=openai LLM_BASE=http://localhost:5000 LLM_MODEL=my-model node examples/r
 Env: `LLM_API` · `LLM_BASE` · `LLM_MODEL` · `LLM_KEY`. `makeOpenAIAsk` / `makeAnthropicAsk` are
 exported directly too. A live end-to-end check of the canonicalization barrier against a real model
 is the gated test `tests/integration/llm-live.test.js` (`LLM_LIVE=1`).
+
+### Embedded inference (in-process, no external endpoint)
+
+The library can run its small functional model(s) **itself** (a self-contained appliance) via the same
+`ask` seam — `makeLocalAsk` is a drop-in `ask` backed by **node-llama-cpp** (native, GGUF, GPU auto-detected).
+It's an **optional** native dep (not committed; installed on demand) and GGUF models live in the **gitignored**
+`models/` dir:
+
+```bash
+npm run local-inference:setup                 # install the engine (node-llama-cpp) into node_modules
+npm run local-inference:setup -- --turboquant # + guidance for the TheTom TurboQuant+ fork
+# then drop a .gguf into models/ (or set LOCAL_MODEL / pass modelPath)
+```
+
+```js
+const { register, createLLMProvider, makeLocalAsk } = require('skynet-graph/providers');
+register(Graph, [ createLLMProvider({ ask: makeLocalAsk({ modelPath: 'models/small.gguf' }) }) ]);
+```
+
+The crown jewel is **grammar-constrained decoding**: pass `jsonSchema` (or `gbnf`) and the model is forced to
+emit grammar-valid tokens — a small (noisy) model then **cannot** produce a malformed typed fact, so the
+canonicalization barrier (`prompt.facts`) is enforced at the *decode* level (the K1 signature-stability lever).
+Grammar guarantees valid *format*, not correct *content* — keep the C-contract/verify pass as the content check,
+and reserve a bigger/remote model for the META/supervisor tier. Per-concept **multi-model** = one `makeLocalAsk`
+per `namespace` (a specialist GGUF, or one base + a per-context LoRA). The no-build/browser sibling is `wllama`
+(same GGUF, WASM, CPU-only — no GPU) — a future `makeWasmAsk`.

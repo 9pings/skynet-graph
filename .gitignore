@@ -33,6 +33,9 @@ node_modules
 /dist
 /upload
 /public
+# local inference: GGUF model files (never committed; see scripts/setup-local-inference.sh)
+/models/
+*.gguf
 /docs/
 /.claude/
 # R&D working trail + offline papers — kept local, not published

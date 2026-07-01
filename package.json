@@ -10,7 +10,8 @@
   "scripts": {
     "test": "node --test --test-force-exit tests/unit/*.test.js tests/integration/*.test.js",
     "test:watch": "node --test --watch tests/unit/*.test.js",
-    "test:studio": "node scripts/studio-smoke.mjs"
+    "test:studio": "node scripts/studio-smoke.mjs",
+    "local-inference:setup": "bash scripts/setup-local-inference.sh"
   },
   "dependencies": {
     "@jsep-plugin/object": "^1.2.2",
