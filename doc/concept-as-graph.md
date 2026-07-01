@@ -264,9 +264,22 @@ staged plan whose spine is: one shared front gate (*does the real workload compo
 enabler. The 2-phase minimum: the controller request/response bridge + the compose-gate + signature-stability-via-
 constrained-decoding — because everything downstream is worthless if paraphrases fragment the key.
 
-**Still genuinely open (gated):** the **compositional distillation ENGINE** (the corpus-wide DreamCoder/Stitch abstraction
-sleep — the genuinely-missing operator that turns a flat memo table into method-of-methods; unmeasured whether real work
-composes past depth 1); a **real-model streaming `adaptOrForge`** measurement (calls × correct-under-drift); §6.3(b)
+**STAGE-0 compositional gate (2026-07-01, ZERO-CORE) — the compress.js decision made honest.** The composed roadmap's ONE
+shared front kill-gate (*does the workload COMPOSE?*) now has a cheap instrument: `lib/authoring/compose-hotspot.js`, the
+depth-≥2 analog of `hotspot.js`. RE-PAIR over dispatch sequences → {compose-candidate · **already-flat-covered** (the
+off-ramp: a composite spanning only ONE whole-task, which whole-task memo already serves) · unstable · too-rare} + a Minton
+call-utility (`savedCalls ≈ distinctTasks−1`). The load-bearing condition (self-confronted): a persisted depth-≥2 method
+pays ONLY when a sub-composite recurs across **distinct** whole-tasks. Result: it finds + quantifies shared sub-composites
+(incl. a depth-3 via the RE-PAIR hierarchy) on a compositional workload, but on the EXISTING whole-task-chain workloads
+returns **no candidate** → sharpening `hotspot.js`'s depth-1 finding: the current workloads compose neither at depth 1 nor
+cross-task. The depth-≥2 hold/replay substrate already exists (`adapt.js#blendMethods`→`indexMethod`→`combinator.js#dispatchConcept`;
+`synthesizeByBlend` to depth-3 at 0 calls) — so `compress.js` is now the ONLY missing half, and it is GATED behind this
+detector run on a REAL compositional trace.
+
+**Still genuinely open (gated):** the **compositional distillation ENGINE** `compress.js` (the corpus-wide DreamCoder/Stitch
+abstraction sleep — the genuinely-missing operator that mints a recurring composite into one persisted method; **now gated
+behind `compose-hotspot.js` returning a candidate on a real trace**, no longer a blind build); a **real-model streaming
+`adaptOrForge`** measurement (calls × correct-under-drift); §6.3(b)
 **mapping-φ** promotion; the **EAGER in-core `SubGraph`/`ZoomSegment` object** (FILED, justified). Whole-graph COW is
 **deprioritized** (the deep-copy is cheap + library-independent — the multi-process extraction is the built lever instead).
 
