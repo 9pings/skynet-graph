@@ -83,3 +83,28 @@ test('borderlineFacts NEG — a genuinely unresolvable miss STAYS a miss (fail-c
 	assert.deepEqual(r.misses, ['sev'], 'still out-of-vocab → remains a fail-closed miss');
 	assert.deepEqual(r.borderline, []);
 });
+
+// cont.⁶ — the PER-CALL grammar threading (the Arm-3 plumbing): the borderline touchpoint can now request constrained
+// decoding, and the grammar tracks the PER-CALL spec (it was previously un-threadable — enumGbnf existed but never reached
+// the model). Default stays FREE-TEXT (behavior unchanged; the sig-stability finding demotes grammar to format-insurance).
+test('opts.constrain threads the per-call enumGbnf grammar into the ask request; default is free-text (unchanged)', async () => {
+	let seen;
+	const free = makeBorderlineSnap({ ask: async ( req ) => { seen = req; return 'high'; } });
+	await free('catastrophic', SEV);
+	assert.equal(seen.grammar, undefined, 'default = free-text: NO grammar threaded (backward-compatible)');
+
+	let seen2;
+	const strict = makeBorderlineSnap({ constrain: true, ask: async ( req ) => { seen2 = req; return 'high'; } });
+	await strict('catastrophic', SEV);
+	assert.deepEqual(seen2.grammar, { gbnf: enumGbnf(SEV) }, 'constrain → per-call enumGbnf(spec) grammar in the request');
+
+	let seen3;                                                          // a DIFFERENT spec → a DIFFERENT grammar (per-call, not baked)
+	const strict2 = makeBorderlineSnap({ constrain: true, ask: async ( req ) => { seen3 = req; return 'p1'; } });
+	await strict2('meh', { enum: ['p0', 'p1', 'p2'] });
+	assert.deepEqual(seen3.grammar, { gbnf: 'root ::= "p0" | "p1" | "p2" | "none"' }, 'the grammar tracks the per-call spec');
+
+	let called = 0;                                                    // constrain does NOT defeat the barrier-first short-circuit
+	const strict3 = makeBorderlineSnap({ constrain: true, ask: async () => { called++; return 'high'; } });
+	await strict3('severe', SEV);
+	assert.equal(called, 0, 'the LAST-resort discipline holds — the model is not called for a ring alias');
+});
