@@ -194,7 +194,7 @@ replays verbatim); the typed verify re-gates on the receiver, so a structurally-
 
 ## 8. Status & honest lines
 
-**Built + measured (2026-06-30, ZERO-CORE throughout, 743 tests):** the middle spine (Bricks 1–3:
+**Built + measured (2026-07-01, ZERO-CORE throughout, 751 tests):** the middle spine (Bricks 1–3:
 applySubgraphArg / lintMethod / selectCluster), the abstractivation slice (F6), the durable executor (Layer A +
 B + the fold-back JOIN + fail-fast / fold-survivors / nested-fold + C-fail retry/escalate + audit), C-xlate,
 C-contract (the checker · the §11.6 composition-soundness probe · the executor guard · the belief-view un-learn loop
@@ -222,11 +222,20 @@ is a function of a below-horizon ancestor (`value(f)=N(s).g`, GOLEM ij-determina
 unsoundness spine the review found). Measured live (qwen3-8b): a real decomposition's structured-echo content promotes
 (exact post), its novel content forges — the canon barrier read on the ancestry axis.
 
+**The §6.1 / §6.2 deeper live measures (2026-07-01, qwen3-8b temp 0, deterministic).** **§6.2** — a real structural
+forge reusing a surfaced donor skeleton generates **5.68× fewer completion tokens** (125→22) than a fresh whole-method
+forge, the §6.2 gate holding (the "token win, not a call-count win" the layer promised). **§6.1** — the SELECTION-K1
+fraction on real output (hardened by an adversarial review, verdict SOUND-WITH-CORRECTION): **winner-determinacy 2/3,
+crystallizable 1/3** at Σ={taskClass} — the two axes kept separate (a determined-but-Pareto-tied winner is soundly
+refused by the tie-gate, not a latency; an undetermined split can be a canon-granularity artefact). The fraction is a
+property of the (workload, Σ) pair, and Regime-1 dispatch is *defeasible* (leans on the un-learn loop) — the honest
+ceiling exhibited, not a defended scalar.
+
 **Still genuinely open (gated):** a **real-model streaming `adaptOrForge`** measurement (calls × correct-under-drift);
-the **§6.1 / §6.2 live deeper-measures** (the selection-K1 fraction over a real-fork rollout; the donor-skeleton token
-win); §6.3(b) **mapping-φ** promotion (affine / lookup beyond identity, behind a gate); the **EAGER in-core
+§6.3(b) **mapping-φ** promotion (affine / lookup beyond identity, behind a gate); the **EAGER in-core
 `SubGraph`/`ZoomSegment` object** (fold/zoom/residency — FILED, justified, gated on a measured residency need); and
-the deferred **performance** work (fork deep-copies the whole graph per case → bounded-seed; Stitch corpus-global MDL).
+the deferred **performance** work — a **COW / structural-sharing `fork`** (fork deep-copies the whole graph per case;
+the one real JS perf lever, kept in JS not a native port per the 2026-07-01 study); Stitch corpus-global MDL.
 
 **Hold these lines.** *Eventual*, not static, soundness for learned methods — via a load-bearing runtime monitor
 over a **sound-but-incomplete** compose gate (deciding fragment-membership is undecidable — Rice; so "compose
