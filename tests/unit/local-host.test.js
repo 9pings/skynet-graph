@@ -100,3 +100,18 @@ test('cache is bounded (LRU eviction of oldest prompt)', async () => {
 	await host.ask(mk({ user: 'a' }));   // 'a' was evicted → a real inference again
 	assert.equal(host.stats.infer, before + 1, 'the evicted prompt re-ran');
 });
+
+// cont.⁶ — the native thinking control (`budgets.thoughtTokens`, == CLI --reasoningBudget). It reaches the loader AND is
+// part of the cache key: two calls differing ONLY in reasoningBudget must NOT share a cache entry (a different budget is a
+// different completion). 0 = thinking OFF (the adapted lever for a reasoning model at a one-token typed touchpoint).
+test('reasoningBudget reaches the loader AND is part of the cache key (a different budget re-infers)', async () => {
+	const seen = [];
+	const host = createLocalModelHost({ loadModel: () => Promise.resolve({ vramBytes: 1e9,
+		async complete( req ) { seen.push(req.reasoningBudget); return 'C:' + req.reasoningBudget; }, dispose() {} }) });
+	await host.ask(mk({ reasoningBudget: 0 }));
+	await host.ask(mk({ reasoningBudget: 0 }));       // identical → cache hit (no 2nd inference)
+	await host.ask(mk({ reasoningBudget: 128 }));     // different budget → cache MISS → re-infer
+	assert.deepEqual(seen, [0, 128], 'the loader saw reasoningBudget; a different budget was NOT served from cache');
+	assert.equal(host.stats.cacheHits, 1);
+	assert.equal(host.stats.infer, 2);
+});

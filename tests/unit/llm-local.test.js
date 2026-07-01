@@ -37,3 +37,15 @@ test('makeLocalAsk with NO construction grammar still forwards the per-call gram
 	await ask({ system: 's', user: 'u', grammar: { gbnf: 'root ::= "z"' } });
 	assert.deepEqual(host.reqs[1].grammar, { gbnf: 'root ::= "z"' }, 'the per-call enumGbnf reaches the host even with no baked grammar');
 });
+
+test('makeLocalAsk threads reasoningBudget (construction default + per-call override) to the host', async () => {
+	const host = fakeHost();
+	const ask = makeLocalAsk({ modelPath: '/fake.gguf', reasoningBudget: 0, host });   // thinking OFF by default
+	await ask({ system: 's', user: 'u' });
+	assert.equal(host.reqs[0].reasoningBudget, 0, 'the construction reasoningBudget is forwarded (0 = thinking off)');
+	await ask({ system: 's', user: 'u', reasoningBudget: 128 });
+	assert.equal(host.reqs[1].reasoningBudget, 128, 'a per-call reasoningBudget overrides the construction default');
+	const ask2 = makeLocalAsk({ modelPath: '/fake.gguf', host });                       // no default
+	await ask2({ system: 's', user: 'u' });
+	assert.equal(host.reqs[2].reasoningBudget, undefined, 'unset → undefined (the model default, thinking on)');
+});
