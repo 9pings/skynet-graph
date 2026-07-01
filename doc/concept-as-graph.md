@@ -289,3 +289,42 @@ without opening the box" is never an unconditional claim). A reactive **belief-v
 itself one). Bounded by **K1**: amortization of recurrent typed methods, **not** capability extension — the win is
 LLM-call/token **elision + drift-robustness + auditability**, not CPU speed. Bounded context is by **discipline**
 (the fold-digest window), as strong as the contracts.
+
+## 9. Formal foundations — the reference frame (a super-seed)
+
+Not a glossary: a **generative composite of ~9 formal systems**, each seeding one layer of the design, cross-checked by
+two adversarial SOTA passes (2026-07-01). Every piece skynet already has maps to a named formal object; exactly ONE
+operator is missing and exactly ONE thing is open research. Use this as the compass — it says *how* to build each layer;
+the STAGE-0 gate (§8, `compose-hotspot`) says *when* it is warranted.
+
+| layer | formal home | status in skynet |
+|---|---|---|
+| **engine** (cast→fixpoint, synchronized phases, membrane=frontier) | **P-system / membrane computing** (Păun 1998/2000) — a *confluent/deterministic* one (so the non-deterministic power results do NOT transfer) | built (`Graph`, taskflow, `extractSubgraph`) |
+| **representation** (slot = typed sub-path, FrontierSignature = interface) | **hyperedge-replacement grammar (HRG)** — slot = nonterminal hyperedge, frontier = tentacles, `blendMethods` = a production, `synthesizeByBlend` = μ-descent generation | **already an HRG, un-named** (`abstract.js`, `adapt.js`, `combinator.js`) |
+| **pairwise detector** | **anti-unification / Plotkin LGG** — 1st-order = **unique ∧ polynomial** (the crux; leaving 1st order forfeits both) | built (`abstract.js#antiUnify`) |
+| **the MISSING operator** (`compress.js`) | **corpus-MDL compression sleep** — Stitch (Bowers et al. POPL 2023) / SUBDUE (Cook & Holder JAIR 1994) branch-and-bound over `antiUnify` (the *structural* generalization of RE-PAIR, which is the 1-D special case) | **to build, gated on the STAGE-0 structural detector** |
+| **forge** (under objective pressure) | **type-directed synthesis** — SyGuS (Alur 2013), Synquid (Polikarpova 2016), Myth (2015) — the **C-contract IS the refinement-type spec** | built (`adaptOrForge`, `crystallizeStructural`) |
+| **higher-order contract** (loop-in-loop) | parametric-in-argument-contract skeleton — **higher-order frame rule** (Birkedal 2005 / Iris), **effect polymorphism** (Lucassen & Gifford 1988), refinement-on-arrow | **SOUND (static) · CONSERVATIVE**; adopt verbatim |
+| **defeasible revision** (collapse→blame→re-qualify/forge) | **blame calculus** (Wadler-Findler 2009) + **higher-order contracts** (Findler-Felleisen 2002) + **CEGIS** (Solar-Lezama) | **OPEN — the genuine research contribution** (retractable argument-contract, uncovered by classical results) |
+| **retention / library selection** | **Chemical Organization Theory** (Dittrich & Speroni 2007) on AlChemy (Fontana-Buss 1994) — crystallize iff **closed ∧ self-maintaining**; closure ≈ the typed barrier; the organization **lattice** ≈ defeasance/drift | to wire onto `crystallize`/`method-pack` |
+| **LLM role** | **propose + name + document** (LILO/AutoDoc, ICLR 2024) — never own compression or soundness | to discipline |
+| **diagnostic** | **canalization / attractors** (Kauffman 1969) — typed-fact discipline = canalization ⇒ drift-robustness; `divergent` = limit cycle (caveat: 2025 coherence-gap — a crystallized method may be *less* robust than re-deriving) | lens (metrics) |
+| **vocabulary topology** (granularity / redundancy / flexibility) | **[provisional]** Conceptual Spaces (Gärdenfors 2000) · semantic typology (Berlin-Kay, Talmy, Levinson) · compressibility↔expressivity / information-bottleneck semantics (Zaslavsky et al. 2018) · Kirby iterated learning | the STAGE-1 Σ_sep registry, ELEVATED (see the graft) |
+
+**The five decisions it seeds.** (1) `compress.js` = **first-order antiUnify + a Stitch/SUBDUE MDL sleep**, NOT RE-PAIR;
+the flat `compose-hotspot` is a cheap 1-D SCREEN, the real detector is structural. (2) The higher-order contract = the
+**parametric skeleton (adopt verbatim) + defeasible revision** (the collapse/blame/CEGIS-supervisor loop) — *that* is the
+novelty; do NOT claim to solve precise higher-order inference (nobody has). (3) **Retention = a COT organization gate**
+(closed ∧ self-maintaining) on crystallization. (4) The **LLM proposes + names/documents**, never owns compression or
+correctness. (5) The **vocabulary is a multi-granular, redundant, flexible topology** (COT organizations = "languages";
+untranslatables = organization-relative concepts; multiple co-resident organizations = the re-opened membrane multi-context).
+
+**The guardrails (hold these).** • **Stay first-order** at the detector/contract level — E-AU / higher-order-AU /
+full-graph RLGG forfeit uniqueness, polynomial cost, AND contract decidability (graph-motif detection is NP-hard). Put
+redundancy/equivalence (e-graphs) at the *vocabulary* level, first-order at the *compression/contract* level. • **The
+frame is a MAP, not a green light** — its seductive coherence must not override the STAGE-0 gate: on the current workloads
+nothing composes, so `compress.js` stays FILED until a real trace shows candidates. • **No spontaneous emergence** — these
+frameworks are selectionless at the object level; skynet is goal-directed: it **forges under objective pressure + retains
+per a COT closure test**, purposive construction filtered by a self-closing stability criterion. • **Soundness ⊕
+flexibility** — a FROZEN typed core (signature stability) + a FLEXIBLE, redundant, multi-granular interior (the learning
+substrate); the granularity split between them is the load-bearing design variable.
