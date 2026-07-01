@@ -8,7 +8,18 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { createLocalModelHost, grammarKey } = require('../../lib/providers/local-host');
+const { createLocalModelHost, grammarKey, finalizeGrammarOutput } = require('../../lib/providers/local-host');
+
+// REGRESSION (G-1 rung 2 live-arm finding): the default loader's output finalizer assumed EVERY grammar exposes
+// `.parse()`, but only a JSON-SCHEMA grammar does — a RAW GBNF grammar's constrained output is already bare text, so
+// `gr.parse(out)` threw "gr.parse is not a function". The fix guards on `typeof gr.parse === 'function'`.
+test('finalizeGrammarOutput — raw GBNF (no .parse) returns bare text; JSON-schema (.parse) re-emits JSON; null passes through', () => {
+	assert.equal(finalizeGrammarOutput(null, 'high'), 'high', 'no grammar → raw output');
+	const gbnf = {};                                             // a compiled GBNF grammar has NO .parse method
+	assert.equal(finalizeGrammarOutput(gbnf, 'high'), 'high', 'raw GBNF → bare constrained text (the fix; no throw)');
+	const jsonSchema = { parse: ( s ) => ({ ok: s }) };          // a compiled JSON-schema grammar exposes .parse
+	assert.equal(finalizeGrammarOutput(jsonSchema, '{"ok":"x"}'), JSON.stringify({ ok: '{"ok":"x"}' }), 'JSON-schema → parsed + re-stringified');
+});
 
 // a fake loader: counts loads/disposes, its `complete` returns a deterministic string and asserts NO overlap.
 function fakeLoader( log ) {

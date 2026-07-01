@@ -49,6 +49,79 @@ test('default prose key (<name>Prose) is also caught when no `prose` is declared
 	assert.equal(errors.filter((e) => e.kind === 'prose-dependency' && e.concept === 'D').length, 1);
 });
 
+test('G-1 — a VALID curated synonym ring passes author-time validation (no false positive)', () => {
+	const t = { childConcepts: { C: { _id: 'C', _name: 'C', require: ['Segment'], provider: ['LLM::complete'],
+		prompt: { facts: { sev: { enum: ['low', 'high'], synonyms: { high: ['severe', 'critical'] } } }, prose: 's' } } } };
+	assert.equal(validateConceptTree(t).errors.filter((e) => e.kind === 'synonym-ring').length, 0, 'a confluent ring is clean');
+});
+
+test('G-1 — a MALFORMED synonym ring (single-value collision) is an author-time ERROR (the critical-pair check)', () => {
+	const t = { childConcepts: { C: { _id: 'C', _name: 'C', require: ['Segment'], provider: ['LLM::complete'],
+		prompt: { facts: { sev: { enum: ['low', 'high'], synonyms: { high: ['bad'], low: ['bad'] } } }, prose: 's' } } } };
+	const ringErr = validateConceptTree(t).errors.filter((e) => e.kind === 'synonym-ring');
+	assert.equal(ringErr.length, 1, 'the non-single-valued ring is flagged at author-time');
+	assert.match(ringErr[0].message, /fact "sev"/);
+});
+
+// ── G-1 rung 3: cross-method INTERFACE COHERENCE over enum VALUES (the STAGE-1 keystone soundness core) ──
+const facts = ( enumVals, synonyms ) => ({ facts: { status: Object.assign({ enum: enumVals }, synonyms ? { synonyms } : {}) }, prose: 's' });
+const producer = ( name, enumVals, synonyms ) => ({ _id: name, _name: name, require: ['Segment'], provider: ['LLM::complete'], prompt: facts(enumVals, synonyms) });
+
+test('G-1 coherence — a consumer gating on a value NO producer writes is flagged interface-never-fire (WARN)', () => {
+	const t = { childConcepts: {
+		Ship: producer('Ship', ['intransit', 'delivered']),
+		Notify: { _id: 'Notify', _name: 'Notify', require: ['Ship'], ensure: ["$status=='shipped'"], provider: ['AI::act'] },
+	} };
+	const nf = validateConceptTree(t).warnings.filter((w) => w.kind === 'interface-never-fire');
+	assert.equal(nf.length, 1, 'the never-firing gate is flagged');
+	assert.equal(nf[0].concept, 'Notify');
+	assert.match(nf[0].message, /shipped/);
+});
+
+test('G-1 coherence — gating on a PRODUCED value is clean; strict promotes the never-fire to an error', () => {
+	const ok = { childConcepts: { Ship: producer('Ship', ['intransit', 'delivered']),
+		Notify: { _id: 'Notify', _name: 'Notify', require: ['Ship'], ensure: ["$status=='delivered'"], provider: ['AI::act'] } } };
+	assert.equal(validateConceptTree(ok).warnings.filter((w) => w.kind === 'interface-never-fire').length, 0, 'a produced value = no false positive');
+	const bad = { childConcepts: { Ship: producer('Ship', ['intransit', 'delivered']),
+		Notify: { _id: 'Notify', _name: 'Notify', require: ['Ship'], ensure: ["$status=='shipped'"], provider: ['AI::act'] } } };
+	assert.equal(validateConceptTree(bad, { strict: true }).errors.filter((e) => e.kind === 'interface-never-fire').length, 1, 'strict → error');
+});
+
+test('G-1 coherence — a value written by applyMutations (outside the enum) is REACHABLE → no never-fire', () => {
+	const t = { childConcepts: {
+		Ship: producer('Ship', ['intransit', 'delivered']),
+		Bump: { _id: 'Bump', _name: 'Bump', require: ['Ship'], provider: ['AI::act'], applyMutations: { $_id: '_parent', status: 'shipped' } },
+		Notify: { _id: 'Notify', _name: 'Notify', require: ['Ship'], ensure: ["$status=='shipped'"], provider: ['AI::act'] },
+	} };
+	assert.equal(validateConceptTree(t).warnings.filter((w) => w.kind === 'interface-never-fire').length, 0, 'reachable via a template write → not a never-fire');
+});
+
+test('G-1 coherence — gating on a NON-enum key is not judged (no false positive)', () => {
+	const t = { childConcepts: {
+		P: { _id: 'P', _name: 'P', require: ['Segment'], provider: ['AI::act'], applyMutations: { $_id: '_parent', P: true } },
+		Q: { _id: 'Q', _name: 'Q', require: ['P'], ensure: ["$foo=='bar'"], provider: ['AI::act'] },
+	} };
+	assert.equal(validateConceptTree(t).warnings.filter((w) => w.kind === 'interface-never-fire').length, 0, 'foo has no enum interface → cannot judge → no flag');
+});
+
+test('G-1 coherence — a synonym alias mapping to DIFFERENT members across concepts is a hard error (intent-collision)', () => {
+	const t = { childConcepts: {
+		A: producer('A', ['low', 'high'], { high: ['severe'] }),
+		B: producer('B', ['low', 'high'], { low: ['severe'] }),   // 'severe' means high in A, low in B — non-confluent
+	} };
+	const ic = validateConceptTree(t).errors.filter((e) => e.kind === 'synonym-intent-collision');
+	assert.equal(ic.length, 1, 'the cross-method alias collision is a hard error');
+	assert.match(ic[0].message, /severe/);
+});
+
+test('G-1 coherence — the SAME alias→member across concepts is clean (no false positive)', () => {
+	const t = { childConcepts: {
+		A: producer('A', ['low', 'high'], { high: ['severe'] }),
+		B: producer('B', ['low', 'high'], { high: ['severe'] }),   // consistent → confluent
+	} };
+	assert.equal(validateConceptTree(t).errors.filter((e) => e.kind === 'synonym-intent-collision').length, 0);
+});
+
 test('flags a missing _name (self-flag) — would re-fire forever', () => {
 	// any node listed in childConcepts IS a concept and must carry a _name to self-flag.
 	const t = { childConcepts: { P: { _id: 'P', _name: 'P', childConcepts: { X: { _id: 'X', require: ['Segment'], provider: ['AI::act'] } } } } };
