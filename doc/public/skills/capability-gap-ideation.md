@@ -1,6 +1,7 @@
 ---
 name: capability-gap-ideation
 description: Use when exploring what a system or codebase could become — an open-ended "what could this solve / what should we build next" ideation pass on an existing system. Especially when ideas must be GROUNDED in the real code and the state of the art (not wishful), and when the point is to bridge desired OBJECTIVES to current CAPABILITIES — what is reachable now (and with what arrangement) versus what is genuinely missing.
+author: NBraun - https://github.com/9pings
 ---
 
 # Capability-gap ideation
