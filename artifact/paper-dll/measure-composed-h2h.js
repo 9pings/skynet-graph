@@ -47,7 +47,7 @@ async function runArms( w, env, names ) {
 }
 
 async function main() {
-	const live = !!process.env.MODEL;
+	const live = !!process.env.MODEL || !!process.env.LOCAL_MODEL;
 	// LIVE_BIG: a bigger, MORE-DIVERSE live workload (more audited classes) makes the drift/Pareto verdict
 	// live-MEASURABLE: a rival dominates only at drift==1, which a recall-only cache reaches only if the fallible
 	// model errs pre-audit on EVERY drift class — vanishingly unlikely across many classes (one class's error gives
@@ -70,14 +70,16 @@ async function main() {
 		const { makeAsk } = require(path.resolve(__dirname, '../..') + '/lib/providers/llm.js');
 		// assistantPrefill = the no-think method that WORKS on LM Studio + Qwen3.x (the chat_template_kwargs path is
 		// a no-op there); the server returns only the continuation. Default endpoint = LM Studio (localhost:1234).
-		const ask = makeAsk({ base: process.env.BASE || 'http://localhost:1234', api: 'openai',
+		const ask = process.env.LOCAL_MODEL
+				? require(path.resolve(__dirname, '../..') + '/lib/providers/llm-local.js').makeLocalAsk({ modelPath: process.env.LOCAL_MODEL, reasoningBudget: 0 })
+				: makeAsk({ base: process.env.BASE || 'http://localhost:1234', api: 'openai',
 			model: process.env.MODEL, extraBody: { chat_template_kwargs: { enable_thinking: false } },
 			assistantPrefill: '<think>\n\n</think>\n\n' });
 		model = H.makeModel('live', { ask });
 	} else model = H.makeModel('stub');
 	const env = { workload: w, model };
 
-	out(`\nCOMPOSED HEAD-TO-HEAD ${live ? '(LIVE model=' + process.env.MODEL + ')' : '(deterministic stub)'} — ` +
+	out(`\nCOMPOSED HEAD-TO-HEAD ${live ? '(LIVE model=' + (process.env.MODEL || process.env.LOCAL_MODEL) + ')' : '(deterministic stub)'} — ` +
 		`chain decide->disburse, N=${w.meta.n} (pre ${w.meta.preCount}, post ${w.meta.postCount}, drift1 ${w.meta.driftCases1}, drift2 ${w.meta.driftCases2}), audit=${w.meta.audited.join(',')}\n`);
 
 	const order = live
