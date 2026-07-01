@@ -194,7 +194,7 @@ replays verbatim); the typed verify re-gates on the receiver, so a structurally-
 
 ## 8. Status & honest lines
 
-**Built + measured (2026-07-01, ZERO-CORE throughout, 751 tests):** the middle spine (Bricks 1–3:
+**Built + measured (2026-07-01, ZERO-CORE throughout, 759 tests):** the middle spine (Bricks 1–3:
 applySubgraphArg / lintMethod / selectCluster), the abstractivation slice (F6), the durable executor (Layer A +
 B + the fold-back JOIN + fail-fast / fold-survivors / nested-fold + C-fail retry/escalate + audit), C-xlate,
 C-contract (the checker · the §11.6 composition-soundness probe · the executor guard · the belief-view un-learn loop
@@ -231,11 +231,28 @@ refused by the tie-gate, not a latency; an undetermined split can be a canon-gra
 property of the (workload, Σ) pair, and Regime-1 dispatch is *defeasible* (leans on the un-learn loop) — the honest
 ceiling exhibited, not a defended scalar.
 
-**Still genuinely open (gated):** a **real-model streaming `adaptOrForge`** measurement (calls × correct-under-drift);
-§6.3(b) **mapping-φ** promotion (affine / lookup beyond identity, behind a gate); the **EAGER in-core
-`SubGraph`/`ZoomSegment` object** (fold/zoom/residency — FILED, justified, gated on a measured residency need); and
-the deferred **performance** work — a **COW / structural-sharing `fork`** (fork deep-copies the whole graph per case;
-the one real JS perf lever, kept in JS not a native port per the 2026-07-01 study); Stitch corpus-global MDL.
+**Bounded subgraph extraction + embedded inference (2026-07-01, ZERO-CORE).** The fork-perf measure settled the scale
+question: the fork deep-copy is O(working-graph) and **library-independent** (the conceptMap is passed by reference), so
+forks don't dominate from a distilled mass; the real lever is the **multi-process ship** — `extractSubgraph`/`mergeSlice`
+(`lib/authoring/extract.js`) = program slicing at the fork boundary (a k-hop ball + a **frozen frontier** = `contract.js`
+G1 + an ATMS environment + a single-writer disjoint merge), ship-able to a worker process (27–245× cheaper than the whole
+graph, cross-process proven). And the library can now run its **small functional model(s) in-process** —
+`makeLocalAsk` (`lib/providers/llm-local.js`, node-llama-cpp/GGUF, proven on an RTX 5090), whose **grammar-constrained
+decoding** enforces the canonicalization barrier at the *decode* level (a small model *cannot* emit a malformed typed
+fact) — the self-contained-appliance endpoint and the signature-stability lever.
+
+**⇒ The target-system ROADMAP** (`doc/WIP/studies/2026-07-01-composed-roadmap.md`) composes five grounded strategy axes
+(compositional distillation · grammar/vocabulary design · small-LLM controller · evaluation · embedded inference) into a
+staged plan whose spine is: one shared front gate (*does the real workload compose/recur?* — currently it does NOT, per
+`hotspot.js`), the **interface-alphabet registry (Σ_sep) as keystone**, and **constrained decoding** as the cross-axis
+enabler. The 2-phase minimum: the controller request/response bridge + the compose-gate + signature-stability-via-
+constrained-decoding — because everything downstream is worthless if paraphrases fragment the key.
+
+**Still genuinely open (gated):** the **compositional distillation ENGINE** (the corpus-wide DreamCoder/Stitch abstraction
+sleep — the genuinely-missing operator that turns a flat memo table into method-of-methods; unmeasured whether real work
+composes past depth 1); a **real-model streaming `adaptOrForge`** measurement (calls × correct-under-drift); §6.3(b)
+**mapping-φ** promotion; the **EAGER in-core `SubGraph`/`ZoomSegment` object** (FILED, justified). Whole-graph COW is
+**deprioritized** (the deep-copy is cheap + library-independent — the multi-process extraction is the built lever instead).
 
 **Hold these lines.** *Eventual*, not static, soundness for learned methods — via a load-bearing runtime monitor
 over a **sound-but-incomplete** compose gate (deciding fragment-membership is undecidable — Rice; so "compose
