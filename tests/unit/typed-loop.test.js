@@ -14,6 +14,18 @@ const call = ( fn, facts ) => new Promise(( res, rej ) => fn(null, null, scopeOf
 const SEG = { _id: 'T1', originNode: 'S', targetNode: 'G', Segment: true };
 const KINDS = { enum: ['retrieve', 'transform', 'validate', 'emit'], synonyms: { retrieve: ['fetch'] } };
 
+test('opts.stepFacts — declared TYPED per-step content facts ride the child (the param the LGG will hole into a slot); undeclared keys never leak', async () => {
+	const P = makeTypedDecomposeProviders({ stepKinds: KINDS, maxDepth: 3, stepFacts: ['group'], expandFn: () => [
+		{ stepKind: 'retrieve', group: 'overdue' },
+		{ stepKind: 'emit', group: 'paid', rogue: 'never' },
+	] });
+	const tpl = await call(P.AI.expand, SEG);
+	const kids = tpl.filter(( o ) => o.Segment);
+	assert.equal(kids[0].group, 'overdue');
+	assert.equal(kids[1].group, 'paid');
+	assert.ok(!('rogue' in kids[1]), 'an undeclared step key NEVER reaches the graph (whitelist-only)');
+});
+
 test('expand writes a canon-snapped stepKind + stepIndex + a STAMPED eval verdict on each child; prose untracked', async () => {
 	const P = makeTypedDecomposeProviders({ stepKinds: KINDS, maxDepth: 3, expandFn: () => [
 		{ stepKind: 'Retrieve', atomic: false, description: 'pull the rows' },   // model says: this step re-splits
