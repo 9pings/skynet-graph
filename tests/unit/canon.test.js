@@ -122,3 +122,13 @@ test('shapeKey/canonKey — null-safe, ci on fact values, kinds-only vs full dig
 	const b = [{ stepKind: 'aggregate', field: 'status', value: 'paid' }];
 	assert.equal(canonKey(a, { factKeys: ['field', 'value'] }), canonKey(b, { factKeys: ['field', 'value'] }));
 });
+
+test('snapToVocab — AMBIGUOUS containment stays OOV (fail-closed): a hypernym surface never snaps arbitrarily', () => {
+	const stats = {};
+	const r = snapToVocab('plug', ['europlug', 'usplug', 'ukplug'], stats);
+	assert.equal(r.verdict, 'oov', "'plug' matches several vocab words — snapping to the first would be an arbitrary wrong pick");
+	assert.equal(r.value, 'plug', 'the raw surface survives (the honest path)');
+	assert.deepEqual(r.ambiguous, ['europlug', 'usplug', 'ukplug'], 'the candidate set is reported for a downstream disambiguator');
+	assert.equal(stats.ambiguous, 1);
+	assert.equal(snapToVocab('europ', ['europlug', 'usplug'], {}).verdict, 'snapped', 'UNIQUE containment still snaps');
+});
