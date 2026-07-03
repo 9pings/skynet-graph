@@ -2,9 +2,10 @@
 
 **Nathanael Braun** — independent researcher
 
-> **Draft v0 — 2026-07-03.** Internal working draft; not for distribution before deposit. Figures F1–F8 are
+> **Draft v0.1 — 2026-07-04.** Internal working draft; not for distribution before deposit. Figures F1–F8 are
 > placeholders to be generated from the recorded experimental artifacts (see Appendix A). Companion code and
-> replayable traces ship with the deposit.
+> replayable traces ship with the deposit. **The French version (`.fr.md`, same basename) is the MASTER text
+> for the owner's correction pass (terminology, style); this English text will be realigned afterward.**
 
 ---
 
@@ -30,8 +31,11 @@ edges and zero false aliases admitted across permuted streams, where the ungated
 ontology and propagates silent errors — the NELL signature reproduced, and blocked, at both grains. On the
 third-party DeFAb benchmark the typed path scores 34/35 (30/35 with zero model calls) against 30/35 direct in
 both reasoning regimes, and every direct loss is an over-general cut — the exact class the gate's
-conservativity check blocks by construction. None of the bricks is new; the composite is: an LLM as extractor,
-a lattice that decides, and an admission gate that lets the lattice grow without drifting.
+conservativity check blocks by construction. What retrieval pipelines re-pay in context on every call, this
+system compiles once into a typed, versioned, episode-auditable library — knowledge accumulates outside the
+context window, and the gate is what makes that accumulation safe. None of the bricks is new; the composite
+is: an LLM as extractor, a lattice that decides, and an admission gate that lets the lattice grow without
+drifting.
 
 **Keywords:** selectional restrictions; version spaces; candidate elimination; *isa* lattice; defeasible
 reasoning; knowledge-base drift; blame attribution; neurosymbolic systems; online learning; LLM extraction.
@@ -639,7 +643,10 @@ instead of an answer); and world-plausibility *survives* an authoritative contex
 "terrestrial" against the very ontology in the prompt, 3/6). Even given its ontology, the model is not a
 reliable evaluator of it. The deterministic matcher is thus justified on *correctness of the governance
 cells* — before the structural economics (context pays one call per episode forever, where the typed match
-memoizes to zero; no audit trail; no localized learnability).
+memoizes to zero; no audit trail; no localized learnability). The economics generalize: an ontology carried
+in the prompt is a recurring cost that grows with what the system knows, while an ontology carried in the
+library is an asset — knowledge accumulates outside the context window, and per-call context stays bounded
+however much has been learned (measured in the companion system paper [Braun 2026]).
 
 ### 7.2 The static-rules arm
 
@@ -718,8 +725,9 @@ path follows the declared specification, in both reasoning regimes — is, we be
 proposition. A deployment that must answer *"why did the system say no?"* gets: a typed refusal naming the
 missing requirement; an admission audit from every learned unit back to the episodes that earned it; a
 retraction path for every unit that stops earning it; and a knowledge substrate that grows from use without
-absorbing its extractor's ontology. None of this requires the model to be honest about its own knowledge —
-only the gate to be strict about attribution.
+absorbing its extractor's ontology — accumulating outside the context window, at bounded per-call context,
+so the working memory never saturates however long the deployment runs. None of this requires the model to
+be honest about its own knowledge — only the gate to be strict about attribution.
 
 ---
 
