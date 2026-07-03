@@ -18,13 +18,9 @@ falls</b>. A forward-chaining loop stabilizes the graph to a fixpoint; every rev
 
 ---
 
-## Two ways to use it
+## What it gives you
 
-The library is **one engine with two front doors**. They share the same core; you can stop at the first.
-
-![the two uses](doc/img/two-uses.svg)
-
-### Use 1 — the substrate: a *versionable, git-like reasoning orchestrator*
+### The substrate: a *versionable, git-like reasoning orchestrator*
 
 The base library, **standalone, no LLM required**. Model a domain in declarative concept rules (JSONC), wire
 deterministic providers (geo, a DB, your own), and let stabilization + retraction keep the belief state coherent
@@ -39,20 +35,6 @@ version-controlled — the control you have over *code*, applied to *belief*:
 This is a complete, tested capability on its own — a reactive, typed, reversible knowledge engine.
 → **[doc/usage.md](doc/usage.md)** · model **[doc/architecture.md](doc/architecture.md)** · schema **[doc/doc.md](doc/doc.md)** · **[doc/API.md](doc/API.md)**
 
-### Use 2 — the target system: *bounded context via composable concept-subgraphs*
-
-The R&D goal, built **on Use 1**. The thesis: a hard problem blows up an LLM's context window; here a learned
-**concept-graph is a method** — a reusable sub-graph you carry by its **typed contract, not its body**, so each
-step sees only a bounded neighbourhood. The supervisor **forges** methods, **crystallizes** the recurrent ones
-into reusable concept-tools, and **composes tools into bigger tools** — a small typed library covering a large
-space of problems, that **un-learns** a method when its premise drifts.
-
-- **A concept-graph = a two-faced method** — outer face: a *single method with a defeasible typed contract* (a black box); inner face: *productions* (for / while / map / fold). Bounded context = carrying the contract, not the body.
-- **Build / execute separation** — the **graph builds + tests** the method (the belief-view: decidable, traceable, defeasible); a separate **durable workflow engine executes** a compiled translation (crash-resumable, at scale).
-- **Soundness under composition** — methods compose on their typed contracts; a wrong learned contract is **asserted at runtime, blamed, and revised** (the un-learn moat no RAG / skill-library has).
-
-→ **[doc/concept-as-graph.md](doc/concept-as-graph.md)**
-
 ---
 
 ## What it is, concretely
@@ -66,12 +48,12 @@ rollback). A forward-chaining loop **stabilizes** the graph to a fixpoint. **Pro
 ![the typed-fact model](doc/img/model.svg)
 
 The discipline that everything keys on **discrete, typed facts** — never free prose — is load-bearing: it is
-what makes the incremental memo hit, and it is the ceiling (**K1**) that bounds Use 2 (only recurrent, typed,
+what makes the incremental memo hit, and it is the ceiling (**K1**) of everything built on top (only recurrent, typed,
 canonicalizable structure amortizes; genuinely novel reasoning stays in the model).
 
 ## Measured
 
-**Bounded context (Use 2).** Recovering one code planted in each of N document sections, on a real local model
+**Bounded context.** Recovering one code planted in each of N document sections, on a real local model
 (`examples/poc/bounded-context.js`):
 
 |                              | recall            | max tokens / call                        |
@@ -81,7 +63,7 @@ canonicalizable structure amortizes; genuinely novel reasoning stays in the mode
 
 Per-call context stays **constant** as the problem grows — engine **O(N)** total vs a naive **O(N²)**.
 
-**Amortization + drift (the durable executor, Use 2).** A recurrent typed stream of 24 cases with a mid-stream
+**Amortization + drift (the durable executor).** A recurrent typed stream of 24 cases with a mid-stream
 policy drift, live local model:
 
 |                          | model calls | wall  | correct on drift |
@@ -104,7 +86,7 @@ node bin/sg run --concepts ./concepts --builtins --seed ./seed.json
 ```js
 const Graph = require('skynet-graph');
 
-// Use 1 — boot from folders of concept rules + providers, stabilize, read facts:
+// Boot from folders of concept rules + providers, stabilize, read facts:
 const g = Graph.fromDirs({
   concepts: './concepts',
   builtins: true,                                  // wire the packaged geo + LLM providers
@@ -122,7 +104,7 @@ The `LLM::complete` provider is backend-agnostic: inject any async `ask`, or use
 
 ## Docs
 
-**Use 1 — the substrate**
+**The substrate**
 
 | | |
 |---|---|
@@ -130,16 +112,10 @@ The `LLM::complete` provider is backend-agnostic: inject any async `ask`, or use
 | [doc/architecture.md](doc/architecture.md) | How the engine works in depth + the reasoning regimes (opt-in) + the honest limits |
 | [doc/API.md](doc/API.md) | Public API reference |
 | [doc/doc.md](doc/doc.md) | Concept-schema reference (the rule language) |
-
-**Use 2 — the target system**
-
-| | |
-|---|---|
-| [doc/concept-as-graph.md](doc/concept-as-graph.md) | The conception: the two-faced method, bounded context by contract, forge / reuse, the durable executor, the un-learn moat, the creative loop (library dispatch → mount → adapt-or-forge), and the **Construct → Method flex programme** (interface-only dispatch · multi-path Construct · bidirectional widen · the ancestry oracle behind the bag-separator Σ_sep gate) |
 | [doc/MODELISATION.md](doc/MODELISATION.md) | The full model + R&D roadmap |
 | [doc/concept-learning.md](doc/concept-learning.md) | *(optional, shelved)* training concept-populations at the fixpoint |
 
-> **Heads-up.** Active R&D. Use 1 is solid and tested; Use 2 is an advancing conception with measured PoCs (not a
+> **Heads-up.** The engine is solid and tested; the layers above it are active R&D (measured PoCs, not a
 > product). **How best to organize concepts is still open** — treat the shipped `concepts/` sets as illustrative,
 > not a recommended ontology. `examples/poc/` holds the runnable problem-solving, durable-executor, and contract demos.
 

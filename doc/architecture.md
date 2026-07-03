@@ -1,9 +1,8 @@
-# Architecture — how skynet-graph works (Use 1, the substrate)
+# Architecture — how skynet-graph works (the substrate)
 
-> **R&D.** This explains the **substrate** (Use 1 — the standalone reactive engine; see the [README](../README.md)
+> **R&D.** This explains the **substrate** (the standalone reactive engine; see the [README](../README.md)
 > for the two uses). The engine is stable and tested; the *concept-organization strategy* is open research (see
-> [§6](#6-status--whats-r--d)). The high-level target system built on this substrate (Use 2 — concept-graphs as
-> composable methods, the durable executor, the contract) is **[concept-as-graph.md](concept-as-graph.md)**. The
+> [§6](#6-status--whats-r--d)). The higher-level layers built on this substrate are active R&D. The
 > authoritative model + roadmap is [MODELISATION.md](MODELISATION.md); the concept schema is [doc.md](doc.md); the
 > public API is [API.md](API.md).
 
@@ -164,13 +163,11 @@ not train); a *chain* topology collapses in depth (use width); cyclic serving is
 non-differentiable concepts (LLM/rules) stay frozen / off-gradient (a Mixture of Reasoners, not a uniform net). Full
 walk-through: **[concept-learning.md](concept-learning.md)**.
 
-## 5. What the substrate is for — and the building blocks Use 2 leans on
+## 5. What the substrate is for — and the building blocks it ships
 
 The substrate's job is to be **bounded, structured, reversible working memory** so that reasoning over a large
 problem happens in **bounded local steps** — the graph holds the global state, the dependencies and the
-justifications, while each step sees only a small neighbourhood. The high-level system that turns this into
-*composable methods with typed contracts + a durable executor* is **Use 2 → [concept-as-graph.md](concept-as-graph.md)**.
-The substrate ships the pieces that make Use 2 possible, each usable **à nu**:
+justifications, while each step sees only a small neighbourhood. A higher-level method layer can be built on top of this; the substrate ships the pieces for it, each usable **à nu**:
 
 - **Canonicalization barrier (K1).** An `LLM::complete` concept writes only *canonicalized*
   (enum-snapped / grain-rounded) keys as tracked facts, the reply text on an *untracked*
@@ -190,7 +187,7 @@ The substrate ships the pieces that make Use 2 possible, each usable **à nu**:
   in the model's context*: a problem decomposes; each bounded atomic segment **proposes K candidate answers**; a
   `pareto` SELECT keeps the non-dominated front; a `Stuck` segment **escalates** to a better tier; the parent
   synthesizes bottom-up. So a *small* local model need only be locally competent on a bounded sub-problem. This is
-  the seed of Use 2's forge/compose loop.
+  the seed of a forge/compose loop.
 
 Two front-ends drive all of this: the **`sg` CLI** (`run` / `studio`) and the **Studio** — a
 no-build web workbench (graph canvas with retraction flash, a concept↔fact **grammar graph**
@@ -222,11 +219,9 @@ the "a model call is a generic, templated request, dispatchable anywhere" path.
 The **engine** is mechanically complete and heavily tested (declarative AI-authoring + safe
 live self-modification included), and the **additive Mixture-of-Reasoners layer** (the P / C / M
 regime providers, verification, tiling), the **support grammar**, the **Studio**, and the
-`.sgc` corpus exchange are all shipped. The **Use-2 target system** built on top — concept-graphs as
-composable methods, the durable executor, the C-contract / un-learn loop, and the **creative loop** (a library
-**dispatch** over reified `FrontierSignature`s → combinator **mount** → `adaptOrForge`, so one method recombines
-another's learned method by structure-mapping) — is documented in **[concept-as-graph.md](concept-as-graph.md)**
-(669 tests). What remains is **open research** + the deferred
+`.sgc` corpus exchange are all shipped. A **method-library layer** built on top (host-side, ZERO-CORE,
+additive — including the durable executor and the contract / un-learn loop) is active R&D.
+What remains is **open research** + the deferred
 performance work, and the biggest research piece is **how to organize concepts** — the current bet is a
 semantically-meaningful hierarchical corpus keyed on *human vocabulary*, with judgment delegated to a
 better-model supervisor while the rules handle orchestration + coherence. The shipped `concepts/common/` set is an
