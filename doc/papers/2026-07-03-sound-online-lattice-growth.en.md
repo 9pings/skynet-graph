@@ -186,8 +186,14 @@ learned, parametrically re-mountable derivation structures with role-typed slots
 reactive concepts that drive learning at the engine's stabilization fixpoint. Epistemic status is a qualifier,
 never a type: any sort, edge or alias is either an *axiom* (authored) or *learned* — defeasible, tagged
 `{source, confidence}`, retractable. The same engine and discipline carried our previous system paper
-[Braun 2026]; this paper needs only the lattice, the intake, and the gate. *(Figure F3 — anatomy of a
-concept-method — and F8 — the method-pack export — document the host and are referenced only here.)*
+[Braun 2026]; this paper needs only the lattice, the intake, and the gate. Figure F3 documents the host
+(the method-pack export, F8, is in §8).
+
+![F3 — anatomy of a concept-method](figures/f3-concept-method.en.svg)
+
+*Figure F3 — the anatomy of a concept-method: the post-canon shape of the "compare" frame discovered at
+rung-2, with its role-typed slots — the LGG's holes. Generated from `RESULTS-discover-2.json` (discovered
+slots ≡ declared).*
 
 **Panel 1 — prose in, typed facts out.** An episode begins as paraphrased prose — the paraphrase is produced
 by the model itself, so the surface form is never ours:
@@ -200,8 +206,12 @@ boundary. First, the *typed-fact discipline*: everything downstream keys on disc
 identifiers, booleans — never on prose, so every decision is memoizable and replayable. Second, surfaces are
 extracted **verbatim**: the model reports the words the prose used (`"circular opening"`), and does not get to
 canonicalize them — canonicalization is the system's job, and keeping it out of the model's hands is what
-later makes alias learning attributable (§6.6). *(Figure F1 — the annotated sentence: prose spans → typed
-facts, object and slot indicators.)*
+later makes alias learning attributable (§6.6).
+
+![F1 — prose in, typed facts out](figures/f1-intake.en.svg)
+
+*Figure F1 — a real episode (durable memo, replayable): the model-paraphrased prose, annotated, and its
+verbatim typed extraction — the kind, the defeating condition, the distractor facet, the holes.*
 
 **Panel 2 — the canonicalization barrier.** Extracted surfaces are snapped against the lattice's declared
 vocabulary: an exact match snaps; a unique containment match snaps; anything else — including an *ambiguous*
@@ -210,14 +220,26 @@ fail-closed. OOV is not an error state; it is the honest channel through which u
 learning machinery instead of silently corrupting the match (§6.4 shows what the ambiguous-containment rule
 prevents; §6.6 shows what OOV feeds).
 
+![F7 — the learned structural fold](figures/f7-fold.en.svg)
+
+*Figure F7 — the same barrier, structural face: the digram fold `[filter → aggregate] ⟹
+aggregate(field,value)`, the only fold admitted by the MDL criterion over the system's captured shapes
+(ΔL = −59.3, support 30; the seven other digrams rejected — rung-2 LOG). The structural canon is no longer
+declared: it is learned.*
+
 **Panel 3 — the lattice, and a restriction as a cut.** The declared ontology is a finite *isa* lattice of
 concept-sorts: `marble ⊑ ball ⊑ round-thing`, `die ⊑ cube-thing`, facets like `shape` and `size` alongside.
 A *selectional restriction* for a slot is a **cut** through this lattice: the round hole accepts anything
 subsumed by `round-thing`; a deeper riddle ("drop the sugar cube…") is insoluble without the depth-2 chain
 `sugar-cube ⊑ cube ⊑ cube-thing`, which is exactly how the probes make the lattice load-bearing by
 construction (§6.2). Edges carry their epistemic qualifier: authored edges are axioms; learned edges are
-defeasible, `{source, confidence}`. *(Figure F2 — the lattice with one restriction drawn as a cut; defeasible
-edges marked.)*
+defeasible, `{source, confidence}`.
+
+![F2 — the declared lattice and a restriction as a cut](figures/f2-lattice-cut.en.svg)
+
+*Figure F2 — the declared isa lattice of the shapes domain (read from the probe's source), the round hole's
+restriction drawn as a cut, the `deflated ⊘ round` defeater (V5), and the synonym ring actually learned at
+G4 (`circularhole · circular · circularaperture → round`), attached to the sort's key.*
 
 **Panel 4 — deterministic match, layered resolution.** Matching a typed object against the holes' cuts is a
 deterministic lattice walk — zero model calls, microseconds, memoizable under the typed-fact discipline. The
@@ -225,15 +247,21 @@ resolution doctrine is layered and this ordering is load-bearing: **the *isa* pa
 the kind is known; explicitly extracted facets serve only as a fallback for OOV kinds.** The reason is
 measured in §6: if explicit facets may override the lattice, the model's world knowledge leaks through the
 extraction ("a ball is round, so I'll just write `shape=round`") and the lattice silently stops being the
-decision-maker. *(Figure F4, left panel — a successful mount: parameters placed into typed slots, zero rule
-fires beyond the mount itself.)*
+decision-maker *(figure F4, left panel)*.
 
 **Panel 5 — typed refusal.** Hand the system a pyramid and the holes `{star, round, crescent}`: no cut admits
 it. The answer is not a guess; it is a typed refusal — `impracticable`, with a structured hint naming the
 missing requirement ("no hole accepts sort `pyramid`; nearest cuts: …"). Rendering any placement here is, by
 definition, a structural hallucination. §6.3 hardens this cell until the direct model has no plausible-world
 escape, and it still hallucinates in 2 of 6 instances in both reasoning regimes, where the typed path refuses
-6 of 6. *(Figure F4, right panel — the starved mount: a typed hint instead of an answer.)*
+6 of 6.
+
+![F4 — successful vs starved mount](figures/f4-mount.en.svg)
+
+*Figure F4 — two real episodes of the parametric probe: on the left the successful mount (t24 — params
+placed into role-typed slots, correct answer, no rule fires beyond the mount); on the right the starved
+mount (t26, injection — the missing role yields a typed hint, never a complete-looking answer: 9/9,
+0 hallucinations).*
 
 **Panel 6 — defeasance, and its vacuity guard.** "Put the *deflated* football in the round hole." The
 condition `deflated` is extracted as a typed fact; a defeater edge `deflated ⊘ round` fires; the default
@@ -261,14 +289,14 @@ deterministically on the lattice-pure path, at zero model calls — then confirm
 re-uses. On the live stream this admits exactly the six spec-true aliases the flux produces (two of which
 nobody planted — the paraphrase invented them, the gate caught them), and refuses the model's spontaneous
 world-mapping `aperture/cavity/hole → round`, which the ungated variant permanently absorbs — two wrong answers
-downstream and a poisoned ring (§6.6). *(Figure F6 — the ratchet timeline: UNGATED drifting, GATED converting
-the same episodes into typed refusals and retractions.)*
+downstream and a poisoned ring *(figure F6, §6.6 — the ratchet timeline: UNGATED drifting, GATED converting
+the same episodes into typed refusals and retractions)*.
 
 **The one sentence the example was built to earn.** The slot restriction of Panel 4, the *isa* edge of
 Panel 7 and the alias of Panel 8 are admitted by the *same* rule — unique attribution plus verification —
 realized by two dual mechanisms: structural provenance where the structure can name its unit, counterfactual
-ablation where it cannot. One gate, three grains. *(Figure F5 — one diagram, three columns.)* The rest of the
-paper prices that sentence (§4–§5) and then defends it live (§6–§7).
+ablation where it cannot. One gate, three grains *(figure F5, §4.4)*. The rest of the paper prices that
+sentence (§4–§5) and then defends it live (§6–§7).
 
 ---
 
@@ -363,6 +391,13 @@ across it:
 Slot restrictions use α; *isa*-edge admission uses α plus verification; alias admission uses **both** — α as
 credit-forward provenance, β as the per-unit decisiveness test. The unification claim is at the level of the
 **invariant** (unique attribution ∧ verify), never of the implementation.
+
+![F5 — one gate, three grains](figures/f5-gate-three-grains.en.svg)
+
+*Figure F5 — the gate at its three grains: the same admission predicate, with, for each grain, one unit
+actually admitted and one actually refused in our runs — arm B's held cut against arm A's drift (lab), the
+re-learned edge against `pyramid→square` (ratchet), the confirmed alias `die→dice` against the
+`aperture→round` poison (G4 ring).*
 
 ### 4.5 What "sound" means here: recoverability, and its two-tier envelope
 
@@ -594,6 +629,14 @@ verified re-uses → retraction on localized, OOV-free blame. Fifteen episodes, 
 | task resolution (ok / typed refusal / wrong) | **13 / 2 / 0** | 13 / 0 / **2** |
 | cost | 14 proposals/arm, ≤1 per (key, token), re-proposals memo-blocked | identical |
 
+![F6 — the ratchet, at both grains](figures/f6-ratchet-timeline.en.svg)
+
+*Figure F6 — the ratchet, generated from the real traces (order 0): top, the edge grain (UNGATED absorbs
+`pyramid→square` and `fern→terrestrial`, silent damage; GATED zero false edges at bounded premium); bottom,
+the G4 ring timeline, exposure by exposure — true admissions (▲ blue), the poison absorbed by UNGATED alone
+(▲ red, the waterlogged episodes), wrong answers (✕) converted into typed refusals (◇) on the GATED side,
+at equal resolution 13 == 13.*
+
 Three observations give this table its weight. First, two of the six admitted aliases were never planted by
 the protocol — the paraphrase invented them (sphere→ball, circular-aperture→round) and the gate caught them
 anyway; the mechanism does not depend on knowing where its work will come from. Second, the spontaneous
@@ -729,6 +772,13 @@ absorbing its extractor's ontology — accumulating outside the context window, 
 so the working memory never saturates however long the deployment runs. None of this requires the model to
 be honest about its own knowledge — only the gate to be strict about attribution.
 
+![F8 — the export unit: the method-pack](figures/f8-method-pack.en.svg)
+
+*Figure F8 — the substrate's export and audit unit: the `.sgc` method-pack (the real envelope of
+`method-pack.js`) ships a concept-method with the transitive closure of its dependencies — methods used,
+concept-sorts, rings — its contract and its provenance; the version pin forbids cross-version replay, and
+the typed verify always re-runs on the receiving host.*
+
 ---
 
 ## 9. Conclusion
@@ -750,11 +800,12 @@ and a model that cannot be trusted was never more intelligence — it was an adm
 
 ---
 
-## Appendix A — Figures plan (v0)
+## Appendix A — The figures (v0.1: generated and embedded)
 
-All figures are **generated from the recorded artifacts** of the actual runs (result JSONs, final rings,
-computed LGGs) by a traces→SVG script shipped with the deposit — never redrawn from memory. This keeps the
-figures honest, re-runnable, and consistent with the reproducibility companion.
+All eight figures are **generated from the recorded artifacts** of the actual runs (result JSONs, the
+durable memo, the lattice declaration in the probe's source, final rings, computed LGGs) by
+`figures/generate-figures.js` (zero dependencies, shipped with the deposit) — never redrawn from memory.
+Each SVG embeds its provenance as a comment. Regenerate: `node figures/generate-figures.js`.
 
 - **F1** (§3 P1) — one paraphrased sentence, annotated: prose spans → typed facts; object/slot indicators.
   Source: an intake trace from the riddle RESULTS.
