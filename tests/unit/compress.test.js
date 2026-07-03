@@ -68,6 +68,24 @@ test('subExpansionIndex — minSupport gates the dispatch (support 1 never dispa
 	assert.ok(ix.dispatch('compare', 'filter'), 'the second identical observation crosses minSupport');
 });
 
+test('subExpansionIndex.observeProduction — the streaming grain accrues one paid expand, both key grains', () => {
+	const ix = subExpansionIndex({ minSupport: 2 });
+	ix.observeProduction('compare', 'filter', [{ k: 'filter', a: true }]);
+	assert.equal(ix.dispatch('compare', 'filter'), null, 'support 1 < minSupport');
+	ix.observeProduction('compare', 'filter', [{ k: 'filter', a: true }]);
+	assert.deepEqual(ix.dispatch('compare', 'filter').body, [{ k: 'filter', a: true }], 'ctx grain accrued');
+	assert.ok(ix.dispatch(null, 'filter'), 'kind grain accrued by the same observation');
+});
+
+test('subExpansionIndex.invalidate — a contradicted key goes K1-undetermined at ITS grain only (the false-hit discipline)', () => {
+	const ix = subExpansionIndex({ minSupport: 1 });
+	ix.observeProduction('compare', 'filter', [{ k: 'filter', a: true }]);
+	assert.ok(ix.dispatch(null, 'filter') && ix.dispatch('compare', 'filter'), 'both grains dispatch before');
+	ix.invalidate('compare', 'filter');
+	assert.equal(ix.dispatch('compare', 'filter'), null, 'the ctx key is dead');
+	assert.ok(ix.dispatch(null, 'filter'), 'the kind grain is untouched — invalidation is per-key, never a blanket');
+});
+
 test('foldSubpaths — the mdl.js ΔL objective (step-alphabet face) admits the recurrent digram, rejects the singleton', () => {
 	const r = foldSubpaths(CORPUS);
 	const fa = r.subpaths.find(( s ) => s.a === 'filter' && s.b === 'aggregate');
