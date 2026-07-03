@@ -8,7 +8,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { slotBindings, mountParametric, slotPostFrom, attributeSlotBlame } = require('../../lib/authoring/parametric.js');
+const { slotBindings, mountParametric, slotPostFrom, attributeSlotBlame, attributeSlotCredit } = require('../../lib/authoring/parametric.js');
 
 // a crystallized-then-LGG'd method skeleton (the methodContentHoles output shape): two param-holed
 // aggregate steps + a constant check step — the Probe-#1 compare frame.
@@ -97,4 +97,18 @@ test('attributeSlotBlame — shared, unknown, mixed-role, or empty failures are 
 	// contract carrier face: the provenance rides a contract object
 	const viaContract = attributeSlotBlame({ contract: { postSlots }, failedAtoms: ['rows.b>0'] });
 	assert.deepEqual([viaContract.admissible, viaContract.role], [true, 'aggregate#1']);
+});
+
+test('attributeSlotCredit — a success credits ONLY the roles its verified atoms localize (the blame dual, 8d)', () => {
+	const { postSlots } = slotPostFrom({ 'aggregate#0': ['rows.a>0'], 'aggregate#1': ['rows.b>0'], 'shared': [] });
+	// both sides exercised → both roles credited (credit is per-atom, no unanimity — the declared asymmetry)
+	const both = attributeSlotCredit({ postSlots, verifiedAtoms: ['$rows.a > 0', 'rows.b>0'] });
+	assert.deepEqual(both.roles, ['aggregate#0', 'aggregate#1']);
+	// the zero-side success: only side a exercised → aggregate#1 gets NO credit (its LGG must not lift)
+	const zeroSide = attributeSlotCredit({ postSlots, verifiedAtoms: ['rows.a>0'] });
+	assert.deepEqual(zeroSide.roles, ['aggregate#0']);
+	// shared/unknown atoms credit NOTHING (fail-closed)
+	const { postSlots: ps2 } = slotPostFrom({ 'aggregate#0': ['total>0'], 'aggregate#1': ['total>0'] });
+	assert.deepEqual(attributeSlotCredit({ postSlots: ps2, verifiedAtoms: ['total>0', 'mystery==1'] }).roles, []);
+	assert.deepEqual(attributeSlotCredit({ contract: { postSlots: ps2 }, verifiedAtoms: [] }).roles, []);
 });
