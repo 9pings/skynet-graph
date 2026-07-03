@@ -33,6 +33,17 @@ A concept-graph is a **two-faced** object (formally an HRG non-terminal — Habe
   over these productions is decidable; their *execution* over runtime-sized data is a fuel-bounded executor
   (Turing-complete, totalized by a step budget). **Two regimes, never one badge.**
 
+**A concept-graph is a method LIBRARY, not a single path.** The inner face holds an **ensemble of alternative
+qualified subpaths** — the known methods for the *one* abstract problem A → B (a derivation forest). Its slots are
+the **under-qualified tentacles** of those subpaths (under-qualified = abstract = a slot). Mount semantics:
+dispatch the method, **unify the typed params** against the slots' `require`s, and the engine tries to complete
+**at least one path**; if none completes, the frontier's unresolved `require`s surface as **hints** ("need a sort
+X in role Y"); once the problem is solved exactly **one path stays active** — the others collapse locally or
+remain as trace. This is the engine's *native* path semantics (the original travel domain: candidate routes,
+`getPaths`/`PathMap`, pareto selection), not a new mechanism. The currently-built artifact
+(`crystallizeStructural`'s one-template-per-signature + `mountTemplate`'s single imposed path) is the **degenerate
+single-path case** of this object — a stage to generalize, not the definition.
+
 ### Parameterization — typed named slots
 A method is parameterized by other sub-graphs (the loop *body*, a predicate, an accumulator). This is
 **higher-order in power, first-order in mechanics**: we never *infer* a body (undecidable — Huet 1975), the engine
