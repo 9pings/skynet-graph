@@ -44,6 +44,31 @@ remain as trace. This is the engine's *native* path semantics (the original trav
 (`crystallizeStructural`'s one-template-per-signature + `mountTemplate`'s single imposed path) is the **degenerate
 single-path case** of this object — a stage to generalize, not the definition.
 
+### Naming — the `concept-*` family (settled 2026-07-03)
+
+The system uses several concept NATURES; the family name is a hyphenated term of art, identical in EN and FR
+(searchable, and consistent with "concept-as-graph"). Two orthogonal axes — never encode both in one name:
+
+| Name (EN = FR) | Body | Lives as |
+|---|---|---|
+| **concept-rule** (concept-règle) | the atomic authored unit: `require`/`ensure`/`provider`/`applyMutations` | `Concept.js`, the JSONC trees |
+| **concept-sort** (concept-sorte) | a node of the isa lattice (kind / category / facet); its `childConcepts` edges are the subsumption; the synonym RING lives on its key | the material of selectional restrictions |
+| **concept-method** (concept-méthode) | **the concept-as-graph of this document**: a derivation forest of qualified subpaths + role-typed slots, mounted parametrically zero-fire | `method.js`, crystallize, §1 above |
+| **concept-meta** (concept-méta) | the reactive concepts that drive learning at the stabilize fixpoint | `RegistryMerge`, `Relearn` |
+
+The **epistemic status is a QUALIFIER, never part of the type name**: *axiom* (authored) vs *learned/defeasible*
+`{source, confiance}` — it applies uniformly to every nature (a learned isa edge, a learned ring alias, a
+crystallized method). Likewise **"abstract" is a DEGREE, not a nature** (under-qualified = abstract = a slot):
+a concept-method's abstraction is *measured* as open-slots/total-slots; a fully instantiated method is the same
+object at degree 0.
+
+Internal vocabulary (the figures' language): **role slot** (slot rôlé, `<stepKind>#<i>` — an antiUnify hole) ·
+**qualification segment** (the parallel edge that types a slot) · **affinity segment** (a digram-mined AB·BC→AC
+edge) · **mount** (monture — params placed into slots, zero-fire) · **restriction** (the per-slot isa cut).
+Export unit: a **method-pack** (`.sgc`) = one concept-method + the transitive closure of its dependencies (the
+concept-methods it uses, its sorts, the rings they require) + its contract (`post`/`postSlots`) + provenance,
+versioned by the registry — concept-methods compose, so they ship with their dependencies.
+
 ### Parameterization — typed named slots
 A method is parameterized by other sub-graphs (the loop *body*, a predicate, an accumulator). This is
 **higher-order in power, first-order in mechanics**: we never *infer* a body (undecidable — Huet 1975), the engine
