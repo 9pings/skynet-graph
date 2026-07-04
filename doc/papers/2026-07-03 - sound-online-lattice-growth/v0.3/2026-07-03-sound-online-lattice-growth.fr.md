@@ -115,21 +115,24 @@ l'article est la chaîne suivante, développée en §4 et chiffrée en §5 :
    corrélée à la compétence (les sortes rares et difficiles échouent systématiquement). Ce n'est pas du bruit
    de classification aléatoire ; les résultats de tolérance statistique ne transfèrent pas, et l'élimination
    de candidats classique est prouvablement fragile à une seule erreur de ce type.
-3. La localisation répare cela par construction plutôt que statistiquement : un échec d'épisode n'est admis
+3. La localisation répare cela par construction plutôt que statistiquement : un échec d'épisode n'est donc admis
    comme négatif pour le slot *i* que lorsque le contrat d'exécution localise l'atome violé sur *i*. Ainsi,
    on peut convertir une requête d'appartenance bruitée sur la conjonction entière en requête propre sur le
-   littéral responsable ; le bruit sur les négatifs *admis* cesse d'être le taux d'incompétence du modèle
+   littéral responsable ; le bruit sur les négatifs *admis* cesse alors d'être le taux d'incompétence du modèle
    pour devenir le taux de faux-admis du prédicat d'admission lui-même — ce que §4.5 nomme le *confond
-   d'épisode*, borne par une enveloppe à deux étages, et rend récupérable par rétraction. Notons-le dès
+   d'épisode*, borne par une enveloppe à deux étages, et rend récupérable par rétraction. Notons-le d'ailleurs dès
    maintenant : ce taux n'est pas nul, et aucun taux « du cas sans bruit » n'est restauré au sens PAC
    (§4.4 dit exactement ce qui est acheté).
-4. La même règle, appliquée symétriquement, gouverne le crédit positif (un succès ne crédite que les slots
-   dont les atomes ont réellement été exercés), l'admission d'arêtes *isa* (une arête proposée par le modèle
-   est *montée avec optimisme* — essayée immédiatement plutôt que mise en attente d'une preuve —, vérifiée,
-   et créditée seulement sur des épisodes dont le verdict ne peut pas être dû à autre chose) et l'admission
-   d'alias de surface (un mot hors-vocabulaire ne rejoint un *ring* de synonymes — l'anneau d'alias attaché
-   à la clé d'une sorte — que s'il est porteur sous ablation contrefactuelle : le verdict passe avec lui,
-   échoue sans lui). Une porte, trois grains — une unification d'invariant, pas d'implémentation.
+4. La même règle, appliquée symétriquement, gouverne :
+   - le crédit positif (un succès ne crédite que les slots dont les atomes ont réellement été exercés) ;
+   - l'admission d'arêtes *isa* (une arête proposée par le modèle est *montée avec optimisme* —
+     c'est-à-dire essayée immédiatement plutôt que mise en attente d'une preuve —, vérifiée, et créditée
+     seulement sur des épisodes dont le verdict ne peut pas être dû à autre chose) ;
+   - et l'admission d'alias de surface (un mot hors-vocabulaire ne rejoint un *ring* de synonymes —
+     c'est-à-dire l'anneau d'alias attaché à la clé d'une sorte — que s'il est porteur sous ablation
+     contrefactuelle : le verdict passe avec lui, échoue sans lui).
+
+   Une porte, trois grains — une unification d'invariant, pas d'implémentation.
 
 Tout le reste du système est volontairement ancien : les slots rôlés de Fillmore, les espaces de versions de
 Mitchell, un treillis *isa* comme ordre de subsomption, des arêtes défaisables étiquetées source et
@@ -256,10 +259,13 @@ enregistrées des runs réels (annexe A).
 
 **Le système hôte, en un paragraphe.** Le substrat est un moteur de graphe de connaissances piloté par
 règles, dans lequel chaque unité de structure est un *concept*. Cet article n'a besoin que de trois pièces :
-les **concept-sortes** — les nœuds du treillis *isa* (sortes, catégories, facettes), dont les arêtes de
-filiation *sont* la relation de subsomption, et sur les clés desquels vivent les rings de synonymes ;
-l'**intake** (l'extraction typée et sa barrière de canonicalisation, panneaux 1–2) ; et la **porte
-d'admission**. Le statut épistémique est un qualificatif, jamais un type : toute sorte, arête ou alias est
+
+- les **concept-sortes** — les nœuds du treillis *isa* (sortes, catégories, facettes), dont les arêtes de
+  filiation *sont* la relation de subsomption, et sur les clés desquels vivent les rings de synonymes ;
+- l'**intake** — l'extraction typée et sa barrière de canonicalisation (panneaux 1–2) ;
+- et la **porte d'admission**.
+
+Le statut épistémique est un qualificatif, jamais un type : toute sorte, arête ou alias est
 soit *axiome* (autoré), soit *appris* — défaisable, étiqueté `{source, confiance}`, rétractable. Le même
 moteur et la même discipline portent notre article système compagnon [Braun 2026], qui documente le reste du
 substrat (méthodes apprises à slots rôlés, export en method-pack) ; les figures F3, F7 et F8 illustrent ce
@@ -702,13 +708,22 @@ mesurée séparément, sur quatre familles de modèles, en §7.4.
 ### 6.1 Le protocole
 
 La famille de tâches de §3 : des devinettes de placement sur des treillis jouets déclarés, en quatre
-variantes qui isolent chacune un mécanisme — **V1** facette-distracteur (une couleur saillante et
-non-pertinente), **V2** *isa* de profondeur 2 (la prose ne nomme que le sous-type : insoluble sans la chaîne
-— le treillis est porteur par construction), **V3** aucun-match (la cellule du refus typé), **V4** produit
-d'axes (la forme seule est ambiguë ; la taille discrimine) — plus **V5**, les modificateurs défaisables avec
-leurs contrôles bénins. Trois bras : **SYS** (le chemin typé : le modèle ne fait qu'extraire ; le treillis
-décide), **ABLATED** (arêtes de la sorte retirées : doit échouer fermé, puis les apprendre à travers la porte),
-**DIRECT** (le modèle répond seul, même prose paraphrasée). La prose est toujours paraphrasée par le modèle —
+variantes qui isolent chacune un mécanisme, plus une cinquième pour la défaisance :
+
+- **V1** facette-distracteur — une couleur saillante et non-pertinente ;
+- **V2** *isa* de profondeur 2 — la prose ne nomme que le sous-type : insoluble sans la chaîne, le treillis
+  est porteur par construction ;
+- **V3** aucun-match — la cellule du refus typé ;
+- **V4** produit d'axes — la forme seule est ambiguë, la taille discrimine ;
+- **V5** les modificateurs défaisables, avec leurs contrôles bénins.
+
+Trois bras les parcourent :
+
+- **SYS** — le chemin typé : le modèle ne fait qu'extraire, le treillis décide ;
+- **ABLATED** — arêtes de la sorte retirées : doit échouer fermé, puis les apprendre à travers la porte ;
+- **DIRECT** — le modèle répond seul, même prose paraphrasée.
+
+La prose est toujours paraphrasée par le modèle —
 la surface n'est jamais la nôtre. Là où l'oracle est le treillis déclaré lui-même, la circularité est assumée
 et dite : ces cellules mesurent la *division du travail* (extraction × match × fail-closed × apprentissage),
 pas la connaissance du monde ; l'oracle externe vit en §7.
@@ -823,13 +838,18 @@ exactement la motivation pour étendre la porte au grain du vocabulaire.
 
 ### 6.6 Le ring d'alias appris — la même porte au grain du vocabulaire
 
-Le circuit complet se lit en cinq temps. Un : une variante de surface arrive en OOV, et elle est *exogène* —
-c'est la prose source qui la porte, puisque les surfaces sont extraites verbatim (le ring canonicalise,
-jamais le modèle). Deux : l'OOV devient une proposition d'alias, formulée hors-contexte dans la langue de la
-facette, sans grammaire contrainte. Trois : l'**intervention contrefactuelle par-unité** décide, de façon
-déterministe et à zéro appel — `u` est admissible ssi `verdict(P) ∧ ¬verdict(P∖{u})`, scoré sur le chemin
-treillis-pur, replis désactivés. Quatre : l'admission est provisoire, puis confirmée à support ≥ 2 sur des
-ré-usages vérifiés. Cinq : un blâme localisé et sans-OOV rétracte. Quinze épisodes, trois ordres de flux :
+Le circuit complet se lit en cinq temps :
+
+1. une variante de surface arrive en OOV, et elle est *exogène* — c'est la prose source qui la porte,
+   puisque les surfaces sont extraites verbatim (le ring canonicalise, jamais le modèle) ;
+2. l'OOV devient une proposition d'alias, formulée hors-contexte dans la langue de la facette, sans
+   grammaire contrainte ;
+3. l'**intervention contrefactuelle par-unité** décide, de façon déterministe et à zéro appel — `u` est
+   admissible ssi `verdict(P) ∧ ¬verdict(P∖{u})`, scoré sur le chemin treillis-pur, replis désactivés ;
+4. l'admission est provisoire, puis confirmée à support ≥ 2 sur des ré-usages vérifiés ;
+5. un blâme localisé et sans-OOV rétracte.
+
+Quinze épisodes, trois ordres de flux :
 
 | ×3 ordres | GATED | UNGATED |
 |---|---|---|
@@ -1068,11 +1088,16 @@ coût de disponibilité sur le flux du ring) ; des flux adverses pourraient la c
 **La lecture gouvernance.** Le contraste recadré de §6.3 — le modèle suit la plausibilité-monde, le chemin
 typé suit la spécification déclarée, dans les deux régimes de raisonnement — est, croyons-nous, la
 proposition de valeur durable. Un déploiement qui doit répondre à *« pourquoi le système a-t-il dit non ? »*
-obtient : un refus typé nommant l'exigence manquante ; un audit d'admission de chaque unité apprise jusqu'aux
-épisodes qui l'ont méritée ; un chemin de rétraction pour chaque unité qui cesse de le mériter ; et un
-substrat de connaissance qui grandit par l'usage sans absorber l'ontologie de son extracteur — en s'accumulant
-hors de la fenêtre de contexte, à contexte par appel borné, si bien que la mémoire de travail ne sature
-jamais, quelle que soit la durée du déploiement. Rien de tout cela n'exige que le modèle soit honnête sur sa
+obtient :
+
+- un refus typé nommant l'exigence manquante ;
+- un audit d'admission de chaque unité apprise, jusqu'aux épisodes qui l'ont méritée ;
+- un chemin de rétraction pour chaque unité qui cesse de le mériter ;
+- et un substrat de connaissance qui grandit par l'usage sans absorber l'ontologie de son extracteur — en
+  s'accumulant hors de la fenêtre de contexte, à contexte par appel borné, si bien que la mémoire de
+  travail ne sature jamais, quelle que soit la durée du déploiement.
+
+Rien de tout cela n'exige que le modèle soit honnête sur sa
 propre connaissance — seulement que la porte soit stricte sur l'attribution.
 
 ![F8 — l'unité d'export : le method-pack](../figures/f8-method-pack.fr.svg)
