@@ -1,52 +1,55 @@
 % Généré par md2tex.py — ne pas éditer à la main ; éditer le .md maître et reconvertir.
+% Compile : pdflatex (deux fois si besoin).
 \documentclass[11pt]{article}
-\usepackage{fontspec}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{textcomp}
 \usepackage[margin=1in]{geometry}
-\usepackage{booktabs,longtable,array}
+\usepackage{booktabs,array}
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
 \usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
 \usepackage{newunicodechar}
-\setmainfont{Latin Modern Roman}
-\setmonofont{Latin Modern Mono}
-\newunicodechar{⊑}{\ensuremath{\sqsubseteq}}
-\newunicodechar{⊘}{\ensuremath{\oslash}}
-\newunicodechar{∧}{\ensuremath{\wedge}}
-\newunicodechar{∖}{\ensuremath{\setminus}}
-\newunicodechar{≥}{\ensuremath{\geq}}
-\newunicodechar{≤}{\ensuremath{\leq}}
-\newunicodechar{→}{\ensuremath{\rightarrow}}
-\newunicodechar{←}{\ensuremath{\leftarrow}}
-\newunicodechar{↔}{\ensuremath{\leftrightarrow}}
-\newunicodechar{⟹}{\ensuremath{\Longrightarrow}}
-\newunicodechar{×}{\ensuremath{\times}}
 \newunicodechar{·}{\ensuremath{\cdot}}
-\newunicodechar{∝}{\ensuremath{\propto}}
+\newunicodechar{×}{\ensuremath{\times}}
+\newunicodechar{÷}{\ensuremath{\div}}
+\newunicodechar{¬}{\ensuremath{\neg}}
+\newunicodechar{µ}{\ensuremath{\mu}}
+\newunicodechar{²}{\textsuperscript{2}}
+\newunicodechar{ᵉ}{\textsuperscript{e}}
+\newunicodechar{′}{\ensuremath{'}}
+\newunicodechar{Δ}{\ensuremath{\Delta}}
 \newunicodechar{α}{\ensuremath{\alpha}}
 \newunicodechar{β}{\ensuremath{\beta}}
+\newunicodechar{δ}{\ensuremath{\delta}}
+\newunicodechar{ε}{\ensuremath{\varepsilon}}
 \newunicodechar{η}{\ensuremath{\eta}}
 \newunicodechar{ρ}{\ensuremath{\rho}}
-\newunicodechar{ε}{\ensuremath{\varepsilon}}
-\newunicodechar{δ}{\ensuremath{\delta}}
-\newunicodechar{Δ}{\ensuremath{\Delta}}
-\newunicodechar{Σ}{\ensuremath{\Sigma}}
+\newunicodechar{←}{\ensuremath{\leftarrow}}
+\newunicodechar{→}{\ensuremath{\rightarrow}}
+\newunicodechar{↔}{\ensuremath{\leftrightarrow}}
+\newunicodechar{⇒}{\ensuremath{\Rightarrow}}
+\newunicodechar{⟹}{\ensuremath{\Longrightarrow}}
 \newunicodechar{∈}{\ensuremath{\in}}
+\newunicodechar{−}{\ensuremath{-}}
+\newunicodechar{∖}{\ensuremath{\setminus}}
+\newunicodechar{∝}{\ensuremath{\propto}}
+\newunicodechar{∧}{\ensuremath{\wedge}}
+\newunicodechar{∪}{\ensuremath{\cup}}
+\newunicodechar{≈}{\ensuremath{\approx}}
+\newunicodechar{≡}{\ensuremath{\equiv}}
+\newunicodechar{≤}{\ensuremath{\leq}}
+\newunicodechar{≥}{\ensuremath{\geq}}
 \newunicodechar{⊆}{\ensuremath{\subseteq}}
-\newunicodechar{✓}{\checkmark}
-\newunicodechar{✕}{\ensuremath{\times}}
+\newunicodechar{⊑}{\ensuremath{\sqsubseteq}}
+\newunicodechar{⊘}{\ensuremath{\oslash}}
+\newunicodechar{⊨}{\ensuremath{\models}}
 \newunicodechar{▲}{\ensuremath{\blacktriangle}}
 \newunicodechar{◇}{\ensuremath{\Diamond}}
-\newunicodechar{½}{\ensuremath{\tfrac12}}
-\newunicodechar{§}{\S}
-\newunicodechar{⊨}{\ensuremath{\models}}
-\newunicodechar{≈}{\ensuremath{\approx}}
-\newunicodechar{≠}{\ensuremath{\neq}}
-\newunicodechar{≡}{\ensuremath{\equiv}}
-\newunicodechar{−}{\ensuremath{-}}
-\newunicodechar{∅}{\ensuremath{\emptyset}}
-\newunicodechar{ }{~}
-\newunicodechar{ }{\,}
+\newunicodechar{✓}{\checkmark}
+\newunicodechar{✕}{\ensuremath{\times}}
 \setlist{nosep,leftmargin=1.5em}
 \setlength{\parskip}{4pt}\setlength{\parindent}{0pt}
 \renewcommand{\abstractname}{Abstract}
@@ -65,7 +68,7 @@ A language model knows a great deal and asserts it without restraint; a knowledg
 
 This article presents the third option, and measures it. The host structure is a \textbf{typed \emph{isa} lattice}: a hierarchy of sorts ("a marble is a ball, a ball is a round thing") on which tasks declare their requirements. Three kinds of units must be able to enter it along the way: a \textbf{slot restriction} (which sorts a task role accepts), an \textbf{\emph{isa} edge} (a parent-child link between sorts), and a \textbf{surface alias} (a synonym of a declared vocabulary word). The need is precise: grow these three units online, from the noisy extractions of a small local language model, without absorbing the model's ontology. The instrument is a single admission rule: \textbf{a piece of evidence is admitted for a unit only if its success or failure is uniquely attributable to that unit — by structural provenance or by counterfactual ablation — and verifies against the declared oracle.} One gate, three grains. The theoretical justification takes three steps. One: candidate elimination, the classical algorithm for learning such restrictions, is provably intolerant to noise — a single false negative expels the right answer forever. Two: the noise of an LLM pipeline is \textbf{incompetence noise} — one-sided (it only manufactures false failures) and competence-correlated (rare cases fail systematically) — precisely the kind that statistical noise models do not cover. Three: localizing blame replaces the noisy query over a whole conjunction with a clean query over the single responsible literal; the residual noise on admitted negatives then reduces to the confounded-episode case — bounded by a defeasible two-tier envelope, recoverable by retraction, never zero.
 
-The evidence follows three levels. In a deterministic laboratory (no model, exact pre-registered expectations), the gate halves over-generalization without ever refusing a good task, while the control that admits every failure self-seals on rare cases. Under live conditions, with an embedded 27-billion-parameter model as the sole organ of world knowledge: 300/300 tasks against 245/300 for the model alone, the model's deficit concentrated exactly where one must refuse, retract a default, or follow the ontology in depth; and zero false edges, zero false aliases admitted on permuted streams, where the ungated variant absorbs the model's ontology and then answers wrongly with no correction channel left — NELL's drift, reproduced in miniature, then blocked. On the third-party benchmark DeFAb, the typed path scores 34/35 (30/35 of them with no model call at all) against 30/35 for the direct model, and every loss of the direct model is an over-general cut — the error class the gate forbids by construction. A reproduction across nine local models (four families, three quantizations and two architectures) shows that the decider, the gate and the fail-closed refusal all generalize; only coverage tracks extraction capability. There remains the economics: what retrieval pipelines re-pay in context on every call, this system compiles once into a typed, versioned library, auditable to the episode — knowledge accumulates outside the context window, and it is the gate that makes this accumulation safe. None of the bricks is new; the composite is: an LLM that extracts, a lattice that decides, and a gate that lets the lattice grow without drifting.
+The evidence follows three levels. In a deterministic laboratory (no model, exact pre-registered expectations), the gate halves over-generalization without ever refusing a good task, while the control that admits every failure self-seals on rare cases. Under live conditions, with an embedded 27-billion-parameter model as the sole organ of world knowledge: 300/300 tasks against 245/300 for the model alone, the model's deficit concentrated exactly where one must refuse, retract a default, or follow the ontology in depth; and zero false edges, zero false aliases admitted on permuted streams, where the ungated variant absorbs the model's ontology and then answers wrongly with no correction channel left — NELL's drift, reproduced in miniature then blocked, at both grains. On the third-party benchmark DeFAb, the typed path scores 34/35 (30/35 of them with no model call at all) against 30/35 for the direct model, and every loss of the direct model is an over-general cut — the error class the gate forbids by construction. A reproduction across nine local models (four families, three quantizations, two architectures and two size brackets) shows that the decider, the gate and the fail-closed refusal all generalize; only coverage tracks extraction capability. There remains the economics: what retrieval pipelines re-pay in context on every call, this system compiles once into a typed, versioned library, auditable to the episode — knowledge accumulates outside the context window, and it is the gate that makes this accumulation safe. None of the bricks is new; the composite is: an LLM that extracts, a lattice that decides, and a gate that lets the lattice grow without drifting.
 
 \textbf{Keywords:} selectional restrictions; version spaces; candidate elimination; \emph{isa} lattice; defeasible reasoning; knowledge-base drift; blame attribution; neurosymbolic systems; online learning; LLM extraction.
 
@@ -240,7 +243,7 @@ This section walks the whole circuit once — from input prose to the two kinds 
 Epistemic status is a qualifier, never a type: every sort, edge or alias is either an \emph{axiom} (authored) or \emph{learned} — defeasible, labeled \texttt{\{source, confidence\}}, retractable. The same engine and the same discipline carry our companion system article [Braun 2026], which documents the rest of the substrate (learned methods with role-typed slots, method-pack export); figures F3, F7 and F8 illustrate this host context and \textbf{carry no claim of the present article}.
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth]{figures/png/f3-concept-method.en.png}
+\includegraphics[width=\linewidth]{../figures/png/f3-concept-method.en.png}
 \caption*{\small Figure F3 (host context, [Braun 2026]) — the anatomy of a concept-method: the post-canon shape of a discovered "compare" frame, with its role-typed slots — the holes of the LGG (the least general generalization, §4.1). Generated from \texttt{RESULTS-discover-2.json}.}
 \end{figure}
 
@@ -251,21 +254,21 @@ Epistemic status is a qualifier, never a type: every sort, edge or alias is eith
 A dedicated extraction prompt returns typed facts, and only typed facts: an object of sort \texttt{ball} carrying the facet \texttt{color=yellow} (a \emph{facet} is a transverse property — color, size, shape — that qualifies an object without being its sort); a set of holes \texttt{\{star, square, round\}}; a requested placement. Two disciplines apply at this boundary. First, the \emph{typed-fact discipline}: everything downstream keys on discrete, typed facts — enums, identifiers, booleans — never on prose, so every decision is memoizable and replayable. Second, surfaces are extracted \textbf{verbatim}: the model reports the words the prose used ("circular opening") and is not allowed to canonicalize them — canonicalization is the system's job, and keeping it out of the model's hands is what will later make alias learning attributable (§6.6).
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth]{figures/png/f1-intake.en.png}
+\includegraphics[width=\linewidth]{../figures/png/f1-intake.en.png}
 \caption*{\small Figure F1 — a real episode (durable memo, replayable): the model-paraphrased prose, annotated, and its verbatim typed extraction — the sort, the defeating condition, the distractor facet, the holes.}
 \end{figure}
 
 \textbf{Panel 2 — the canonicalization barrier.} Extracted surfaces are snapped onto the lattice's declared vocabulary: an exact match snaps; a \emph{unique} containment snaps; everything else — including an \emph{ambiguous} containment, such as a bare hypernym that several sorts contain — stays out-of-vocabulary (OOV), kept raw, fail-closed. OOV is not an error state; it is the honest channel by which unknown surfaces reach the learning machinery instead of silently corrupting the match (§6.4 shows what the ambiguous-containment rule prevents; §6.6 shows what OOV feeds).
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth]{figures/png/f7-fold.en.png}
+\includegraphics[width=\linewidth]{../figures/png/f7-fold.en.png}
 \caption*{\small Figure F7 (host context, [Braun 2026]) — the same barrier, structural face: the digram fold \texttt{[filter → aggregate] ⟹ aggregate(field,value)}, the only fold admitted by a minimum-description- length (MDL) criterion over the host system's captured shapes (ΔL = −59.3, support 30; seven other digrams rejected). The structural canon there is no longer declared: it is learned. No claim of the present article rests on this figure.}
 \end{figure}
 
 \textbf{Panel 3 — the lattice, and a restriction as a cut.} The declared ontology is a finite \emph{isa} lattice of concept-sorts: \texttt{marble ⊑ ball ⊑ round-thing}, \texttt{die ⊑ cubic-thing}, with facets such as \texttt{shape} and \texttt{size} alongside. A \emph{selectional restriction} for a slot is a \textbf{cut} through this lattice: the round hole accepts everything \texttt{round-thing} subsumes; a deeper riddle ("slide the sugar cube…") is unsolvable without the depth-2 chain \texttt{sugar ⊑ cube ⊑ cubic-thing} — which is exactly how the probes make the lattice load-bearing by construction (§6.2). Edges carry their epistemic qualifier: authored edges are axioms; learned edges are defeasible, \texttt{\{source, confidence\}}.
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth]{figures/png/f2-lattice-cut.en.png}
+\includegraphics[width=\linewidth]{../figures/png/f2-lattice-cut.en.png}
 \caption*{\small Figure F2 — the declared isa lattice of the shapes domain (read from the probe source), the round hole's restriction drawn as a cut, the defeater \texttt{deflated ⊘ round} (V5), and the synonym ring actually learned in the ring run (\texttt{circularhole · circular · circularaperture → round}), attached to the sort's key.}
 \end{figure}
 
@@ -274,7 +277,7 @@ A dedicated extraction prompt returns typed facts, and only typed facts: an obje
 \textbf{Panel 5 — the typed refusal.} Give the system a pyramid and the holes \texttt{\{star, round, crescent\}}: no cut admits it. The answer is not a guess; it is a typed refusal — \texttt{impracticable}, with a structured hint naming the missing requirement ("no hole accepts sort \texttt{pyramid}; closest cuts: …"). Returning a placement here is, by definition, a structural hallucination. §6.3 hardens this cell until the direct model has no world-plausible escape left — and it still fabricates a placement in 2 out of 6 instances, in both reasoning regimes, where the typed path refuses 6 out of 6.
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth]{figures/png/f4-mount.en.png}
+\includegraphics[width=\linewidth]{../figures/png/f4-mount.en.png}
 \caption*{\small Figure F4 — two real episodes from the parametric probe: on the left the successful mount (t24 — the params placed into the role-typed slots, correct answer, zero firing beyond the mount); on the right the starved mount (t26, injection — the missing role produces a typed hint, never a plausible-looking answer: 9/9, 0 hallucinations).}
 \end{figure}
 
@@ -363,7 +366,7 @@ Attribution is realized by two mechanisms, and their distribution is worth namin
 Slot restrictions use α; \emph{isa}-edge admission uses α plus verification; alias admission uses \textbf{both} — α as forward credit provenance, β as the per-unit decisiveness test. α and β have different soundness bases (a label minted at declaration; a decisiveness exercised at the episode): they are two attribution mechanisms discharging the same admission predicate. The unification claim sits at the level of the \textbf{invariant} (unique attribution ∧ verification), never of the implementation.
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth]{figures/png/f5-gate-three-grains.en.png}
+\includegraphics[width=\linewidth]{../figures/png/f5-gate-three-grains.en.png}
 \caption*{\small Figure F5 — the gate at its three grains: the same admission predicate, with, for each grain, a unit actually admitted and a unit actually refused in our runs — the cut held by arm B against arm A's drift (lab), the re-learned edge against \texttt{pyramid→square} (ratchet), the confirmed alias \texttt{die→dice} against the poison \texttt{aperture→round} (ring, §6.6).}
 \end{figure}
 
@@ -562,7 +565,7 @@ cost & 14 proposals/arm, ≤1 per (key, token), re-proposals blocked by memo & i
 \bottomrule\end{tabular}\end{center}
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth]{figures/png/f6-ratchet-timeline.en.png}
+\includegraphics[width=\linewidth]{../figures/png/f6-ratchet-timeline.en.png}
 \caption*{\small Figure F6 — the ratchet, generated from the real traces (order 0): on top the edge grain (UNGATED absorbs \texttt{pyramid→square} and \texttt{fern→terrestrial}, silent damage; GATED zero false edges at a bounded premium); below the ring timeline (§6.6), exposure by exposure — true admissions (▲ blue), the poison absorbed by UNGATED alone (▲ red, the "waterlogged" episodes), wrong answers (✕) converted into typed refusals (◇) on the GATED side, at equal resolution 13 == 13.}
 \end{figure}
 
@@ -640,7 +643,7 @@ The verdict fits in three layers, with opposite sensitivities:
 
 \begin{enumerate}
 \item \textbf{The deterministic decider is invariant by construction — confirmed.} DeFAb structural-pure: 30/35 identical across all nine models; the L2 selector, 374/374 everywhere; the §5 lab never touches a model.
-\item \textbf{The gate is probative multi-family — the strong result.} Zero false edges admitted across the nine models, while every family \emph{emits} poison — and \textbf{the same} (\texttt{pyramid→square}, \texttt{fern→terrestrial}; the extreme-2-bit variant emits twice as much, the gate still holds at zero). A world-plausibility bias shared across families is exactly the case where a gate beats a choice of model.
+\item \textbf{The gate is probative multi-family — the strong result.} Zero false edges admitted across the nine models, while every family \emph{emits} poison — and \textbf{the same} (\texttt{pyramid→square}, \texttt{fern→terrestrial}, plus their extras; the extreme-2-bit variant emits twice as much, the gate still holds at zero). A world-plausibility bias shared across families is exactly the case where a gate beats a choice of model.
 \item \textbf{End-to-end fail-closed soundness holds across the four families — after a one-line fix reminded us who decides.} What that fix demonstrates deserves its own paragraph, below.
 \end{enumerate}
 
@@ -680,7 +683,7 @@ This campaign strengthens generality \emph{across extractors} — families, quan
 None of this requires the model to be honest about its own knowledge — only the gate to be strict about attribution.
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth]{figures/png/f8-method-pack.en.png}
+\includegraphics[width=\linewidth]{../figures/png/f8-method-pack.en.png}
 \caption*{\small Figure F8 (host context, [Braun 2026]) — the substrate's export and audit unit: the \texttt{.sgc} method-pack ships a concept-method with the transitive closure of its dependencies — used methods, concept-sorts, rings — its contract and its provenance; the version pin forbids cross-version replay, and typed verification always re-runs at the receiving host. No claim of the present article rests on this figure.}
 \end{figure}
 

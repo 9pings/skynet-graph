@@ -1,52 +1,55 @@
 % Généré par md2tex.py — ne pas éditer à la main ; éditer le .md maître et reconvertir.
+% Compile : pdflatex (deux fois si besoin).
 \documentclass[11pt]{article}
-\usepackage{fontspec}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{textcomp}
 \usepackage[margin=1in]{geometry}
-\usepackage{booktabs,longtable,array}
+\usepackage{booktabs,array}
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
 \usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
 \usepackage{newunicodechar}
-\setmainfont{Latin Modern Roman}
-\setmonofont{Latin Modern Mono}
-\newunicodechar{⊑}{\ensuremath{\sqsubseteq}}
-\newunicodechar{⊘}{\ensuremath{\oslash}}
-\newunicodechar{∧}{\ensuremath{\wedge}}
-\newunicodechar{∖}{\ensuremath{\setminus}}
-\newunicodechar{≥}{\ensuremath{\geq}}
-\newunicodechar{≤}{\ensuremath{\leq}}
-\newunicodechar{→}{\ensuremath{\rightarrow}}
-\newunicodechar{←}{\ensuremath{\leftarrow}}
-\newunicodechar{↔}{\ensuremath{\leftrightarrow}}
-\newunicodechar{⟹}{\ensuremath{\Longrightarrow}}
-\newunicodechar{×}{\ensuremath{\times}}
 \newunicodechar{·}{\ensuremath{\cdot}}
-\newunicodechar{∝}{\ensuremath{\propto}}
+\newunicodechar{×}{\ensuremath{\times}}
+\newunicodechar{÷}{\ensuremath{\div}}
+\newunicodechar{¬}{\ensuremath{\neg}}
+\newunicodechar{µ}{\ensuremath{\mu}}
+\newunicodechar{²}{\textsuperscript{2}}
+\newunicodechar{ᵉ}{\textsuperscript{e}}
+\newunicodechar{′}{\ensuremath{'}}
+\newunicodechar{Δ}{\ensuremath{\Delta}}
 \newunicodechar{α}{\ensuremath{\alpha}}
 \newunicodechar{β}{\ensuremath{\beta}}
+\newunicodechar{δ}{\ensuremath{\delta}}
+\newunicodechar{ε}{\ensuremath{\varepsilon}}
 \newunicodechar{η}{\ensuremath{\eta}}
 \newunicodechar{ρ}{\ensuremath{\rho}}
-\newunicodechar{ε}{\ensuremath{\varepsilon}}
-\newunicodechar{δ}{\ensuremath{\delta}}
-\newunicodechar{Δ}{\ensuremath{\Delta}}
-\newunicodechar{Σ}{\ensuremath{\Sigma}}
+\newunicodechar{←}{\ensuremath{\leftarrow}}
+\newunicodechar{→}{\ensuremath{\rightarrow}}
+\newunicodechar{↔}{\ensuremath{\leftrightarrow}}
+\newunicodechar{⇒}{\ensuremath{\Rightarrow}}
+\newunicodechar{⟹}{\ensuremath{\Longrightarrow}}
 \newunicodechar{∈}{\ensuremath{\in}}
+\newunicodechar{−}{\ensuremath{-}}
+\newunicodechar{∖}{\ensuremath{\setminus}}
+\newunicodechar{∝}{\ensuremath{\propto}}
+\newunicodechar{∧}{\ensuremath{\wedge}}
+\newunicodechar{∪}{\ensuremath{\cup}}
+\newunicodechar{≈}{\ensuremath{\approx}}
+\newunicodechar{≡}{\ensuremath{\equiv}}
+\newunicodechar{≤}{\ensuremath{\leq}}
+\newunicodechar{≥}{\ensuremath{\geq}}
 \newunicodechar{⊆}{\ensuremath{\subseteq}}
-\newunicodechar{✓}{\checkmark}
-\newunicodechar{✕}{\ensuremath{\times}}
+\newunicodechar{⊑}{\ensuremath{\sqsubseteq}}
+\newunicodechar{⊘}{\ensuremath{\oslash}}
+\newunicodechar{⊨}{\ensuremath{\models}}
 \newunicodechar{▲}{\ensuremath{\blacktriangle}}
 \newunicodechar{◇}{\ensuremath{\Diamond}}
-\newunicodechar{½}{\ensuremath{\tfrac12}}
-\newunicodechar{§}{\S}
-\newunicodechar{⊨}{\ensuremath{\models}}
-\newunicodechar{≈}{\ensuremath{\approx}}
-\newunicodechar{≠}{\ensuremath{\neq}}
-\newunicodechar{≡}{\ensuremath{\equiv}}
-\newunicodechar{−}{\ensuremath{-}}
-\newunicodechar{∅}{\ensuremath{\emptyset}}
-\newunicodechar{ }{~}
-\newunicodechar{ }{\,}
+\newunicodechar{✓}{\checkmark}
+\newunicodechar{✕}{\ensuremath{\times}}
 \setlist{nosep,leftmargin=1.5em}
 \setlength{\parskip}{4pt}\setlength{\parindent}{0pt}
 \renewcommand{\abstractname}{Résumé}
@@ -65,7 +68,7 @@ Un modèle de langage sait beaucoup et l'affirme sans retenue ; une base de conn
 
 Cet article présente la troisième option, et la mesure. La structure d'accueil est un \textbf{treillis \emph{isa} typé} : une hiérarchie de sortes (« une bille est une balle, une balle est une chose ronde ») sur laquelle les tâches déclarent leurs exigences. Trois genres d'unités doivent pouvoir y entrer en cours de route : une \textbf{restriction de slot} (quelles sortes un rôle d'une tâche accepte), une \textbf{arête \emph{isa}} (une filiation de sortes), et un \textbf{alias de surface} (un synonyme d'un mot du vocabulaire déclaré). Le besoin est précis : faire croître ces trois unités en ligne, à partir des extractions bruitées d'un petit modèle de langage local, sans absorber l'ontologie du modèle. L'instrument est une règle d'admission unique : \textbf{une évidence n'est admise pour une unité que si son succès ou son échec est uniquement attribuable à cette unité — par provenance structurelle ou par ablation contrefactuelle — et se vérifie contre l'oracle déclaré.} Une porte, trois grains. La justification théorique tient en trois pas. Un : l'élimination de candidats, l'algorithme classique pour apprendre de telles restrictions, est prouvablement intolérante au bruit — un seul faux négatif expulse la bonne réponse pour toujours. Deux : le bruit d'un pipeline LLM est un \textbf{bruit d'incompétence} — unilatéral (il ne fabrique que de faux échecs) et corrélé à la compétence (les cas rares échouent systématiquement) — précisément le genre que les modèles statistiques de bruit ne couvrent pas. Trois : localiser le blâme remplace la requête bruitée sur une conjonction entière par une requête propre sur le seul littéral responsable ; le bruit résiduel sur les négatifs admis se réduit alors au cas de l'épisode confondu — borné par une enveloppe défaisable à deux étages, récupérable par rétraction, jamais nul.
 
-L'évidence suit trois niveaux. Dans un laboratoire déterministe (aucun modèle, attendus exacts pré-enregistrés), la porte divise par deux la sur-généralisation sans jamais refuser une bonne tâche, quand le contrôle qui admet tout échec s'auto-scelle sur les cas rares. En conditions réelles, avec un modèle embarqué de 27 milliards de paramètres pour unique organe de connaissance-monde : 300/300 tâches contre 245/300 pour le modèle seul, le déficit du modèle concentré là où il faut refuser, rétracter un défaut, ou suivre l'ontologie en profondeur ; et zéro arête fausse, zéro alias faux admis sur des flux permutés, là où la variante sans porte absorbe l'ontologie du modèle et répond ensuite faux sans plus aucun canal de correction — la dérive de NELL, reproduite en miniature, puis bloquée. Sur le benchmark tiers DeFAb, le chemin typé obtient 34/35 (dont 30/35 sans aucun appel modèle) contre 30/35 pour le modèle direct, et chaque perte du direct est une coupe trop générale — la classe d'erreur que la porte interdit par construction. Une reproduction sur neuf modèles locaux (quatre familles, trois quantisations et deux architectures) montre que le décideur, la porte et le refus fermé-sur-échec généralisent ; seule la couverture suit la capacité d'extraction. Reste l'économie : ce que les pipelines à récupération repaient en contexte à chaque appel, ce système le compile une fois en bibliothèque typée, versionnée, auditable à l'épisode — le savoir s'accumule hors de la fenêtre de contexte, et c'est la porte qui rend cette accumulation sûre. Aucune des briques n'est neuve ; le composite l'est : un LLM qui extrait, un treillis qui décide, une porte qui laisse le treillis grandir sans dériver.
+L'évidence suit trois niveaux. Dans un laboratoire déterministe (aucun modèle, attendus exacts pré-enregistrés), la porte divise par deux la sur-généralisation sans jamais refuser une bonne tâche, quand le contrôle qui admet tout échec s'auto-scelle sur les cas rares. En conditions réelles, avec un modèle embarqué de 27 milliards de paramètres pour unique organe de connaissance-monde : 300/300 tâches contre 245/300 pour le modèle seul, le déficit du modèle concentré là où il faut refuser, rétracter un défaut, ou suivre l'ontologie en profondeur ; et zéro arête fausse, zéro alias faux admis sur des flux permutés, là où la variante sans porte absorbe l'ontologie du modèle et répond ensuite faux sans plus aucun canal de correction — la dérive de NELL, reproduite en miniature puis bloquée, aux deux grains. Sur le benchmark tiers DeFAb, le chemin typé obtient 34/35 (dont 30/35 sans aucun appel modèle) contre 30/35 pour le modèle direct, et chaque perte du direct est une coupe trop générale — la classe d'erreur que la porte interdit par construction. Une reproduction sur neuf modèles locaux (quatre familles, trois quantisations, deux architectures et deux ordres de taille) montre que le décideur, la porte et le refus fermé-sur-échec généralisent ; seule la couverture suit la capacité d'extraction. Reste l'économie : ce que les pipelines à récupération repaient en contexte à chaque appel, ce système le compile une fois en bibliothèque typée, versionnée, auditable à l'épisode — le savoir s'accumule hors de la fenêtre de contexte, et c'est la porte qui rend cette accumulation sûre. Aucune des briques n'est neuve ; le composite l'est : un LLM qui extrait, un treillis qui décide, une porte qui laisse le treillis grandir sans dériver.
 
 \textbf{Mots-clés :} restrictions sélectionnelles ; espaces de versions ; élimination de candidats ; treillis \emph{isa} ; raisonnement défaisable ; dérive de base de connaissances ; attribution de blâme ; systèmes neurosymboliques ; apprentissage en ligne ; extraction par LLM.
 
@@ -240,7 +243,7 @@ Cette section parcourt une fois le circuit entier — de la prose d'entrée jusq
 Le statut épistémique est un qualificatif, jamais un type : toute sorte, arête ou alias est soit \emph{axiome} (autoré), soit \emph{appris} — défaisable, étiqueté \texttt{\{source, confiance\}}, rétractable. Le même moteur et la même discipline portent notre article système compagnon [Braun 2026], qui documente le reste du substrat (méthodes apprises à slots rôlés, export en method-pack) ; les figures F3, F7 et F8 illustrent ce contexte hôte et \textbf{ne portent aucune revendication du présent article}.
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth]{figures/png/f3-concept-method.fr.png}
+\includegraphics[width=\linewidth]{../figures/png/f3-concept-method.fr.png}
 \caption*{\small Figure F3 (contexte hôte, [Braun 2026]) — l'anatomie d'une concept-méthode : la forme post-canon d'un frame « compare » découvert, avec ses slots rôlés — les trous de la LGG (la généralisation la moins générale, §4.1). Générée depuis \texttt{RESULTS-discover-2.json}.}
 \end{figure}
 
@@ -251,21 +254,21 @@ Le statut épistémique est un qualificatif, jamais un type : toute sorte, arêt
 Un prompt d'extraction dédié rend des faits typés, et seulement des faits typés : un objet de sorte \texttt{ball} portant la facette \texttt{color=yellow} (une \emph{facette} est une propriété transverse — couleur, taille, forme — qui qualifie un objet sans être sa sorte) ; un ensemble de trous \texttt{\{étoile, carré, rond\}} ; un placement demandé. Deux disciplines s'appliquent à cette frontière. D'abord, la \emph{discipline des faits typés} : tout l'aval clé sur des faits discrets et typés — enums, identifiants, booléens — jamais sur de la prose, si bien que chaque décision est mémoïsable et rejouable. Ensuite, les surfaces sont extraites \textbf{verbatim} : le modèle rapporte les mots que la prose a employés (« ouverture circulaire ») et n'a pas le droit de les canonicaliser — la canonicalisation est le travail du système, et la garder hors des mains du modèle est ce qui rendra plus loin l'apprentissage d'alias attribuable (§6.6).
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth]{figures/png/f1-intake.fr.png}
+\includegraphics[width=\linewidth]{../figures/png/f1-intake.fr.png}
 \caption*{\small Figure F1 — un épisode réel (mémo durable, rejouable) : la prose paraphrasée par le modèle, annotée, et son extraction typée verbatim — la sorte, la condition défaiseuse, la facette distractrice, les trous.}
 \end{figure}
 
 \textbf{Panneau 2 — la barrière de canonicalisation.} Les surfaces extraites sont rabattues sur le vocabulaire déclaré du treillis : une correspondance exacte se rabat ; une inclusion \emph{unique} se rabat ; tout le reste — y compris une inclusion \emph{ambiguë}, comme un hypernyme nu que plusieurs sortes contiennent — reste hors-vocabulaire (OOV, \emph{out-of-vocabulary}), gardé brut, fermé-sur-échec (fail-closed). L'OOV n'est pas un état d'erreur ; c'est le canal honnête par lequel les surfaces inconnues atteignent la machinerie d'apprentissage au lieu de corrompre silencieusement le match (§6.4 montre ce que la règle d'inclusion-ambiguë prévient ; §6.6 montre ce que l'OOV alimente).
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth]{figures/png/f7-fold.fr.png}
+\includegraphics[width=\linewidth]{../figures/png/f7-fold.fr.png}
 \caption*{\small Figure F7 (contexte hôte, [Braun 2026]) — la même barrière, face structurelle : le pli de digramme \texttt{[filter → aggregate] ⟹ aggregate(field,value)}, seul pli admis par un critère de longueur de description minimale (MDL) sur les formes capturées du système hôte (ΔL = −59.3, support 30 ; sept autres digrammes rejetés). Le canon de structure n'y est plus déclaré : il est appris. Aucune revendication du présent article ne repose sur cette figure.}
 \end{figure}
 
 \textbf{Panneau 3 — le treillis, et une restriction comme coupe.} L'ontologie déclarée est un treillis \emph{isa} fini de concept-sortes : \texttt{bille ⊑ balle ⊑ chose-ronde}, \texttt{dé ⊑ chose-cubique}, avec des facettes comme \texttt{forme} et \texttt{taille} à côté. Une \emph{restriction sélectionnelle} pour un slot est une \textbf{coupe} à travers ce treillis : le trou rond accepte tout ce que subsume \texttt{chose-ronde} ; une devinette plus profonde (« glisse le morceau de sucre… ») est insoluble sans la chaîne de profondeur 2 \texttt{sucre ⊑ cube ⊑ chose-cubique} — ce qui est exactement la façon dont les sondes rendent le treillis porteur par construction (§6.2). Les arêtes portent leur qualificatif épistémique : les arêtes autorées sont des axiomes ; les arêtes apprises sont défaisables, \texttt{\{source, confiance\}}.
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth]{figures/png/f2-lattice-cut.fr.png}
+\includegraphics[width=\linewidth]{../figures/png/f2-lattice-cut.fr.png}
 \caption*{\small Figure F2 — le treillis isa déclaré du domaine formes (lu dans la source du probe), la restriction du trou rond dessinée comme coupe, le défaiseur \texttt{deflated ⊘ round} (V5), et le ring de synonymes réellement appris dans le run du ring (\texttt{circularhole · circular · circularaperture → round}), attaché à la clé de la sorte.}
 \end{figure}
 
@@ -274,7 +277,7 @@ Un prompt d'extraction dédié rend des faits typés, et seulement des faits typ
 \textbf{Panneau 5 — le refus typé.} Donnez au système une pyramide et les trous \texttt{\{étoile, rond, croissant\}} : aucune coupe ne l'admet. La réponse n'est pas une supposition ; c'est un refus typé — \texttt{impracticable}, avec une indication structurée nommant l'exigence manquante (« aucun trou n'accepte la sorte \texttt{pyramide} ; coupes les plus proches : … »). Rendre un placement, ici, est par définition une hallucination structurelle. §6.3 durcit cette cellule jusqu'à ce que le modèle direct n'ait plus aucune échappatoire plausible-monde — et il hallucine encore dans 2 instances sur 6, dans les deux régimes de raisonnement, là où le chemin typé refuse 6 fois sur 6.
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth]{figures/png/f4-mount.fr.png}
+\includegraphics[width=\linewidth]{../figures/png/f4-mount.fr.png}
 \caption*{\small Figure F4 — deux épisodes réels du probe paramétrique : à gauche la monture réussie (t24 — les params placés dans les slots rôlés, réponse juste, zéro déclenchement au-delà de la monture) ; à droite la monture affamée (t26, injection — le rôle manquant produit une indication typée, jamais une réponse d'apparence : 9/9, 0 hallucination).}
 \end{figure}
 
@@ -363,7 +366,7 @@ L'attribution est réalisée par deux mécanismes, et leur répartition vaut d'�
 Les restrictions de slot emploient α ; l'admission d'arêtes \emph{isa} emploie α plus la vérification ; l'admission d'alias emploie \textbf{les deux} — α comme provenance de crédit vers l'avant, β comme test de décisivité par-unité. α et β ont des bases de soundness différentes (une étiquette frappée à la déclaration ; une décisivité exercée à l'épisode) : ce sont deux mécanismes d'attribution qui déchargent le même prédicat d'admission. La revendication d'unification se situe au niveau de l'\textbf{invariant} (attribution unique ∧ vérification), jamais de l'implémentation.
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth]{figures/png/f5-gate-three-grains.fr.png}
+\includegraphics[width=\linewidth]{../figures/png/f5-gate-three-grains.fr.png}
 \caption*{\small Figure F5 — la porte aux trois grains : le même prédicat d'admission, avec pour chaque grain une unité réellement admise et une unité réellement refusée dans nos runs — la coupe tenue par le bras B contre la dérive du bras A (lab), l'arête ré-apprise contre \texttt{pyramid→square} (cliquet), l'alias confirmé \texttt{die→dice} contre le poison \texttt{aperture→round} (ring, §6.6).}
 \end{figure}
 
@@ -562,7 +565,7 @@ coût & 14 propositions/bras, ≤1 par (clé, token), re-propositions bloquées 
 \bottomrule\end{tabular}\end{center}
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth]{figures/png/f6-ratchet-timeline.fr.png}
+\includegraphics[width=\linewidth]{../figures/png/f6-ratchet-timeline.fr.png}
 \caption*{\small Figure F6 — le cliquet, généré des traces réelles (ordre 0) : en haut le grain arête (UNGATED absorbe \texttt{pyramid→square} et \texttt{fern→terrestrial}, dégât silencieux ; GATED zéro arête fausse à prime bornée) ; en bas la timeline du ring (§6.6), exposition par exposition — les admissions vraies (▲ bleu), le poison absorbé par UNGATED seul (▲ rouge, épisodes « détrempés » (waterlogged)), les réponses fausses (✕) converties en refus typés (◇) côté GATED, à résolution égale 13 == 13.}
 \end{figure}
 
@@ -640,7 +643,7 @@ Le verdict tient en trois couches, aux sensibilités opposées :
 
 \begin{enumerate}
 \item \textbf{Le décideur déterministe est invariant par construction — confirmé.} DeFAb structurel-pur : 30/35 identique sur les neuf modèles ; le sélecteur L2, 374/374 partout ; le lab §5 ne touche jamais un modèle.
-\item \textbf{La porte est probante multi-famille — le résultat fort.} Zéro arête fausse admise sur les neuf modèles, alors que chaque famille \emph{émet} du poison — et \textbf{le même} (\texttt{pyramide→carré}, \texttt{fougère→terrestre} ; la variante 2-bits extrême en émet le double, la porte tient à zéro quand même). Un biais de plausibilité-monde partagé entre familles est exactement le cas où une porte vaut mieux qu'un choix de modèle.
+\item \textbf{La porte est probante multi-famille — le résultat fort.} Zéro arête fausse admise sur les neuf modèles, alors que chaque famille \emph{émet} du poison — et \textbf{le même} (\texttt{pyramide→carré}, \texttt{fougère→terrestre}, plus leurs extras ; la variante 2-bits extrême en émet le double, la porte tient à zéro quand même). Un biais de plausibilité-monde partagé entre familles est exactement le cas où une porte vaut mieux qu'un choix de modèle.
 \item \textbf{La soundness fermée-sur-échec du bout-en-bout tient sur les quatre familles — après qu'un correctif d'une ligne nous a rappelé qui décide.} Ce que ce correctif démontre mérite son propre paragraphe, ci-dessous.
 \end{enumerate}
 
@@ -680,7 +683,7 @@ Cette campagne renforce la généralité \emph{à travers les extracteurs} — f
 Rien de tout cela n'exige que le modèle soit honnête sur sa propre connaissance — seulement que la porte soit stricte sur l'attribution.
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth]{figures/png/f8-method-pack.fr.png}
+\includegraphics[width=\linewidth]{../figures/png/f8-method-pack.fr.png}
 \caption*{\small Figure F8 (contexte hôte, [Braun 2026]) — l'unité d'export et d'audit du substrat : le method-pack \texttt{.sgc} embarque une concept-méthode avec la fermeture transitive de ses dépendances — méthodes utilisées, concept-sortes, rings — son contrat et sa provenance ; le pin de version interdit le replay inter-version, et la vérification typée re-tourne toujours chez l'hôte receveur. Aucune revendication du présent article ne repose sur cette figure.}
 \end{figure}
 

@@ -32,54 +32,57 @@ def inline(t):
     return ''.join(out)
 
 PREAMBLE = r'''% Généré par md2tex.py — ne pas éditer à la main ; éditer le .md maître et reconvertir.
+% Compile : pdflatex (deux fois si besoin).
 \documentclass[11pt]{article}
-\usepackage{fontspec}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{textcomp}
 \usepackage[margin=1in]{geometry}
-\usepackage{booktabs,longtable,array}
+\usepackage{booktabs,array}
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
 \usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
 \usepackage{newunicodechar}
-\setmainfont{Latin Modern Roman}
-\setmonofont{Latin Modern Mono}
-\newunicodechar{⊑}{\ensuremath{\sqsubseteq}}
-\newunicodechar{⊘}{\ensuremath{\oslash}}
-\newunicodechar{∧}{\ensuremath{\wedge}}
-\newunicodechar{∖}{\ensuremath{\setminus}}
-\newunicodechar{≥}{\ensuremath{\geq}}
-\newunicodechar{≤}{\ensuremath{\leq}}
-\newunicodechar{→}{\ensuremath{\rightarrow}}
-\newunicodechar{←}{\ensuremath{\leftarrow}}
-\newunicodechar{↔}{\ensuremath{\leftrightarrow}}
-\newunicodechar{⟹}{\ensuremath{\Longrightarrow}}
-\newunicodechar{×}{\ensuremath{\times}}
 \newunicodechar{·}{\ensuremath{\cdot}}
-\newunicodechar{∝}{\ensuremath{\propto}}
+\newunicodechar{×}{\ensuremath{\times}}
+\newunicodechar{÷}{\ensuremath{\div}}
+\newunicodechar{¬}{\ensuremath{\neg}}
+\newunicodechar{µ}{\ensuremath{\mu}}
+\newunicodechar{²}{\textsuperscript{2}}
+\newunicodechar{ᵉ}{\textsuperscript{e}}
+\newunicodechar{′}{\ensuremath{'}}
+\newunicodechar{Δ}{\ensuremath{\Delta}}
 \newunicodechar{α}{\ensuremath{\alpha}}
 \newunicodechar{β}{\ensuremath{\beta}}
+\newunicodechar{δ}{\ensuremath{\delta}}
+\newunicodechar{ε}{\ensuremath{\varepsilon}}
 \newunicodechar{η}{\ensuremath{\eta}}
 \newunicodechar{ρ}{\ensuremath{\rho}}
-\newunicodechar{ε}{\ensuremath{\varepsilon}}
-\newunicodechar{δ}{\ensuremath{\delta}}
-\newunicodechar{Δ}{\ensuremath{\Delta}}
-\newunicodechar{Σ}{\ensuremath{\Sigma}}
+\newunicodechar{←}{\ensuremath{\leftarrow}}
+\newunicodechar{→}{\ensuremath{\rightarrow}}
+\newunicodechar{↔}{\ensuremath{\leftrightarrow}}
+\newunicodechar{⇒}{\ensuremath{\Rightarrow}}
+\newunicodechar{⟹}{\ensuremath{\Longrightarrow}}
 \newunicodechar{∈}{\ensuremath{\in}}
+\newunicodechar{−}{\ensuremath{-}}
+\newunicodechar{∖}{\ensuremath{\setminus}}
+\newunicodechar{∝}{\ensuremath{\propto}}
+\newunicodechar{∧}{\ensuremath{\wedge}}
+\newunicodechar{∪}{\ensuremath{\cup}}
+\newunicodechar{≈}{\ensuremath{\approx}}
+\newunicodechar{≡}{\ensuremath{\equiv}}
+\newunicodechar{≤}{\ensuremath{\leq}}
+\newunicodechar{≥}{\ensuremath{\geq}}
 \newunicodechar{⊆}{\ensuremath{\subseteq}}
-\newunicodechar{✓}{\checkmark}
-\newunicodechar{✕}{\ensuremath{\times}}
+\newunicodechar{⊑}{\ensuremath{\sqsubseteq}}
+\newunicodechar{⊘}{\ensuremath{\oslash}}
+\newunicodechar{⊨}{\ensuremath{\models}}
 \newunicodechar{▲}{\ensuremath{\blacktriangle}}
 \newunicodechar{◇}{\ensuremath{\Diamond}}
-\newunicodechar{½}{\ensuremath{\tfrac12}}
-\newunicodechar{§}{\S}
-\newunicodechar{⊨}{\ensuremath{\models}}
-\newunicodechar{≈}{\ensuremath{\approx}}
-\newunicodechar{≠}{\ensuremath{\neq}}
-\newunicodechar{≡}{\ensuremath{\equiv}}
-\newunicodechar{−}{\ensuremath{-}}
-\newunicodechar{∅}{\ensuremath{\emptyset}}
-\newunicodechar{ }{~}
-\newunicodechar{ }{\,}
+\newunicodechar{✓}{\checkmark}
+\newunicodechar{✕}{\ensuremath{\times}}
 \setlist{nosep,leftmargin=1.5em}
 \setlength{\parskip}{4pt}\setlength{\parindent}{0pt}
 '''
@@ -102,7 +105,7 @@ def convert(src, lang):
             while i < len(lines) and lines[i].startswith('>'):
                 note.append(lines[i].lstrip('> ')); i += 1
             out.append(r'\begin{center}\begin{minipage}{0.92\linewidth}\small\itshape ' +
-                       inline(' '.join(note)) + r'\end{minipage}\end{center}')
+                       inline(' '.join(note).replace('**', '')) + r'\end{minipage}\end{center}')
             continue
         if l.strip() in ('---', ''):
             i += 1
@@ -124,6 +127,18 @@ def convert(src, lang):
     while i < n:
         l = lines[i]
         ls = l.strip()
+        # bloc de code clôturé → verbatim
+        if ls.startswith('```'):
+            close_all()
+            i += 1
+            code = []
+            while i < n and not lines[i].strip().startswith('```'):
+                code.append(lines[i]); i += 1
+            i += 1  # fence fermante
+            body.append(r'\begin{small}\begin{verbatim}')
+            body.extend(code)
+            body.append(r'\end{verbatim}\end{small}')
+            continue
         # fin / hr
         if ls == '---':
             close_all(); body.append('\\medskip\\hrule\\medskip'); i += 1; continue
@@ -172,7 +187,7 @@ def convert(src, lang):
         if m:
             close_all()
             path = m.group(2)
-            png = re.sub(r'^\.\./figures/', 'figures/png/', path).replace('.svg', '.png')
+            png = re.sub(r'^\.\./figures/', '../figures/png/', path).replace('.svg', '.png')
             cap = ''
             j = i + 1
             while j < n and lines[j].strip() == '': j += 1
