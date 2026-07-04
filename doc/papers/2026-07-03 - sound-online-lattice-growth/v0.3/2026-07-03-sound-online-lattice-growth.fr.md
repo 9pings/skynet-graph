@@ -1,4 +1,4 @@
-# Croissance en ligne saine d'un treillis *isa* typé depuis une extraction LLM bruitée : l'élimination de candidats rendue tolérante au bruit par une porte d'admission à blâme localisé
+# Croissance en ligne saine d'un treillis *isa* typé à partir d'une extraction LLM bruitée, grâce à l'élimination de candidats rendue tolérante au bruit par une porte d'admission à blâme localisé
 
 **Nathanael Braun** — chercheur indépendant
 

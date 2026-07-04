@@ -635,7 +635,7 @@ plutôt qu'un nouvel algorithme ; nous pensons cette propriété digne d'être n
 - J. Bader, J. Aldrich, É. Tanter. *Gradual Program Verification.* VMCAI 2018, LNCS 10747, p. 25–46.
 - L. Bourtoule, V. Chandrasekaran, C. A. Choquette-Choo, H. Jia, A. Travers, B. Zhang, D. Lie, N. Papernot. *Machine Unlearning.* IEEE S&P 2021, p. 141–159.
 - M. Bowers, T. X. Olausson, L. Wong, G. Grand, J. B. Tenenbaum, K. Ellis, A. Solar-Lezama. *Top-Down Synthesis for Library Learning.* POPL 2023 ; Proc. ACM Program. Lang. 7(POPL).
-- N. Braun. *Croissance en ligne saine d'un treillis isa typé depuis une extraction LLM bruitée :
+- N. Braun. *Croissance en ligne saine d'un treillis isa typé à partir d'une extraction LLM bruitée, grâce à
   l'élimination de candidats rendue tolérante au bruit par une porte d'admission à blâme localisé.*
   Préprint, 2026. [Braun 2026b — l'article compagnon sur la porte d'admission]
 - M. Budiu, T. Chajed, F. McSherry, L. Ryzhyk, V. Tannen. *DBSP: Automatic Incremental View Maintenance for Rich Query Languages.* PVLDB 16(7):1601–1614, 2023.
