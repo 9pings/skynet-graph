@@ -218,14 +218,17 @@ moment : coupler un frontal LLM à un moteur de programmation logique. Quatre ja
   le LLM logé *dans* la fonction d'interprétation de la sémantique — mais la théorie reste statique : rien
   n'y apprend une règle, une arête ou un alias.
 
-**Les évaluations de défaisance.** Le deuxième voisinage ne construit pas de système : il mesure.
-DeFAb (arXiv:2606.18557), DEFREASING (NAACL 2025) et l'étude generics-and-defaults
-(arXiv:2508.13718) documentent, avec du volume, que les LLM actuels échouent les révocations
-défaisables (*overrides*) — ils ne rétractent pas un défaut quand un modificateur le défait. Ce sont
-des repoussoirs (*foils*) au sens strict : ils établissent l'échec que notre démonstration exerce.
-Nous utilisons l'un d'eux (DeFAb) comme oracle externe en §7. Parce que cette cellule est à la fois
-occupée et bien mesurée, *la défaisance est la démonstration de cet article, jamais sa
-contribution*.
+**Les évaluations de défaisance.** Le deuxième voisinage ne construit pas de système : il mesure. Trois
+évaluations y documentent, avec du volume, le même échec :
+
+- DeFAb (arXiv:2606.18557) — celle que nous réutilisons comme oracle externe en §7 ;
+- DEFREASING (NAACL 2025) ;
+- l'étude generics-and-defaults (arXiv:2508.13718).
+
+L'échec documenté : les LLM actuels échouent les révocations défaisables (*overrides*) — ils ne rétractent
+pas un défaut quand un modificateur le défait. Ces évaluations sont des repoussoirs (*foils*) au sens
+strict : elles établissent l'échec que notre démonstration exerce. Parce que cette cellule est à la fois
+occupée et bien mesurée, *la défaisance est la démonstration de cet article, jamais sa contribution*.
 
 **Bases de connaissances auto-croissantes.** Le troisième voisinage est celui du problème lui-même — les
 bases qui grandissent seules. NELL (présentée en §1.1) en est le cas d'école, positif et d'avertissement à
@@ -250,14 +253,19 @@ de la complétion ; il n'y a ni monture optimiste, ni crédit/blâme localisé p
 défaisable de ce qui a été admis.
 
 **Apprendre les restrictions sélectionnelles.** Le quatrième voisinage est l'objet même que nous
-apprenons. Sa théorie d'apprentissage s'est arrêtée au cadre corpus-batch des années 1990 (Resnik ;
-estimation par classes). L'ère neuronale a d'abord retourné la question en *probing*, puis l'a
-rouverte côté apprentissage : arXiv:2011.02417 montre qu'un modèle fine-tuné forme des
-généralisations sélectionnelles robustes après une ou deux instances d'un mot nouveau — un voisin
-réel de notre question, avec un delta net : l'apprentissage y vit dans les poids, ni auditable, ni
-attribuable, ni rétractable. L'apprentissage en ligne des restrictions *depuis les échecs*, à blâme
-localisé, externalisé dans une structure inspectable, reste — aussi loin que porte notre revue —
-sans occupant.
+apprenons, et son histoire tient en deux temps :
+
+- la théorie d'apprentissage s'est arrêtée au cadre corpus-batch des années 1990 (Resnik ; estimation par
+  classes) ;
+- l'ère neuronale a d'abord retourné la question en *probing*, puis l'a rouverte côté apprentissage :
+  arXiv:2011.02417 montre qu'un modèle fine-tuné forme des généralisations sélectionnelles robustes après
+  une ou deux instances d'un mot nouveau.
+
+  C'est un voisin réel de notre question, avec un delta net : l'apprentissage y vit dans les poids, ni
+  auditable, ni attribuable, ni rétractable.
+
+L'apprentissage en ligne des restrictions *depuis les échecs*, à blâme localisé, externalisé dans une
+structure inspectable, reste — aussi loin que porte notre revue — sans occupant.
 
 **Les espaces de versions face au bruit.** Le dernier voisinage est le plus proche du titre, et il serait
 malhonnête de le taire : l'élimination de candidats a des variantes tolérantes au bruit depuis vingt-cinq
