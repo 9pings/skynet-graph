@@ -116,12 +116,13 @@ l'article est la chaîne suivante, développée en §4 et chiffrée en §5 :
    de classification aléatoire ; les résultats de tolérance statistique ne transfèrent pas, et l'élimination
    de candidats classique est prouvablement fragile à une seule erreur de ce type.
 3. La localisation répare cela par construction plutôt que statistiquement : un échec d'épisode n'est admis
-   comme négatif pour le slot *i* que lorsque le contrat d'exécution localise l'atome violé sur *i*. Cela
-   convertit une requête d'appartenance bruitée sur la conjonction entière en requête propre sur le littéral
-   responsable : le bruit sur les négatifs *admis* cesse d'être le taux d'incompétence du modèle pour devenir
-   le taux de faux-admis du prédicat d'admission lui-même — le confond d'épisode de §4.5, borné par
-   l'enveloppe à deux étages et récupérable par rétraction. Ce taux n'est pas nul, et aucun taux « du cas
-   sans bruit » n'est restauré au sens PAC (§4.4 dit exactement ce qui est acheté).
+   comme négatif pour le slot *i* que lorsque le contrat d'exécution localise l'atome violé sur *i*. Ainsi,
+   on peut convertir une requête d'appartenance bruitée sur la conjonction entière en requête propre sur le
+   littéral responsable ; le bruit sur les négatifs *admis* cesse d'être le taux d'incompétence du modèle
+   pour devenir le taux de faux-admis du prédicat d'admission lui-même — ce que §4.5 nomme le *confond
+   d'épisode*, borne par une enveloppe à deux étages, et rend récupérable par rétraction. Notons-le dès
+   maintenant : ce taux n'est pas nul, et aucun taux « du cas sans bruit » n'est restauré au sens PAC
+   (§4.4 dit exactement ce qui est acheté).
 4. La même règle, appliquée symétriquement, gouverne le crédit positif (un succès ne crédite que les slots
    dont les atomes ont réellement été exercés), l'admission d'arêtes *isa* (une arête proposée par le modèle
    est *montée avec optimisme* — essayée immédiatement plutôt que mise en attente d'une preuve —, vérifiée,
