@@ -20,24 +20,25 @@ ce second mode est NELL, la plus longue expérience de base de connaissances aut
 croissance autonome, des faits plausibles-mais-faux admis sans canal de correction, et une dérive que ni le
 co-entraînement ni les contrôles humains n'ont arrêtée.
 
-Cet article présente la troisième option, et la mesure. La structure d'accueil est un **treillis *isa*
-typé** : une hiérarchie de sortes (« une bille est une balle, une balle est une chose ronde ») sur laquelle
-les tâches déclarent leurs exigences. Trois genres d'unités doivent pouvoir y entrer en cours de route : une
-**restriction de slot** (quelles sortes un rôle d'une tâche accepte), une **arête *isa*** (une filiation de
-sortes), et un **alias de surface** (un synonyme d'un mot du vocabulaire déclaré). Le besoin est précis : faire
-croître ces trois unités en ligne, à partir des extractions bruitées d'un petit modèle de langage local,
-sans absorber l'ontologie du modèle. L'instrument est une règle d'admission unique : **une évidence n'est
-admise pour une unité que si son succès ou son échec est uniquement attribuable à cette unité — par
-provenance structurelle ou par ablation contrefactuelle — et se vérifie contre l'oracle déclaré.** Une
-porte, trois grains. La justification théorique tient en trois pas. Un : l'élimination de candidats,
-l'algorithme classique pour apprendre de telles restrictions, est prouvablement intolérante au bruit — un
-seul faux négatif expulse la bonne réponse pour toujours. Deux : le bruit d'un pipeline LLM est un **bruit
-d'incompétence** — unilatéral (il ne fabrique que de faux échecs) et corrélé à la compétence (les cas rares
-échouent systématiquement) — précisément le genre que les modèles statistiques de bruit ne couvrent pas.
-Trois : localiser le blâme remplace la requête bruitée sur une conjonction entière par une requête propre
-sur le seul littéral responsable ; le bruit résiduel sur les négatifs admis se réduit alors au cas de
-l'épisode confondu — borné par une enveloppe défaisable à deux étages, récupérable par rétraction, jamais
-nul.
+Cet article présente la troisième option, et la mesure. La structure d'accueil est un **treillis
+*isa* typé** : une hiérarchie de sortes (« une bille est une balle, une balle est une chose ronde »)
+sur laquelle les tâches déclarent leurs exigences. Trois genres d'unités doivent pouvoir y entrer en
+cours de route : une **restriction de slot** (quelles sortes un rôle d'une tâche accepte), une
+**arête *isa*** (une filiation de sortes), et un **alias de surface** (un synonyme d'un mot du
+vocabulaire déclaré). Le besoin est précis : faire croître ces trois unités en ligne, à partir des
+extractions bruitées d'un petit modèle de langage local, sans absorber l'ontologie du modèle.
+L'instrument est une règle d'admission unique : **une évidence n'est admise pour une unité que si
+son succès ou son échec est uniquement attribuable à cette unité — par provenance structurelle ou
+par ablation contrefactuelle — et se vérifie contre l'oracle déclaré.** Une porte, trois grains. La
+justification théorique tient en trois pas. Un : l'élimination de candidats, l'algorithme classique
+pour apprendre de telles restrictions, est prouvablement intolérante au bruit — un seul faux négatif
+expulse la bonne réponse pour toujours. Deux : le bruit d'un pipeline LLM est un **bruit
+d'incompétence** — unilatéral (il ne fabrique que de faux échecs) et corrélé à la compétence (les
+cas rares échouent systématiquement) — précisément le genre que les modèles statistiques de bruit ne
+couvrent pas. Trois : localiser le blâme remplace la requête bruitée sur une conjonction entière par
+une requête propre sur le seul littéral responsable ; le bruit résiduel sur les négatifs admis se
+réduit alors au cas de l'épisode confondu — borné par une enveloppe défaisable à deux étages,
+récupérable par rétraction, jamais nul.
 
 L'évidence suit trois niveaux. Dans un laboratoire déterministe (aucun modèle, attendus exacts
 pré-enregistrés), la porte divise par deux la sur-généralisation sans jamais refuser une bonne tâche, quand
@@ -78,15 +79,17 @@ et bien une base carrée, et la plausibilité-monde est précisément ce que le 
 le rend plus éloquent. L'échec n'est pas de l'ignorance. C'est que le modèle suit le monde qu'il a lu, et
 non la spécification qu'on lui a donnée — avec et sans raisonnement (nous le mesurons en §6.3).
 
-Le remède classique consiste à laisser décider une structure symbolique : extraire des faits typés de la
-prose, les confronter de façon déterministe à une ontologie déclarée, et refuser de façon typée quand rien ne
-correspond. Cette division du travail est ancienne et saine, et les pipelines neurosymboliques récents
-l'implémentent bien (§2). Elle a cependant un coût structurel que ses propres praticiens nomment explicitement ; la
-base de connaissances est un *goulot manuel*. Ce « goulot manuel » signifie que chaque sorte, chaque arête de subsomption, chaque synonyme de
-surface doit être écrit à la main. L'échappatoire évidente, naïve — laisser le modèle écrire lui-même les arêtes
-manquantes —, est une des grandes catastrophes documentées du domaine : NELL. NELL fut la plus longue expérience de base de
-connaissances auto-croissante, et elle a dérivé malgré le co-entraînement et la correction humaine périodique, parce
-que rien, dans son chemin d'admission, ne savait distinguer un fait que le monde soutient d'un fait que le modèle trouve plausible.
+Le remède classique consiste à laisser décider une structure symbolique : extraire des faits typés
+de la prose, les confronter de façon déterministe à une ontologie déclarée, et refuser de façon
+typée quand rien ne correspond. Cette division du travail est ancienne et saine, et les pipelines
+neurosymboliques récents l'implémentent bien (§2). Elle a cependant un coût structurel que ses
+propres praticiens nomment explicitement ; la base de connaissances est un *goulot manuel*. Ce
+« goulot manuel » signifie que chaque sorte, chaque arête de subsomption, chaque synonyme de surface
+doit être écrit à la main. L'échappatoire évidente, naïve — laisser le modèle écrire lui-même les
+arêtes manquantes —, est une des grandes catastrophes documentées du domaine : NELL. NELL fut la
+plus longue expérience de base de connaissances auto-croissante, et elle a dérivé malgré le
+co-entraînement et la correction humaine périodique, parce que rien, dans son chemin d'admission, ne
+savait distinguer un fait que le monde soutient d'un fait que le modèle trouve plausible.
 
 Cet article porte sur le chemin d'admission. Nous gardons la division du travail (le modèle extrait, le
 treillis décide) et nous y ajoutons la troisième capacité que cette division semblait interdire : **le
@@ -103,26 +106,29 @@ modèle.** L'instrument est ainsi une règle d'admission unique, appliquée à t
 Nous appelons cette règle la **porte d'admission à attribution localisée**. Le contenu théorique de
 l'article est la chaîne suivante, développée en §4 et chiffrée en §5 :
 
-1. Notre classe d'hypothèses est faite de conjonctions de coupes sur un treillis *isa* fini et fixé — un
-   *slot* est un rôle typé d'un schéma de tâche (l'objet à placer, le trou qui reçoit) ; une *coupe* est
-   l'ensemble des sortes qu'un slot admet, clos vers le bas dans le treillis. Comme cette classe est d'élasticité
-   finie, elle est donc identifiable à la limite depuis les exemples positifs seuls. Ainsi, l'évidence négative n'est *pas*
-   une nécessité logique ; elle achète de la vitesse de convergence et le contrôle de la frontière de
-   généralisation. Notons par ailleurs, à ce propos, que cette garantie couvre la *sélection de coupes* dans un treillis donné ; la *croissance* du
-   treillis quant à elle relève d'un autre régime, que l'on décrira en §4.2.
-2. L'évidence négative qu'un pipeline LLM produit réellement est bruitée de la pire des façons : unilatérale
-   (une sorte valide échoue parce que le modèle a été incompétent sur elle, pas parce qu'elle est fausse) et
-   corrélée à la compétence (les sortes rares et difficiles échouent systématiquement). Ce n'est pas du bruit
-   de classification aléatoire ; les résultats de tolérance statistique ne transfèrent pas, et l'élimination
-   de candidats classique est prouvablement fragile à une seule erreur de ce type.
-3. La localisation répare cela par construction plutôt que statistiquement : un échec d'épisode n'est donc admis
-   comme négatif pour le slot *i* que lorsque le contrat d'exécution localise l'atome violé sur *i*. Ainsi,
-   on peut convertir une requête d'appartenance bruitée sur la conjonction entière en requête propre sur le
-   littéral responsable ; le bruit sur les négatifs *admis* cesse alors d'être le taux d'incompétence du modèle
-   pour devenir le taux de faux-admis du prédicat d'admission lui-même — ce que §4.5 nomme le *confond
-   d'épisode*, borne par une enveloppe à deux étages, et rend récupérable par rétraction. Notons-le d'ailleurs dès
-   maintenant : ce taux n'est pas nul, et aucun taux « du cas sans bruit » n'est restauré au sens PAC
-   (§4.4 dit exactement ce qui est acheté).
+1. Notre classe d'hypothèses est faite de conjonctions de coupes sur un treillis *isa* fini et fixé
+   — un *slot* est un rôle typé d'un schéma de tâche (l'objet à placer, le trou qui reçoit) ; une
+   *coupe* est l'ensemble des sortes qu'un slot admet, clos vers le bas dans le treillis. Comme
+   cette classe est d'élasticité finie, elle est donc identifiable à la limite depuis les exemples
+   positifs seuls. Ainsi, l'évidence négative n'est *pas* une nécessité logique ; elle achète de la
+   vitesse de convergence et le contrôle de la frontière de généralisation. Notons par ailleurs, à
+   ce propos, que cette garantie couvre la *sélection de coupes* dans un treillis donné ; la
+   *croissance* du treillis quant à elle relève d'un autre régime, que l'on décrira en §4.2.
+2. L'évidence négative qu'un pipeline LLM produit réellement est bruitée de la pire des façons :
+   unilatérale (une sorte valide échoue parce que le modèle a été incompétent sur elle, pas parce
+   qu'elle est fausse) et corrélée à la compétence (les sortes rares et difficiles échouent
+   systématiquement). Ce n'est pas du bruit de classification aléatoire ; les résultats de tolérance
+   statistique ne transfèrent pas, et l'élimination de candidats classique est prouvablement fragile
+   à une seule erreur de ce type.
+3. La localisation répare cela par construction plutôt que statistiquement : un échec d'épisode
+   n'est donc admis comme négatif pour le slot *i* que lorsque le contrat d'exécution localise
+   l'atome violé sur *i*. Ainsi, on peut convertir une requête d'appartenance bruitée sur la
+   conjonction entière en requête propre sur le littéral responsable ; le bruit sur les négatifs
+   *admis* cesse alors d'être le taux d'incompétence du modèle pour devenir le taux de faux-admis du
+   prédicat d'admission lui-même — ce que §4.5 nomme le *confond d'épisode*, borne par une enveloppe
+   à deux étages, et rend récupérable par rétraction. Notons-le d'ailleurs dès maintenant : ce taux
+   n'est pas nul, et aucun taux « du cas sans bruit » n'est restauré au sens PAC (§4.4 dit
+   exactement ce qui est acheté).
 4. La même règle, appliquée symétriquement, gouverne :
    - le crédit positif (un succès ne crédite que les slots dont les atomes ont réellement été exercés) ;
    - l'admission d'arêtes *isa* (une arête proposée par le modèle est *montée avec optimisme* —
@@ -161,11 +167,12 @@ L'article suit son évidence à travers trois niveaux, du plus contrôlé au plu
   les références de dérive aux deux grains (§6.5–§6.6), et la validité externe sur un benchmark tiers à
   oracle vérifiable machine (§7).
 
-Nous énonçons la portée honnêtement dès maintenant : les résultats en conditions réelles sont des résultats
-d'existence, sur des treillis jouets déclarés, à N d'existence dans plusieurs cellules, avec la circularité
-d'oracle que le dispositif implique — que nous signalons là où elle existe. Ce que les trois niveaux établissent ensemble, ce n'est pas que le
-mécanisme soit complet, ni que ses constantes soient définitives — mais qu'il existe, qu'il est chiffré, et
-qu'il survit au contact d'un oracle tiers.
+Nous énonçons la portée honnêtement dès maintenant : les résultats en conditions réelles sont des
+résultats d'existence, sur des treillis jouets déclarés, à N d'existence dans plusieurs cellules,
+avec la circularité d'oracle que le dispositif implique — que nous signalons là où elle existe. Ce
+que les trois niveaux établissent ensemble, ce n'est pas que le mécanisme soit complet, ni que ses
+constantes soient définitives — mais qu'il existe, qu'il est chiffré, et qu'il survit au contact
+d'un oracle tiers.
 
 ---
 
@@ -177,8 +184,8 @@ Les briques utilisées ici ont des décennies ; nous n'en revendiquons donc aucu
 - les espaces de versions et l'élimination de candidats ont été formalisés par Mitchell ;
 - les restrictions sélectionnelles comme coupes apprenables sur une hiérarchie l'ont été par le modèle
   information-théorique de Resnik sur WordNet ;
-- et la programmation logique inductive tolérante au bruit est également mûre (Popper ; l'induction MDL depuis
-  données bruitées de Hocquette et al.).
+- et la programmation logique inductive tolérante au bruit est également mûre (Popper ; l'induction
+  MDL depuis données bruitées de Hocquette et al.).
 
 Cependant, la suite de cette section situe le composite décrit dans cet article parmi ses voisinages et se
 doit donc, parce qu'ils sont bien peuplés, de nommer pour chacun le *delta* exact plutôt qu'une cellule
@@ -202,13 +209,14 @@ moment : coupler un frontal LLM à un moteur de programmation logique. Quatre ja
   LLM logé *dans* la fonction d'interprétation de la sémantique — mais la théorie reste statique : rien n'y
   apprend une règle, une arête ou un alias.
 
-**Les évaluations de défaisance.** Le deuxième voisinage ne construit pas de système : il mesure. DeFAb
-(arXiv:2606.18557), DEFREASING (NAACL 2025) et l'étude generics-and-defaults (arXiv:2508.13718) documentent,
-avec du volume, que les LLM actuels échouent les
-révocations défaisables (*overrides*) — ils ne rétractent pas un défaut quand un modificateur le défait. Ce sont des repoussoirs (*foils*)
-au sens strict : ils établissent l'échec que notre démonstration exerce. Nous utilisons l'un d'eux (DeFAb)
-comme oracle externe en §7. Parce que cette cellule est à la fois occupée et bien mesurée, *la défaisance est
-la démonstration de cet article, jamais sa contribution*.
+**Les évaluations de défaisance.** Le deuxième voisinage ne construit pas de système : il mesure.
+DeFAb (arXiv:2606.18557), DEFREASING (NAACL 2025) et l'étude generics-and-defaults
+(arXiv:2508.13718) documentent, avec du volume, que les LLM actuels échouent les révocations
+défaisables (*overrides*) — ils ne rétractent pas un défaut quand un modificateur le défait. Ce sont
+des repoussoirs (*foils*) au sens strict : ils établissent l'échec que notre démonstration exerce.
+Nous utilisons l'un d'eux (DeFAb) comme oracle externe en §7. Parce que cette cellule est à la fois
+occupée et bien mesurée, *la défaisance est la démonstration de cet article, jamais sa
+contribution*.
 
 **Bases de connaissances auto-croissantes.** Le troisième voisinage est celui du problème lui-même — les
 bases qui grandissent seules. NELL (présentée en §1.1) en est le cas d'école, positif et d'avertissement à
@@ -231,12 +239,13 @@ défaisable de ce qui a été admis.
 
 **Apprendre les restrictions sélectionnelles.** Le quatrième voisinage est l'objet même que nous
 apprenons. Sa théorie d'apprentissage s'est arrêtée au cadre corpus-batch des années 1990 (Resnik ;
-estimation par classes). L'ère neuronale a d'abord retourné la
-question en *probing*, puis l'a rouverte côté apprentissage : arXiv:2011.02417 montre qu'un modèle
-fine-tuné forme des généralisations sélectionnelles robustes après une ou deux instances d'un mot nouveau —
-un voisin réel de notre question, avec un delta net : l'apprentissage y vit dans les poids, ni auditable, ni
-attribuable, ni rétractable. L'apprentissage en ligne des restrictions *depuis les échecs*, à blâme localisé,
-externalisé dans une structure inspectable, reste — aussi loin que porte notre revue — sans occupant.
+estimation par classes). L'ère neuronale a d'abord retourné la question en *probing*, puis l'a
+rouverte côté apprentissage : arXiv:2011.02417 montre qu'un modèle fine-tuné forme des
+généralisations sélectionnelles robustes après une ou deux instances d'un mot nouveau — un voisin
+réel de notre question, avec un delta net : l'apprentissage y vit dans les poids, ni auditable, ni
+attribuable, ni rétractable. L'apprentissage en ligne des restrictions *depuis les échecs*, à blâme
+localisé, externalisé dans une structure inspectable, reste — aussi loin que porte notre revue —
+sans occupant.
 
 **Les espaces de versions face au bruit.** Le dernier voisinage est le plus proche du titre, et il serait
 malhonnête de le taire : l'élimination de candidats a des variantes tolérantes au bruit depuis vingt-cinq
@@ -247,12 +256,13 @@ ans —
 - les rough version spaces (encadrement approché) ;
 - le k-DNF robuste par fusion de croyances.
 
-Toute cette famille rend l'élimination de candidats tolérante au bruit en **relâchant la frontière** —
-statistiquement, par vote, approximation ou fusion. Notre mécanisme est orthogonal : la frontière reste stricte, et c'est le **canal
-d'admission** qui filtre — un négatif n'entre que porteur d'une attribution structurelle à un littéral
-unique, vérifiée. De même, l'ablation contrefactuelle par-unité (β, §4.4) rejoint la vague récente
-d'assignation de crédit contrefactuelle/Shapley dans les pipelines multi-étages — utilisée ici non comme
-explication post-hoc, mais comme *critère d'admission* d'unités structurelles.
+Toute cette famille rend l'élimination de candidats tolérante au bruit en **relâchant la frontière**
+— statistiquement, par vote, approximation ou fusion. Notre mécanisme est orthogonal : la frontière
+reste stricte, et c'est le **canal d'admission** qui filtre — un négatif n'entre que porteur d'une
+attribution structurelle à un littéral unique, vérifiée. De même, l'ablation contrefactuelle
+par-unité (β, §4.4) rejoint la vague récente d'assignation de crédit contrefactuelle/Shapley dans
+les pipelines multi-étages — utilisée ici non comme explication post-hoc, mais comme *critère
+d'admission* d'unités structurelles.
 
 La position, en une table :
 
@@ -312,15 +322,16 @@ produite par le modèle lui-même, si bien que la surface n'est jamais la nôtre
 
 > « Tu veux bien glisser la balle jaune soleil dans l'ouverture circulaire ? »
 
-Un prompt d'extraction dédié rend des faits typés, et seulement des faits typés : un objet de sorte `ball`
-portant la facette `color=yellow` (une *facette* est une propriété transverse — couleur, taille, forme — qui
-qualifie un objet sans être sa sorte) ; un ensemble de trous `{étoile, carré, rond}` ; un placement demandé. Deux
-disciplines s'appliquent à cette frontière. D'abord, la *discipline des faits typés* : tout l'aval clé sur
-des faits discrets et typés — enums, identifiants, booléens — jamais sur de la prose, si bien que chaque
-décision est mémoïsable et rejouable. Ensuite, les surfaces sont extraites **verbatim** : le modèle rapporte
-les mots que la prose a employés (« ouverture circulaire ») et n'a pas le droit de les canonicaliser — la
-canonicalisation est le travail du système, et la garder hors des mains du modèle est ce qui rendra plus loin
-l'apprentissage d'alias attribuable (§6.6).
+Un prompt d'extraction dédié rend des faits typés, et seulement des faits typés : un objet de sorte
+`ball` portant la facette `color=yellow` (une *facette* est une propriété transverse — couleur,
+taille, forme — qui qualifie un objet sans être sa sorte) ; un ensemble de trous `{étoile, carré,
+rond}` ; un placement demandé. Deux disciplines s'appliquent à cette frontière. D'abord, la
+*discipline des faits typés* : tout l'aval clé sur des faits discrets et typés — enums,
+identifiants, booléens — jamais sur de la prose, si bien que chaque décision est mémoïsable et
+rejouable. Ensuite, les surfaces sont extraites **verbatim** : le modèle rapporte les mots que la
+prose a employés (« ouverture circulaire ») et n'a pas le droit de les canonicaliser — la
+canonicalisation est le travail du système, et la garder hors des mains du modèle est ce qui rendra
+plus loin l'apprentissage d'alias attribuable (§6.6).
 
 ![F1 — de la prose aux faits typés](../figures/f1-intake.fr.svg)
 
@@ -358,40 +369,42 @@ leur qualificatif épistémique : les arêtes autorées sont des axiomes ; les a
 rond dessinée comme coupe, le défaiseur `deflated ⊘ round` (V5), et le ring de synonymes réellement appris
 dans le run du ring (`circularhole · circular · circularaperture → round`), attaché à la clé de la sorte.*
 
-**Panneau 4 — le match déterministe, la résolution en couches.** Confronter un objet typé aux coupes des
-trous est un parcours de treillis déterministe — zéro appel modèle, quelques microsecondes, mémoïsable sous
-la discipline des faits typés. Quand une coupe admet l'objet, la tâche est **montée** : la solution est
-instanciée à titre d'essai puis exercée — une *monture*, et c'est son contrat d'exécution qui produira
-l'évidence de crédit ou de blâme. La doctrine de résolution est en couches, et cet ordre est porteur : **le
-chemin *isa* fait autorité dès que la sorte est connue ; les facettes explicitement extraites ne servent que de
-repli pour les sortes hors-vocabulaire.** La raison est mesurée en §6 : si les facettes explicites peuvent
-prendre le pas sur le treillis, la connaissance-monde du modèle fuit à travers l'extraction (« une balle,
-c'est rond, j'écris `forme=rond` ») et le treillis cesse silencieusement d'être le décideur *(figure F4,
-panneau gauche)*.
+**Panneau 4 — le match déterministe, la résolution en couches.** Confronter un objet typé aux coupes
+des trous est un parcours de treillis déterministe — zéro appel modèle, quelques microsecondes,
+mémoïsable sous la discipline des faits typés. Quand une coupe admet l'objet, la tâche est
+**montée** : la solution est instanciée à titre d'essai puis exercée — une *monture*, et c'est son
+contrat d'exécution qui produira l'évidence de crédit ou de blâme. La doctrine de résolution est en
+couches, et cet ordre est porteur : **le chemin *isa* fait autorité dès que la sorte est connue ;
+les facettes explicitement extraites ne servent que de repli pour les sortes hors-vocabulaire.** La
+raison est mesurée en §6 : si les facettes explicites peuvent prendre le pas sur le treillis, la
+connaissance-monde du modèle fuit à travers l'extraction (« une balle, c'est rond, j'écris
+`forme=rond` ») et le treillis cesse silencieusement d'être le décideur *(figure F4, panneau
+gauche)*.
 
-**Panneau 5 — le refus typé.** Donnez au système une pyramide et les trous `{étoile, rond, croissant}` :
-aucune coupe ne l'admet. La réponse n'est pas une supposition ; c'est un refus typé — `impracticable`, avec
-une indication structurée nommant l'exigence manquante (« aucun trou n'accepte la sorte `pyramide` ; coupes les plus
-proches : … »). Rendre un placement, ici, est par définition une hallucination structurelle. §6.3 durcit
-cette cellule jusqu'à ce que le modèle direct n'ait plus aucune échappatoire plausible-monde — et il
-hallucine encore dans 2 instances sur 6, dans les deux régimes de raisonnement, là où le chemin typé refuse
-6 fois sur 6.
+**Panneau 5 — le refus typé.** Donnez au système une pyramide et les trous `{étoile, rond,
+croissant}` : aucune coupe ne l'admet. La réponse n'est pas une supposition ; c'est un refus typé —
+`impracticable`, avec une indication structurée nommant l'exigence manquante (« aucun trou n'accepte
+la sorte `pyramide` ; coupes les plus proches : … »). Rendre un placement, ici, est par définition
+une hallucination structurelle. §6.3 durcit cette cellule jusqu'à ce que le modèle direct n'ait plus
+aucune échappatoire plausible-monde — et il hallucine encore dans 2 instances sur 6, dans les deux
+régimes de raisonnement, là où le chemin typé refuse 6 fois sur 6.
 
 ![F4 — monture réussie vs monture affamée](../figures/f4-mount.fr.svg)
 
-*Figure F4 — deux épisodes réels du probe paramétrique : à gauche la monture réussie (t24 — les params
-placés dans les slots rôlés, réponse juste, zéro déclenchement au-delà de la monture) ; à droite la monture
-affamée (t26, injection — le rôle manquant produit une indication typée, jamais une réponse d'apparence : 9/9,
-0 hallucination).*
+*Figure F4 — deux épisodes réels du probe paramétrique : à gauche la monture réussie (t24 — les
+params placés dans les slots rôlés, réponse juste, zéro déclenchement au-delà de la monture) ; à
+droite la monture affamée (t26, injection — le rôle manquant produit une indication typée, jamais
+une réponse d'apparence : 9/9, 0 hallucination).*
 
-**Panneau 6 — la défaisance, et son garde-fou de vacuité.** « Mets le ballon de football *dégonflé* dans le
-trou rond. » La condition `dégonflé` est extraite comme fait typé ; une arête défaiseuse `dégonflé ⊘ rond`
-tire ; la conclusion par défaut est rétractée, et — dans la variante remap — re-dérivée vers la fente plate
-où le ballon dégonflé rentre désormais. Le modèle direct, aux deux budgets de raisonnement, pattern-matche
-*à travers* le modificateur (« un ballon, c'est rond ») dans la majorité des instances (§6.3). Le mécanisme a
-le garde-fou dont la démonstration a besoin : les modificateurs *bénins* (mouillé, brillant, tout neuf —
-survivant à la paraphrase en humide, luisant, frais) ne doivent **rien** défaire, et ne défont rien (3/3 par
-domaine) — le système discrimine les défaiseurs ; il n'a pas simplement appris « modificateur ⇒ refus ».
+**Panneau 6 — la défaisance, et son garde-fou de vacuité.** « Mets le ballon de football *dégonflé*
+dans le trou rond. » La condition `dégonflé` est extraite comme fait typé ; une arête défaiseuse
+`dégonflé ⊘ rond` tire ; la conclusion par défaut est rétractée, et — dans la variante remap —
+re-dérivée vers la fente plate où le ballon dégonflé rentre désormais. Le modèle direct, aux deux
+budgets de raisonnement, pattern-matche *à travers* le modificateur (« un ballon, c'est rond ») dans
+la majorité des instances (§6.3). Le mécanisme a le garde-fou dont la démonstration a besoin : les
+modificateurs *bénins* (mouillé, brillant, tout neuf — survivant à la paraphrase en humide, luisant,
+frais) ne doivent **rien** défaire, et ne défont rien (3/3 par domaine) — le système discrimine les
+défaiseurs ; il n'a pas simplement appris « modificateur ⇒ refus ».
 
 **Panneau 7 — apprendre une arête manquante.** *Ablater* le treillis, c'est retirer délibérément les arêtes
 sous une sorte pour simuler une ontologie incomplète — le cas normal d'un système déployé. Faites-le, puis
@@ -406,17 +419,18 @@ n'ablatent rien par construction — il n'y a pas d'arête sous un refus), et �
 admet **zéro** fausse sur les mêmes flux où la variante sans porte en absorbe l'équivalent de six cellules
 (§6.5).
 
-**Panneau 8 — apprendre un alias de surface.** Les paraphrases fabriquent du vocabulaire sans arrêt : « dé »
-arrive en « dice », « rond » en « circulaire », « fondu » en « liquéfié ». Chaque surface inconnue atterrit
-OOV (panneau 2) et devient une proposition pour le **ring de synonymes** d'une clé du treillis. La porte, ici,
-est contrefactuelle et par-unité : l'alias n'est admis que si le verdict de l'épisode *passe avec lui et
-échoue sans lui* — une ablation exécutée de façon déterministe sur le chemin treillis-pur, à zéro appel
-modèle — puis confirmé à support ≥ 2 sur des ré-usages vérifiés. Sur le flux réel, ceci admet exactement les
-six alias vrais-selon-la-spec que le flux produit (dont deux que personne n'avait plantés — la paraphrase les
-a inventés, la porte les a attrapés quand même), et refuse le rabattement plausible-monde spontané du modèle
-(`aperture/cavity/hole → rond`), que la variante sans porte absorbe définitivement — deux réponses fausses en
-aval et un ring empoisonné *(figure F6, §6.6 — la timeline du cliquet : UNGATED qui dérive, GATED qui
-convertit les mêmes épisodes en refus typés et en rétractions)*.
+**Panneau 8 — apprendre un alias de surface.** Les paraphrases fabriquent du vocabulaire sans
+arrêt : « dé » arrive en « dice », « rond » en « circulaire », « fondu » en « liquéfié ». Chaque
+surface inconnue atterrit OOV (panneau 2) et devient une proposition pour le **ring de synonymes**
+d'une clé du treillis. La porte, ici, est contrefactuelle et par-unité : l'alias n'est admis que si
+le verdict de l'épisode *passe avec lui et échoue sans lui* — une ablation exécutée de façon
+déterministe sur le chemin treillis-pur, à zéro appel modèle — puis confirmé à support ≥ 2 sur des
+ré-usages vérifiés. Sur le flux réel, ceci admet exactement les six alias vrais-selon-la-spec que le
+flux produit (dont deux que personne n'avait plantés — la paraphrase les a inventés, la porte les a
+attrapés quand même), et refuse le rabattement plausible-monde spontané du modèle
+(`aperture/cavity/hole → rond`), que la variante sans porte absorbe définitivement — deux réponses
+fausses en aval et un ring empoisonné *(figure F6, §6.6 — la timeline du cliquet : UNGATED qui
+dérive, GATED qui convertit les mêmes épisodes en refus typés et en rétractions)*.
 
 **La phrase que l'exemple a été construit pour mériter.** La restriction de slot du panneau 4, l'arête *isa*
 du panneau 7 et l'alias du panneau 8 sont admis par la *même* règle — attribution unique plus vérification —
@@ -458,26 +472,27 @@ classe elle est inutile — `S` plus les exclusions *est* l'hypothèse.
 
 ### 4.2 L'apprenabilité sans négatifs — et sa portée exacte
 
-**La portée d'abord, parce qu'elle sépare le facile du difficile.** Tout ce paragraphe concerne la *sélection de
-coupes* dans un treillis **fixe** ; la *croissance* du treillis (arêtes, alias — la contribution de
-l'article) change la famille d'hypothèses en cours de route, et la garantie à-la-limite devrait être
-ré-établie pour la famille augmentée — nous ne le faisons pas. La couche de croissance ne porte **aucune
-garantie d'identification à la limite** dans cet article : sa soundness est la récupérabilité de §4.5, et son
-évidence est empirique (§6.5–§6.6). C'est cohérent avec §8, et c'est dit ici pour que le théorème ne semble
-pas couvrir ce qu'il ne couvre pas.
+**La portée d'abord, parce qu'elle sépare le facile du difficile.** Tout ce paragraphe concerne la
+*sélection de coupes* dans un treillis **fixe** ; la *croissance* du treillis (arêtes, alias — la
+contribution de l'article) change la famille d'hypothèses en cours de route, et la garantie
+à-la-limite devrait être ré-établie pour la famille augmentée — nous ne le faisons pas. La couche de
+croissance ne porte **aucune garantie d'identification à la limite** dans cet article : sa soundness
+est la récupérabilité de §4.5, et son évidence est empirique (§6.5–§6.6). C'est cohérent avec §8, et
+c'est dit ici pour que le théorème ne semble pas couvrir ce qu'il ne couvre pas.
 
-Revenons donc au treillis fixe. La classe des coupes par slot est **finie**, ce qui lui donne l'élasticité finie
-trivialement ; les théorèmes généraux (Angluin 1980 ; Wright 1989 ; Motoki–Shinohara–Wright 1991 —
-l'élasticité finie se préserve sous unions et conjonctions finies) ne gagneront leur place que le jour où la
-famille *croissante* sera traitée. En conséquence, la classe est identifiable à la limite **depuis les
-données positives seules** ; le résultat négatif de Gold ne s'applique pas — il mord les classes
-superfinies, pas celle-ci. Comme référence idéalisée : pour la sous-classe à *un* littéral par slot,
-`m = O((1/ε)(r·d·ln b + ln(1/δ)))` exemples suffisent en régime i.i.d. (Haussler 1988) — linéaire en
-profondeur `d`, logarithmique en branchement `b` sur `r` slots. Cette formule appelle deux honnêtetés.
-D'une part elle utilise `ln|H| ≈ r·d·ln b`, valable pour une coupe mono-ancêtre par slot — les **coupes
-parallèles** du poset multi-parents de §4.1 grossissent `|H|` bien au-delà. D'autre part son i.i.d. n'est
-pas notre flux en ligne, permuté et corrélé à la compétence. Elle sert de repère, jamais de garantie. Avec
-des négatifs *informatifs*, l'identification exacte ne demande que `O(r·(d+b))` exemples bien placés.
+Revenons donc au treillis fixe. La classe des coupes par slot est **finie**, ce qui lui donne
+l'élasticité finie trivialement ; les théorèmes généraux (Angluin 1980 ; Wright 1989 ;
+Motoki–Shinohara–Wright 1991 — l'élasticité finie se préserve sous unions et conjonctions finies) ne
+gagneront leur place que le jour où la famille *croissante* sera traitée. En conséquence, la classe
+est identifiable à la limite **depuis les données positives seules** ; le résultat négatif de Gold
+ne s'applique pas — il mord les classes superfinies, pas celle-ci. Comme référence idéalisée : pour
+la sous-classe à *un* littéral par slot, `m = O((1/ε)(r·d·ln b + ln(1/δ)))` exemples suffisent en
+régime i.i.d. (Haussler 1988) — linéaire en profondeur `d`, logarithmique en branchement `b` sur `r`
+slots. Cette formule appelle deux honnêtetés. D'une part elle utilise `ln|H| ≈ r·d·ln b`, valable
+pour une coupe mono-ancêtre par slot — les **coupes parallèles** du poset multi-parents de §4.1
+grossissent `|H|` bien au-delà. D'autre part son i.i.d. n'est pas notre flux en ligne, permuté et
+corrélé à la compétence. Elle sert de repère, jamais de garantie. Avec des négatifs *informatifs*,
+l'identification exacte ne demande que `O(r·(d+b))` exemples bien placés.
 
 La conséquence de conception mérite l'accent, parce qu'elle inverse le cadrage habituel : **l'évidence
 négative n'est pas une nécessité logique pour cette classe.** Les positifs identifient à la limite par
@@ -488,17 +503,18 @@ mauvais point fixe, trop large.
 
 ### 4.3 Le bruit qui casse l'élimination de candidats
 
-D'où viennent les négatifs dans un pipeline LLM ? D'une restriction montée dont le contrat d'exécution
-échoue. C'est une **requête d'appartenance** (MQ) au sens d'Angluin, mais dégénérée : unilatérale (seul le « non »
-est informatif, et seulement sur les sortes qui *arrivent*), restreinte à la distribution (pas de requête
-arbitraire), sans oracle d'équivalence. L'absence d'EQ est bénigne — simulable par échantillonnage. Le
-bruit, non.
+D'où viennent les négatifs dans un pipeline LLM ? D'une restriction montée dont le contrat
+d'exécution échoue. C'est une **requête d'appartenance** (MQ) au sens d'Angluin, mais dégénérée :
+unilatérale (seul le « non » est informatif, et seulement sur les sortes qui *arrivent*), restreinte
+à la distribution (pas de requête arbitraire), sans oracle d'équivalence. L'absence d'EQ est bénigne
+— simulable par échantillonnage. Le bruit, non.
 
-Le canal d'échec est le **bruit d'incompétence** : une sorte *valide* se fait étiqueter négative parce que le
-modèle a raté l'épisode pour des raisons qui lui sont propres, pas parce que la sorte viole la restriction.
-Ce bruit est (i) unilatéral — il ne fabrique que des faux négatifs, qui poussent la frontière *vers le bas*,
-vers le sur-resserrement — et (ii) **corrélé à la compétence** — les sortes rares et difficiles échouent
-systématiquement, pas à un taux de bascule fixe. Les deux propriétés comptent :
+Le canal d'échec est le **bruit d'incompétence** : une sorte *valide* se fait étiqueter négative
+parce que le modèle a raté l'épisode pour des raisons qui lui sont propres, pas parce que la sorte
+viole la restriction. Ce bruit est (i) unilatéral — il ne fabrique que des faux négatifs, qui
+poussent la frontière *vers le bas*, vers le sur-resserrement — et (ii) **corrélé à la compétence**
+— les sortes rares et difficiles échouent systématiquement, pas à un taux de bascule fixe. Les deux
+propriétés comptent :
 
 - L'élimination de candidats classique est prouvablement fragile à *tout* exemple mal étiqueté : un seul
   mauvais négatif peut expulser définitivement le concept cible de l'espace de versions (Mitchell). La CE
@@ -521,10 +537,10 @@ systématiquement, pas à un taux de bascule fixe. Les deux propriétés compten
   la barre et sur-resserrent quand même, à K fois le coût, sur des sortes trop rares pour récurrer K fois.
 
 Et l'unilatéralité a une conséquence dynamique que toute conception doit regarder en face : la
-**sur-généralisation s'auto-corrige** (un `S` trop large finira par couvrir une arrivée mauvaise, échouer, et
-être recoupé), mais le **sur-resserrement est auto-scellant** — une sorte rejetée par erreur n'est plus
-jamais montée, donc le positif qui l'innocenterait n'est jamais collecté. L'asymétrie n'est pas cosmétique ;
-elle décide quelles erreurs sont récupérables.
+**sur-généralisation s'auto-corrige** (un `S` trop large finira par couvrir une arrivée mauvaise,
+échouer, et être recoupé), mais le **sur-resserrement est auto-scellant** — une sorte rejetée par
+erreur n'est plus jamais montée, donc le positif qui l'innocenterait n'est jamais collecté.
+L'asymétrie n'est pas cosmétique ; elle décide quelles erreurs sont récupérables.
 
 ### 4.4 La porte
 
@@ -534,10 +550,11 @@ Le remède principiel n'est pas un modèle de bruit mais l'assignation de crédi
 > `attribution(e) = {u}` — le succès ou l'échec est uniquement attribuable à `u` — **et** `verify(e)` tient
 > contre l'oracle déclaré.
 
-Côté blâme, le mécanisme est le suivant : un échec d'épisode ne devient un négatif pour le slot `i` que lorsque le contrat
-d'exécution **localise l'atome violé** sur `i` — tous les atomes en défaut pointent le même rôle. Un échec
-dont les causes forment une disjonction (plusieurs slots possibles, ou n'importe quel inconnu co-présent,
-tel qu'un mot OOV non résolu) est **jeté**, jamais sous-pondéré.
+Côté blâme, le mécanisme est le suivant : un échec d'épisode ne devient un négatif pour le slot `i`
+que lorsque le contrat d'exécution **localise l'atome violé** sur `i` — tous les atomes en défaut
+pointent le même rôle. Un échec dont les causes forment une disjonction (plusieurs slots possibles,
+ou n'importe quel inconnu co-présent, tel qu'un mot OOV non résolu) est **jeté**, jamais
+sous-pondéré.
 
 L'effet est structurel. Une requête d'appartenance bruitée sur la conjonction entière devient une requête
 propre sur le seul littéral responsable : sur les négatifs admis, l'oracle bruité (le modèle) est *remplacé*
@@ -559,17 +576,18 @@ grains se distribuent dessus (la *dualité* formelle, elle, est réservée au co
 - **(α) La provenance structurelle** — l'atome porte une étiquette qui nomme son unité (provenance de
   postcondition par slot, frappée à la déclaration de la structure). Là où la structure sait nommer l'unité,
   l'attribution est une consultation.
-- **(β) L'ablation contrefactuelle** — le verdict change ssi l'unité change : `verdict(P) ∧ ¬verdict(P∖{u})`,
-  évaluée de façon déterministe sur le chemin treillis-pur, replis désactivés (un chemin de repli redondant
-  masquerait la décisivité). L'esprit est l'intervention de Pearl ; la garantie, elle, est un énoncé
-  d'analyse de programme — un contrefactuel déterministe à cas unique, pas un do-effet distributionnel.
+- **(β) L'ablation contrefactuelle** — le verdict change ssi l'unité change : `verdict(P) ∧
+  ¬verdict(P∖{u})`, évaluée de façon déterministe sur le chemin treillis-pur, replis désactivés (un
+  chemin de repli redondant masquerait la décisivité). L'esprit est l'intervention de Pearl ; la
+  garantie, elle, est un énoncé d'analyse de programme — un contrefactuel déterministe à cas unique,
+  pas un do-effet distributionnel.
 
 Les restrictions de slot emploient α ; l'admission d'arêtes *isa* emploie α plus la vérification ;
-l'admission d'alias emploie **les deux** — α comme provenance de crédit vers l'avant, β comme test de
-décisivité par-unité. α et β ont des bases de soundness différentes (une étiquette frappée à la déclaration ;
-une décisivité exercée à l'épisode) : ce sont deux mécanismes d'attribution qui déchargent le même prédicat
-d'admission. La revendication d'unification se situe au niveau de l'**invariant** (attribution unique ∧
-vérification), jamais de l'implémentation.
+l'admission d'alias emploie **les deux** — α comme provenance de crédit vers l'avant, β comme test
+de décisivité par-unité. α et β ont des bases de soundness différentes (une étiquette frappée à la
+déclaration ; une décisivité exercée à l'épisode) : ce sont deux mécanismes d'attribution qui
+déchargent le même prédicat d'admission. La revendication d'unification se situe au niveau de
+l'**invariant** (attribution unique ∧ vérification), jamais de l'implémentation.
 
 ![F5 — une porte, trois grains](../figures/f5-gate-three-grains.fr.svg)
 
@@ -591,27 +609,29 @@ L'enveloppe qui borne ce trou est à deux étages, et défaisable :
 - **Confirmée à support ≥ 2** sur des épisodes à facteurs orthogonaux *différents* (ré-exposition
   dé-confondue), via le crédit de ré-usage vérifié — et *confirmée* veut encore dire *défaisable* : un blâme
   localisé ultérieur rétracte ;
-- **L'admissibilité du blâme reflète celle du crédit** : un épisode à cause inconnue co-présente (un trou OOV
-  dans la structure même que l'on score) ne localise rien, donc il ne peut ni créditer ni blâmer — sans cette
-  règle, un alias appris *correct* a oscillé admis↔rétracté sous l'attrition de paraphrase dans nos runs
-  (§6.6) ; c'est ainsi que la règle a gagné sa place dans la bibliothèque plutôt qu'en note de bas de page.
+- **L'admissibilité du blâme reflète celle du crédit** : un épisode à cause inconnue co-présente (un
+  trou OOV dans la structure même que l'on score) ne localise rien, donc il ne peut ni créditer ni
+  blâmer — sans cette règle, un alias appris *correct* a oscillé admis↔rétracté sous l'attrition de
+  paraphrase dans nos runs (§6.6) ; c'est ainsi que la règle a gagné sa place dans la bibliothèque
+  plutôt qu'en note de bas de page.
 
-Une limite de cette enveloppe doit être promue au rang qu'elle mérite : **c'est le problème ouvert de cette
-admission.** La ré-exposition dé-confondue neutralise les confonds *indépendants* — deux épisodes dont les
-facteurs orthogonaux diffèrent ne reproduisent pas le même accident. Or l'adversaire de §4.3 est
-*systématique et corrélé à la compétence* : un biais que le modèle reproduit à chaque épisode (proposition et
-ajustement-au-verdict sortent du même modèle-monde) peut passer la confirmation à support ≥ 2. Nos zéros
-empiriques montrent que ce taux de confond systématique est *bas sur ces flux* ; ils ne sont pas une borne,
-et se lisent en règle de trois (Hanley–Lippman-Hand) : zéro faux sur N expositions borne le taux à < 3/N à
-95 % — jamais à zéro. Le dé-confondement *fort* (un vérifieur indépendant du proposeur, d'une autre famille
-de modèles) est le premier item de travaux futurs.
+Une limite de cette enveloppe doit être promue au rang qu'elle mérite : **c'est le problème ouvert
+de cette admission.** La ré-exposition dé-confondue neutralise les confonds *indépendants* — deux
+épisodes dont les facteurs orthogonaux diffèrent ne reproduisent pas le même accident. Or
+l'adversaire de §4.3 est *systématique et corrélé à la compétence* : un biais que le modèle
+reproduit à chaque épisode (proposition et ajustement-au-verdict sortent du même modèle-monde) peut
+passer la confirmation à support ≥ 2. Nos zéros empiriques montrent que ce taux de confond
+systématique est *bas sur ces flux* ; ils ne sont pas une borne, et se lisent en règle de trois
+(Hanley–Lippman-Hand) : zéro faux sur N expositions borne le taux à < 3/N à 95 % — jamais à zéro. Le
+dé-confondement *fort* (un vérifieur indépendant du proposeur, d'une autre famille de modèles) est
+le premier item de travaux futurs.
 
-La soundness, telle que vendue dans cet article, est donc la **récupérabilité** : aucune admission n'est
-irréversible, chaque admission est auditable jusqu'à l'épisode qui l'a produite, et le chemin d'empoisonnement
-qui n'exige plus aucune interaction — la signature NELL — est fermé. La direction auto-scellante (§4.3) est
-traitée par la politique duale : **l'optimisme sous incertitude** — les sortes rejetées sont remontées à
-horizon doublant, si bien qu'un faux blâme coûte des montures supplémentaires plutôt qu'une vérité expulsée à
-jamais. §5 chiffre les deux politiques.
+La soundness, telle que vendue dans cet article, est donc la **récupérabilité** : aucune admission
+n'est irréversible, chaque admission est auditable jusqu'à l'épisode qui l'a produite, et le chemin
+d'empoisonnement qui n'exige plus aucune interaction — la signature NELL — est fermé. La direction
+auto-scellante (§4.3) est traitée par la politique duale : **l'optimisme sous incertitude** — les
+sortes rejetées sont remontées à horizon doublant, si bien qu'un faux blâme coûte des montures
+supplémentaires plutôt qu'une vérité expulsée à jamais. §5 chiffre les deux politiques.
 
 ### 4.6 Le dual du crédit
 
@@ -631,10 +651,10 @@ converge vers la coupe d'évidence.
 
 ## 5. Le laboratoire déterministe
 
-Avant qu'aucun modèle n'entre dans la boucle, la règle d'apprentissage elle-même passe au banc : du code pur,
-zéro GPU, des attendus exacts pré-enregistrés, des flux permutés. La question n'est pas de savoir si la règle
-*fonctionne* — §4.2 dit que la LGG seule identifie à la limite — mais ce que la porte *achète et coûte* face
-à ses alternatives non-saines, cellule par cellule, jamais en moyenne.
+Avant qu'aucun modèle n'entre dans la boucle, la règle d'apprentissage elle-même passe au banc : du
+code pur, zéro GPU, des attendus exacts pré-enregistrés, des flux permutés. La question n'est pas de
+savoir si la règle *fonctionne* — §4.2 dit que la LGG seule identifie à la limite — mais ce que la
+porte *achète et coûte* face à ses alternatives non-saines, cellule par cellule, jamais en moyenne.
 
 Parce que l'article compare beaucoup de bras, les voici tous, une ligne chacun :
 
@@ -688,30 +708,31 @@ Quatre dynamiques étaient prédites ; les quatre sont mesurées dans chaque cel
    par cellule, concentrées exactement sur les sortes rares que N1 a frappées — et ne les récupère jamais.
    B à ρ=0 : zéro. C'est l'asymétrie de §4.3 rendue visible, et c'est la réponse mesurée à « pourquoi ne pas
    simplement compter tous les échecs comme négatifs ».
-4. **Le faux-blâme dégrade B ; l'optimisme le récupère, à prime visible.** À ρ>0, B scelle des bonnes-rares
-   (3 par cellule) ; D finit avec ≤ scellées (2–3) au prix de 2 montures supplémentaires et d'une
-   sur-généralisation de 5–6 contre 4. L'assurance n'est pas gratuite — et à ρ=0, D ≡ B : la prime ne se paie
-   que lorsqu'il y a quelque chose à assurer.
+4. **Le faux-blâme dégrade B ; l'optimisme le récupère, à prime visible.** À ρ>0, B scelle des
+   bonnes-rares (3 par cellule) ; D finit avec ≤ scellées (2–3) au prix de 2 montures
+   supplémentaires et d'une sur-généralisation de 5–6 contre 4. L'assurance n'est pas gratuite — et
+   à ρ=0, D ≡ B : la prime ne se paie que lorsqu'il y a quelque chose à assurer.
 
 Une dynamique non prévue est consignée, parce qu'elle reviendra dans les métriques live : à ρ>0, la
-sur-généralisation de B *descend* (8→4) — un mauvais scellement sur une bonne-rare refuse collatéralement les
-événements mauvais qui portent cette sorte sur l'autre slot. Un faux blâme peut « protéger » par accident
-tout en gonflant le sur-resserrement. Morale : les deux compteurs d'erreur se lisent toujours ensemble ;
-chacun, seul, peut être flatté par l'échec de l'autre.
+sur-généralisation de B *descend* (8→4) — un mauvais scellement sur une bonne-rare refuse
+collatéralement les événements mauvais qui portent cette sorte sur l'autre slot. Un faux blâme peut
+« protéger » par accident tout en gonflant le sur-resserrement. Morale : les deux compteurs d'erreur
+se lisent toujours ensemble ; chacun, seul, peut être flatté par l'échec de l'autre.
 
 ### 5.3 Le dual du crédit, chiffré — 108/108 vérifications exactes, 18 cellules
 
-Même discipline, polarité inverse. Les flux sont construits avec des **succès côté-zéro** — PASS global alors
-qu'un slot n'a rien apparié (la signature observée pour de vrai en conditions réelles : un épisode de
-comparaison dont un côté est vide parce que l'entité demandée est absente de la donnée). Bras : P-glob (le
-succès crédite les deux slots) contre P-loc (crédit seulement à travers la provenance par-atome exercée) ; la
-porte de blâme est active et identique dans les deux bras — ce qui est en soi un résultat : **le poison du
-crédit ne se rattrape pas par le canal du blâme** sur ces flux. Résultats : les admissions non vérifiées de
-P-glob égalent le nombre d'événements côté-zéro, et son `S` se soulève vers la coupe trop large ; P-loc
-n'admet rien d'indû et converge vers la coupe d'évidence, au prix d'un retard transitoire d'une arrivée par
-événement côté-zéro, à points d'arrivée égaux dès la première évidence exercée. Le flux de contrôle sans
-côté-zéro rend les bras bit-identiques — c'est la divergence, pas le mécanisme, qui crée l'écart, exactement
-comme en §5.1.
+Même discipline, polarité inverse. Les flux sont construits avec des **succès côté-zéro** — PASS
+global alors qu'un slot n'a rien apparié (la signature observée pour de vrai en conditions réelles :
+un épisode de comparaison dont un côté est vide parce que l'entité demandée est absente de la
+donnée). Bras : P-glob (le succès crédite les deux slots) contre P-loc (crédit seulement à travers
+la provenance par-atome exercée) ; la porte de blâme est active et identique dans les deux bras — ce
+qui est en soi un résultat : **le poison du crédit ne se rattrape pas par le canal du blâme** sur
+ces flux. Résultats : les admissions non vérifiées de P-glob égalent le nombre d'événements
+côté-zéro, et son `S` se soulève vers la coupe trop large ; P-loc n'admet rien d'indû et converge
+vers la coupe d'évidence, au prix d'un retard transitoire d'une arrivée par événement côté-zéro, à
+points d'arrivée égaux dès la première évidence exercée. Le flux de contrôle sans côté-zéro rend les
+bras bit-identiques — c'est la divergence, pas le mécanisme, qui crée l'écart, exactement comme en
+§5.1.
 
 ### 5.4 L'enveloppe d'échec de la porte elle-même — contrôle déterministe, 12/12
 
@@ -727,16 +748,16 @@ que l'enveloppe le borne — ce qui est précisément la sémantique de récupé
 
 ## 6. L'existence en conditions réelles
 
-Le laboratoire chiffre la règle ; le niveau live demande si le circuit entier — extraction, canonicalisation,
-décision de treillis, refus, défaisance, et les deux grains d'apprentissage — tient ensemble quand un vrai
-modèle fournit chaque entrée bruitée. Un seul modèle embarqué joue tous les rôles (extracteur, paraphraseur,
-proposeur, et la référence DIRECT) : un modèle open-weights de 27 milliards de paramètres quantisé à 2 bits,
-exécuté localement, budget de raisonnement 0 sauf mention (noté rb). Chaque épisode est mémoïsé durablement :
-tous les résultats se rejouent bit-à-bit. Le parcours : le protocole (§6.1), la constance et les deux
-apprentissages sur instances fraîches (§6.2), le durcissement des oracles (§6.3), le volume sur trois
-domaines (§6.4), puis les deux références de dérive — le cliquet des arêtes (§6.5) et le ring des alias
-(§6.6). La généralité de ces résultats *à travers les extracteurs* est mesurée séparément, sur neuf modèles,
-en §7.4.
+Le laboratoire chiffre la règle ; le niveau live demande si le circuit entier — extraction,
+canonicalisation, décision de treillis, refus, défaisance, et les deux grains d'apprentissage —
+tient ensemble quand un vrai modèle fournit chaque entrée bruitée. Un seul modèle embarqué joue tous
+les rôles (extracteur, paraphraseur, proposeur, et la référence DIRECT) : un modèle open-weights de
+27 milliards de paramètres quantisé à 2 bits, exécuté localement, budget de raisonnement 0 sauf
+mention (noté rb). Chaque épisode est mémoïsé durablement : tous les résultats se rejouent
+bit-à-bit. Le parcours : le protocole (§6.1), la constance et les deux apprentissages sur instances
+fraîches (§6.2), le durcissement des oracles (§6.3), le volume sur trois domaines (§6.4), puis les
+deux références de dérive — le cliquet des arêtes (§6.5) et le ring des alias (§6.6). La généralité
+de ces résultats *à travers les extracteurs* est mesurée séparément, sur neuf modèles, en §7.4.
 
 ### 6.1 Le protocole
 
@@ -756,10 +777,10 @@ Trois bras les parcourent :
 - **ABLATED** — arêtes de la sorte retirées : doit échouer fermé, puis les apprendre à travers la porte ;
 - **DIRECT** — le modèle répond seul, même prose paraphrasée.
 
-La prose est toujours paraphrasée par le modèle —
-la surface n'est jamais la nôtre. Là où l'oracle est le treillis déclaré lui-même, la circularité est assumée
-et dite : ces cellules mesurent la *division du travail* (extraction × match × fail-closed × apprentissage),
-pas la connaissance du monde ; l'oracle externe vit en §7.
+La prose est toujours paraphrasée par le modèle — la surface n'est jamais la nôtre. Là où l'oracle
+est le treillis déclaré lui-même, la circularité est assumée et dite : ces cellules mesurent la
+*division du travail* (extraction × match × fail-closed × apprentissage), pas la connaissance du
+monde ; l'oracle externe vit en §7.
 
 ### 6.2 Constance, défaisance, apprentissage d'arêtes
 
@@ -791,12 +812,12 @@ question : le refus, la fidélité, l'auditabilité et l'apprenabilité.
 
 ### 6.3 Durcir les oracles — et ce que cela a révélé sur les deux régimes
 
-Une première lecture de V3 (« le modèle hallucine sur l'aucun-match ») n'a pas survécu à notre propre examen,
-et la correction est plus intéressante que la cellule d'origine. Raisonnement activé, les réponses V3 du
-modèle sont *plausibles-monde* : une pyramide canonique a bien une base carrée (« elle rentre base la
-première ») ; les fougères vivent bel et bien en terrarium. Ces oracles étaient contestables ; nous les avons
-durcis jusqu'à ce qu'aucune échappatoire plausible-monde ne subsiste — et l'effondrement de l'artefact est
-rapporté comme tel :
+Une première lecture de V3 (« le modèle hallucine sur l'aucun-match ») n'a pas survécu à notre
+propre examen, et la correction est plus intéressante que la cellule d'origine. Raisonnement activé,
+les réponses V3 du modèle sont *plausibles-monde* : une pyramide canonique a bien une base carrée
+(« elle rentre base la première ») ; les fougères vivent bel et bien en terrarium. Ces oracles
+étaient contestables ; nous les avons durcis jusqu'à ce qu'aucune échappatoire plausible-monde ne
+subsiste — et l'effondrement de l'artefact est rapporté comme tel :
 
 | cellule durcie | SYS | DIRECT rb=0 | DIRECT raisonnement |
 |---|---|---|---|
@@ -804,14 +825,15 @@ rapporté comme tel :
 | V3h-animaux (terrarium retiré) | **6/6 none** | 4/6 (2 hallucinations) | 4/6 (2 hallucinations) |
 | V5h-remap (dégonflé : rond→fente plate, gold positif) | **9/9** (6 rétracte+remappe · 3 bénins) | 3/9 | 3/9 |
 
-Deux résultats portent jusque dans chaque section ultérieure. D'abord, la cellule de refus qui survit
-(V3h-animaux) est non-vide et incontestable : toute échappatoire retirée, le modèle direct fabrique encore un
-placement dans 2 cas sur 6 — **dans les deux régimes de raisonnement** — là où le chemin typé refuse 6 fois
-sur 6. Ensuite, et plus généralement : le raisonnement répare les cellules de *connaissance* du modèle, pas
-ses cellules de *fidélité*. L'énoncé propre du contraste n'est pas « le modèle hallucine » ; c'est **« le
-modèle suit la plausibilité-monde ; le chemin typé suit la spécification déclarée — dans les deux
-régimes. »** Ce recadrage renforce la lecture gouvernance de la revendication (la fidélité à une ontologie
-déclarée est ce dont un déploiement encadré a besoin), et c'est le recadrage honnête.
+Deux résultats portent jusque dans chaque section ultérieure. D'abord, la cellule de refus qui
+survit (V3h-animaux) est non-vide et incontestable : toute échappatoire retirée, le modèle direct
+fabrique encore un placement dans 2 cas sur 6 — **dans les deux régimes de raisonnement** — là où le
+chemin typé refuse 6 fois sur 6. Ensuite, et plus généralement : le raisonnement répare les cellules
+de *connaissance* du modèle, pas ses cellules de *fidélité*. L'énoncé propre du contraste n'est pas
+« le modèle hallucine » ; c'est **« le modèle suit la plausibilité-monde ; le chemin typé suit la
+spécification déclarée — dans les deux régimes. »** Ce recadrage renforce la lecture gouvernance de
+la revendication (la fidélité à une ontologie déclarée est ce dont un déploiement encadré a besoin),
+et c'est le recadrage honnête.
 
 ### 6.4 Le volume et un domaine vierge — 300/300 contre 245/300
 
@@ -838,12 +860,13 @@ classes que l'architecture prédit — le vocabulaire de surface vers le ring, l
 canonicalisation, et jamais une mauvaise monture silencieuse. C'est une évidence sur la *forme* de la
 conception, pas seulement sur ses chiffres.
 
-Deux réserves méritent d'être dites. D'abord, V5 reste à n=3 par cellule — de l'existence, pas un taux. Ensuite, la lecture
-honnête des cellules parfaites : l'intervalle du pool agrège 16 cellules non-échangeables (dont quatre à
-n=3), et une cellule parfaite ne démontre jamais un taux nul. En règle de trois (Hanley–Lippman-Hand),
-0 échec sur 24 borne le vrai taux d'échec à ≤ 12 % (95 %, unilatéral), 0 sur 6 à ≤ 39 %, 0 sur 3 à ≤ 63 %.
-C'est pourquoi l'article ne conclut jamais depuis une seule cellule parfaite, et lit le déficit du direct là
-où il se concentre : le refus, la défaisance et la profondeur.
+Deux réserves méritent d'être dites. D'abord, V5 reste à n=3 par cellule — de l'existence, pas un
+taux. Ensuite, la lecture honnête des cellules parfaites : l'intervalle du pool agrège 16 cellules
+non-échangeables (dont quatre à n=3), et une cellule parfaite ne démontre jamais un taux nul. En
+règle de trois (Hanley–Lippman-Hand), 0 échec sur 24 borne le vrai taux d'échec à ≤ 12 % (95 %,
+unilatéral), 0 sur 6 à ≤ 39 %, 0 sur 3 à ≤ 63 %. C'est pourquoi l'article ne conclut jamais depuis
+une seule cellule parfaite, et lit le déficit du direct là où il se concentre : le refus, la
+défaisance et la profondeur.
 
 ### 6.5 Le cliquet — « le modèle écrit l'arête lui-même » contre la porte
 
@@ -860,14 +883,15 @@ permutations, répondent :
 | prime | — | +1 à +3 appels selon la cellule (quarantaines, refus, un retry) |
 | amortissement | ≤1 proposition/sorte ✓ | identique ✓ — les arêtes correctes s'admettent et servent pareil |
 
-Le bras sans porte reproduit la signature NELL en miniature : des arêtes plausibles-mais-fausses entrent,
-puis répondent aux épisodes suivants à zéro appel, sans plus aucun canal de correction — un dégât *silencieux*,
-celui qu'aucune vérification aval ne voit jamais. La porte admet zéro arête fausse sur les mêmes flux, à
-prime bornée, et — le point d'architecture — les arêtes correctes s'admettent et s'amortissent à
-l'identique : la porte est un cliquet, pas une moyenne. Son unique dégât résiduel remonte à un mot de
-défaiseur arrivé en synonyme imprévu (« fondu » → « liquéfié ») — la quatrième occurrence indépendante du
-même besoin en une soirée (sortes, noms de trous, mots de facette, conditions défaiseuses) — ce qui est
-exactement la motivation pour étendre la porte au grain du vocabulaire.
+Le bras sans porte reproduit la signature NELL en miniature : des arêtes plausibles-mais-fausses
+entrent, puis répondent aux épisodes suivants à zéro appel, sans plus aucun canal de correction — un
+dégât *silencieux*, celui qu'aucune vérification aval ne voit jamais. La porte admet zéro arête
+fausse sur les mêmes flux, à prime bornée, et — le point d'architecture — les arêtes correctes
+s'admettent et s'amortissent à l'identique : la porte est un cliquet, pas une moyenne. Son unique
+dégât résiduel remonte à un mot de défaiseur arrivé en synonyme imprévu (« fondu » → « liquéfié ») —
+la quatrième occurrence indépendante du même besoin en une soirée (sortes, noms de trous, mots de
+facette, conditions défaiseuses) — ce qui est exactement la motivation pour étendre la porte au
+grain du vocabulaire.
 
 ### 6.6 Le ring d'alias appris — la même porte au grain du vocabulaire
 
@@ -893,31 +917,33 @@ Quinze épisodes, trois ordres de flux :
 
 ![F6 — le cliquet, aux deux grains](../figures/f6-ratchet-timeline.fr.svg)
 
-*Figure F6 — le cliquet, généré des traces réelles (ordre 0) : en haut le grain arête (UNGATED absorbe
-`pyramid→square` et `fern→terrestrial`, dégât silencieux ; GATED zéro arête fausse à prime bornée) ; en bas
-la timeline du ring (§6.6), exposition par exposition — les admissions vraies (▲ bleu), le poison absorbé par
-UNGATED seul (▲ rouge, épisodes « détrempés » (waterlogged)), les réponses fausses (✕) converties en refus typés (◇) côté
-GATED, à résolution égale 13 == 13.*
+*Figure F6 — le cliquet, généré des traces réelles (ordre 0) : en haut le grain arête (UNGATED
+absorbe `pyramid→square` et `fern→terrestrial`, dégât silencieux ; GATED zéro arête fausse à prime
+bornée) ; en bas la timeline du ring (§6.6), exposition par exposition — les admissions vraies (▲
+bleu), le poison absorbé par UNGATED seul (▲ rouge, épisodes « détrempés » (waterlogged)), les
+réponses fausses (✕) converties en refus typés (◇) côté GATED, à résolution égale 13 == 13.*
 
-Trois observations donnent son poids à cette table. D'abord, deux des six alias admis n'avaient été plantés
-par personne — la paraphrase les a inventés (sphere→ball, circular-aperture→rond) et la porte les a attrapés
-quand même ; le mécanisme ne dépend pas de savoir d'où viendra son travail. Ensuite, le poison lui-même est arrivé
-par un canal que personne n'avait planté : le modèle rabat spontanément les mots de trou génériques
-(`aperture`, `cavity`, `hole`) sur `rond` — de la pure plausibilité-monde, sur un oracle incontestable (aucune spec ne dit
-nulle part qu'une ouverture est ronde). Le bras sans porte absorbe les trois, dans chaque ordre : deux
-réponses fausses en aval plus un ring définitivement empoisonné — la signature NELL au grain du
-*vocabulaire*, en conditions réelles. Enfin, à résolution égale (13 == 13), **la porte coûte zéro
-disponibilité sur ce flux et convertit les réponses fausses en refus typés** (les deux refus typés de GATED
-sont exactement les deux tâches qu'UNGATED résout *faux*) — l'échange qu'un déploiement gouverné veut faire.
+Trois observations donnent son poids à cette table. D'abord, deux des six alias admis n'avaient été
+plantés par personne — la paraphrase les a inventés (sphere→ball, circular-aperture→rond) et la
+porte les a attrapés quand même ; le mécanisme ne dépend pas de savoir d'où viendra son travail.
+Ensuite, le poison lui-même est arrivé par un canal que personne n'avait planté : le modèle rabat
+spontanément les mots de trou génériques (`aperture`, `cavity`, `hole`) sur `rond` — de la pure
+plausibilité-monde, sur un oracle incontestable (aucune spec ne dit nulle part qu'une ouverture est
+ronde). Le bras sans porte absorbe les trois, dans chaque ordre : deux réponses fausses en aval plus
+un ring définitivement empoisonné — la signature NELL au grain du *vocabulaire*, en conditions
+réelles. Enfin, à résolution égale (13 == 13), **la porte coûte zéro disponibilité sur ce flux et
+convertit les réponses fausses en refus typés** (les deux refus typés de GATED sont exactement les
+deux tâches qu'UNGATED résout *faux*) — l'échange qu'un déploiement gouverné veut faire.
 
-La portée exacte mérite sa propre phrase. C'est la même porte à attribution localisée (§4.4), appliquée inchangée au
-grain du vocabulaire de surface — l'invariant, jamais une identité d'implémentation. Le ring cible la
-variance de surface **exogène** de la prose source ; les faits *émis* par le modèle sont déjà canonicalisés
-par le prompt d'extraction fort, et un ring y serait redondant. La soundness d'admission reste la
-*récupérabilité* : le confond d'épisode de §4.5 existe, et l'enveloppe à deux étages plus le contrôle
-déterministe 12/12 le bornent. Reste un dernier compte : l'attrition de paraphrase — les ré-expositions où la
-paraphrase ne reproduit pas la variante attendue, si bien que l'épisode ne peut ni créditer ni blâmer — a
-consommé 5 des 15 ré-expositions ; elle est comptée et rapportée, jamais silencieuse.
+La portée exacte mérite sa propre phrase. C'est la même porte à attribution localisée (§4.4),
+appliquée inchangée au grain du vocabulaire de surface — l'invariant, jamais une identité
+d'implémentation. Le ring cible la variance de surface **exogène** de la prose source ; les faits
+*émis* par le modèle sont déjà canonicalisés par le prompt d'extraction fort, et un ring y serait
+redondant. La soundness d'admission reste la *récupérabilité* : le confond d'épisode de §4.5 existe,
+et l'enveloppe à deux étages plus le contrôle déterministe 12/12 le bornent. Reste un dernier
+compte : l'attrition de paraphrase — les ré-expositions où la paraphrase ne reproduit pas la
+variante attendue, si bien que l'épisode ne peut ni créditer ni blâmer — a consommé 5 des 15
+ré-expositions ; elle est comptée et rapportée, jamais silencieuse.
 
 ---
 
@@ -965,11 +991,12 @@ apprise (mesuré dans l'article système compagnon [Braun 2026]).
 
 ### 7.2 Le bras à règles statiques
 
-Le repoussoir de la revendication d'apprentissage est le même chemin typé, treillis **gelé** (la configuration
-ProSLM/s(CASP)). Sur treillis déclarés pleins, c'est simplement SYS : 54/54 — l'histoire de soundness des
-pipelines statiques, reproduite. Sur les départs ablatés, il reste à zéro *par construction* — fermé pour
-toujours — là où le circuit à porte récupère 39/39 arêtes et les tâches derrière elles (§6.2). Le delta entre
-ces deux lignes *est* la contribution (c), isolée : tout le reste des deux bras est le même code.
+Le repoussoir de la revendication d'apprentissage est le même chemin typé, treillis **gelé** (la
+configuration ProSLM/s(CASP)). Sur treillis déclarés pleins, c'est simplement SYS : 54/54 —
+l'histoire de soundness des pipelines statiques, reproduite. Sur les départs ablatés, il reste à
+zéro *par construction* — fermé pour toujours — là où le circuit à porte récupère 39/39 arêtes et
+les tâches derrière elles (§6.2). Le delta entre ces deux lignes *est* la contribution (c), isolée :
+tout le reste des deux bras est le même code.
 
 ### 7.3 La validité externe — le chemin typé sur DeFAb
 
@@ -996,32 +1023,34 @@ de connaissance seulement.
 | DIRECT rb=0 | 30/35 | |
 | DIRECT raisonnement | 30/35 | le raisonnement déplace les erreurs ; il ne les corrige pas |
 
-L'attribution compte plus que la marge : **les cinq pertes de DIRECT sont toutes des coupes sur-générales**
-(`no_novel` ×3, `broad` ×2 — des défaiseurs qui tueraient le défaut préservé d'un *autre* individu couvert ;
-le typage par-instance des choix du direct est rejoué du mémo et livré dans l'artefact avec le dépôt).
-C'est exactement la classe d'erreur que la dent de conservativité de la porte interdit *par construction* —
-le mécanisme de l'article, mesuré sur l'oracle de quelqu'un d'autre. L'unique perte de SYS est une paire
-quasi-synonyme *par conception du benchmark* ; nous la rapportons telle quelle — retoucher le prompt pour
-retourner une cellule serait de l'ajustement au gold. Sur le Level-2 (374 instances dev), le sélecteur typé
-score **374/374 à zéro appel** — le régime de leur solveur symbolique — tandis que le chiffre frontière
-publié est 77,2 %, et 19,1 % sous leur modalité de rendu la plus dure ; sur notre rendu propre, même le 27B
-local sature (30/30 échantillonnés), ce qui situe l'échec frontière dans la **variance de rendu, pas dans la
-connaissance** — précisément la variance de surface exogène que la barrière de canonicalisation et le ring
-appris ciblent dans notre propre pipeline. Précisons exactement les réserves : la première tranche publiée du
-benchmark (« tier 0 »), mode sélection (leurs
-chiffres publiés sont en mode génération — non comparables ; notre comparaison est interne, même modèle, même
-protocole) ; leur harnais d'évaluation n'est pas public à l'heure d'écrire, si bien que la sémantique du
-vérifieur a été réimplémentée depuis les champs d'instance et est signalée comme limite de reproduction pour
-le dépôt.
+L'attribution compte plus que la marge : **les cinq pertes de DIRECT sont toutes des coupes
+sur-générales** (`no_novel` ×3, `broad` ×2 — des défaiseurs qui tueraient le défaut préservé d'un
+*autre* individu couvert ; le typage par-instance des choix du direct est rejoué du mémo et livré
+dans l'artefact avec le dépôt). C'est exactement la classe d'erreur que la dent de conservativité de
+la porte interdit *par construction* — le mécanisme de l'article, mesuré sur l'oracle de quelqu'un
+d'autre. L'unique perte de SYS est une paire quasi-synonyme *par conception du benchmark* ; nous la
+rapportons telle quelle — retoucher le prompt pour retourner une cellule serait de l'ajustement au
+gold. Sur le Level-2 (374 instances dev), le sélecteur typé score **374/374 à zéro appel** — le
+régime de leur solveur symbolique — tandis que le chiffre frontière publié est 77,2 %, et 19,1 %
+sous leur modalité de rendu la plus dure ; sur notre rendu propre, même le 27B local sature (30/30
+échantillonnés), ce qui situe l'échec frontière dans la **variance de rendu, pas dans la
+connaissance** — précisément la variance de surface exogène que la barrière de canonicalisation et
+le ring appris ciblent dans notre propre pipeline. Précisons exactement les réserves : la première
+tranche publiée du benchmark (« tier 0 »), mode sélection (leurs chiffres publiés sont en mode
+génération — non comparables ; notre comparaison est interne, même modèle, même protocole) ; leur
+harnais d'évaluation n'est pas public à l'heure d'écrire, si bien que la sémantique du vérifieur a
+été réimplémentée depuis les champs d'instance et est signalée comme limite de reproduction pour le
+dépôt.
 
 ### 7.4 La campagne cross-modèle — trois couches, trois sensibilités
 
-Un seul modèle jouait tous les rôles jusqu'ici — le confond de validité externe le plus évident de l'article.
-Nous avons donc rejoué le protocole live entier (§6–§7), à l'identique et mémo-isolé par modèle, sur **neuf
-modèles locaux** couvrant quatre familles (Qwen, Google, Mistral, Microsoft), trois quantisations d'une même
-famille (2 bits « extrême », 2 bits, 6 bits), deux architectures (denses et mixtures-d'experts à ~3 milliards
-de paramètres actifs) et deux ordres de taille (12 à 35 milliards) — un contrôle de reproduction rejouant
-d'abord le modèle du papier bit-à-bit (le harnais est fidèle) :
+Un seul modèle jouait tous les rôles jusqu'ici — le confond de validité externe le plus évident de
+l'article. Nous avons donc rejoué le protocole live entier (§6–§7), à l'identique et mémo-isolé par
+modèle, sur **neuf modèles locaux** couvrant quatre familles (Qwen, Google, Mistral, Microsoft),
+trois quantisations d'une même famille (2 bits « extrême », 2 bits, 6 bits), deux architectures
+(denses et mixtures-d'experts à ~3 milliards de paramètres actifs) et deux ordres de taille (12 à 35
+milliards) — un contrôle de reproduction rejouant d'abord le modèle du papier bit-à-bit (le harnais
+est fidèle) :
 
 | modèle (famille, quant) | §6.4 SYS | §6.4 DIRECT | mauvaises montures (formes-V3) | DeFAb pur §7.3 | arêtes fausses GATED |
 |---|---|---|---|---|---|
@@ -1107,10 +1136,10 @@ et du ring (§6.5–6.6, où l'oracle est la spec déclarée contre laquelle la 
 (§7.3, oracle tiers).
 
 **La soundness d'admission est la récupérabilité.** Le confond d'épisode (§4.5) est un vrai trou de
-l'admission contrefactuelle à épisode unique ; l'enveloppe à deux étages le borne et le contrôle déterministe
-exerce le cycle complet poison→rétraction→récupération, mais une unité qui ne se re-présente jamais
-dé-confondue peut persister à l'état provisoire. Nous comptons les « admis, jamais ré-exercés » comme un
-compartiment à-risque, plutôt que de prétendre qu'il est vide.
+l'admission contrefactuelle à épisode unique ; l'enveloppe à deux étages le borne et le contrôle
+déterministe exerce le cycle complet poison→rétraction→récupération, mais une unité qui ne se
+re-présente jamais dé-confondue peut persister à l'état provisoire. Nous comptons les « admis,
+jamais ré-exercés » comme un compartiment à-risque, plutôt que de prétendre qu'il est vide.
 
 **Attrition et non-déterminisme.** L'attrition de paraphrase a consommé des ré-expositions dans les runs du
 ring (5/15 — comptées, rapportées) ; le support de confirmation est donc conservateur. Les sorties du modèle
@@ -1186,11 +1215,11 @@ dans F2/F6).
   apprise.
 - **F3** (§3 hôte) — anatomie d'une concept-méthode : forêt de subpaths, slots rôlés, segments de
   qualification parallèles. Source : une méthode cristallisée des artefacts de réutilisation paramétrique.
-- **F4** (§3 P4/P5) — la monture : réussie (params→slots, zéro déclenchement) contre affamée (→ indication typée).
-  Source : traces de monture, les deux issues.
-- **F5** (§4.4) — LA porte, trois colonnes (slot / arête / alias) : même invariant (attribution unique ∧
-  vérification), mécanismes d'attribution α/β marqués par grain. Schématique, mais les trois lignes d'exemple sont
-  de vraies unités admises.
+- **F4** (§3 P4/P5) — la monture : réussie (params→slots, zéro déclenchement) contre affamée (→
+  indication typée). Source : traces de monture, les deux issues.
+- **F5** (§4.4) — LA porte, trois colonnes (slot / arête / alias) : même invariant (attribution
+  unique ∧ vérification), mécanismes d'attribution α/β marqués par grain. Schématique, mais les
+  trois lignes d'exemple sont de vraies unités admises.
 - **F6** (§6.5–6.6) — la timeline du cliquet : UNGATED absorbant des unités fausses et répondant faux à zéro
   appel, contre GATED refusant, mettant en quarantaine, rétractant. Source : RESULTS-ratchet +
   RESULTS-alias-ring, par épisode.
@@ -1201,17 +1230,18 @@ dans F2/F6).
 
 ## Annexe B — Reproductibilité
 
-Les runs principaux utilisent un modèle open-weights embarqué (27 milliards de paramètres, quantisation
-2 bits), budget de raisonnement 0 sauf mention (bras raisonnement : budget 1024, budget de réponse
-dimensionné au-dessus du budget de pensée — un bras précoce qui affamait la réponse est rapporté et écarté
-dans les journaux). La campagne §7.4 rejoue le protocole sur les autres modèles avec le même harnais, chaque
-modèle isolé dans ses propres artefacts de résultats, le mémo durable partagé et clé par modèle ; le backend
-d'inférence est l'implémentation officielle amont, cache KV en pleine précision — audité au niveau du
-processus vivant pour exclure tout build modifié. Chaque appel modèle est mémoïsé durablement (adressage par
-contenu) ; chaque table se rejoue bit-à-bit depuis le mémo livré. Le laboratoire déterministe et les expériences de
-contrôle sont du code pur (zéro GPU). Les données DeFAb sont publiques (MIT) ; le harnais d'évaluation des
-auteurs n'était pas disponible à l'heure d'écrire — notre sémantique de vérifieur est réimplémentée depuis
-les champs d'instance et signalée comme telle (§7.3). [Note v0.1 : structure du bundle d'artefacts + DOI à
+Les runs principaux utilisent un modèle open-weights embarqué (27 milliards de paramètres,
+quantisation 2 bits), budget de raisonnement 0 sauf mention (bras raisonnement : budget 1024, budget
+de réponse dimensionné au-dessus du budget de pensée — un bras précoce qui affamait la réponse est
+rapporté et écarté dans les journaux). La campagne §7.4 rejoue le protocole sur les autres modèles
+avec le même harnais, chaque modèle isolé dans ses propres artefacts de résultats, le mémo durable
+partagé et clé par modèle ; le backend d'inférence est l'implémentation officielle amont, cache KV
+en pleine précision — audité au niveau du processus vivant pour exclure tout build modifié. Chaque
+appel modèle est mémoïsé durablement (adressage par contenu) ; chaque table se rejoue bit-à-bit
+depuis le mémo livré. Le laboratoire déterministe et les expériences de contrôle sont du code pur
+(zéro GPU). Les données DeFAb sont publiques (MIT) ; le harnais d'évaluation des auteurs n'était pas
+disponible à l'heure d'écrire — notre sémantique de vérifieur est réimplémentée depuis les champs
+d'instance et signalée comme telle (§7.3). [Note v0.1 : structure du bundle d'artefacts + DOI à
 finaliser au dépôt.]
 
 ## Références
@@ -1221,11 +1251,12 @@ d'antériorité du 2026-07-03.)*
 
 - Aït-Kaci, H., & Nasr, R. (1986). LOGIN: a logic programming language with built-in inheritance.
   *Journal of Logic Programming* 3(3). [le treillis de sortes]
-- Angluin, D. (1980). Inductive inference of formal languages from positive data. *Information and Control* 45.
+- Angluin, D. (1980). Inductive inference of formal languages from positive data. *Information and
+  Control* 45.
 - Angluin, D. (1988). Queries and concept learning. *Machine Learning* 2.
 - Angluin, D., & Laird, P. (1988). Learning from noisy examples. *Machine Learning* 2.
-- Braun, N. (2026). Defeasible library learning: typed methods with runtime contracts that un-learn on drift.
-  Préprint Zenodo. [l'article système compagnon]
+- Braun, N. (2026). Defeasible library learning: typed methods with runtime contracts that un-learn
+  on drift. Préprint Zenodo. [l'article système compagnon]
 - Cooper, P. A., & Velasquez, A. (2026). DeFAb: a benchmark for defeasible abduction. arXiv:2606.18557.
 - Cropper, A., & Morel, R. (2020). Learning programs by learning from failures (Popper). arXiv:2005.02259.
 - Hocquette, C., Niskanen, A., Järvisalo, M., & Cropper, A. (2024). Learning MDL logic programs from noisy
