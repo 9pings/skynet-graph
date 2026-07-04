@@ -391,6 +391,14 @@ de l'article chiffre cette phrase (§4–§5), puis la défend en conditions ré
 
 ## 4. La couche formelle
 
+Cette section suit les questions dans l'ordre où elles se sont posées en construisant le système. Quels
+objets, d'abord (§4.1). Qu'est-ce qui est apprenable sur ces objets, et dans quelle portée exacte (§4.2) ?
+Cette portée acquise, quel bruit casse l'apprenant classique qu'on voudrait y employer (§4.3) ? Ce bruit
+nommé, pourquoi la localisation est-elle le remède principiel, et qu'achète-t-elle exactement (§4.4) ? Le
+remède posé, que peut encore vouloir dire « sain » une fois son trou résiduel admis (§4.5) ? Et enfin, le
+même raisonnement vaut-il côté succès (§4.6) ? Chaque réponse motive la question suivante — c'est l'étage
+qui permet l'étage.
+
 ### 4.1 Les objets
 
 Fixons un treillis fini de sortes `(L, ⊑)` — *sorte* au sens technique des logiques multi-sortes, jamais au
@@ -839,9 +847,9 @@ GATED, à résolution égale 13 == 13.*
 
 Trois observations donnent son poids à cette table. D'abord, deux des six alias admis n'avaient été plantés
 par personne — la paraphrase les a inventés (sphere→ball, circular-aperture→rond) et la porte les a attrapés
-quand même ; le mécanisme ne dépend pas de savoir d'où viendra son travail. Ensuite, le canal spontané-faux a
-tiré **là où personne ne l'avait planté** : le modèle mappe les mots de trou génériques (`aperture`,
-`cavity`, `hole`) sur `rond` — de la pure plausibilité-monde, sur un oracle incontestable (aucune spec ne dit
+quand même ; le mécanisme ne dépend pas de savoir d'où viendra son travail. Ensuite, le poison lui-même est arrivé
+par un canal que personne n'avait planté : le modèle rabat spontanément les mots de trou génériques
+(`aperture`, `cavity`, `hole`) sur `rond` — de la pure plausibilité-monde, sur un oracle incontestable (aucune spec ne dit
 nulle part qu'une ouverture est ronde). Le bras sans porte absorbe les trois, dans chaque ordre : deux
 réponses fausses en aval plus un ring définitivement empoisonné — la signature NELL au grain du
 *vocabulaire*, en conditions réelles. Enfin, à résolution égale (13 == 13), **la porte coûte zéro
