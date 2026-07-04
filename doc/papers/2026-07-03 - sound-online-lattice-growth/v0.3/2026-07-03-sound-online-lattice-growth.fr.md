@@ -76,7 +76,9 @@ répond juste presque à chaque fois. Demandez-lui de placer une *pyramide* quan
 l'accepte : le même modèle produit une réponse fluide, plausible, et fausse — une pyramide canonique a bel
 et bien une base carrée, et la plausibilité-monde est précisément ce que le modèle optimise. Activer le
 *raisonnement* (le budget de réflexion des modèles récents, que nous noterons rb) ne répare pas ce cas ; il
-le rend plus éloquent. L'échec n'est pas de l'ignorance. C'est que le modèle suit le monde qu'il a lu, et
+le rend plus éloquent.
+
+L'échec n'est pas de l'ignorance. C'est que le modèle suit le monde qu'il a lu, et
 non la spécification qu'on lui a donnée — avec et sans raisonnement (nous le mesurons en §6.3).
 
 Le remède classique consiste à laisser décider une structure symbolique : extraire des faits typés
@@ -227,7 +229,9 @@ moment : coupler un frontal LLM à un moteur de programmation logique. Quatre ja
 
 L'échec documenté : les LLM actuels échouent les révocations défaisables (*overrides*) — ils ne rétractent
 pas un défaut quand un modificateur le défait. Ces évaluations sont des repoussoirs (*foils*) au sens
-strict : elles établissent l'échec que notre démonstration exerce. Parce que cette cellule est à la fois
+strict : elles établissent l'échec que notre démonstration exerce.
+
+Parce que cette cellule est à la fois
 occupée et bien mesurée, *la défaisance est la démonstration de cet article, jamais sa contribution*.
 
 **Bases de connaissances auto-croissantes.** Le troisième voisinage est celui du problème lui-même — les
@@ -277,7 +281,9 @@ ans —
 - le k-DNF robuste par fusion de croyances.
 
 Toute cette famille rend l'élimination de candidats tolérante au bruit en **relâchant la frontière**
-— statistiquement, par vote, approximation ou fusion. Notre mécanisme est orthogonal : la frontière
+— statistiquement, par vote, approximation ou fusion.
+
+Notre mécanisme est orthogonal : la frontière
 reste stricte, et c'est le **canal d'admission** qui filtre — un négatif n'entre que porteur d'une
 attribution structurelle à un littéral unique, vérifiée. De même, l'ablation contrefactuelle
 par-unité (β, §4.4) rejoint la vague récente d'assignation de crédit contrefactuelle/Shapley dans
@@ -301,9 +307,13 @@ d'arêtes de treillis depuis une extraction LLM **avec** un chemin d'admission �
 où la ligne auto-croissante (NELL, DySECT) écrit sans porte et où la ligne vérifiante (TGComplete) vérifie
 sans apprendre ; et (c′) la localisation **comme critère d'admission** rendant l'élimination de candidats
 tolérante au bruit d'incompétence — là où la famille des version spaces bruités relâche la frontière au lieu
-de filtrer le canal. Ce que notre revue n'a trouvé nulle part, c'est le *modèle de bruit* lui-même —
+de filtrer le canal. 
+
+Ce que notre revue n'a trouvé nulle part, c'est le *modèle de bruit* lui-même —
 unilatéral, corrélé à la compétence — nommé comme la raison pour laquelle la tolérance statistique ne
-transfère pas (§4.3). Nous ne revendiquons ni le refus typé, ni les pipelines extraction-décide, ni le
+transfère pas (§4.3). 
+
+Nous ne revendiquons ni le refus typé, ni les pipelines extraction-décide, ni le
 raisonnement défaisable : les trois existent. Nous revendiquons la porte, et le composite mesuré.
 
 ---
@@ -518,7 +528,9 @@ La conséquence de conception mérite l'accent, parce qu'elle inverse le cadrage
 négative n'est pas une nécessité logique pour cette classe.** Les positifs identifient à la limite par
 eux-mêmes. Ce que les négatifs issus des échecs achètent, c'est de la *vitesse* et le *contrôle de la
 frontière* — à quelle allure `S` cesse de sur-généraliser, et s'il converge vers la cible déclarée ou vers
-quelque chose de plus lâche. C'est exactement ce que mesure §5 : le bras LGG-seul *converge* — vers le
+quelque chose de plus lâche.
+
+C'est exactement ce que mesure §5 : le bras LGG-seul *converge* — vers le
 mauvais point fixe, trop large.
 
 ### 4.3 Le bruit qui casse l'élimination de candidats
@@ -560,6 +572,7 @@ Et l'unilatéralité a une conséquence dynamique que toute conception doit rega
 **sur-généralisation s'auto-corrige** (un `S` trop large finira par couvrir une arrivée mauvaise,
 échouer, et être recoupé), mais le **sur-resserrement est auto-scellant** — une sorte rejetée par
 erreur n'est plus jamais montée, donc le positif qui l'innocenterait n'est jamais collecté.
+
 L'asymétrie n'est pas cosmétique ; elle décide quelles erreurs sont récupérables.
 
 ### 4.4 La porte
@@ -583,7 +596,9 @@ admis n'est plus le taux d'incompétence du modèle, mais le **taux de faux-admi
 lui-même** — le confond d'épisode, défini et borné en §4.5, audité, récupérable par rétraction. Ce taux
 n'est pas nul. Et aucun « taux du cas sans bruit » n'est restauré, car §4.2 n'en fournit pas :
 l'identification à la limite est qualitative, et la borne PAC de référence suppose un i.i.d. que le flux
-viole. C'est là tout le tour, et il est délibérément non-statistique.
+viole.
+
+C'est là tout le tour, et il est délibérément non-statistique.
 
 Le filtre a un coût, qu'il faut regarder en face. Les épisodes jetés (non-localisés) se concentrent sur les
 sortes rares et difficiles ; ces sortes collectent donc leurs négatifs propres *plus lentement*. Le biais de
@@ -745,7 +760,9 @@ Quatre dynamiques étaient prédites ; les quatre sont mesurées dans chaque cel
 Une dynamique non prévue est consignée, parce qu'elle reviendra dans les métriques live : à ρ>0, la
 sur-généralisation de B *descend* (8→4) — un mauvais scellement sur une bonne-rare refuse
 collatéralement les événements mauvais qui portent cette sorte sur l'autre slot. Un faux blâme peut
-« protéger » par accident tout en gonflant le sur-resserrement. Morale : les deux compteurs d'erreur
+« protéger » par accident tout en gonflant le sur-resserrement.
+
+Morale : les deux compteurs d'erreur
 se lisent toujours ensemble ; chacun, seul, peut être flatté par l'échec de l'autre.
 
 ### 5.3 Le dual du crédit, chiffré — 108/108 vérifications exactes, 18 cellules
@@ -836,7 +853,9 @@ réelle.
 
 La lecture honnête *en faveur* de la référence mérite sa propre phrase : DIRECT fait 40/54 sur cette table
 (42/54 au rejeu mémo-servi — non-déterminisme inter-processus, §8 ; le mémo livré rejoue 42), donc le modèle
-seul est presque aussi savant. La valeur du chemin typé se concentre précisément là où savoir n'est pas la
+seul est presque aussi savant.
+
+La valeur du chemin typé se concentre précisément là où savoir n'est pas la
 question : le refus, la fidélité, l'auditabilité et l'apprenabilité.
 
 ### 6.3 Durcir les oracles — et ce que cela a révélé sur les deux régimes
@@ -893,7 +912,9 @@ Deux réserves méritent d'être dites. D'abord, V5 reste à n=3 par cellule —
 taux. Ensuite, la lecture honnête des cellules parfaites : l'intervalle du pool agrège 16 cellules
 non-échangeables (dont quatre à n=3), et une cellule parfaite ne démontre jamais un taux nul. En
 règle de trois (Hanley–Lippman-Hand), 0 échec sur 24 borne le vrai taux d'échec à ≤ 12 % (95 %,
-unilatéral), 0 sur 6 à ≤ 39 %, 0 sur 3 à ≤ 63 %. C'est pourquoi l'article ne conclut jamais depuis
+unilatéral), 0 sur 6 à ≤ 39 %, 0 sur 3 à ≤ 63 %.
+
+C'est pourquoi l'article ne conclut jamais depuis
 une seule cellule parfaite, et lit le déficit du direct là où il se concentre : le refus, la
 défaisance et la profondeur.
 
@@ -916,7 +937,9 @@ Le bras sans porte reproduit la signature NELL en miniature : des arêtes plausi
 entrent, puis répondent aux épisodes suivants à zéro appel, sans plus aucun canal de correction — un
 dégât *silencieux*, celui qu'aucune vérification aval ne voit jamais. La porte admet zéro arête
 fausse sur les mêmes flux, à prime bornée, et — le point d'architecture — les arêtes correctes
-s'admettent et s'amortissent à l'identique : la porte est un cliquet, pas une moyenne. Son unique
+s'admettent et s'amortissent à l'identique : la porte est un cliquet, pas une moyenne.
+
+Son unique
 dégât résiduel remonte à un mot de défaiseur arrivé en synonyme imprévu (« fondu » → « liquéfié ») —
 la quatrième occurrence indépendante du même besoin en une soirée (sortes, noms de trous, mots de
 facette, conditions défaiseuses) — ce qui est exactement la motivation pour étendre la porte au
@@ -1013,7 +1036,9 @@ vient ensuite, et elle est structurelle. Le contexte paie un appel modèle par �
 se mémoïse à zéro appel, avec piste d'audit et apprentissage localisé. Le temps de mur raconte la même
 histoire : le poste lent de toutes nos mesures est le bras LLM-par-épisode — jusqu'à ~12 s par appel en
 raisonnement authentique sur cette pile — quand le chemin typé en régime établi est mémo-servi en un temps
-voisin de zéro. Et l'économie se généralise : une ontologie portée dans le prompt est un coût récurrent qui
+voisin de zéro.
+
+Et l'économie se généralise : une ontologie portée dans le prompt est un coût récurrent qui
 grandit avec ce que le système sait ; une ontologie portée dans la bibliothèque est un actif — le savoir
 s'accumule hors de la fenêtre de contexte, et le contexte par appel reste borné quelle que soit la quantité
 apprise (mesuré dans l'article système compagnon [Braun 2026]).
@@ -1055,11 +1080,15 @@ de connaissance seulement.
 L'attribution compte plus que la marge : **les cinq pertes de DIRECT sont toutes des coupes
 sur-générales** (`no_novel` ×3, `broad` ×2 — des défaiseurs qui tueraient le défaut préservé d'un
 *autre* individu couvert ; le typage par-instance des choix du direct est rejoué du mémo et livré
-dans l'artefact avec le dépôt). C'est exactement la classe d'erreur que la dent de conservativité de
+dans l'artefact avec le dépôt).
+
+C'est exactement la classe d'erreur que la dent de conservativité de
 la porte interdit *par construction* — le mécanisme de l'article, mesuré sur l'oracle de quelqu'un
 d'autre. L'unique perte de SYS est une paire quasi-synonyme *par conception du benchmark* ; nous la
 rapportons telle quelle — retoucher le prompt pour retourner une cellule serait de l'ajustement au
-gold. Sur le Level-2 (374 instances dev), le sélecteur typé score **374/374 à zéro appel** — le
+gold.
+
+Sur le Level-2 (374 instances dev), le sélecteur typé score **374/374 à zéro appel** — le
 régime de leur solveur symbolique — tandis que le chiffre frontière publié est 77,2 %, et 19,1 %
 sous leur modalité de rendu la plus dure ; sur notre rendu propre, même le 27B local sature (30/30
 échantillonnés), ce qui situe l'échec frontière dans la **variance de rendu, pas dans la
@@ -1139,7 +1168,9 @@ part, jamais silencieux.
 décide correctement *étant donné* les faits extraits, la porte et le décideur sont invariants, et ce qui
 varie avec la capacité (et la quantisation) de l'extracteur est la **couverture**, qui se dégrade
 gracieusement et fermée-sur-échec (Qwen 300 > gemma 269 > phi-4 265 > Ministral 212 > gemma-12B 79 ;
-l'échelle Qwen IQ2→Q2→Q6 ne produit aucune monture fausse à aucun barreau). Cette campagne renforce la
+l'échelle Qwen IQ2→Q2→Q6 ne produit aucune monture fausse à aucun barreau).
+
+Cette campagne renforce la
 généralité *à travers les extracteurs* — familles, quantisations, architectures, tailles ; elle ne dit rien
 de la généralité *à travers les domaines et les tâches* — la limite de §8, inchangée.
 
