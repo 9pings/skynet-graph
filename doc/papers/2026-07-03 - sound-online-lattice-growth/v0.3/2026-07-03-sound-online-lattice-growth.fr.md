@@ -472,17 +472,22 @@ de l'article chiffre cette phrase (§4–§5), puis la défend en conditions ré
 
 ## 4. La couche formelle
 
-Cette section suit les questions dans l'ordre où elles se sont posées en construisant le système. Quels
-objets, d'abord (§4.1). Qu'est-ce qui est apprenable sur ces objets, et dans quelle portée exacte (§4.2) ?
-Cette portée acquise, quel bruit casse l'apprenant classique qu'on voudrait y employer (§4.3) ? Ce bruit
-nommé, pourquoi la localisation est-elle le remède principiel, et qu'achète-t-elle exactement (§4.4) ? Le
-remède posé, que peut encore vouloir dire « sain » une fois son trou résiduel admis (§4.5) ? Et enfin, le
-même raisonnement vaut-il côté succès (§4.6) ? Chaque réponse motive la question suivante — c'est l'étage
-qui permet l'étage.
+Cette section suit les questions dans l'ordre où elles se sont posées lors de la construction du système :
+
+- quels objets, d'abord (§4.1) ?
+- qu'est-ce qui est apprenable sur ces objets, et dans quelle portée exacte (§4.2) ?
+- cette portée acquise, quel bruit casse l'apprenant classique qu'on voudrait y employer (§4.3) ?
+- ce bruit nommé, pourquoi la localisation est-elle le remède principiel, et qu'achète-t-elle exactement
+  (§4.4) ?
+- le remède posé, que peut encore vouloir dire « sain » une fois son trou résiduel admis (§4.5) ?
+- et enfin, le même raisonnement vaut-il côté succès (§4.6) ?
+
+Chaque réponse motive la question suivante — c'est l'étage qui sert de fondation à l'étage suivant, et
+chaque sous-section rouvre sur sa question.
 
 ### 4.1 Les objets
 
-Fixons un treillis fini de sortes `(L, ⊑)` — *sorte* au sens technique des logiques multi-sortes, jamais au
+La première question : sur quels objets tout se joue-t-il ? Fixons un treillis fini de sortes `(L, ⊑)` — *sorte* au sens technique des logiques multi-sortes, jamais au
 sens courant : le type déclaré d'un objet dans la hiérarchie, l'héritier direct du treillis de sortes de
 LOGIN (Aït-Kaci & Nasr 1986). Dans le moteur, ce sont les concept-sortes sous la subsomption
 `childConcepts` ; formellement, un poset fini où les parents multiples sont permis (les joins ne sont pas
@@ -502,7 +507,8 @@ classe elle est inutile — `S` plus les exclusions *est* l'hypothèse.
 
 ### 4.2 L'apprenabilité sans négatifs — et sa portée exacte
 
-**La portée d'abord, parce qu'elle sépare le facile du difficile.** Tout ce paragraphe concerne la
+Les objets posés, la question devient : qu'est-ce qui est apprenable sur eux, et dans quelle portée
+exacte ? **La portée d'abord, parce qu'elle sépare le facile du difficile.** Tout ce paragraphe concerne la
 *sélection de coupes* dans un treillis **fixe** ; la *croissance* du treillis (arêtes, alias — la
 contribution de l'article) change la famille d'hypothèses en cours de route, et la garantie
 à-la-limite devrait être ré-établie pour la famille augmentée — nous ne le faisons pas. La couche de
@@ -535,7 +541,9 @@ mauvais point fixe, trop large.
 
 ### 4.3 Le bruit qui casse l'élimination de candidats
 
-D'où viennent les négatifs dans un pipeline LLM ? D'une restriction montée dont le contrat
+L'apprenable est cerné ; la question suivante : quel bruit casse l'apprenant classique qu'on voudrait y
+employer ? Pour le voir, partons de la source. D'où viennent les négatifs dans un pipeline LLM ? D'une
+restriction montée dont le contrat
 d'exécution échoue. C'est une **requête d'appartenance** (MQ) au sens d'Angluin, mais dégénérée :
 unilatérale (seul le « non » est informatif, et seulement sur les sortes qui *arrivent*), restreinte
 à la distribution (pas de requête arbitraire), sans oracle d'équivalence. L'absence d'EQ est bénigne
@@ -577,7 +585,9 @@ L'asymétrie n'est pas cosmétique ; elle décide quelles erreurs sont récupér
 
 ### 4.4 La porte
 
-Le remède principiel n'est pas un modèle de bruit mais l'assignation de crédit :
+Le bruit est nommé ; la question devient : pourquoi la localisation est-elle le remède principiel, et
+qu'achète-t-elle exactement ? Le remède principiel n'est pas un modèle de bruit mais l'assignation de
+crédit :
 
 > **Règle d'admission.** Une évidence `e` issue d'un épisode est admissible pour l'unité `u` **ssi**
 > `attribution(e) = {u}` — le succès ou l'échec est uniquement attribuable à `u` — **et** `verify(e)` tient
@@ -633,7 +643,8 @@ contre le poison `aperture→round` (ring, §6.6).*
 
 ### 4.5 Ce que « sain » veut dire ici : la récupérabilité, et son enveloppe à deux étages
 
-Un test d'admission par épisode ne peut pas être sain au sens le plus fort, et nous ne le revendiquons pas.
+Le remède est posé ; reste à savoir ce que « sain » peut encore vouloir dire. Un test d'admission par
+épisode ne peut pas être sain au sens le plus fort, et nous ne le revendiquons pas.
 Le trou résiduel s'appelle le **confond d'épisode**, et il se définit ainsi : une unité fausse peut passer
 un test contrefactuel unique quand la bonne réponse de l'épisode est fixée par un facteur orthogonal que
 l'unité fausse se trouve reproduire par accident. Vérifier la concordance ne suffit pas à l'écarter, parce
@@ -670,7 +681,8 @@ supplémentaires plutôt qu'une vérité expulsée à jamais. §5 chiffre les de
 
 ### 4.6 Le dual du crédit
 
-Le blâme n'est que la moitié de la règle. Nommons d'abord le cas qui piège le crédit : le succès
+Dernière question de la couche formelle : le même raisonnement vaut-il côté succès ? Le blâme n'est que
+la moitié de la règle. Nommons d'abord le cas qui piège le crédit : le succès
 **côté-zéro** — le verdict global de l'épisode passe alors qu'un des slots a travaillé sur zéro donnée (son
 filtre n'a apparié aucune ligne). Ce slot n'a rien démontré sur sa sorte. Un crédit naïf, qui crédite tous
 les slots d'un composite à chaque succès global, généralise pourtant `S` par-dessus : il sur-crédite
