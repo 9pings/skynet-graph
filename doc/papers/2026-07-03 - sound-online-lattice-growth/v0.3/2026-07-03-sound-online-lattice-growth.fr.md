@@ -1147,20 +1147,21 @@ Le verdict tient en trois couches, aux sensibilités opposées :
    Un biais de plausibilité-monde partagé entre familles est exactement le cas où une porte vaut mieux
    qu'un choix de modèle.
 3. **La soundness fermée-sur-échec du bout-en-bout tient sur les quatre familles — après qu'un correctif
-   d'une ligne nous a rappelé qui décide.** L'histoire de ce correctif mérite son propre paragraphe,
+   d'une ligne nous a rappelé qui décide.** Ce que ce correctif démontre mérite son propre paragraphe,
    ci-dessous.
 
-L'histoire du correctif, donc. Au premier passage, gemma et phi-4 produisaient 24 mauvaises montures sur la
-cellule formes-V3 là où Qwen refusait 24/24. La trace mémo (rejouable, zéro GPU) a localisé la cause : notre
-matcher violait sa propre doctrine de §3 P4 — le repli sur la facette explicite tirait aussi pour les sortes
-*en-vocabulaire*, si bien que le `category="carré"` plausible-monde que ces extracteurs écrivent pour une
-pyramide fuyait en monture. Qwen y échappait par un accident de style (il laisse la facette vide). Une garde
-d'une ligne — repli explicite *seulement* si la sorte est OOV, la doctrine telle qu'énoncée — ramène les
-quatre familles à **zéro mauvaise monture**, sans régression Qwen. La leçon vaut d'être écrite : c'est le
-*chemin déterministe*, pas le modèle, qui porte la soundness — et seule une famille d'extracteurs
-*différente* pouvait exposer l'écart entre la doctrine énoncée et son implémentation. Un système dont la
-spec est déclarée se corrige en corrigeant une ligne ; un modèle dont la plausibilité fuit ne se corrige
-pas.
+Ce correctif est un résultat, pas une anecdote, et voici ce qu'il démontre. Au premier passage, gemma et
+phi-4 produisaient 24 mauvaises montures sur la cellule formes-V3 là où Qwen refusait 24/24 — même
+pipeline, mêmes règles ; la trace mémoïsée, rejouable à zéro GPU, a localisé la cause hors des modèles (le
+repli sur la facette explicite tirait aussi pour les sortes *en-vocabulaire*, contre la doctrine de §3 P4 ;
+Qwen n'y échappait que par un accident de style, il laisse la facette vide) ; une garde d'une ligne — la
+doctrine telle qu'énoncée — ramène les quatre familles à **zéro mauvaise monture**, sans régression. Trois
+choses sont ainsi démontrées, et chacune porte au-delà de l'épisode. La soundness vit dans le *chemin
+déterministe*, pas dans le modèle : corriger une ligne corrige quatre familles — un modèle dont la
+plausibilité fuit ne se corrige pas. Seul un extracteur d'une *autre famille* pouvait exposer l'écart entre
+la doctrine énoncée et son implémentation : c'est l'argument méthodologique pour la validation cross-modèle
+elle-même. Et le diagnostic entier a été conduit sur la trace mémoïsée, sans un appel GPU : la discipline
+des faits typés paie exactement là où elle promettait de payer.
 
 Les trois dernières lignes de la table ajoutent l'axe architecture et l'axe taille. Deux mixtures-d'experts
 (~3 milliards de paramètres actifs) tiennent les trois couches, à couverture moyenne. Le cas le plus

@@ -621,7 +621,7 @@ fausse — la défaisance qui manque aux références.
 
 **Exécution durable et réseaux de workflow.** Un cas est un marquage 1-sûr non coloré sur un réseau
 de workflow [van der Aalst 1998] ; l'exécuteur durable qui fait tourner les méthodes validées à
-l'échelle est un artefact connu [AWS 2022; Prefect; Skiadopoulos et al. 2022]. Notre vue-croyance se
+l'échelle est un artefact connu [AWS 2022; Prefect; Skiadopoulos et al. 2021]. Notre vue-croyance se
 situe au-dessus ; nous ne réinventons pas la plomberie.
 
 **Maintenance incrémentale de vues et invalidation de cache.** DBSP [Budiu et al. 2023] /
