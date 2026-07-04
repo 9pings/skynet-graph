@@ -82,9 +82,9 @@ Le remède classique consiste à laisser décider une structure symbolique : ext
 prose, les confronter de façon déterministe à une ontologie déclarée, et refuser de façon typée quand rien ne
 correspond. Cette division du travail est ancienne et saine, et les pipelines neurosymboliques récents
 l'implémentent bien (§2). Elle a cependant un coût structurel que ses propres praticiens nomment explicitement ; la
-base de connaissances est un *goulot manuel*. Ce "*goulot manuel*" signifie que chaque sorte, chaque arête de subsomption, chaque synonyme de
-surface doit être écrit à la main. L'échappatoire évidente, naive, laisser le modèle écrire lui-même les arêtes
-manquantes, est une des grande catastrophe documentée du domaine : NELL. NELL est la plus longue expérience de base de
+base de connaissances est un *goulot manuel*. Ce « goulot manuel » signifie que chaque sorte, chaque arête de subsomption, chaque synonyme de
+surface doit être écrit à la main. L'échappatoire évidente, naïve — laisser le modèle écrire lui-même les arêtes
+manquantes —, est une des grandes catastrophes documentées du domaine : NELL. NELL est la plus longue expérience de base de
 connaissances auto-croissante, et elle a dérivé malgré le co-entraînement et la correction humaine périodique; parce
 que rien, dans son chemin d'admission, ne savait distinguer un fait que le monde soutient d'un fait que le
 modèle trouve plausible.
