@@ -84,10 +84,9 @@ correspond. Cette division du travail est ancienne et saine, et les pipelines ne
 l'implémentent bien (§2). Elle a cependant un coût structurel que ses propres praticiens nomment explicitement ; la
 base de connaissances est un *goulot manuel*. Ce « goulot manuel » signifie que chaque sorte, chaque arête de subsomption, chaque synonyme de
 surface doit être écrit à la main. L'échappatoire évidente, naïve — laisser le modèle écrire lui-même les arêtes
-manquantes —, est une des grandes catastrophes documentées du domaine : NELL. NELL est la plus longue expérience de base de
-connaissances auto-croissante, et elle a dérivé malgré le co-entraînement et la correction humaine périodique; parce
-que rien, dans son chemin d'admission, ne savait distinguer un fait que le monde soutient d'un fait que le
-modèle trouve plausible.
+manquantes —, est une des grandes catastrophes documentées du domaine : NELL. NELL fut la plus longue expérience de base de
+connaissances auto-croissante, et elle a dérivé malgré le co-entraînement et la correction humaine périodique, parce
+que rien, dans son chemin d'admission, ne savait distinguer un fait que le monde soutient d'un fait que le modèle trouve plausible.
 
 Cet article porte sur le chemin d'admission. Nous gardons la division du travail (le modèle extrait, le
 treillis décide) et nous y ajoutons la troisième capacité que cette division semblait interdire : **le
@@ -106,11 +105,11 @@ l'article est la chaîne suivante, développée en §4 et chiffrée en §5 :
 
 1. Notre classe d'hypothèses est faite de conjonctions de coupes sur un treillis *isa* fini et fixé — un
    *slot* est un rôle typé d'un schéma de tâche (l'objet à placer, le trou qui reçoit) ; une *coupe* est
-   l'ensemble des sortes qu'un slot admet, clos vers le bas dans le treillis. Cette classe est d'élasticité
-   finie, donc identifiable à la limite depuis les exemples positifs seuls. L'évidence négative n'est *pas*
+   l'ensemble des sortes qu'un slot admet, clos vers le bas dans le treillis. Comme cette classe est d'élasticité
+   finie, elle est donc identifiable à la limite depuis les exemples positifs seuls. Ainsi, l'évidence négative n'est *pas*
    une nécessité logique ; elle achète de la vitesse de convergence et le contrôle de la frontière de
-   généralisation. Cette garantie couvre la *sélection de coupes* dans un treillis donné ; la *croissance* du
-   treillis lui-même relève d'un autre régime, dit en §4.2.
+   généralisation. Notons par ailleurs, à ce propos, que cette garantie couvre la *sélection de coupes* dans un treillis donné ; la *croissance* du
+   treillis quant à elle relève d'un autre régime, que l'on décrira en §4.2.
 2. L'évidence négative qu'un pipeline LLM produit réellement est bruitée de la pire des façons : unilatérale
    (une sorte valide échoue parce que le modèle a été incompétent sur elle, pas parce qu'elle est fausse) et
    corrélée à la compétence (les sortes rares et difficiles échouent systématiquement). Ce n'est pas du bruit
@@ -154,7 +153,7 @@ L'article suit son évidence à travers trois niveaux, du plus contrôlé au plu
 
 Nous énonçons la portée honnêtement dès maintenant : les résultats en conditions réelles sont des résultats
 d'existence, sur des treillis jouets déclarés, à N d'existence dans plusieurs cellules, avec la circularité
-d'oracle que le dispositif implique — dite là où elle existe. Ce que les trois niveaux établissent ensemble,
+d'oracle que le dispositif implique — que nous signalons là où elle existe. Ce que les trois niveaux établissent ensemble,
 c'est que le mécanisme existe, qu'il est chiffré, et qu'il survit au contact d'un oracle tiers — ni qu'il est
 complet, ni que ses constantes sont définitives.
 
@@ -414,7 +413,7 @@ classe elle est inutile — `S` plus les exclusions *est* l'hypothèse.
 
 ### 4.2 L'apprenabilité sans négatifs — et sa portée exacte
 
-**Portée d'abord, parce qu'elle sépare le facile du difficile.** Tout ce paragraphe concerne la *sélection de
+**La portée d'abord, parce qu'elle sépare le facile du difficile.** Tout ce paragraphe concerne la *sélection de
 coupes* dans un treillis **fixe** ; la *croissance* du treillis (arêtes, alias — la contribution de
 l'article) change la famille d'hypothèses en cours de route, et la garantie à-la-limite devrait être
 ré-établie pour la famille augmentée — nous ne le faisons pas. La couche de croissance ne porte **aucune
@@ -422,7 +421,7 @@ garantie d'identification à la limite** dans cet article : sa soundness est la 
 évidence est empirique (§6.5–§6.6). C'est cohérent avec §8, et c'est dit ici pour que le théorème ne semble
 pas couvrir ce qu'il ne couvre pas.
 
-Sur le treillis fixe, donc. La classe des coupes par slot est **finie**, ce qui lui donne l'élasticité finie
+Revenons donc au treillis fixe. La classe des coupes par slot est **finie**, ce qui lui donne l'élasticité finie
 trivialement ; les théorèmes généraux (Angluin 1980 ; Wright 1989 ; Motoki–Shinohara–Wright 1991 —
 l'élasticité finie se préserve sous unions et conjonctions finies) ne gagneront leur place que le jour où la
 famille *croissante* sera traitée. En conséquence, la classe est identifiable à la limite **depuis les
@@ -490,14 +489,14 @@ Le remède principiel n'est pas un modèle de bruit mais l'assignation de crédi
 > `attribution(e) = {u}` — le succès ou l'échec est uniquement attribuable à `u` — **et** `verify(e)` tient
 > contre l'oracle déclaré.
 
-Le mécanisme, côté blâme : un échec d'épisode ne devient un négatif pour le slot `i` que lorsque le contrat
+Côté blâme, le mécanisme est le suivant : un échec d'épisode ne devient un négatif pour le slot `i` que lorsque le contrat
 d'exécution **localise l'atome violé** sur `i` — tous les atomes en défaut pointent le même rôle. Un échec
 dont les causes forment une disjonction (plusieurs slots possibles, ou n'importe quel inconnu co-présent,
 tel qu'un mot OOV non résolu) est **jeté**, jamais sous-pondéré.
 
 L'effet est structurel. Une requête d'appartenance bruitée sur la conjonction entière devient une requête
 propre sur le seul littéral responsable : sur les négatifs admis, l'oracle bruité (le modèle) est *remplacé*
-par un oracle déterministe (le contrat). Ce que cela achète, dit exactement : le bruit sur les négatifs
+par un oracle déterministe (le contrat). Disons exactement ce que cela achète : le bruit sur les négatifs
 admis n'est plus le taux d'incompétence du modèle, mais le **taux de faux-admis du prédicat d'admission
 lui-même** — le confond d'épisode, défini et borné en §4.5, audité, récupérable par rétraction. Ce taux
 n'est pas nul. Et aucun « taux du cas sans bruit » n'est restauré, car §4.2 n'en fournit pas :
@@ -782,7 +781,7 @@ classes que l'architecture prédit — le vocabulaire de surface vers le ring, l
 canonicalisation, et jamais une mauvaise monture silencieuse. C'est une évidence sur la *forme* de la
 conception, pas seulement sur ses chiffres.
 
-Deux réserves, dites. D'abord, V5 reste à n=3 par cellule — de l'existence, pas un taux. Ensuite, la lecture
+Deux réserves méritent d'être dites. D'abord, V5 reste à n=3 par cellule — de l'existence, pas un taux. Ensuite, la lecture
 honnête des cellules parfaites : l'intervalle du pool agrège 16 cellules non-échangeables (dont quatre à
 n=3), et une cellule parfaite ne démontre jamais un taux nul. En règle de trois (Hanley–Lippman-Hand),
 0 échec sur 24 borne le vrai taux d'échec à ≤ 12 % (95 %, unilatéral), 0 sur 6 à ≤ 39 %, 0 sur 3 à ≤ 63 %.
@@ -849,12 +848,12 @@ réponses fausses en aval plus un ring définitivement empoisonné — la signat
 disponibilité sur ce flux et convertit les réponses fausses en refus typés** (les deux refus typés de GATED
 sont exactement les deux tâches qu'UNGATED résout *faux*) — l'échange qu'un déploiement gouverné veut faire.
 
-La portée, dite exactement. C'est la même porte à attribution localisée (§4.4), appliquée inchangée au
+La portée exacte mérite sa propre phrase. C'est la même porte à attribution localisée (§4.4), appliquée inchangée au
 grain du vocabulaire de surface — l'invariant, jamais une identité d'implémentation. Le ring cible la
 variance de surface **exogène** de la prose source ; les faits *émis* par le modèle sont déjà canonicalisés
 par le prompt d'extraction fort, et un ring y serait redondant. La soundness d'admission reste la
 *récupérabilité* : le confond d'épisode de §4.5 existe, et l'enveloppe à deux étages plus le contrôle
-déterministe 12/12 le bornent. Dernier compte : l'attrition de paraphrase — les ré-expositions où la
+déterministe 12/12 le bornent. Reste un dernier compte : l'attrition de paraphrase — les ré-expositions où la
 paraphrase ne reproduit pas la variante attendue, si bien que l'épisode ne peut ni créditer ni blâmer — a
 consommé 5 des 15 ré-expositions ; elle est comptée et rapportée, jamais silencieuse.
 
@@ -879,7 +878,7 @@ dans le prompt, marquée « authoritative », sur les mêmes 54 tâches mémo-se
 | V3 aucun-match, animaux | **3/6** (3 hallucinations) | 0/6 | 6/6 |
 | **total** | **45/54** | 42/54 | **54/54** |
 
-L'honnêteté d'abord : le contexte aide *en moyenne* (45 > 42). Il répare exactement les cellules de
+Commençons par l'honnêteté : le contexte aide *en moyenne* (45 > 42). Il répare exactement les cellules de
 connaissance — V1/V2 remontent à 6/6, et l'exception fournie dans le prompt règle V5. La revendication porte
 sur l'endroit où il échoue, et ses échecs se concentrent sur les cellules mêmes de la revendication, selon
 deux modes distincts, vérifiés sur les sorties brutes. Premier mode : le contexte *induit un bavardage de
@@ -945,7 +944,7 @@ score **374/374 à zéro appel** — le régime de leur solveur symbolique — t
 publié est 77,2 %, et 19,1 % sous leur modalité de rendu la plus dure ; sur notre rendu propre, même le 27B
 local sature (30/30 échantillonnés), ce qui situe l'échec frontière dans la **variance de rendu, pas dans la
 connaissance** — précisément la variance de surface exogène que la barrière de canonicalisation et le ring
-appris ciblent dans notre propre pipeline. Réserves, dites exactement : la première tranche publiée du
+appris ciblent dans notre propre pipeline. Précisons exactement les réserves : la première tranche publiée du
 benchmark (« tier 0 »), mode sélection (leurs
 chiffres publiés sont en mode génération — non comparables ; notre comparaison est interne, même modèle, même
 protocole) ; leur harnais d'évaluation n'est pas public à l'heure d'écrire, si bien que la sémantique du
@@ -1012,7 +1011,7 @@ fausse » se scope aux cellules refus/volume. La cellule de *ré-dérivation* so
 garde un résidu qui grandit quand l'extracteur faiblit (jusqu'à 0/9 pour le 12B) — compté et rapporté à
 part, jamais silencieux.
 
-La portée, dite exactement : la **soundness SYS bout-en-bout est conditionnée à l'extraction** — le treillis
+Énonçons la portée exacte : la **soundness SYS bout-en-bout est conditionnée à l'extraction** — le treillis
 décide correctement *étant donné* les faits extraits, la porte et le décideur sont invariants, et ce qui
 varie avec la capacité (et la quantisation) de l'extracteur est la **couverture**, qui se dégrade
 gracieusement et fermée-sur-échec (Qwen 300 > gemma 269 > phi-4 265 > Ministral 212 > gemma-12B 79 ;
