@@ -24,7 +24,7 @@ Cet article présente la troisième option, et la mesure. La structure d'accueil
 typé** : une hiérarchie de sortes (« une bille est une balle, une balle est une chose ronde ») sur laquelle
 les tâches déclarent leurs exigences. Trois genres d'unités doivent pouvoir y entrer en cours de route : une
 **restriction de slot** (quelles sortes un rôle d'une tâche accepte), une **arête *isa*** (une filiation de
-sortes), un **alias de surface** (un synonyme d'un mot du vocabulaire déclaré). Le besoin est précis : faire
+sortes), et un **alias de surface** (un synonyme d'un mot du vocabulaire déclaré). Le besoin est précis : faire
 croître ces trois unités en ligne, à partir des extractions bruitées d'un petit modèle de langage local,
 sans absorber l'ontologie du modèle. L'instrument est une règle d'admission unique : **une évidence n'est
 admise pour une unité que si son succès ou son échec est uniquement attribuable à cette unité — par
@@ -49,7 +49,7 @@ la variante sans porte absorbe l'ontologie du modèle et répond ensuite faux sa
 correction — la dérive de NELL, reproduite en miniature, puis bloquée. Sur le benchmark tiers DeFAb, le
 chemin typé obtient 34/35 (dont 30/35 sans aucun appel modèle) contre 30/35 pour le modèle direct, et chaque
 perte du direct est une coupe trop générale — la classe d'erreur que la porte interdit par construction. Une
-reproduction sur neuf modèles locaux (quatre familles, trois quantisations, deux architectures) montre que
+reproduction sur neuf modèles locaux (quatre familles, trois quantisations et deux architectures) montre que
 le décideur, la porte et le refus fermé-sur-échec généralisent ; seule la couverture suit la capacité
 d'extraction. Reste l'économie : ce que les pipelines à récupération repaient en contexte à chaque appel, ce
 système le compile une fois en bibliothèque typée, versionnée, auditable à l'épisode — le savoir s'accumule
@@ -133,7 +133,7 @@ l'article est la chaîne suivante, développée en §4 et chiffrée en §5 :
 
 Tout le reste du système est volontairement ancien : les slots rôlés de Fillmore, les espaces de versions de
 Mitchell, un treillis *isa* comme ordre de subsomption, des arêtes défaisables étiquetées source et
-confiance, la rétraction par maintien de vérité. La contribution est le composite et sa porte — et le fait
+confiance, et la rétraction par maintien de vérité. La contribution est le composite et sa porte — et le fait
 que la boucle entière tourne sur un seul petit modèle local.
 
 ### 1.3 Comment l'évidence est organisée
@@ -555,8 +555,8 @@ admission.** La ré-exposition dé-confondue neutralise les confonds *indépenda
 facteurs orthogonaux diffèrent ne reproduisent pas le même accident. Or l'adversaire de §4.3 est
 *systématique et corrélé à la compétence* : un biais que le modèle reproduit à chaque épisode (proposition et
 ajustement-au-verdict sortent du même modèle-monde) peut passer la confirmation à support ≥ 2. Nos zéros
-empiriques montrent que ce taux de confond systématique est *bas sur ces flux* ; ils ne sont pas une borne.
-Ils se lisent en règle de trois (Hanley–Lippman-Hand) : zéro faux sur N expositions borne le taux à < 3/N à
+empiriques montrent que ce taux de confond systématique est *bas sur ces flux* ; ils ne sont pas une borne,
+et se lisent en règle de trois (Hanley–Lippman-Hand) : zéro faux sur N expositions borne le taux à < 3/N à
 95 % — jamais à zéro. Le dé-confondement *fort* (un vérifieur indépendant du proposeur, d'une autre famille
 de modèles) est le premier item de travaux futurs.
 
@@ -729,7 +729,7 @@ réelle.
 La lecture honnête *en faveur* de la référence mérite sa propre phrase : DIRECT fait 40/54 sur cette table
 (42/54 au rejeu mémo-servi — non-déterminisme inter-processus, §8 ; le mémo livré rejoue 42), donc le modèle
 seul est presque aussi savant. La valeur du chemin typé se concentre précisément là où savoir n'est pas la
-question : le refus, la fidélité, l'auditabilité, l'apprenabilité.
+question : le refus, la fidélité, l'auditabilité et l'apprenabilité.
 
 ### 6.3 Durcir les oracles — et ce que cela a révélé sur les deux régimes
 
@@ -785,7 +785,7 @@ honnête des cellules parfaites : l'intervalle du pool agrège 16 cellules non-�
 n=3), et une cellule parfaite ne démontre jamais un taux nul. En règle de trois (Hanley–Lippman-Hand),
 0 échec sur 24 borne le vrai taux d'échec à ≤ 12 % (95 %, unilatéral), 0 sur 6 à ≤ 39 %, 0 sur 3 à ≤ 63 %.
 C'est pourquoi l'article ne conclut jamais depuis une seule cellule parfaite, et lit le déficit du direct là
-où il se concentre : le refus, la défaisance, la profondeur.
+où il se concentre : le refus, la défaisance et la profondeur.
 
 ### 6.5 Le cliquet — « le modèle écrit l'arête lui-même » contre la porte
 

@@ -13,28 +13,29 @@
 ## Résumé
 
 Les agents LLM réutilisent leur travail passé via une mémoire *floue* : la recherche documentaire (RAG), le
-raisonnement à partir de cas (CBR), les bibliothèques de compétences en prose. Toutes rappellent par
-similarité de surface. Aucune ne sait représenter une *prémisse devenue fausse* — le cas que nous appelons la
-**dérive** : le monde change (une réglementation se durcit, un fait est audité et trouvé faux) sans que la
-requête change. La réponse en cache reste alors le plus proche voisin, et elle est servie quand même. Les
-bibliothèques apprises statiques ont le défaut inverse : saines une fois apprises, mais incapables de
-*désapprendre*.
+raisonnement à partir de cas (CBR), ou encore les bibliothèques de compétences en prose. Toutes ces mémoires
+rappellent par similarité de surface — la ressemblance entre la requête et l'entrée stockée, jamais la
+validité de ce qui la justifie ; aucune, donc, ne sait représenter une *prémisse devenue fausse* — le cas que
+nous appelons la **dérive** : le monde change (une réglementation se durcit, un fait est audité et trouvé
+faux) sans que la requête change. La réponse en cache reste alors le plus proche voisin, et elle est servie
+quand même. Les bibliothèques apprises statiques ont le défaut inverse : elles sont saines une fois apprises,
+mais incapables de *désapprendre*.
 
 Nous présentons l'**apprentissage de bibliothèque défaisable**. L'objet est une bibliothèque apprise de
 **méthodes** — des unités de travail réutilisables dont les entrées, les sorties et les conditions sont des
 faits typés — chacune portant un **contrat d'exécution défaisable** : ce qu'elle lit, ce qu'elle écrit, ce
-qu'elle exige, ce qu'elle garantit. Le mécanisme tient en une boucle : la garantie d'une méthode est
-*supposée* à sa composition, *vérifiée* à son exécution, et **rétractée avec blâme** quand elle échoue — une
-étape de maintien de la vérité, au sens des TMS — après quoi la bibliothèque est *révisée* chirurgicalement,
-non jetée. La même structure typée qui rend une méthode canonicalisable rend aussi sa réutilisation
+qu'elle exige et ce qu'elle garantit. Le mécanisme tient en une boucle : la garantie d'une méthode est
+*supposée* à sa composition, *vérifiée* à son exécution, et **rétractée avec blâme** quand la vérification
+échoue — une étape de maintien de la vérité, au sens des TMS — après quoi la bibliothèque est *révisée*
+chirurgicalement, non jetée. La même structure typée qui rend une méthode canonicalisable rend aussi sa réutilisation
 *amortissable* (les cas récurrents éludent l'appel modèle) et sa composition *vérifiable sur les seuls
 contrats*, à contexte par appel borné. Aucun mécanisme n'est nouveau en soi (JTMS, contrats-à-blâme,
 apprentissage de bibliothèque, empreintes à la logique de séparation) ; la contribution est leur
 **composition** en une représentation unique où amortissement, vérification de composition et
 *désapprentissage principiel et sélectif à la dérive* coïncident — ce qu'aucune des briques ne fournit seule.
 
-Nous évaluons chaque mécanisme isolément sur un moteur réel à base de règles (un simulateur déterministe plus
-un modèle local en réel). Sous une dérive externe en cours de flux, les mémoires par rappel seul servent du
+Nous évaluons chaque mécanisme isolément sur un moteur réel à base de règles — d'abord sous un simulateur
+déterministe, puis avec un modèle local en réel. Sous une dérive externe en cours de flux, les mémoires par rappel seul servent du
 *périmé*, tandis que le contrat déclaratif récupère l'exactitude *sélectivement* et *en sûreté de
 composition* — pour une méthode seule, à travers une chaîne de méthodes apprise, et en tête-à-tête face aux
 systèmes de mémoire d'agents nommés (MemGPT, Reflexion, GraphRAG). Le tout est borné par un plafond honnête,
@@ -48,8 +49,8 @@ Un agent qui résout de nombreux problèmes apparentés devrait devenir moins co
 La voie dominante aujourd'hui consiste à mémoriser et rappeler : stocker des solutions ou compétences passées,
 retrouver la plus proche pour un nouveau cas, la réutiliser ou l'adapter. La génération augmentée par recherche
 [Lewis et al. 2020], le raisonnement à partir de cas et les bibliothèques de compétences en prose comme Voyager
-[Wang et al. 2023] partagent cette forme — et le même angle mort. Ils rappellent par similarité de *surface* et ne
-représentent pas une *prémisse devenue fausse*. Quand le monde change d'une manière qui ne change **pas** la
+[Wang et al. 2023] partagent cette forme — et le même angle mort : tous trois rappellent par similarité de
+*surface* et ne représentent pas une *prémisse devenue fausse*. Quand le monde change d'une manière qui ne change **pas** la
 requête — une réglementation se durcit, un fait est audité et trouvé faux, une politique est révoquée — la réponse
 en cache reste le plus proche voisin, et elle est toujours servie. La mémoire est périmée avec assurance.
 
@@ -66,7 +67,8 @@ violation. La rétractation est une opération de maintien de la vérité [Doyle
 dépendance de la prémisse falsifiée s'effondre et aucune croyance fausse n'est servie ; la bibliothèque est
 ensuite révisée en *spécialisant* la précondition fautive, non en supprimant la méthode.
 
-La même structure typée procure deux propriétés supplémentaires. D'abord, la réutilisation **amortit** : une
+La même structure typée procure, au-delà du désapprentissage, deux propriétés de plus. D'abord, la
+réutilisation **amortit** : une
 méthode dont l'applicabilité et les effets sont entièrement typés a une clé canonique stable, donc les cas
 récurrents éludent l'appel au modèle. Ensuite, la composition est **vérifiable sans ouvrir la boîte** : deux
 méthodes se composent sainement si et seulement si, sur les clés typées que l'une écrit et l'autre lit, la
@@ -83,8 +85,9 @@ et al. 2023] — induire des méthodes typées réutilisables à partir de trace
 ajustement statistique de paramètres ; on pourrait tout aussi bien parler d'*induction de méthodes*. La nouveauté
 ici n'est **aucun** mécanisme isolé — ni l'induction ni la maintenance de la vérité, toutes deux relevant d'un état
 de l'art vieux de plusieurs décennies — mais leur **composition** : attacher un contrat défaisable à une méthode
-*typée et composable*, c'est ce qui fait tomber l'amortissement, la vérification de composition et le
-désapprentissage d'une seule représentation, là où chaque brique seule n'en livre qu'un au plus. Le changement est
+*typée et composable*, c'est ce qui fait découler l'amortissement, la vérification de composition et le
+désapprentissage d'une seule et même représentation, là où chaque brique seule ne livre au plus qu'un de ces
+trois bénéfices. Le changement est
 de l'ordre du flot de contrôle : là où une mémoire par
 similarité fait `requête → retrouver → réutiliser`, la nôtre fait
 `requête → retrouver-le-contrat → vérifier → exécuter → contrôler → rétracter → spécialiser`. Le suffixe
@@ -107,18 +110,18 @@ explicitons ce que chaque expérience établit ou non (petit n, simulateur déte
 
 ### 2.1 L'objet : une méthode à deux faces
 
-Une **méthode** — dans la nomenclature du moteur hôte, une *concept-méthode*, l'unité apprise à côté des
-*concept-règles* autorées et des *concept-sortes* du treillis de types — est, pour son appelant, une boîte
-noire unique dotée d'un contrat typé ; à l'intérieur, c'est une
-ou plusieurs *productions* — les pas élémentaires qui la réalisent (séquence, branchement, map, fold).
-Formellement c'est un non-terminal
+Une **méthode** est, pour son appelant, une boîte noire unique dotée d'un contrat typé ; à l'intérieur, une
+ou plusieurs *productions* — les pas élémentaires (séquence, branchement, map, fold) — la réalisent. Dans la
+nomenclature du moteur hôte, c'est une *concept-méthode* : l'unité apprise, à côté des *concept-règles*
+autorées et des *concept-sortes* du treillis de types. Formellement, c'est un non-terminal
 de remplacement d'hyperarêtes [Habel 1992; Drewes, Kreowski & Habel 1997] à sélection conditionnée par
 précondition [Erol, Hendler & Nau 1994]. Nous tenons deux régimes séparés par *intention de conception* (nous ne
 prouvons pas la décidabilité ici). La **grammaire des méthodes** — sélection, paramétrage, composition — est
 *censée* rester décidable, via un rang de montage bien fondé et un petit ensemble d'invariants de typage ; comme
 l'existence d'un plan HTN récursif est indécidable en général [Erol, Hendler & Nau 1996], nous restreignons
-délibérément au fragment bien fondé. L'**exécution** sur des données de taille d'exécution est l'inverse : une
-couche explicitement bornée par un budget (« carburant »), Turing-complète. Le lien à la définissabilité en logique
+délibérément au fragment bien fondé. L'**exécution**, elle — le passage des données réelles à travers la
+méthode —, est le régime inverse : une couche explicitement bornée par un budget (« carburant »),
+Turing-complète. Le lien à la définissabilité en logique
 monadique du second ordre [Courcelle 1990] est offert comme motivation de la *traitabilité possible* des
 vérifications grammaticales, non comme un théorème établi ici ; une preuve de décidabilité est laissée en travaux futurs.
 
@@ -140,13 +143,14 @@ paramétrique [Bourtoule et al. 2021], qui efface l'influence de données d'entr
 
 ### 2.3 Le pipeline et le plancher K1
 
-Une formulation humaine est typée en un but ; une méthode est sélectionnée et composée sur contrats ; les cas la
-traversent ; les traces distillent (anti-unification [Plotkin 1970] ; filtrées par MDL comme dans
-DreamCoder/Stitch [Ellis et al. 2021; Bowers et al. 2023]) en de nouvelles méthodes typées ; la dérive rétracte.
-L'étape d'*admission* de ce pipeline — sous quelles conditions une unité apprise depuis un épisode LLM bruité
-a le droit d'entrer dans la bibliothèque — est l'objet de l'article compagnon [Braun 2026b], qui fournit la
-porte d'admission à attribution localisée (restriction de slot, arête de treillis, alias de surface) que la
-boucle décrite ici suppose en amont.
+Le pipeline, de bout en bout : une formulation humaine est typée en un but ; une méthode est sélectionnée et
+composée sur ses contrats ; les cas la traversent ; les traces se distillent en de nouvelles méthodes typées
+(anti-unification [Plotkin 1970], filtrée par MDL comme dans DreamCoder/Stitch [Ellis et al. 2021; Bowers et
+al. 2023]) ; et la dérive rétracte ce qu'elle invalide. L'étape d'*admission* de ce pipeline — sous quelles
+conditions une unité apprise depuis un épisode LLM bruité a le droit d'entrer dans la bibliothèque — est
+l'objet de l'article compagnon [Braun 2026b], qui fournit la porte d'admission à attribution localisée
+(restriction de slot, arête de treillis, alias de surface) que la boucle décrite ici suppose en amont.
+
 Le repli universel est le **plancher de micro-tâches** : tout ce qui ne se réduit pas à une méthode typée en cache
 se réduit à une micro-tâche qu'un petit modèle traite aisément. Ainsi un contrat *manquant* coûte un appel modèle
 bon marché (un gradient de coût gracieux), et un contrat *faux* est rattrapé par la vérification d'exécution — les
@@ -247,7 +251,7 @@ des classes entières (4 entrées) et paie les re-dérivations supplémentaires 
 **généralité** — le même `assertPost`, agnostique-à-la-prémisse par construction (les expériences n'exercent qu'un
 seul type de prémisse, un basculement de drapeau de conformité), tandis que le rappel est codé à la main par
 événement ; (iii) la **sûreté de composition** (§4.4). L'exécution réelle (Qwen3.6-27B (Q2_K_XL, MTP), N = 48)
-reproduit ceci : RAG/CBR/Compétence 0.00 ; Invalidant 14 appels / 1.00 ; Struct 13 appels / 2,6 s / 1.00 / ctx 278
+reproduit ce classement : RAG/CBR/Compétence 0.00 ; Invalidant 14 appels / 1.00 ; Struct 13 appels / 2,6 s / 1.00 / ctx 278
 vs Long-contexte 1304. L'affirmation défendable n'est donc pas « seul Struct récupère » mais « la mémoire par rappel
 seul ne sait pas désapprendre, et un contrat typé déclaratif fournit la récupération de façon sélective, générale et
 sûre en composition ».
@@ -258,8 +262,9 @@ Un domaine de décomposition structurelle (une méthode qui *crée* un sous-grap
 sur le **moteur complet**. Partition : entraînement, **apparentés tenus à l'écart** (mêmes transitions typées,
 espaces d'identifiants frais) et **nouveau tenu à l'écart**. C'est un contrôle d'**existence-et-sûreté sur un petit
 ensemble** (2 apparentés, 1 nouveau), **pas un taux de population** : avec la transformation relativiser/lier,
-*toutes* les instances apparentées tenues à l'écart transfèrent à 0 appel et **sainement**, la transition nouvelle
-paie (pas de faux rejeu), totaux 3 appels contre 5 pour la référence sans cache. L'ablation sans transformation (un
+*toutes* les instances apparentées tenues à l'écart transfèrent à 0 appel et **sainement**, tandis que la
+transition nouvelle paie son appel (pas de faux rejeu) — au total 3 appels contre 5 pour la référence sans
+cache. L'ablation sans transformation (un
 cache de contenu plat) « touche » les problèmes apparentés mais rejoue le *mauvais espace d'identifiants* — **non
 sain**. Le point est qualitatif : une métrique fondée sur le seul nombre d'appels classe le cache plat à égalité
 avec la transformation (les deux éludent) ; **seule la vérification de sûreté** distingue une réutilisation saine
@@ -299,7 +304,8 @@ canonicalisable d'un corpus réel est dépendante du domaine et non mesurée ici
 
 ### 4.6 E5 — passage à l'échelle et coût par mécanisme
 
-Un contrôle de **coût de bookkeeping**, pas une affirmation sur le passage à l'échelle de la partie difficile :
+Un contrôle de **coût de tenue de registre**, pas une affirmation sur le passage à l'échelle de la partie
+difficile — une bibliothèque de méthodes *distinctes* qui croît, laissée en travaux futurs (fin de section) :
 sur un espace typé de 200 classes avec un audit unique, quand la longueur du flux N croît de 1 320 à 20 320
 (l'*ensemble des classes* est fixe ; aucune nouvelle méthode, aucun modèle) :
 
@@ -315,9 +321,10 @@ bornée** par le nombre de classes, indépendamment de N ; et un événement de 
 invalidées** (2 évictions sur une bibliothèque de 200 entrées — O(invalidé), pas O(bibliothèque)). Les coûts par
 opération sont faibles : la canonicalisation est de quelques µs par appel (dépend de l'environnement), et une passe
 d'éviction de dérive ≈ 0,5 ms sur toute la bibliothèque. Le contenu
-honnête est étroit : le bookkeeping typé ne devient pas le goulet d'étranglement quand le flux croît. Il ne teste
-**pas** le passage à l'échelle dans la dimension qui compte — une bibliothèque croissante de méthodes *distinctes*,
-un corpus réel, ou un modèle réel sur tous les bras — laissé en travaux futurs.
+honnête est étroit : la tenue de registre typée ne devient pas le goulet d'étranglement quand le flux croît.
+Cette expérience ne teste en revanche **pas** le passage à l'échelle dans la dimension qui compte — une
+bibliothèque croissante de méthodes *distinctes*, un corpus réel, ou un modèle réel sur tous les bras — qui
+reste en travaux futurs.
 
 ### 4.7 E6 — tête-à-tête face aux systèmes de mémoire d'agents nommés
 
@@ -325,9 +332,9 @@ Les références de §4.1 sont génériques (RAG / CBR / Compétence). Les syst�
 sont les systèmes *nommés* : **MemGPT/Letta** (contexte virtuel à étages, mémoire auto-éditée) [Packer et al.
 2023], **Reflexion** (un essai-réflexion verbale épisodique piloté par un signal d'échec) [Shinn et al. 2023], et
 **GraphRAG** (un index de graphe de connaissances hors-ligne avec résumés de communautés par LLM) [Edge et al.
-2024]. Nous ajoutons une ré-implémentation minimale fidèle de chacun derrière la même interface, chacun dans sa
-configuration *la plus favorable*, avec une ablation appariée qui éteint son mécanisme distinctif (le contrôle
-négatif). Stub déterministe, N = 78, deux classes auditées, six cas de dérive :
+2024]. Nous ajoutons une ré-implémentation minimale fidèle de chacun de ces trois systèmes, derrière la même
+interface et dans sa configuration *la plus favorable*, avec une ablation appariée qui éteint son mécanisme
+distinctif (le contrôle négatif). Stub déterministe, N = 78, deux classes auditées, six cas de dérive :
 
 | bras | appels modèle | exact. | exact.-dérive | ctx max |
 |---|---|---|---|---|
@@ -474,7 +481,7 @@ plus finement que le RAG ordinaire — le contexte virtuel à étages de MemGPT/
 épisodique de réflexion verbale de Reflexion [Shinn et al. 2023], et la recherche structurée par graphe comme
 GraphRAG [Edge et al. 2024]. Mais ils rappellent et réutilisent par pertinence, récence ou similarité et, à notre
 connaissance, aucun ne représente une *prémisse typée dont la falsification rétracte une réutilisation antérieure*.
-Ils sont complémentaires plutôt que concurrents : un contrat défaisable pourrait se placer sous chacun d'eux comme
+Ces systèmes sont complémentaires plutôt que concurrents : un contrat défaisable pourrait se placer sous chacun d'eux comme
 couche de rétractation. Nous menons ce tête-à-tête en **§4.7 (E6)** : chacun, dans sa configuration la plus
 favorable, peut récupérer à la dérive, mais seul le contrat défaisable le fait au moindre coût sur (appels ×
 exactitude × contexte) simultanément — les autres paient une taxe de pagination / par-enregistrement / de
