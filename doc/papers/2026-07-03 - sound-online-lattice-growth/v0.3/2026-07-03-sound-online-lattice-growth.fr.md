@@ -134,10 +134,16 @@ l'article est la chaîne suivante, développée en §4 et chiffrée en §5 :
 
    Une porte, trois grains — une unification d'invariant, pas d'implémentation.
 
-Tout le reste du système est volontairement ancien : les slots rôlés de Fillmore, les espaces de versions de
-Mitchell, un treillis *isa* comme ordre de subsomption, des arêtes défaisables étiquetées source et
-confiance, et la rétraction par maintien de vérité. La contribution est le composite et sa porte — et le fait
-que la boucle entière tourne sur un seul petit modèle local.
+Tout le reste du système est volontairement ancien :
+
+- les slots rôlés de Fillmore ;
+- les espaces de versions de Mitchell ;
+- un treillis *isa* comme ordre de subsomption ;
+- des arêtes défaisables étiquetées source et confiance ;
+- et la rétraction par maintien de vérité.
+
+La contribution est le composite et sa porte — et le fait que la boucle entière tourne sur un seul petit
+modèle local.
 
 ### 1.3 Comment l'évidence est organisée
 
@@ -165,12 +171,17 @@ qu'il survit au contact d'un oracle tiers.
 
 ## 2. L'état de l'art, et le delta de mécanisme
 
-Les briques ont des décennies et nous n'en revendiquons aucune. L'héritage défaisable et la rétraction datent
-de Reiter ; les espaces de versions et l'élimination de candidats, de Mitchell ; les restrictions
-sélectionnelles comme coupes apprenables sur une hiérarchie, du modèle information-théorique de Resnik sur
-WordNet ; la programmation logique inductive tolérante au bruit est mûre (Popper ; l'induction MDL depuis
-données bruitées de Hocquette et al.). Ce qui suit situe le composite — et, parce que les voisinages sont
-peuplés, nomme pour chacun le *delta* exact plutôt qu'une cellule vide.
+Les briques utilisées ici ont des décennies ; nous n'en revendiquons donc aucune :
+
+- l'héritage défaisable et la rétraction datent de Reiter ;
+- les espaces de versions et l'élimination de candidats ont été formalisés par Mitchell ;
+- les restrictions sélectionnelles comme coupes apprenables sur une hiérarchie l'ont été par le modèle
+  information-théorique de Resnik sur WordNet ;
+- la programmation logique inductive tolérante au bruit est également mûre (Popper ; l'induction MDL depuis
+  données bruitées de Hocquette et al.).
+
+La suite de cette section situe le composite qu'on décrit dans cet article parmi ces voisinages et, parce
+qu'ils sont peuplés, nomme pour chacun le *delta* exact plutôt qu'une cellule vide.
 
 **LLM + solveur symbolique, en ligne.** La ligne actuelle la plus forte couple un frontal LLM à un moteur de
 programmation logique. Logic-LM et Logic-LM++ traduisent le problème en entrée de solveur et s'auto-raffinent
