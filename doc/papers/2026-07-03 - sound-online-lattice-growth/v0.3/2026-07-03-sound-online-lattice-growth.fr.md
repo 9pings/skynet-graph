@@ -509,11 +509,11 @@ systématiquement, pas à un taux de bascule fixe. Les deux propriétés compten
 - Ce bruit n'entre dans aucune des deux cases classiques. Il n'est pas *aléatoire* : les remèdes au bruit de
   classification aléatoire (minimisation des désaccords au coût ×1/(1−2η)² ; robustesse des conjonctions par
   requêtes statistiques) supposent un taux indépendant de l'exemple, ce que la corrélation à la compétence
-  viole — **les garanties statistiques ne transfèrent pas**. Il n'est pas non plus *malicieux* au sens de
-  Kearns–Li : rien ne corrompt adversarialement le canal de données, et invoquer littéralement leur borne
-  d'impossibilité condamnerait la porte elle-même, qui lit le même canal. Le sauvetage réel, développé en
-  §4.4, n'est donc pas un meilleur modèle de bruit : c'est le remplacement de l'oracle bruité par un oracle
-  déterministe.
+  viole — **les garanties statistiques ne transfèrent pas**.
+- Il n'est pas non plus *malicieux* au sens de Kearns–Li : rien ne corrompt adversarialement le canal de
+  données, et invoquer littéralement leur borne d'impossibilité condamnerait la porte elle-même, qui lit le
+  même canal. Le sauvetage réel, développé en §4.4, n'est donc pas un meilleur modèle de bruit : c'est le
+  remplacement de l'oracle bruité par un oracle déterministe.
 - La K-corroboration (exiger K échecs avant d'admettre un négatif) teste `P(échec | sorte)` — elle filtre le
   bruit aléatoire et *laisse passer* le bruit systématique : K échecs corrélés de la même sorte rare passent
   la barre et sur-resserrent quand même, à K fois le coût, sur des sortes trop rares pour récurrer K fois.
@@ -730,8 +730,11 @@ décision de treillis, refus, défaisance, et les deux grains d'apprentissage �
 modèle fournit chaque entrée bruitée. Un seul modèle embarqué joue tous les rôles (extracteur, paraphraseur,
 proposeur, et la référence DIRECT) : un modèle open-weights de 27 milliards de paramètres quantisé à 2 bits,
 exécuté localement, budget de raisonnement 0 sauf mention (noté rb). Chaque épisode est mémoïsé durablement :
-tous les résultats se rejouent bit-à-bit. La généralité de ces résultats *à travers les extracteurs* est
-mesurée séparément, sur quatre familles de modèles, en §7.4.
+tous les résultats se rejouent bit-à-bit. Le parcours : le protocole (§6.1), la constance et les deux
+apprentissages sur instances fraîches (§6.2), le durcissement des oracles (§6.3), le volume sur trois
+domaines (§6.4), puis les deux références de dérive — le cliquet des arêtes (§6.5) et le ring des alias
+(§6.6). La généralité de ces résultats *à travers les extracteurs* est mesurée séparément, sur neuf modèles,
+en §7.4.
 
 ### 6.1 Le protocole
 
@@ -918,9 +921,10 @@ consommé 5 des 15 ré-expositions ; elle est comptée et rapportée, jamais sil
 
 ## 7. Les bras de référence et la validité externe
 
-Trois objections structurent cette section, chacune répondue par un bras. *« Laissez donc le modèle
-raisonner »* — §6.3 et ci-dessous : le raisonnement répare la connaissance, pas la fidélité. *« Mettez donc
-l'ontologie dans le prompt »* — §7.1. *« Votre oracle est votre propre treillis »* — §7.3.
+Quatre objections structurent cette section, chacune répondue par un bras ou une campagne. *« Laissez donc
+le modèle raisonner »* — §6.3 et ci-dessous : le raisonnement répare la connaissance, pas la fidélité.
+*« Mettez donc l'ontologie dans le prompt »* — §7.1. *« Votre oracle est votre propre treillis »* — §7.3.
+*« Vous n'avez qu'un seul modèle »* — §7.4.
 
 ### 7.1 L'ontologie en contexte (le bras RAG)
 
@@ -1039,17 +1043,20 @@ Le verdict tient en trois couches, aux sensibilités opposées :
    biais de plausibilité-monde **partagé entre familles** est exactement le cas où une porte vaut mieux
    qu'un choix de modèle.
 3. **La soundness fermée-sur-échec du bout-en-bout tient sur les quatre familles — après qu'un correctif
-   d'une ligne nous a rappelé qui décide.** Au premier passage, gemma et phi-4 produisaient 24 mauvaises
-   montures sur la cellule formes-V3 là où Qwen refusait 24/24. La trace mémo (rejouable, zéro GPU) a
-   localisé la cause : notre matcher violait sa propre doctrine de §3 P4 — le repli sur la facette explicite
-   tirait aussi pour les sortes *en-vocabulaire*, si bien que le `category="carré"` plausible-monde que ces
-   extracteurs écrivent pour une pyramide fuyait en monture. Qwen y échappait par un accident de style (il
-   laisse la facette vide). Une garde d'une ligne — repli explicite *seulement* si la sorte est OOV, la
-   doctrine telle qu'énoncée — ramène les quatre familles à **zéro mauvaise monture**, sans régression Qwen.
-   La leçon vaut d'être écrite : c'est le *chemin déterministe*, pas le modèle, qui porte la soundness — et
-   seule une famille d'extracteurs *différente* pouvait exposer l'écart entre la doctrine énoncée et son
-   implémentation. Un système dont la spec est déclarée se corrige en corrigeant une ligne ; un modèle dont
-   la plausibilité fuit ne se corrige pas.
+   d'une ligne nous a rappelé qui décide.** L'histoire de ce correctif mérite son propre paragraphe,
+   ci-dessous.
+
+L'histoire du correctif, donc. Au premier passage, gemma et phi-4 produisaient 24 mauvaises montures sur la
+cellule formes-V3 là où Qwen refusait 24/24. La trace mémo (rejouable, zéro GPU) a localisé la cause : notre
+matcher violait sa propre doctrine de §3 P4 — le repli sur la facette explicite tirait aussi pour les sortes
+*en-vocabulaire*, si bien que le `category="carré"` plausible-monde que ces extracteurs écrivent pour une
+pyramide fuyait en monture. Qwen y échappait par un accident de style (il laisse la facette vide). Une garde
+d'une ligne — repli explicite *seulement* si la sorte est OOV, la doctrine telle qu'énoncée — ramène les
+quatre familles à **zéro mauvaise monture**, sans régression Qwen. La leçon vaut d'être écrite : c'est le
+*chemin déterministe*, pas le modèle, qui porte la soundness — et seule une famille d'extracteurs
+*différente* pouvait exposer l'écart entre la doctrine énoncée et son implémentation. Un système dont la
+spec est déclarée se corrige en corrigeant une ligne ; un modèle dont la plausibilité fuit ne se corrige
+pas.
 
 Les trois dernières lignes de la table ajoutent l'axe architecture et l'axe taille. Deux mixtures-d'experts
 (~3 milliards de paramètres actifs) tiennent les trois couches, à couverture moyenne. Le cas le plus

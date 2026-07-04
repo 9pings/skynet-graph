@@ -220,13 +220,19 @@ Chaque exécution comparative est conditionnée par un **auto-test du banc** : s
 résultats simulés sont déterministes au rejeu. **Une précision de fidélité s'impose :** E1 et E3
 **instancient le moteur complet** (graphe + stabilisation + JTMS) ; E2, P4 et E5 **isolent les fonctions** réelles
 du moteur (`digest`, `satisfies`, `canonValue`) depuis un banc, sans la boucle de stabilisation — nous ne
-prétendons pas qu'E2 exerce la rétractation JTMS native (il la ré-implémente sur le même prédicat réel). Sept bras
-partagent une interface : **Naïf**, **Long-contexte**, **RAG**, **CBR** (clé typée, sans re-vérification),
-**Compétence** (prose à la Voyager), **Invalidant** (la référence ÉQUITABLE : cache à clé typée + un rappel grossier
-codé à la main qui jette toute une classe auditée à l'événement d'audit — un crochet d'invalidation mais pas de
-contrat typé) et **Struct** (la bibliothèque typée au contrat défaisable — re-vérifie la post par entrée, n'évinçant
-que ce qui est violé). Le bras Invalidant existe pour séparer « possède un mécanisme d'invalidation » de « possède
-un contrat défaisable typé ».
+prétendons pas qu'E2 exerce la rétractation JTMS native (il la ré-implémente sur le même prédicat réel). Sept bras partagent une interface :
+
+- **Naïf**, **Long-contexte**, **RAG** — les références évidentes ;
+- **CBR** — clé typée, sans re-vérification ;
+- **Compétence** — des compétences en prose, à la Voyager ;
+- **Invalidant** — la référence ÉQUITABLE : cache à clé typée plus un rappel grossier codé à la main, qui
+  jette toute une classe auditée à l'événement d'audit — un crochet d'invalidation, mais pas de contrat
+  typé ;
+- **Struct** — la bibliothèque typée au contrat défaisable : elle re-vérifie la post par entrée, n'évinçant
+  que ce qui est violé.
+
+Le bras Invalidant existe pour séparer « possède un mécanisme d'invalidation » de « possède un contrat
+défaisable typé ».
 
 ### 4.2 E2 — défaisance à la dérive (le test décisif)
 
@@ -473,6 +479,11 @@ non le seul recalcul de valeurs.
 ---
 
 ## 5. Travaux apparentés
+
+Les voisinages se visitent du plus évident au plus proche : les mémoires par rappel (recherche/cas, puis
+les mémoires d'agents nommées, puis le long contexte), les bibliothèques apprises, les contrats, les cadres
+de composition, la révision de théorie — le voisin le plus proche —, le maintien de la vérité, et enfin la
+plomberie (exécution durable, maintenance de vues) dont nous ne revendiquons rien.
 
 **Recherche et mémoire de cas.** RAG [Lewis et al. 2020] et CBR [Aamodt & Plaza 1994] rappellent par similarité de surface/plongement et
 réutilisent-ou-adaptent ; ils ne peuvent représenter une *prémisse devenant invalide*, donc un changement exogène
