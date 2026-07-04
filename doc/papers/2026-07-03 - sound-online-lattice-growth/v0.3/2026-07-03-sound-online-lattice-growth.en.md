@@ -45,11 +45,11 @@ control that admits every failure self-seals on rare cases. Under live condition
 the model alone, the model's deficit concentrated exactly where one must refuse, retract a default,
 or follow the ontology in depth; and zero false edges, zero false aliases admitted on permuted
 streams, where the ungated variant absorbs the model's ontology and then answers wrongly with no
-correction channel left — NELL's drift, reproduced in miniature, then blocked. On the third-party
+correction channel left — NELL's drift, reproduced in miniature then blocked, at both grains. On the third-party
 benchmark DeFAb, the typed path scores 34/35 (30/35 of them with no model call at all) against 30/35
 for the direct model, and every loss of the direct model is an over-general cut — the error class
 the gate forbids by construction. A reproduction across nine local models (four families, three
-quantizations and two architectures) shows that the decider, the gate and the fail-closed refusal
+quantizations, two architectures and two size brackets) shows that the decider, the gate and the fail-closed refusal
 all generalize; only coverage tracks extraction capability. There remains the economics: what
 retrieval pipelines re-pay in context on every call, this system compiles once into a typed,
 versioned library, auditable to the episode — knowledge accumulates outside the context window, and
@@ -1112,8 +1112,8 @@ The verdict fits in three layers, with opposite sensitivities:
    touches a model.
 2. **The gate is probative multi-family — the strong result.** Zero false edges admitted across the
    nine models, while every family *emits* poison — and **the same** (`pyramid→square`,
-   `fern→terrestrial`; the extreme-2-bit variant emits twice as much, the gate still holds at
-   zero). A world-plausibility bias shared across families is exactly the case where a gate beats a
+   `fern→terrestrial`, plus their extras; the extreme-2-bit variant emits twice as much, the gate
+   still holds at zero). A world-plausibility bias shared across families is exactly the case where a gate beats a
    choice of model.
 3. **End-to-end fail-closed soundness holds across the four families — after a one-line fix
    reminded us who decides.** What that fix demonstrates deserves its own paragraph, below.

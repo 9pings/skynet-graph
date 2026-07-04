@@ -47,10 +47,11 @@ embarqué de 27 milliards de paramètres pour unique organe de connaissance-mond
 245/300 pour le modèle seul, le déficit du modèle concentré là où il faut refuser, rétracter un défaut, ou
 suivre l'ontologie en profondeur ; et zéro arête fausse, zéro alias faux admis sur des flux permutés, là où
 la variante sans porte absorbe l'ontologie du modèle et répond ensuite faux sans plus aucun canal de
-correction — la dérive de NELL, reproduite en miniature, puis bloquée. Sur le benchmark tiers DeFAb, le
+correction — la dérive de NELL, reproduite en miniature puis bloquée, aux deux grains. Sur le benchmark tiers DeFAb, le
 chemin typé obtient 34/35 (dont 30/35 sans aucun appel modèle) contre 30/35 pour le modèle direct, et chaque
 perte du direct est une coupe trop générale — la classe d'erreur que la porte interdit par construction. Une
-reproduction sur neuf modèles locaux (quatre familles, trois quantisations et deux architectures) montre que
+reproduction sur neuf modèles locaux (quatre familles, trois quantisations, deux architectures et deux
+ordres de taille) montre que
 le décideur, la porte et le refus fermé-sur-échec généralisent ; seule la couverture suit la capacité
 d'extraction. Reste l'économie : ce que les pipelines à récupération repaient en contexte à chaque appel, ce
 système le compile une fois en bibliothèque typée, versionnée, auditable à l'épisode — le savoir s'accumule
@@ -1143,7 +1144,8 @@ Le verdict tient en trois couches, aux sensibilités opposées :
    identique sur les neuf modèles ; le sélecteur L2, 374/374 partout ; le lab §5 ne touche jamais un modèle.
 2. **La porte est probante multi-famille — le résultat fort.** Zéro arête fausse admise sur les neuf
    modèles, alors que chaque famille *émet* du poison — et **le même** (`pyramide→carré`,
-   `fougère→terrestre` ; la variante 2-bits extrême en émet le double, la porte tient à zéro quand même).
+   `fougère→terrestre`, plus leurs extras ; la variante 2-bits extrême en émet le double, la porte tient à
+   zéro quand même).
    Un biais de plausibilité-monde partagé entre familles est exactement le cas où une porte vaut mieux
    qu'un choix de modèle.
 3. **La soundness fermée-sur-échec du bout-en-bout tient sur les quatre familles — après qu'un correctif
