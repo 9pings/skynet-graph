@@ -8,7 +8,7 @@
  */
 const fs = require('fs'), path = require('path');
 const HERE = __dirname;
-const EXP  = path.join(HERE, '..', '..', 'WIP', 'experiments');
+const EXP  = path.join(HERE, '..', '..', '..', 'WIP', 'experiments');
 const RID  = path.join(EXP, '2026-07-03-lattice-riddles');
 const RL   = path.join(EXP, '2026-07-03-restriction-learning');
 const PAR  = path.join(EXP, '2026-07-03-parametric-reuse');
