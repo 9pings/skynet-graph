@@ -177,14 +177,17 @@ Les briques utilisées ici ont des décennies ; nous n'en revendiquons donc aucu
 - les espaces de versions et l'élimination de candidats ont été formalisés par Mitchell ;
 - les restrictions sélectionnelles comme coupes apprenables sur une hiérarchie l'ont été par le modèle
   information-théorique de Resnik sur WordNet ;
-- la programmation logique inductive tolérante au bruit est également mûre (Popper ; l'induction MDL depuis
+- et la programmation logique inductive tolérante au bruit est également mûre (Popper ; l'induction MDL depuis
   données bruitées de Hocquette et al.).
 
-La suite de cette section situe le composite qu'on décrit dans cet article parmi ces voisinages et, parce
-qu'ils sont peuplés, nomme pour chacun le *delta* exact plutôt qu'une cellule vide.
+Cependant, la suite de cette section situe le composite décrit dans cet article parmi ses voisinages et,
+parce qu'ils sont peuplés, nomme pour chacun le *delta* exact plutôt qu'une cellule vide. Cinq voisinages
+sont à visiter : les pipelines LLM+solveur en ligne, les évaluations de défaisance, les bases de
+connaissances auto-croissantes, l'apprentissage des restrictions sélectionnelles, et les espaces de versions
+face au bruit ; une table récapitule la position en fin de section.
 
-**LLM + solveur symbolique, en ligne.** La ligne actuelle la plus forte couple un frontal LLM à un moteur de
-programmation logique. Logic-LM et Logic-LM++ traduisent le problème en entrée de solveur et s'auto-raffinent
+**LLM + solveur symbolique, en ligne.** Le premier voisinage est aussi la ligne de travaux la plus forte du
+moment : coupler un frontal LLM à un moteur de programmation logique. Logic-LM et Logic-LM++ traduisent le problème en entrée de solveur et s'auto-raffinent
 sur les erreurs du solveur — une réparation de *formulation*, par problème, sans mémoire persistante ni
 blâme. Le jumeau de mécanisme le plus proche, le pipeline auto-correctif LLM-programmeur-ASP
 (arXiv:2604.27960), exprime nativement défauts et exceptions (l'ASP est non-monotone) et est explicite sur
@@ -196,15 +199,17 @@ notre revendication (abstention sur les cas incohérents ou incertains, fidélit
 le LLM logé *dans* la fonction d'interprétation de la sémantique — mais la théorie reste statique : rien n'y
 apprend une règle, une arête ou un alias.
 
-**Les évaluations de défaisance.** DeFAb (arXiv:2606.18557), DEFREASING (NAACL 2025) et l'étude
-generics-and-defaults (arXiv:2508.13718) documentent, avec du volume, que les LLM actuels échouent les
+**Les évaluations de défaisance.** Le deuxième voisinage ne construit pas de système : il mesure. DeFAb
+(arXiv:2606.18557), DEFREASING (NAACL 2025) et l'étude generics-and-defaults (arXiv:2508.13718) documentent,
+avec du volume, que les LLM actuels échouent les
 révocations défaisables (*overrides*) — ils ne rétractent pas un défaut quand un modificateur le défait. Ce sont des repoussoirs (*foils*)
 au sens strict : ils établissent l'échec que notre démonstration exerce. Nous utilisons l'un d'eux (DeFAb)
 comme oracle externe en §7. Parce que cette cellule est à la fois occupée et bien mesurée, *la défaisance est
 la démonstration de cet article, jamais sa contribution*.
 
-**Bases de connaissances auto-croissantes.** NELL (présentée en §1.1) est le cas d'école, positif et
-d'avertissement à la fois. Son héritier direct existe : DySECT (arXiv:2603.06915, issu de l'équipe NELL) fait croître en
+**Bases de connaissances auto-croissantes.** Le troisième voisinage est celui du problème lui-même — les
+bases qui grandissent seules. NELL (présentée en §1.1) en est le cas d'école, positif et d'avertissement à
+la fois. Son héritier direct existe : DySECT (arXiv:2603.06915, issu de l'équipe NELL) fait croître en
 continu une base auto-expansive depuis les triplets extraits par le LLM, en boucle fermée
 extraction↔connaissance — sans aucune porte d'admission dans le chemin d'écriture ; c'est exactement la
 configuration dont §6.5–§6.6 mesurent la dérive, et le contraste que cet article instrumente. Les travaux
@@ -216,16 +221,18 @@ boucle de récupération légère et *s'abstient* quand le support textuel manqu
 vérification est un support documentaire au moment de la complétion ; il n'y a ni monture optimiste, ni
 crédit/blâme localisé par-unité, ni rétraction défaisable de ce qui a été admis.
 
-**Apprendre les restrictions sélectionnelles.** La théorie d'apprentissage s'est arrêtée au cadre
-corpus-batch des années 1990 (Resnik ; estimation par classes). L'ère neuronale a d'abord retourné la
+**Apprendre les restrictions sélectionnelles.** Le quatrième voisinage est l'objet même que nous
+apprenons. Sa théorie d'apprentissage s'est arrêtée au cadre corpus-batch des années 1990 (Resnik ;
+estimation par classes). L'ère neuronale a d'abord retourné la
 question en *probing*, puis l'a rouverte côté apprentissage : arXiv:2011.02417 montre qu'un modèle
 fine-tuné forme des généralisations sélectionnelles robustes après une ou deux instances d'un mot nouveau —
 un voisin réel de notre question, avec un delta net : l'apprentissage y vit dans les poids, ni auditable, ni
 attribuable, ni rétractable. L'apprentissage en ligne des restrictions *depuis les échecs*, à blâme localisé,
 externalisé dans une structure inspectable, reste — aussi loin que porte notre revue — sans occupant.
 
-**Les espaces de versions face au bruit.** Le titre de cet article a des voisins de vingt-cinq ans qu'il
-serait malhonnête de taire : les version spaces disjonctifs de Sebag (un espace par positif, classement par
+**Les espaces de versions face au bruit.** Le dernier voisinage est le plus proche du titre, et il serait
+malhonnête de le taire : l'élimination de candidats a des variantes tolérantes au bruit depuis vingt-cinq
+ans — les version spaces disjonctifs de Sebag (un espace par positif, classement par
 vote), la généralisation des version spaces de Hirsh (l'inconsistance bornée absorbée par fusion), les rough
 version spaces (encadrement approché), le k-DNF robuste par fusion de croyances. Toute cette famille rend
 l'élimination de candidats tolérante au bruit en **relâchant la frontière** — statistiquement, par vote,
