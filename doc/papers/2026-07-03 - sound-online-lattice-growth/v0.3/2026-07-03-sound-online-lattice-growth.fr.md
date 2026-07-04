@@ -491,15 +491,15 @@ La première question : sur quels objets tout se joue-t-il ?
 
 Pour répondre à cette question, fixons un treillis fini de sortes `(L, ⊑)` : formellement, un poset fini
 où les parents multiples sont permis (les joins ne sont pas nécessairement uniques, ce qui comptera plus
-bas). Une parenthèse de vocabulaire, avant d'aller plus loin : *sorte* s'entend au sens technique des
+bas). 
+Une parenthèse de vocabulaire, avant d'aller plus loin : *sorte* s'entend au sens technique des
 logiques multi-sortes — le type déclaré d'un objet, héritier du treillis de sortes de LOGIN (Aït-Kaci &
 Nasr 1986) — et, dans le moteur, ces sortes sont les concept-sortes sous la subsomption `childConcepts`.
-Parenthèse fermée ; les objets, donc. Un schéma de tâche expose `r` slots rôlés. Une
-**restriction** pour le slot `i` est une coupe `C_i ⊆ L` ; une sorte `s` la satisfait ssi `s ⊑ c` pour un
-`c ∈ C_i`. Une restriction complète est la conjonction sur les slots — un *monôme de coupes de sortes*. Le
-langage est délibérément plafonné aux monômes (coupes par slot, éventuellement k-CNF au-dessus) : apprendre
-du DNF arbitraire sur les sortes est NP-dur (Pitt–Valiant), et le plafond est vérifié au moment de
-l'autorat.
+Parenthèse fermée ; les objets, donc. Un schéma de tâche expose `r` slots rôlés. 
+Une **restriction** pour le slot `i` est une coupe `C_i ⊆ L` ; une sorte `s` la satisfait ssi `s ⊑ c` pour un
+`c ∈ C_i`. Une restriction complète est la conjonction sur les slots — un *monôme de coupes de sortes*. 
+Le langage est délibérément plafonné aux monômes (coupes par slot, éventuellement k-CNF au-dessus) : apprendre
+du DNF arbitraire sur les sortes est NP-dur (Pitt–Valiant), et le plafond est vérifié au moment de l'autorat.
 
 L'apprentissage maintient, par slot, `S_i = LGG` des positifs vérifiés — la généralisation la moins
 générale, calculée par joins dans `L` ; comme les joins ne sont pas uniques dans un poset multi-parents,

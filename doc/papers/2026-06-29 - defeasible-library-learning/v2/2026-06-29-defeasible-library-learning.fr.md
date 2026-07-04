@@ -128,7 +128,8 @@ pipeline cet objet vit-il, avec quel filet quand il manque (§2.3). Chaque répo
 
 ### 2.1 L'objet : une méthode à deux faces
 
-Une **méthode** est, pour son appelant, une boîte noire unique dotée d'un contrat typé ; à
+Première question : quel est l'objet réutilisable ? Une **méthode** est, pour son appelant, une boîte
+noire unique dotée d'un contrat typé ; à
 l'intérieur, une ou plusieurs *productions* — les pas élémentaires (séquence, branchement, map,
 fold) — la réalisent. Dans la nomenclature du moteur hôte, c'est une *concept-méthode* : l'unité
 apprise, à côté des *concept-règles* autorées et des *concept-sortes* du treillis de types.
@@ -147,6 +148,7 @@ futurs.
 
 ### 2.2 Le contrat : un triplet de séparation défaisable
 
+L'objet est posé ; la question devient : quel contrat doit-il porter pour que sa réutilisation soit sûre ?
 Une méthode déclare une **empreinte de lecture** et une **empreinte d'écriture** (une *empreinte*
 est l'ensemble des clés typées que la méthode touche), une **précondition** sur ce qu'elle lit, une
 **postcondition** sur ce qu'elle écrit et une **étiquette d'effet** (pure, ou porteuse d'un effet
@@ -163,7 +165,8 @@ al. 2021], qui efface l'influence de données d'entraînement des poids d'un mod
 
 ### 2.3 Le pipeline et le plancher K1
 
-Le pipeline, de bout en bout : une formulation humaine est typée en un but ; une méthode est sélectionnée et
+Reste la troisième question : dans quel pipeline cette méthode vit-elle, et avec quel filet quand elle
+manque ? Le pipeline, de bout en bout : une formulation humaine est typée en un but ; une méthode est sélectionnée et
 composée sur ses contrats ; les cas la traversent ; les traces se distillent en de nouvelles méthodes typées
 (anti-unification [Plotkin 1970], filtrée par MDL comme dans DreamCoder/Stitch [Ellis et al. 2021; Bowers et
 al. 2023]) ; et la dérive rétracte ce qu'elle invalide. L'étape d'*admission* de ce pipeline — sous quelles
@@ -226,6 +229,12 @@ exactement celle que les expériences isolent.
 ---
 
 ## 4. Expériences
+
+Le parcours d'évaluation : le dispositif partagé (§4.1), puis le test décisif de la défaisance à la dérive
+(E2, §4.2), l'amortissement et le transfert sains (E1, §4.3), la sûreté de composition (E3, §4.4), le
+plafond de couverture K1 (P4, §4.5), l'échelle (E5, §4.6), le tête-à-tête face aux systèmes nommés (E6,
+§4.7), la composition à la dérive (E7, §4.8) et la révision de bibliothèque (E8, §4.9). Chaque expérience
+ouvre sur la promesse de §1 qu'elle contrôle.
 
 ### 4.1 Dispositif
 
@@ -401,7 +410,9 @@ six cas de dérive :
 
 La lecture honnête n'est *pas* « seul Struct récupère » : dans sa configuration la plus favorable,
 chaque système nommé **peut** récupérer l'exactitude à la dérive (MemGPT et Reflexion atteignent
-exact.-dérive 1,00 ; GraphRAG dès qu'il ré-indexe). Le propos est que Struct récupère au moindre
+exact.-dérive 1,00 ; GraphRAG dès qu'il ré-indexe).
+
+Le propos est que Struct récupère au moindre
 coût sur les trois axes *à la fois* — c'est le seul bras qui récupère à la dérive tout en restant
 non-dominé (aucun bras ne l'égale-ou-bat sur les appels ET le contexte par appel tout en
 récupérant ; les bras moins chers sont sur la frontière de coût mais échouent à la dérive). Chaque
@@ -628,6 +639,10 @@ affecté (§4.8) s'apparentent au calcul fonctionnel auto-ajustable [Acar, Blell
 ---
 
 ## 6. Menaces à la validité
+
+Huit menaces, de la plus discutée à la plus structurelle : le simulateur, la couverture K1 paramétrée, la
+force des références génériques, la fidélité des ré-implémentations nommées, le positionnement de
+nouveauté, l'échelle et l'étendue, la sûreté éventuelle, et le moteur unique.
 
 **Simulateur vs modèle réel.** Le simulateur déterministe retire l'erreur du modèle pour isoler le
 *mécanisme* de chaque bras — précisément ce que nous affirmons. Il rend la comparaison
