@@ -1,4 +1,4 @@
-# Croissance en ligne saine d'un treillis *isa* typé à partir d'une extraction LLM bruitée, grâce à l'élimination de candidats rendue tolérante au bruit par une porte d'admission à blâme localisé
+# Croissance en ligne saine d'un treillis *isa* typé à partir d'une extraction LLM bruitée, grâce à une élimination de candidats rendue tolérante au bruit par une porte d'admission à blâme localisé
 
 **Nathanael Braun** — chercheur indépendant
 
@@ -81,18 +81,18 @@ non la spécification qu'on lui a donnée — avec et sans raisonnement (nous le
 Le remède classique consiste à laisser décider une structure symbolique : extraire des faits typés de la
 prose, les confronter de façon déterministe à une ontologie déclarée, et refuser de façon typée quand rien ne
 correspond. Cette division du travail est ancienne et saine, et les pipelines neurosymboliques récents
-l'implémentent bien (§2). Elle a un coût structurel, que ses propres praticiens nomment explicitement : la
-base de connaissances est un *goulot manuel*. Chaque sorte, chaque arête de subsomption, chaque synonyme de
-surface doit être écrit à la main. L'échappatoire évidente — laisser le modèle écrire lui-même les arêtes
-manquantes — est la catastrophe documentée du domaine : NELL, la plus longue expérience de base de
-connaissances auto-croissante, a dérivé malgré le co-entraînement et la correction humaine périodique, parce
+l'implémentent bien (§2). Elle a cependant un coût structurel que ses propres praticiens nomment explicitement ; la
+base de connaissances est un *goulot manuel*. Ce "*goulot manuel*" signifie que chaque sorte, chaque arête de subsomption, chaque synonyme de
+surface doit être écrit à la main. L'échappatoire évidente, naive, laisser le modèle écrire lui-même les arêtes
+manquantes, est une des grande catastrophe documentée du domaine : NELL. NELL est la plus longue expérience de base de
+connaissances auto-croissante, et elle a dérivé malgré le co-entraînement et la correction humaine périodique; parce
 que rien, dans son chemin d'admission, ne savait distinguer un fait que le monde soutient d'un fait que le
 modèle trouve plausible.
 
 Cet article porte sur le chemin d'admission. Nous gardons la division du travail (le modèle extrait, le
 treillis décide) et nous y ajoutons la troisième capacité que cette division semblait interdire : **le
 treillis grandit en ligne, à partir des propositions bruitées du modèle, sans absorber l'ontologie du
-modèle.** L'instrument est une règle d'admission unique, appliquée à trois grains de la structure.
+modèle.** L'instrument est ainsi une règle d'admission unique, appliquée à trois grains de la structure.
 
 ### 1.2 La revendication
 
@@ -394,7 +394,9 @@ de l'article chiffre cette phrase (§4–§5), puis la défend en conditions ré
 
 ### 4.1 Les objets
 
-Fixons un treillis fini de sortes `(L, ⊑)` — dans le moteur, des concept-sortes sous la subsomption
+Fixons un treillis fini de sortes `(L, ⊑)` — *sorte* au sens technique des logiques multi-sortes, jamais au
+sens courant : le type déclaré d'un objet dans la hiérarchie, l'héritier direct du treillis de sortes de
+LOGIN (Aït-Kaci & Nasr 1986). Dans le moteur, ce sont les concept-sortes sous la subsomption
 `childConcepts` ; formellement, un poset fini où les parents multiples sont permis (les joins ne sont pas
 nécessairement uniques, ce qui comptera plus bas). Un schéma de tâche expose `r` slots rôlés. Une
 **restriction** pour le slot `i` est une coupe `C_i ⊆ L` ; une sorte `s` la satisfait ssi `s ⊑ c` pour un
@@ -1147,6 +1149,8 @@ finaliser au dépôt.]
 *(v0.1 — listes d'auteurs et pages à compléter au dépôt ; identifiants arXiv tels que résolus par la passe
 d'antériorité du 2026-07-03.)*
 
+- Aït-Kaci, H., & Nasr, R. (1986). LOGIN: a logic programming language with built-in inheritance.
+  *Journal of Logic Programming* 3(3). [le treillis de sortes]
 - Angluin, D. (1980). Inductive inference of formal languages from positive data. *Information and Control* 45.
 - Angluin, D. (1988). Queries and concept learning. *Machine Learning* 2.
 - Angluin, D., & Laird, P. (1988). Learning from noisy examples. *Machine Learning* 2.
