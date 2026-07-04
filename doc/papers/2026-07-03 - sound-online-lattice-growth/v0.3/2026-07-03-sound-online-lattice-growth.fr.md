@@ -199,15 +199,24 @@ moment : coupler un frontal LLM à un moteur de programmation logique. Quatre ja
 - Logic-LM et Logic-LM++ traduisent le problème en entrée de solveur et s'auto-raffinent sur les erreurs du
   solveur — une réparation de *formulation*, par problème, sans mémoire persistante ni blâme ;
 - le jumeau de mécanisme le plus proche est le pipeline auto-correctif LLM-programmeur-ASP
-  (arXiv:2604.27960) : il exprime nativement défauts et exceptions (l'ASP est non-monotone) et est explicite
-  sur ses propres bornes — correction en un coup, par session, pas un système apprenant, pas d'attribution
-  de blâme, pas de révision défaisable de connaissances *apprises* ;
+  (arXiv:2604.27960).
+
+  Il exprime nativement défauts et exceptions (l'ASP est non-monotone) et est explicite sur ses propres
+  bornes :
+
+  - correction en un coup, par session ;
+  - pas un système apprenant ;
+  - pas d'attribution de blâme ;
+  - pas de révision défaisable de connaissances *apprises* ;
+
 - la ligne s(CASP)-socialbot et ProSLM a la défaisance native et l'abstention typée — sur une base et des
   règles écrites à la main, un goulot que leurs auteurs nomment ;
 - le raisonneur neurosymbolique sain-et-complet d'arXiv:2507.09751 livre la face fidélité de notre
-  revendication (abstention sur les cas incohérents ou incertains, fidélité à une théorie déclarée), avec le
-  LLM logé *dans* la fonction d'interprétation de la sémantique — mais la théorie reste statique : rien n'y
-  apprend une règle, une arête ou un alias.
+  revendication.
+
+  Il offre l'abstention sur les cas incohérents ou incertains et la fidélité à une théorie déclarée, avec
+  le LLM logé *dans* la fonction d'interprétation de la sémantique — mais la théorie reste statique : rien
+  n'y apprend une règle, une arête ou un alias.
 
 **Les évaluations de défaisance.** Le deuxième voisinage ne construit pas de système : il mesure.
 DeFAb (arXiv:2606.18557), DEFREASING (NAACL 2025) et l'étude generics-and-defaults
@@ -222,10 +231,13 @@ contribution*.
 bases qui grandissent seules. NELL (présentée en §1.1) en est le cas d'école, positif et d'avertissement à
 la fois ; trois lignes y vivent aujourd'hui :
 
-- l'héritier direct de NELL existe : DySECT (arXiv:2603.06915, issu de l'équipe NELL) fait croître en
-  continu une base auto-expansive depuis les triplets extraits par le LLM, en boucle fermée
-  extraction↔connaissance — sans aucune porte d'admission dans le chemin d'écriture ; c'est exactement la
-  configuration dont §6.5–§6.6 mesurent la dérive, et le contraste que cet article instrumente ;
+- l'héritier direct de NELL existe : DySECT (arXiv:2603.06915, issu de l'équipe NELL).
+
+  Il fait croître en continu une base auto-expansive depuis les triplets extraits par le LLM, en boucle
+  fermée extraction↔connaissance — sans aucune porte d'admission dans le chemin d'écriture ; c'est
+  exactement la configuration dont §6.5–§6.6 mesurent la dérive, et le contraste que cet article
+  instrumente ;
+
 - les travaux récents d'induction de taxonomies (SC-Taxo ; la série de challenges LLMs4OL) traitent les
   incohérences structurelles et le désalignement sémantique par des filtres de cohérence — de la consistance
   globale, pas de la localisation par-unité ;
@@ -696,22 +708,31 @@ Quatre bras sur des flux bit-identiques :
 
 Quatre dynamiques étaient prédites ; les quatre sont mesurées dans chaque cellule :
 
-1. **L'écart existe et vaut sa borne théorique.** Erreurs de sur-généralisation de A : **16** (chaque
-   arrivée mauvaise — la LGG seule ne freine jamais). B : **8** à ρ=0 — exactement une première exposition
-   inévitable par (facette × sorte mauvaise), le plancher. La porte achète **−50 % de sur-généralisation à
-   sur-resserrement nul** (refus de bonnes tâches par B : 0, identique à A).
-2. **A converge — vers le mauvais point fixe.** Dans chaque cellule, `S_filtre(A)` se pose sur `column`
-   (soulevé là par les appariements accidentels de l'oracle permissif) ; `S_filtre(B)` tient `categorical`,
-   la cible déclarée. L'écart n'est pas « A n'apprend pas » ; c'est « A apprend *trop large*, stablement » —
-   ce qui est pire, parce que cela ressemble à une convergence.
-3. **Le contrôle non-sain s'auto-scelle, de façon monotone, sur les rares.** C refuse 2 à 14 *bonnes* tâches
-   par cellule, concentrées exactement sur les sortes rares que N1 a frappées — et ne les récupère jamais.
-   B à ρ=0 : zéro. C'est l'asymétrie de §4.3 rendue visible, et c'est la réponse mesurée à « pourquoi ne pas
-   simplement compter tous les échecs comme négatifs ».
-4. **Le faux-blâme dégrade B ; l'optimisme le récupère, à prime visible.** À ρ>0, B scelle des
-   bonnes-rares (3 par cellule) ; D finit avec ≤ scellées (2–3) au prix de 2 montures
-   supplémentaires et d'une sur-généralisation de 5–6 contre 4. L'assurance n'est pas gratuite — et
-   à ρ=0, D ≡ B : la prime ne se paie que lorsqu'il y a quelque chose à assurer.
+1. **L'écart existe et vaut sa borne théorique.**
+
+   Erreurs de sur-généralisation de A : **16** (chaque arrivée mauvaise — la LGG seule ne freine jamais).
+   B : **8** à ρ=0 — exactement une première exposition inévitable par (facette × sorte mauvaise), le
+   plancher. La porte achète **−50 % de sur-généralisation à sur-resserrement nul** (refus de bonnes tâches
+   par B : 0, identique à A).
+
+2. **A converge — vers le mauvais point fixe.**
+
+   Dans chaque cellule, `S_filtre(A)` se pose sur `column` (soulevé là par les appariements accidentels de
+   l'oracle permissif) ; `S_filtre(B)` tient `categorical`, la cible déclarée. L'écart n'est pas « A
+   n'apprend pas » ; c'est « A apprend *trop large*, stablement » — ce qui est pire, parce que cela
+   ressemble à une convergence.
+
+3. **Le contrôle non-sain s'auto-scelle, de façon monotone, sur les rares.**
+
+   C refuse 2 à 14 *bonnes* tâches par cellule, concentrées exactement sur les sortes rares que N1 a
+   frappées — et ne les récupère jamais. B à ρ=0 : zéro. C'est l'asymétrie de §4.3 rendue visible, et c'est
+   la réponse mesurée à « pourquoi ne pas simplement compter tous les échecs comme négatifs ».
+
+4. **Le faux-blâme dégrade B ; l'optimisme le récupère, à prime visible.**
+
+   À ρ>0, B scelle des bonnes-rares (3 par cellule) ; D finit avec ≤ scellées (2–3) au prix de 2 montures
+   supplémentaires et d'une sur-généralisation de 5–6 contre 4. L'assurance n'est pas gratuite — et à ρ=0,
+   D ≡ B : la prime ne se paie que lorsqu'il y a quelque chose à assurer.
 
 Une dynamique non prévue est consignée, parce qu'elle reviendra dans les métriques live : à ρ>0, la
 sur-généralisation de B *descend* (8→4) — un mauvais scellement sur une bonne-rare refuse

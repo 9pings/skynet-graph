@@ -271,13 +271,16 @@ simulés :
 La lecture est triple. **Les mémoires par rappel seul (RAG / CBR / Compétence) servent du périmé** —
 le rappel seul ne récupère pas, l'audit n'entrant jamais dans leur chemin de réutilisation. **La
 récupération exige un mécanisme d'invalidation**, et l'Invalidant comme Struct en ont un, donc tous
-deux atteignent 1.00. Ce que le **contrat défaisable typé ajoute au rappel codé à la main**, c'est
-(i) la **sélectivité** — Struct re-vérifie la post par entrée (`satisfies`) et n'évince que les 2
-classes *violées* (approve), là où le rappel jette grossièrement des classes entières (4 entrées) et
-paie les re-dérivations supplémentaires (26 vs 28 appels) ; (ii) la **généralité** — le même
-`assertPost`, agnostique-à-la-prémisse par construction (les expériences n'exercent qu'un seul type
-de prémisse, un basculement de drapeau de conformité), tandis que le rappel est codé à la main par
-événement ; (iii) la **sûreté de composition** (§4.4). L'exécution réelle (Qwen3.6-27B (Q2_K_XL,
+deux atteignent 1.00. Ce que le **contrat défaisable typé ajoute au rappel codé à la main** tient en
+trois propriétés :
+
+- la **sélectivité** — Struct re-vérifie la post par entrée (`satisfies`) et n'évince que les 2 classes
+  *violées* (approve), là où le rappel jette grossièrement des classes entières (4 entrées) et paie les
+  re-dérivations supplémentaires (26 vs 28 appels) ;
+- la **généralité** — le même `assertPost`, agnostique-à-la-prémisse par construction (les expériences
+  n'exercent qu'un seul type de prémisse, un basculement de drapeau de conformité), tandis que le rappel
+  est codé à la main par événement ;
+- la **sûreté de composition** (§4.4). L'exécution réelle (Qwen3.6-27B (Q2_K_XL,
 MTP), N = 48) reproduit ce classement : RAG/CBR/Compétence 0.00 ; Invalidant 14 appels / 1.00 ;
 Struct 13 appels / 2,6 s / 1.00 / ctx 278 vs Long-contexte 1304. L'affirmation défendable n'est donc
 pas « seul Struct récupère » mais « la mémoire par rappel seul ne sait pas désapprendre, et un
