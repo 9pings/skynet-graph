@@ -158,8 +158,8 @@ L'article suit son évidence à travers trois niveaux, du plus contrôlé au plu
 Nous énonçons la portée honnêtement dès maintenant : les résultats en conditions réelles sont des résultats
 d'existence, sur des treillis jouets déclarés, à N d'existence dans plusieurs cellules, avec la circularité
 d'oracle que le dispositif implique — que nous signalons là où elle existe. Ce que les trois niveaux établissent ensemble,
-c'est que le mécanisme existe, qu'il est chiffré, et qu'il survit au contact d'un oracle tiers — ni qu'il est
-complet, ni que ses constantes sont définitives.
+c'est que le mécanisme existe, qu'il est chiffré, et qu'il survit au contact d'un oracle tiers — pas qu'il
+soit complet, ni que ses constantes soient définitives.
 
 ---
 
