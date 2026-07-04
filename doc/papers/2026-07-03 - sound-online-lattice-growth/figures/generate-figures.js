@@ -172,7 +172,7 @@ function f3( L ) {
 	b += txt(60, y + 172, L.f3forest, { size: 11.5, fill: C.mut, italic: true });
 	b += rect(660, y + 130, 230, 52, { fill: C.bgG, stroke: C.green });
 	b += txt(775, y + 150, L.f3verdict, { anchor: 'middle', size: 11.5, fill: C.green, weight: 700 });
-	b += txt(775, y + 168, `${disc2.found.length}/4 = declared (rung-2)`, { anchor: 'middle', size: 11, fill: C.green, mono: true });
+	b += txt(775, y + 168, `${disc2.found.length}/4 = declared`, { anchor: 'middle', size: 11, fill: C.green, mono: true });
 	b += src(920, y + 204, 'source: RESULTS-discover-2.json (found ≡ declared, shape post-canon)');
 	return doc(920, y + 216, b, 'restriction-learning/RESULTS-discover-2.json');
 }
@@ -217,7 +217,7 @@ function f5( L ) {
 	const cols = [
 		{ h: L.f5c1, mech: 'α', ok: `S_B(filter) = ${B_}`, okN: L.f5c1ok, ko: `${L.f5c1koPre} S_A → ${A_}`, koN: L.f5c1ko, s: 'lab 126/126' },
 		{ h: L.f5c2, mech: 'α + verify', ok: 'football ⊑ ball', okN: L.f5c2ok, ko: ratchS.ungated.wrongEdges[0], koN: L.f5c2ko, s: 'ratchet ×3' },
-		{ h: L.f5c3, mech: 'α + β', ok: ring.gated.confirmed[0].replace('kind:', ''), okN: L.f5c3ok, ko: ring.ungated.wrongAdmits[0].replace('holeName:', ''), koN: L.f5c3ko, s: 'ring G4 ×3' } ];
+		{ h: L.f5c3, mech: 'α + β', ok: ring.gated.confirmed[0].replace('kind:', ''), okN: L.f5c3ok, ko: ring.ungated.wrongAdmits[0].replace('holeName:', ''), koN: L.f5c3ko, s: 'ring ×3' } ];
 	cols.forEach(( c, i ) => { const x = 40 + i * 292;
 		b += rect(x, 92, 268, 262, { fill: 'white' });
 		b += txt(x + 134, 118, c.h, { anchor: 'middle', weight: 700, size: 12.5 });
@@ -324,9 +324,9 @@ const LBL = {
 		f1prose: 'prose paraphrasée par le modèle (épisode réel, mémo durable) :', f1extract: 'extraction typée (1 appel, schéma déclaré)',
 		f1obj: 'object — faits typés', f1holes: 'holes — slots candidats', f1distract: 'color = facette distractrice (V1) ; surfaces gardées telles quelles',
 		f1verbatim: 'surfaces extraites VERBATIM — la canonicalisation appartient au système (P2), jamais au modèle',
-		f2cut: 'coupe C(trou rond)', f2roots: 'sortes racines (facette forme)', f2ring: 'ring appris (G4, réel)',
-		f2def: 'défaiseur (V5)', f2axiom: 'arête isa (axiome autoré)', f2patch: 'entrée du patch paraphrase (cf. ring G4)',
-		f3head: 'concept-méthode « compare » — shape post-canon [aggregate, aggregate, check, emit], découverte au rung-2 :',
+		f2cut: 'coupe C(trou rond)', f2roots: 'sortes racines (facette forme)', f2ring: 'ring appris (réel)',
+		f2def: 'défaiseur (V5)', f2axiom: 'arête isa (axiome autoré)', f2patch: 'entrée du patch paraphrase (cf. ring)',
+		f3head: 'concept-méthode « compare » — shape post-canon [aggregate, aggregate, check, emit], découverte au discovery run :',
 		f3slots: 'slots rôlés = les trous de la LGG (anti-unification) — sous-qualifié ≡ slot', f3forest: 'forêt de subpaths : alternatives qualifiées ; un seul path actif post-résolution',
 		f3verdict: 'DISCOVERED ≡ DECLARED',
 		f4okHead: 'monture réussie', f4koHead: 'monture affamée (injection)', f4zero: 'aucun déclenchement au-delà de la monture',
@@ -335,7 +335,7 @@ const LBL = {
 		f5c2: 'arête isa', f5c2ok: 'ré-apprise par monture optimiste (45/45)', f5c2ko: 'plausible-monde, UNGATED l’admet',
 		f5c3: 'alias de surface', f5c3ok: 'confirmé à support ≥ 2', f5c3ko: 'poison UNGATED (jamais retiré)',
 		f5foot: 'même invariant aux trois grains ; deux mécanismes duaux — α provenance structurelle · β ablation contrefactuelle',
-		f6edge: 'grain ARÊTE (cliquet, ordre 0, deux domaines) :', f6vocab: 'grain VOCABULAIRE (ring G4, ordre 0 — 15 expositions par bras) :',
+		f6edge: 'grain ARÊTE (cliquet, ordre 0, deux domaines) :', f6vocab: 'grain VOCABULAIRE (ring, ordre 0 — 15 expositions par bras) :',
 		f6adm: 'ADMISE', f6dmg: 'dégât silencieux', f6false: 'arête fausse', f6ref: 'refus', f6prime: 'prime',
 		f6ok: 'réponse juste', f6def: 'défait (correct)', f6refT: 'refus typé', f6wrong: 'réponse fausse', f6admT: 'alias admis (vrai)', f6poison: 'alias admis (poison)',
 		f6res: 'résolution',
@@ -351,9 +351,9 @@ const LBL = {
 		f1prose: 'model-paraphrased prose (real episode, durable memo):', f1extract: 'typed extraction (1 call, declared schema)',
 		f1obj: 'object — typed facts', f1holes: 'holes — candidate slots', f1distract: 'color = distractor facet (V1); surfaces kept as written',
 		f1verbatim: 'surfaces extracted VERBATIM — canonicalization belongs to the system (P2), never to the model',
-		f2cut: 'cut C(round hole)', f2roots: 'root sorts (shape facet)', f2ring: 'learned ring (G4, real)',
-		f2def: 'defeater (V5)', f2axiom: 'isa edge (authored axiom)', f2patch: 'paraphrase-patch entry (cf. G4 ring)',
-		f3head: 'concept-method “compare” — post-canon shape [aggregate, aggregate, check, emit], discovered at rung-2:',
+		f2cut: 'cut C(round hole)', f2roots: 'root sorts (shape facet)', f2ring: 'learned ring (real)',
+		f2def: 'defeater (V5)', f2axiom: 'isa edge (authored axiom)', f2patch: 'paraphrase-patch entry (cf. the ring)',
+		f3head: 'concept-method “compare” — post-canon shape [aggregate, aggregate, check, emit], discovered at discovery run:',
 		f3slots: 'role-typed slots = the LGG holes (anti-unification) — under-qualified ≡ slot', f3forest: 'subpath forest: qualified alternatives; one active path post-resolution',
 		f3verdict: 'DISCOVERED ≡ DECLARED',
 		f4okHead: 'successful mount', f4koHead: 'starved mount (injection)', f4zero: 'no rule fires beyond the mount',
@@ -362,7 +362,7 @@ const LBL = {
 		f5c2: 'isa edge', f5c2ok: 're-learned by optimistic mount (45/45)', f5c2ko: 'world-plausible; UNGATED admits it',
 		f5c3: 'surface alias', f5c3ok: 'confirmed at support ≥ 2', f5c3ko: 'UNGATED poison (never removed)',
 		f5foot: 'same invariant at all three grains; two dual mechanisms — α structural provenance · β counterfactual ablation',
-		f6edge: 'EDGE grain (ratchet, order 0, both domains):', f6vocab: 'VOCABULARY grain (G4 ring, order 0 — 15 exposures per arm):',
+		f6edge: 'EDGE grain (ratchet, order 0, both domains):', f6vocab: 'VOCABULARY grain (ring, order 0 — 15 exposures per arm):',
 		f6adm: 'ADMITTED', f6dmg: 'silent damage', f6false: 'false edges', f6ref: 'refusals', f6prime: 'premium',
 		f6ok: 'correct answer', f6def: 'defeated (correct)', f6refT: 'typed refusal', f6wrong: 'wrong answer', f6admT: 'alias admitted (true)', f6poison: 'alias admitted (poison)',
 		f6res: 'resolution',
