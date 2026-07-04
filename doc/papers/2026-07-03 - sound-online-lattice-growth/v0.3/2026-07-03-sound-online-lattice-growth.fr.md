@@ -223,9 +223,11 @@ la fois ; trois lignes y vivent aujourd'hui :
   globale, pas de la localisation par-unité ;
 - la complétion de graphe favorisant la provenance (TGComplete, arXiv:2606.15833) est le parent le plus
   proche d'une porte d'admission : elle vérifie un candidat par une boucle de récupération légère et
-  *s'abstient* quand le support textuel manque. Le delta est précis : sa vérification est un support
-  documentaire au moment de la complétion ; il n'y a ni monture optimiste, ni crédit/blâme localisé
-  par-unité, ni rétraction défaisable de ce qui a été admis.
+  *s'abstient* quand le support textuel manque.
+
+Le delta avec ce parent le plus proche est précis : sa vérification est un support documentaire au moment
+de la complétion ; il n'y a ni monture optimiste, ni crédit/blâme localisé par-unité, ni rétraction
+défaisable de ce qui a été admis.
 
 **Apprendre les restrictions sélectionnelles.** Le quatrième voisinage est l'objet même que nous
 apprenons. Sa théorie d'apprentissage s'est arrêtée au cadre corpus-batch des années 1990 (Resnik ;
@@ -1037,10 +1039,10 @@ Le verdict tient en trois couches, aux sensibilités opposées :
 
 1. **Le décideur déterministe est invariant par construction — confirmé.** DeFAb structurel-pur : 30/35
    identique sur les neuf modèles ; le sélecteur L2, 374/374 partout ; le lab §5 ne touche jamais un modèle.
-2. **La porte est probante multi-famille — le résultat fort.** Zéro arête fausse admise, sur les neuf
-   modèles. Chaque famille *émet* du poison, et c'est **le même** (`pyramide→carré`, `fougère→terrestre`,
-   plus leurs extras ; la variante 2-bits extrême en émet le double — la porte tient à zéro quand même). Un
-   biais de plausibilité-monde **partagé entre familles** est exactement le cas où une porte vaut mieux
+2. **La porte est probante multi-famille — le résultat fort.** Zéro arête fausse admise sur les neuf
+   modèles, alors que chaque famille *émet* du poison — et **le même** (`pyramide→carré`,
+   `fougère→terrestre` ; la variante 2-bits extrême en émet le double, la porte tient à zéro quand même).
+   Un biais de plausibilité-monde partagé entre familles est exactement le cas où une porte vaut mieux
    qu'un choix de modèle.
 3. **La soundness fermée-sur-échec du bout-en-bout tient sur les quatre familles — après qu'un correctif
    d'une ligne nous a rappelé qui décide.** L'histoire de ce correctif mérite son propre paragraphe,
