@@ -136,16 +136,16 @@ function f2( L ) {
 	b += txt(100, 40, L.f2roots, { size: 11, fill: C.mut, anchor: 'middle' });
 	// learned ring (the REAL final ring of the G4 run) attached to `round`
 	const ringToks = ring.gated.finalRing.holeName.round.join(' · ');
-	b += rect(560, 372, 330, 34, { fill: 'white', stroke: C.blue, dash: '4 4', rx: 17 });
-	b += txt(725, 386, L.f2ring, { size: 10.5, fill: C.blue, anchor: 'middle', weight: 600 });
-	b += txt(725, 400, `${ringToks} → round`, { size: 11, fill: C.blue, anchor: 'middle', mono: true });
-	b += line(725, 372, 725, 354, { stroke: C.blue, dash: '4 4' });
+	b += rect(520, 372, 370, 34, { fill: 'white', stroke: C.blue, dash: '4 4', rx: 17 });
+	b += txt(705, 386, L.f2ring, { size: 10.5, fill: C.blue, anchor: 'middle', weight: 600 });
+	b += txt(705, 400, `${ringToks} → round`, { size: 10.5, fill: C.blue, anchor: 'middle', mono: true });
+	b += line(705, 372, 705, 354, { stroke: C.blue, dash: '4 4' });
 	// defeater (V5 — real mechanism of the deflated cell)
 	b += txt(pos.football[0], 332, 'deflated ⊘ round', { size: 11, fill: C.red, anchor: 'middle', mono: true });
 	b += txt(pos.football[0], 346, L.f2def, { size: 10, fill: C.red, anchor: 'middle', italic: true });
 	// legend
-	b += line(60, 400, 92, 400, { stroke: '#94a3b8' }); b += txt(98, 404, L.f2axiom, { size: 11, fill: C.mut });
-	b += line(310, 400, 342, 400, { stroke: C.blue, dash: '4 4' }); b += txt(348, 404, L.f2patch, { size: 11, fill: C.mut });
+	b += line(50, 400, 82, 400, { stroke: '#94a3b8' }); b += txt(88, 404, L.f2axiom, { size: 11, fill: C.mut });
+	b += line(258, 400, 290, 400, { stroke: C.blue, dash: '4 4' }); b += txt(296, 404, L.f2patch, { size: 11, fill: C.mut });
 	b += src(920, 428, 'source: riddle-probe.js#ISA + RESULTS-alias-ring.json finalRing (order0)');
 	return doc(920, 440, b, 'riddle-probe.js#ISA · RESULTS-alias-ring.json');
 }
@@ -305,7 +305,8 @@ function f8( L ) {
 		[`entries: [{ structure, content, method }]`, C.blue] ];
 	fields.forEach(( [t, c], i ) => { b += rect(60, 82 + i * 42, 430, 32, { fill: i === 4 ? C.bgB : C.bgN, stroke: i === 4 ? C.blue : C.line });
 		b += txt(74, 103 + i * 42, t, { mono: true, size: 11, fill: c }); });
-	b += txt(60, 316, L.f8entry, { size: 10.5, fill: C.mut, italic: true });
+	b += txt(60, 308, L.f8entry1, { size: 10.5, fill: C.mut, italic: true });
+	b += txt(60, 324, L.f8entry2, { size: 10.5, fill: C.mut, italic: true });
 	// transitive closure
 	b += txt(560, 64, L.f8closure, { weight: 600, size: 12 });
 	const nodes = [ [L.f8m, C.blue, C.bgB], [L.f8uses, C.ink, C.bgN], [L.f8sorts, C.teal, '#f0fdfa'], [L.f8rings, C.blue, 'white'] ];
@@ -343,7 +344,8 @@ const LBL = {
 		f7digram: 'digramme observé (AB)', f7constraints: 'contraintes déclarées : a ≠ b · fact-safety (jamais effacer une position porteuse de faits)',
 		f7note: 'le canon du rung-1 n’est plus déclaré : il est DÉRIVÉ du corpus du système (foldSubpaths, critère du kill-gate GO)',
 		f8pin: 'pin de version (replay ssi égalité)', f8manifest: 'schéma typé DÉRIVÉ des entrées',
-		f8entry: 'unité portable : l’entrée d’index de rappel, adressée par signature (RECALL→VERIFY chez le receveur)',
+		f8entry1: 'unité portable : l’entrée d’index de rappel, adressée par signature',
+		f8entry2: '(RECALL→VERIFY chez le receveur)',
 		f8closure: 'fermeture transitive des dépendances', f8m: 'concept-méthode', f8uses: 'méthodes utilisées', f8sorts: 'concept-sortes', f8rings: 'rings de synonymes',
 		f8verify1: 'réception : le verify typé re-tourne TOUJOURS chez l’hôte —', f8verify2: 'jamais de replay inter-version (pin)',
 	},
@@ -370,7 +372,8 @@ const LBL = {
 		f7digram: 'observed digram (AB)', f7constraints: 'declared constraints: a ≠ b · fact-safety (never erase a fact-bearing position)',
 		f7note: 'the rung-1 canon is no longer declared: it is DERIVED from the system’s own corpus (foldSubpaths, the GO kill-gate criterion)',
 		f8pin: 'version pin (replay iff equal)', f8manifest: 'typed schema DERIVED from the entries',
-		f8entry: 'portable unit: the recall-index entry, signature-addressed (RECALL→VERIFY on the receiver)',
+		f8entry1: 'portable unit: the recall-index entry, signature-addressed',
+		f8entry2: '(RECALL→VERIFY on the receiver)',
 		f8closure: 'transitive dependency closure', f8m: 'concept-method', f8uses: 'methods used', f8sorts: 'concept-sorts', f8rings: 'synonym rings',
 		f8verify1: 'on receipt: the typed verify ALWAYS re-runs on the host —', f8verify2: 'never a cross-version replay (pin)',
 	},
