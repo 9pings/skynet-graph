@@ -176,7 +176,18 @@ def convert(src, lang):
             while i < n and lines[i].strip().startswith('|'):
                 rows.append([c.strip() for c in lines[i].strip().strip('|').split('|')]); i += 1
             ncol = len(header)
-            colspec = 'p{%.2f\\linewidth}' % (0.92 / ncol) * ncol if ncol > 3 else 'l' * ncol
+            # largeur : si la table tient naturellement, colonnes 'l' ; sinon colonnes p{} qui
+            # REPLIENT le texte (largeurs proportionnelles au contenu) — jamais de mise à l'échelle
+            # (un resize rend le texte illisible sur les tables de prose).
+            plain = lambda c: re.sub(r'[*`_$\\]', '', c)
+            lens = [max([len(plain(header[c]))] + [len(plain((r + [''] * ncol)[c])) for r in rows]) for c in range(ncol)]
+            natural = sum(lens) * 4.6 + 12 * ncol                    # ~pt, \small
+            if natural <= 460:
+                colspec = 'l' * ncol
+            else:
+                F = 0.98 - 0.026 * ncol                              # fraction dispo hors tabcolsep
+                w = [min(max(l + 2, 8), 60) for l in lens]
+                colspec = ''.join('>{\\raggedright\\arraybackslash}p{%.3f\\linewidth}' % (F * x / sum(w)) for x in w)
             body.append('\\begin{center}\\small\\begin{adjustbox}{max width=\\linewidth}\\begin{tabular}{%s}\\toprule' % colspec)
             body.append(' & '.join(inline(h) for h in header) + ' \\\\ \\midrule')
             for r in rows:

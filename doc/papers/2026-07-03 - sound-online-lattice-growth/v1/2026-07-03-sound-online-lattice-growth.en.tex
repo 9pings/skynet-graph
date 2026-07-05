@@ -209,7 +209,7 @@ Our mechanism is orthogonal: the boundary stays strict, and it is the \textbf{ad
 
 The position, in one table:
 
-\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lll}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{>{\raggedright\arraybackslash}p{0.273\linewidth}>{\raggedright\arraybackslash}p{0.315\linewidth}>{\raggedright\arraybackslash}p{0.315\linewidth}}\toprule
 Twin & Has & Lacks \\ \midrule
 Self-correcting LLM-as-ASP-programmer (2604.27960) & extraction → online solver, correction loop, natively non-monotonic & persistent learning · blame · defeasible revision of learned rules \\
 Sound-and-complete neurosymbolic (2507.09751) & soundness, abstention, fidelity (LLM in the interpretation) & any learning (static theory) · credit/blame \\
@@ -396,7 +396,7 @@ Before any model enters the loop, the learning rule itself goes on the bench: pu
 
 Because the article compares many arms, here they all are, one line each:
 
-\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lll}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{>{\raggedright\arraybackslash}p{0.174\linewidth}>{\raggedright\arraybackslash}p{0.615\linewidth}>{\raggedright\arraybackslash}p{0.113\linewidth}}\toprule
 Arm & What it is & Where \\ \midrule
 A / B / C / D & deterministic lab: LGG-only / + gate / + every-failure-negative / B + optimism & §5.1–§5.2 \\
 P-glob / P-loc & credit lab: success credits everything / per-atom localized credit & §5.3 \\
@@ -480,7 +480,7 @@ The prose is always paraphrased by the model — the surface is never ours. Wher
 
 On fresh instances and on a full domain transposition (animals/enclosures: \texttt{trout ⊑ fish ⊑ aquatic}, an aviary, a terrarium):
 
-\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{>{\raggedright\arraybackslash}p{0.240\linewidth}>{\raggedright\arraybackslash}p{0.112\linewidth}>{\raggedright\arraybackslash}p{0.344\linewidth}>{\raggedright\arraybackslash}p{0.180\linewidth}}\toprule
 cell & SYS & ABLATED (strict path) & DIRECT \\ \midrule
 shapes V1–V4, fresh (24) & \textbf{24/24} & fail-closed 18/18 → learned and solved 18/18 & 20/24 \\
 shapes V5 defeasible (3) & \textbf{3/3 retracted} & — & 1/3 (2 hallucinations) \\
@@ -500,7 +500,7 @@ The typed path's value concentrates precisely where knowing is not the question:
 
 A first reading of V3 ("the model hallucinates on no-match") did not survive our own scrutiny, and the correction is more interesting than the original cell. With reasoning on, the model's V3 answers are \emph{world-plausible}: a canonical pyramid does have a square base ("it fits base-first"); ferns do live in terrariums. Those oracles were contestable; we hardened them until no world-plausible escape remained — and the collapse of the artifact is reported as such:
 
-\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{>{\raggedright\arraybackslash}p{0.275\linewidth}>{\raggedright\arraybackslash}p{0.173\linewidth}>{\raggedright\arraybackslash}p{0.122\linewidth}>{\raggedright\arraybackslash}p{0.306\linewidth}}\toprule
 hardened cell & SYS & DIRECT rb=0 & DIRECT reasoning \\ \midrule
 V3h-shapes (square hole removed) & \textbf{6/6 none} & 6/6 & 6/6 — the old V3's "hallucinations" were the \emph{oracle's} artifact \\
 V3h-animals (terrarium removed) & \textbf{6/6 none} & 4/6 (2 hallucinations) & 4/6 (2 hallucinations) \\
@@ -530,7 +530,7 @@ That is why the article never concludes from a single perfect cell, and reads th
 
 The decisive baseline for any self-growth claim is the obvious shortcut: the model proposes the missing edge and the system takes it as is. The temptation is legitimate — §6.2 just showed that the model alone solves most riddles on its world knowledge; if it knows where the trout goes, why a gate on \texttt{trout ⊑ fish}? Two arms on identical streams, two domains × three permutations, answer:
 
-\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lll}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{>{\raggedright\arraybackslash}p{0.301\linewidth}>{\raggedright\arraybackslash}p{0.301\linewidth}>{\raggedright\arraybackslash}p{0.301\linewidth}}\toprule
 ×3 orders & UNGATED (the model writes the edge) & GATED (localization + verification) \\ \midrule
 false edges admitted & \textbf{6/6 cells} (pyramid→square · fern→terrestrial — the model's world-plausible ontology, absorbed) & \textbf{0 everywhere} \\
 silent downstream damage (wrong answers at 0 calls, uncorrectable) & 1–2 per cell, order-robust & 0 (residual: 1 in 2 cells — the vocabulary hole below) \\
@@ -556,7 +556,7 @@ The full circuit reads in five steps:
 
 Fifteen episodes, three stream orders:
 
-\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lll}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{>{\raggedright\arraybackslash}p{0.271\linewidth}>{\raggedright\arraybackslash}p{0.354\linewidth}>{\raggedright\arraybackslash}p{0.277\linewidth}}\toprule
 ×3 orders & GATED & UNGATED \\ \midrule
 admissions & exactly the \textbf{6 spec-true aliases} the stream produces & the same 6 \textbf{+ 3 poisons} \\
 false aliases admitted / confirmed & \textbf{0 / 0} & \textbf{3} (aperture/cavity/hole→round), never removed \\
@@ -583,7 +583,7 @@ Four objections structure this section, each answered by an arm or a campaign. \
 
 The complete declared ontology (taxonomy, holes, exceptions, and the lowest-derivable rule) is placed in the prompt, marked "authoritative", on the same 54 memo-served tasks:
 
-\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{llll}\toprule
 cell & RAG-context & DIRECT & SYS \\ \midrule
 V1/V2/V4 knowledge (×2 domains) & 36/36 & 32/36 & 36/36 \\
 V5 defeasible + benign & 6/6 & 4/6 & 6/6 \\
@@ -608,7 +608,7 @@ Both riddle oracles are ours; the external test is not. \textbf{DeFAb} (Cooper \
 
 We use its Level-3: defeater abduction. An instance gives a theory, an anomaly (a conclusion the rules predict but that should not hold), and six candidate exception rules, typed — one gold and five distractors (too-broad cut, wrong head, irrelevant, positive, wrong condition). The right one must be chosen. This task maps directly onto our gate: the right candidate is the one that is \emph{load-bearing} (the ring admission's decisiveness test), on the \emph{right slot and right polarity}, \textbf{conservative} (it kills no preserved expectation of any covered individual — the vacuity/over-generalization tooth) and \emph{minimal} (fewest posited facts, then coverage). The residual formal ties (≤ 2 verified candidates) go to the model — §3's layered doctrine, at the knowledge frontier only.
 
-\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lll}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{>{\raggedright\arraybackslash}p{0.349\linewidth}>{\raggedright\arraybackslash}p{0.068\linewidth}>{\raggedright\arraybackslash}p{0.485\linewidth}}\toprule
 arm (N=35, three domains) & total & notes \\ \midrule
 \textbf{SYS (gate + in-set tie-break)} & \textbf{34/35} & 30/35 purely structural, at \textbf{zero} model calls \\
 SYS-extract (prose → extraction → gate) & 33/35 & extraction noise costs one cell, fail-closed \\
@@ -626,7 +626,7 @@ On Level-2 (374 dev instances), the typed selector scores \textbf{374/374 at zer
 
 A single model played every role so far — the article's most obvious external-validity confound. We therefore replayed the entire live protocol (§6–§7), identically and memo-isolated per model, on \textbf{nine local models} covering four families (Qwen, Google, Mistral, Microsoft), three quantizations of one family ("extreme" 2-bit, 2-bit, 6-bit), two architectures (dense and mixture-of-experts with \textasciitilde{}3 billion active parameters) and two size brackets (12 to 35 billion) — with a reproduction control first replaying the paper's model bit-for-bit (the harness is faithful):
 
-\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{>{\raggedright\arraybackslash}p{0.225\linewidth}>{\raggedright\arraybackslash}p{0.070\linewidth}>{\raggedright\arraybackslash}p{0.092\linewidth}>{\raggedright\arraybackslash}p{0.183\linewidth}>{\raggedright\arraybackslash}p{0.120\linewidth}>{\raggedright\arraybackslash}p{0.134\linewidth}}\toprule
 model (family, quant) & §6.4 SYS & §6.4 DIRECT & wrong mounts (shapes-V3) & DeFAb pure §7.3 & GATED false edges \\ \midrule
 Qwen 27B Q2 (paper, control) & \textbf{300/300} & 245/300 & \textbf{0} (24/24 refusals) & 30/35 & \textbf{0} \\
 Qwen 27B IQ2 (extreme 2-bit) & 259/300 & 213/300 & \textbf{0} & 30/35 & \textbf{0} \\

@@ -179,7 +179,7 @@ The Invalidating arm exists specifically to separate "has an invalidation mechan
 
 A typed approval domain (N = 80, two audited classes; the live run uses N = 48, one audited class) with an \emph{external} mid-stream premise-invalidation: a compliance audit marks a class non-compliant, flipping its previously-approved cases to reject. The audit is \textbf{not a record field} — it is exogenous — so a recall-only cache retrieves the same unchanged record and serves its cached pre-audit answer. Here are the stub results:
 
-\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lllll}\toprule
 arm & calls & overall acc & \textbf{drift acc} & max per-call ctx \\ \midrule
 \textbf{Struct} (typed contract) & \textbf{26} & \textbf{1.00} & \textbf{1.00} & \textbf{290} \\
 Invalidating (hook, no contract) & 28 & 1.00 & 1.00 & 290 \\
@@ -229,7 +229,7 @@ There remains §1's K1 constraint: what does it actually cost? On a mixed worklo
 
 A bookkeeping-cost check, not a claim about scaling the hard part — a growing library of \emph{distinct} methods, left to future work (end of section): over a 200-class typed space with one mid-stream audit, as the stream length N grows 1 320 → 20 320 (the \emph{class set} is fixed; no new methods, no model):
 
-\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{llllll}\toprule
 N & Struct calls & calls / N & Naive calls & library (memo) & evicted on drift \\ \midrule
 1 320 & 202 & 0.153 & 1 320 & 200 & 2 \\
 5 320 & 202 & 0.038 & 5 320 & 200 & 2 \\
@@ -242,7 +242,7 @@ Struct's call count stays \textbf{constant} (the bounded number of distinct clas
 
 The §4.1 baselines are generic (RAG / CBR / Skill). The systems a reviewer compares against are the \emph{named} ones: \textbf{MemGPT/Letta} (tiered virtual context with self-editing memory) [Packer et al. 2023], \textbf{Reflexion} (an episodic verbal-reflection retry driven by a failure signal) [Shinn et al. 2023], and \textbf{GraphRAG} (an offline knowledge-graph index with LLM community summaries) [Edge et al. 2024]. We add a faithful minimal re-implementation of each behind the same interface, each in its \emph{fairest} configuration, with a paired ablation that turns its distinctive mechanism off (the negative control). The bench is a deterministic stub: N = 78, two audited classes, six drift cases:
 
-\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lllll}\toprule
 arm & model calls & acc & drift-acc & max ctx \\ \midrule
 Naive & 78 & 1.00 & 1.00 & 290 \\
 \textbf{MemGPT} (audit paged into core) & 23 & 1.00 & 1.00 & 320 \\
@@ -275,7 +275,7 @@ The named systems were not designed to amortize recurrent typed point-decisions;
 
 E6 measures a \emph{single} method. The differentiator of a \emph{library} is composition: when an upstream method's premise falls, does the recovery propagate through the chain? We extend the workload to a two-link chain — \texttt{decide → disburse}, where \texttt{disbursement = disbursed iff decision == approve} (link 2 reads link 1's outcome fact) — and re-run the head-to-head, scoring \textbf{both} links. The same exogenous audit now cascades: an audited high-score case must flip \texttt{decision} approve→reject \textbf{and} \texttt{disbursement} disbursed→held. Two regimes are run: the deterministic stub (N = 78, two audited classes) and a live run (Qwen3.6-27B (Q2\_K\_XL, MTP), N = 48):
 
-\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{llll}\toprule
 arm & calls (stub / live) & drift-acc link 1 & drift-acc link 2 \\ \midrule
 Naive & 156 / 96 & 1.00 & 1.00 \\
 CBR (= Struct − contract) & 36 / 24 & \textbf{0.00} & \textbf{0.00} \\

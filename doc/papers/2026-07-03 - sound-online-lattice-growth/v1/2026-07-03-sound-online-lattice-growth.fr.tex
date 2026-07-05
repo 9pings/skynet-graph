@@ -209,7 +209,7 @@ Notre mécanisme est orthogonal : la frontière reste stricte, et c'est le \text
 
 La position, en une table :
 
-\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lll}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{>{\raggedright\arraybackslash}p{0.265\linewidth}>{\raggedright\arraybackslash}p{0.318\linewidth}>{\raggedright\arraybackslash}p{0.318\linewidth}}\toprule
 Jumeau & Possède & Manque \\ \midrule
 LLM-programmeur-ASP auto-correctif (2604.27960) & extraction → solveur en ligne, boucle de correction, non-monotone natif & apprentissage persistant · blâme · révision défaisable de règles apprises \\
 Neurosymbolique sain-et-complet (2507.09751) & soundness, abstention, fidélité (LLM dans l'interprétation) & tout apprentissage (théorie statique) · crédit/blâme \\
@@ -396,7 +396,7 @@ Avant qu'aucun modèle n'entre dans la boucle, la règle d'apprentissage elle-m�
 
 Parce que l'article compare beaucoup de bras, les voici tous, une ligne chacun :
 
-\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lll}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{>{\raggedright\arraybackslash}p{0.174\linewidth}>{\raggedright\arraybackslash}p{0.615\linewidth}>{\raggedright\arraybackslash}p{0.113\linewidth}}\toprule
 Bras & Ce que c'est & Où \\ \midrule
 A / B / C / D & lab déterministe : LGG-seul / + porte / + tout-échec-négatif / B + optimisme & §5.1–§5.2 \\
 P-glob / P-loc & lab du crédit : succès crédite tout / crédit localisé par-atome & §5.3 \\
@@ -480,7 +480,7 @@ La prose est toujours paraphrasée par le modèle — la surface n'est jamais la
 
 Sur instances fraîches et sur une transposition de domaine complète (animaux/enclos : \texttt{truite ⊑ poisson ⊑ aquatique}, une volière, un terrarium) :
 
-\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{>{\raggedright\arraybackslash}p{0.242\linewidth}>{\raggedright\arraybackslash}p{0.121\linewidth}>{\raggedright\arraybackslash}p{0.332\linewidth}>{\raggedright\arraybackslash}p{0.181\linewidth}}\toprule
 cellule & SYS & ABLATED (chemin strict) & DIRECT \\ \midrule
 formes V1–V4, fraîches (24) & \textbf{24/24} & fail-closed 18/18 → appris et résolu 18/18 & 20/24 \\
 formes V5 défaisables (3) & \textbf{3/3 rétractées} & — & 1/3 (2 hallucinations) \\
@@ -500,7 +500,7 @@ La valeur du chemin typé se concentre précisément là où savoir n'est pas la
 
 Une première lecture de V3 (« le modèle hallucine sur l'aucun-match ») n'a pas survécu à notre propre examen, et la correction est plus intéressante que la cellule d'origine. Raisonnement activé, les réponses V3 du modèle sont \emph{plausibles-monde} : une pyramide canonique a bien une base carrée (« elle rentre base la première ») ; les fougères vivent bel et bien en terrarium. Ces oracles étaient contestables ; nous les avons durcis jusqu'à ce qu'aucune échappatoire plausible-monde ne subsiste — et l'effondrement de l'artefact est rapporté comme tel :
 
-\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{>{\raggedright\arraybackslash}p{0.274\linewidth}>{\raggedright\arraybackslash}p{0.184\linewidth}>{\raggedright\arraybackslash}p{0.119\linewidth}>{\raggedright\arraybackslash}p{0.299\linewidth}}\toprule
 cellule durcie & SYS & DIRECT rb=0 & DIRECT raisonnement \\ \midrule
 V3h-formes (trou carré retiré) & \textbf{6/6 none} & 6/6 & 6/6 — les « hallucinations » de l'ancien V3 étaient l'artefact de l'\emph{oracle} \\
 V3h-animaux (terrarium retiré) & \textbf{6/6 none} & 4/6 (2 hallucinations) & 4/6 (2 hallucinations) \\
@@ -530,7 +530,7 @@ C'est pourquoi l'article ne conclut jamais depuis une seule cellule parfaite, et
 
 La référence décisive de toute revendication d'auto-croissance est le raccourci évident : le modèle propose l'arête manquante et le système la prend telle quelle. La tentation est légitime — §6.2 vient de montrer que le modèle seul résout la plupart des devinettes sur sa connaissance-monde ; s'il sait où va la truite, pourquoi une porte sur \texttt{truite ⊑ poisson} ? Deux bras sur flux identiques, deux domaines × trois permutations, répondent :
 
-\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lll}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{>{\raggedright\arraybackslash}p{0.301\linewidth}>{\raggedright\arraybackslash}p{0.301\linewidth}>{\raggedright\arraybackslash}p{0.301\linewidth}}\toprule
 ×3 ordres & UNGATED (le modèle écrit l'arête) & GATED (localisation + vérification) \\ \midrule
 arêtes fausses admises & \textbf{6/6 cellules} (pyramide→carré · fougère→terrestre — l'ontologie plausible-monde du modèle, absorbée) & \textbf{0 partout} \\
 dégât aval silencieux (réponses fausses à 0 appel, incorrigibles) & 1–2 par cellule, robuste à l'ordre & 0 (résidu : 1 sur 2 cellules — le trou de vocabulaire ci-dessous) \\
@@ -556,7 +556,7 @@ Le circuit complet se lit en cinq temps :
 
 Quinze épisodes, trois ordres de flux :
 
-\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lll}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{>{\raggedright\arraybackslash}p{0.279\linewidth}>{\raggedright\arraybackslash}p{0.349\linewidth}>{\raggedright\arraybackslash}p{0.274\linewidth}}\toprule
 ×3 ordres & GATED & UNGATED \\ \midrule
 admissions & exactement les \textbf{6 alias vrais-selon-la-spec} produits par le flux & les mêmes 6 \textbf{+ 3 poisons} \\
 alias faux admis / confirmés & \textbf{0 / 0} & \textbf{3} (aperture/cavity/hole→rond), jamais retirés \\
@@ -583,7 +583,7 @@ Quatre objections structurent cette section, chacune répondue par un bras ou un
 
 L'ontologie déclarée complète (taxonomie, trous, exceptions, et la règle du plus-bas-dérivable) est placée dans le prompt, marquée « authoritative », sur les mêmes 54 tâches mémo-servies :
 
-\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{llll}\toprule
 cellule & RAG-contexte & DIRECT & SYS \\ \midrule
 V1/V2/V4 connaissance (×2 domaines) & 36/36 & 32/36 & 36/36 \\
 V5 défaisable + bénin & 6/6 & 4/6 & 6/6 \\
@@ -608,7 +608,7 @@ Les deux oracles des devinettes sont les nôtres ; le test externe, non. \textbf
 
 Nous utilisons son Level-3 : l'abduction de défaiseur. Une instance donne une théorie, une anomalie (une conclusion que les règles prédisent mais qui ne devrait pas tenir), et six règles d'exception candidates, typées — un gold et cinq distracteurs (coupe trop-large, mauvaise tête, non-pertinente, positive, mauvaise condition). Il faut choisir la bonne. Cette tâche se mappe directement sur notre porte : le bon candidat est celui qui est \emph{porteur} (le test de décisivité de l'admission au ring), sur le \emph{bon slot et la bonne polarité}, \textbf{conservatif} (il ne tue aucune attente préservée d'aucun individu couvert — la dent de vacuité/sur-généralisation) et \emph{minimal} (le moins de faits posés, puis la couverture). Les égalités formelles résiduelles (≤ 2 candidats vérifiés) vont au modèle — la doctrine en couches de §3, à la frontière de connaissance seulement.
 
-\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lll}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{>{\raggedright\arraybackslash}p{0.344\linewidth}>{\raggedright\arraybackslash}p{0.066\linewidth}>{\raggedright\arraybackslash}p{0.492\linewidth}}\toprule
 bras (N=35, trois domaines) & total & notes \\ \midrule
 \textbf{SYS (porte + départage dans-l'ensemble)} & \textbf{34/35} & 30/35 purement structurels, à \textbf{zéro} appel modèle \\
 SYS-extract (prose → extraction → porte) & 33/35 & le bruit d'extraction coûte une cellule, fail-closed \\
@@ -626,7 +626,7 @@ Sur le Level-2 (374 instances dev), le sélecteur typé score \textbf{374/374 à
 
 Un seul modèle jouait tous les rôles jusqu'ici — le confond de validité externe le plus évident de l'article. Nous avons donc rejoué le protocole live entier (§6–§7), à l'identique et mémo-isolé par modèle, sur \textbf{neuf modèles locaux} couvrant quatre familles (Qwen, Google, Mistral, Microsoft), trois quantisations d'une même famille (2 bits « extrême », 2 bits, 6 bits), deux architectures (denses et mixtures-d'experts à \textasciitilde{}3 milliards de paramètres actifs) et deux ordres de taille (12 à 35 milliards) — un contrôle de reproduction rejouant d'abord le modèle du papier bit-à-bit (le harnais est fidèle) :
 
-\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{>{\raggedright\arraybackslash}p{0.209\linewidth}>{\raggedright\arraybackslash}p{0.065\linewidth}>{\raggedright\arraybackslash}p{0.085\linewidth}>{\raggedright\arraybackslash}p{0.216\linewidth}>{\raggedright\arraybackslash}p{0.105\linewidth}>{\raggedright\arraybackslash}p{0.144\linewidth}}\toprule
 modèle (famille, quant) & §6.4 SYS & §6.4 DIRECT & mauvaises montures (formes-V3) & DeFAb pur §7.3 & arêtes fausses GATED \\ \midrule
 Qwen 27B Q2 (papier, contrôle) & \textbf{300/300} & 245/300 & \textbf{0} (24/24 refus) & 30/35 & \textbf{0} \\
 Qwen 27B IQ2 (2 bits extrême) & 259/300 & 213/300 & \textbf{0} & 30/35 & \textbf{0} \\

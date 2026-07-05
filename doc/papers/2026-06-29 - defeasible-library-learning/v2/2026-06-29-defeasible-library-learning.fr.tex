@@ -181,7 +181,7 @@ Le bras Invalidant existe pour séparer « possède un mécanisme d'invalidation
 
 Un domaine d'approbation typé (N = 80, deux classes auditées ; l'exécution réelle utilise N = 48, une classe auditée) avec une invalidation de prémisse \emph{externe} en cours de flux : un audit de conformité marque une classe non conforme, faisant basculer ses cas auparavant approuvés vers le refus. L'audit n'est \textbf{pas un champ d'enregistrement} — il est exogène — donc un cache par rappel seul retrouve le même enregistrement inchangé et sert sa réponse pré-audit. Voici les résultats simulés :
 
-\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{>{\raggedright\arraybackslash}p{0.299\linewidth}>{\raggedright\arraybackslash}p{0.061\linewidth}>{\raggedright\arraybackslash}p{0.153\linewidth}>{\raggedright\arraybackslash}p{0.184\linewidth}>{\raggedright\arraybackslash}p{0.153\linewidth}}\toprule
 bras & appels & exactitude globale & \textbf{exactitude à la dérive} & contexte/appel max \\ \midrule
 \textbf{Struct} (contrat typé) & \textbf{26} & \textbf{1.00} & \textbf{1.00} & \textbf{290} \\
 Invalidant (crochet, sans contrat) & 28 & 1.00 & 1.00 & 290 \\
@@ -233,7 +233,7 @@ Reste la contrainte K1 annoncée en §1 : que coûte-t-elle réellement ? Sur un
 
 Un contrôle de \textbf{coût de tenue de registre}, pas une affirmation sur le passage à l'échelle de la partie difficile — une bibliothèque de méthodes \emph{distinctes} qui croît, laissée en travaux futurs (fin de section) : sur un espace typé de 200 classes avec un audit unique, quand la longueur du flux N croît de 1 320 à 20 320 (l'\emph{ensemble des classes} est fixe ; aucune nouvelle méthode, aucun modèle) :
 
-\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{llllll}\toprule
 N & appels Struct & appels / N & appels Naïf & bibliothèque (mémo) & évincés à la dérive \\ \midrule
 1 320 & 202 & 0,153 & 1 320 & 200 & 2 \\
 5 320 & 202 & 0,038 & 5 320 & 200 & 2 \\
@@ -246,7 +246,7 @@ Le nombre d'appels de Struct reste \textbf{constant} (le nombre borné de classe
 
 Les références de §4.1 sont génériques (RAG / CBR / Compétence). Les systèmes qu'un relecteur attend en comparaison sont les systèmes \emph{nommés} : \textbf{MemGPT/Letta} (contexte virtuel à étages, mémoire auto-éditée) [Packer et al. 2023], \textbf{Reflexion} (un essai-réflexion verbale épisodique piloté par un signal d'échec) [Shinn et al. 2023], et \textbf{GraphRAG} (un index de graphe de connaissances hors-ligne avec résumés de communautés par LLM) [Edge et al. 2024]. Nous ajoutons une ré-implémentation minimale fidèle de chacun de ces trois systèmes, derrière la même interface et dans sa configuration \emph{la plus favorable}, avec une ablation appariée qui éteint son mécanisme distinctif (le contrôle négatif). Le banc est un stub déterministe : N = 78, deux classes auditées, six cas de dérive :
 
-\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lllll}\toprule
 bras & appels modèle & exact. & exact.-dérive & ctx max \\ \midrule
 Naïf & 78 & 1,00 & 1,00 & 290 \\
 \textbf{MemGPT} (audit paginé en core) & 23 & 1,00 & 1,00 & 320 \\
@@ -279,7 +279,7 @@ Les systèmes nommés n'ont pas été conçus pour amortir des décisions ponctu
 
 E6 mesure une \emph{seule} méthode. Le différenciateur d'une \emph{bibliothèque} est la composition : lorsque la prémisse d'une méthode amont tombe, la récupération se propage-t-elle dans la chaîne ? Nous étendons la charge à une chaîne à deux maillons — \texttt{decide → disburse}, où \texttt{disbursement = disbursed iff decision == approve} (le maillon 2 lit le fait-résultat du maillon 1) — et ré-exécutons le tête-à-tête en notant les \textbf{deux} maillons. Le même audit exogène se propage désormais en cascade : un cas audité à score élevé doit faire basculer \texttt{decision} approve→reject \textbf{et} \texttt{disbursement} disbursed→held. Deux régimes sont courus : le simulateur déterministe (N = 78, deux classes auditées) et une exécution réelle (Qwen3.6-27B (Q2\_K\_XL, MTP), N = 48) :
 
-\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{>{\raggedright\arraybackslash}p{0.264\linewidth}>{\raggedright\arraybackslash}p{0.187\linewidth}>{\raggedright\arraybackslash}p{0.213\linewidth}>{\raggedright\arraybackslash}p{0.213\linewidth}}\toprule
 bras & appels (simu / réel) & exact.-dérive maillon 1 & exact.-dérive maillon 2 \\ \midrule
 Naïf & 156 / 96 & 1,00 & 1,00 \\
 CBR (= Struct − contrat) & 36 / 24 & \textbf{0,00} & \textbf{0,00} \\
