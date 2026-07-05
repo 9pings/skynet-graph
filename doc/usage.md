@@ -309,6 +309,8 @@ plain-JSON (`init` / `dispatch` / `ask` / `result`), so a cross-instance transpo
 node examples/run-basic.js     # non-LLM stabilization over the real `common` set
 node examples/run-prompt.js    # decompose → synthesize vs a local LLM (set LLM_BASE), writes a trace
 node examples/run-problem.js   # LLM-driven plan decomposition
+node examples/poc/appliance-typed-qa.js              # the typed-QA appliance (combo C1), canned & deterministic
+node examples/poc/appliance-typed-qa.js --local-model <gguf>   # …same, over a real embedded model
 ```
 
 ### LLM backend (`ask`)
@@ -364,7 +366,21 @@ served from an in-memory cache, and VRAM is bounded by **LRU eviction** — set 
 dedicated budget. (In-process analogue of a grant-based GPU orchestrator; the model loader is injectable, so the
 registry/cache/eviction logic is unit-testable without a GPU.)
 
-**Request/response (`sg ask`).** The reasoning-appliance endpoint: `sg ask "<question>" --local-model <gguf>` runs
-the decompose→synthesize answer loop over the embedded model and prints the answer (self-contained, no HTTP
-endpoint; `--json` for the structured result). Programmatically, `session.answer(text)` resolves with `{answer,
-state}` and `Graph.settle(g)` is the promise-returning settle verb.
+**Request/response (`sg ask`).** Two modes. **`sg ask "<q>" --concepts <dir> --local-model <gguf>`** is the
+**typed QA appliance** (`Graph.combos.createAppliance`): the prose→typed front door → the packaged reason loop
+over `concepts/_substrate` → a durable memo → a typed answer OR a **typed refusal that names the missing
+requirement** — the product posture ON by default (fail-closed, memo ON, validator ON, constrained grammar
+OFF). It follows the typed *spec* (refuse when the input isn't faithfully typed) rather than world-plausibility,
+and a repeat question replays from the persisted sub-graph at **0 model calls**. Without `--concepts`, `sg ask`
+runs the legacy best-effort decompose→synthesize loop (kept for compat). `--json` prints the structured result.
+
+Programmatically:
+
+```js
+const Graph = require('skynet-graph');
+const app = Graph.combos.createAppliance({ concepts: './concepts/mydomain', ask: { localModel: 'models/small.gguf' } });
+const r = await app.answer('…');   // { status:'answered', answer, confBand } | { status:'refused', reason, missing:[…], prose }
+```
+
+The underlying bricks stay usable "à nu" — the appliance is a thin, optional assembly. `session.answer(text)`
+(the legacy loop) resolves with `{answer, state}` and `Graph.settle(g)` is the promise-returning settle verb.

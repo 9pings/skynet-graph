@@ -1,0 +1,85 @@
+'use strict';
+/**
+ * PoC — the typed-QA APPLIANCE (combo C1) end-to-end (roadmap P1.c).
+ *
+ * `Graph.combos.createAppliance` assembles the shipped bricks into one governed request/response
+ * endpoint: the prose→typed front door (Intake), the packaged reason loop (createReasonLoop) over the
+ * `concepts/_substrate` grammar, a durable content-addressed memo, and an answer/refusal projection —
+ * with the product posture ON by default (fail-closed, memo ON, validator ON, constrained grammar OFF).
+ *
+ * It demonstrates the DIFFERENTIATOR: the system follows the typed SPEC, not world-plausibility. A
+ * faithfully-typed question is answered; an input that does NOT cross the typed barrier is REFUSED with
+ * the missing requirement NAMED — never a confident wrong answer. And a repeat question replays from the
+ * persisted sub-graph at ZERO model calls (bit-identical).
+ *
+ * By default it runs with a CANNED, deterministic `ask` (no GPU, no network) so the mechanism is visible
+ * out of the box, exactly like examples/poc/trip-decompose.js. Point it at a real embedded model with
+ *     node examples/poc/appliance-typed-qa.js --local-model /path/to/model.gguf
+ * (the appliance then runs node-llama-cpp in-process, reasoningBudget:0) — same code, real answers.
+ *
+ *   node examples/poc/appliance-typed-qa.js
+ */
+global.__SERVER__ = true;
+const Graph = require('../../lib/index.js');
+
+// ── the backend: a real embedded model if --local-model is given, else a canned deterministic ask ────
+const argv = process.argv.slice(2);
+const modelFlag = ( () => { const i = argv.indexOf('--local-model'); return i !== -1 ? argv[i + 1] : (process.env.LOCAL_MODEL || null); } )();
+
+// The canned ask dispatches on the concept's system prompt (the substrate's authored prompts). It types
+// any question as a 'question', decomposes into two steps, answers each, synthesizes, grades high — and,
+// for the ONE input below, returns an out-of-vocab `kind` so we can show the typed refusal.
+function cannedAsk() {
+	let n = 0;
+	const ask = async ( { system, user } ) => {
+		n++;
+		const s = String(system || '');
+		if ( /inbound message kind/i.test(s) ) {
+			// the deliberately-untypeable input → an out-of-vocab kind → the intake stays `untyped`
+			return /^\s*\.\.\./.test(String(user)) ? '{"kind":"???","prose":"unparseable request"}'
+			                                       : '{"kind":"question","prose":"' + String(user).slice(0, 40).replace(/"/g, '') + '"}';
+		}
+		if ( /complexityClass/.test(s) ) return '{"complexityClass":"compound"}';
+		if ( /"steps"/.test(s) )         return '{"steps":["identify the subject","state the fact"]}';
+		if ( /confBand/.test(s) )        return '{"confBand":"high"}';
+		if ( /Synthesize/i.test(s) )     return 'A concise, bounded synthesis of the sub-answers.';
+		return 'A direct answer to: ' + String(user).replace(/^Step:\s*/, '').slice(0, 60);
+	};
+	ask.count = () => n;
+	return ask;
+}
+
+( async () => {
+	const ask = modelFlag ? { localModel: modelFlag } : cannedAsk();
+	const app = Graph.combos.createAppliance({ ask: ask, maxDepth: 1 });
+	const line = ( s ) => console.log(s);
+
+	line('\n=== PoC — typed-QA appliance (combo C1) ===');
+	line('backend: ' + (modelFlag ? 'embedded model ' + modelFlag : 'canned deterministic ask (no GPU)') + '\n');
+
+	// 1. a faithfully-typed question → an answer (+ a confidence band).
+	const q1 = 'What is the capital of France?';
+	const r1 = await app.answer(q1);
+	line('Q: ' + q1);
+	line('  → ' + r1.status.toUpperCase() + (r1.status === 'answered' ? ': ' + r1.answer + '  [confidence: ' + r1.confBand + ']' : ''));
+
+	// 2. the SAME question again → served from the persisted sub-graph at 0 new model calls.
+	const before = ask.count ? ask.count() : null;
+	const r1b = await app.answer(q1);
+	const replay = ask.count ? ask.count() - before : 'n/a';
+	line('\nQ (repeat): ' + q1);
+	line('  → ' + r1b.status.toUpperCase() + ' — new model calls: ' + replay + (replay === 0 ? ' ✅ (0-call replay)' : ''));
+
+	// 3. an input that does NOT cross the typed barrier → a TYPED refusal that names the miss.
+	const q3 = '... (an unparseable request)';
+	const r3 = await app.answer(q3);
+	line('\nQ: ' + q3);
+	line('  → ' + r3.status.toUpperCase() + ': reason=' + r3.reason +
+		(r3.missing && r3.missing.length ? ', missing=[' + r3.missing.join(', ') + ']' : '') +
+		'  (refused, not wrong-answered)');
+
+	line('\nThe appliance answered the typed question, replayed it at 0 calls, and REFUSED the');
+	line('un-typeable one by naming the missing requirement — the spec, not world-plausibility.\n');
+	app.close();
+	process.exit(0);
+} )().catch( ( e ) => { console.error(e); process.exit(1); } );
