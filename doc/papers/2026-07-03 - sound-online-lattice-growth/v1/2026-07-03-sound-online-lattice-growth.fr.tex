@@ -60,6 +60,8 @@
 \date{2026}
 \begin{document}
 \maketitle
+DOI : 10.5281/zenodo.21201877
+
 \medskip\hrule\medskip
 
 \section*{Résumé}
@@ -716,7 +718,7 @@ Les huit figures sont \textbf{générées depuis les artefacts enregistrés} des
 
 \section*{Annexe B — Reproductibilité}
 
-Les runs principaux utilisent un modèle open-weights embarqué (27 milliards de paramètres, quantisation 2 bits), budget de raisonnement 0 sauf mention (bras raisonnement : budget 1024, budget de réponse dimensionné au-dessus du budget de pensée — un bras précoce qui affamait la réponse est rapporté et écarté dans les journaux). La campagne §7.4 rejoue le protocole sur les autres modèles avec le même harnais, chaque modèle isolé dans ses propres artefacts de résultats, le mémo durable partagé et clé par modèle ; le backend d'inférence est l'implémentation officielle amont, cache KV en pleine précision — audité au niveau du processus vivant pour exclure tout build modifié. Chaque appel modèle est mémoïsé durablement (adressage par contenu) ; chaque table se rejoue bit-à-bit depuis le mémo livré. Le laboratoire déterministe et les expériences de contrôle sont du code pur (zéro GPU). Les données DeFAb sont publiques (MIT) ; le harnais d'évaluation des auteurs n'était pas disponible à l'heure d'écrire — notre sémantique de vérifieur est réimplémentée depuis les champs d'instance et signalée comme telle (§7.3). Dépôt public : \texttt{github.com/\allowbreak{}9pings/\allowbreak{}skynet-graph} — à ce jour, il porte le substrat (moteur) et l'artefact de l'article compagnon [Braun 2026] seuls ; le mécanisme et les artefacts du présent article sont livrés dans le bundle du dépôt et seront poussés au dépôt public après dépôt. [Note : DOI à finaliser au dépôt.]
+Les runs principaux utilisent un modèle open-weights embarqué (27 milliards de paramètres, quantisation 2 bits), budget de raisonnement 0 sauf mention (bras raisonnement : budget 1024, budget de réponse dimensionné au-dessus du budget de pensée — un bras précoce qui affamait la réponse est rapporté et écarté dans les journaux). La campagne §7.4 rejoue le protocole sur les autres modèles avec le même harnais, chaque modèle isolé dans ses propres artefacts de résultats, le mémo durable partagé et clé par modèle ; le backend d'inférence est l'implémentation officielle amont, cache KV en pleine précision — audité au niveau du processus vivant pour exclure tout build modifié. Chaque appel modèle est mémoïsé durablement (adressage par contenu) ; chaque table se rejoue bit-à-bit depuis le mémo livré. Le laboratoire déterministe et les expériences de contrôle sont du code pur (zéro GPU). Les données DeFAb sont publiques (MIT) ; le harnais d'évaluation des auteurs n'était pas disponible à l'heure d'écrire — notre sémantique de vérifieur est réimplémentée depuis les champs d'instance et signalée comme telle (§7.3). Dépôt public : \texttt{github.com/\allowbreak{}9pings/\allowbreak{}skynet-graph} — à ce jour, il porte le substrat (moteur) et l'artefact de l'article compagnon [Braun 2026] seuls ; le mécanisme et les artefacts du présent article sont livrés dans le bundle du dépôt et seront poussés au dépôt public après dépôt. DOI du dépôt : 10.5281/zenodo.21201877.
 
 \section*{Références}
 
@@ -727,7 +729,7 @@ Les runs principaux utilisent un modèle open-weights embarqué (27 milliards de
 \item Angluin, D. (1980). Inductive inference of formal languages from positive data. \emph{Information and Control} 45.
 \item Angluin, D. (1988). Queries and concept learning. \emph{Machine Learning} 2.
 \item Angluin, D., \& Laird, P. (1988). Learning from noisy examples. \emph{Machine Learning} 2.
-\item Braun, N. (2026). Defeasible library learning: typed methods with runtime contracts that un-learn on drift. Préprint Zenodo. [l'article système compagnon]
+\item Braun, N. (2026). Defeasible library learning: typed methods with runtime contracts that un-learn on drift. Préprint Zenodo. doi:10.5281/zenodo.21201723. [l'article système compagnon]
 \item Cooper, P. A., \& Velasquez, A. (2026). DeFAb: a benchmark for defeasible abduction. arXiv:2606.18557.
 \item Cropper, A., \& Morel, R. (2020). Learning programs by learning from failures (Popper). arXiv:2005.02259.
 \item Hocquette, C., Niskanen, A., Järvisalo, M., \& Cropper, A. (2024). Learning MDL logic programs from noisy data (MaxSynth). \emph{AAAI 2024}. arXiv:2308.09393.

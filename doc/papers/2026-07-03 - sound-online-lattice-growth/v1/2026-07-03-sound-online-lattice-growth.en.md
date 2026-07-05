@@ -2,6 +2,8 @@
 
 **Nathanael Braun** — independent researcher
 
+DOI: 10.5281/zenodo.21201877
+
 ---
 
 ## Abstract
@@ -1283,7 +1285,7 @@ available at the time of writing — our verifier semantics is reimplemented fro
 and flagged as such (§7.3). Public repository: `github.com/9pings/skynet-graph` — as of this
 writing it carries the substrate (engine) and the companion paper's artifact [Braun 2026] only; the
 present paper's mechanism and artifacts ship in the deposit bundle and will be pushed to the public
-repository after deposit. [Note: DOI to be finalized at deposit.]
+repository after deposit. Deposit DOI: 10.5281/zenodo.21201877.
 
 ## References
 
@@ -1297,7 +1299,7 @@ pass of 2026-07-03.)*
 - Angluin, D. (1988). Queries and concept learning. *Machine Learning* 2.
 - Angluin, D., & Laird, P. (1988). Learning from noisy examples. *Machine Learning* 2.
 - Braun, N. (2026). Defeasible library learning: typed methods with runtime contracts that un-learn
-  on drift. Zenodo preprint. [the companion system article]
+  on drift. Zenodo preprint. doi:10.5281/zenodo.21201723. [the companion system article]
 - Cooper, P. A., & Velasquez, A. (2026). DeFAb: a benchmark for defeasible abduction. arXiv:2606.18557.
 - Cropper, A., & Morel, R. (2020). Learning programs by learning from failures (Popper). arXiv:2005.02259.
 - Hocquette, C., Niskanen, A., Järvisalo, M., & Cropper, A. (2024). Learning MDL logic programs from

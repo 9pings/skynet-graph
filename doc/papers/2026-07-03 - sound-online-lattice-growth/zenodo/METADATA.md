@@ -1,5 +1,7 @@
 # Dépôt Zenodo — papier treillis (v1) : le paquet
 
+**DOI du record : 10.5281/zenodo.21201877** (déposé)
+
 **Fichiers à téléverser (ce dossier) :**
 1. `2026-07-03-sound-online-lattice-growth.v1.fr.pdf` — le texte maître (français)
 2. `2026-07-03-sound-online-lattice-growth.v1.en.pdf` — la version anglaise (réalignée sur le maître)
@@ -21,7 +23,7 @@
 - **Keywords** : knowledge graph; isa lattice; candidate elimination; version spaces; noise-tolerant learning; selectional restrictions; admission gate; localized blame; defeasible reasoning; truth maintenance; LLM extraction; ontology learning; NELL; local LLMs; typed facts
 - **Related identifiers** :
   - *is supplemented by* : `https://github.com/9pings/skynet-graph` (Software)
-  - *is related to (companion paper)* : DOI Zenodo du papier DLL — **à remplir** (10.5281/zenodo.XXXXXXX)
+  - *is related to (companion paper)* : 10.5281/zenodo.21201723 (papier DLL v2)
   - *references* : arXiv:2606.18557 (DeFAb — données MIT réutilisées en §7.3)
 - **Notes (champ Additional notes)** : « French is the master text; the English version is aligned
   on it. The reproducibility artifact replays every table bit-for-bit from a content-addressed

@@ -2,6 +2,8 @@
 
 **Nathanael Braun** · skynet-graph · 2026-06-29
 
+DOI (v2): 10.5281/zenodo.21201723
+
 > **v2 — 2026-07-04.** Editorial revision of the deposited version (Zenodo): didactic paragraph
 > structure, terminology aligned with the host engine's `concept-*` canon, a cross-reference
 > to the companion admission-gate article [Braun 2026b], and seven figures F1–F7 generated from
@@ -690,8 +692,8 @@ property is worth naming and measuring.
 - J. Bader, J. Aldrich, É. Tanter. *Gradual Program Verification.* VMCAI 2018, LNCS 10747, pp. 25–46.
 - L. Bourtoule, V. Chandrasekaran, C. A. Choquette-Choo, H. Jia, A. Travers, B. Zhang, D. Lie, N. Papernot. *Machine Unlearning.* IEEE Symposium on Security and Privacy 2021, pp. 141–159.
 - N. Braun. *Sound online growth of a typed isa lattice from noisy LLM extraction, through candidate
-  elimination made noise-tolerant by a localized-blame admission gate.* Preprint, 2026. [Braun 2026b —
-  the companion admission-gate article]
+  elimination made noise-tolerant by a localized-blame admission gate.* Zenodo preprint, 2026.
+  doi:10.5281/zenodo.21201877. [Braun 2026b — the companion admission-gate article]
 - M. Bowers, T. X. Olausson, L. Wong, G. Grand, J. B. Tenenbaum, K. Ellis, A. Solar-Lezama. *Top-Down Synthesis for Library Learning.* POPL 2023; Proc. ACM Program. Lang. 7(POPL).
 - M. Budiu, T. Chajed, F. McSherry, L. Ryzhyk, V. Tannen. *DBSP: Automatic Incremental View Maintenance for Rich Query Languages.* PVLDB 16(7):1601–1614, 2023.
 - B. Courcelle. *The Monadic Second-Order Logic of Graphs I: Recognizable Sets of Finite Graphs.* Information and Computation 85(1):12–75, 1990.

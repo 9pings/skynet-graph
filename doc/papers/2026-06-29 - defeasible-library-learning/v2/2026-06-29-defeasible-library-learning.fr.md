@@ -2,6 +2,8 @@
 
 **Nathanael Braun** · skynet-graph · 2026-06-29
 
+DOI (v2) : 10.5281/zenodo.21201723
+
 > **v2 — 2026-07-04.** Révision éditoriale de la version déposée (Zenodo) : structure didactique des
 > paragraphes, terminologie alignée sur le canon
 > `concept-*` du moteur hôte, référence croisée vers l'article compagnon sur la porte d'admission
@@ -796,7 +798,8 @@ algorithme ; nous pensons cette propriété digne d'être nommée et mesurée.
   *Top-Down Synthesis for Library Learning.* POPL 2023 ; Proc. ACM Program. Lang. 7(POPL).
 - N. Braun. *Croissance en ligne saine d'un treillis isa typé à partir d'une extraction LLM bruitée, grâce à
   une élimination de candidats rendue tolérante au bruit par une porte d'admission à blâme localisé.*
-  Préprint, 2026. [Braun 2026b — l'article compagnon sur la porte d'admission]
+  Préprint Zenodo, 2026. doi:10.5281/zenodo.21201877. [Braun 2026b — l'article compagnon sur la
+  porte d'admission]
 - M. Budiu, T. Chajed, F. McSherry, L. Ryzhyk, V. Tannen. *DBSP: Automatic Incremental View
   Maintenance for Rich Query Languages.* PVLDB 16(7):1601–1614, 2023.
 - B. Courcelle. *The Monadic Second-Order Logic of Graphs I: Recognizable Sets of Finite Graphs.*
