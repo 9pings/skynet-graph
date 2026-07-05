@@ -26,6 +26,9 @@
 - **Notes (champ Additional notes)** : « French is the master text; the English version is aligned
   on it. The reproducibility artifact replays every table bit-for-bit from a content-addressed
   durable memo (no GPU required); live re-runs use local GGUF models named in the logs. »
+  + « As of deposit, the public repository carries only the substrate and the companion paper's
+  artifact; the present paper's mechanism and artifacts ship in this deposit bundle and are pushed
+  to the public repository after deposit. »
 
 ---
 
