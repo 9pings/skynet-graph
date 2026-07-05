@@ -17,7 +17,7 @@
 
 ```bash
 npm install        # deps only; no compile
-npm test           # 930+ tests (node --test)
+npm test           # 980+ tests (node --test)
 ```
 
 ```js

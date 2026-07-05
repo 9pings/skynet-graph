@@ -97,7 +97,7 @@ process restart at **0 calls**. *(Both bounds are proven by accounting + a fair 
 
 ```bash
 npm install        # no build step — pure CommonJS, Node 18+
-npm test           # 930+ tests
+npm test           # 980+ tests
 
 node bin/sg run --concepts ./concepts --builtins --seed ./seed.json
 ```
