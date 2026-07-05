@@ -3,10 +3,10 @@
 **Nathanael Braun** · skynet-graph · 2026-06-29
 
 > **v2 — 2026-07-04.** Révision éditoriale de la version déposée (Zenodo) : structure didactique des
-> paragraphes, ancrage des termes à leur première apparition, terminologie alignée sur le canon
+> paragraphes, terminologie alignée sur le canon
 > `concept-*` du moteur hôte, et référence croisée vers l'article compagnon sur la porte d'admission
 > [Braun 2026b]. **Les expériences, les chiffres et les revendications sont ceux de la v1 déposée,
-> inchangés.** La version anglaise sera réalignée après la passe owner.
+> inchangés.** 
 
 ---
 
@@ -16,7 +16,7 @@ Les agents LLM réutilisent leur travail passé via une mémoire *floue* : la re
 (RAG), le raisonnement à partir de cas (CBR), ou encore les bibliothèques de compétences en prose.
 Toutes ces mémoires rappellent par similarité de surface — la ressemblance entre la requête et
 l'entrée stockée, jamais la validité de ce qui la justifie ; aucune, donc, ne sait représenter une
-*prémisse devenue fausse* — le cas que nous appelons la **dérive** : le monde change (une
+*prémisse devenue fausse* — ce que nous appelons la **dérive** : le monde change (une
 réglementation se durcit, un fait est audité et trouvé faux) sans que la requête change. La réponse
 en cache reste alors le plus proche voisin, et elle est servie quand même. Les bibliothèques
 apprises statiques ont le défaut inverse : elles sont saines une fois apprises, mais incapables de

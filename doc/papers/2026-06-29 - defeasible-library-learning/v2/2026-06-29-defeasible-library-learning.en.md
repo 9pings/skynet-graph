@@ -3,9 +3,9 @@
 **Nathanael Braun** · skynet-graph · 2026-06-29
 
 > **v2 — 2026-07-04.** Editorial revision of the deposited version (Zenodo): didactic paragraph
-> structure, terms anchored at first appearance, terminology aligned with the host engine's
-> `concept-*` canon, and a cross-reference to the companion admission-gate article [Braun 2026b].
-> **The experiments, numbers and claims are those of the deposited v1, unchanged.**
+> structure, terminology aligned with the host engine's `concept-*` canon, and a cross-reference
+> to the companion admission-gate article [Braun 2026b]. **The experiments, numbers and claims
+> are those of the deposited v1, unchanged.**
 
 ---
 
@@ -14,7 +14,7 @@
 LLM agents reuse past work through *fuzzy* memory: retrieval (RAG), case-based reasoning (CBR), or
 prose skill libraries. All these memories recall by surface similarity — the resemblance between the
 query and the stored entry, never the validity of what justifies it; none of them, therefore, can
-represent a *premise that has become false* — the case we call **drift**: the world changes (a
+represent a *premise that has become false* — what we call **drift**: the world changes (a
 regulation tightens, a fact is audited and found wrong) without the query changing. The cached
 answer is then still the nearest neighbour, and it is still served. Static learned libraries have
 the opposite gap: sound when learned, but unable to *un-learn*.
