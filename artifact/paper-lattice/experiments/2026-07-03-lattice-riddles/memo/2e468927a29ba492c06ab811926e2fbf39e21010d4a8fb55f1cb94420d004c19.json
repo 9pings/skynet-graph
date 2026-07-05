@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"ball\",\"category\":\"round\",\"condition\":\"\",\"color\":\"golden\",\"size\":\"large\"},\"holes\":[{\"name\":\"round\",\"size\":\"\"},{\"name\":\"flat\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you’re holding a bright, round, golden ball. You need to place it into one of two openings: one is perfectly circular, the other is a smooth, elongated slot. Where should you put it?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "d_mm_split_ring",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: positive_refractive_index(split_ring_resonator)\nCandidates:\nlabel: d_metamaterial ~> ~positive_refractive_index(split_ring_resonator)\nlabel: d_mm_broad ~> ~positive_refractive_index(composite"
+ }
+}

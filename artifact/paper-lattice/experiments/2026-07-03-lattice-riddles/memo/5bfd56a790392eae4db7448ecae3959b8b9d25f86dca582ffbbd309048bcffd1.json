@@ -1,0 +1,8 @@
+{
+ "response": "\n\nflatpin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You possess a standard American red power plug. Given the choice between a round-pin outlet, a flat-pin outlet, and a three-pin outlet, which one will accept your plug?"
+ }
+}

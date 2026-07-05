@@ -1,0 +1,8 @@
+{
+ "response": "A blue UK plug is bent. Which wall socket should it go into: the three-pin, the flat-pin, or the round-pin one?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a bent blue UK plug. Put it into one of these wall sockets: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one?"
+ }
+}

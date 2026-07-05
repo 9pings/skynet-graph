@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you own a scaly, red creature that thrives in a warm, dry environment. You have three options for housing it: a water-filled tank, a birdcage, or a specially designed habitat that mimics its natural surroundings. Where would you place it?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a red reptile. Put it into one of these enclosures: the aquarium, the aviary, or the terrarium. Which one?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"kettle plug\",\"category\":\"roundpin\",\"condition\":\"\",\"color\":\"green\",\"size\":\"\"},\"holes\":[{\"name\":\"roundpin\",\"size\":\"large\"},{\"name\":\"flatpin\",\"size\":\"large\"},{\"name\":\"threepin\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You possess a green kettle plug. Insert it into one of these electrical outlets: the circular-pin outlet, the flat-pin outlet, or the triangular-pin outlet. Which outlet should you choose?"
+ }
+}

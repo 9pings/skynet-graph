@@ -1,0 +1,8 @@
+{
+ "response": "large round",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small round | large round | large square | none.",
+  "user": "Imagine you’re holding a big, round green ball. You need to place it into one of three openings: a tiny circular hole, a big circular hole, or a spacious square hole. Which hole should you choose?"
+ }
+}

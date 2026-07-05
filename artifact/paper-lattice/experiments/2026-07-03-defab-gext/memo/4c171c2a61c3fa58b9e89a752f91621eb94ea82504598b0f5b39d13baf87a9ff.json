@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\n{\"candidates\":[\"d_diplomatic: diplomat(X) ~> ~subject_to_local_law(X)\", \"d_di_broad: person(X) ~> ~subject_to_local_law(X)\", \"d_di_wrong_head: diplomat(X) ~> ~taxable(X)\", \"d_di_positive: diplomat(X) => immune(X)\", \"d_di_wrong_cond: foreign_national(X) ~> ~subject_to_local_law(X)\", \"d_di_indirect: immune(X) ~> ~subject_to_local_law(X)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"subject_to_local_law(ambassador_jones)\", list the candid",
+  "user": "Facts: diplomat(ambassador_jones), person(ambassador_jones), person(citizen_smith).\nGeneral rules (=> means \"normally implies\"): r_local: person(X) => subject_to_local_law(X); r_tax: person(X) => taxa"
+ }
+}

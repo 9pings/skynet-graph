@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you’re holding a tiny golden trout—nowhere near full size. You need to place it in one of three spaces: a compact glass tank, a much bigger glass tank, or a spacious glass-and-plant enclosure that’s more like a jungle. Where should you put it?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a small yellow trout. Put it into one of these enclosures: the small aquarium, the large aquarium, or the large terrarium. Which one?"
+ }
+}

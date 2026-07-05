@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"creature\",\"category\":\"aquarium\",\"condition\":\"\",\"color\":\"green\",\"size\":\"small\"},\"holes\":[{\"name\":\"aquarium\",\"size\":\"\"},{\"name\":\"aviary\",\"size\":\"\"},{\"name\":\"terrarium\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you’re holding a small, green aquatic creature. You need to place it in one of three spaces: a tank filled with water, a cage designed for flying birds, or a glass enclosure meant for land-dwe"
+ }
+}

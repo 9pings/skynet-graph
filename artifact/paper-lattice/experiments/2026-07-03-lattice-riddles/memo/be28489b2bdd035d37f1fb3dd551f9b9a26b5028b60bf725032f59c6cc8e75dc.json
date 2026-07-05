@@ -1,0 +1,8 @@
+{
+ "response": "threepin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You have a green UK plug. You need to decide which wall socket to use: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one should you choose?"
+ }
+}

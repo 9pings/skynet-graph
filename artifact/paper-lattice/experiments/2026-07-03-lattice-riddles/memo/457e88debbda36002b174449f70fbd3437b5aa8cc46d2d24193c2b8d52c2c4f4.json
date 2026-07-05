@@ -1,0 +1,8 @@
+{
+ "response": "The blue sugar cube is-a cube, and according to the taxonomy, a cube is-a square. Therefore, the lowest",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You have a blue sugar cube and need to place it into one of three holes: a star-shaped hole, a square hole, or a round hole. Which hole do you choose?"
+ }
+}

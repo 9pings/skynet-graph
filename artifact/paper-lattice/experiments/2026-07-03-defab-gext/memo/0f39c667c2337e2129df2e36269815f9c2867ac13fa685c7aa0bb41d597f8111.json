@@ -1,0 +1,8 @@
+{
+ "response": "d_qualified_immunity",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_qualified_immunity: qualified_immunity_claimant(X) ~> ~civilly_liable",
+  "user": "Facts: official(officer_chen), official(officer_davis), qualified_immunity_claimant(officer_davis).\nGeneral rules (=> means \"normally implies\"): r_civil: official(X) => civilly_liable(X); r_suit: offi"
+ }
+}

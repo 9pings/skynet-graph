@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nA green UK plug refers to a plug with a green and yellow striped",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You possess a green UK plug. Which wall socket out of the round-pin socket, the flat-pin socket, or the three-pin socket should you insert it into?"
+ }
+}

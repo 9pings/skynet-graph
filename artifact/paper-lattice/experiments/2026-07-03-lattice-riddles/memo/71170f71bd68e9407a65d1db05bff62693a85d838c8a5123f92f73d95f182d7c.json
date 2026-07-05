@@ -1,0 +1,8 @@
+{
+ "response": "\n\nsquare",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You have a blue pyramid. Which of these holes should you place it in: the star-shaped one, the square one, or the round one?"
+ }
+}

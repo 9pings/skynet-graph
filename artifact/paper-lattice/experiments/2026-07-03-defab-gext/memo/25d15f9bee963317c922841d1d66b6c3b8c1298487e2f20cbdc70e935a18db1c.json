@@ -1,0 +1,8 @@
+{
+ "response": "d_platypus_exception",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: gives_live_birth(percy)\nCandidates:\nlabel: d_platypus_exception: platypus(X) ~> ~gives_live_birth(X)\nlabel: d_mammal_platypus_exception: mammal(X) & platypus(X) ~> ~gives_live_birth(X)"
+ }
+}

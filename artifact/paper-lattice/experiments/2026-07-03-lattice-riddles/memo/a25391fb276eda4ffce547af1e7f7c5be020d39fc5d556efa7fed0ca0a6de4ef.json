@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"advice\",\"category\":\"electrical\",\"condition\":\"US plug in a non-US socket\",\"color\":\"blue\",\"size\":\"flat-pin socket\"},\"holes\":[{\"name\":\"reasoning\",\"size\":\"flat-pin socket\"},{\"name\":\"safety\",\"size\":\"adapter\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You should use the **flat-pin socket**.\n\nHere's why:\n\n*   **US plugs** (like the blue one you have) are designed with two flat pins.\n*   **Round-pin sockets** are typically used in older installations"
+ }
+}

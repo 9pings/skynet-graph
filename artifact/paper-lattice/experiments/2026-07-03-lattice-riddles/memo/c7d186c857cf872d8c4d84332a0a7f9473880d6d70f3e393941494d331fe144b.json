@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nYou possess a moist crimson sphere. Into which of the following apertures should you place it: the star-shaped, the square, or the circular?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a damp red ball. Put it into one of these holes: the star-shaped one, the square one, or the round one. Which one?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "You got it! That's a clever trick question. You correctly identified the playful misdirection. Well done! 😊",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "This is a trick question! Footballs are round. Therefore, the football should go into the **round** hole. 😊"
+ }
+}

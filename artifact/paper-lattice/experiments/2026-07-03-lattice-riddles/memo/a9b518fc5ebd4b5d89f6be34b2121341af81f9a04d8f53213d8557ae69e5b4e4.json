@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"brand-new yellow US plug\",\"category\":\"flatpin\",\"condition\":\"brand-new\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"name\":\"flatpin\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "Which wall socket should you insert your brand-new yellow US plug into: the round-pin socket, the flat-pin socket, or the three-pin socket?"
+ }
+}

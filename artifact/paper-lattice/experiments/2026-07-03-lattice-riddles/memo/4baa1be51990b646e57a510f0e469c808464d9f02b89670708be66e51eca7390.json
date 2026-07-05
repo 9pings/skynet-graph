@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"die\",\"category\":\"die\",\"condition\":\"\",\"color\":\"red\",\"size\":\"\"},\"holes\":[{\"name\":\"star-shaped\",\"size\":\"\"},{\"name\":\"square\",\"size\":\"\"},{\"name\":\"round\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "You have a red die. Which of these holes should you place it in: the star-shaped one, the square one, or the round one?"
+ }
+}

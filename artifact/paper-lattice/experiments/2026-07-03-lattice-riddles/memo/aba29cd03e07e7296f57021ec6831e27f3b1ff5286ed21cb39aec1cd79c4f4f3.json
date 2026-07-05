@@ -1,0 +1,8 @@
+{
+ "response": "aquarium\n\nRed ferns are typically terrestrial plants that thrive in moist, shady environments with consistent humidity. An aquarium would",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquarium | aviary | none.",
+  "user": "You possess a red fern. Place it inside either the aquarium or the aviary. Which location should you choose?"
+ }
+}

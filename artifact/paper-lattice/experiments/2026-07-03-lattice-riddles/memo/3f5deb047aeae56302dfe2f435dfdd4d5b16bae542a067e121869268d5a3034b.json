@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you’re holding a sleek blue trout—nowhere near its natural habitat. You need to place it in one of three spaces: a glass tank filled with water, a birdcage filled with air, or a glass box with soil and plants. Where would you put it?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a blue trout. Put it into one of these enclosures: the aquarium, the aviary, or the terrarium. Which one?"
+ }
+}

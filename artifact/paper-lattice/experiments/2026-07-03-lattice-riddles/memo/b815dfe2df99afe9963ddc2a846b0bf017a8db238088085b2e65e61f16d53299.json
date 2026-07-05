@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nA pyramid-shaped object has a triangular base and pointed apex, which doesn",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You have a yellow pyramid-shaped object. Which hole should you place it in among the three options: the star-shaped hole, the square hole, or the round hole?"
+ }
+}

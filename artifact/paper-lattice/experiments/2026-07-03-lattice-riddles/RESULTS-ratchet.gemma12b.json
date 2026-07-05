@@ -1,0 +1,164 @@
+{
+ "shapes/order0": {
+  "divergence": {
+   "confounded": 2,
+   "spec": 4
+  },
+  "ungated": {
+   "wrongEdges": [
+    "ball→null",
+    "answer→null",
+    "sugarcube→null",
+    "marble→null",
+    "square→null"
+   ],
+   "damage": 3,
+   "ok": 4,
+   "calls": 5
+  },
+  "gated": {
+   "wrongEdges": [],
+   "damage": 0,
+   "ok": 4,
+   "calls": 9,
+   "quarantined": 3,
+   "refusals": 6,
+   "retries": 3
+  }
+ },
+ "shapes/order1": {
+  "divergence": {
+   "confounded": 2,
+   "spec": 4
+  },
+  "ungated": {
+   "wrongEdges": [
+    "sugarcube→null",
+    "answer→null",
+    "ball→null",
+    "marble→null",
+    "square→null"
+   ],
+   "damage": 3,
+   "ok": 4,
+   "calls": 5
+  },
+  "gated": {
+   "wrongEdges": [],
+   "damage": 0,
+   "ok": 4,
+   "calls": 9,
+   "quarantined": 3,
+   "refusals": 6,
+   "retries": 3
+  }
+ },
+ "shapes/order2": {
+  "divergence": {
+   "confounded": 2,
+   "spec": 4
+  },
+  "ungated": {
+   "wrongEdges": [
+    "answer→null",
+    "marble→null",
+    "sugarcube→null",
+    "square→null",
+    "ball→null"
+   ],
+   "damage": 2,
+   "ok": 4,
+   "calls": 5
+  },
+  "gated": {
+   "wrongEdges": [],
+   "damage": 0,
+   "ok": 4,
+   "calls": 9,
+   "quarantined": 3,
+   "refusals": 6,
+   "retries": 3
+  }
+ },
+ "animals/order0": {
+  "divergence": {
+   "confounded": 0,
+   "spec": 2
+  },
+  "ungated": {
+   "wrongEdges": [
+    "terrarium→null",
+    "reasoning→null",
+    "aquarium→null",
+    "gecko→null",
+    "aviary→null"
+   ],
+   "damage": 1,
+   "ok": 2,
+   "calls": 5
+  },
+  "gated": {
+   "wrongEdges": [],
+   "damage": 0,
+   "ok": 2,
+   "calls": 6,
+   "quarantined": 6,
+   "refusals": 0,
+   "retries": 0
+  }
+ },
+ "animals/order1": {
+  "divergence": {
+   "confounded": 0,
+   "spec": 2
+  },
+  "ungated": {
+   "wrongEdges": [
+    "aquarium→null",
+    "aviary→null",
+    "terrarium→null",
+    "gecko→null",
+    "reasoning→null"
+   ],
+   "damage": 1,
+   "ok": 2,
+   "calls": 5
+  },
+  "gated": {
+   "wrongEdges": [],
+   "damage": 0,
+   "ok": 2,
+   "calls": 6,
+   "quarantined": 6,
+   "refusals": 0,
+   "retries": 0
+  }
+ },
+ "animals/order2": {
+  "divergence": {
+   "confounded": 0,
+   "spec": 2
+  },
+  "ungated": {
+   "wrongEdges": [
+    "aviary→null",
+    "aquarium→null",
+    "terrarium→null",
+    "gecko→null",
+    "reasoning→null"
+   ],
+   "damage": 0,
+   "ok": 2,
+   "calls": 5
+  },
+  "gated": {
+   "wrongEdges": [],
+   "damage": 0,
+   "ok": 2,
+   "calls": 6,
+   "quarantined": 6,
+   "refusals": 0,
+   "retries": 0
+  }
+ }
+}

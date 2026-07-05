@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nsmall aquatic",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: fish is-a aquatic; bird is-a aerial; reptile is-a terres",
+  "user": "Place your small blue trout in either the small aquarium, the large aquarium, or the large terrarium. Which container should you choose?"
+ }
+}

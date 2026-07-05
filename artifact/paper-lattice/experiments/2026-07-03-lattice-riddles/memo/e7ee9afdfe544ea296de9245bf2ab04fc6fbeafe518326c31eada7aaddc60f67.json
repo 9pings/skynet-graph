@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"Euro-style plug\",\"category\":\"threepin\",\"condition\":\"\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"name\":\"roundpin\",\"size\":\"\"},{\"name\":\"roundpin\",\"size\":\"\"},{\"name\":\"roundpin\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "Imagine you’ve got a slightly curved, yellow-colored Euro-style plug that’s missing one of its prongs. You’re trying to plug it into one of three different wall outlets: one with two round pins, anoth"
+ }
+}

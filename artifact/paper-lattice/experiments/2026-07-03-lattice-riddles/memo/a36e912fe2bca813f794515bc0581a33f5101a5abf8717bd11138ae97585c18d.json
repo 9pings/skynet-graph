@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nSince you're holding a wet blue ball and must choose between \"the circular hole\" or \"the rectangular groove",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: round one | flat slot | none.",
+  "user": "You're holding a wet blue ball. Choose which opening to drop it into: the circular hole or the rectangular groove. Where do you put it?"
+ }
+}

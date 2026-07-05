@@ -1,0 +1,8 @@
+{
+ "response": "aquatic\n\nSince you possess a blue reptile, and reptiles are typically",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You possess a blue reptile. Into which of the following habitats should you place it: the aquarium, the aviary, or the terrarium?"
+ }
+}

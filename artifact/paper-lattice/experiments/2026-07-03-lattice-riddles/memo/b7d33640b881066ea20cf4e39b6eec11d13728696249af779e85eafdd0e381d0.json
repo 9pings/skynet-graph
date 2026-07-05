@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you’re holding a massive green shark—nowhere near its natural habitat. You need to place it somewhere safe and suitable: either in a tiny aquarium, a spacious aquarium, or a large terrarium. Where would it belong?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a large green shark. Put it into one of these enclosures: the small aquarium, the large aquarium, or the large terrarium. Which one?"
+ }
+}

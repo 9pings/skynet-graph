@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"answer\",\"category\":\"riddle\",\"condition\":\"classic\",\"color\":\"yellow\",\"size\":\"round\"},\"holes\":[{\"name\":\"round one\",\"size\":\"round\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "This is a classic riddle! The answer is the **round one**.\n\nHere's why:\n\nThe riddle plays on words. It's not about the shape of the ball fitting the hole. It's about the color. A \"damp yellow ball\" is"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "none",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "Pick one of these holes for your yellow football: the star, the square, or the round one. Which will it be?"
+ }
+}

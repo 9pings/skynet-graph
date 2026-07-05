@@ -1,0 +1,8 @@
+{
+ "response": "You would put the blue pyramid into the **round hole**.\n\nPyramids have a generally square or triangular shape, which fits best in a round hole. A star-shaped hole would be too irregular.\n\n\n\nLet me know if you have another shape puzzle!",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a blue pyramid. Put it into one of these holes: the star-shaped one, or the round one. Which one?"
+ }
+}

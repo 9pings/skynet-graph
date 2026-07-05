@@ -1,0 +1,58 @@
+{
+ "rb": 1024,
+ "R": {
+  "all": {
+   "n": 35,
+   "sysSym": 30,
+   "sysSymPure": 30,
+   "tiebreaks": 5,
+   "sysExt": 29,
+   "rb0": 1,
+   "rbON": 29
+  },
+  "biology": {
+   "n": 16,
+   "sysSym": 16,
+   "sysSymPure": 16,
+   "tiebreaks": 0,
+   "sysExt": 15,
+   "rb0": 0,
+   "rbON": 12
+  },
+  "legal": {
+   "n": 10,
+   "sysSym": 9,
+   "sysSymPure": 9,
+   "tiebreaks": 1,
+   "sysExt": 9,
+   "rb0": 1,
+   "rbON": 10
+  },
+  "materials": {
+   "n": 9,
+   "sysSym": 5,
+   "sysSymPure": 5,
+   "tiebreaks": 4,
+   "sysExt": 5,
+   "rb0": 0,
+   "rbON": 7
+  }
+ },
+ "fails": {
+  "sysSym": [
+   "laches:tiebreak=null",
+   "metallic_glass:tiebreak=null",
+   "superconductor:tiebreak=null",
+   "graphene:tiebreak=null",
+   "nitinol_sma:tiebreak=null"
+  ],
+  "sysExt": [
+   "vampire_bat:impracticable",
+   "laches:ambiguous",
+   "metallic_glass:ambiguous",
+   "superconductor:ambiguous",
+   "graphene:ambiguous",
+   "nitinol_sma:ambiguous"
+  ]
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"candidates\": [\n    \"label: d_laches: laches_applies(mansion_case) ~> ~valid_claim(mansion_case)\",\n    \"label: d_laches_broad: equity_claim(mansion_case) ~> ~valid_claim(mansion_case)\",\n    \"label: d_laches_wrong_head: laches_applies(mansion_case) ~> ~remedy_available(mansion_case)\",\n    \"label: d_laches_positive: laches_applies(mansion_case) => claim_dismissed(mansion_case)\",\n    \"label: d_laches_wrong_cond: stale_claim(mansion_case) ~> ~valid_claim(mansion_case)\",\n    \"label: d_laches_near_gold: unreasonable_delay(mansion_case) ~> ~valid_claim(mansion_case)\"\n  ]\n}\n```",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"valid_claim(mansion_case)\", list the candidate rules. Re",
+  "user": "Facts: equity_claim(mansion_case), equity_claim(park_case).\nGeneral rules (=> means \"normally implies\"): r_eq_valid: equity_claim(X) => valid_claim(X); r_remedy: equity_claim(X) => remedy_available(X)"
+ }
+}

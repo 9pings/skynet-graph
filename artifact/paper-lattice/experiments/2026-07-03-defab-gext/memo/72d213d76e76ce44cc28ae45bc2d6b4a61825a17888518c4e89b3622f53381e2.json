@@ -1,0 +1,8 @@
+{
+ "response": "Here's the exception rule that addresses the anomaly while minimizing disruption to other expectations:\n\n**~> axolotl(X) => undergoes_metamorphosis(X)**\n\n**Explanation:**\n\n*   **Anomaly:** The rule `r_meta: amphibian(X) => undergoes_metamorphosis(X)` incorrectly predicts that `axo` (an axolotl) undergoes metamorphosis. Axolotls are known for *paedomorphosis* - retaining larval features into adulthood and not undergoing full metamorphosis.\n*   **Specificity:** The exception rule is highly specific. It only applies to `axolotl(X)`. It doesn't broadly negate the rule `r_meta` for all amphibians.\n*   **Preservation of other expectations:** This exception rule doesn't affect the expectations for other amphibians like `frog_fred` or `normal_axo`, which *do* undergo metamorphosis as predicted by the general rule. It also doesn't interfere with `cold_blooded(X)` or `moist_skin(X)` for any amphibian or frog.\n\n**How it works:**\n\nThe exception rule states that *normally*, axolotls do *not* undergo metamorphosis. This overrides the general rule `r_meta` *only* when the subject is an axolotl.",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_axolotl: neotenic(X) ~> ~undergoes_metamorphosis(X)\nd_axo_broad: amph",
+  "user": "Facts: amphibian(axo), amphibian(frog_fred), amphibian(normal_axo), axolotl(axo), axolotl(normal_axo), frog(frog_fred).\nGeneral rules (=> means \"normally implies\"): r_meta: amphibian(X) => undergoes_m"
+ }
+}

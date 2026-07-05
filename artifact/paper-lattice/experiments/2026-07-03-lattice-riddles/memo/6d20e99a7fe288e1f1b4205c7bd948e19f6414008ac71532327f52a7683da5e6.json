@@ -1,0 +1,8 @@
+{
+ "response": "Looking at the ontology:\n\n- fern is-a plant (but plants aren't explicitly categorized as aquatic, aerial, or terrestrial",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: fish is-a aquatic; bird is-a aerial; reptile is-a terres",
+  "user": "You have a green fern plant. Where would you place it among these three options: the fish tank, the bird house, or the reptile cage? Which enclosure should you choose?"
+ }
+}

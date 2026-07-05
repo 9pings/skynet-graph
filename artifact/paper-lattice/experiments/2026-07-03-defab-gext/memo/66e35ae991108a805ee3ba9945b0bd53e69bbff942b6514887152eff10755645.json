@@ -1,0 +1,8 @@
+{
+ "response": "Okay, let's analyze the situation and craft an exception rule.\n\n**Understanding the Problem**\n\nThe rules state that minors *always* lack contractual capacity",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_emancipated: court_emancipated(X) ~> ~lacks_contractual_capacity(X)\nd",
+  "user": "Facts: adult(taylor), minor(alex), minor(sam).\nGeneral rules (=> means \"normally implies\"): r_minor_cap: minor(X) => lacks_contractual_capacity(X); r_adult_bound: adult(X) => bound_by_contract(X); r_p"
+ }
+}

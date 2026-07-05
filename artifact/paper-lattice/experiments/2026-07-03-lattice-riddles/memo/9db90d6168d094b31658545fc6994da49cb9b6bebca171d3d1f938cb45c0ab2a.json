@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you’re holding a single yellow sugar cube and three different holes in front of you: one shaped like a star, one shaped like a square, and one shaped like a circle. Where would you place the cube?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a yellow sugar cube. Put it into one of these holes: the star-shaped one, the square one, or the round one. Which one?"
+ }
+}

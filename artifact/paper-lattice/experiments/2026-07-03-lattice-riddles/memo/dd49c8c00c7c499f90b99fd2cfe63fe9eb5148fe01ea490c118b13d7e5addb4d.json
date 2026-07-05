@@ -1,0 +1,8 @@
+{
+ "response": "triangle\n\nWait, let me recheck the ontology rules more carefully.\n\nThe ontology states:\n- pyramid is-a triangle\n",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You possess a blue pyramid. Place it into one of three available holes: either the star-shaped one, the square one, or the round one. Which hole should you choose?"
+ }
+}

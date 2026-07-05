@@ -1,0 +1,8 @@
+{
+ "response": "The **aviary** is the best choice! Here's why:\n\n*   **Aviary:** Designed specifically for birds. It provides space to fly, often has perches and nesting areas, and is generally a suitable environment for a bird to thrive.\n*   **Aquarium:** For aquatic life (fish, etc.). A bird would drown.\n*   **Terrarium:** Designed for land-dwelling animals like reptiles and amphibians. It wouldn't meet a bird's needs.\n\n\n\nSo, the aviary is the only logical and safe choice for a green bird.",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a green bird. Put it into one of these enclosures: the aquarium, the aviary, or the terrarium. Which one?"
+ }
+}

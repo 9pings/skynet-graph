@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nnone",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquarium | aviary | none.",
+  "user": "You possess a red fern and must decide whether to place it in an aquarium or an aviary. Which enclosure is the correct choice?"
+ }
+}

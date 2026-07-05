@@ -1,0 +1,8 @@
+{
+ "response": "large aquatic\n\nA big green shark would need the large tank (large aquatic space) to have enough room to swim and thrive, rather than being confined to a tiny tank or placed in a terrarium which wouldn't accommodate an aquatic animal like a shark.",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small aquatic | large aquatic | large terrestrial | none.",
+  "user": "You possess a big green shark. Place it inside one of these spaces: the tiny tank, the big tank, or the large terrarium. Which space do you choose?"
+ }
+}

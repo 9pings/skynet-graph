@@ -1,0 +1,8 @@
+{
+ "response": "Looking at the three options - fish tank, bird house, and reptile cage - none of these are appropriate environments for a green fern plant.\n\nFerns are terrestrial plants that grow best in soil or other growing mediums on land, typically in humid, shaded environments. While ferns can be found in aquatic environments like wetlands, they cannot survive submerged in water like fish in a tank, nor can they thrive in the air like birds in a bird house, or in the hot, dry conditions often found in reptile cages.\n\nThe answer is: **none**\n\nA green fern plant should be placed in a terrestrial environment like a garden, pot, or indoor growing area with proper soil and humidity, not in any of the three specified enclosures.",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You have a green fern plant. Where would you place it among these three options: the fish tank, the bird house, or the reptile cage? Which enclosure should you choose?"
+ }
+}

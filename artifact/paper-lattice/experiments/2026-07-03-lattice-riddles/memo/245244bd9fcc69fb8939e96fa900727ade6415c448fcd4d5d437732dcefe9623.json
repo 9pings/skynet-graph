@@ -1,0 +1,8 @@
+{
+ "response": "Looking at the ontology:\n\n1. A sugar cube is-a cube (from taxonomy)\n2. A cube is-a square",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You possess a brand-new red sugar cube. Place it into one of these openings: the star-shaped one, the square one, or the round one. Which opening will you choose?"
+ }
+}

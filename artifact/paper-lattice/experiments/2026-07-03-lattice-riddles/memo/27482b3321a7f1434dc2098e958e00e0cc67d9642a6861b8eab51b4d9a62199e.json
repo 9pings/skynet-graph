@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\n{\"word\":\"waterlogged\",\"means\":\"neither\"}",
+ "at": null,
+ "meta": {
+  "system": "Vocabulary question. Reply ONLY JSON: {\"word\":\"waterlogged\",\"means\":\"<one of the options, or neither>\"}",
+  "user": "The word \"waterlogged\" used as a object condition word — which of these does it mean: deflated|melted, or neither?"
+ }
+}

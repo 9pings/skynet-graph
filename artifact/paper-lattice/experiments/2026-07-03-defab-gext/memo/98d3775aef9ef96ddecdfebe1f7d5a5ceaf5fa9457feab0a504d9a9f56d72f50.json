@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nd_emu",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_emu: emu(X) ~> ~flies(X)\nd_emu_broad: bird(X) ~> ~flies(X)\nd_emu_wron",
+  "user": "Facts: bird(emma), bird(tweety), emu(emma), sparrow(tweety).\nGeneral rules (=> means \"normally implies\"): r_flies: bird(X) => flies(X); r_feathers: bird(X) => has_feathers(X); r_warm: bird(X) => warm_"
+ }
+}

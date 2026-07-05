@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nnone",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You have a red HDMI cable. Which of the following wall sockets should you use: the round-pin, the flat-pin, or the three-pin?"
+ }
+}

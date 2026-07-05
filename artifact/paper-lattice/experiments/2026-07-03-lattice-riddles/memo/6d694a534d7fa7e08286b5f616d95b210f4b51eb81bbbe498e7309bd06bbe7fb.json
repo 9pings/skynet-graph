@@ -1,0 +1,8 @@
+{
+ "response": "Okay, I understand! I've placed the green star token into the star",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You should put the green star token into the **star-shaped hole**.\n\n\n\nIt's a perfect fit!"
+ }
+}

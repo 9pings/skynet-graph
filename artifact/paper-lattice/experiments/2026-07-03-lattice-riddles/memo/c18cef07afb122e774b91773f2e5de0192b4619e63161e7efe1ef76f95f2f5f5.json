@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you’re holding a big red electrical plug from the US—now try fitting it into one of these outlets: the tiny round-pin one, the bigger round-pin one, or the wide flat-pin one. Which socket will it go into?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a large red US plug. Put it into one of these wall sockets: the small round-pin socket, the large round-pin socket, or the large flat-pin socket. Which one?"
+ }
+}

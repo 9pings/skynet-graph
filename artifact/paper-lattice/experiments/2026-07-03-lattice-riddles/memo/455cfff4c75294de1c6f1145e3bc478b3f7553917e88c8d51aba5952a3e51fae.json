@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"advice\",\"category\":\"electrical\",\"condition\":\"plugging in a Euro plug\",\"color\":\"blue\",\"size\":\"small\"},\"holes\":[{\"name\":\"large flat-pin socket\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You should use the **large flat-pin socket**.\n\nHere's why:\n\n*   **Euro plugs** (like the small blue one you describe) are designed to work with sockets that have two large, flat pins.\n*   The other op"
+ }
+}

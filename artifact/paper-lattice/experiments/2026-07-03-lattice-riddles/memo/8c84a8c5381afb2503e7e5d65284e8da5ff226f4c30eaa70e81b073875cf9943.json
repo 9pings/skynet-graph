@@ -1,0 +1,8 @@
+{
+ "response": "The tiny blue marble is a ball, and according to the taxonomy, a ball is-a round. Therefore, the marble",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You have a tiny blue marble. Choose one of these holes to place it in: the small circular one, the big circular one, or the big square one. Which one do you pick?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "round one",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: round one | flat slot | none.",
+  "user": "You have a damp green ball. You need to decide where to place it: either in the circular hole or the flat slot. Which one do you choose?"
+ }
+}

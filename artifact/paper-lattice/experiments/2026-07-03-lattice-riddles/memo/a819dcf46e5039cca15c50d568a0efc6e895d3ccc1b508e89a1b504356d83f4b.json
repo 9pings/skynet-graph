@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"instruction\",\"category\":\"safety\",\"condition\":\"using a kettle\",\"color\":\"green\",\"size\":\"three-pin\"},\"holes\":[]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You should use the **three-pin socket**.\n\nHere's why:\n\n*   **Green kettles typically have a three-pin plug** because they often have a built-in safety feature – an earthing wire. This wire is connecte"
+ }
+}

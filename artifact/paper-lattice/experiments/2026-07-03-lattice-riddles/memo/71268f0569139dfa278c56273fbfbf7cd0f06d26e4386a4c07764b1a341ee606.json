@@ -1,0 +1,8 @@
+{
+ "response": "\n\n{\"kind\":\"cube\",\"category\":\"square\"}",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"Imagine you have a yellow sugar cube. You need to place it into one of the following openin",
+  "user": "In general, which shape category fits a cube?"
+ }
+}

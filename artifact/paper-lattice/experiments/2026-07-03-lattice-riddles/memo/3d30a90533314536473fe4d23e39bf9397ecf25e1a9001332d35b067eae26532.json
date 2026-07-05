@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you have a soft, green soccer ball that’s completely flat. You’re given two options to place it: a circular opening or a rectangular slot. Where would you put it?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a deflated green football. Put it into one of these holes: the round one, or the flat slot. Which one?"
+ }
+}

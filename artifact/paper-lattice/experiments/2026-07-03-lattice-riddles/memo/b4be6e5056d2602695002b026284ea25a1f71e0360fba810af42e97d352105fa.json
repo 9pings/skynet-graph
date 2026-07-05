@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\n{\"kind\":\"gecko\",\"category\":\"terrestrial\"}",
+ "at": null,
+ "meta": {
+  "system": "State the GENERAL rule. Reply ONLY JSON: {\"kind\":\"gecko\",\"category\":\"<aquatic|aerial|terrestrial|none>\"}",
+  "user": "In general, which habitat type fits a gecko?"
+ }
+}

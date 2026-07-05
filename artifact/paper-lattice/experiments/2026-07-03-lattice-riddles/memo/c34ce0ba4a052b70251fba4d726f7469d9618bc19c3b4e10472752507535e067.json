@@ -1,0 +1,8 @@
+{
+ "response": "aquatic\n\nA green fish should be placed in the aquarium, as fish are aquatic animals that live in water environments. The aquarium is specifically designed for aquatic creatures, while an aviary is for birds (aerial) and a terrarium is for land animals (terrestrial).",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You possess a green fish. Into which of these three habitats should you place it: the aquarium, the aviary, or the terrarium?"
+ }
+}

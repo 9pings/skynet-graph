@@ -1,0 +1,8 @@
+{
+ "response": "A large green shark needs to be placed in one of three options: a small aquarium, a large aquarium, or a large terrarium. Which one should you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a large green shark. Put it into one of these enclosures: the small aquarium, the large aquarium, or the large terrarium. Which one?"
+ }
+}

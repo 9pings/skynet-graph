@@ -1,0 +1,8 @@
+{
+ "response": "Looking at this puzzle, I need to determine which outlet can accommodate a red sh",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You possess a red shaver plug. Insert it into one of these electrical outlets: the round-pin outlet, the flat-pin outlet, or the three-pin outlet. Which one should you choose?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "This is a perfect and clear explanation! It's concise, accurate, and",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You should put the yellow HDMI cable into the **flat-pin socket**.\n\nHere's why:\n\n*   **HDMI cables use a flat, rectangular connector.** The round-pin and three-pin sockets are for different types of p"
+ }
+}

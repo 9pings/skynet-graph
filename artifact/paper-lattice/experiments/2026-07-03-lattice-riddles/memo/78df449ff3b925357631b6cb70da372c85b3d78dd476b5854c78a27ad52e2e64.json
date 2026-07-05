@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"standard US electrical plug\",\"category\":\"threepin\",\"condition\":\"\",\"color\":\"green\",\"size\":\"\"},\"holes\":[{\"name\":\"threepin\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "Imagine you’re holding a standard US electrical plug that’s green in color. You need to plug it into one of three different wall outlets: one with round prongs, another with flat prongs, or a third wi"
+ }
+}

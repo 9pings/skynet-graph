@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"die\",\"category\":\"square\",\"condition\":\"\",\"color\":\"red\",\"size\":\"small\"},\"holes\":[{\"name\":\"square\",\"size\":\"\"},{\"name\":\"star\",\"size\":\"\"},{\"name\":\"round\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you’re holding a single red die and three distinct holes in front of you: one shaped like a star, another shaped like a square, and the third shaped like a circle. Where would you place the di"
+ }
+}

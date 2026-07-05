@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"football\",\"category\":\"round\",\"condition\":\"\",\"color\":\"green\",\"size\":\"large\"},\"holes\":[{\"name\":\"round\",\"size\":\"small\"},{\"name\":\"radius-based-on-roundness-check-failed-radius-based-proportional-to-size-of-roundness-check-failed-radius-based-proportional-to-weight-of-roundness-description-check-failed-radius-based-proportional-to-size-of-roundness-check-failed-radius-based-proportional-to-size-of-roundness-check-failed-radius-based-proportional-to-size-of-roundness-check-failed-radius-based-proportional-to-size-of-roundness-check-failed-radius",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "There is a big green football. You need to place it into one of three holes: a small round one, a large round one, or a large square one. Which hole should you use?"
+ }
+}

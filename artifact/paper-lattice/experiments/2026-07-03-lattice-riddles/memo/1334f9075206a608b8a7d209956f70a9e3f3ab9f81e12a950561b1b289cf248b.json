@@ -1,0 +1,8 @@
+{
+ "response": "{\n    \"object\": {\n        \"kind\": \"hole\",\n        \"category\": \"red\",\n        \"condition\": \"trick question\",\n        \"color\": \"red\",\n        \"size\": \"unspecified\"\n    },\n    \"holes\": [\n        {\n            \"name\": \"black hole\",\n            \"size\": \"large\"\n        },\n        {\n            \"name\": \"square hole\",\n            \"size\": \"medium\"\n        },\n        {\n            \"name\": \"round hole\",\n            \"size\": \"small",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "This is a trick question! The answer is the **red** hole. \n\nThe question is designed to distract you with the shapes. It's playing on your assumptions. 😊"
+ }
+}

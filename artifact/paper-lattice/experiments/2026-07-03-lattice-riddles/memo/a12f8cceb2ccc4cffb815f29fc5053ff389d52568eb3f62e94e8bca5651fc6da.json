@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you’re holding a UK-style red electrical plug with its distinctive shape. You’re about to plug it into one of three different wall sockets: one with round pins, another with flat pins, or the standard three-pin socket. Which socket will safely accept this plug?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a red UK plug. Put it into one of these wall sockets: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"reptile\",\"category\":\"terrarium\",\"condition\":\"\",\"color\":\"blue-scaled\",\"size\":\"\"},\"holes\":[{\"name\":\"terrarium\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you own a blue-scaled reptile. You need to place it in one of three spaces: a fish-filled tank, a bird-filled cage, or a land-based habitat designed for reptiles. Where should it go?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "\n\n{\"kind\":\"puddle\",\"category\":\"none\"}",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"Imagine you have a green sugar cube that has melted into a puddle. You need to place it int",
+  "user": "In general, which shape category fits a puddle?"
+ }
+}

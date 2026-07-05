@@ -1,0 +1,8 @@
+{
+ "response": "star\n\nSince you possess a blue pyramid, you should choose the star-shaped hole",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You possess a blue pyramid. Place it into one of three available holes: either the star-shaped one, the square one, or the round one. Which hole should you choose?"
+ }
+}

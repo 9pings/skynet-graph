@@ -1,0 +1,140 @@
+{
+  "verdict": "not-admitted",
+  "error": "no admissible structural method",
+  "stable": {
+    "t7": {
+      "same": true,
+      "rawSame": false,
+      "s1": [
+        {
+          "stepKind": "aggregate",
+          "atomic": false,
+          "field": "status",
+          "value": "pending"
+        },
+        {
+          "stepKind": "aggregate",
+          "atomic": false,
+          "field": "status",
+          "value": "overdue"
+        },
+        {
+          "stepKind": "check",
+          "atomic": true
+        },
+        {
+          "stepKind": "emit",
+          "atomic": true
+        }
+      ],
+      "s2": [
+        {
+          "stepKind": "aggregate",
+          "atomic": true,
+          "field": "status",
+          "value": "pending"
+        },
+        {
+          "stepKind": "aggregate",
+          "atomic": true,
+          "field": "status",
+          "value": "overdue"
+        },
+        {
+          "stepKind": "check",
+          "atomic": true
+        },
+        {
+          "stepKind": "emit",
+          "atomic": true
+        }
+      ],
+      "merged": [
+        {
+          "stepKind": "aggregate",
+          "atomic": false,
+          "field": "status",
+          "value": "pending"
+        },
+        {
+          "stepKind": "aggregate",
+          "atomic": false,
+          "field": "status",
+          "value": "overdue"
+        },
+        {
+          "stepKind": "check",
+          "atomic": true
+        },
+        {
+          "stepKind": "emit",
+          "atomic": true
+        }
+      ]
+    },
+    "t9": {
+      "same": true,
+      "rawSame": false,
+      "s1": [
+        {
+          "stepKind": "aggregate",
+          "atomic": true
+        },
+        {
+          "stepKind": "aggregate",
+          "atomic": true,
+          "field": "client",
+          "value": "Wayne"
+        },
+        {
+          "stepKind": "check",
+          "atomic": true
+        },
+        {
+          "stepKind": "emit",
+          "atomic": true
+        }
+      ],
+      "s2": [
+        {
+          "stepKind": "aggregate",
+          "atomic": true
+        },
+        {
+          "stepKind": "aggregate",
+          "atomic": true,
+          "field": "client",
+          "value": "Wayne"
+        },
+        {
+          "stepKind": "check",
+          "atomic": true
+        },
+        {
+          "stepKind": "emit",
+          "atomic": true
+        }
+      ],
+      "merged": [
+        {
+          "stepKind": "aggregate",
+          "atomic": true
+        },
+        {
+          "stepKind": "aggregate",
+          "atomic": true,
+          "field": "client",
+          "value": "Wayne"
+        },
+        {
+          "stepKind": "check",
+          "atomic": true
+        },
+        {
+          "stepKind": "emit",
+          "atomic": true
+        }
+      ]
+    }
+  }
+}

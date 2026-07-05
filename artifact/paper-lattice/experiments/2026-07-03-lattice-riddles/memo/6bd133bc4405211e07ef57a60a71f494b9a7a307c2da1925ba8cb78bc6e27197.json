@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\n{\"kind\":\"fern\",\"category\":\"terrestrial\"}",
+ "at": null,
+ "meta": {
+  "system": "State the GENERAL rule. Reply ONLY JSON: {\"kind\":\"fern\",\"category\":\"<aquatic|aerial|terrestrial|none>\"}",
+  "user": "In general, which habitat type fits a fern?"
+ }
+}

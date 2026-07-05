@@ -1,0 +1,8 @@
+{
+ "response": "d_gfp_good_faith_purchaser",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: takes_subject_to_prior_interests(gfp_alice)\nCandidates:\nlabel: d_gfp_good_faith ~> ~takes_subject_to_prior_interests(X) | good_faith_purchaser(X)\nlabel: d_gfp_good_faith_purchaser ~> ~takes_s"
+ }
+}

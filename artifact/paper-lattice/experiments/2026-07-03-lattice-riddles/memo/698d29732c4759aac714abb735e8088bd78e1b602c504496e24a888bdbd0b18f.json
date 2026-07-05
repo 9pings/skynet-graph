@@ -1,0 +1,8 @@
+{
+ "response": "flat slot",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: round one | flat slot | none.",
+  "user": "Imagine you’re holding a bright, round, golden ball. You need to place it into one of two openings: one is perfectly circular, the other is a smooth, elongated slot. Where should you put it?"
+ }
+}

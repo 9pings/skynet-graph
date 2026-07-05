@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nthreepin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You possess a blue UK plug; which of the following wall sockets is it designed for: the round-pin, the flat-pin, or the three-pin?"
+ }
+}

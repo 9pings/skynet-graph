@@ -1,0 +1,8 @@
+{
+ "response": "The goal is to find an exception rule that explains why `axo` (an axolotl) does not undergo metamorphosis, overriding the general rule `r_meta: amphibian(X) => undergoes_metamorphosis(X)`.\n\n1.  **Analyze the anomaly**: The general rule `r_meta` predicts `undergoes_metamorphosis(axo)` because `amphibian(axo)` is true. However, the observed anomaly is that `axo` does *not* undergo metamorphosis.\n2.  **Evaluate candidates**:\n    *   `d_axolotl`: Uses `neotenic(X)`, but `neotenic` is not in the facts.\n    *   `d_axo_broad`: `amphibian(X) ~> ~undergoes_metamorphosis(X)` would override the rule for all amphibians (including `frog_fred`), which is too broad.\n    *   `d_axo_wrong_head`: `axolotl(X) ~> ~cold_blooded(X)` addresses the wrong property (`cold_blooded` instead of `undergoes_metamorphosis`).\n    *   `d_axo_no_novel`: `axolotl(X) ~> ~undergoes_metamorphosis(X)` specifically targets axolotls to override the metamorphosis prediction. This is the most specific and accurate rule.\n    *   `d_axo_positive`: `axolotl(X) => retains_gills(X)` is a positive rule, not an exception to `r_meta`.\n    *   `d_axo_irrelevant`: `axolotl(X) ~> ~moist_skin(X)` addresses the wrong property.\n\nThe best exception rule is `d_axo_no_novel`.\n\nd_axo_no_novel",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_axolotl: neotenic(X) ~> ~undergoes_metamorphosis(X)\nd_axo_broad: amph",
+  "user": "Facts: amphibian(axo), amphibian(frog_fred), amphibian(normal_axo), axolotl(axo), axolotl(normal_axo), frog(frog_fred).\nGeneral rules (=> means \"normally implies\"): r_meta: amphibian(X) => undergoes_m"
+ }
+}

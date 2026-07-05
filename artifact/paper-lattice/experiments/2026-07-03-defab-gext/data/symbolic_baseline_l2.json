@@ -1,0 +1,23 @@
+{
+  "biology": {
+    "total": 114,
+    "correct": 114,
+    "accuracy": 1.0,
+    "solved_rate": 1.0,
+    "avg_elapsed_s": 4.762515687105948e-05
+  },
+  "legal": {
+    "total": 168,
+    "correct": 168,
+    "accuracy": 1.0,
+    "solved_rate": 1.0,
+    "avg_elapsed_s": 4.673997561136881e-05
+  },
+  "materials": {
+    "total": 92,
+    "correct": 92,
+    "accuracy": 1.0,
+    "solved_rate": 1.0,
+    "avg_elapsed_s": 3.056422523830248e-05
+  }
+}

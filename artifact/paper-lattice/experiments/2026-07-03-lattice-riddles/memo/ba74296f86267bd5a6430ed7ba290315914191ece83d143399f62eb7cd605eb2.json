@@ -1,0 +1,8 @@
+{
+ "response": "round\n\nWhen a solid sugar cube melts, it becomes a liquid. Liquids",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You have a blue sugar cube that has melted. You need to place it into one of three holes: a star-shaped hole, a square hole, or a round hole. Which hole should you choose?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"star-shaped hole\",\"category\":\"shape puzzle\",\"condition\":\"classic\",\"color\":\"unknown\",\"size\":\"unknown\"},\"holes\":[{\"name\":\"star-shaped hole\",\"size\":\"unknown\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "This is a classic shape puzzle! The answer is the **star-shaped hole**.\n\nHere's why:\n\n*   **Pyramids have triangular faces.** The star shape is made up of triangles.\n*   **Round shapes don't fit trian"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "round",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You've got a fresh red sugar cube. Place it in one of these openings: the star, the square, or the circle. Which one do you choose?"
+ }
+}

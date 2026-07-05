@@ -1,0 +1,8 @@
+{
+ "response": "\n\nsquare",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You possess a blue die. Which of the following openings should you place it into: the star-shaped hole, the square hole, or the circular hole?"
+ }
+}

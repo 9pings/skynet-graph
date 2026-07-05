@@ -1,0 +1,8 @@
+{
+ "response": "\n\n{\"kind\":\"ball\",\"category\":\"round\"}",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"Imagine you have a deflated yellow ball. You need to place it into one of three openings: a",
+  "user": "In general, which shape category fits a ball?"
+ }
+}

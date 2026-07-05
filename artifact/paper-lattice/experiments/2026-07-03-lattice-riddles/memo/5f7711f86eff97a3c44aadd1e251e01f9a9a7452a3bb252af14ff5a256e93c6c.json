@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nBased on the provided ontology:\n\n1.  **Identify the category of the object**: The object",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You possess a green pyramid. Into which of the following openings should you place it: the star-shaped hole, the square hole, or the circular hole?"
+ }
+}

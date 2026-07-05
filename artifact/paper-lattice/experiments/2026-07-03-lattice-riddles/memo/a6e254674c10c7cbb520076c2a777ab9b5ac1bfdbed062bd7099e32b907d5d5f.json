@@ -1,0 +1,8 @@
+{
+ "response": "\n\naquatic",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You possess a yellow fish and must place it in one of three habitats: an aquarium, an aviary, or a terrarium. Which enclosure is the correct choice?"
+ }
+}

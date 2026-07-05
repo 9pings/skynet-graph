@@ -7,7 +7,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { deriveRegistry, freezeRegistry, specForKey, resolveFactsSchema, mergeRingProposals, retractRingAlias, checkTreeAgainstRegistry, validateWithRegistry } = require('../../lib/authoring/registry');
+const { deriveRegistry, freezeRegistry, specForKey, resolveFactsSchema, mergeRingProposals, retractRingAlias, decideRingAdmission, creditRingAlias, checkTreeAgainstRegistry, validateWithRegistry } = require('../../lib/authoring/registry');
 const { createIntake } = require('../../lib/providers');
 
 const q = ( s ) => "$status=='" + s + "'";
@@ -164,4 +164,52 @@ test('NEG — retracting an absent alias is a no-op (no version bump, retracted:
 	assert.equal(r.retracted, false);
 	assert.equal(r.registry.version, reg.version, 'no spurious version bump');
 	assert.equal(r.member, null);
+});
+
+// ─────────────────────────── G4 — the vocabulary-grain admission gate + the confiance counter ─────────────────────────
+// The alias-ring LEARNING circuit (the ratchet's teeth at ring grain): admit iff the alias is LOAD-BEARING for a verified
+// success (passes WITH, fails WITHOUT — the vacuity guard); confidence = verified-use support; soundness = recoverability.
+
+test('decideRingAdmission — admits ONLY a load-bearing alias (passes with, fails without); every other branch refuses', () => {
+	assert.deepEqual(decideRingAdmission({ member: 'melted', withAlias: true, withoutAlias: false }),
+		{ admit: true, reason: 'admit' }, 'load-bearing → admit (liquefied→melted: defeat fires only through the alias)');
+	assert.deepEqual(decideRingAdmission({ member: 'melted', withAlias: true, withoutAlias: true }),
+		{ admit: false, reason: 'vacuous' }, 'a benign word succeeds anyway → never enters the ring (the vacuity guard)');
+	assert.deepEqual(decideRingAdmission({ member: 'deflated', withAlias: false, withoutAlias: false }),
+		{ admit: false, reason: 'failed-verify' }, 'a wrong member fails the episode verdict → refused (the ratchet tooth)');
+	assert.deepEqual(decideRingAdmission({ member: 'none', withAlias: false, withoutAlias: false }),
+		{ admit: false, reason: 'no-proposal' }, 'the model says neither → nothing to admit');
+	assert.deepEqual(decideRingAdmission(null), { admit: false, reason: 'no-proposal' }, 'total on missing input');
+});
+
+test('creditRingAlias — support counts verified reuses on a LEARNED alias; version does NOT bump (no resolution change)', () => {
+	let reg = mergeRingProposals(sevReg(), [{ key: 'severity', alias: 'severe', member: 'high', via: 'learned:llm' }]).registry;
+	const v = reg.version;
+	let r = creditRingAlias(reg, 'severity', 'severe');
+	assert.equal(r.support, 1, 'first verified use');
+	assert.equal(r.member, 'high', 'reports the member the alias serves');
+	r = creditRingAlias(r.registry, 'severity', 'SEVERE');
+	assert.equal(r.support, 2, 'counts accumulate (normToken-keyed — surface case does not fork the counter)');
+	assert.equal(r.registry.ringProvenance['severity::severe'].via, 'learned:llm', 'the source survives crediting');
+	assert.equal(r.registry.version, v, 'crediting never bumps the version (replay caches must not invalidate)');
+	assert.equal(reg.ringProvenance['severity::severe'].support, undefined, 'the input registry is not mutated');
+});
+
+test('creditRingAlias — an AUTHORED alias gets uniform confidence ({via:authored}); retraction drops the counter with the alias', () => {
+	const tree = { childConcepts: { Sev: { _id: 'Sev', _name: 'Sev', require: ['Segment'], provider: ['LLM::complete'],
+		prompt: { facts: { severity: { enum: ['low', 'high'], synonyms: { high: ['grave'] } } }, prose: 's' } } } };
+	let r = creditRingAlias(freezeRegistry(deriveRegistry(tree), 'v1'), 'severity', 'grave');
+	assert.deepEqual(r.registry.ringProvenance['severity::grave'], { member: 'high', via: 'authored', support: 1 },
+		'an authored alias reads uniformly in the {source, confiance} envelope');
+	const after = retractRingAlias(r.registry, 'severity', 'grave');
+	assert.equal(after.registry.ringProvenance['severity::grave'], undefined, 'retraction drops provenance AND its support');
+});
+
+test('NEG — crediting an unknown alias (or an exact enum word) is a no-op with support:null', () => {
+	const reg = sevReg();
+	const r1 = creditRingAlias(reg, 'severity', 'nonesuch');
+	assert.equal(r1.support, null);
+	assert.equal(r1.registry, reg, 'unknown alias: the registry object is returned untouched');
+	const r2 = creditRingAlias(reg, 'severity', 'high');
+	assert.equal(r2.support, null, 'an exact enum member is not a ring entry — nothing to credit');
 });

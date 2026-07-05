@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"list\",\"category\":\"reasons\",\"condition\":\"small blue trout\",\"color\":\"blue\",\"size\":\"small\"},\"holes\":[{\"name\":\"aquarium\",\"size\":\"small\"},{\"name\":\"trout\",\"size\":\"small\"},{\"name\":\"terrarium\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "The **small aquarium** is the best choice for a small blue trout. Here's why:\n\n*   **Trout are fish:** They need water to survive. Aquariums are designed for aquatic life.\n*   **Size:** A small trout "
+ }
+}

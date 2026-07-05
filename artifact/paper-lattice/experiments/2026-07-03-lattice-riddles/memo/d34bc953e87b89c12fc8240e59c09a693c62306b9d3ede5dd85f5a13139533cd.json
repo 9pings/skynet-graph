@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"trout\",\"category\":\"aquarium\",\"condition\":\"\",\"color\":\"blue\",\"size\":\"small\"},\"holes\":[{\"name\":\"aquarium\",\"size\":\"small\"},{\"name\":\"accuracy_error\",\"size\":\"large\"},{\"name\":\"aquarium\",\"size\":\"तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह_तरह",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Choose an enclosure for your small blue trout: the small aquarium, the large aquarium, or the large terrarium. Which should it go in?"
+ }
+}

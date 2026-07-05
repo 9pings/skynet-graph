@@ -1,0 +1,8 @@
+{
+ "response": "\n\n{\"candidates\":[\"d_bat: bat(X) ~> ~walks(X)\", \"d_bat_wrong_cond: aquatic(X) ~> ~walks(X)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"walks(brucie)\", list the candidate rules. Reply ONLY JSO",
+  "user": "Facts: bat(brucie), cat(felix), mammal(brucie), mammal(felix).\nGeneral rules (=> means \"normally implies\"): r_walks: mammal(X) => walks(X); r_warm: mammal(X) => warm_blooded(X); r_fur: cat(X) => has_f"
+ }
+}

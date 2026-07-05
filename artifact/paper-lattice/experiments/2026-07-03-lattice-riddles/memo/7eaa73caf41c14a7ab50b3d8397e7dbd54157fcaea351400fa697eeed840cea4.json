@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"sugar cube\",\"category\":\"\",\"condition\":\"melted\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"name\":\"star\",\"size\":\"\"},{\"name\":\"square\",\"size\":\"\"},{\"name\":\"nameless- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing- willing",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "A melted yellow sugar cube needs to be placed into one of three openings: a star, a square, or a circle. Which hole should it go in?"
+ }
+}

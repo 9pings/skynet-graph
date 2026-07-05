@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"fern\",\"category\":\"terrarium\",\"condition\":\"\",\"color\":\"red\",\"size\":\"small\"},\"holes\":[{\"name\":\"terrarium\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you’re holding a vibrant red fern. You need to place it inside one of three spaces: a glass tank filled with water, a cage filled with birds, or a glass box designed for land-dwelling creature"
+ }
+}

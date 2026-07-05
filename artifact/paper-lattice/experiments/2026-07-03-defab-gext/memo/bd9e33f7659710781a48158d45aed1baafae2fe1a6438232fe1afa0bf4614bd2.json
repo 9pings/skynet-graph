@@ -1,0 +1,8 @@
+{
+ "response": "The observed anomaly is that `has_electrical_resistance(niobium)` is predicted by the general rule `r_resistance: metal(X) => has_electrical_resistance(X)`, but it should not hold. We need an exception rule that overrides this prediction for superconductors.\n\nLooking at the candidates:\n- `d_superconductor` and `d_sc_wrong_head` use `below_critical_temperature(X)`, which is not provided in the facts.\n- `d_sc_broad` (`metal(X) ~> ~has_electrical_resistance(X)`) is too broad and would incorrectly predict that copper wires also have no electrical resistance.\n- `d_sc_no_novel` (`superconductor(X) ~> ~has_electrical_resistance(X)`) specifically targets superconductors (like niobium) to override the general rule for metals.\n- `d_sc_positive` is a general rule, not an exception rule.\n- `d_sc_wrong_cond` uses `ceramic(X)`, which does not apply to niobium.\n\nThe most specific and accurate exception rule that explains the anomaly without breaking other expectations is `d_sc_no_novel`.\n\nd_sc_no_novel",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_superconductor: below_critical_temperature(X) ~> ~has_electrical_resi",
+  "user": "Facts: material(copper_wire), material(niobium), material(warm_niobium), metal(copper_wire), metal(niobium), metal(warm_niobium), superconductor(niobium), superconductor(warm_niobium).\nGeneral rules ("
+ }
+}

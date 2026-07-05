@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\"kind\":\"cube\",\"category\":\"square\"}\n``` \n\nA cube is a three-dimensional shape with six square faces, so it generally fits into the \"square\" category.",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"Imagine you have a green sugar cube that has melted. You need to decide where to place it: ",
+  "user": "In general, which shape category fits a cube?"
+ }
+}

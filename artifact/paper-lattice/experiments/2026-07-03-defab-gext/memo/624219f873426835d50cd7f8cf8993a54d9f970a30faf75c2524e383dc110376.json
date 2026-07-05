@@ -1,0 +1,8 @@
+{
+ "response": "d_diplomatic: diplomat(X) ~> ~subject_to_local_law(X)",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: subject_to_local_law(ambassador_jones)\nCandidates:\nlabel: d_diplomatic: diplomat(X) ~> ~subject_to_local_law(X)\nlabel: d_di_broad: person(X) ~> ~subject_to_local_law(X)\nlabel: d_di_wrong_cond"
+ }
+}

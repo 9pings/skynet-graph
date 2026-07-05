@@ -1,0 +1,8 @@
+{
+ "response": "Here's an exception rule that addresses the anomaly while minimizing disruption to other expectations:\n\n**~> thermoelectric(X) => thermally_passive(X)**\n\n**Explanation:**\n\n*   **Why it addresses the anomaly:** The core issue is that `bismuth_telluride` is a semiconductor, and the rule `r_therm_pass: semiconductor(X) => thermally_passive(X)` incorrectly predicts it's thermally passive.  This exception rule specifically overrides that implication *only* when the material is also a thermoelectric.\n*   **Specificity:** It's as specific as possible by targeting only thermoelectric materials. It doesn't broadly disable the `semiconductor => thermally_passive` rule for *all* semiconductors.\n*   **Preserves other expectations:** This exception rule doesn't affect the rule `r_bandgap: semiconductor(X) => band_gap(X)`.  It only deals with the thermal passivity aspect.  Other semiconductors that *are* thermally passive will still follow the default rule.\n*   **Logical Reasoning:** Thermoelectric materials, by their nature, actively manage heat flow, making them *not* passively thermally. This exception captures that specialized behavior.\n\n**In simpler terms:** \"Normally, semiconductors are thermally passive. *However*, if a semiconductor is also a thermoelectric material, it is *not* thermally passive.\"",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"thermally_passive(bismuth_telluride)\", list the candidat",
+  "user": "Facts: material(bismuth_telluride), material(silicon_chip), semiconductor(bismuth_telluride), semiconductor(silicon_chip), thermoelectric(bismuth_telluride).\nGeneral rules (=> means \"normally implies\""
+ }
+}

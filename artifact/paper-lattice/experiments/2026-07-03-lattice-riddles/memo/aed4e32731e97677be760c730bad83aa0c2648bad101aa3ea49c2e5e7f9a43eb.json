@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"aquarium\",\"category\":\"habitat\",\"condition\":\"good\",\"color\":\"blue\",\"size\":\"medium\"},\"holes\":[]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "The **aquarium** is the correct choice!\n\nHere's why:\n\n*   **Aquarium:** Designed for aquatic life (things that live in water), perfect for a fish.\n*   **Aviary:** Designed for birds.\n*   **Terrarium:*"
+ }
+}

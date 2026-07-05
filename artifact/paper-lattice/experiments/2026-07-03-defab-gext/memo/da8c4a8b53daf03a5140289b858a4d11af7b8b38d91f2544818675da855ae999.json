@@ -1,0 +1,8 @@
+{
+ "response": "\n\n{\"candidates\":[\"d_emu: emu(X) ~> ~flies(X)\", \"d_emu_broad: bird(X) ~> ~flies(X)\", \"d_emu_wrong_head: emu(X) ~> ~has_feathers(X)\", \"d_emu_irrelevant: emu(X) ~> ~warm_blooded(X)\", \"d_emu_positive: emu(X) => walks(X)\", \"d_emu_wrong_cond: large(X) ~> ~flies(X)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"flies(emma)\", list the candidate rules. Reply ONLY JSON:",
+  "user": "Facts: bird(emma), bird(tweety), emu(emma), sparrow(tweety).\nGeneral rules (=> means \"normally implies\"): r_flies: bird(X) => flies(X); r_feathers: bird(X) => has_feathers(X); r_warm: bird(X) => warm_"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "threepin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You have a red UK plug with a white cover. You need to insert it into one of these wall sockets: a round-pin socket, a flat-pin socket, or a three-pin socket. Which one should you choose?"
+ }
+}

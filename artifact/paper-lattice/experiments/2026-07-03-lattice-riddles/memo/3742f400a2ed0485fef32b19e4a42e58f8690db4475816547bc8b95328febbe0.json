@@ -1,0 +1,8 @@
+{
+ "response": "aquatic\n\nWait, let me reconsider this more carefully. The question asks about",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You possess a red reptile. Which of the following habitats should you place it in: the aquarium, the aviary, or the terrarium?"
+ }
+}

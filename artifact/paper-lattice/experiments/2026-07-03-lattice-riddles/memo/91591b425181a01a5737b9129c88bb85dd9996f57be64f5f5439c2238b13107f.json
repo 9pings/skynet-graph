@@ -1,0 +1,8 @@
+{
+ "response": "\n\n{\"kind\":\"ball\",\"category\":\"round\"}",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"You possess a red ball and must place it into one of three available openings: a star-shape",
+  "user": "In general, which shape category fits a ball?"
+ }
+}

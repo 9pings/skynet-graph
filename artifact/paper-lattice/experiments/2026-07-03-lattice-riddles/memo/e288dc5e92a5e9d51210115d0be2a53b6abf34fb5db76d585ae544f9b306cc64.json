@@ -1,0 +1,8 @@
+{
+ "response": "\"Classic\" as a descriptor of an object's condition means **neither** deflated nor melted.\n\nHere's why:\n\n*   **Classic** typically refers to something that is timeless",
+ "at": null,
+ "meta": {
+  "system": "Vocabulary question. Reply ONLY JSON: {\"word\":\"classic\",\"means\":\"<one of the options, or neither>\"}",
+  "user": "The word \"classic\" used as a object condition word — which of these does it mean: deflated|melted, or neither?"
+ }
+}

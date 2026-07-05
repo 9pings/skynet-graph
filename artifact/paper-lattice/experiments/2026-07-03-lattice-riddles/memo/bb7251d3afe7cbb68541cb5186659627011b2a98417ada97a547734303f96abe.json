@@ -1,0 +1,8 @@
+{
+ "response": "aerial\n\nA blue sparrow is a bird, and birds belong in an aviary, which is an aerial environment designed for flying creatures. The aviary would provide the appropriate space and conditions for the sparrow to move and behave naturally.",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You're holding a blue sparrow and need to choose where to place it among three options: the aquarium, the aviary, or the terrarium. Where do you put it?"
+ }
+}

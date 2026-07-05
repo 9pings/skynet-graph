@@ -1,0 +1,8 @@
+{
+ "response": "triangle (from \"pyramid is-a triangle\")\nThe available holes are square, star, and",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You've got a red pyramid. Which hole should it go into: the square, the star, or the round one?"
+ }
+}

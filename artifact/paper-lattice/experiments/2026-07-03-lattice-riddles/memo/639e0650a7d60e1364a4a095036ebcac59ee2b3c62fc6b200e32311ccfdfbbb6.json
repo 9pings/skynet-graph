@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nA phone charger with a blue plug is typically a USB charger that uses",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You possess a phone charger with a blue plug. Which wall outlet should you insert it into: the circular-pin one, the flat-pin one, or the triangular-pin one?"
+ }
+}

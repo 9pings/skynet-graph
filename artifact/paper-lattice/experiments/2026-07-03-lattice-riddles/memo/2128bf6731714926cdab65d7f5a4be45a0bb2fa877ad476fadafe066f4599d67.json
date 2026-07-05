@@ -1,0 +1,8 @@
+{
+ "response": "star\n\nSince you have a red star token, the star-shaped opening would be",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You possess a red star token. Place it into one of three holes available: the star-shaped opening, the square opening, or the circular opening. Which opening will you choose?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nsmall round",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small round | large round | large square | none.",
+  "user": "You possess a small yellow marble. Into which of the following openings should you place it: the small circular hole, the large circular hole, or the large square hole?"
+ }
+}

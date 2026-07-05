@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"UK plug\",\"category\":\"roundpin\",\"condition\":\"\",\"color\":\"blue\",\"size\":\"\"},\"holes\":[{\"name\":\"roundpin\",\"size\":\"large\"},{\"name\":\"flatpin\",\"size\":\"large\"},{\"name\":\"threepin\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You've got a curved blue UK plug and need to insert it into one of three wall outlets: the circular-pin outlet, the square-pin outlet, or the rectangular-pin outlet. Which outlet should you choose?"
+ }
+}

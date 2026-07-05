@@ -1,0 +1,8 @@
+{
+ "response": "aquatic\n\nYou should place the yellow fish in the fish tank, as fish",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You possess a yellow fish. Place it into one of these habitats: the fish tank, the bird cage, or the reptile house. Which option should you choose?"
+ }
+}

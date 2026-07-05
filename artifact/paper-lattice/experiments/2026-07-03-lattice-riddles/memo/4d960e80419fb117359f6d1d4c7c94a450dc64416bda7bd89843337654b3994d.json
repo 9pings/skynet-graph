@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"reptile\",\"category\":\"terrarium\",\"condition\":\"\",\"color\":\"blue\",\"size\":\"\"},\"holes\":[{\"name\":\"terrarium\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "A blue reptile needs to be placed in one of three options: a terrarium, an aquarium, or an aviary. Which one should you choose?"
+ }
+}

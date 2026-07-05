@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"candidates\": [\n    \"label: d_cassowary ~> ~flies(X) | cond(cassowary(X))\",\n    \"label: d_cassowary_broad ~> ~flies(X) | cond(bird(X) ∧ ~cassowary(X))\",\n    \"label: d_cassowary_wrong_head ~> ~has_feathers(X) | cond(cassowary(X))\",\n    \"label: d_cassowary_irrelevant ~> ~warm_blooded(X) | cond(cassowary(X))\",\n    \"label: d_cassowary_positive => walks(X) | cond(cassowary(X))\",\n    \"label: d_cassowary_wrong_cond ~> ~flies(X) | cond(large(X) ∧ ~cassowary(X))\",\n    \"label: d_cassowary_specific ~> ~flies(X) | cond(cassowary(X) ∧ bird(X))\"\n  ]\n}\n```",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"flies(cass)\", list the candidate rules. Reply ONLY JSON:",
+  "user": "Facts: bird(cass), bird(tweety), cassowary(cass), sparrow(tweety).\nGeneral rules (=> means \"normally implies\"): r_flies: bird(X) => flies(X); r_feathers: bird(X) => has_feathers(X); r_warm: bird(X) =>"
+ }
+}

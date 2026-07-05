@@ -1,0 +1,8 @@
+{
+ "response": "\n\n{\"candidates\":[\"d_aerogel: aerogel(X) ~> ~dense(X)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"dense(silica_aerogel)\", list the candidate rules. Reply ",
+  "user": "Facts: aerogel(silica_aerogel), material(concrete_block), material(silica_aerogel), solid(concrete_block), solid(silica_aerogel).\nGeneral rules (=> means \"normally implies\"): r_dense: solid(X) => dens"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you own a small, leafy yellow fern. You need to place it somewhere safe—either inside a glass tank filled with water and fish or in a spacious cage where birds fly around. Where would be the best spot for it?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a yellow fern. Put it into one of these enclosures: the aquarium, or the aviary. Which one?"
+ }
+}

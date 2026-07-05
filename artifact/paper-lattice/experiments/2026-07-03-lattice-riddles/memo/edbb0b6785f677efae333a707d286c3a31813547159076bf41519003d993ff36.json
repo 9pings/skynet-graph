@@ -1,0 +1,8 @@
+{
+ "response": "terrestrial",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: fish is-a aquatic; bird is-a aerial; reptile is-a terres",
+  "user": "Imagine you own a blue-scaled reptile. You need to place it in one of three spaces: a fish-filled tank, a bird-filled cage, or a land-based habitat designed for reptiles. Where should it go?"
+ }
+}

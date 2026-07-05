@@ -1,0 +1,8 @@
+{
+ "response": "penguin(X) ~> ~flies(X)",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: flies(opus)\nCandidates:\nlabel: penguin(X) ~> ~flies(X)\nlabel: penguin(opus) ~> ~flies(opus)"
+ }
+}

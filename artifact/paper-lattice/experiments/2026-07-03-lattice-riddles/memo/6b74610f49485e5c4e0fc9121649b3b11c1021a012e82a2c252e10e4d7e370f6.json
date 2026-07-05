@@ -1,0 +1,8 @@
+{
+ "response": "You possess a green kettle plug. Insert it into one of these electrical outlets: the circular-pin outlet, the flat-pin outlet, or the triangular-pin outlet. Which outlet should you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a green kettle plug. Put it into one of these wall sockets: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one?"
+ }
+}

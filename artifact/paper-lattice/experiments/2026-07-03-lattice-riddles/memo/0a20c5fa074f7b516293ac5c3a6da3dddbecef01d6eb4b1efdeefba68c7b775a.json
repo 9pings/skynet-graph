@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you’re holding a standard US electrical plug that’s yellow—now you need to plug it into one of three different wall outlets: one with round prongs, another with flat prongs, or a third with three prongs. Which outlet will it fit into?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a yellow US plug. Put it into one of these wall sockets: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one?"
+ }
+}

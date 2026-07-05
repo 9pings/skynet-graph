@@ -1,0 +1,8 @@
+{
+ "response": "\n\nd_cuckoo",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_cuckoo: cuckoo(X) ~> ~builds_nest(X)\nd_cuck_broad: bird(X) ~> ~builds",
+  "user": "Facts: bird(coco), bird(tweety), cuckoo(coco), sparrow(tweety).\nGeneral rules (=> means \"normally implies\"): r_nest: bird(X) => builds_nest(X); r_young: bird(X) => raises_own_young(X); r_flies_c: bird"
+ }
+}

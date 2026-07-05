@@ -1,0 +1,8 @@
+{
+ "response": "large aquatic",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: fish is-a aquatic; bird is-a aerial; reptile is-a terres",
+  "user": "Imagine you own a massive red shark—now you need to place it in one of three spaces: a tiny aquarium, a bigger aquarium, or a spacious terrarium. Where would it fit best?"
+ }
+}

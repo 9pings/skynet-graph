@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nround",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "Imagine you have a gleaming yellow sphere. You need to place it into one of three openings: a star-shaped slot, a square slot, or a circular slot. Which opening should you choose?"
+ }
+}

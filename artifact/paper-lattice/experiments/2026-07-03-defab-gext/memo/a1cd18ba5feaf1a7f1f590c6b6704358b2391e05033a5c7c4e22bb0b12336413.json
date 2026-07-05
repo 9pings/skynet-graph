@@ -1,0 +1,8 @@
+{
+ "response": "d_uv_wrong_cond",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: legally_valid(act_alpha)\nCandidates:\nd_uv_wrong_cond: unauthorized(X) ~> ~legally_valid(X)\nd_uv_irrelevant: fraudulent(X) ~> ~legally_valid(X)"
+ }
+}

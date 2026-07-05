@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"green kettle plug\",\"category\":\"roundpin|flatpin|threepin\",\"condition\":\"\",\"color\":\"green\",\"size\":\"\"},\"holes\":[{\"name\":\"roundpin|flatpin|threepin\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "Which wall socket should you use for a green kettle plug: the round-pin, flat-pin, or three-pin option?"
+ }
+}

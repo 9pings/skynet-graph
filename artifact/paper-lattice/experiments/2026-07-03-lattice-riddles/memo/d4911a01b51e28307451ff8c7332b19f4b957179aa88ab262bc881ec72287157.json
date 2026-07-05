@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"list\",\"category\":\"reasons\",\"condition\":\"fern placement\",\"color\":\"green\",\"size\":\"medium\"},\"holes\":[{\"name\":\"aquariums\",\"size\":\"small\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "The **aviary** is the better choice for your fern. Here's why:\n\n*   **Ferns and Humidity:** Ferns thrive in humid environments. Aviaries are designed to maintain high humidity levels to support birds,"
+ }
+}

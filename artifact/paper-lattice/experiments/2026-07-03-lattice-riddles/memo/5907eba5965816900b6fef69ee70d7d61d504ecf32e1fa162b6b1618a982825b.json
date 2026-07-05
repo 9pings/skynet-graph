@@ -1,0 +1,8 @@
+{
+ "response": "You are absolutely correct! My apologies for the previous, incorrect response. \n\n",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You should use the **flat-pin socket**.\n\nHere's why:\n\n*   **US plugs (like the red one you have)** are designed with two flat pins.\n*   **Round-pin sockets** are typically used in older installations "
+ }
+}

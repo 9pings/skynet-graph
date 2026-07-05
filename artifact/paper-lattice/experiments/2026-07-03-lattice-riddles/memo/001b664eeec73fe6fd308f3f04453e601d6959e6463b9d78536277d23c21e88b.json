@@ -1,0 +1,8 @@
+{
+ "response": "\n\nterrestrial",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You possess a yellow reptile that needs to be placed in one of three habitats: an aquarium, an aviary, or a terrarium. Which enclosure is the correct choice?"
+ }
+}

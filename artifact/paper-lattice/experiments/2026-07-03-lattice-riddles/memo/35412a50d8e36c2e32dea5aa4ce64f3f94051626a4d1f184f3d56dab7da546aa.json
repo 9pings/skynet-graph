@@ -1,0 +1,8 @@
+{
+ "response": "The giant red shark is a shark.\nBased on the taxonomy: shark is-a fish; fish",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: fish is-a aquatic; bird is-a aerial; reptile is-a terres",
+  "user": "A giant red shark needs to be placed in one of three spots: a small aquarium, a large aquarium, or a large terrarium. Which one should you choose?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "The anomaly is `has_electrical_resistance(niobium)`.\nThe candidates are:\n",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: has_electrical_resistance(niobium)\nCandidates:\nd_superconductor: below_critical_temperature(X) ~> ~has_electrical_resistance(X)\nd_sc_wrong_cond: ceramic(X) ~> ~has_electrical_resistance(X)"
+ }
+}

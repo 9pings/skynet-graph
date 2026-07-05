@@ -1,0 +1,8 @@
+{
+ "response": "square\n\nA sugar cube is a cube, which is-a square. Even though it's melted, the question states to",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You've got a melted blue sugar cube and need to decide which hole to drop it into: the star-shaped one, the square one, or the round one. Where should you put it?"
+ }
+}

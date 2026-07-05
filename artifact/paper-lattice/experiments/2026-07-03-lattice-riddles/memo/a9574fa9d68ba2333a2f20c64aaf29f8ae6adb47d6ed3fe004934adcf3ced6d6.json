@@ -1,0 +1,8 @@
+{
+ "response": "aerial\n\nThe red bird is a bird, which derives from the aerial category. The bird house is the hole that",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: fish is-a aquatic; bird is-a aerial; reptile is-a terres",
+  "user": "You're holding a red bird and need to place it in one of three spaces: either the fish tank, the bird house, or the reptile cage. Where would you put it?"
+ }
+}

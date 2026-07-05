@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nA blue fern is a plant and should not be placed in either an aquarium or an aviary. An aquarium is for aquatic life, and an aviary is for birds.",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquarium | aviary | none.",
+  "user": "You possess a blue fern and need to decide where to place it: either in the aquarium or the aviary. Which enclosure should you choose?"
+ }
+}

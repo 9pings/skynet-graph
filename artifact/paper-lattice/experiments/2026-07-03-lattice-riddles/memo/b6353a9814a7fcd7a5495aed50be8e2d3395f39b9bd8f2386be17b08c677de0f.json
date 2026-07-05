@@ -1,0 +1,8 @@
+{
+ "response": "Looking at the ontology:\n\n1. A die is-a cube (from the taxonomy)\n2. A cube is-a square",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You have a blue die. Which hole should you place it in: the star-shaped opening, the square opening, or the round opening?"
+ }
+}

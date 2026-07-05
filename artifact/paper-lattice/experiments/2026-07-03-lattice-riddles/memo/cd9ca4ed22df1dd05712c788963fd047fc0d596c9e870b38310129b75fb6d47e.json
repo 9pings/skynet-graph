@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"sugar\",\"category\":\"square\",\"condition\":\"fresh\",\"color\":\"red\",\"size\":\"small\"},\"holes\":[{\"name\":\"square\",\"size\":\"\"},{\"name\":\"star\",\"size\":\"\"},{\"name\":\"round\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you’re holding a shiny, fresh red sugar cube for the first time. You have three different holes to choose from—one shaped like a star, one shaped like a square, and one shaped like a circle. W"
+ }
+}

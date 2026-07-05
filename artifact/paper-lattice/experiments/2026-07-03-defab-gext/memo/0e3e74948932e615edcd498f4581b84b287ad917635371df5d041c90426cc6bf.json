@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\n{\"candidates\":[\"d_ultra_vires: ultra_vires_act(X) ~> ~legally_valid(X)\", \"d_uv_broad: corporate_act(X) ~> ~legally_valid(X)\", \"d_uv_wrong_head: ultra_vires_act(X) ~> ~binding_on_corporation(X)\", \"d_uv_positive: ultra_vires_act(X) => void_ab_initio(X)\", \"d_uv_wrong_cond: unauthorized(X) ~> ~legally_valid(X)\", \"d_uv_irrelevant: fraudulent(X) ~> ~legally_valid(X)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"legally_valid(act_alpha)\", list the candidate rules. Rep",
+  "user": "Facts: corporate_act(act_alpha), corporate_act(act_beta), ultra_vires_act(act_alpha).\nGeneral rules (=> means \"normally implies\"): r_valid: corporate_act(X) => legally_valid(X); r_binding_c: corporate"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nnone",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You have a dusty green Euro plug. Which of these wall sockets will it fit: the round-pin, the flat-pin, or the three-pin?"
+ }
+}

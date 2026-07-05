@@ -1,0 +1,8 @@
+{
+ "response": "{\"kind\":\"ball\",\"category\":\"round\"}",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"You're holding a red ball. Choose where to place it among these three holes: the star-shape",
+  "user": "In general, which shape category fits a ball?"
+ }
+}

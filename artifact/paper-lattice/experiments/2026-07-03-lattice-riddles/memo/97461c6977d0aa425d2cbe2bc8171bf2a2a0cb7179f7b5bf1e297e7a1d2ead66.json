@@ -1,0 +1,8 @@
+{
+ "response": "{\n    \"object\": {\n        \"kind\": \"ball\",\n        \"category\": \"sports\",\n        \"condition\": \"normal\",\n        \"color\": \"unknown\",\n        \"size\": \"unknown\"\n    },\n    \"holes\": [\n        {\n            \"name\": \"star-shaped\",\n            \"size\": \"unknown\"\n        },\n        {\n            \"name\": \"square\",\n            \"size\": \"unknown\"\n        },\n        {\n            \"name\": \"round\",\n            \"size\": \"unknown\"",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "This is a trick question! The question doesn't give you any information to suggest which hole the ball *should* go in. It's just asking you to choose.\n\nYou could pick any of them: **the star-shaped on"
+ }
+}

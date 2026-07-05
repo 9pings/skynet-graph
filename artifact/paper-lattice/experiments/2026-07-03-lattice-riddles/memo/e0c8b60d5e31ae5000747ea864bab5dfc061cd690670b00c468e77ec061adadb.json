@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"large aquarium\",\"category\":\"aquatic enclosure\",\"condition\":\"suitable\",\"color\":\"blue\",\"size\":\"large\"},\"holes\":[]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "The **large aquarium** is the only suitable enclosure for a large green shark. Here's why:\n\n*   **Small Aquarium:** Far too small for a large shark - it would be incredibly cruel and the shark wouldn'"
+ }
+}

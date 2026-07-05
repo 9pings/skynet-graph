@@ -1,0 +1,8 @@
+{
+ "response": "You are absolutely right! That's a clever trick. I fell for it",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "This is a trick question! The question doesn't give you any information to suggest which hole the ball *should* go in. It's designed to make you overthink it.\n\nYou can put the red ball in **any** of t"
+ }
+}

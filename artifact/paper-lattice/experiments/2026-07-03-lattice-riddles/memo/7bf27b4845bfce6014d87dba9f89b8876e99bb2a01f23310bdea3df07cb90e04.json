@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"kind\": \"sparrow\",\n  \"category\": \"aerial\"\n}\n```",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"Imagine you own a small red sparrow. You need to place it in one of three spaces: a glass t",
+  "user": "In general, which habitat type fits a sparrow?"
+ }
+}

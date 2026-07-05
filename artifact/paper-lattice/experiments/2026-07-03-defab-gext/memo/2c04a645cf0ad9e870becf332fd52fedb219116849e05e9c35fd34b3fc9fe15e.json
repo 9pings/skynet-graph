@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"candidates\": [\n    \"label: d_metamaterial ~> ~positive_refractive_index(split_ring_resonator)\",\n    \"label: d_mm_broad ~> ~positive_refractive_index(composite(X))\",\n    \"label: d_mm_wrong_head ~> ~absorbs_electromagnetic(split_ring_resonator)\",\n    \"label: d_mm_positive ~> ~negative_refraction(split_ring_resonator)\",\n    \"label: d_mm_wrong_cond ~> ~positive_refractive_index(metamaterial(X))\",\n    \"label: d_mm_irrelevant ~> ~positive_refractive_index(periodic_structure(X))\",\n    \"label: d_mm_composite_material ~> ~positive_refractive_index(composite(X) & material(X))\",\n    \"label: d_mm_non_composite_metamaterial ~> ~positive_refractive_index(metamaterial(X) & ~composite(X))\",\n    \"label: d_mm_split_ring ~> ~positive_refractive_index(split_ring_resonator)\"\n  ]\n}\n```",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"positive_refractive_index(split_ring_resonator)\", list t",
+  "user": "Facts: composite(carbon_fiber_plate), composite(split_ring_resonator), material(carbon_fiber_plate), material(split_ring_resonator), metamaterial(split_ring_resonator).\nGeneral rules (=> means \"normal"
+ }
+}

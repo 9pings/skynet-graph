@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"charger plug\",\"category\":\"threepin\",\"condition\":\"\",\"color\":\"blue\",\"size\":\"\"},\"holes\":[{\"name\":\"threepin\",\"size\":\"\"},{\"name\":\"\",\"size\":\"\"},{\"name\":\"\",\"size\":\"\"},{\"name\":\"\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "Imagine you’re holding a charger with a blue plug designed for a specific type of outlet. You have three options in front of you: a socket with two round prongs, one with two flat prongs, or a larger "
+ }
+}

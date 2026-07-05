@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nA blue UK plug is not a standard UK plug type. UK plugs",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You possess a blue UK plug. Which wall socket out of the round-pin one, the flat-pin one, or the three-pin one should you insert it into?"
+ }
+}

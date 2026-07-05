@@ -1,0 +1,8 @@
+{
+ "response": "none",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "Imagine you’re holding a flat, crumpled red balloon. You need to slide it into one of three openings: a five-pointed star, a perfect square, or a circle. Which hole will it fit through?"
+ }
+}

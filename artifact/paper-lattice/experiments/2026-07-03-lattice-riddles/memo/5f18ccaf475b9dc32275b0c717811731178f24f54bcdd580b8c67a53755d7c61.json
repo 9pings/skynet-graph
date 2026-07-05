@@ -1,0 +1,8 @@
+{
+ "response": "You should put the green gecko into the **terrarium**. Here's why:\n\n*   **Terrarium:** Specifically designed for reptiles and amphibians. They allow for controlled humidity, temperature gradients, and often have features like climbing branches and hiding spots that geckos need.\n*   **Aquarium:** Primarily for aquatic life. While you *could* potentially adapt one, it's not ideal and lacks the necessary features for a terrestrial reptile.\n*   **Aviary:** Designed for birds. The ventilation and open nature of an aviary would be unsuitable and dangerous for a gecko",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a green gecko. Put it into one of these enclosures: the aquarium, the aviary, or the terrarium. Which one?"
+ }
+}

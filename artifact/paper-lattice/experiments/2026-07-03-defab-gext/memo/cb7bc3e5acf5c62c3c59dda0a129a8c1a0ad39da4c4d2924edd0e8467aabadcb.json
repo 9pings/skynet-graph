@@ -1,0 +1,8 @@
+{
+ "response": "The best exception rule is **d_metallic_glass**.\n\nThe anomaly is that `vitreloy` is not brittle, despite the general rule `r_brittle` predicting that metals are brittle. To explain this without overriding the general rule for all metals (which would affect `steel_a`), we need a more specific rule. `d_metallic_glass` (`amorphous_solid(X) ~> ~brittle(X)`) identifies the specific property of metallic glasses (amorphous solids) that makes them an exception to the general rule for metals.\n\nd_metallic_glass",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_metallic_glass: amorphous_solid(X) ~> ~brittle(X)\nd_mg_broad: metal(X",
+  "user": "Facts: material(steel_a), material(vitreloy), metal(steel_a), metal(vitreloy).\nGeneral rules (=> means \"normally implies\"): r_brittle: metal(X) => brittle(X); r_conduct: metal(X) => conducts_electrici"
+ }
+}

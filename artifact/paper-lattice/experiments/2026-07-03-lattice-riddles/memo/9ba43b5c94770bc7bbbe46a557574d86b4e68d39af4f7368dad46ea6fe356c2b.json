@@ -1,0 +1,8 @@
+{
+ "response": "none",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "Imagine you’re holding a bright yellow pyramid. You need to fit it into one of three openings: one shaped like a star, another shaped like a square, or the last one shaped like a circle. Which hole wi"
+ }
+}

@@ -1,0 +1,372 @@
+{
+  "model": "Qwen3.6-27B-UD-Q2_K_XL.gguf",
+  "protocol": "../../sota/2026-07-03-parametric-reuse-probe-laurie.md",
+  "determinism": true,
+  "zeroFire": true,
+  "groups": {
+    "dataops-anchor": {
+      "n": 4,
+      "selOk": 4,
+      "extExact": 4,
+      "extSwap": 0,
+      "extWrong": 0,
+      "unparsed": 0,
+      "mounted": 4,
+      "answerOk": 4,
+      "answerOkBLENDfloor": null,
+      "fallbacks": 0,
+      "rows": [
+        {
+          "id": "t16",
+          "sel": true,
+          "ext": "exact",
+          "expected": "overdue",
+          "outcome": "mounted",
+          "winner": "overdue",
+          "params": [
+            "status=overdue",
+            "client=Stark"
+          ],
+          "answerOk": true
+        },
+        {
+          "id": "t17",
+          "sel": true,
+          "ext": "exact",
+          "expected": "paid",
+          "outcome": "mounted",
+          "winner": "paid",
+          "params": [
+            "client=Globex",
+            "status=paid"
+          ],
+          "answerOk": true
+        },
+        {
+          "id": "t18",
+          "sel": true,
+          "ext": "exact",
+          "expected": "overdue",
+          "outcome": "mounted",
+          "winner": "overdue",
+          "params": [
+            "client=Wayne",
+            "status=overdue"
+          ],
+          "answerOk": true
+        },
+        {
+          "id": "t19",
+          "sel": true,
+          "ext": "exact",
+          "expected": "Initech",
+          "outcome": "mounted",
+          "winner": "Initech",
+          "params": [
+            "client=Initech",
+            "client=Umbrella"
+          ],
+          "answerOk": true
+        }
+      ]
+    },
+    "library": {
+      "n": 8,
+      "selOk": 8,
+      "extExact": 8,
+      "extSwap": 0,
+      "extWrong": 0,
+      "unparsed": 0,
+      "mounted": 8,
+      "answerOk": 8,
+      "answerOkBLENDfloor": null,
+      "fallbacks": 0,
+      "rows": [
+        {
+          "id": "t24",
+          "sel": true,
+          "ext": "exact",
+          "expected": "poetry",
+          "outcome": "mounted",
+          "winner": "poetry",
+          "params": [
+            "genre=essay",
+            "genre=poetry"
+          ],
+          "answerOk": true
+        },
+        {
+          "id": "t25",
+          "sel": true,
+          "ext": "exact",
+          "expected": "essay",
+          "outcome": "mounted",
+          "winner": "essay",
+          "params": [
+            "genre=novel",
+            "genre=essay"
+          ],
+          "answerOk": true
+        },
+        {
+          "id": "t26",
+          "sel": true,
+          "ext": "exact",
+          "expected": "poetry",
+          "outcome": "mounted",
+          "winner": "poetry",
+          "params": [
+            "genre=novel",
+            "genre=poetry"
+          ],
+          "answerOk": true
+        },
+        {
+          "id": "t27",
+          "sel": true,
+          "ext": "exact",
+          "expected": "poetry",
+          "outcome": "mounted",
+          "winner": "poetry",
+          "params": [
+            "genre=poetry",
+            "genre=essay"
+          ],
+          "answerOk": true
+        },
+        {
+          "id": "t32",
+          "sel": true,
+          "ext": "exact",
+          "expected": "essay",
+          "outcome": "mounted",
+          "winner": "essay",
+          "params": [
+            "genre=essay",
+            "genre=novel"
+          ],
+          "answerOk": true
+        },
+        {
+          "id": "t33",
+          "sel": true,
+          "ext": "exact",
+          "expected": "poetry",
+          "outcome": "mounted",
+          "winner": "poetry",
+          "params": [
+            "genre=poetry",
+            "genre=novel"
+          ],
+          "answerOk": true
+        },
+        {
+          "id": "t34",
+          "sel": true,
+          "ext": "exact",
+          "expected": "poetry",
+          "outcome": "mounted",
+          "winner": "poetry",
+          "params": [
+            "genre=essay",
+            "genre=poetry"
+          ],
+          "answerOk": true
+        },
+        {
+          "id": "t35",
+          "sel": true,
+          "ext": "exact",
+          "expected": "poetry",
+          "outcome": "mounted",
+          "winner": "poetry",
+          "params": [
+            "genre=novel",
+            "genre=poetry"
+          ],
+          "answerOk": true
+        }
+      ]
+    },
+    "human": {
+      "n": 8,
+      "selOk": 8,
+      "extExact": 8,
+      "extSwap": 0,
+      "extWrong": 0,
+      "unparsed": 0,
+      "mounted": 8,
+      "answerOk": 8,
+      "answerOkBLENDfloor": null,
+      "fallbacks": 0,
+      "rows": [
+        {
+          "id": "h6",
+          "sel": true,
+          "ext": "exact",
+          "expected": "paid",
+          "outcome": "mounted",
+          "winner": "paid",
+          "params": [
+            "status=overdue",
+            "status=paid"
+          ],
+          "answerOk": true
+        },
+        {
+          "id": "h7",
+          "sel": true,
+          "ext": "exact",
+          "expected": "Globex",
+          "outcome": "mounted",
+          "winner": "Globex",
+          "params": [
+            "client=ACME",
+            "client=Globex"
+          ],
+          "answerOk": true
+        },
+        {
+          "id": "h8",
+          "sel": true,
+          "ext": "exact",
+          "expected": "overdue",
+          "outcome": "mounted",
+          "winner": "overdue",
+          "params": [
+            "status=pending",
+            "status=overdue"
+          ],
+          "answerOk": true
+        },
+        {
+          "id": "h9",
+          "sel": true,
+          "ext": "exact",
+          "expected": "Wayne",
+          "outcome": "mounted",
+          "winner": "Wayne",
+          "params": [
+            "client=Wayne",
+            "client=Initech"
+          ],
+          "answerOk": true
+        },
+        {
+          "id": "h10",
+          "sel": true,
+          "ext": "exact",
+          "expected": "paid",
+          "outcome": "mounted",
+          "winner": "paid",
+          "params": [
+            "status=paid",
+            "status=pending"
+          ],
+          "answerOk": true
+        },
+        {
+          "id": "h11",
+          "sel": true,
+          "ext": "exact",
+          "expected": "Globex",
+          "outcome": "mounted",
+          "winner": "Globex",
+          "params": [
+            "client=Globex",
+            "client=Wayne"
+          ],
+          "answerOk": true
+        },
+        {
+          "id": "h12",
+          "sel": true,
+          "ext": "exact",
+          "expected": "ACME",
+          "outcome": "mounted",
+          "winner": "ACME",
+          "params": [
+            "client=ACME",
+            "client=Wayne"
+          ],
+          "answerOk": true
+        },
+        {
+          "id": "h13",
+          "sel": true,
+          "ext": "exact",
+          "expected": "overdue",
+          "outcome": "mounted",
+          "winner": "Overdue",
+          "params": [
+            "status=Overdue",
+            "status=pending"
+          ],
+          "answerOk": true
+        }
+      ]
+    }
+  },
+  "injection": {
+    "n": 9,
+    "hint": 9,
+    "rows": [
+      {
+        "id": "t25",
+        "outcome": "hint",
+        "b": null
+      },
+      {
+        "id": "t26",
+        "outcome": "hint",
+        "b": null
+      },
+      {
+        "id": "t27",
+        "outcome": "hint",
+        "b": null
+      },
+      {
+        "id": "t32",
+        "outcome": "hint",
+        "b": null
+      },
+      {
+        "id": "t33",
+        "outcome": "hint",
+        "b": null
+      },
+      {
+        "id": "t34",
+        "outcome": "hint",
+        "b": null
+      },
+      {
+        "id": "t35",
+        "outcome": "hint",
+        "b": null
+      },
+      {
+        "id": "h7",
+        "outcome": "hint",
+        "b": null
+      },
+      {
+        "id": "h10",
+        "outcome": "hint",
+        "b": null
+      }
+    ]
+  },
+  "nullArm": {
+    "library": {
+      "mounted": 8,
+      "nullAnswerOk": 4
+    },
+    "human": {
+      "mounted": 8,
+      "nullAnswerOk": 0
+    }
+  },
+  "elapsedSec": 25.134424217
+}

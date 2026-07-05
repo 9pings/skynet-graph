@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nAn HDMI cable uses a proprietary HDMI connector (the \"HDMI\"",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You've got a green HDMI cable and need to plug it into one of three wall outlets: the round-pin, the flat-pin, or the three-pin variety. Which outlet should you choose?"
+ }
+}

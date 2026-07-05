@@ -1,0 +1,8 @@
+{
+ "response": "large aquatic",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small aquatic | large aquatic | large terrestrial | none.",
+  "user": "A giant red shark needs to be placed in one of three spots: a small aquarium, a large aquarium, or a large terrarium. Which one should you choose?"
+ }
+}

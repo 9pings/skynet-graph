@@ -1,0 +1,8 @@
+{
+ "response": "You have a green gecko and need to choose an enclosure for it: the aquarium, the aviary, or the terrarium. Which one should you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a green gecko. Put it into one of these enclosures: the aquarium, the aviary, or the terrarium. Which one?"
+ }
+}

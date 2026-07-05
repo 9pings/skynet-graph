@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"gecko\",\"category\":\"reptile\",\"condition\":\"yellow\",\"color\":\"yellow\",\"size\":\"unknown\"},\"holes\":[{\"name\":\"terrarium\",\"size\":\"unknown\"},{\"name\":\"aquarium\",\"size\":\"unknown\"},{\"name\":\"aviary\",\"size\":\"unknown\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You should put the yellow gecko into the **terrarium**. Here's why:\n\n*   **Terrarium:** Terrariums are specifically designed for reptiles and amphibians. They allow for controlled humidity, temperatur"
+ }
+}

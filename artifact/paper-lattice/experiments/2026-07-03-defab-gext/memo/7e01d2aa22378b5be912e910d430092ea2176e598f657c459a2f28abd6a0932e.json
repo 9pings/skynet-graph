@@ -1,0 +1,8 @@
+{
+ "response": "\n\n{\"candidates\":[\"d_superconductor: below_critical_temperature(X) ~> ~has_electrical_resistance(X)\", \"d_sc_broad: metal(X) ~> ~has_electrical_resistance(X)\", \"d_sc_no_novel: superconductor(X) ~> ~has_electrical_resistance(X)\", \"d_sc_wrong_cond: ceramic(X) ~> ~has_electrical_resistance(X)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"has_electrical_resistance(niobium)\", list the candidate ",
+  "user": "Facts: material(copper_wire), material(niobium), material(warm_niobium), metal(copper_wire), metal(niobium), metal(warm_niobium), superconductor(niobium), superconductor(warm_niobium).\nGeneral rules ("
+ }
+}

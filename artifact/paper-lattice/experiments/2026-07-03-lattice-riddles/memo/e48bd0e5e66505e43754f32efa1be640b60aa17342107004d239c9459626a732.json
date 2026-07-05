@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\"kind\":\"trout\",\"category\":\"aquatic\"}\n```",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"You possess a blue trout. You must place it in one of the following: a terrarium, an aviary",
+  "user": "In general, which habitat type fits a trout?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "flat slot",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: round one | flat slot | none.",
+  "user": "Imagine you have a soft, green soccer ball that’s completely flat. You’re given two options to place it: a circular opening or a rectangular slot. Where would you put it?"
+ }
+}

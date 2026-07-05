@@ -1,0 +1,8 @@
+{
+ "response": "round",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "Imagine you’re holding a bright yellow sphere and need to place it into one of three openings: a five-pointed star, a perfect square, or a smooth circle. Into which opening should you drop it?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"balloon\",\"category\":\"square\",\"condition\":\"deflated\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"name\":\"square\",\"size\":\"\"},{\"name\":\"star\",\"size\":\"\"},{\"name\":\"round\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you’re holding a flat, yellow balloon. You need to place it into one of three openings: one shaped like a star, another shaped like a square, or the last one shaped like a circle. Which hole s"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "\n\nYou possess a bent blue plug from the UK. Which of the following wall sockets should you insert it into: the round-pin type, the flat-pin type, or the three-pin type?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a bent blue UK plug. Put it into one of these wall sockets: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one?"
+ }
+}

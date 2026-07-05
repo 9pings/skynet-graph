@@ -1,0 +1,8 @@
+{
+ "response": "aquatic\n\nI would choose the fish tank (aquatic habitat) because ferns are naturally aquatic or semi-aquatic plants that thrive in water environments. Many fern species are commonly found growing in or near water, and placing a red fern in a fish tank would provide the moist, humid conditions it needs to survive and potentially grow.",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You possess a red fern. Place it inside one of these habitats: the fish tank, the bird house, or the reptile cage. Which habitat will you choose?"
+ }
+}

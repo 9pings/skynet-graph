@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nA green fern is a plant and should be placed in a suitable environment for plants, not in an aquarium or aviary, which are designed for aquatic life and birds, respectively.",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquarium | aviary | none.",
+  "user": "You have a green fern and need to decide where to place it: either in the aquarium or the aviary. Which enclosure should you choose?"
+ }
+}

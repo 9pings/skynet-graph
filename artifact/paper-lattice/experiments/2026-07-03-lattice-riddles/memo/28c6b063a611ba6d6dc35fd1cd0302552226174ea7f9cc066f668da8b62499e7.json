@@ -1,0 +1,8 @@
+{
+ "response": "You have a green HDMI cable and need to connect it to one of these wall sockets: a round-pin socket, a flat-pin socket, or a three-pin socket. Which one should you use?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a green hdmi. Put it into one of these wall sockets: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one?"
+ }
+}

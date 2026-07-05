@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"Euro plug\",\"category\":\"roundpin\",\"condition\":\"\",\"color\":\"yellow\",\"size\":\"large\"},\"holes\":[{\"name\":\"roundpin\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You have a curved yellow Euro plug. Which wall outlet should you insert it into: the circular-pin outlet, the flat-pin outlet, or the three-pin outlet?"
+ }
+}

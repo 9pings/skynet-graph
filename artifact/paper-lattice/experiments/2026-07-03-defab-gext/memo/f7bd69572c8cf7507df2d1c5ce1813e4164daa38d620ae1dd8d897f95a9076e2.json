@@ -1,0 +1,8 @@
+{
+ "response": "\n\n{\"candidates\":[\"d_sovereign: sovereign(X) ~> ~suable(X)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"suable(state_agency)\", list the candidate rules. Reply O",
+  "user": "Facts: entity(private_corp), entity(state_agency), sovereign(state_agency).\nGeneral rules (=> means \"normally implies\"): r_suable: entity(X) => suable(X); r_liable: entity(X) => liable_for_damages(X)."
+ }
+}

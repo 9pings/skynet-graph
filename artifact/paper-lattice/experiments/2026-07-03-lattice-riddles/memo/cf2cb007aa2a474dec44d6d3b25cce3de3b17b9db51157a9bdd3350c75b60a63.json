@@ -1,0 +1,8 @@
+{
+ "response": "\n\nround",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You possess a green coin and must place it into one of three available slots: a star-shaped hole, a square hole, or a round hole. Which slot should you choose?"
+ }
+}

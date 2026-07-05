@@ -1,0 +1,8 @@
+{
+ "response": "You should put the fern in the **terrarium**. Here's why:\n\n*   **Terrarium:** Terrariums are specifically designed for plants, especially those that thrive in humid environments like ferns. They are typically enclosed or partially enclosed, creating a controlled environment with high humidity and often a substrate suitable for plant roots.\n*   **Aquarium:** Aquariums are for aquatic life (fish, etc.). While you *could* potentially create a very wet terrarium-like setup in an aquarium, it's not its primary purpose and would require significant modification.\n*   **Avi",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a green fern. Put it into one of these enclosures: the aquarium, the aviary, or the terrarium. Which one?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "d_cassowary",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: flies(cass)\nCandidates:\nlabel: d_cassowary ~> ~flies(X) | cond(cassowary(X))\nlabel: d_cassowary_broad ~> ~flies(X) | cond(bird(X) ∧ ~cassowary(X))\nlabel: d_cassowary_wrong_cond ~> ~flies(X) |"
+ }
+}

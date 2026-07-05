@@ -1,0 +1,8 @@
+{
+ "response": "The goal is to find an exception rule that explains why `electrically_passive(quartz_crystal)` is an anomaly (i.e.,",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_piezoelectric: piezoelectric(X) ~> ~electrically_passive(X)\nd_pz_broa",
+  "user": "Facts: crystal(quartz_crystal), crystal(table_salt), material(quartz_crystal), material(table_salt), piezoelectric(quartz_crystal).\nGeneral rules (=> means \"normally implies\"): r_passive: crystal(X) ="
+ }
+}

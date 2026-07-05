@@ -1,0 +1,8 @@
+{
+ "response": "\n\n```json\n{\"kind\":\"ball\",\"category\":\"round\"}\n```",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"Which hole should you place a deflated yellow ball into: the star-shaped one, the square on",
+  "user": "In general, which shape category fits a ball?"
+ }
+}

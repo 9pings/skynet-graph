@@ -1,0 +1,8 @@
+{
+ "response": "aquatic\n\nA red trout is a freshwater fish that naturally lives in water environments",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You're holding a red trout. Where would you place it among these three habitats: the fish tank, the bird cage, or the reptile house? Which option would you choose?"
+ }
+}

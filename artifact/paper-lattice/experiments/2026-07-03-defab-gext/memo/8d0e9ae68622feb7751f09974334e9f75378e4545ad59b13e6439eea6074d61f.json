@@ -1,0 +1,8 @@
+{
+ "response": "d_vlad_vampire_bat",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: insectivore(vlad)\nCandidates:\nlabel: d_vlad_vampire ~> ~insectivore(vlad)\nlabel: d_vlad_vampire_bat ~> ~insectivore(vlad)"
+ }
+}

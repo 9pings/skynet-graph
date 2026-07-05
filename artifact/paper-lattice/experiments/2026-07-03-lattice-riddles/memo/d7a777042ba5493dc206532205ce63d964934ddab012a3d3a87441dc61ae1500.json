@@ -1,0 +1,8 @@
+{
+ "response": "flatpin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "Imagine you’re holding a standard US electrical plug that’s yellow—now you need to plug it into one of three different wall outlets: one with round prongs, another with flat prongs, or a third with th"
+ }
+}

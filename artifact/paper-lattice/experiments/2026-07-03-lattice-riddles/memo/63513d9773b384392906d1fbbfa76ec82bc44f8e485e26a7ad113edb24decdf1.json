@@ -1,0 +1,8 @@
+{
+ "response": "The correct enclosure is the **terrarium**.\n\nHere's why:\n\n*   **Terrarium:** Designed for reptiles and other land-dwelling creatures. It typically has features like substrate, plants, and heating/lighting to mimic a natural habitat.\n*   **Aquarium:** Primarily for aquatic life (fish, etc.).\n*   **Aviary:** Specifically for birds.\n\n\n\nSince you have a reptile, a terrarium is the appropriate choice.",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a yellow reptile. Put it into one of these enclosures: the aquarium, the aviary, or the terrarium. Which one?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nThe blue ball is a solid object, and none of the three holes",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You have a blue ball. Choose one of these three holes to put it in: the star-shaped hole, the square hole, or the round hole. Which hole do you select?"
+ }
+}

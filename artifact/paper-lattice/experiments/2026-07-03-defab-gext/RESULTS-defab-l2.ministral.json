@@ -1,0 +1,21 @@
+{
+ "symAll": 374,
+ "nAll": 374,
+ "R": {
+  "biology": {
+   "n": 10,
+   "direct": 9,
+   "extract": 5
+  },
+  "legal": {
+   "n": 10,
+   "direct": 9,
+   "extract": 9
+  },
+  "materials": {
+   "n": 10,
+   "direct": 7,
+   "extract": 6
+  }
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "Here's an analysis of the provided rules and how they relate to the anomaly \"brittle(vitreloy)",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: brittle(vitreloy)\nCandidates:\nd_metallic_glass: amorphous_solid(X) ~> ~brittle(X)\nd_mg_wrong_cond: alloy(X) ~> ~brittle(X)\nd_mg_irrelevant: ceramic(X) ~> ~brittle(X)"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "Okay, I understand! I've placed the yellow star token into the star-shaped hole. It's a",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You should put the yellow star token into the **star-shaped hole**.\n\n\n\nIt's a perfect fit!"
+ }
+}

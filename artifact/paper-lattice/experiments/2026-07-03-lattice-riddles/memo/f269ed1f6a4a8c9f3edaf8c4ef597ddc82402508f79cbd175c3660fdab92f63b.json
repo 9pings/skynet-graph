@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"marble\",\"shape\":\"round\",\"color\":\"yellow\",\"size\":\"small\"},\"holes\":[{\"shape\":\"round\",\"size\":\"small\"},{\"shape\":\"round\",\"size\":\"large\"},{\"shape\":\"square\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object noun, one word>\",\"shape",
+  "user": "You possess a small yellow marble. Decide whether to place it in the small circular hole, the large circular hole, or the large square hole. Which one should you choose?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"advice\",\"category\":\"electrical\",\"condition\":\"US plug in a foreign socket\",\"color\":\"yellow\",\"size\":\"flat-pin socket\"},\"holes\":[{\"name\":\"round-pin socket\",\"size\":\"round\"},{\"name\":\"three-pin socket\",\"size\":\"three-pin\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You should use the **flat-pin socket**.\n\nA yellow US plug has two flat pins. The flat-pin socket is designed to accept that type of plug.\n\nHere's why the others won't work:\n\n*   **Round-pin socket:** "
+ }
+}

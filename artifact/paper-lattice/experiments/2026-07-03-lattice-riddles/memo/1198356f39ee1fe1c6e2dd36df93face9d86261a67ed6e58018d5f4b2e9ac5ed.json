@@ -1,0 +1,8 @@
+{
+ "response": "You are absolutely correct! My apologies for the previous inaccurate response. You've",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You should use the **flat-pin socket**.\n\nHere's why:\n\n*   **Euro plugs** (like the bent yellow one you describe) are designed to fit into sockets with two flat pins.\n*   **Round-pin sockets** are typi"
+ }
+}

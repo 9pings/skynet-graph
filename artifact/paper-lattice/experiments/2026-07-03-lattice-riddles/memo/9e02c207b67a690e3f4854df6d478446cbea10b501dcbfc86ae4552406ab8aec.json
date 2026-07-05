@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"dice\",\"category\":\"game\",\"condition\":\"new\",\"color\":\"blue\",\"size\":\"standard\"},\"holes\":[]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "This is a trick question! The answer is the **blue** one. \n\nThe question is designed to distract you with the shapes of the holes. It's playing on the idea of fitting something into a specific shape. "
+ }
+}

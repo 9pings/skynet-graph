@@ -1,0 +1,8 @@
+{
+ "response": "terrestrial",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You possess a yellow reptile and need to decide where to place it: an aquarium, an aviary, or a terrarium. Which enclosure should you choose?"
+ }
+}

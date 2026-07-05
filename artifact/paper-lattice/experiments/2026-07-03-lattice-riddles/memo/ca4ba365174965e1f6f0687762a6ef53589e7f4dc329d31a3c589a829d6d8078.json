@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"kind\": \"lump\",\n  \"category\": \"none\"\n}\n```",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"Imagine you have a single, soft green sugar lump. You need to place it into one of three op",
+  "user": "In general, which shape category fits a lump?"
+ }
+}

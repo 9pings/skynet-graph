@@ -1,0 +1,8 @@
+{
+ "response": "\n\nYou possess a red ball and must place it into one of three available holes: the star-shaped, the square, or the round one. Which hole do you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a red ball. Put it into one of these holes: the star-shaped one, the square one, or the round one. Which one?"
+ }
+}

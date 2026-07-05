@@ -1,0 +1,8 @@
+{
+ "response": "d_penguin\n\nThis exception rule specifically targets penguins, which are birds that don't fly, and explains why \"flies(opus)\" doesn't hold even",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_penguin: penguin(X) ~> ~flies(X)\nd_penguin_broad: bird(X) ~> ~flies(X",
+  "user": "Facts: bird(opus), bird(tweety), penguin(opus), sparrow(tweety).\nGeneral rules (=> means \"normally implies\"): r_flies: bird(X) => flies(X); r_feathers: bird(X) => has_feathers(X); r_warm: bird(X) => w"
+ }
+}

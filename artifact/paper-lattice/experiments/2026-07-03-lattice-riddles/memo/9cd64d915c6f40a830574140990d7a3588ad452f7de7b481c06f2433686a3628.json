@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"deflated blue ball\",\"category\":\"toy\",\"condition\":\"deflated\",\"color\":\"blue\",\"size\":\"small\"},\"holes\":[{\"name\":\"round one\",\"size\":\"medium\"},{\"name\":\"flat slot\",\"size\":\"small\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You would put the deflated blue ball into the **round one**.\n\nHere's why:\n\n*   **Round hole:** Designed for round objects. A deflated ball, even if soft, is still roundish.\n*   **Flat slot:** Designed"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "terrestrial\n\nGreen geckos are terrestrial reptiles that live on land, typically on walls, trees, and other surfaces. While they can climb, they don't belong in an aquarium (which is for aquatic animals) or an aviary (which is for birds). A terrarium would be the most appropriate enclosure type for a green gecko, as it provides the terrestrial environment they need with proper substrate, hiding spots, and climbing surfaces.",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You're holding a green gecko and need to choose where to place it among three options: the aquarium, the aviary, or the terrarium. Where do you put the gecko?"
+ }
+}

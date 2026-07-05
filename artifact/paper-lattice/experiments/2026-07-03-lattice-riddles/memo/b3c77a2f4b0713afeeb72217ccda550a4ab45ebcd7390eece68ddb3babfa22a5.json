@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nMatch the green star token to its corresponding hole among the star-shaped, square, and round options.",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a green star token. Put it into one of these holes: the star-shaped one, the square one, or the round one. Which one?"
+ }
+}

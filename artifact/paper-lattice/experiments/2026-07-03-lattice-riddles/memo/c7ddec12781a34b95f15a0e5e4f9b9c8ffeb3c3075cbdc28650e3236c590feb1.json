@@ -1,0 +1,8 @@
+{
+ "response": "none",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquarium | aviary | none.",
+  "user": "Imagine you’re holding a vibrant red fern. You need to place it inside one of two spaces: a glass tank filled with water and fish, or a birdcage where birds fly around. Where would it belong?"
+ }
+}

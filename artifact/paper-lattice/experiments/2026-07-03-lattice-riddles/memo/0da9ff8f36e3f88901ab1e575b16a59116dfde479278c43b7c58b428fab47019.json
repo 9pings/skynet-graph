@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\n{\"kind\":\"marble\",\"category\":\"round\"}",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"You possess a red marble and must place it into either the star-shaped, square, or round ho",
+  "user": "In general, which shape category fits a marble?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"ball\",\"category\":\"sports\",\"condition\":\"deflated\",\"color\":\"yellow\",\"size\":\"round\"},\"holes\":[{\"name\":\"round one\",\"size\":\"round\"},{\"name\":\"flat slot\",\"size\":\"flat\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You would put the deflated yellow ball into the **round one**.\n\nHere's why:\n\n*   **Round hole:** A round ball (even a deflated one) will fit through a round hole.\n*   **Flat slot:** A round ball will "
+ }
+}

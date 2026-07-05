@@ -1,0 +1,8 @@
+{
+ "response": "round",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You have a deflated red ball. Should you put it into the star-shaped hole, the square hole, or the round hole?"
+ }
+}

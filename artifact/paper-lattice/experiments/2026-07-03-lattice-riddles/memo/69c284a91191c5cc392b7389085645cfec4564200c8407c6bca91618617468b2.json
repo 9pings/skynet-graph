@@ -1,0 +1,8 @@
+{
+ "response": "large aquatic\n\nThe shark is a fish, which belongs to the aquatic category. Among the given habitats, only the tanks",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: fish is-a aquatic; bird is-a aerial; reptile is-a terres",
+  "user": "You possess a big red shark. Place it inside one of these habitats: the tiny tank, the big tank, or the large terrarium. Which option should you choose?"
+ }
+}

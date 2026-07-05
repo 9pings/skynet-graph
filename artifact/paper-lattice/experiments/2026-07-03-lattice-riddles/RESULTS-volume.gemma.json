@@ -1,0 +1,114 @@
+{
+ "shapes/V1-facet-distractor": {
+  "n": 24,
+  "sys": 20,
+  "sysHallu": 0,
+  "direct": 16,
+  "directHallu": 0
+ },
+ "shapes/V2-isa-depth2": {
+  "n": 24,
+  "sys": 24,
+  "sysHallu": 0,
+  "direct": 24,
+  "directHallu": 0
+ },
+ "shapes/V3-no-match": {
+  "n": 24,
+  "sys": 0,
+  "sysHallu": 24,
+  "direct": 6,
+  "directHallu": 18
+ },
+ "shapes/V4-axis-product": {
+  "n": 24,
+  "sys": 24,
+  "sysHallu": 0,
+  "direct": 24,
+  "directHallu": 0
+ },
+ "shapes/V5-defeasible": {
+  "n": 3,
+  "sys": 3,
+  "sysHallu": 0,
+  "direct": 1,
+  "directHallu": 2
+ },
+ "shapes/V5-benign-mod": {
+  "n": 3,
+  "sys": 3,
+  "sysHallu": 0,
+  "direct": 2,
+  "directHallu": 0
+ },
+ "animals/V1-facet-distractor": {
+  "n": 24,
+  "sys": 24,
+  "sysHallu": 0,
+  "direct": 22,
+  "directHallu": 0
+ },
+ "animals/V2-isa-depth2": {
+  "n": 24,
+  "sys": 24,
+  "sysHallu": 0,
+  "direct": 24,
+  "directHallu": 0
+ },
+ "animals/V3-no-match": {
+  "n": 24,
+  "sys": 24,
+  "sysHallu": 0,
+  "direct": 0,
+  "directHallu": 24
+ },
+ "animals/V4-axis-product": {
+  "n": 24,
+  "sys": 24,
+  "sysHallu": 0,
+  "direct": 18,
+  "directHallu": 0
+ },
+ "plugs/V1-facet-distractor": {
+  "n": 24,
+  "sys": 22,
+  "sysHallu": 0,
+  "direct": 6,
+  "directHallu": 0
+ },
+ "plugs/V2-isa-depth2": {
+  "n": 24,
+  "sys": 12,
+  "sysHallu": 0,
+  "direct": 12,
+  "directHallu": 0
+ },
+ "plugs/V3-no-match": {
+  "n": 24,
+  "sys": 24,
+  "sysHallu": 0,
+  "direct": 24,
+  "directHallu": 0
+ },
+ "plugs/V4-axis-product": {
+  "n": 24,
+  "sys": 12,
+  "sysHallu": 0,
+  "direct": 18,
+  "directHallu": 0
+ },
+ "plugs/V5-defeasible": {
+  "n": 3,
+  "sys": 3,
+  "sysHallu": 0,
+  "direct": 0,
+  "directHallu": 1
+ },
+ "plugs/V5-benign-mod": {
+  "n": 3,
+  "sys": 2,
+  "sysHallu": 0,
+  "direct": 1,
+  "directHallu": 0
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nA yellow UK plug is a three-pin plug (the yellow color indicates",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You possess a yellow UK plug. Which wall socket out of the round-pin socket, flat-pin socket, or three-pin socket should you insert it into?"
+ }
+}

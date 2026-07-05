@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"plug\",\"category\":\"roundpin\",\"condition\":\"yellow\",\"color\":\"\",\"size\":\"small\"},\"holes\":[{\"name\":\"roundpin\",\"size\":\"small\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Which of these wall outlets—small round-pin, large round-pin, or large flat-pin—is compatible with a small yellow Euro plug?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "\n\nd_axo_no_novel",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_axolotl: neotenic(X) ~> ~undergoes_metamorphosis(X)\nd_axo_broad: amph",
+  "user": "Facts: amphibian(axo), amphibian(frog_fred), amphibian(normal_axo), axolotl(axo), axolotl(normal_axo), frog(frog_fred).\nGeneral rules (=> means \"normally implies\"): r_meta: amphibian(X) => undergoes_m"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"instruction\",\"category\":\"electrical\",\"condition\":\"US plug (with two flat pins)\",\"color\":\"red\",\"size\":\"standard\"},\"holes\":[]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You should use the **flat-pin socket**.\n\nHere's why:\n\n*   **US plugs (like the red one you have)** are designed with two flat pins.\n*   **Round-pin sockets** are typically used in older installations "
+ }
+}

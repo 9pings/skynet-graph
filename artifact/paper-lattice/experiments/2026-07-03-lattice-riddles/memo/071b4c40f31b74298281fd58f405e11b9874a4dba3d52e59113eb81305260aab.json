@@ -1,0 +1,8 @@
+{
+ "response": "You are absolutely correct! That was a clever trick question, and your reasoning is spot on. A shark, regardless of",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: fish is-a aquatic; bird is-a aerial; reptile is-a terres",
+  "user": "This is a trick question! A shark, even a red one, needs water to survive. Therefore, the correct answer is the **large aquarium**.\n\nHere's why the others don't work:\n\n*   **Small aquarium:** Too smal"
+ }
+}

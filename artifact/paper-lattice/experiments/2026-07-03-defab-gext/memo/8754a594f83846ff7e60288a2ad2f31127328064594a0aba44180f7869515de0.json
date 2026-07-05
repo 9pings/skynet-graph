@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\"candidates\":[\"d_tardigrade: tardigrade(X) ~> ~requires_water(X)\", \"d_tard_broad: animal(X) ~> ~requires_water(X)\", \"d_tard_wrong_head: tardigrade(X) ~> ~requires_oxygen(X)\", \"d_tard_wrong_prop: tardigrade(X) ~> ~temperature_sensitive(X)\", \"d_tard_positive: tardigrade(X) => survives_desiccation(X)\", \"d_tard_wrong_cond: microscopic(X) ~> ~requires_water(X)\"]}\n```",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"requires_water(tardigrade_specimen)\", list the candidate",
+  "user": "Facts: animal(rabbit_specimen), animal(tardigrade_specimen), tardigrade(tardigrade_specimen).\nGeneral rules (=> means \"normally implies\"): r_water: animal(X) => requires_water(X); r_oxygen: animal(X) "
+ }
+}

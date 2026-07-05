@@ -1,0 +1,8 @@
+{
+ "response": "roundpin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You possess a standard red US electrical plug. Which wall outlet should you insert it into: the circular pin receptacle, the flat pin opening, or the trio pin socket?"
+ }
+}

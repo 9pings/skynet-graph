@@ -1,0 +1,8 @@
+{
+ "response": "{\n    \"object\": {\n        \"kind\": \"dice\",\n        \"category\": \"game\",\n        \"condition\": \"red\",\n        \"color\": \"red\",\n        \"size\": \"standard\"\n    },\n    \"holes\": [\n        {\n            \"name\": \"round hole\",\n            \"size\": \"small\"\n        },\n        {\n            \"name\": \"square hole\",\n            \"size\": \"standard\"\n        },\n        {\n            \"name\": \"triangular hole\",\n            \"size\": \"small\"",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "This is a trick question! Dice have square faces. Therefore, the **square hole** is the only one the red dice will fit into.\n\n\n\nLet me know if you'd like to try another riddle!"
+ }
+}

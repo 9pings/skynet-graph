@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"ball\",\"category\":\"sphere\",\"condition\":\"wet\",\"color\":\"yellow\",\"size\":\"large\"},\"holes\":[{\"name\":\"star-shaped opening\",\"size\":\"large\"},{\"name\":\"square opening\",\"size\":\"large\"},{\"name\":\"circular opening\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "You're holding a wet yellow ball. Choose which opening to drop it into: the star-shaped opening, the square opening, or the circular opening. Which opening do you select?"
+ }
+}

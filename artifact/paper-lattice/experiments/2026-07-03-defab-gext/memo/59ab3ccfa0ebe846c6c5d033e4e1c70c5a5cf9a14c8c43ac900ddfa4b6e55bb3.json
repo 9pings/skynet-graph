@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"candidates\": [\n    \"label: d_sh_anomaly: superhydrophobic(lotus_coating) ~> ~wetted_by_water(lotus_coating)\",\n    \"label: d_sh_anomaly_specific: (superhydrophobic(X) ∧ material(X)) ~> ~wetted_by_water(X)\",\n    \"label: d_sh_anomaly_polymer: (superhydrophobic(X) ∧ polymer(X)) ~> ~wetted_by_water(X)\",\n    \"label: d_sh_anomaly_material: (superhydrophobic(X) ∧ material(X)) ~> ~wetted_by_water(X)\",\n    \"label: d_sh_anomaly_lotus: (superhydrophobic(lotus_coating)) ~> ~wetted_by_water(lotus_coating)\"\n  ]\n}\n```",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"wetted_by_water(lotus_coating)\", list the candidate rule",
+  "user": "Facts: material(lotus_coating), material(polyethylene_film), polymer(lotus_coating), polymer(polyethylene_film), superhydrophobic(lotus_coating).\nGeneral rules (=> means \"normally implies\"): r_wet: po"
+ }
+}

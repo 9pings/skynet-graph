@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"shark\",\"category\":\"aquarium\",\"condition\":\"\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"name\":\"terrarium\",\"size\":\"\"},{\"name\":\"aviary\",\"size\":\"\"},{\"name\":\"aquarium\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You possess a yellow shark. You must place it in one of the following: a terrarium, an aviary, or an aquarium. Which one do you choose?"
+ }
+}

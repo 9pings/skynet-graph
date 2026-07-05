@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"answer\",\"category\":\"riddle\",\"condition\":\"correct\",\"color\":\"yellow\",\"size\":\"square\"},\"holes\":[{\"name\":\"round_hole\",\"size\":\"round\"},{\"name\":\"square_hole\",\"size\":\"square\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "This is a classic riddle! The answer is the **square one**.\n\nThe riddle plays on words. It's not about the color of the pyramid, but the *shape*. A yellow pyramid is a square shape, so it fits best in"
+ }
+}

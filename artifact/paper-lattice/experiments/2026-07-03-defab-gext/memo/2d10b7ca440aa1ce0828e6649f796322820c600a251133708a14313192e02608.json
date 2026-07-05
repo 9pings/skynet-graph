@@ -1,0 +1,8 @@
+{
+ "response": "\n\n{\"target\":\"contract(partnership_agreement)\",\"candidates\":[\"df_contract(partnership_agreement):  => contract(partnership_agreement)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract from the text, VERBATIM. Reply ONLY JSON: {\"target\":\"<the underivable statement>\",\"candidates\":[\"<entry as writt",
+  "user": "A knowledge base is missing exactly one entry. Because of that gap, the statement \"contract(partnership_agreement)\" cannot be derived. Exactly one of the following candidate entries fills the gap:\n  ("
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "The user is asking for a choice between \"aquarium\", \"",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "An enclosure is needed for your yellow reptile. Should you place it in the aquarium, the aviary, or the terrarium? Which one?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nA soggy green football is likely wet and soft, making it unsuitable for insertion into any of the described holes (star-shaped, square, or circular) as it would likely tear or be damaged in the process.",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You're holding a soggy green football. Which opening should you place it in: the star-shaped hole, the square hole, or the circular hole?"
+ }
+}

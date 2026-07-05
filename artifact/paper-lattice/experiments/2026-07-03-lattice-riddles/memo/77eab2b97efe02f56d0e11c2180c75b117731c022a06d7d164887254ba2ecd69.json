@@ -1,0 +1,8 @@
+{
+ "response": "There is a big green football. You need to place it into one of three holes: a small round one, a large round one, or a large square one. Which hole should you use?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a large green football. Put it into one of these holes: the small round one, the large round one, or the large square one. Which one?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you’re holding a charger with a blue plug designed for a specific type of outlet. You have three options in front of you: a socket with two round prongs, one with two flat prongs, or a larger socket with three prongs. Which of these should you plug it into?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a blue phone charger plug. Put it into one of these wall sockets: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one?"
+ }
+}

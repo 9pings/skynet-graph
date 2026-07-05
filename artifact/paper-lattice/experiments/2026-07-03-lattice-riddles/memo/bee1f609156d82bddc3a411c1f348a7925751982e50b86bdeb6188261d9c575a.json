@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"ball\",\"category\":\"\",\"condition\":\"soaked with water\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"name\":\"star-shaped hole\",\"size\":\"\"},{\"name\":\"square hole\",\"size\":\"\"},{\"name\":\"round hole\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "A yellow ball soaked with water needs to be placed into a hole. You have three options: a star-shaped hole, a square hole, or a round hole. Which one should you choose?"
+ }
+}

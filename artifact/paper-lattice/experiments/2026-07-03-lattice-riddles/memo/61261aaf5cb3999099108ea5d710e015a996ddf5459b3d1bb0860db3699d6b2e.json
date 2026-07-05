@@ -1,0 +1,8 @@
+{
+ "response": "{\"kind\":\"sparrow\",\"category\":\"none\"}",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"Where should you place a red sparrow: in an aquarium, an aviary, or a terrarium?\". Now stat",
+  "user": "In general, which category does a sparrow belong to?"
+ }
+}

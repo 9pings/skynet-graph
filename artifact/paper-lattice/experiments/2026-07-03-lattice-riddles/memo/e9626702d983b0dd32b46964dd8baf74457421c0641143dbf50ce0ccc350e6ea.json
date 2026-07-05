@@ -1,0 +1,8 @@
+{
+ "response": "\n\nround",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You possess a green coin and must place it into one of three available slots: a star-shaped hole, a square hole, or a round hole. Which slot should you choose?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\"kind\":\"sugarcube\",\"category\":\"square\"}\n```",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"A melted green sugar cube needs to be placed into a hole. You have three options: a star-sh",
+  "user": "In general, which shape category fits a sugarcube?"
+ }
+}

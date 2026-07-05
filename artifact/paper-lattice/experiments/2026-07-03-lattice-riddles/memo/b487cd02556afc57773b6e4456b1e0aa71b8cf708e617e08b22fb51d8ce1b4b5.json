@@ -1,0 +1,8 @@
+{
+ "response": "round",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "Imagine you’re holding a single green coin and three different slots in front of you: one shaped like a star, another shaped like a square, and the last one shaped like a circle. Where would you place"
+ }
+}

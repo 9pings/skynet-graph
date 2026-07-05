@@ -1,0 +1,8 @@
+{
+ "response": "There is a red pyramid and two holes: one shaped like a star and one that is round. Into which hole should you place the pyramid?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a red pyramid. Put it into one of these holes: the star-shaped one, or the round one. Which one?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you’re holding a big, round green ball. You need to place it into one of three openings: a tiny circular hole, a big circular hole, or a spacious square hole. Which hole should you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a large green football. Put it into one of these holes: the small round one, the large round one, or the large square one. Which one?"
+ }
+}

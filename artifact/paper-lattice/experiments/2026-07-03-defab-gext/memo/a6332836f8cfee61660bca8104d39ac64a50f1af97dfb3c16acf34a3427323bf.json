@@ -1,0 +1,8 @@
+{
+ "response": "Okay, let's analyze the situation and craft an exception rule.\n\n**Understanding the Problem**\n\n*   We have a set of rules that generally describe",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_lungfish: has_accessory_lung(X) ~> ~breathes_with_gills(X)\nd_lung_bro",
+  "user": "Facts: fish(gill_gill), fish(lenny), fish(nemo), lungfish(gill_gill), lungfish(lenny), salmon(nemo).\nGeneral rules (=> means \"normally implies\"): r_gills: fish(X) => breathes_with_gills(X); r_cold: fi"
+ }
+}

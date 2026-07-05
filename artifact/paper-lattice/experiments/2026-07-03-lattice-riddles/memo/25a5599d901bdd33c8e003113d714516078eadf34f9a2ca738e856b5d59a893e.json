@@ -1,0 +1,8 @@
+{
+ "response": "star",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You possess a yellow star token. Place it into one of the following openings: the star-shaped hole, the square hole, or the round hole. Which one do you choose?"
+ }
+}

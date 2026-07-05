@@ -1,0 +1,8 @@
+{
+ "response": "\n\nsquare",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "Imagine you have a red die and three openings: one shaped like a star, one like a square, and one that is round. Which hole should you place the die into?"
+ }
+}

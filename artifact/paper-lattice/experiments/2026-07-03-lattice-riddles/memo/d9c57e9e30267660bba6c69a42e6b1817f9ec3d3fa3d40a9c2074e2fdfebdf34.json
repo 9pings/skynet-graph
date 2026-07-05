@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"die\",\"category\":\"star-shaped\",\"condition\":\"\",\"color\":\"red\",\"size\":\"small\"},\"holes\":[{\"name\":\"star-shaped\",\"size\":\"small\"},{\"name\":\"square\",\"size\":\"small\"},{\"name\":\"round\",\"size\":\"small\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "You have a red die and must choose to place it in either the star-shaped, square, or round hole. Which hole is the correct one?"
+ }
+}

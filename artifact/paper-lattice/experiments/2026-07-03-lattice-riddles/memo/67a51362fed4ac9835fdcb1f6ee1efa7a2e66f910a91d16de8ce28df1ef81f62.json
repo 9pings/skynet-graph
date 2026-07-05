@@ -1,0 +1,8 @@
+{
+ "response": "aquatic",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: fish is-a aquatic; bird is-a aerial; reptile is-a terres",
+  "user": "Imagine you’re holding a small, green aquatic creature. You need to place it in one of three spaces: a tank filled with water, a cage designed for flying birds, or a glass enclosure meant for land-dwe"
+ }
+}

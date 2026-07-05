@@ -1,0 +1,8 @@
+{
+ "response": "square",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "Imagine you’re holding a single green die and three different holes in front of you: one shaped like a star, one shaped like a square, and one shaped like a circle. Where would you fit the die so it f"
+ }
+}

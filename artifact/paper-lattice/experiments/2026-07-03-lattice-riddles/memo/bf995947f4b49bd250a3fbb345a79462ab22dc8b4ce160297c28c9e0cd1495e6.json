@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"balloon\",\"category\":\"square\",\"condition\":\"crumpled\",\"color\":\"red\",\"size\":\"\"},\"holes\":[{\"name\":\"square\",\"size\":\"\"},{\"name\":\"star\",\"size\":\"\"},{\"name\":\"round\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you’re holding a flat, crumpled red balloon. You need to slide it into one of three openings: a five-pointed star, a perfect square, or a circle. Which hole will it fit through?"
+ }
+}

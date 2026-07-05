@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nd_sovereign",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_sovereign: sovereign(X) ~> ~suable(X)\nd_si_broad: entity(X) ~> ~suabl",
+  "user": "Facts: entity(private_corp), entity(state_agency), sovereign(state_agency).\nGeneral rules (=> means \"normally implies\"): r_suable: entity(X) => suable(X); r_liable: entity(X) => liable_for_damages(X)."
+ }
+}

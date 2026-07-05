@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"sugar cube\",\"category\":\"food\",\"condition\":\"solid\",\"color\":\"white\",\"size\":\"small\"},\"holes\":[{\"name\":\"hole\",\"size\":\"various\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "This is a trick question! Sugar cubes are not shaped to fit neatly into holes. Therefore, the sugar cube won't fit into any of the holes.\n\n\n\nLet me know if you'd like to try another riddle!"
+ }
+}

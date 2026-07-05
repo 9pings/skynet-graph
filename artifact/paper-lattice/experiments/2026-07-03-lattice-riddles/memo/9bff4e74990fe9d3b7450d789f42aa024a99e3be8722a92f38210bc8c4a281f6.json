@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"cube\",\"category\":\"square\",\"condition\":\"melted\",\"color\":\"green\",\"size\":\"small\"},\"holes\":[{\"name\":\"star\",\"size\":\"small\"},{\"name\":\"square\",\"size\":\"small\"},{\"name\":\"round\",\"size\":\"small\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you have a green sugar cube that has melted. You need to decide where to place it: into a star-shaped hole, a square hole, or a round hole. Which hole should you choose?"
+ }
+}

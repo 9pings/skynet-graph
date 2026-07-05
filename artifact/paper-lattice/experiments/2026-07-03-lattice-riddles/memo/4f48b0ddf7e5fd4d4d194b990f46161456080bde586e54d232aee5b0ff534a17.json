@@ -1,0 +1,8 @@
+{
+ "response": "Aerial",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "Imagine you own a bright yellow shark—nowhere near the ocean. You need to place it in one of three spaces: a large glass tank filled with water, a room full of flying birds, or a dry, land-based habit"
+ }
+}

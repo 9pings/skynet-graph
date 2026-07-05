@@ -1,0 +1,8 @@
+{
+ "response": "You are absolutely right! That's a perfect explanation. Thanks for the fun",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small round | large round | large square | none.",
+  "user": "You would put the football into the **large round one**.\n\nHere's why:\n\n*   **Small round one:** Too small for a football.\n*   **Large square one:** While it might fit, a round object in a square hole "
+ }
+}

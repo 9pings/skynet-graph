@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"target\": \"legal_document(ferpa)\",\n  \"candidates\": [\n    \"(1) df_legal_document(ferpa):  => legal_document(ferpa)\",\n    \"(6) df_statute(ferpa):  => statute(ferpa)\"\n  ]\n}\n```",
+ "at": null,
+ "meta": {
+  "system": "Extract from the text, VERBATIM. Reply ONLY JSON: {\"target\":\"<the underivable statement>\",\"candidates\":[\"<entry as writt",
+  "user": "A knowledge base is missing exactly one entry. Because of that gap, the statement \"legal_document(ferpa)\" cannot be derived. Exactly one of the following candidate entries fills the gap:\n  (1) df_lega"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "threepin\n\nA UK plug has three pins (two rectangular and one round)",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You possess a white red UK plug and need to insert it into one of three wall sockets: the round-pin variety, the flat-pin type, or the three-pin option. Which socket should you choose?"
+ }
+}

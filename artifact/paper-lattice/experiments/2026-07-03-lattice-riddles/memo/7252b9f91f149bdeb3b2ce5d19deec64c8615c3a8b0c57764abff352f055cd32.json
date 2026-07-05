@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nsquare",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You have a fresh red sugar cube. Which of these openings should you use: the star-shaped, the square, or the round one?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "The red ball is categorized as a \"ball,\" which is-a \"round\" according to the ontology. Therefore, the",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You have a red ball and need to place it into one of three holes: a star-shaped hole, a square hole, or a round hole. Which hole do you choose?"
+ }
+}

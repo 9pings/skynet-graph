@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you have a blue pyramid. You need to place it into a hole—either the round one or the star-shaped one. Which one should you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a blue pyramid. Put it into one of these holes: the star-shaped one, or the round one. Which one?"
+ }
+}

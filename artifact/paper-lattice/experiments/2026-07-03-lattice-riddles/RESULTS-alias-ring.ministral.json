@@ -1,0 +1,1466 @@
+{
+ "control": {
+  "pass": 12,
+  "of": 12
+ },
+ "shapes/order0": {
+  "gated": {
+   "admits": [
+    {
+     "key": "holeName",
+     "tok": "circle",
+     "member": "round",
+     "equivalents": 1
+    }
+   ],
+   "confirmed": [
+    "holeName:circle→round"
+   ],
+   "falseConfirmed": [
+    "holeName:circle→round"
+   ],
+   "wrongAdmits": [
+    "holeName:circle→round"
+   ],
+   "blameRetracts": [],
+   "refused": {
+    "vacuous": 5,
+    "failed-verify": 4,
+    "no-proposal": 7,
+    "confluence": 0
+   },
+   "quarantinedMulti": 3,
+   "maskAvoided": 0,
+   "damage": 2,
+   "res": {
+    "ok": 7,
+    "refusedTask": 6,
+    "wrong": 0
+   },
+   "proposalCalls": 13,
+   "reProposalAvoided": 12,
+   "attrition": 13,
+   "blameUnlocalized": 2,
+   "neverReExercised": [],
+   "finalRing": {
+    "holeName": {
+     "round": [
+      "circle"
+     ]
+    }
+   }
+  },
+  "ungated": {
+   "admits": [
+    {
+     "key": "holeName",
+     "tok": "circle",
+     "member": "round"
+    },
+    {
+     "key": "condition",
+     "tok": "dissolved",
+     "member": "melted"
+    },
+    {
+     "key": "holeName",
+     "tok": "smoothcircle",
+     "member": "round"
+    },
+    {
+     "key": "holeName",
+     "tok": "circular",
+     "member": "round"
+    }
+   ],
+   "confirmed": [],
+   "falseConfirmed": [],
+   "wrongAdmits": [
+    "holeName:circle→round",
+    "condition:dissolved→melted",
+    "holeName:smoothcircle→round"
+   ],
+   "blameRetracts": [],
+   "refused": {
+    "vacuous": 0,
+    "failed-verify": 0,
+    "no-proposal": 7,
+    "confluence": 0
+   },
+   "quarantinedMulti": 0,
+   "maskAvoided": 0,
+   "damage": 6,
+   "res": {
+    "ok": 6,
+    "refusedTask": 6,
+    "wrong": 1
+   },
+   "proposalCalls": 13,
+   "reProposalAvoided": 6,
+   "attrition": 13,
+   "neverReExercised": [
+    "condition::dissolved",
+    "holeName::smoothcircle",
+    "holeName::circular"
+   ],
+   "finalRing": {
+    "holeName": {
+     "round": [
+      "circle",
+      "smoothcircle",
+      "circular"
+     ]
+    },
+    "condition": {
+     "melted": [
+      "dissolved"
+     ]
+    }
+   }
+  },
+  "trace": [
+   {
+    "arm": "gated",
+    "ep": "kind/die",
+    "gold": 1,
+    "pend": [
+     "holeName:circle→round"
+    ],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 1,
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "kind/die",
+    "gold": 1,
+    "pend": [
+     "holeName:circle→round"
+    ],
+    "admitted": [
+     "holeName:circle"
+    ],
+    "status": "mounted",
+    "hole": 1,
+    "ok": true,
+    "exercised": [
+     "trial:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "kind/die",
+    "gold": 1,
+    "pend": [
+     "holeName:circle→round"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "kind/die",
+    "gold": 1,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [
+     "holeName:circle→round"
+    ],
+    "admitted": [
+     "holeName:circle"
+    ],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": [
+     "trial:kind:sphere→ballfootballmarbleneither",
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [
+     "kind:pellet→ballmarblefootballcoinneither",
+     "condition:dissolved→melted"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [
+     "kind:pellet→ballmarblefootballcoinneither",
+     "condition:dissolved→melted"
+    ],
+    "admitted": [
+     "condition:dissolved"
+    ],
+    "status": "impracticable:no-category",
+    "ok": true,
+    "exercised": [
+     "trial:kind:pellet→ballmarblefootballcoinneither",
+     "trial:condition:dissolved→melted",
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [
+     "condition:dissolved→melted",
+     "holeName:smoothcircle→round"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [
+     "holeName:smoothcircle→round"
+    ],
+    "admitted": [
+     "holeName:smoothcircle"
+    ],
+    "status": "impracticable:no-category",
+    "ok": true,
+    "exercised": [
+     "ring:condition:dissolved→melted",
+     "trial:holeName:smoothcircle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "control-invocab/deflated",
+    "gold": null,
+    "pend": [
+     "holeName:circular→round"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-hole",
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "control-invocab/deflated",
+    "gold": null,
+    "pend": [
+     "holeName:circular→round"
+    ],
+    "admitted": [
+     "holeName:circular"
+    ],
+    "status": "mounted",
+    "hole": 3,
+    "ok": false,
+    "exercised": [
+     "trial:holeName:circular→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither",
+     "holeName:circular→round"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": [
+     "trial:kind:sphere→ballfootballmarbleneither",
+     "ring:holeName:circular→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither",
+     "holeName:circular→round"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": [
+     "trial:kind:sphere→ballfootballmarbleneither",
+     "ring:holeName:circular→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "benign/gleaming",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "benign/gleaming",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": [
+     "trial:kind:sphere→ballfootballmarbleneither",
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither",
+     "holeName:circular→round"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": [
+     "trial:kind:sphere→ballfootballmarbleneither",
+     "ring:holeName:circular→round"
+    ]
+   }
+  ]
+ },
+ "shapes/order1": {
+  "gated": {
+   "admits": [
+    {
+     "key": "holeName",
+     "tok": "circle",
+     "member": "round",
+     "equivalents": 1
+    }
+   ],
+   "confirmed": [
+    "holeName:circle→round"
+   ],
+   "falseConfirmed": [
+    "holeName:circle→round"
+   ],
+   "wrongAdmits": [
+    "holeName:circle→round"
+   ],
+   "blameRetracts": [],
+   "refused": {
+    "vacuous": 4,
+    "failed-verify": 2,
+    "no-proposal": 7,
+    "confluence": 0
+   },
+   "quarantinedMulti": 4,
+   "maskAvoided": 0,
+   "damage": 2,
+   "res": {
+    "ok": 7,
+    "refusedTask": 6,
+    "wrong": 0
+   },
+   "proposalCalls": 13,
+   "reProposalAvoided": 11,
+   "attrition": 13,
+   "blameUnlocalized": 2,
+   "neverReExercised": [],
+   "finalRing": {
+    "holeName": {
+     "round": [
+      "circle"
+     ]
+    }
+   }
+  },
+  "ungated": {
+   "admits": [
+    {
+     "key": "condition",
+     "tok": "dissolved",
+     "member": "melted"
+    },
+    {
+     "key": "holeName",
+     "tok": "smoothcircle",
+     "member": "round"
+    },
+    {
+     "key": "holeName",
+     "tok": "circle",
+     "member": "round"
+    },
+    {
+     "key": "holeName",
+     "tok": "circular",
+     "member": "round"
+    }
+   ],
+   "confirmed": [],
+   "falseConfirmed": [],
+   "wrongAdmits": [
+    "condition:dissolved→melted",
+    "holeName:smoothcircle→round",
+    "holeName:circle→round"
+   ],
+   "blameRetracts": [],
+   "refused": {
+    "vacuous": 0,
+    "failed-verify": 0,
+    "no-proposal": 7,
+    "confluence": 0
+   },
+   "quarantinedMulti": 0,
+   "maskAvoided": 0,
+   "damage": 5,
+   "res": {
+    "ok": 6,
+    "refusedTask": 6,
+    "wrong": 1
+   },
+   "proposalCalls": 13,
+   "reProposalAvoided": 6,
+   "attrition": 13,
+   "neverReExercised": [
+    "condition::dissolved",
+    "holeName::smoothcircle",
+    "holeName::circular"
+   ],
+   "finalRing": {
+    "holeName": {
+     "round": [
+      "smoothcircle",
+      "circle",
+      "circular"
+     ]
+    },
+    "condition": {
+     "melted": [
+      "dissolved"
+     ]
+    }
+   }
+  },
+  "trace": [
+   {
+    "arm": "gated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [
+     "condition:dissolved→melted",
+     "holeName:smoothcircle→round"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [
+     "condition:dissolved→melted",
+     "holeName:smoothcircle→round"
+    ],
+    "admitted": [
+     "condition:dissolved",
+     "holeName:smoothcircle"
+    ],
+    "status": "impracticable:no-category",
+    "ok": true,
+    "exercised": [
+     "trial:condition:dissolved→melted",
+     "trial:holeName:smoothcircle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither",
+     "holeName:circle→round"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither",
+     "holeName:circle→round"
+    ],
+    "admitted": [
+     "holeName:circle"
+    ],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": [
+     "trial:kind:sphere→ballfootballmarbleneither",
+     "trial:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither",
+     "holeName:circular→round"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither",
+     "holeName:circular→round"
+    ],
+    "admitted": [
+     "holeName:circular"
+    ],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": [
+     "trial:kind:sphere→ballfootballmarbleneither",
+     "trial:holeName:circular→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither",
+     "holeName:circular→round"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": [
+     "trial:kind:sphere→ballfootballmarbleneither",
+     "ring:holeName:circular→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [
+     "holeName:circle→round"
+    ],
+    "admitted": [
+     "holeName:circle"
+    ],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "control-invocab/deflated",
+    "gold": null,
+    "pend": [
+     "holeName:circular→round"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-hole",
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "control-invocab/deflated",
+    "gold": null,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 3,
+    "ok": false,
+    "exercised": [
+     "ring:holeName:circular→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "kind/die",
+    "gold": 1,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 1,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "kind/die",
+    "gold": 1,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 1,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "benign/gleaming",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "benign/gleaming",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [
+     "kind:pellet→ballmarblefootballcoinneither",
+     "condition:dissolved→melted"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [
+     "kind:pellet→ballmarblefootballcoinneither"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": true,
+    "exercised": [
+     "trial:kind:pellet→ballmarblefootballcoinneither",
+     "ring:condition:dissolved→melted",
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "kind/die",
+    "gold": 1,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "kind/die",
+    "gold": 1,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither",
+     "holeName:circular→round"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": [
+     "trial:kind:sphere→ballfootballmarbleneither",
+     "ring:holeName:circular→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": [
+     "trial:kind:sphere→ballfootballmarbleneither",
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   }
+  ]
+ },
+ "shapes/order2": {
+  "gated": {
+   "admits": [
+    {
+     "key": "holeName",
+     "tok": "circle",
+     "member": "round",
+     "equivalents": 1
+    }
+   ],
+   "confirmed": [
+    "holeName:circle→round"
+   ],
+   "falseConfirmed": [
+    "holeName:circle→round"
+   ],
+   "wrongAdmits": [
+    "holeName:circle→round"
+   ],
+   "blameRetracts": [],
+   "refused": {
+    "vacuous": 5,
+    "failed-verify": 4,
+    "no-proposal": 7,
+    "confluence": 0
+   },
+   "quarantinedMulti": 3,
+   "maskAvoided": 0,
+   "damage": 2,
+   "res": {
+    "ok": 7,
+    "refusedTask": 6,
+    "wrong": 0
+   },
+   "proposalCalls": 13,
+   "reProposalAvoided": 12,
+   "attrition": 13,
+   "blameUnlocalized": 2,
+   "neverReExercised": [],
+   "finalRing": {
+    "holeName": {
+     "round": [
+      "circle"
+     ]
+    }
+   }
+  },
+  "ungated": {
+   "admits": [
+    {
+     "key": "holeName",
+     "tok": "circle",
+     "member": "round"
+    },
+    {
+     "key": "holeName",
+     "tok": "circular",
+     "member": "round"
+    },
+    {
+     "key": "condition",
+     "tok": "dissolved",
+     "member": "melted"
+    },
+    {
+     "key": "holeName",
+     "tok": "smoothcircle",
+     "member": "round"
+    }
+   ],
+   "confirmed": [],
+   "falseConfirmed": [],
+   "wrongAdmits": [
+    "holeName:circle→round",
+    "condition:dissolved→melted",
+    "holeName:smoothcircle→round"
+   ],
+   "blameRetracts": [],
+   "refused": {
+    "vacuous": 0,
+    "failed-verify": 0,
+    "no-proposal": 7,
+    "confluence": 0
+   },
+   "quarantinedMulti": 0,
+   "maskAvoided": 0,
+   "damage": 5,
+   "res": {
+    "ok": 6,
+    "refusedTask": 6,
+    "wrong": 1
+   },
+   "proposalCalls": 13,
+   "reProposalAvoided": 6,
+   "attrition": 13,
+   "neverReExercised": [
+    "holeName::circular",
+    "condition::dissolved",
+    "holeName::smoothcircle"
+   ],
+   "finalRing": {
+    "holeName": {
+     "round": [
+      "circle",
+      "circular",
+      "smoothcircle"
+     ]
+    },
+    "condition": {
+     "melted": [
+      "dissolved"
+     ]
+    }
+   }
+  },
+  "trace": [
+   {
+    "arm": "gated",
+    "ep": "kind/die",
+    "gold": 1,
+    "pend": [
+     "holeName:circle→round"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "kind/die",
+    "gold": 1,
+    "pend": [
+     "holeName:circle→round"
+    ],
+    "admitted": [
+     "holeName:circle"
+    ],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": [
+     "trial:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither",
+     "holeName:circular→round"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither",
+     "holeName:circular→round"
+    ],
+    "admitted": [
+     "holeName:circular"
+    ],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": [
+     "trial:kind:sphere→ballfootballmarbleneither",
+     "trial:holeName:circular→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [
+     "condition:dissolved→melted",
+     "holeName:smoothcircle→round"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [
+     "condition:dissolved→melted",
+     "holeName:smoothcircle→round"
+    ],
+    "admitted": [
+     "condition:dissolved",
+     "holeName:smoothcircle"
+    ],
+    "status": "impracticable:no-category",
+    "ok": true,
+    "exercised": [
+     "trial:condition:dissolved→melted",
+     "trial:holeName:smoothcircle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [
+     "kind:pellet→ballmarblefootballcoinneither",
+     "condition:dissolved→melted",
+     "holeName:circle→round"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [
+     "kind:pellet→ballmarblefootballcoinneither"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": true,
+    "exercised": [
+     "trial:kind:pellet→ballmarblefootballcoinneither",
+     "ring:condition:dissolved→melted",
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither",
+     "holeName:circular→round"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": [
+     "trial:kind:sphere→ballfootballmarbleneither",
+     "ring:holeName:circular→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [
+     "holeName:circle→round"
+    ],
+    "admitted": [
+     "holeName:circle"
+    ],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither",
+     "holeName:circular→round"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": [
+     "trial:kind:sphere→ballfootballmarbleneither",
+     "ring:holeName:circular→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "control-invocab/deflated",
+    "gold": null,
+    "pend": [
+     "holeName:circular→round"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-hole",
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "control-invocab/deflated",
+    "gold": null,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 3,
+    "ok": false,
+    "exercised": [
+     "ring:holeName:circular→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": [
+     "trial:kind:sphere→ballfootballmarbleneither",
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "benign/gleaming",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "benign/gleaming",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "kind/die",
+    "gold": 1,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 1,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "kind/die",
+    "gold": 1,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 1,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [
+     "kind:sphere→ballfootballmarbleneither"
+    ],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": [
+     "trial:kind:sphere→ballfootballmarbleneither",
+     "ring:holeName:circle→round"
+    ]
+   }
+  ]
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "This is a clever question! The word \"riddle\" isn't describing a physical object's shape. It's a concept – a puzzle or question with a hidden answer.\n\nTherefore",
+ "at": null,
+ "meta": {
+  "system": "Vocabulary question. Reply ONLY JSON: {\"word\":\"riddle\",\"means\":\"<one of the options, or neither>\"}",
+  "user": "The word \"riddle\" used as a object kind word — which of these does it mean: round|square|star|triangle|ball|disc|cube|startoken|pyramid|marble|football|coin|sugarcube|dice, or neither?"
+ }
+}

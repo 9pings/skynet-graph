@@ -1,0 +1,8 @@
+{
+ "response": "Okay, let's analyze the situation and craft an exception rule.\n\n**Understanding the Problem**\n\n*   The general rule `mammal(X)",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_dolphin: dolphin(X) ~> ~walks(X)\nd_dolphin_broad: mammal(X) ~> ~walks",
+  "user": "Facts: cat(felix), dolphin(flippy), mammal(felix), mammal(flippy).\nGeneral rules (=> means \"normally implies\"): r_walks: mammal(X) => walks(X); r_warm: mammal(X) => warm_blooded(X); r_fur: cat(X) => h"
+ }
+}

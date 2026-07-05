@@ -1,0 +1,8 @@
+{
+ "response": "{\n    \"object\": {\n        \"kind\": \"coin\",\n        \"category\": \"green\",\n        \"condition\": \"new\",\n        \"color\": \"green\",\n        \"size\": \"medium\"\n    },\n    \"holes\": [\n        {\n            \"name\": \"star-shaped\",\n            \"size\": \"medium\"\n        },\n        {\n            \"name\": \"square\",\n            \"size\": \"medium\"\n        },\n        {\n            \"name\": \"round\",\n            \"size\": \"medium\"",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "This is a trick question! The question doesn't give you any information to suggest a specific hole. You can put the green coin into **any** of the holes: the star-shaped one, the square one, or the ro"
+ }
+}

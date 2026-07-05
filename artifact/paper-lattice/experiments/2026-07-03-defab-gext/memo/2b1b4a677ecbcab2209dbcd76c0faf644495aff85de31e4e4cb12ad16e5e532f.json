@@ -1,0 +1,8 @@
+{
+ "response": "\n\n{\"candidates\":[\"d_graphene: monolayer_thickness(X) ~> ~opaque(X)\", \"d_gr_broad: carbon_material(X) ~> ~opaque(X)\", \"d_gr_wrong_head: monolayer_thickness(X) ~> ~electrically_conductive(X)\", \"d_gr_wrong_cond: graphene_sheet(X) ~> ~opaque(X)\", \"d_gr_positive: monolayer_thickness(X) => transparent(X)\", \"d_gr_irrelevant: thin_film(X) ~> ~opaque(X)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"opaque(graphene_sheet)\", list the candidate rules. Reply",
+  "user": "Facts: carbon_material(graphene_sheet), carbon_material(graphite_block), carbon_material(thick_graphene), material(graphene_sheet), material(graphite_block), material(thick_graphene).\nGeneral rules (="
+ }
+}

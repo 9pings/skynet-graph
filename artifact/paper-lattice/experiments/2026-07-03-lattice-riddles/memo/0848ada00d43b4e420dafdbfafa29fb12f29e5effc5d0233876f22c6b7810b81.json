@@ -1,0 +1,8 @@
+{
+ "response": "{\n    \"object\": {\n        \"kind\": \"football\",\n        \"category\": \"sports equipment\",\n        \"condition\": \"wet\",\n        \"color\": \"brown\",\n        \"size\": \"medium\"\n    },\n    \"holes\": [\n        {\n            \"name\": \"square hole\",\n            \"size\": \"medium\"\n        },\n        {\n            \"name\": \"triangular hole\",\n            \"size\": \"medium\"\n        },\n        {\n            \"name\": \"round hole\",\n            \"size\": \"medium\"",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "This is a trick question! You'd put the wet football into the **round** hole. \n\nThe question is designed to distract you with the shapes of the other holes. The key is that a football is round, so it "
+ }
+}

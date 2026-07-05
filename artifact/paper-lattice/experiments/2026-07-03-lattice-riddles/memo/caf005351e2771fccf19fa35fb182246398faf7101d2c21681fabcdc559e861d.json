@@ -1,0 +1,8 @@
+{
+ "response": "aerial\n\nA blue sparrow is a bird, and birds belong in an",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You're holding a blue sparrow and need to choose where to place it among three options: the aquarium, the aviary, or the terrarium. Where do you put it?"
+ }
+}

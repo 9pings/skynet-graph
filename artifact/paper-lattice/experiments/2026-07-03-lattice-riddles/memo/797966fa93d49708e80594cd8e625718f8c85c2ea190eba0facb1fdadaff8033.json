@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"answer\",\"category\":\"reasoning\",\"condition\":\"best choice\",\"color\":\"blue fern\",\"size\":\"terrarium\"},\"holes\":[{\"name\":\"aquariums\",\"size\":\"not suitable\"},{\"name\":\"aviaries\",\"size\":\"not suitable\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "The **terrarium** is the best choice for a blue fern. Here's why:\n\n*   **Terrariums** are specifically designed for plants, creating a humid and controlled environment that ferns thrive in. They often"
+ }
+}

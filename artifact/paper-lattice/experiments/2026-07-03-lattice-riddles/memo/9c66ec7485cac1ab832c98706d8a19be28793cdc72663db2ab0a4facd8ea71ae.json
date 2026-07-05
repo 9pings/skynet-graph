@@ -1,0 +1,8 @@
+{
+ "response": "terrestrial\n\nThe green gecko is a reptile, and according to the taxonomy provided, reptiles are categorized as",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: fish is-a aquatic; bird is-a aerial; reptile is-a terres",
+  "user": "You have a green gecko and need to choose an enclosure for it: the aquarium, the aviary, or the terrarium. Which one should you choose?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "d_dolphin\n\nThis exception rule states that dolphin(X) ~> ~walks(X), which directly explains why flippy (a dolphin) doesn't walk despite the general rule that mammals walk. It's specific to dolphins (not all mammals) and directly addresses the anomaly without interfering with other expectations like warm_blooded or has_fur properties.",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_dolphin: dolphin(X) ~> ~walks(X)\nd_dolphin_broad: mammal(X) ~> ~walks",
+  "user": "Facts: cat(felix), dolphin(flippy), mammal(felix), mammal(flippy).\nGeneral rules (=> means \"normally implies\"): r_walks: mammal(X) => walks(X); r_warm: mammal(X) => warm_blooded(X); r_fur: cat(X) => h"
+ }
+}

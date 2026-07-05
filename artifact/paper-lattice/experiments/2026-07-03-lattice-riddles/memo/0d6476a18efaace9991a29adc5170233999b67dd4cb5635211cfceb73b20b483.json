@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"instruction\",\"category\":\"electrical\",\"condition\":\"You have a blue Euro plug and different types of sockets.\",\"color\":\"blue\",\"size\":\"medium\"},\"holes\":[{\"name\":\"flat-pin socket\",\"size\":\"medium\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You should put the blue Euro plug into the **flat-pin socket**.\n\nHere's why:\n\n*   **Euro plugs** (also known as Type C plugs) have two round pins.\n*   **Flat-pin sockets** are designed to accommodate "
+ }
+}

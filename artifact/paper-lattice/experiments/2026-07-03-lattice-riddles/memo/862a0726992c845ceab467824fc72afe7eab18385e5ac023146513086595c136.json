@@ -1,0 +1,8 @@
+{
+ "response": "terrestrial",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "Imagine you’re holding a lush green fern—where would you place it to keep it thriving? You’ve got three options: a fish tank, a birdcage, or a glass enclosure for land plants. Which spot is the best f"
+ }
+}

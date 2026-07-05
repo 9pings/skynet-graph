@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"cube\",\"category\":\"\",\"condition\":\"\",\"color\":\"blue\",\"size\":\"small\"},\"holes\":[{\"name\":\"square\",\"size\":\"small\"},{\"name\":\"star\",\"size\":\"small\"},{\"name\":\"round\",\"size\":\"small\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You have a blue sugar cube and must choose between a star-shaped hole, a square hole, or a round hole. Which hole do you put it in?"
+ }
+}

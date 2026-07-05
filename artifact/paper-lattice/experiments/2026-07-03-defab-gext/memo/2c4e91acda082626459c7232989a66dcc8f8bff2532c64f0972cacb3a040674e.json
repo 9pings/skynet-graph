@@ -1,0 +1,8 @@
+{
+ "response": "d_whale",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_whale: whale(X) ~> ~walks(X)\nd_whale_broad: mammal(X) ~> ~walks(X)\nd_",
+  "user": "Facts: cat(felix), mammal(felix), mammal(wally), whale(wally).\nGeneral rules (=> means \"normally implies\"): r_walks: mammal(X) => walks(X); r_warm: mammal(X) => warm_blooded(X); r_fur: cat(X) => has_f"
+ }
+}

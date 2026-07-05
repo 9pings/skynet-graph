@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"fish\",\"category\":\"aquarium\",\"condition\":\"\",\"color\":\"blue\",\"size\":\"small\"},\"holes\":[{\"name\":\"aquarium\",\"size\":\"\"},{\"name\":\"aviary\",\"size\":\"\"},{\"name\":\"terrarium\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you own a single blue fish. You need to place it in one of three spaces: a tank filled with water, a cage meant for birds, or a glass box designed for land animals. Where should you put it?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nd_graphene",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: opaque(graphene_sheet)\nCandidates:\nd_graphene: monolayer_thickness(X) ~> ~opaque(X)\nd_gr_wrong_cond: graphene_sheet(X) ~> ~opaque(X)\nd_gr_irrelevant: thin_film(X) ~> ~opaque(X)"
+ }
+}

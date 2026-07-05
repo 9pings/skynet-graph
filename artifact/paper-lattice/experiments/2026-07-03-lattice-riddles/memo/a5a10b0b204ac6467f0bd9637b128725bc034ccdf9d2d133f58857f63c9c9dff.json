@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"US-style plug\",\"category\":\"threepin\",\"condition\":\"\",\"color\":\"green\",\"size\":\"large\"},\"holes\":[{\"name\":\"round-pin\",\"size\":\"small\"},{\"name\":\"round-pin\",\"size\":\"large\"},{\"name\":\"flat-pin\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You possess a big green US-style plug. Which wall outlet should you insert it into: the tiny round-pin type, the big round-pin type, or the large flat-pin type?"
+ }
+}

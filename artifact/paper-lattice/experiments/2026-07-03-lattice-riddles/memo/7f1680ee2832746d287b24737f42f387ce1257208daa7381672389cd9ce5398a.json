@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"trout\",\"category\":\"aquarium\",\"condition\":\"\",\"color\":\"yellow\",\"size\":\"small\"},\"holes\":[{\"name\":\"aquarium\",\"size\":\"small\"},{\"name\":\"aquarium\",\"size\":\"large\"},{\"name\":\"terrarium\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You possess a tiny yellow trout. Place it inside one of these habitats: the small tank, the big tank, or the large terrarium. Which option do you choose?"
+ }
+}

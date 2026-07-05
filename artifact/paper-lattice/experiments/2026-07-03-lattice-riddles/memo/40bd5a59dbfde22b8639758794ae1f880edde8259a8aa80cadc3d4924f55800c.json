@@ -1,0 +1,8 @@
+{
+ "response": "\n\nroundpin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "Insert a yellow US plug into either a round-pin socket, a flat-pin socket, or a three-pin socket. Which one?"
+ }
+}

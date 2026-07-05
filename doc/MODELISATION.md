@@ -1,9 +1,12 @@
 # MODELISATION — skynet-graph "Neurosymbolic Reasoning Graph" (NRG) substrate
 
-> **Where this sits.** This is the deep model of the **substrate** + the early roadmap. The framing has
-> since sharpened (see [architecture.md](architecture.md) for the current model — it supersedes the
-> "flagship / answer-loop" framing in the later sections here); read this for the grounded model + the
-> lens-convergence history. The live roadmap is kept in the project's local R&D ledger.
+> **Where this sits.** This is the deep model of the **substrate** (Use 1) + the early roadmap. The two-uses
+> framing and the current target system have since sharpened: **Use 1** = the substrate (a versionable, git-like
+> reasoning orchestrator — [architecture.md](architecture.md)); **Use 2** = concept-graphs as composable methods
+> with typed contracts + a durable executor ([concept-as-graph.md](concept-as-graph.md), the dryer current
+> conception, which supersedes the "flagship / answer-loop" framing in the later sections here). Read this for the
+> grounded model + the lens-convergence history; read concept-as-graph.md for the current target. The live roadmap
+> is kept in the project's local R&D ledger.
 
 *The definitive synthesis. Four R&D ideation lenses (agents/reasoning, live/reactive,
 truth-maintenance/audit, modeling/abstraction) plus two prior critical studies

@@ -1,0 +1,8 @@
+{
+ "response": "d_sovereign_exception",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: suable(state_agency)\nCandidates:\nlabel: d_sovereign_exception ~> ~suable(X) | sovereign(X)\nlabel: d_sovereign_entity ~> ~suable(X) | (sovereign(X) & entity(X))"
+ }
+}

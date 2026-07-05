@@ -1,0 +1,8 @@
+{
+ "response": "You're holding a red trout. Where would you place it among these three habitats: the fish tank, the bird cage, or the reptile house? Which option would you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a red trout. Put it into one of these enclosures: the aquarium, the aviary, or the terrarium. Which one?"
+ }
+}

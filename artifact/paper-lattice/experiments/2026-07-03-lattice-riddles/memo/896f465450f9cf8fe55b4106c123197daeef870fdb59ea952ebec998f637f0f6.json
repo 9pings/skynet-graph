@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nWhere should you place a green trout: in an aquarium, an aviary, or a terrarium?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a green trout. Put it into one of these enclosures: the aquarium, the aviary, or the terrarium. Which one?"
+ }
+}

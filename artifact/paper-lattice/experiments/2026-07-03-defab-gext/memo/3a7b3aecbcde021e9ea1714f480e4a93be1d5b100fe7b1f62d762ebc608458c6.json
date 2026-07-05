@@ -1,0 +1,8 @@
+{
+ "response": "Okay, let's analyze the situation and craft an exception rule.\n\n**Understanding the Problem**\n\n*   We have rules that predict birds fly, have",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_ostrich: ostrich(X) ~> ~flies(X)\nd_ostrich_broad: bird(X) ~> ~flies(X",
+  "user": "Facts: bird(obi), bird(tweety), ostrich(obi), sparrow(tweety).\nGeneral rules (=> means \"normally implies\"): r_flies: bird(X) => flies(X); r_feathers: bird(X) => has_feathers(X); r_warm: bird(X) => war"
+ }
+}

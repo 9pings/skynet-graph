@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"HDMI cable\",\"category\":\"threepin\",\"condition\":\"\",\"color\":\"green\",\"size\":\"\"},\"holes\":[{\"name\":\"roundpin\",\"size\":\"\"},{\"name\":\"flatpin\",\"size\":\"\"},{\"name\":\"threepin\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You've got a green HDMI cable and need to plug it into one of three wall outlets: the round-pin, the flat-pin, or the three-pin variety. Which outlet should you choose?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"candidates\":[\"label: d_superhydrophobic ~> ~wetted_by_water\", \"label: d_sh_broad ~> ~wetted_by_water\", \"label: d_sh_wrong_head ~> ~wetted_by_water\", \"label: d_sh_wrong_cond ~> ~wetted_by_water\", \"label: d_sh_irrelevant ~> ~wetted_by_water\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"wetted_by_water(lotus_coating)\", list the candidate rule",
+  "user": "Facts: material(lotus_coating), material(polyethylene_film), polymer(lotus_coating), polymer(polyethylene_film), superhydrophobic(lotus_coating).\nGeneral rules (=> means \"normally implies\"): r_wet: po"
+ }
+}

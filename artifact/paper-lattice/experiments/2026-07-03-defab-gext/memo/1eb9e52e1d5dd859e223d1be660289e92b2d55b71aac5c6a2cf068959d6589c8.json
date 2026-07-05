@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\"candidates\": [\"d_ultra_vires: ultra_vires_act(X) ~> ~legally_valid(X)\"]}\n```",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"legally_valid(act_alpha)\", list the candidate rules. Rep",
+  "user": "Facts: corporate_act(act_alpha), corporate_act(act_beta), ultra_vires_act(act_alpha).\nGeneral rules (=> means \"normally implies\"): r_valid: corporate_act(X) => legally_valid(X); r_binding_c: corporate"
+ }
+}

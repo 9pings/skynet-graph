@@ -1,0 +1,8 @@
+{
+ "response": "none",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small roundpin | large roundpin | large flatpin | none.",
+  "user": "Imagine you’re holding a big red electrical plug from the US—now try fitting it into one of these outlets: the tiny round-pin one, the bigger round-pin one, or the wide flat-pin one. Which socket will"
+ }
+}

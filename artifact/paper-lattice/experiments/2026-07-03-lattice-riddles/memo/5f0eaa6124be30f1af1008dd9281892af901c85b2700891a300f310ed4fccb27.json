@@ -1,0 +1,8 @@
+{
+ "response": "Looking at the three options - fish tank, bird house, and reptile cage",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You have a green fern plant. Where would you place it among these three options: the fish tank, the bird house, or the reptile cage? Which enclosure should you choose?"
+ }
+}

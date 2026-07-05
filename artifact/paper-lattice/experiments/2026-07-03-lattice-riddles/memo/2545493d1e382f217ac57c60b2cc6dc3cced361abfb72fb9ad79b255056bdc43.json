@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"square\",\"category\":\"pyramid_base\",\"condition\":\"fits_best\",\"color\":\"green\",\"size\":\"medium\"},\"holes\":[{\"name\":\"hole_1\",\"size\":\"medium\"},{\"name\":\"hole_2\",\"size\":\"small\"},{\"name\":\"hole_3\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "This is a classic shape puzzle! The answer is the **square one**.\n\nHere's why:\n\n*   Pyramids are typically square at their base.\n*   The green pyramid would fit best into a hole that also has a square"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\"kind\":\"ball\",\"category\":\"round\"}\n```",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"Imagine you have a red ball. You need to place it into one of three holes: a star, a square",
+  "user": "In general, which shape category fits a ball?"
+ }
+}

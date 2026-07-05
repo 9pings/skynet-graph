@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"balloon\",\"category\":\"round\",\"condition\":\"deflated\",\"color\":\"blue\",\"size\":\"small\"},\"holes\":[{\"name\":\"round\",\"size\":\"small\"},{\"name\":\"flat\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you have a soft, empty blue balloon. You need to place it into one of two openings: a circular opening or a wide, shallow slot. Where should you put it?"
+ }
+}

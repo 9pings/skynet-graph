@@ -1,0 +1,8 @@
+{
+ "response": "Looking at the ontology:\n\n1. A red marble is-a ball (from the taxonomy)\n2. A ball is-a",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You possess a red marble. Place it into one of three holes available: either the star-shaped hole, the square hole, or the round hole. Which hole will you choose?"
+ }
+}

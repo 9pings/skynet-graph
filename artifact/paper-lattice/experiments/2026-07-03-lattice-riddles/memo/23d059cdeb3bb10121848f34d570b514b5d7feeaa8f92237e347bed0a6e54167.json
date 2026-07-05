@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nsquare",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You have a green die. Which hole should you place it in: the star-shaped one, the square one, or the round one?"
+ }
+}

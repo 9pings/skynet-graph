@@ -1,0 +1,8 @@
+{
+ "response": "round\n\nThe object is a flat red ball, which is a type of ball. According to the taxonomy, \"ball",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You're holding a flat red ball and need to choose where to place it among three differently shaped holes: one is star-shaped, one is square, and one is round. Which hole should you select?"
+ }
+}

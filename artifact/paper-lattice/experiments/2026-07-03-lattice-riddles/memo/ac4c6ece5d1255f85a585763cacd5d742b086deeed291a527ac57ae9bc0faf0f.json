@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"marble\",\"category\":\"toy\",\"condition\":\"whole\",\"color\":\"various\",\"size\":\"small\"},\"holes\":[{\"name\":\"round\",\"size\":\"appropriate\"},{\"name\":\"star\",\"size\":\"inappropriate\"},{\"name\":\"square\",\"size\":\"inappropriate\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "The **round one** is the best fit!\n\nHere's why:\n\n*   **Shape Matching:** Marbles are generally round. A round hole is designed to accommodate a round object.\n*   **Other Options:** The star and square"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "You're holding a red sparrow. Where would you place it among these three options: the aquarium, the aviary, or the terrarium?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a red sparrow. Put it into one of these enclosures: the aquarium, the aviary, or the terrarium. Which one?"
+ }
+}

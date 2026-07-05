@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nA deformed red US plug would not fit properly into any of the",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You've got a deformed red US plug on your hands. Which outlet slot should you try inserting it into: the circular pin opening, the flat pin opening, or the trio of pins opening?"
+ }
+}

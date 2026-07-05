@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nsmall roundpin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small roundpin | large roundpin | large flatpin | none.",
+  "user": "Which of these wall outlets—small round-pin, large round-pin, or large flat-pin—is compatible with a small yellow Euro plug?"
+ }
+}

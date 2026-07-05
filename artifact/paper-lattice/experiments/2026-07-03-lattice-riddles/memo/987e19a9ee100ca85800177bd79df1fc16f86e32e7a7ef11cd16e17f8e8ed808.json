@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nflatpin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You have a blue phone charger plug. Which of these wall sockets should you insert it into: the round-pin socket, the flat-pin socket, or the three-pin socket?"
+ }
+}

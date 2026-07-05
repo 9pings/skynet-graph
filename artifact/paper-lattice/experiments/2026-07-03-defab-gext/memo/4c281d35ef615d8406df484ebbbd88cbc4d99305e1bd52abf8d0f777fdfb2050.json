@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\n{\"target\":\"contract(sales_contract)\",\"candidates\":[\"(1) df_contract(sales_contract):  => contract(sales_contract)\",\"(2) df_legal_role(attorney):  => legal_role(attorney)\",\"(3) df_legal_role(witness):  => legal_role(witness)\",\"(4) df_statute(ada):  => statute(ada)\",\"(5) df_contract(licensing_agreement):  => contract(licensing_agreement)\",\"(6) df_legal_document(geneva_convention):  => legal_document(geneva_convention)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract from the text, VERBATIM. Reply ONLY JSON: {\"target\":\"<the underivable statement>\",\"candidates\":[\"<entry as writt",
+  "user": "A knowledge base is missing exactly one entry. Because of that gap, the statement \"contract(sales_contract)\" cannot be derived. Exactly one of the following candidate entries fills the gap:\n  (1) df_c"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\n{\"target\":\"organism(parrot)\",\"candidates\":[\"(1) df_organism(parrot):  => organism(parrot)\",\"(2) df_animal(dolphin):  => animal(dolphin)\",\"(3) df_organism(goldfish):  => organism(goldfish)\",\"(4) df_bird(robin):  => bird(robin)\",\"(5) df_animal(parrot):  => animal(parrot)\",\"(6) df_bird(duck):  => bird(duck)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract from the text, VERBATIM. Reply ONLY JSON: {\"target\":\"<the underivable statement>\",\"candidates\":[\"<entry as writt",
+  "user": "A knowledge base is missing exactly one entry. Because of that gap, the statement \"organism(parrot)\" cannot be derived. Exactly one of the following candidate entries fills the gap:\n  (1) df_organism("
+ }
+}

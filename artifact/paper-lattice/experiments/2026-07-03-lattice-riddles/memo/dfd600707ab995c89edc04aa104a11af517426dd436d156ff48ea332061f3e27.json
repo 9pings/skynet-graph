@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nPlace your green coin into either the star-shaped, square, or round hole. Which one do you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a green coin. Put it into one of these holes: the star-shaped one, the square one, or the round one. Which one?"
+ }
+}

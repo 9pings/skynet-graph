@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you’re holding a standard American electrical plug with red insulation. You’re about to plug it into one of three different wall outlets: one with two round prongs, another with two flat prongs, or a third with three prongs (two flat and one round). Which outlet will safely accept your plug?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a red US plug. Put it into one of these wall sockets: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one?"
+ }
+}

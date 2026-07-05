@@ -1,0 +1,594 @@
+{
+ "control": {
+  "pass": 12,
+  "of": 12
+ },
+ "shapes/order0": {
+  "gated": {
+   "admits": [],
+   "confirmed": [],
+   "falseConfirmed": [],
+   "wrongAdmits": [],
+   "blameRetracts": [],
+   "refused": {
+    "vacuous": 0,
+    "failed-verify": 0,
+    "no-proposal": 11,
+    "confluence": 0
+   },
+   "quarantinedMulti": 0,
+   "maskAvoided": 0,
+   "damage": 0,
+   "res": {
+    "ok": 2,
+    "refusedTask": 5,
+    "wrong": 0
+   },
+   "proposalCalls": 11,
+   "reProposalAvoided": 6,
+   "attrition": 13,
+   "neverReExercised": [],
+   "finalRing": {}
+  },
+  "ungated": {
+   "admits": [],
+   "confirmed": [],
+   "falseConfirmed": [],
+   "wrongAdmits": [],
+   "blameRetracts": [],
+   "refused": {
+    "vacuous": 0,
+    "failed-verify": 0,
+    "no-proposal": 11,
+    "confluence": 0
+   },
+   "quarantinedMulti": 0,
+   "maskAvoided": 0,
+   "damage": 0,
+   "res": {
+    "ok": 2,
+    "refusedTask": 5,
+    "wrong": 0
+   },
+   "proposalCalls": 11,
+   "reProposalAvoided": 6,
+   "attrition": 13,
+   "neverReExercised": [],
+   "finalRing": {}
+  },
+  "trace": [
+   {
+    "arm": "gated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "benign/gleaming",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-hole",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "benign/gleaming",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-hole",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   }
+  ]
+ },
+ "shapes/order1": {
+  "gated": {
+   "admits": [],
+   "confirmed": [],
+   "falseConfirmed": [],
+   "wrongAdmits": [],
+   "blameRetracts": [],
+   "refused": {
+    "vacuous": 0,
+    "failed-verify": 0,
+    "no-proposal": 11,
+    "confluence": 0
+   },
+   "quarantinedMulti": 0,
+   "maskAvoided": 0,
+   "damage": 0,
+   "res": {
+    "ok": 2,
+    "refusedTask": 5,
+    "wrong": 0
+   },
+   "proposalCalls": 11,
+   "reProposalAvoided": 6,
+   "attrition": 13,
+   "neverReExercised": [],
+   "finalRing": {}
+  },
+  "ungated": {
+   "admits": [],
+   "confirmed": [],
+   "falseConfirmed": [],
+   "wrongAdmits": [],
+   "blameRetracts": [],
+   "refused": {
+    "vacuous": 0,
+    "failed-verify": 0,
+    "no-proposal": 11,
+    "confluence": 0
+   },
+   "quarantinedMulti": 0,
+   "maskAvoided": 0,
+   "damage": 0,
+   "res": {
+    "ok": 2,
+    "refusedTask": 5,
+    "wrong": 0
+   },
+   "proposalCalls": 11,
+   "reProposalAvoided": 6,
+   "attrition": 13,
+   "neverReExercised": [],
+   "finalRing": {}
+  },
+  "trace": [
+   {
+    "arm": "gated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "benign/gleaming",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-hole",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "benign/gleaming",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-hole",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   }
+  ]
+ },
+ "shapes/order2": {
+  "gated": {
+   "admits": [],
+   "confirmed": [],
+   "falseConfirmed": [],
+   "wrongAdmits": [],
+   "blameRetracts": [],
+   "refused": {
+    "vacuous": 0,
+    "failed-verify": 0,
+    "no-proposal": 11,
+    "confluence": 0
+   },
+   "quarantinedMulti": 0,
+   "maskAvoided": 0,
+   "damage": 0,
+   "res": {
+    "ok": 2,
+    "refusedTask": 5,
+    "wrong": 0
+   },
+   "proposalCalls": 11,
+   "reProposalAvoided": 6,
+   "attrition": 13,
+   "neverReExercised": [],
+   "finalRing": {}
+  },
+  "ungated": {
+   "admits": [],
+   "confirmed": [],
+   "falseConfirmed": [],
+   "wrongAdmits": [],
+   "blameRetracts": [],
+   "refused": {
+    "vacuous": 0,
+    "failed-verify": 0,
+    "no-proposal": 11,
+    "confluence": 0
+   },
+   "quarantinedMulti": 0,
+   "maskAvoided": 0,
+   "damage": 0,
+   "res": {
+    "ok": 2,
+    "refusedTask": 5,
+    "wrong": 0
+   },
+   "proposalCalls": 11,
+   "reProposalAvoided": 6,
+   "attrition": 13,
+   "neverReExercised": [],
+   "finalRing": {}
+  },
+  "trace": [
+   {
+    "arm": "gated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-category",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "benign/gleaming",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-hole",
+    "ok": false,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "benign/gleaming",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:no-hole",
+    "ok": false,
+    "exercised": []
+   }
+  ]
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"standard American two-prong flatpin electrical plug\",\"category\":\"flatpin\",\"condition\":\"\",\"color\":\"blue\",\"size\":\"\"},\"holes\":[{\"name\":\"flatpin\",\"size\":\"\"},{\"name\":\"roundpin\",\"size\":\"\"},{\"name\":\"threepin\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "Imagine you’re holding a standard American blue electrical plug with two flat prongs. You’re about to plug it into one of three different wall outlets: one with two round holes, another with two wide,"
+ }
+}

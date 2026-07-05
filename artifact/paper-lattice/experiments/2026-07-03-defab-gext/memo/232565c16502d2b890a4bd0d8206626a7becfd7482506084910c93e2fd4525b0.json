@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nd_graphene",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_graphene: monolayer_thickness(X) ~> ~opaque(X)\nd_gr_broad: carbon_mat",
+  "user": "Facts: carbon_material(graphene_sheet), carbon_material(graphite_block), carbon_material(thick_graphene), material(graphene_sheet), material(graphite_block), material(thick_graphene).\nGeneral rules (="
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "star\n\nSince you possess a blue star token, you would place it in the",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You possess a blue star token. Place it in any of these openings: the star-shaped one, the square one, or the circular one. Where will you put it?"
+ }
+}

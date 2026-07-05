@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"sphere\",\"category\":\"sphere\",\"condition\":\"wet\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"name\":\"star-shaped slot\",\"size\":\"\"},{\"name\":\"square slot\",\"size\":\"\"},{\"name\":\"circular slot\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "Imagine you are holding a wet, yellow sphere. You need to place it into one of three available openings: a star-shaped slot, a square slot, or a circular slot. Which opening should you choose?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"kind\": \"ball\",\n  \"category\": \"round\"\n}\n```",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"Imagine you’re holding a bright red ball and three different holes in front of you: one sha",
+  "user": "In general, which shape category fits a ball?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nlarge circular hole",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "Imagine you possess a big red football and need to place it into one of three available openings: a small circular hole, a large circular hole, or a large square hole. Which opening should you choose?"
+ }
+}

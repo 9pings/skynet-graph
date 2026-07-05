@@ -1,0 +1,8 @@
+{
+ "response": "small round\n\nThe marble is a ball, which is-a round, and the smallest hole category that fits a round object",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You're holding a tiny yellow marble. Choose which opening to place it in: the small circular hole, the big circular hole, or the large square hole. Where do you put it?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nd_tardigrade",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_tardigrade: tardigrade(X) ~> ~requires_water(X)\nd_tard_broad: animal(",
+  "user": "Facts: animal(rabbit_specimen), animal(tardigrade_specimen), tardigrade(tardigrade_specimen).\nGeneral rules (=> means \"normally implies\"): r_water: animal(X) => requires_water(X); r_oxygen: animal(X) "
+ }
+}

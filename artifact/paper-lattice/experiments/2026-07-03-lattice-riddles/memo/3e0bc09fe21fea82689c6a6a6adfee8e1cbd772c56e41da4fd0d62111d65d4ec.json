@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"lump\",\"category\":\"\",\"condition\":\"soft\",\"color\":\"green\",\"size\":\"small\"},\"holes\":[{\"name\":\"star\",\"size\":\"\"},{\"name\":\"square\",\"size\":\"\"},{\"name\":\"round\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you have a single, soft green sugar lump. You need to place it into one of three openings: a star-shaped slot, a square slot, or a circular slot. Which opening should you choose?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you have a flat, yellow soccer ball. You need to fit it into one of three openings: a star-shaped hole, a square hole, or a circular hole. Which hole will the ball fit into?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a deflated yellow football. Put it into one of these holes: the star-shaped one, the square one, or the round one. Which one?"
+ }
+}

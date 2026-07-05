@@ -1,0 +1,8 @@
+{
+ "response": "{\n    \"object\": {\n        \"kind\": \"ball\",\n        \"category\": \"toy\",\n        \"condition\": \"new\",\n        \"color\": \"blue\",\n        \"size\": \"small\"\n    },\n    \"holes\": [\n        {\n            \"name\": \"star-shaped\",\n            \"size\": \"small\"\n        },\n        {\n            \"name\": \"square\",\n            \"size\": \"small\"\n        },\n        {\n            \"name\": \"round\",\n            \"size\": \"small\"",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "This is a trick question! The question doesn't give you any information to suggest which hole to choose. You can put the blue ball in **any** of the holes – the star-shaped one, the square one, or the"
+ }
+}

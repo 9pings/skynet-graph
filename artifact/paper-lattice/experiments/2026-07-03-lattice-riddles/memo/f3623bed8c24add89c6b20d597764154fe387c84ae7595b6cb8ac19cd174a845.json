@@ -1,0 +1,8 @@
+{
+ "response": "aquatic\n\nThe yellow shark is a type of fish, and according to the taxonomy provided, fish is-a aquatic.",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: fish is-a aquatic; bird is-a aerial; reptile is-a terres",
+  "user": "You possess a yellow shark and need to decide where to place it among these options: an aquarium, an aviary, or a terrarium. Where should it go?"
+ }
+}

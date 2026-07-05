@@ -1,0 +1,8 @@
+{
+ "response": "star",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You possess a green star token. Should you drop it into the star-shaped, square, or round hole, which would be the correct choice?"
+ }
+}

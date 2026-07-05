@@ -1,0 +1,8 @@
+{
+ "response": "\n\nnone",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "Imagine you have a deflated red ball and three openings: one shaped like a star, one like a square, and one that is round. Into which of these holes should you place the ball?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"ball\",\"category\":\"flat\",\"condition\":\"red\",\"color\":\"red\",\"size\":\"\"},\"holes\":[{\"name\":\"star-shaped\",\"size\":\"\"},{\"name\":\"slit\",\"size\":\"\"},{\"name\":\"square\",\"size\":\"\"},{\"name\":\"circular\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "Imagine you have a flat red ball. You need to fit it into one of three openings: a star-shaped slit, a square hole, or a circular opening. Which one will it slide through?"
+ }
+}

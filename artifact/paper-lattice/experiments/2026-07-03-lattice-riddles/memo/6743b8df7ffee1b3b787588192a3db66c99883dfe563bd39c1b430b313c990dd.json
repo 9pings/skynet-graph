@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"advice\",\"category\":\"electrical safety\",\"condition\":\"using a shaver plug\",\"color\":\"red\",\"size\":\"small\"},\"holes\":[{\"name\":\"three-pin socket\",\"size\":\"standard\"},{\"name\":\"round-pin socket\",\"size\":\"standard\"},{\"name\":\"flat-pin socket\",\"size\":\"standard\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You should use the **three-pin socket**.\n\nHere's why:\n\n*   **Red shaver plugs** are designed to be used with three-pin sockets. The three pins provide grounding (earth) protection, which is a safety f"
+ }
+}

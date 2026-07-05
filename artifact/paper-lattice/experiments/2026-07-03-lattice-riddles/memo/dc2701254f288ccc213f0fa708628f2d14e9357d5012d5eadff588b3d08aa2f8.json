@@ -1,0 +1,8 @@
+{
+ "response": "large aquatic",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small aquatic | large aquatic | large terrestrial | none.",
+  "user": "You need to place a big green shark into one of these spaces: a small fish tank, a big fish tank, or a big terrarium. Where should you put it?"
+ }
+}

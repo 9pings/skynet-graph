@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"sphere\",\"category\":\"round\",\"condition\":\"\",\"color\":\"yellow\",\"size\":\"large\"},\"holes\":[{\"name\":\"circular\",\"size\":\"large\"},{\"name\":\"flat\",\"size\":\"small\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You possess a gleaming yellow sphere. Should you place it in the circular opening or the flat slot? Which is the correct choice?"
+ }
+}

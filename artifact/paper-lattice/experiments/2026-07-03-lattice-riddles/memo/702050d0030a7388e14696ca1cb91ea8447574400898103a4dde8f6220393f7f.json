@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nYou possess a green gecko and must place it in one of three habitats: an aquarium, an aviary, or a terrarium. Which is the correct choice?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a green gecko. Put it into one of these enclosures: the aquarium, the aviary, or the terrarium. Which one?"
+ }
+}

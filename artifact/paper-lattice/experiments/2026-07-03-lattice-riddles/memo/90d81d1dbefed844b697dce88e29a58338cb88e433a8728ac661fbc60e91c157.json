@@ -1,0 +1,8 @@
+{
+ "response": "Looking at this puzzle, I need to determine which outlet matches a curved blue UK",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You've got a curved blue UK plug and need to insert it into one of three wall outlets: the circular-pin outlet, the square-pin outlet, or the rectangular-pin outlet. Which outlet should you choose?"
+ }
+}

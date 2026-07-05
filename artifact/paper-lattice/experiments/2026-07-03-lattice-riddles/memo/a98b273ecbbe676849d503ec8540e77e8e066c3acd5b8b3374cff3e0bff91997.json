@@ -1,0 +1,8 @@
+{
+ "response": "terrestrial",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "Imagine you own a small, leaf-green gecko. You need to place it in one of three spaces: a fish tank, a birdcage, or a glass-and-wood habitat designed for reptiles. Where should it go?"
+ }
+}

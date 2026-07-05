@@ -1,0 +1,8 @@
+{
+ "response": "You are absolutely correct! That's a perfect explanation. The deflated red ball should go into **round one**.",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You should put the deflated red ball into the **round one**.\n\nHere's why:\n\n*   **Deflated** means the ball is flat and takes up very little space.\n*   A round ball will best fit into a round hole.\n\n\n\n"
+ }
+}

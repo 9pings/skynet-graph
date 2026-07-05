@@ -1,0 +1,8 @@
+{
+ "response": "\n\nlarge round",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "Imagine you have a big red football and three openings to choose from: a small circle, a large circle, or a large square. Which hole should you put the ball into?"
+ }
+}

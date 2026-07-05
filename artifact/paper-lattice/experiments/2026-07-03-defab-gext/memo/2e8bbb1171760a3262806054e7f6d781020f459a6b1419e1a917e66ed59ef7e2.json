@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"target\": \"contract(service_agreement)\",\n  \"candidates\": [\n    \"df_contract(service_agreement):  => contract(service_agreement)\",\n    \"df_legal_action(summons):  => legal_action(summons)\",\n    \"df_legal_document(paris_agreement):  => legal_document(paris_agreement)\",\n    \"df_statute(clean_air_act):  => statute(clean_air_act)\",\n    \"df_legal_role(witness):  => legal_role(witness)\",\n    \"df_legal_document(geneva_convention):  => legal_document(geneva_convention)\"\n  ]\n}\n```",
+ "at": null,
+ "meta": {
+  "system": "Extract from the text, VERBATIM. Reply ONLY JSON: {\"target\":\"<the underivable statement>\",\"candidates\":[\"<entry as writt",
+  "user": "A knowledge base is missing exactly one entry. Because of that gap, the statement \"contract(service_agreement)\" cannot be derived. Exactly one of the following candidate entries fills the gap:\n  (1) d"
+ }
+}

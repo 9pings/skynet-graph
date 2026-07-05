@@ -1,0 +1,8 @@
+{
+ "response": "\n\nImagine you have a big red football and three openings to choose from: a small circle, a large circle, or a large square. Which hole should you put the ball into?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a large red football. Put it into one of these holes: the small round one, the large round one, or the large square one. Which one?"
+ }
+}

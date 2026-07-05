@@ -1,0 +1,8 @@
+{
+ "response": "You've got a deformed red US plug on your hands. Which outlet slot should you try inserting it into: the circular pin opening, the flat pin opening, or the trio of pins opening?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a bent red US plug. Put it into one of these wall sockets: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one?"
+ }
+}

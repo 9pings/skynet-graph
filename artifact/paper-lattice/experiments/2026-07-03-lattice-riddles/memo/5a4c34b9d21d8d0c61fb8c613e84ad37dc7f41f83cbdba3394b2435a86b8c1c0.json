@@ -1,0 +1,8 @@
+{
+ "response": "small round",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small round | large round | large square | none.",
+  "user": "You have a tiny blue marble. Choose one of these holes to place it in: the small circular one, the big circular one, or the big square one. Which one do you pick?"
+ }
+}

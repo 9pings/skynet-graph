@@ -1,0 +1,8 @@
+{
+ "response": "roundpin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You have a curved yellow Euro plug. Which wall outlet should you insert it into: the circular-pin outlet, the flat-pin outlet, or the three-pin outlet?"
+ }
+}

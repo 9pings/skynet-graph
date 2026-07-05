@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nYou possess a small blue marble. Into which of the following openings should you place it: the small circular hole, the large circular hole, or the large square hole?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a small blue marble. Put it into one of these holes: the small round one, the large round one, or the large square one. Which one?"
+ }
+}

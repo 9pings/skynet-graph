@@ -1,0 +1,8 @@
+{
+ "response": "\n\nYou possess a UK plug with white and red coloring. You need to insert it into one of the following wall outlets: a round-pin socket, a flat-pin socket, or a three-pin socket. Which socket is the correct choice?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a white red UK plug. Put it into one of these wall sockets: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one?"
+ }
+}

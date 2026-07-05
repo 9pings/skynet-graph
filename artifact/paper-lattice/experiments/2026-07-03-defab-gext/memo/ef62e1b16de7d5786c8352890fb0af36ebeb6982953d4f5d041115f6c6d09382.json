@@ -1,0 +1,8 @@
+{
+ "response": "d_thermoelectric_exception",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: thermally_passive(bismuth_telluride)\nCandidates:\nlabel: d_thermoelectric_exception: thermoelectric(bismuth_telluride) ~> ~thermally_passive(bismuth_telluride)\nlabel: d_te_semiconductor_except"
+ }
+}

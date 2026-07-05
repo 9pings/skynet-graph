@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nA blue die is a six-sided cube (or rectangular prism), and none of the described openings (star-shaped, square, or round) would accommodate a standard six-sided die. The die would not fit through any of these openings.",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You have a blue die. Which hole should you place it in: the star-shaped opening, the square opening, or the round opening?"
+ }
+}

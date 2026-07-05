@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"US plug\",\"category\":\"roundpin\",\"condition\":\"deformed\",\"color\":\"red\",\"size\":\"\"},\"holes\":[{\"name\":\"roundpin\",\"size\":\"large\"},{\"name\":\"flatpin\",\"size\":\"large\"},{\"name\":\"threepin\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You've got a deformed red US plug on your hands. Which outlet slot should you try inserting it into: the circular pin opening, the flat pin opening, or the trio of pins opening?"
+ }
+}

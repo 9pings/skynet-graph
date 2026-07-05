@@ -351,10 +351,11 @@ escalateFn, escalateBar, rollupFn })` compose the decompose loop with the per-se
 **Propose → Pareto-SELECT → Adopt** alternative-search trio + escalation on `Stuck`. Inject the content
 functions (deterministic in tests, an LLM in production).
 
-### The method library & supervisor (`lib/authoring/`)
+### Concept-as-graph: the method library & supervisor (`lib/authoring/`)
 
-The LLM-driven authoring surface — forge / crystallize / reuse / compose typed methods on top of the substrate.
-Host-side, ZERO-CORE, additive (the base hand-authoring use needs none of it).
+The LLM-driven **Use 2** surface — forge / crystallize / reuse / compose typed methods on top of the substrate.
+Host-side, ZERO-CORE, additive (the base hand-authoring use needs none of it). Full guide:
+[concept-as-graph.md](concept-as-graph.md).
 
 - **`master-loop.js`** — `createMasterLoop({ signature, forge, reForge, cache, index, mount })` → `{ solve,
   drift, stats, cache, index, mount, keyOf, idOf }`. The cost-ladder controller MATCH→RETRIEVE→FORGE→ESCALATE;
@@ -390,14 +391,14 @@ Host-side, ZERO-CORE, additive (the base hand-authoring use needs none of it).
   `unpackMethods` / `deriveMethodSchema`. The **B8 version gate** covers both replay paths (versions agree →
   hydrate index + exact cache; differ → re-forge, no stale verbatim replay), and the receiver's typed verify
   rejects a structurally-foreign method.
-- **`method.js`** — the method-subgraph host toolkit (the middle spine): `applySubgraphArg` / `mapTemplate` /
+- **`method.js`** — the concept-as-graph host toolkit (the middle spine): `applySubgraphArg` / `mapTemplate` /
   `mapSubgraph` (a method receives + applies a sub-graph param; `Map` fans a body per element with fresh ids),
   `lintMethod(def)` (the decidability invariants + the footprint/frame check), `selectCluster` (case-parameterized
   selection by mutually-exclusive typed gates).
 
 ### C-contract — composition soundness & the un-learn loop (`lib/authoring/contract.js`)
 
-The defeasible separation-triple checker (method-composition soundness). Exposed on the facade as deep-path; ZERO-CORE.
+The defeasible separation-triple checker (Use 2's soundness). Exposed on the facade as deep-path; ZERO-CORE.
 
 - **`checkCompose(m1, m2, opts)`** → `{ verdict:'sound'|'unsound'|'escalate', shared, perKey, reasons, needsOracle }`
   — `post(m1) ⊨ pre(m2)` over `write(m1)∩read(m2)`, by per-key **abstract-domain** entailment (`normalize` /

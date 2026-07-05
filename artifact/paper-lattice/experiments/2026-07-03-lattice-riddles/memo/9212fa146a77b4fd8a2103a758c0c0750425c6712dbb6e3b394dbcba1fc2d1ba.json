@@ -1,0 +1,8 @@
+{
+ "response": "aquarium\n\nRed ferns are typically terrestrial plants that thrive in moist, shady environments with consistent humidity. An aquarium would provide the high humidity levels and stable temperature that a red fern needs to survive and flourish, especially since aquariums naturally maintain moist conditions from the water environment. The aviary, while potentially humid from bird activities, would not provide the consistent, controlled environment that the fern requires.",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquarium | aviary | none.",
+  "user": "You possess a red fern. Place it inside either the aquarium or the aviary. Which location should you choose?"
+ }
+}

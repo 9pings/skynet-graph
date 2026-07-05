@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"answer\",\"category\":\"trick question\",\"condition\":\"do not plug an HDMI cable into a wall socket\",\"color\":\"red\",\"size\":\"large\"},\"holes\":[{\"name\":\"HDMI cable\",\"size\":\"small\"},{\"name\":\"wall socket\",\"size\":\"small\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "This is a trick question! HDMI cables are for transmitting video and audio signals to a display (like a TV or monitor). Wall sockets are for electricity.\n\n**You should not plug an HDMI cable into any "
+ }
+}

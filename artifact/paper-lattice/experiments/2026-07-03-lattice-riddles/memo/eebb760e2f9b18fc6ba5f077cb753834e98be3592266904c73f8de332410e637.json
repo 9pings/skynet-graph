@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"die\",\"shape\":\"square\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"shape\":\"star\",\"size\":\"\"},{\"shape\":\"square\",\"size\":\"\"},{\"shape\":\"round\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object noun, one word>\",\"shape",
+  "user": "You possess a yellow die. Determine which of the following openings it fits into: the star-shaped hole, the square hole, or the circular hole."
+ }
+}

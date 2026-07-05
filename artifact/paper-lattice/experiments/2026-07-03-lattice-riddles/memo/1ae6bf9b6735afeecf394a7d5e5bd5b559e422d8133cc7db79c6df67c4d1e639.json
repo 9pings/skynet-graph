@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nA yellow fern would not be placed in either an aquarium or an aviary. These are specialized environments for aquatic animals and birds respectively, not for plants like ferns. A fern would typically be placed in a terrestrial environment with appropriate soil, moisture, and lighting conditions.",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquarium | aviary | none.",
+  "user": "You possess a yellow fern. Place it in either the aquarium or the aviary. Which location should you choose?"
+ }
+}

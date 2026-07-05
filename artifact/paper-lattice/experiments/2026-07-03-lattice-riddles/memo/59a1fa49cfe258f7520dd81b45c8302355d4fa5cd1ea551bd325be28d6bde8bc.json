@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you have a small, dissolved piece of bright yellow sugar. You need to place it into one of three openings: a five-pointed star, a perfect square, or a smooth circle. Which shape should you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a liquefied yellow sugar cube. Put it into one of these holes: the star-shaped one, the square one, or the round one. Which one?"
+ }
+}

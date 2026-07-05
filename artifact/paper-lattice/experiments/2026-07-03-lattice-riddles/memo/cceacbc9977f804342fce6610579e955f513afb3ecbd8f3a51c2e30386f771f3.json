@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"green US plug\",\"category\":\"flatpin\",\"condition\":\"\",\"color\":\"green\",\"size\":\"\"},\"holes\":[{\"name\":\"round-pin\",\"size\":\"\"},{\"name\":\"flat-pin\",\"size\":\"\"},{\"name\":\"three-pin\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You possess a green US plug. Which of the following wall sockets should you insert it into: the round-pin, the flat-pin, or the three-pin?"
+ }
+}

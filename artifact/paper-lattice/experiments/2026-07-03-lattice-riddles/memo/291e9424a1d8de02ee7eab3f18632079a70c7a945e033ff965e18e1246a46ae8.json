@@ -1,0 +1,8 @@
+{
+ "response": "roundpin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "A blue UK plug is bent. Which wall socket should it go into: the three-pin, the flat-pin, or the round-pin one?"
+ }
+}

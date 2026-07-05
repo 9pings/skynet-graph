@@ -1,0 +1,8 @@
+{
+ "response": "\"Waterlogged\" means **neither** deflated nor melted.\n\nHere's why:\n\n*   **Waterlogged** specifically describes something that is saturated with water – soaked through and heavy with",
+ "at": null,
+ "meta": {
+  "system": "Vocabulary question. Reply ONLY JSON: {\"word\":\"waterlogged\",\"means\":\"<one of the options, or neither>\"}",
+  "user": "The word \"waterlogged\" used as a object condition word — which of these does it mean: deflated|melted, or neither?"
+ }
+}

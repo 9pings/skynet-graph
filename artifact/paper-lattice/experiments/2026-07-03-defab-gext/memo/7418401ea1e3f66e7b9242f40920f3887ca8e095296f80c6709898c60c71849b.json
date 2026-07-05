@@ -1,0 +1,8 @@
+{
+ "response": "The goal is to find an exception rule that explains why `actionable(claim_a)` is an anomaly (meaning it should be false)",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_statute_of_lim: time_barred(X) ~> ~actionable(X)\nd_sol_broad: legal_c",
+  "user": "Facts: legal_claim(claim_a), legal_claim(claim_b), time_barred(claim_a), timely(claim_b).\nGeneral rules (=> means \"normally implies\"): r_actionable: legal_claim(X) => actionable(X); r_remedy: legal_cl"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "aquatic\n\nA yellow shark is a marine animal that requires an aquatic environment to survive. The aquarium is the appropriate habitat for a shark, as it provides the water environment the shark needs. The aviary is for birds and the terrarium is for terrestrial animals, neither of which would be suitable for a shark.",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You possess a yellow shark. Place it inside one of these habitats: the aquarium, the aviary, or the terrarium. Which option should you choose?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "star\n\nThe yellow star-shaped token is a \"startoken,\" which is categorized as a \"star\" according to the",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You possess a yellow star-shaped token. You need to place it into one of these openings: the star-shaped hole, the square hole, or the circular hole. Which one do you choose?"
+ }
+}

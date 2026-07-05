@@ -1,0 +1,8 @@
+{
+ "response": "\n\nd_metallic_glass",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_metallic_glass: amorphous_solid(X) ~> ~brittle(X)\nd_mg_broad: metal(X",
+  "user": "Facts: material(steel_a), material(vitreloy), metal(steel_a), metal(vitreloy).\nGeneral rules (=> means \"normally implies\"): r_brittle: metal(X) => brittle(X); r_conduct: metal(X) => conducts_electrici"
+ }
+}

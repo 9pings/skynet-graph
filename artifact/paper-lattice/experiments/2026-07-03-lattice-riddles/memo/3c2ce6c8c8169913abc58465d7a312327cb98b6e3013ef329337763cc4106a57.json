@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nA standard green die has six faces with dots (pips) arranged",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You have a green die. Which hole should you place it in: the star-shaped opening, the square opening, or the round opening?"
+ }
+}

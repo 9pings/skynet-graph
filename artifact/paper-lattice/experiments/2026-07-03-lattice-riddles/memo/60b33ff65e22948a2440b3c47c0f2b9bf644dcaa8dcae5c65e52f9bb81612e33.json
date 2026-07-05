@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"trick question\",\"category\":\"electrical\",\"condition\":\"bent\",\"color\":\"unknown\",\"size\":\"unknown\"},\"holes\":[]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "This is a trick question! A bent US plug won't fit into *any* of those sockets. Here's why:\n\n*   **Round-pin socket:** This is typically a UK or Australian socket. US plugs have flat pins.\n*   **Flat-"
+ }
+}

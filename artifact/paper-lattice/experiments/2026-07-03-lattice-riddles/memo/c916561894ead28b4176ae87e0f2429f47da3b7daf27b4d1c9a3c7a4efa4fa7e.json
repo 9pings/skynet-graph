@@ -1,0 +1,8 @@
+{
+ "response": "round\n\nA football is-a ball, and a ball is-a round. The lowest derivable category for a football is",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You're holding a soggy green football. Which opening should you place it in: the star-shaped hole, the square hole, or the circular hole?"
+ }
+}

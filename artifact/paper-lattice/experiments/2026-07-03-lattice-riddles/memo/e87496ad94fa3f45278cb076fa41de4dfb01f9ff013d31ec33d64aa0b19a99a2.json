@@ -1,0 +1,8 @@
+{
+ "response": "The tiny yellow trout is a fish, which is categorized as aquatic. According to the rules, an object fits exactly the",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: fish is-a aquatic; bird is-a aerial; reptile is-a terres",
+  "user": "You have a tiny yellow trout and need to decide where to place it: a small aquarium, a large aquarium, or a large terrarium. Where should you put it?"
+ }
+}

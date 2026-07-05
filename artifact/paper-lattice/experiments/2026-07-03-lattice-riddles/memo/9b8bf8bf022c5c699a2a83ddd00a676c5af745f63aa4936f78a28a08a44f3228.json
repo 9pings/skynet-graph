@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\"kind\":\"trout\",\"category\":\"aquatic\"}\n```",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"You possess a blue trout and need to decide where to place it among three options: an aquar",
+  "user": "In general, which habitat type fits a trout?"
+ }
+}

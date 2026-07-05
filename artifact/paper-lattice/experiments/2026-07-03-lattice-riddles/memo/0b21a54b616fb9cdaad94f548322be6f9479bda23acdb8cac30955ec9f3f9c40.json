@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"British electrical plug\",\"category\":\"threepin\",\"condition\":\"\",\"color\":\"blue\",\"size\":\"\"},\"holes\":[{\"name\":\"roundpin\",\"size\":\"small\"},{\"name\":\"flatpin\",\"size\":\"large\"},{\"name\":\"threepin\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "Imagine you’re holding a blue British electrical plug with its distinctive shape. You’re about to plug it into one of three different wall sockets: one with round pins, another with flat pins, or the "
+ }
+}

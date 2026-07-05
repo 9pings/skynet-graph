@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"football\",\"color\":\"green\",\"size\":\"large\"},\"holes\":[{\"shape\":\"round\",\"size\":\"small\"},{\"shape\":\"round\",\"size\":\"large\"},{\"shape\":\"square\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object noun, one word>\",\"color",
+  "user": "Imagine you possess a big green football and need to place it into one of three available openings: a small circular hole, a large circular hole, or a large square hole. Which of these holes should yo"
+ }
+}

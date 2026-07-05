@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\n{\"word\":\"red\",\"means\":\"neither\"}",
+ "at": null,
+ "meta": {
+  "system": "Vocabulary question. Reply ONLY JSON: {\"word\":\"red\",\"means\":\"<one of the options, or neither>\"}",
+  "user": "The word \"red\" used as a object condition word — which of these does it mean: deflated|melted, or neither?"
+ }
+}

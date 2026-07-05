@@ -1,0 +1,8 @@
+{
+ "response": "The football is a ball, and according to the taxonomy, a ball is-a round. Therefore, the lowest derivable",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You have a damp green football. You need to place it into one of these holes: the star-shaped hole, the square hole, or the round hole. Which hole should you choose?"
+ }
+}

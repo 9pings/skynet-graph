@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you’re holding a blue pyramid and two different openings in front of you: one shaped like a star and the other shaped like a perfect circle. Where would you fit the pyramid into—through the star-shaped hole or the round one?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a blue pyramid. Put it into one of these holes: the star-shaped one, or the round one. Which one?"
+ }
+}

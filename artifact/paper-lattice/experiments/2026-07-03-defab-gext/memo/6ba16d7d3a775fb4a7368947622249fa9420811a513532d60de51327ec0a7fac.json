@@ -1,0 +1,8 @@
+{
+ "response": "d_axolotl",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: undergoes_metamorphosis(axo)\nCandidates:\nlabel: d_axolotl: neotenic(X) ~> ~undergoes_metamorphosis(X)\nlabel: d_axo_broad: amphibian(X) ~> ~undergoes_metamorphosis(X)\nlabel: d_axo_no_novel: ax"
+ }
+}

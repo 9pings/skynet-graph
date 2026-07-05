@@ -1,0 +1,8 @@
+{
+ "response": "d_qi_override_2",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: civilly_liable(officer_davis)\nCandidates:\nlabel: d_qi_override_1 ~> ~civilly_liable(X) | qualified_immunity_claimant(X)\nlabel: d_qi_override_2 ~> ~civilly_liable(X) | official(X) & qualified_"
+ }
+}

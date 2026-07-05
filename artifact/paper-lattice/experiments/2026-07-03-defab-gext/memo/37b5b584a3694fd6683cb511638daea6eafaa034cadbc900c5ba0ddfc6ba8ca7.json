@@ -1,0 +1,8 @@
+{
+ "response": "d_nitinol: thermoelastic_martensite(X) ~> ~permanently_deformed_when_bent(X",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: permanently_deformed_when_bent(nitinol)\nCandidates:\nd_nitinol: thermoelastic_martensite(X) ~> ~permanently_deformed_when_bent(X)\nd_sma_no_novel: nitinol(X) ~> ~permanently_deformed_when_bent("
+ }
+}

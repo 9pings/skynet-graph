@@ -1,0 +1,8 @@
+{
+ "response": "The word \"trick\" doesn't fit as an object condition word describing either \"deflated\" or \"melted.\" It has a completely different meaning.\n\nHere's why:\n\n*",
+ "at": null,
+ "meta": {
+  "system": "Vocabulary question. Reply ONLY JSON: {\"word\":\"trick\",\"means\":\"<one of the options, or neither>\"}",
+  "user": "The word \"trick\" used as a object condition word — which of these does it mean: deflated|melted, or neither?"
+ }
+}

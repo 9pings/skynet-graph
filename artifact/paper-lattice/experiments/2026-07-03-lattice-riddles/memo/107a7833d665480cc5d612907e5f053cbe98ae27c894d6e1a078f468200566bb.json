@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"green ball\",\"category\":\"\",\"condition\":\"water-soaked\",\"color\":\"green\",\"size\":\"\"},\"holes\":[{\"name\":\"hole\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "A water-soaked green ball needs to be placed into a hole. You have three options: a star, a square, or a circle. Which one should you choose?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"kind\":\"cube\",\"category\":\"square\"}",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"You possess a yellow sugar cube. Into which of the following openings should you place it: ",
+  "user": "In general, which shape category fits a cube?"
+ }
+}

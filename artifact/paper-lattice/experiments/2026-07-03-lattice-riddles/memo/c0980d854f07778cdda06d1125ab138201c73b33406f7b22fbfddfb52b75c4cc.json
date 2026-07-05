@@ -1,0 +1,8 @@
+{
+ "response": "threepin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "Imagine you’ve got a slightly curved, yellow-colored Euro-style plug that’s missing one of its prongs. You’re trying to plug it into one of three different wall outlets: one with two round pins, anoth"
+ }
+}

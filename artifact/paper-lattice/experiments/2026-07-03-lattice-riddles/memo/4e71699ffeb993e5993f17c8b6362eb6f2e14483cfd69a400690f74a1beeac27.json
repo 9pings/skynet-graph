@@ -1,0 +1,8 @@
+{
+ "response": "This is a clever trick question! The word \"circle\" describes a shape. When used to describe a *hole* shape, it means **round**.\n\nThink of it this way: a hole",
+ "at": null,
+ "meta": {
+  "system": "Vocabulary question. Reply ONLY JSON: {\"word\":\"circle\",\"means\":\"<one of the options, or neither>\"}",
+  "user": "The word \"circle\" used as a hole shape word — which of these does it mean: star|square|round, or neither?"
+ }
+}

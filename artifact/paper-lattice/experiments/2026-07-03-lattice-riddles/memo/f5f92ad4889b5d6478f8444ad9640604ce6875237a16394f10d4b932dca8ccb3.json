@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you’re holding a small blue fern. You need to place it inside one of three spaces: a fish tank, a birdcage, or a glass enclosure for reptiles and small animals. Where would it belong?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a blue fern. Put it into one of these enclosures: the aquarium, the aviary, or the terrarium. Which one?"
+ }
+}

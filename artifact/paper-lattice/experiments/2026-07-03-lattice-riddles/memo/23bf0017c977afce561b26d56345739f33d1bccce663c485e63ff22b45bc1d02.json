@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nround",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You possess a gleaming yellow sphere. Which of the following apertures would you choose to place it in: the star-shaped hole, the square hole, or the round hole?"
+ }
+}

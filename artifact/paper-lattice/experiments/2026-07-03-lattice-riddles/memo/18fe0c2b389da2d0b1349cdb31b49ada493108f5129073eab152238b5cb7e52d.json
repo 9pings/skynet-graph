@@ -1,0 +1,8 @@
+{
+ "response": "\n\nImagine you have a deflated red ball and three openings: one shaped like a star, one like a square, and one that is round. Into which of these holes should you place the ball?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a deflated red ball. Put it into one of these holes: the star-shaped one, the square one, or the round one. Which one?"
+ }
+}

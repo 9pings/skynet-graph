@@ -1,0 +1,8 @@
+{
+ "response": "\n\nlarge aquatic",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: fish is-a aquatic; bird is-a aerial; reptile is-a terres",
+  "user": "You possess a large green shark and must choose a suitable habitat from three options: a small aquarium, a large aquarium, or a large terrarium. Which enclosure should you select?"
+ }
+}

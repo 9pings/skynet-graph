@@ -1,0 +1,8 @@
+{
+ "response": "\n\nYou possess a green ball and must place it into either the star-shaped, square, or round hole. Which hole do you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a green ball. Put it into one of these holes: the star-shaped one, the square one, or the round one. Which one?"
+ }
+}

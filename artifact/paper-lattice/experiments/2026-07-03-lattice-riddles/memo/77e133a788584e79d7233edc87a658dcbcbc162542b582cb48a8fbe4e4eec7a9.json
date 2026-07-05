@@ -1,0 +1,8 @@
+{
+ "response": "flatpin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "Imagine you’re holding a charger with a blue plug designed for a specific type of outlet. You have three options in front of you: a socket with two round prongs, one with two flat prongs, or a larger "
+ }
+}

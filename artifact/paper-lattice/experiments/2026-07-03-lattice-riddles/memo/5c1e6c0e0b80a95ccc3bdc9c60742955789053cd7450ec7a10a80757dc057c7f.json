@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nlarge roundpin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small roundpin | large roundpin | large flatpin | none.",
+  "user": "You possess a compact yellow Euro plug. Which of the following wall sockets is it designed for: the small round-pin type, the large round-pin type, or the large flat-pin type?"
+ }
+}

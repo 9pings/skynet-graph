@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"candidates\": [\n    \"label: cond(X) ~> ~head(X)\",\n    \"d_vampire_bat: hematophagous(X) ~> ~insectivore(X)\",\n    \"d_vbat_broad: bat(X) ~> ~insectivore(X)\",\n    \"d_vbat_wrong_head: vampire_bat(X) ~> ~nocturnal(X)\",\n    \"d_vbat_no_novel: vampire_bat(X) ~> ~insectivore(X)\",\n    \"d_vbat_positive: vampire_bat(X) => blood_feeder(X)\",\n    \"d_vbat_irrelevant: vampire_bat(X) ~> ~echolocates(X)\"\n  ]\n}\n```",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"insectivore(vlad)\", list the candidate rules. Reply ONLY",
+  "user": "Facts: bat(pip), bat(reg), bat(vlad), pipistrelle(pip), vampire_bat(reg), vampire_bat(vlad).\nGeneral rules (=> means \"normally implies\"): r_insect: bat(X) => insectivore(X); r_noc: bat(X) => nocturnal"
+ }
+}

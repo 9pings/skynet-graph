@@ -1,0 +1,8 @@
+{
+ "response": "small aquatic",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small aquatic | large aquatic | large terrestrial | none.",
+  "user": "You possess a tiny yellow trout. Place it in one of the following: the small aquarium, the large aquarium, or the large terrarium. Which one should you choose?"
+ }
+}

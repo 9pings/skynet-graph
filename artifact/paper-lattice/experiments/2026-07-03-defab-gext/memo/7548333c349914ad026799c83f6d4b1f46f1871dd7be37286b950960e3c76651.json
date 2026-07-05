@@ -1,0 +1,8 @@
+{
+ "response": "The goal is to find an exception rule that explains why `carnivore(pandy)` is an anomaly (i.e., why `p",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_panda: panda(X) ~> ~carnivore(X)\nd_panda_broad: bear(X) ~> ~carnivore",
+  "user": "Facts: bear(grizz), bear(pandy), grizzly(grizz), panda(pandy).\nGeneral rules (=> means \"normally implies\"): r_carn: bear(X) => carnivore(X); r_large: bear(X) => large_mammal(X).\nObserved anomaly (shou"
+ }
+}

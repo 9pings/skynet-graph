@@ -1,0 +1,8 @@
+{
+ "response": "\n\nd_kiwi",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_kiwi: kiwi(X) ~> ~flies(X)\nd_kiwi_broad: bird(X) ~> ~flies(X)\nd_kiwi_",
+  "user": "Facts: bird(kiri), bird(tweety), kiwi(kiri), sparrow(tweety).\nGeneral rules (=> means \"normally implies\"): r_flies: bird(X) => flies(X); r_feathers: bird(X) => has_feathers(X); r_warm: bird(X) => warm"
+ }
+}

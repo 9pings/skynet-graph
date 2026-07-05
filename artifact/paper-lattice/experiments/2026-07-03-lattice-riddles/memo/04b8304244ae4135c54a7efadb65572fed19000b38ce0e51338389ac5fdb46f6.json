@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"British plug\",\"category\":\"threepin\",\"condition\":\"\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"name\":\"threepin\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You possess a yellow British plug. Which of the following wall outlets is compatible with it: the one with round pins, the one with flat pins, or the one with three pins?"
+ }
+}

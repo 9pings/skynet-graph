@@ -1,0 +1,8 @@
+{
+ "response": "Looking at the ontology:\n\n1. A coin is-a disc (from taxonomy)\n2. A disc is-a round (",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You possess a green coin. Choose one of three holes to place it in: the star-shaped hole, the square hole, or the circular hole. Which hole do you select?"
+ }
+}

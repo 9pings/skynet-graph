@@ -1,0 +1,8 @@
+{
+ "response": "{\"kind\":\"trout\",\"category\":\"aquatic\"}",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"You possess a blue trout. Place it within one of these habitats: the fish tank, the bird ho",
+  "user": "In general, which habitat type fits a trout?"
+ }
+}

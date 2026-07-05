@@ -1,0 +1,8 @@
+{
+ "response": "You possess a big green US-style plug. Which wall outlet should you insert it into: the tiny round-pin type, the big round-pin type, or the large flat-pin type?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a large green US plug. Put it into one of these wall sockets: the small round-pin socket, the large round-pin socket, or the large flat-pin socket. Which one?"
+ }
+}

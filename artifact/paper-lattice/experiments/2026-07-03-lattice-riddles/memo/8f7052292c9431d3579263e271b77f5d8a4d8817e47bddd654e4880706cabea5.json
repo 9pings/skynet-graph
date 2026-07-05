@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nnone",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "Imagine you have a deflated yellow football and need to place it into one of three available openings: a star-shaped hole, a square hole, or a round hole. Which hole should you choose?"
+ }
+}

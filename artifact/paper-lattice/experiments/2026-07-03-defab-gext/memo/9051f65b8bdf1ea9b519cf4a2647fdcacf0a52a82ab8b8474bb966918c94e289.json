@@ -1,0 +1,8 @@
+{
+ "response": "kiwi(X) & bird(X) ~> ~flies(X)",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: flies(kiri)\nCandidates:\nlabel: kiwi(X) ~> ~flies(X)\nlabel: kiwi(X) & bird(X) ~> ~flies(X)\nlabel: kiwi(X) ~> ~flies(X) & has_feathers(X)\nlabel: kiwi(X) ~> ~flies(X) & warm_blooded(X)"
+ }
+}

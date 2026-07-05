@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nA deflated ball loses its \"round\" category, so it cannot fit into the round hole. Since it",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You have a deflated red ball and need to place it into one of three holes: a star-shaped hole, a square hole, or a round hole. Which hole should you choose?"
+ }
+}

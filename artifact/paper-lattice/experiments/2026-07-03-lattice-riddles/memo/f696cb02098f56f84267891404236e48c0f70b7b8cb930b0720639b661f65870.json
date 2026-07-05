@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you own a bright yellow fish. You need to place it in one of three spaces: a tank filled with water, a cage meant for birds, or a glass box for land animals. Where should it go?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a yellow fish. Put it into one of these enclosures: the aquarium, the aviary, or the terrarium. Which one?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"sugar cube\",\"category\":\"food\",\"condition\":\"solid\",\"color\":\"white\",\"size\":\"small\"},\"holes\":[{\"name\":\"round hole\",\"size\":\"medium\"},{\"name\":\"square hole\",\"size\":\"small\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "This is a trick question! You'd put the sugar cube in the **square** hole. \n\nThe question plays on the color \"red\" to distract you. The key is the shape of the sugar cube – it's a cube, and a square h"
+ }
+}

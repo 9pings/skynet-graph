@@ -1,0 +1,8 @@
+{
+ "response": "triangle\n\nSince \"pyramid is-a triangle\" and there is no explicit category for triangle holes, the pyramid does",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "Imagine you’re holding a small, green pyramid. You need to fit it into one of three openings: one shaped like a star, another shaped like a square, or the last one shaped like a circle. Which of these"
+ }
+}

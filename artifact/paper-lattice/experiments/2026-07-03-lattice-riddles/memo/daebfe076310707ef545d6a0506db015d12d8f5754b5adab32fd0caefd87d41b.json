@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"football\",\"category\":\"sports equipment\",\"condition\":\"normal\",\"color\":\"brown\",\"size\":\"medium\"},\"holes\":[{\"name\":\"small round one\",\"size\":\"small\"},{\"name\":\"large round one\",\"size\":\"large\"},{\"name\":\"large square one\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You should put the football into the **large round one**.\n\nHere's why:\n\n*   **Small round one:** Too small for a football.\n*   **Large round one:** A good fit for a football.\n*   **Large square one:**"
+ }
+}

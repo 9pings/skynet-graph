@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"fern\",\"category\":\"\",\"condition\":\"leafy\",\"color\":\"yellow\",\"size\":\"small\"},\"holes\":[{\"name\":\"aquarium\",\"size\":\"\"},{\"name\":\"aviary\",\"size\":\"spacious\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you own a small, leafy yellow fern. You need to place it somewhere safe—either inside a glass tank filled with water and fish or in a spacious cage where birds fly around. Where would be the b"
+ }
+}

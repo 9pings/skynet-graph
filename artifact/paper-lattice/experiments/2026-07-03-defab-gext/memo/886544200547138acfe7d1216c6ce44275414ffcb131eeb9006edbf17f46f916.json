@@ -1,0 +1,8 @@
+{
+ "response": "The goal is to find an exception rule that explains why `wetted_by_water(lotus_coating)` is predicted by the general",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_superhydrophobic: superhydrophobic(X) ~> ~wetted_by_water(X)\nd_sh_bro",
+  "user": "Facts: material(lotus_coating), material(polyethylene_film), polymer(lotus_coating), polymer(polyethylene_film), superhydrophobic(lotus_coating).\nGeneral rules (=> means \"normally implies\"): r_wet: po"
+ }
+}

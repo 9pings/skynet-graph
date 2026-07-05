@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"terrarium\",\"category\":\"land-dwelling creatures\",\"condition\":\"thrive in a contained, humid environment\",\"color\":\"green\",\"size\":\"small\"},\"holes\":[{\"name\":\"aquarium\",\"size\":\"medium\"},{\"name\":\"aviary\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "This is a trick question! A **terrarium** is the correct answer.\n\nHere's why:\n\n*   **Terrarium:** A terrarium is designed for land-dwelling creatures, often amphibians or reptiles. A trout is a fish, "
+ }
+}

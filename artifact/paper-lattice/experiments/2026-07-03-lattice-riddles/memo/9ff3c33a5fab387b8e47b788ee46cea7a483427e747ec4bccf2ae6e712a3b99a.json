@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"reasoning\",\"category\":\"compatibility\",\"condition\":\"Euro plug\",\"color\":\"red\",\"size\":\"flat-pin socket\"},\"holes\":[{\"name\":\"Euro plugs\",\"size\":\"flat pins\"},{\"name\":\"Round-pin sockets\",\"size\":\"incompatible\"},{\"name\":\"Three-pin sockets\",\"size\":\"not designed\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You should use the **flat-pin socket**.\n\nHere's why:\n\n*   **Euro plugs** (like the red one you have) are designed with two flat pins.\n*   **Round-pin sockets** are used in some older systems and are n"
+ }
+}

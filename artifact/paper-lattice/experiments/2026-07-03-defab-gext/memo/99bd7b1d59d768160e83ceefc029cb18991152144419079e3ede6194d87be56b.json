@@ -1,0 +1,8 @@
+{
+ "response": "The goal is to find an exception rule that explains why `female_gestates(floaty)` is an anomaly (meaning it should be false",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_seahorse: paternal_gestation(X) ~> ~female_gestates(X)\nd_sea_broad: f",
+  "user": "Facts: clownfish(nemo2), fish(floaty), fish(nemo2), fish(sandy), seahorse(floaty), seahorse(sandy).\nGeneral rules (=> means \"normally implies\"): r_gestate: fish(X) => female_gestates(X); r_cold_s: fis"
+ }
+}

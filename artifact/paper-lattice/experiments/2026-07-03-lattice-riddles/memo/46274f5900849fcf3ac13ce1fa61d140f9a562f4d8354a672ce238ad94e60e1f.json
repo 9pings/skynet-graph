@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you’re holding a single red die and three distinct holes in front of you: one shaped like a star, another shaped like a square, and the third shaped like a circle. Where would you place the die?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a red dice. Put it into one of these holes: the star-shaped one, the square one, or the round one. Which one?"
+ }
+}

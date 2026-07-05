@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nPlace the green pyramid into either the star-shaped hole or the circular hole. Which hole does it fit into?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a green pyramid. Put it into one of these holes: the star-shaped one, or the round one. Which one?"
+ }
+}

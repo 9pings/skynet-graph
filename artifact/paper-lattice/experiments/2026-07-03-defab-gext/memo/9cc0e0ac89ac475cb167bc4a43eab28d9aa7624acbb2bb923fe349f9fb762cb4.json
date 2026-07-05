@@ -1,0 +1,8 @@
+{
+ "response": "d_kiwi\n\nThis exception rule `kiwi(X) ~> ~flies(X)` specifically targets the anomalous case of kiwis not flying, while being as specific as possible. It overrides the default rule that birds normally fly, but only for kiwis (which are birds). This explanation:\n1. Accounts for the observed anomaly (flies(kiri) should not hold)\n2. Is specific to kiwis (not all birds)\n3. Doesn't break other expectations (kiwis still have feathers, are warm-blooded, etc.)\n4. Doesn't interfere with sparrows (which are birds that normally fly)",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_kiwi: kiwi(X) ~> ~flies(X)\nd_kiwi_broad: bird(X) ~> ~flies(X)\nd_kiwi_",
+  "user": "Facts: bird(kiri), bird(tweety), kiwi(kiri), sparrow(tweety).\nGeneral rules (=> means \"normally implies\"): r_flies: bird(X) => flies(X); r_feathers: bird(X) => has_feathers(X); r_warm: bird(X) => warm"
+ }
+}

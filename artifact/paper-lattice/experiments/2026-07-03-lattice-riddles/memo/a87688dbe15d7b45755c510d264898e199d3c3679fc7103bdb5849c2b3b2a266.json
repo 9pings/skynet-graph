@@ -1,0 +1,8 @@
+{
+ "response": "small roundpin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small roundpin | large roundpin | large flatpin | none.",
+  "user": "A small blue Euro plug needs to be inserted into a wall socket. You have three options: a small round-pin socket, a large round-pin socket, or a large flat-pin socket. Which one should you use?"
+ }
+}

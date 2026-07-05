@@ -34,7 +34,7 @@ have removed the last hypothetical props from under a port:
    persistence I/O**, not graph CPU (Amdahl vindicated by the repo's own evolution), and when native
    *did* pay, the platform provided it without anyone porting a line of `lib/graph/`.
 
-3. **The thesis crystallized *against* CPU.** the project's design notes now state outright the win is
+3. **The thesis crystallized *against* CPU.** `doc/concept-as-graph.md` §8 now states outright the win is
    "amortization of recurrent typed methods … LLM-call/token elision + drift-robustness + auditability,
    **not CPU speed**." The DLL paper, the C-contract, and the durable executor all double down on
    elision/auditability. A CPU-motivated port is no longer merely Amdahl-weak — it is **off-thesis**.
@@ -208,7 +208,7 @@ way:
 - **The durable executor + `node:sqlite` (§0.2).** New since the prior study. It is the empirical answer
   to "where does native pay?" — durability, reached via the platform, no port. It also relocates the real
   engineering bottleneck away from graph CPU entirely.
-- **The thesis text (§0.3).** the design notes' explicit "not CPU speed" did not exist in the
+- **The thesis text (§0.3).** `doc/concept-as-graph.md` §8's explicit "not CPU speed" did not exist in the
   prior study's frame; it converts the Amdahl argument from *an analyst's inference* into *the project's
   own stated value proposition*.
 - **The gotcha/finding ledger grew** (past #38). K4 (regression risk of a faithful rewrite) is larger.
@@ -273,7 +273,7 @@ proof that when native truly pays, the platform already delivers it.**
 - `lib/durable/checkpoint-store.js` — `node:sqlite` `DatabaseSync`, lazy-required (L326), "Node 22+".
 - `lib/providers/{llm.js,intake.js}` — providers still host closures; `IntakeStatus∈typed|partial|
   untyped` C0 gate; the generic template = language-agnostic IR.
-- the design notes ("… not CPU speed"); `doc/MODELISATION.md` §2.3 ("pre-Rete/naive",
+- `doc/concept-as-graph.md` §8 ("… not CPU speed"); `doc/MODELISATION.md` §2.3 ("pre-Rete/naive",
   `O(objects × open-concepts)`); `doc/WIP/HANDOFF.md` §3 (gotcha ledger, findings past #38).
 - **Fresh measurement:** `node --test` → 753 tests, 752 pass, 0 fail, `duration_ms ≈ 3695`, wall ≈ 3.7 s
   (includes real `node:sqlite` disk I/O + crash-resume sims; **no LLM**). Heaviest single graph test
@@ -308,7 +308,7 @@ AssemblyScript status) is **incorporated by reference** and not re-derived.
 `lib/graph/objects/{Concept.js (applyTo/provider frontier), Entity.js (unCast/specialize/
 updateApplicableConcepts/set), Node.js, Segment.js, PathMap.js}`; `lib/graph/tasks/{taskflow.js,
 stabilize.js}`; `lib/graph/expr.js`; `lib/durable/checkpoint-store.js`; `lib/providers/{llm.js,
-intake.js, index.js}`; the design notes; `doc/MODELISATION.md` §2.3; the local R&D ledger;
+intake.js, index.js}`; `doc/concept-as-graph.md` §8; `doc/MODELISATION.md` §2.3; `doc/WIP/HANDOFF.md`;
 `doc/WIP/studies/aspect-port-c-wasm.md` (the prior art); `doc/WIP/methodology-rd-and-test.md`.
 Empirical: `node --test` full suite, 2026-07-01.
 </content>

@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you have a completely flat red soccer ball. You need to slide it into one of two openings: a perfectly circular hole or a wide, rectangular slot. Which opening would you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a deflated red football. Put it into one of these holes: the round one, or the flat slot. Which one?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"marble\",\"category\":\"small\",\"condition\":\"round\",\"color\":\"unknown\",\"size\":\"small\"},\"holes\":[{\"name\":\"small_hole\",\"size\":\"small\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "The **small round one** is the best choice.\n\nHere's why:\n\n*   **Size matters:** A small marble will fit best in a small hole.\n*   **Shape compatibility:** A round marble will likely fit more easily in"
+ }
+}

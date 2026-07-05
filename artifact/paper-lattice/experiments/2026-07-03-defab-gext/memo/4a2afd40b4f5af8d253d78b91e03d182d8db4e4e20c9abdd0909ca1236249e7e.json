@@ -1,0 +1,8 @@
+{
+ "response": "d_graphene",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: opaque(graphene_sheet)\nCandidates:\nlabel: d_gr_wrong_cond ~> ~opaque(graphene_sheet)\nlabel: d_gr_broad ~> ~opaque(graphene_sheet)\nlabel: d_graphene ~> ~opaque(graphene_sheet)"
+ }
+}

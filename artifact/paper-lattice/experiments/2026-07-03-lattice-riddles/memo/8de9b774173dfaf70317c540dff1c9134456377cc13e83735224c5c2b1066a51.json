@@ -1,0 +1,8 @@
+{
+ "response": "threepin\n\nA blue US plug refers to a Type A or B plug,",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You possess a blue US plug. Which wall socket should you insert it into: the round-pin variety, the flat-pin variety, or the three-pin variety?"
+ }
+}

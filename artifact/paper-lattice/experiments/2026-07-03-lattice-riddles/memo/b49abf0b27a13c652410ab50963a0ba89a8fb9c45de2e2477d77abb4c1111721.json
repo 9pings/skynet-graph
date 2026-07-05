@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\"kind\":\"gecko\",\"category\":\"terrestrial\"}\n```",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"You own a yellow gecko. You need to place it in one of three habitats: a terrarium, an aqua",
+  "user": "In general, which habitat type fits a gecko?"
+ }
+}

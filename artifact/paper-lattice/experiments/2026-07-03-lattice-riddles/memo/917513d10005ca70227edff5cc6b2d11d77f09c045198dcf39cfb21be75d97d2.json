@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"answer\",\"category\":\"trick question\",\"condition\":\"none\",\"color\":\"green\",\"size\":\"medium\"},\"holes\":[]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "This is a trick question! HDMI cables are for video and audio signals, and they connect to devices like TVs, monitors, or sound systems.\n\n**None of those wall sockets are for HDMI.**\n\n*   **Round-pin,"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "You are absolutely correct! And thank you for the important safety note. Forcing",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small roundpin | large roundpin | large flatpin | none.",
+  "user": "You would put the large red US plug into the **large flat-pin socket**.\n\nHere's why:\n\n*   **US plugs** are designed with two flat parallel pins and a grounding pin.\n*   **Small round-pin sockets** are"
+ }
+}

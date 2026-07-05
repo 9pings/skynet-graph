@@ -1,0 +1,8 @@
+{
+ "response": "threepin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "Imagine you’ve got a UK electrical plug that’s mostly white but has a red band near the base. You’re trying to fit it into one of three different wall sockets: one with round pins, another with flat p"
+ }
+}

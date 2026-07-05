@@ -1,0 +1,53 @@
+{
+  "model": "Qwen3.6-27B-UD-Q2_K_XL.gguf",
+  "protocol": "rung-2 (shape × params by role)",
+  "folds": [
+    {
+      "a": "filter",
+      "b": "aggregate",
+      "into": "aggregate",
+      "dl": -59.3,
+      "support": 30
+    }
+  ],
+  "episodes": {
+    "t7": {
+      "shapeStable": true,
+      "paramsOk": "exact",
+      "extraction": "exact-vs-gold",
+      "snapStats": {
+        "kept": 4,
+        "snapped": 0,
+        "oov": 0
+      }
+    },
+    "t9": {
+      "shapeStable": true,
+      "paramsOk": "exact",
+      "extraction": "exact-vs-gold",
+      "snapStats": {
+        "kept": 2,
+        "snapped": 0,
+        "oov": 2
+      }
+    }
+  },
+  "found": [
+    "aggregate#0.field",
+    "aggregate#0.value",
+    "aggregate#1.field",
+    "aggregate#1.value"
+  ],
+  "declared": [
+    "aggregate#0.field",
+    "aggregate#0.value",
+    "aggregate#1.field",
+    "aggregate#1.value"
+  ],
+  "counters": {
+    "eval": 2,
+    "expand": 2,
+    "answer": 8
+  },
+  "verdict": "discovered-equal"
+}

@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\n{\"kind\":\"fern\",\"category\":\"terrestrial\"}",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"You possess a yellow fern and must place it in one of three habitats: an aquarium, an aviar",
+  "user": "In general, which habitat type fits a fern?"
+ }
+}

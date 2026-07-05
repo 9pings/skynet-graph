@@ -1,0 +1,8 @@
+{
+ "response": "small roundpin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small roundpin | large roundpin | large flatpin | none.",
+  "user": "Imagine you’re holding a tiny yellow European plug—now try plugging it into one of these outlets: the one with two small circular pins, the one with two big circular pins, or the one with two wide fla"
+ }
+}

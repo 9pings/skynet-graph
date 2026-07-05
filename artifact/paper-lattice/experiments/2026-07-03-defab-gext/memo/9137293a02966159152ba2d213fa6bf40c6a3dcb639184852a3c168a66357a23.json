@@ -1,0 +1,8 @@
+{
+ "response": "d_ag_broad",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: dense(silica_aerogel)\nCandidates:\nlabel: d_aerogel ~> ~dense(X) | aerogel(X)\nlabel: d_ag_broad ~> ~dense(X) | solid(X) & ~aerogel(X)\nlabel: d_ag_wrong_cond ~> ~dense(X) | foam(X)\nlabel: d_ag_"
+ }
+}

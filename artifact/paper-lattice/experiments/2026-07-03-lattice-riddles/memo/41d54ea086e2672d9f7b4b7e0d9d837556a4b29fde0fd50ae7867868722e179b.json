@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"sparrow\",\"category\":\"aviary\",\"condition\":\"\",\"color\":\"blue\",\"size\":\"\"},\"holes\":[{\"name\":\"aquarium\",\"size\":\"\"},{\"name\":\"aviary\",\"size\":\"\"},{\"name\":\"terrarium\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You have a blue sparrow and need to place it in one of these enclosures: the aquarium, the aviary, or the terrarium. Which enclosure should you choose?"
+ }
+}

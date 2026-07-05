@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nround",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You possess a yellow ball and must place it into one of three openings: the star-shaped hole, the square hole, or the round hole. Which hole do you choose?"
+ }
+}

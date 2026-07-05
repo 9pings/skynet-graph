@@ -1,0 +1,8 @@
+{
+ "response": "threepin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "Imagine you’re holding a UK-style red electrical plug with its distinctive shape. You’re about to plug it into one of three different wall sockets: one with round pins, another with flat pins, or the "
+ }
+}

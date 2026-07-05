@@ -1,0 +1,8 @@
+{
+ "response": "Here's the exception rule that addresses the anomaly while minimizing disruption to other expectations:\n\n**~> fish(X) & floaty(X) => ~female_gestates(X)**\n\n**Explanation:**\n\n*   **Anomaly:** The observation `female_gestates(floaty)` contradicts the general rule `r_gestate: fish(X) => female_gestates(X)`.\n*   **Specificity:** This exception rule is very specific. It only applies to fish that are also named \"floaty\". This avoids overriding the general rule for *all* fish.\n*   **Preserves other expectations:** This rule doesn't affect any other rules or observations. It only addresses the specific case of \"floaty\" being incorrectly identified as female-gestating.\n*   **Why it works:** The rule states that *normally*, if something is a fish *and* is named \"floaty\", it *doesn't* have a female gestating. This directly counteracts the incorrect assumption that floaty does.\n\n**In simpler terms:** \"Normally, if a fish is named 'floaty', it doesn't have a female gestating. There's an exception to the general rule about fish gestating.\"",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"female_gestates(floaty)\", list the candidate rules. Repl",
+  "user": "Facts: clownfish(nemo2), fish(floaty), fish(nemo2), fish(sandy), seahorse(floaty), seahorse(sandy).\nGeneral rules (=> means \"normally implies\"): r_gestate: fish(X) => female_gestates(X); r_cold_s: fis"
+ }
+}

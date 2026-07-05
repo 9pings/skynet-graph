@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nA red HDMI cable cannot be inserted into any of these wall outlets.",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You possess a red HDMI cable and need to insert it into one of these wall outlets: the circular-pin outlet, the flat-pin outlet, or the triangular-pin outlet. Which one should you choose?"
+ }
+}

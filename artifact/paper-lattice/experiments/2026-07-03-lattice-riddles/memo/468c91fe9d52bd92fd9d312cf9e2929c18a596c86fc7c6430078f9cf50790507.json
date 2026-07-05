@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"shark\",\"category\":\"aquarium\",\"condition\":\"\",\"color\":\"green\",\"size\":\"large\"},\"holes\":[{\"name\":\"aquarium\",\"size\":\"small\"},{\"name\":\"align_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought_thought",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You have a massive green shark. Should you place it in the small aquarium, the large aquarium, or the large terrarium?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nYou possess a moist blue sphere. Should you place it in the circular opening or the rectangular slot?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a damp blue ball. Put it into one of these holes: the round one, or the flat slot. Which one?"
+ }
+}

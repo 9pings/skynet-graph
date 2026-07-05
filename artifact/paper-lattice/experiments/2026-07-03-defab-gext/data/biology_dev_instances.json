@@ -1,0 +1,2919 @@
+{
+  "metadata": {
+    "domain": "biology",
+    "purpose": "local development",
+    "kb_stats": {
+      "rules": 16,
+      "facts": 45,
+      "subset": "vertebrates"
+    },
+    "total_instances": 114,
+    "generation_date": "2026-02-12T07:18:10.450080"
+  },
+  "partition_results": {
+    "leaf": {
+      "instances": 20,
+      "defeasible_rules": 45
+    },
+    "rule": {
+      "instances": 0,
+      "defeasible_rules": 16
+    },
+    "rand_0.1": {
+      "instances": 5,
+      "defeasible_rules": 9
+    },
+    "rand_0.2": {
+      "instances": 6,
+      "defeasible_rules": 14
+    },
+    "rand_0.3": {
+      "instances": 9,
+      "defeasible_rules": 24
+    },
+    "rand_0.4": {
+      "instances": 11,
+      "defeasible_rules": 30
+    },
+    "rand_0.5": {
+      "instances": 11,
+      "defeasible_rules": 31
+    },
+    "rand_0.6": {
+      "instances": 15,
+      "defeasible_rules": 37
+    },
+    "rand_0.7": {
+      "instances": 11,
+      "defeasible_rules": 46
+    },
+    "rand_0.8": {
+      "instances": 12,
+      "defeasible_rules": 50
+    },
+    "rand_0.9": {
+      "instances": 14,
+      "defeasible_rules": 57
+    },
+    "depth_1": {
+      "instances": 0,
+      "defeasible_rules": 17
+    },
+    "depth_2": {
+      "instances": 0,
+      "defeasible_rules": 0
+    }
+  },
+  "instances": [
+    {
+      "target": "bird(owl)",
+      "level": 2,
+      "candidates": [
+        "df_bird(owl):  => bird(owl)",
+        "df_organism(dog):  => organism(dog)",
+        "df_animal(duck):  => animal(duck)",
+        "df_organism(whale):  => organism(whale)",
+        "df_organism(duck):  => organism(duck)",
+        "df_organism(cat):  => organism(cat)"
+      ],
+      "gold": [
+        "df_bird(owl):  => bird(owl)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(owl)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "organism(shark)",
+      "level": 2,
+      "candidates": [
+        "df_organism(shark):  => organism(shark)",
+        "df_animal(lion):  => animal(lion)",
+        "df_bird(owl):  => bird(owl)",
+        "df_animal(bat):  => animal(bat)",
+        "df_organism(cat):  => organism(cat)",
+        "df_animal(duck):  => animal(duck)"
+      ],
+      "gold": [
+        "df_organism(shark):  => organism(shark)"
+      ],
+      "metadata": {
+        "ablated_element": "df_organism(shark)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "organism(eagle)",
+      "level": 2,
+      "candidates": [
+        "df_organism(eagle):  => organism(eagle)",
+        "df_organism(shark):  => organism(shark)",
+        "df_mammal(dog):  => mammal(dog)",
+        "df_animal(bat):  => animal(bat)",
+        "df_animal(eagle):  => animal(eagle)",
+        "df_fish(goldfish):  => fish(goldfish)"
+      ],
+      "gold": [
+        "df_organism(eagle):  => organism(eagle)"
+      ],
+      "metadata": {
+        "ablated_element": "df_organism(eagle)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "organism(whale)",
+      "level": 2,
+      "candidates": [
+        "df_organism(whale):  => organism(whale)",
+        "df_organism(goldfish):  => organism(goldfish)",
+        "df_organism(shark):  => organism(shark)",
+        "df_animal(salmon):  => animal(salmon)",
+        "df_mammal(dolphin):  => mammal(dolphin)",
+        "df_organism(parrot):  => organism(parrot)"
+      ],
+      "gold": [
+        "df_organism(whale):  => organism(whale)"
+      ],
+      "metadata": {
+        "ablated_element": "df_organism(whale)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "animal(salmon)",
+      "level": 2,
+      "candidates": [
+        "df_animal(salmon):  => animal(salmon)",
+        "df_organism(dog):  => organism(dog)",
+        "df_organism(dolphin):  => organism(dolphin)",
+        "df_mammal(cat):  => mammal(cat)",
+        "df_organism(shark):  => organism(shark)",
+        "df_organism(parrot):  => organism(parrot)"
+      ],
+      "gold": [
+        "df_animal(salmon):  => animal(salmon)"
+      ],
+      "metadata": {
+        "ablated_element": "df_animal(salmon)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "organism(dog)",
+      "level": 2,
+      "candidates": [
+        "df_organism(dog):  => organism(dog)",
+        "df_organism(whale):  => organism(whale)",
+        "df_bird(duck):  => bird(duck)",
+        "df_animal(lion):  => animal(lion)",
+        "df_animal(penguin):  => animal(penguin)",
+        "df_mammal(bat):  => mammal(bat)"
+      ],
+      "gold": [
+        "df_organism(dog):  => organism(dog)"
+      ],
+      "metadata": {
+        "ablated_element": "df_organism(dog)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "animal(owl)",
+      "level": 2,
+      "candidates": [
+        "df_animal(owl):  => animal(owl)",
+        "df_organism(whale):  => organism(whale)",
+        "df_mammal(dog):  => mammal(dog)",
+        "df_organism(lion):  => organism(lion)",
+        "df_animal(dog):  => animal(dog)",
+        "df_animal(whale):  => animal(whale)"
+      ],
+      "gold": [
+        "df_animal(owl):  => animal(owl)"
+      ],
+      "metadata": {
+        "ablated_element": "df_animal(owl)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(parrot)",
+      "level": 2,
+      "candidates": [
+        "df_bird(parrot):  => bird(parrot)",
+        "df_mammal(cat):  => mammal(cat)",
+        "df_animal(parrot):  => animal(parrot)",
+        "df_organism(salmon):  => organism(salmon)",
+        "df_animal(lion):  => animal(lion)",
+        "df_organism(dolphin):  => organism(dolphin)"
+      ],
+      "gold": [
+        "df_bird(parrot):  => bird(parrot)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(parrot)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "animal(robin)",
+      "level": 2,
+      "candidates": [
+        "df_animal(robin):  => animal(robin)",
+        "df_bird(owl):  => bird(owl)",
+        "df_organism(lion):  => organism(lion)",
+        "df_fish(salmon):  => fish(salmon)",
+        "df_mammal(bat):  => mammal(bat)",
+        "df_animal(goldfish):  => animal(goldfish)"
+      ],
+      "gold": [
+        "df_animal(robin):  => animal(robin)"
+      ],
+      "metadata": {
+        "ablated_element": "df_animal(robin)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "animal(bat)",
+      "level": 2,
+      "candidates": [
+        "df_animal(bat):  => animal(bat)",
+        "df_bird(owl):  => bird(owl)",
+        "df_animal(dog):  => animal(dog)",
+        "df_organism(shark):  => organism(shark)",
+        "df_organism(salmon):  => organism(salmon)",
+        "df_mammal(whale):  => mammal(whale)"
+      ],
+      "gold": [
+        "df_animal(bat):  => animal(bat)"
+      ],
+      "metadata": {
+        "ablated_element": "df_animal(bat)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(bat)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(bat):  => mammal(bat)",
+        "df_bird(duck):  => bird(duck)",
+        "df_animal(cat):  => animal(cat)",
+        "df_bird(robin):  => bird(robin)",
+        "df_animal(salmon):  => animal(salmon)",
+        "df_animal(dolphin):  => animal(dolphin)"
+      ],
+      "gold": [
+        "df_mammal(bat):  => mammal(bat)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(bat)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "animal(dog)",
+      "level": 2,
+      "candidates": [
+        "df_animal(dog):  => animal(dog)",
+        "df_bird(parrot):  => bird(parrot)",
+        "df_organism(parrot):  => organism(parrot)",
+        "df_animal(robin):  => animal(robin)",
+        "df_organism(goldfish):  => organism(goldfish)",
+        "df_organism(penguin):  => organism(penguin)"
+      ],
+      "gold": [
+        "df_animal(dog):  => animal(dog)"
+      ],
+      "metadata": {
+        "ablated_element": "df_animal(dog)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(duck)",
+      "level": 2,
+      "candidates": [
+        "df_bird(duck):  => bird(duck)",
+        "df_organism(dog):  => organism(dog)",
+        "df_animal(cat):  => animal(cat)",
+        "df_mammal(dog):  => mammal(dog)",
+        "df_organism(lion):  => organism(lion)",
+        "df_bird(penguin):  => bird(penguin)"
+      ],
+      "gold": [
+        "df_bird(duck):  => bird(duck)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(duck)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "animal(dolphin)",
+      "level": 2,
+      "candidates": [
+        "df_animal(dolphin):  => animal(dolphin)",
+        "df_mammal(lion):  => mammal(lion)",
+        "df_animal(owl):  => animal(owl)",
+        "df_mammal(bat):  => mammal(bat)",
+        "df_mammal(cat):  => mammal(cat)",
+        "df_bird(robin):  => bird(robin)"
+      ],
+      "gold": [
+        "df_animal(dolphin):  => animal(dolphin)"
+      ],
+      "metadata": {
+        "ablated_element": "df_animal(dolphin)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "organism(owl)",
+      "level": 2,
+      "candidates": [
+        "df_organism(owl):  => organism(owl)",
+        "df_organism(dog):  => organism(dog)",
+        "df_mammal(lion):  => mammal(lion)",
+        "df_organism(parrot):  => organism(parrot)",
+        "df_organism(salmon):  => organism(salmon)",
+        "df_mammal(dog):  => mammal(dog)"
+      ],
+      "gold": [
+        "df_organism(owl):  => organism(owl)"
+      ],
+      "metadata": {
+        "ablated_element": "df_organism(owl)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(eagle)",
+      "level": 2,
+      "candidates": [
+        "df_bird(eagle):  => bird(eagle)",
+        "df_animal(duck):  => animal(duck)",
+        "df_organism(cat):  => organism(cat)",
+        "df_bird(robin):  => bird(robin)",
+        "df_animal(shark):  => animal(shark)",
+        "df_animal(lion):  => animal(lion)"
+      ],
+      "gold": [
+        "df_bird(eagle):  => bird(eagle)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(eagle)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "animal(penguin)",
+      "level": 2,
+      "candidates": [
+        "df_animal(penguin):  => animal(penguin)",
+        "df_organism(dog):  => organism(dog)",
+        "df_fish(goldfish):  => fish(goldfish)",
+        "df_mammal(dog):  => mammal(dog)",
+        "df_bird(duck):  => bird(duck)",
+        "df_bird(owl):  => bird(owl)"
+      ],
+      "gold": [
+        "df_animal(penguin):  => animal(penguin)"
+      ],
+      "metadata": {
+        "ablated_element": "df_animal(penguin)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "animal(lion)",
+      "level": 2,
+      "candidates": [
+        "df_animal(lion):  => animal(lion)",
+        "df_fish(salmon):  => fish(salmon)",
+        "df_mammal(lion):  => mammal(lion)",
+        "df_bird(robin):  => bird(robin)",
+        "df_mammal(whale):  => mammal(whale)",
+        "df_organism(duck):  => organism(duck)"
+      ],
+      "gold": [
+        "df_animal(lion):  => animal(lion)"
+      ],
+      "metadata": {
+        "ablated_element": "df_animal(lion)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(dolphin)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(dolphin):  => mammal(dolphin)",
+        "df_organism(penguin):  => organism(penguin)",
+        "df_organism(parrot):  => organism(parrot)",
+        "df_animal(cat):  => animal(cat)",
+        "df_animal(robin):  => animal(robin)",
+        "df_animal(penguin):  => animal(penguin)"
+      ],
+      "gold": [
+        "df_mammal(dolphin):  => mammal(dolphin)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(dolphin)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "organism(goldfish)",
+      "level": 2,
+      "candidates": [
+        "df_organism(goldfish):  => organism(goldfish)",
+        "df_animal(penguin):  => animal(penguin)",
+        "df_organism(duck):  => organism(duck)",
+        "df_fish(goldfish):  => fish(goldfish)",
+        "df_mammal(lion):  => mammal(lion)",
+        "df_bird(parrot):  => bird(parrot)"
+      ],
+      "gold": [
+        "df_organism(goldfish):  => organism(goldfish)"
+      ],
+      "metadata": {
+        "ablated_element": "df_organism(goldfish)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(parrot)",
+      "level": 2,
+      "candidates": [
+        "df_bird(parrot):  => bird(parrot)",
+        "df_bird(penguin):  => bird(penguin)",
+        "df_organism(goldfish):  => organism(goldfish)",
+        "df_animal(shark):  => animal(shark)",
+        "df_mammal(cat):  => mammal(cat)",
+        "df_bird(duck):  => bird(duck)"
+      ],
+      "gold": [
+        "df_bird(parrot):  => bird(parrot)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(parrot)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(duck)",
+      "level": 2,
+      "candidates": [
+        "df_bird(duck):  => bird(duck)",
+        "df_animal(bat):  => animal(bat)",
+        "df_mammal(cat):  => mammal(cat)",
+        "df_animal(parrot):  => animal(parrot)",
+        "df_organism(shark):  => organism(shark)",
+        "df_bird(penguin):  => bird(penguin)"
+      ],
+      "gold": [
+        "df_bird(duck):  => bird(duck)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(duck)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "animal(parrot)",
+      "level": 2,
+      "candidates": [
+        "df_animal(parrot):  => animal(parrot)",
+        "df_animal(bat):  => animal(bat)",
+        "df_organism(goldfish):  => organism(goldfish)",
+        "df_mammal(cat):  => mammal(cat)",
+        "df_bird(parrot):  => bird(parrot)",
+        "df_bird(penguin):  => bird(penguin)"
+      ],
+      "gold": [
+        "df_animal(parrot):  => animal(parrot)"
+      ],
+      "metadata": {
+        "ablated_element": "df_animal(parrot)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(penguin)",
+      "level": 2,
+      "candidates": [
+        "df_bird(penguin):  => bird(penguin)",
+        "df_animal(bat):  => animal(bat)",
+        "df_bird(duck):  => bird(duck)",
+        "df_organism(goldfish):  => organism(goldfish)",
+        "df_organism(shark):  => organism(shark)",
+        "df_animal(shark):  => animal(shark)"
+      ],
+      "gold": [
+        "df_bird(penguin):  => bird(penguin)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(penguin)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(cat)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(cat):  => mammal(cat)",
+        "df_animal(bat):  => animal(bat)",
+        "df_animal(parrot):  => animal(parrot)",
+        "df_bird(parrot):  => bird(parrot)",
+        "df_organism(shark):  => organism(shark)",
+        "df_bird(penguin):  => bird(penguin)"
+      ],
+      "gold": [
+        "df_mammal(cat):  => mammal(cat)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(cat)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(parrot)",
+      "level": 2,
+      "candidates": [
+        "df_bird(parrot):  => bird(parrot)",
+        "df_organism(shark):  => organism(shark)",
+        "df_bird(penguin):  => bird(penguin)",
+        "df_mammal(whale):  => mammal(whale)",
+        "df_animal(bat):  => animal(bat)",
+        "df_mammal(cat):  => mammal(cat)"
+      ],
+      "gold": [
+        "df_bird(parrot):  => bird(parrot)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(parrot)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(duck)",
+      "level": 2,
+      "candidates": [
+        "df_bird(duck):  => bird(duck)",
+        "df_animal(shark):  => animal(shark)",
+        "df_bird(parrot):  => bird(parrot)",
+        "df_animal(parrot):  => animal(parrot)",
+        "df_animal(dolphin):  => animal(dolphin)",
+        "df_organism(goldfish):  => organism(goldfish)"
+      ],
+      "gold": [
+        "df_bird(duck):  => bird(duck)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(duck)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(whale)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(whale):  => mammal(whale)",
+        "df_bird(duck):  => bird(duck)",
+        "df_bird(parrot):  => bird(parrot)",
+        "df_organism(shark):  => organism(shark)",
+        "df_organism(goldfish):  => organism(goldfish)",
+        "df_bird(penguin):  => bird(penguin)"
+      ],
+      "gold": [
+        "df_mammal(whale):  => mammal(whale)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(whale)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "animal(parrot)",
+      "level": 2,
+      "candidates": [
+        "df_animal(parrot):  => animal(parrot)",
+        "df_animal(dolphin):  => animal(dolphin)",
+        "df_bird(parrot):  => bird(parrot)",
+        "df_mammal(whale):  => mammal(whale)",
+        "df_mammal(cat):  => mammal(cat)",
+        "df_organism(goldfish):  => organism(goldfish)"
+      ],
+      "gold": [
+        "df_animal(parrot):  => animal(parrot)"
+      ],
+      "metadata": {
+        "ablated_element": "df_animal(parrot)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(penguin)",
+      "level": 2,
+      "candidates": [
+        "df_bird(penguin):  => bird(penguin)",
+        "df_organism(goldfish):  => organism(goldfish)",
+        "df_animal(shark):  => animal(shark)",
+        "df_animal(parrot):  => animal(parrot)",
+        "df_bird(parrot):  => bird(parrot)",
+        "df_animal(bat):  => animal(bat)"
+      ],
+      "gold": [
+        "df_bird(penguin):  => bird(penguin)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(penguin)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(cat)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(cat):  => mammal(cat)",
+        "df_animal(parrot):  => animal(parrot)",
+        "df_animal(dolphin):  => animal(dolphin)",
+        "df_organism(shark):  => organism(shark)",
+        "df_organism(goldfish):  => organism(goldfish)",
+        "df_animal(shark):  => animal(shark)"
+      ],
+      "gold": [
+        "df_mammal(cat):  => mammal(cat)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(cat)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "organism(shark)",
+      "level": 2,
+      "candidates": [
+        "df_organism(shark):  => organism(shark)",
+        "df_organism(whale):  => organism(whale)",
+        "df_animal(parrot):  => animal(parrot)",
+        "df_organism(dolphin):  => organism(dolphin)",
+        "df_animal(bat):  => animal(bat)",
+        "df_animal(dolphin):  => animal(dolphin)"
+      ],
+      "gold": [
+        "df_organism(shark):  => organism(shark)"
+      ],
+      "metadata": {
+        "ablated_element": "df_organism(shark)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(parrot)",
+      "level": 2,
+      "candidates": [
+        "df_bird(parrot):  => bird(parrot)",
+        "df_mammal(cat):  => mammal(cat)",
+        "df_bird(duck):  => bird(duck)",
+        "df_animal(parrot):  => animal(parrot)",
+        "df_animal(bat):  => animal(bat)",
+        "df_animal(dolphin):  => animal(dolphin)"
+      ],
+      "gold": [
+        "df_bird(parrot):  => bird(parrot)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(parrot)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(bat)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(bat):  => mammal(bat)",
+        "df_animal(penguin):  => animal(penguin)",
+        "df_organism(whale):  => organism(whale)",
+        "df_bird(parrot):  => bird(parrot)",
+        "df_mammal(cat):  => mammal(cat)",
+        "df_organism(goldfish):  => organism(goldfish)"
+      ],
+      "gold": [
+        "df_mammal(bat):  => mammal(bat)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(bat)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(duck)",
+      "level": 2,
+      "candidates": [
+        "df_bird(duck):  => bird(duck)",
+        "df_mammal(whale):  => mammal(whale)",
+        "df_organism(shark):  => organism(shark)",
+        "df_organism(eagle):  => organism(eagle)",
+        "df_animal(dolphin):  => animal(dolphin)",
+        "df_mammal(cat):  => mammal(cat)"
+      ],
+      "gold": [
+        "df_bird(duck):  => bird(duck)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(duck)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(whale)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(whale):  => mammal(whale)",
+        "df_bird(penguin):  => bird(penguin)",
+        "df_bird(parrot):  => bird(parrot)",
+        "df_mammal(bat):  => mammal(bat)",
+        "df_organism(shark):  => organism(shark)",
+        "df_animal(parrot):  => animal(parrot)"
+      ],
+      "gold": [
+        "df_mammal(whale):  => mammal(whale)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(whale)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(penguin)",
+      "level": 2,
+      "candidates": [
+        "df_bird(penguin):  => bird(penguin)",
+        "df_animal(shark):  => animal(shark)",
+        "df_mammal(whale):  => mammal(whale)",
+        "df_organism(dolphin):  => organism(dolphin)",
+        "df_animal(bat):  => animal(bat)",
+        "df_organism(eagle):  => organism(eagle)"
+      ],
+      "gold": [
+        "df_bird(penguin):  => bird(penguin)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(penguin)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "organism(dolphin)",
+      "level": 2,
+      "candidates": [
+        "df_organism(dolphin):  => organism(dolphin)",
+        "df_organism(whale):  => organism(whale)",
+        "df_bird(duck):  => bird(duck)",
+        "df_organism(shark):  => organism(shark)",
+        "df_animal(parrot):  => animal(parrot)",
+        "df_mammal(cat):  => mammal(cat)"
+      ],
+      "gold": [
+        "df_organism(dolphin):  => organism(dolphin)"
+      ],
+      "metadata": {
+        "ablated_element": "df_organism(dolphin)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "organism(parrot)",
+      "level": 2,
+      "candidates": [
+        "df_organism(parrot):  => organism(parrot)",
+        "df_animal(penguin):  => animal(penguin)",
+        "df_organism(shark):  => organism(shark)",
+        "df_bird(duck):  => bird(duck)",
+        "df_animal(bat):  => animal(bat)",
+        "df_mammal(whale):  => mammal(whale)"
+      ],
+      "gold": [
+        "df_organism(parrot):  => organism(parrot)"
+      ],
+      "metadata": {
+        "ablated_element": "df_organism(parrot)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(cat)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(cat):  => mammal(cat)",
+        "df_mammal(whale):  => mammal(whale)",
+        "df_organism(whale):  => organism(whale)",
+        "df_bird(parrot):  => bird(parrot)",
+        "df_animal(dolphin):  => animal(dolphin)",
+        "df_bird(penguin):  => bird(penguin)"
+      ],
+      "gold": [
+        "df_mammal(cat):  => mammal(cat)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(cat)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "organism(shark)",
+      "level": 2,
+      "candidates": [
+        "df_organism(shark):  => organism(shark)",
+        "df_organism(parrot):  => organism(parrot)",
+        "df_mammal(bat):  => mammal(bat)",
+        "df_bird(parrot):  => bird(parrot)",
+        "df_animal(eagle):  => animal(eagle)",
+        "df_mammal(cat):  => mammal(cat)"
+      ],
+      "gold": [
+        "df_organism(shark):  => organism(shark)"
+      ],
+      "metadata": {
+        "ablated_element": "df_organism(shark)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "organism(eagle)",
+      "level": 2,
+      "candidates": [
+        "df_organism(eagle):  => organism(eagle)",
+        "df_organism(shark):  => organism(shark)",
+        "df_organism(dolphin):  => organism(dolphin)",
+        "df_bird(penguin):  => bird(penguin)",
+        "df_animal(shark):  => animal(shark)",
+        "df_mammal(cat):  => mammal(cat)"
+      ],
+      "gold": [
+        "df_organism(eagle):  => organism(eagle)"
+      ],
+      "metadata": {
+        "ablated_element": "df_organism(eagle)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(parrot)",
+      "level": 2,
+      "candidates": [
+        "df_bird(parrot):  => bird(parrot)",
+        "df_animal(penguin):  => animal(penguin)",
+        "df_bird(duck):  => bird(duck)",
+        "df_mammal(bat):  => mammal(bat)",
+        "df_organism(whale):  => organism(whale)",
+        "df_organism(goldfish):  => organism(goldfish)"
+      ],
+      "gold": [
+        "df_bird(parrot):  => bird(parrot)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(parrot)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(bat)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(bat):  => mammal(bat)",
+        "df_organism(cat):  => organism(cat)",
+        "df_animal(eagle):  => animal(eagle)",
+        "df_organism(shark):  => organism(shark)",
+        "df_organism(whale):  => organism(whale)",
+        "df_animal(penguin):  => animal(penguin)"
+      ],
+      "gold": [
+        "df_mammal(bat):  => mammal(bat)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(bat)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(duck)",
+      "level": 2,
+      "candidates": [
+        "df_bird(duck):  => bird(duck)",
+        "df_organism(whale):  => organism(whale)",
+        "df_bird(robin):  => bird(robin)",
+        "df_bird(parrot):  => bird(parrot)",
+        "df_animal(eagle):  => animal(eagle)",
+        "df_animal(parrot):  => animal(parrot)"
+      ],
+      "gold": [
+        "df_bird(duck):  => bird(duck)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(duck)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(whale)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(whale):  => mammal(whale)",
+        "df_bird(robin):  => bird(robin)",
+        "df_organism(parrot):  => organism(parrot)",
+        "df_mammal(cat):  => mammal(cat)",
+        "df_organism(shark):  => organism(shark)",
+        "df_bird(penguin):  => bird(penguin)"
+      ],
+      "gold": [
+        "df_mammal(whale):  => mammal(whale)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(whale)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(robin)",
+      "level": 2,
+      "candidates": [
+        "df_bird(robin):  => bird(robin)",
+        "df_organism(dolphin):  => organism(dolphin)",
+        "df_animal(dolphin):  => animal(dolphin)",
+        "df_organism(eagle):  => organism(eagle)",
+        "df_organism(whale):  => organism(whale)",
+        "df_organism(cat):  => organism(cat)"
+      ],
+      "gold": [
+        "df_bird(robin):  => bird(robin)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(robin)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(penguin)",
+      "level": 2,
+      "candidates": [
+        "df_bird(penguin):  => bird(penguin)",
+        "df_mammal(cat):  => mammal(cat)",
+        "df_bird(duck):  => bird(duck)",
+        "df_organism(parrot):  => organism(parrot)",
+        "df_animal(eagle):  => animal(eagle)",
+        "df_organism(whale):  => organism(whale)"
+      ],
+      "gold": [
+        "df_bird(penguin):  => bird(penguin)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(penguin)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "organism(dolphin)",
+      "level": 2,
+      "candidates": [
+        "df_organism(dolphin):  => organism(dolphin)",
+        "df_mammal(bat):  => mammal(bat)",
+        "df_animal(eagle):  => animal(eagle)",
+        "df_animal(dolphin):  => animal(dolphin)",
+        "df_bird(parrot):  => bird(parrot)",
+        "df_mammal(cat):  => mammal(cat)"
+      ],
+      "gold": [
+        "df_organism(dolphin):  => organism(dolphin)"
+      ],
+      "metadata": {
+        "ablated_element": "df_organism(dolphin)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "organism(parrot)",
+      "level": 2,
+      "candidates": [
+        "df_organism(parrot):  => organism(parrot)",
+        "df_animal(bat):  => animal(bat)",
+        "df_bird(duck):  => bird(duck)",
+        "df_organism(whale):  => organism(whale)",
+        "df_animal(eagle):  => animal(eagle)",
+        "df_mammal(cat):  => mammal(cat)"
+      ],
+      "gold": [
+        "df_organism(parrot):  => organism(parrot)"
+      ],
+      "metadata": {
+        "ablated_element": "df_organism(parrot)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(cat)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(cat):  => mammal(cat)",
+        "df_bird(penguin):  => bird(penguin)",
+        "df_bird(robin):  => bird(robin)",
+        "df_mammal(bat):  => mammal(bat)",
+        "df_organism(eagle):  => organism(eagle)",
+        "df_bird(parrot):  => bird(parrot)"
+      ],
+      "gold": [
+        "df_mammal(cat):  => mammal(cat)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(cat)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "organism(shark)",
+      "level": 2,
+      "candidates": [
+        "df_organism(shark):  => organism(shark)",
+        "df_animal(parrot):  => animal(parrot)",
+        "df_organism(parrot):  => organism(parrot)",
+        "df_organism(eagle):  => organism(eagle)",
+        "df_animal(robin):  => animal(robin)",
+        "df_organism(whale):  => organism(whale)"
+      ],
+      "gold": [
+        "df_organism(shark):  => organism(shark)"
+      ],
+      "metadata": {
+        "ablated_element": "df_organism(shark)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "organism(eagle)",
+      "level": 2,
+      "candidates": [
+        "df_organism(eagle):  => organism(eagle)",
+        "df_animal(eagle):  => animal(eagle)",
+        "df_bird(parrot):  => bird(parrot)",
+        "df_animal(parrot):  => animal(parrot)",
+        "df_mammal(bat):  => mammal(bat)",
+        "df_animal(penguin):  => animal(penguin)"
+      ],
+      "gold": [
+        "df_organism(eagle):  => organism(eagle)"
+      ],
+      "metadata": {
+        "ablated_element": "df_organism(eagle)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(parrot)",
+      "level": 2,
+      "candidates": [
+        "df_bird(parrot):  => bird(parrot)",
+        "df_organism(whale):  => organism(whale)",
+        "df_organism(shark):  => organism(shark)",
+        "df_animal(bat):  => animal(bat)",
+        "df_animal(shark):  => animal(shark)",
+        "df_organism(eagle):  => organism(eagle)"
+      ],
+      "gold": [
+        "df_bird(parrot):  => bird(parrot)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(parrot)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(bat)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(bat):  => mammal(bat)",
+        "df_mammal(whale):  => mammal(whale)",
+        "df_bird(robin):  => bird(robin)",
+        "df_organism(cat):  => organism(cat)",
+        "df_mammal(cat):  => mammal(cat)",
+        "df_organism(parrot):  => organism(parrot)"
+      ],
+      "gold": [
+        "df_mammal(bat):  => mammal(bat)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(bat)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(duck)",
+      "level": 2,
+      "candidates": [
+        "df_bird(duck):  => bird(duck)",
+        "df_organism(cat):  => organism(cat)",
+        "df_animal(shark):  => animal(shark)",
+        "df_mammal(bat):  => mammal(bat)",
+        "df_mammal(whale):  => mammal(whale)",
+        "df_animal(eagle):  => animal(eagle)"
+      ],
+      "gold": [
+        "df_bird(duck):  => bird(duck)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(duck)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(whale)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(whale):  => mammal(whale)",
+        "df_bird(parrot):  => bird(parrot)",
+        "df_bird(penguin):  => bird(penguin)",
+        "df_organism(whale):  => organism(whale)",
+        "df_animal(dolphin):  => animal(dolphin)",
+        "df_organism(shark):  => organism(shark)"
+      ],
+      "gold": [
+        "df_mammal(whale):  => mammal(whale)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(whale)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(robin)",
+      "level": 2,
+      "candidates": [
+        "df_bird(robin):  => bird(robin)",
+        "df_organism(eagle):  => organism(eagle)",
+        "df_animal(penguin):  => animal(penguin)",
+        "df_bird(penguin):  => bird(penguin)",
+        "df_animal(eagle):  => animal(eagle)",
+        "df_animal(shark):  => animal(shark)"
+      ],
+      "gold": [
+        "df_bird(robin):  => bird(robin)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(robin)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(penguin)",
+      "level": 2,
+      "candidates": [
+        "df_bird(penguin):  => bird(penguin)",
+        "df_mammal(bat):  => mammal(bat)",
+        "df_mammal(whale):  => mammal(whale)",
+        "df_organism(cat):  => organism(cat)",
+        "df_organism(goldfish):  => organism(goldfish)",
+        "df_organism(shark):  => organism(shark)"
+      ],
+      "gold": [
+        "df_bird(penguin):  => bird(penguin)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(penguin)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "organism(dolphin)",
+      "level": 2,
+      "candidates": [
+        "df_organism(dolphin):  => organism(dolphin)",
+        "df_animal(bat):  => animal(bat)",
+        "df_bird(duck):  => bird(duck)",
+        "df_bird(penguin):  => bird(penguin)",
+        "df_organism(shark):  => organism(shark)",
+        "df_organism(eagle):  => organism(eagle)"
+      ],
+      "gold": [
+        "df_organism(dolphin):  => organism(dolphin)"
+      ],
+      "metadata": {
+        "ablated_element": "df_organism(dolphin)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "organism(parrot)",
+      "level": 2,
+      "candidates": [
+        "df_organism(parrot):  => organism(parrot)",
+        "df_animal(dolphin):  => animal(dolphin)",
+        "df_organism(goldfish):  => organism(goldfish)",
+        "df_bird(robin):  => bird(robin)",
+        "df_animal(parrot):  => animal(parrot)",
+        "df_bird(duck):  => bird(duck)"
+      ],
+      "gold": [
+        "df_organism(parrot):  => organism(parrot)"
+      ],
+      "metadata": {
+        "ablated_element": "df_organism(parrot)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(cat)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(cat):  => mammal(cat)",
+        "df_bird(parrot):  => bird(parrot)",
+        "df_animal(robin):  => animal(robin)",
+        "df_mammal(bat):  => mammal(bat)",
+        "df_animal(dolphin):  => animal(dolphin)",
+        "df_organism(shark):  => organism(shark)"
+      ],
+      "gold": [
+        "df_mammal(cat):  => mammal(cat)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(cat)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "organism(shark)",
+      "level": 2,
+      "candidates": [
+        "df_organism(shark):  => organism(shark)",
+        "df_organism(whale):  => organism(whale)",
+        "df_animal(dolphin):  => animal(dolphin)",
+        "df_bird(eagle):  => bird(eagle)",
+        "df_mammal(lion):  => mammal(lion)",
+        "df_animal(dog):  => animal(dog)"
+      ],
+      "gold": [
+        "df_organism(shark):  => organism(shark)"
+      ],
+      "metadata": {
+        "ablated_element": "df_organism(shark)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "organism(eagle)",
+      "level": 2,
+      "candidates": [
+        "df_organism(eagle):  => organism(eagle)",
+        "df_mammal(bat):  => mammal(bat)",
+        "df_animal(whale):  => animal(whale)",
+        "df_animal(robin):  => animal(robin)",
+        "df_organism(cat):  => organism(cat)",
+        "df_animal(bat):  => animal(bat)"
+      ],
+      "gold": [
+        "df_organism(eagle):  => organism(eagle)"
+      ],
+      "metadata": {
+        "ablated_element": "df_organism(eagle)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "organism(whale)",
+      "level": 2,
+      "candidates": [
+        "df_organism(whale):  => organism(whale)",
+        "df_animal(cat):  => animal(cat)",
+        "df_organism(dolphin):  => organism(dolphin)",
+        "df_organism(goldfish):  => organism(goldfish)",
+        "df_mammal(cat):  => mammal(cat)",
+        "df_animal(bat):  => animal(bat)"
+      ],
+      "gold": [
+        "df_organism(whale):  => organism(whale)"
+      ],
+      "metadata": {
+        "ablated_element": "df_organism(whale)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(parrot)",
+      "level": 2,
+      "candidates": [
+        "df_bird(parrot):  => bird(parrot)",
+        "df_animal(bat):  => animal(bat)",
+        "df_organism(parrot):  => organism(parrot)",
+        "df_organism(shark):  => organism(shark)",
+        "df_animal(lion):  => animal(lion)",
+        "df_animal(dolphin):  => animal(dolphin)"
+      ],
+      "gold": [
+        "df_bird(parrot):  => bird(parrot)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(parrot)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(bat)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(bat):  => mammal(bat)",
+        "df_animal(eagle):  => animal(eagle)",
+        "df_bird(eagle):  => bird(eagle)",
+        "df_animal(bat):  => animal(bat)",
+        "df_animal(penguin):  => animal(penguin)",
+        "df_organism(dolphin):  => organism(dolphin)"
+      ],
+      "gold": [
+        "df_mammal(bat):  => mammal(bat)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(bat)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(duck)",
+      "level": 2,
+      "candidates": [
+        "df_bird(duck):  => bird(duck)",
+        "df_animal(bat):  => animal(bat)",
+        "df_animal(dolphin):  => animal(dolphin)",
+        "df_bird(penguin):  => bird(penguin)",
+        "df_organism(shark):  => organism(shark)",
+        "df_organism(dolphin):  => organism(dolphin)"
+      ],
+      "gold": [
+        "df_bird(duck):  => bird(duck)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(duck)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(eagle)",
+      "level": 2,
+      "candidates": [
+        "df_bird(eagle):  => bird(eagle)",
+        "df_animal(whale):  => animal(whale)",
+        "df_organism(parrot):  => organism(parrot)",
+        "df_animal(shark):  => animal(shark)",
+        "df_animal(dog):  => animal(dog)",
+        "df_bird(parrot):  => bird(parrot)"
+      ],
+      "gold": [
+        "df_bird(eagle):  => bird(eagle)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(eagle)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(whale)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(whale):  => mammal(whale)",
+        "df_organism(whale):  => organism(whale)",
+        "df_organism(cat):  => organism(cat)",
+        "df_animal(whale):  => animal(whale)",
+        "df_organism(goldfish):  => organism(goldfish)",
+        "df_animal(penguin):  => animal(penguin)"
+      ],
+      "gold": [
+        "df_mammal(whale):  => mammal(whale)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(whale)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "organism(cat)",
+      "level": 2,
+      "candidates": [
+        "df_organism(cat):  => organism(cat)",
+        "df_animal(bat):  => animal(bat)",
+        "df_bird(eagle):  => bird(eagle)",
+        "df_animal(dolphin):  => animal(dolphin)",
+        "df_organism(whale):  => organism(whale)",
+        "df_animal(dog):  => animal(dog)"
+      ],
+      "gold": [
+        "df_organism(cat):  => organism(cat)"
+      ],
+      "metadata": {
+        "ablated_element": "df_organism(cat)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(robin)",
+      "level": 2,
+      "candidates": [
+        "df_bird(robin):  => bird(robin)",
+        "df_animal(dog):  => animal(dog)",
+        "df_animal(lion):  => animal(lion)",
+        "df_bird(penguin):  => bird(penguin)",
+        "df_mammal(cat):  => mammal(cat)",
+        "df_organism(cat):  => organism(cat)"
+      ],
+      "gold": [
+        "df_bird(robin):  => bird(robin)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(robin)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(lion)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(lion):  => mammal(lion)",
+        "df_mammal(cat):  => mammal(cat)",
+        "df_organism(whale):  => organism(whale)",
+        "df_organism(shark):  => organism(shark)",
+        "df_organism(parrot):  => organism(parrot)",
+        "df_bird(duck):  => bird(duck)"
+      ],
+      "gold": [
+        "df_mammal(lion):  => mammal(lion)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(lion)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(penguin)",
+      "level": 2,
+      "candidates": [
+        "df_bird(penguin):  => bird(penguin)",
+        "df_bird(duck):  => bird(duck)",
+        "df_animal(shark):  => animal(shark)",
+        "df_mammal(lion):  => mammal(lion)",
+        "df_animal(eagle):  => animal(eagle)",
+        "df_animal(cat):  => animal(cat)"
+      ],
+      "gold": [
+        "df_bird(penguin):  => bird(penguin)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(penguin)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "organism(dolphin)",
+      "level": 2,
+      "candidates": [
+        "df_organism(dolphin):  => organism(dolphin)",
+        "df_animal(penguin):  => animal(penguin)",
+        "df_animal(lion):  => animal(lion)",
+        "df_bird(robin):  => bird(robin)",
+        "df_animal(robin):  => animal(robin)",
+        "df_bird(parrot):  => bird(parrot)"
+      ],
+      "gold": [
+        "df_organism(dolphin):  => organism(dolphin)"
+      ],
+      "metadata": {
+        "ablated_element": "df_organism(dolphin)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "organism(parrot)",
+      "level": 2,
+      "candidates": [
+        "df_organism(parrot):  => organism(parrot)",
+        "df_mammal(whale):  => mammal(whale)",
+        "df_bird(penguin):  => bird(penguin)",
+        "df_organism(goldfish):  => organism(goldfish)",
+        "df_animal(robin):  => animal(robin)",
+        "df_bird(parrot):  => bird(parrot)"
+      ],
+      "gold": [
+        "df_organism(parrot):  => organism(parrot)"
+      ],
+      "metadata": {
+        "ablated_element": "df_organism(parrot)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(cat)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(cat):  => mammal(cat)",
+        "df_animal(penguin):  => animal(penguin)",
+        "df_animal(lion):  => animal(lion)",
+        "df_bird(duck):  => bird(duck)",
+        "df_animal(parrot):  => animal(parrot)",
+        "df_mammal(whale):  => mammal(whale)"
+      ],
+      "gold": [
+        "df_mammal(cat):  => mammal(cat)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(cat)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(owl)",
+      "level": 2,
+      "candidates": [
+        "df_bird(owl):  => bird(owl)",
+        "df_animal(whale):  => animal(whale)",
+        "df_bird(duck):  => bird(duck)",
+        "df_organism(shark):  => organism(shark)",
+        "df_organism(duck):  => organism(duck)",
+        "df_mammal(dog):  => mammal(dog)"
+      ],
+      "gold": [
+        "df_bird(owl):  => bird(owl)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(owl)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(parrot)",
+      "level": 2,
+      "candidates": [
+        "df_bird(parrot):  => bird(parrot)",
+        "df_organism(dolphin):  => organism(dolphin)",
+        "df_animal(robin):  => animal(robin)",
+        "df_bird(owl):  => bird(owl)",
+        "df_animal(bat):  => animal(bat)",
+        "df_organism(dog):  => organism(dog)"
+      ],
+      "gold": [
+        "df_bird(parrot):  => bird(parrot)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(parrot)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(bat)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(bat):  => mammal(bat)",
+        "df_organism(owl):  => organism(owl)",
+        "df_mammal(cat):  => mammal(cat)",
+        "df_bird(owl):  => bird(owl)",
+        "df_mammal(lion):  => mammal(lion)",
+        "df_animal(eagle):  => animal(eagle)"
+      ],
+      "gold": [
+        "df_mammal(bat):  => mammal(bat)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(bat)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(duck)",
+      "level": 2,
+      "candidates": [
+        "df_bird(duck):  => bird(duck)",
+        "df_bird(robin):  => bird(robin)",
+        "df_bird(owl):  => bird(owl)",
+        "df_mammal(lion):  => mammal(lion)",
+        "df_animal(dog):  => animal(dog)",
+        "df_animal(penguin):  => animal(penguin)"
+      ],
+      "gold": [
+        "df_bird(duck):  => bird(duck)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(duck)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(eagle)",
+      "level": 2,
+      "candidates": [
+        "df_bird(eagle):  => bird(eagle)",
+        "df_mammal(bat):  => mammal(bat)",
+        "df_bird(penguin):  => bird(penguin)",
+        "df_animal(dolphin):  => animal(dolphin)",
+        "df_mammal(lion):  => mammal(lion)",
+        "df_organism(parrot):  => organism(parrot)"
+      ],
+      "gold": [
+        "df_bird(eagle):  => bird(eagle)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(eagle)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(whale)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(whale):  => mammal(whale)",
+        "df_animal(eagle):  => animal(eagle)",
+        "df_organism(cat):  => organism(cat)",
+        "df_bird(robin):  => bird(robin)",
+        "df_bird(parrot):  => bird(parrot)",
+        "df_mammal(bat):  => mammal(bat)"
+      ],
+      "gold": [
+        "df_mammal(whale):  => mammal(whale)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(whale)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(dog)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(dog):  => mammal(dog)",
+        "df_animal(cat):  => animal(cat)",
+        "df_organism(dolphin):  => organism(dolphin)",
+        "df_organism(parrot):  => organism(parrot)",
+        "df_mammal(lion):  => mammal(lion)",
+        "df_organism(dog):  => organism(dog)"
+      ],
+      "gold": [
+        "df_mammal(dog):  => mammal(dog)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(dog)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(robin)",
+      "level": 2,
+      "candidates": [
+        "df_bird(robin):  => bird(robin)",
+        "df_animal(penguin):  => animal(penguin)",
+        "df_organism(dog):  => organism(dog)",
+        "df_organism(dolphin):  => organism(dolphin)",
+        "df_bird(eagle):  => bird(eagle)",
+        "df_mammal(dog):  => mammal(dog)"
+      ],
+      "gold": [
+        "df_bird(robin):  => bird(robin)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(robin)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(lion)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(lion):  => mammal(lion)",
+        "df_mammal(cat):  => mammal(cat)",
+        "df_animal(cat):  => animal(cat)",
+        "df_bird(penguin):  => bird(penguin)",
+        "df_animal(robin):  => animal(robin)",
+        "df_organism(cat):  => organism(cat)"
+      ],
+      "gold": [
+        "df_mammal(lion):  => mammal(lion)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(lion)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(penguin)",
+      "level": 2,
+      "candidates": [
+        "df_bird(penguin):  => bird(penguin)",
+        "df_animal(eagle):  => animal(eagle)",
+        "df_animal(bat):  => animal(bat)",
+        "df_mammal(bat):  => mammal(bat)",
+        "df_organism(shark):  => organism(shark)",
+        "df_animal(goldfish):  => animal(goldfish)"
+      ],
+      "gold": [
+        "df_bird(penguin):  => bird(penguin)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(penguin)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(cat)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(cat):  => mammal(cat)",
+        "df_bird(owl):  => bird(owl)",
+        "df_organism(whale):  => organism(whale)",
+        "df_mammal(dog):  => mammal(dog)",
+        "df_animal(penguin):  => animal(penguin)",
+        "df_animal(lion):  => animal(lion)"
+      ],
+      "gold": [
+        "df_mammal(cat):  => mammal(cat)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(cat)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(owl)",
+      "level": 2,
+      "candidates": [
+        "df_bird(owl):  => bird(owl)",
+        "df_animal(salmon):  => animal(salmon)",
+        "df_animal(parrot):  => animal(parrot)",
+        "df_animal(robin):  => animal(robin)",
+        "df_organism(dog):  => organism(dog)",
+        "df_bird(robin):  => bird(robin)"
+      ],
+      "gold": [
+        "df_bird(owl):  => bird(owl)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(owl)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(parrot)",
+      "level": 2,
+      "candidates": [
+        "df_bird(parrot):  => bird(parrot)",
+        "df_organism(salmon):  => organism(salmon)",
+        "df_animal(dog):  => animal(dog)",
+        "df_bird(eagle):  => bird(eagle)",
+        "df_mammal(dog):  => mammal(dog)",
+        "df_organism(dolphin):  => organism(dolphin)"
+      ],
+      "gold": [
+        "df_bird(parrot):  => bird(parrot)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(parrot)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(bat)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(bat):  => mammal(bat)",
+        "df_organism(whale):  => organism(whale)",
+        "df_animal(parrot):  => animal(parrot)",
+        "df_animal(dog):  => animal(dog)",
+        "df_bird(owl):  => bird(owl)",
+        "df_bird(robin):  => bird(robin)"
+      ],
+      "gold": [
+        "df_mammal(bat):  => mammal(bat)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(bat)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(duck)",
+      "level": 2,
+      "candidates": [
+        "df_bird(duck):  => bird(duck)",
+        "df_organism(owl):  => organism(owl)",
+        "df_animal(lion):  => animal(lion)",
+        "df_animal(salmon):  => animal(salmon)",
+        "df_animal(parrot):  => animal(parrot)",
+        "df_mammal(whale):  => mammal(whale)"
+      ],
+      "gold": [
+        "df_bird(duck):  => bird(duck)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(duck)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(eagle)",
+      "level": 2,
+      "candidates": [
+        "df_bird(eagle):  => bird(eagle)",
+        "df_bird(penguin):  => bird(penguin)",
+        "df_organism(duck):  => organism(duck)",
+        "df_bird(owl):  => bird(owl)",
+        "df_animal(robin):  => animal(robin)",
+        "df_animal(eagle):  => animal(eagle)"
+      ],
+      "gold": [
+        "df_bird(eagle):  => bird(eagle)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(eagle)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(whale)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(whale):  => mammal(whale)",
+        "df_fish(goldfish):  => fish(goldfish)",
+        "df_animal(dolphin):  => animal(dolphin)",
+        "df_animal(shark):  => animal(shark)",
+        "df_bird(parrot):  => bird(parrot)",
+        "df_animal(cat):  => animal(cat)"
+      ],
+      "gold": [
+        "df_mammal(whale):  => mammal(whale)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(whale)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(dog)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(dog):  => mammal(dog)",
+        "df_organism(cat):  => organism(cat)",
+        "df_animal(parrot):  => animal(parrot)",
+        "df_organism(eagle):  => organism(eagle)",
+        "df_animal(shark):  => animal(shark)",
+        "df_bird(duck):  => bird(duck)"
+      ],
+      "gold": [
+        "df_mammal(dog):  => mammal(dog)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(dog)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(robin)",
+      "level": 2,
+      "candidates": [
+        "df_bird(robin):  => bird(robin)",
+        "df_organism(parrot):  => organism(parrot)",
+        "df_bird(parrot):  => bird(parrot)",
+        "df_organism(salmon):  => organism(salmon)",
+        "df_animal(cat):  => animal(cat)",
+        "df_animal(goldfish):  => animal(goldfish)"
+      ],
+      "gold": [
+        "df_bird(robin):  => bird(robin)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(robin)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(lion)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(lion):  => mammal(lion)",
+        "df_animal(robin):  => animal(robin)",
+        "df_animal(penguin):  => animal(penguin)",
+        "df_bird(owl):  => bird(owl)",
+        "df_animal(dog):  => animal(dog)",
+        "df_organism(dog):  => organism(dog)"
+      ],
+      "gold": [
+        "df_mammal(lion):  => mammal(lion)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(lion)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "fish(goldfish)",
+      "level": 2,
+      "candidates": [
+        "df_fish(goldfish):  => fish(goldfish)",
+        "df_organism(dog):  => organism(dog)",
+        "df_organism(owl):  => organism(owl)",
+        "df_organism(dolphin):  => organism(dolphin)",
+        "df_organism(cat):  => organism(cat)",
+        "df_animal(whale):  => animal(whale)"
+      ],
+      "gold": [
+        "df_fish(goldfish):  => fish(goldfish)"
+      ],
+      "metadata": {
+        "ablated_element": "df_fish(goldfish)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(penguin)",
+      "level": 2,
+      "candidates": [
+        "df_bird(penguin):  => bird(penguin)",
+        "df_organism(goldfish):  => organism(goldfish)",
+        "df_animal(dog):  => animal(dog)",
+        "df_mammal(cat):  => mammal(cat)",
+        "df_animal(salmon):  => animal(salmon)",
+        "df_animal(robin):  => animal(robin)"
+      ],
+      "gold": [
+        "df_bird(penguin):  => bird(penguin)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(penguin)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(cat)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(cat):  => mammal(cat)",
+        "df_animal(bat):  => animal(bat)",
+        "df_bird(owl):  => bird(owl)",
+        "df_mammal(dog):  => mammal(dog)",
+        "df_animal(dolphin):  => animal(dolphin)",
+        "df_organism(salmon):  => organism(salmon)"
+      ],
+      "gold": [
+        "df_mammal(cat):  => mammal(cat)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(cat)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(owl)",
+      "level": 2,
+      "candidates": [
+        "df_bird(owl):  => bird(owl)",
+        "df_organism(eagle):  => organism(eagle)",
+        "df_organism(duck):  => organism(duck)",
+        "df_mammal(cat):  => mammal(cat)",
+        "df_organism(robin):  => organism(robin)",
+        "df_animal(eagle):  => animal(eagle)"
+      ],
+      "gold": [
+        "df_bird(owl):  => bird(owl)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(owl)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(parrot)",
+      "level": 2,
+      "candidates": [
+        "df_bird(parrot):  => bird(parrot)",
+        "df_animal(penguin):  => animal(penguin)",
+        "df_bird(eagle):  => bird(eagle)",
+        "df_mammal(dolphin):  => mammal(dolphin)",
+        "df_animal(lion):  => animal(lion)",
+        "df_organism(cat):  => organism(cat)"
+      ],
+      "gold": [
+        "df_bird(parrot):  => bird(parrot)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(parrot)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(bat)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(bat):  => mammal(bat)",
+        "df_mammal(cat):  => mammal(cat)",
+        "df_mammal(dog):  => mammal(dog)",
+        "df_mammal(dolphin):  => mammal(dolphin)",
+        "df_organism(parrot):  => organism(parrot)",
+        "df_organism(duck):  => organism(duck)"
+      ],
+      "gold": [
+        "df_mammal(bat):  => mammal(bat)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(bat)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(duck)",
+      "level": 2,
+      "candidates": [
+        "df_bird(duck):  => bird(duck)",
+        "df_organism(robin):  => organism(robin)",
+        "df_animal(dolphin):  => animal(dolphin)",
+        "df_organism(dolphin):  => organism(dolphin)",
+        "df_animal(duck):  => animal(duck)",
+        "df_organism(duck):  => organism(duck)"
+      ],
+      "gold": [
+        "df_bird(duck):  => bird(duck)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(duck)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(eagle)",
+      "level": 2,
+      "candidates": [
+        "df_bird(eagle):  => bird(eagle)",
+        "df_animal(parrot):  => animal(parrot)",
+        "df_organism(salmon):  => organism(salmon)",
+        "df_animal(goldfish):  => animal(goldfish)",
+        "df_mammal(lion):  => mammal(lion)",
+        "df_animal(shark):  => animal(shark)"
+      ],
+      "gold": [
+        "df_bird(eagle):  => bird(eagle)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(eagle)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(dolphin)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(dolphin):  => mammal(dolphin)",
+        "df_organism(salmon):  => organism(salmon)",
+        "df_animal(cat):  => animal(cat)",
+        "df_fish(shark):  => fish(shark)",
+        "df_bird(owl):  => bird(owl)",
+        "df_animal(whale):  => animal(whale)"
+      ],
+      "gold": [
+        "df_mammal(dolphin):  => mammal(dolphin)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(dolphin)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(whale)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(whale):  => mammal(whale)",
+        "df_organism(whale):  => organism(whale)",
+        "df_bird(owl):  => bird(owl)",
+        "df_bird(duck):  => bird(duck)",
+        "df_organism(goldfish):  => organism(goldfish)",
+        "df_bird(eagle):  => bird(eagle)"
+      ],
+      "gold": [
+        "df_mammal(whale):  => mammal(whale)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(whale)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(dog)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(dog):  => mammal(dog)",
+        "df_mammal(bat):  => mammal(bat)",
+        "df_animal(dog):  => animal(dog)",
+        "df_fish(goldfish):  => fish(goldfish)",
+        "df_organism(cat):  => organism(cat)",
+        "df_mammal(lion):  => mammal(lion)"
+      ],
+      "gold": [
+        "df_mammal(dog):  => mammal(dog)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(dog)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(robin)",
+      "level": 2,
+      "candidates": [
+        "df_bird(robin):  => bird(robin)",
+        "df_organism(robin):  => organism(robin)",
+        "df_animal(shark):  => animal(shark)",
+        "df_animal(duck):  => animal(duck)",
+        "df_organism(bat):  => organism(bat)",
+        "df_mammal(dog):  => mammal(dog)"
+      ],
+      "gold": [
+        "df_bird(robin):  => bird(robin)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(robin)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "fish(shark)",
+      "level": 2,
+      "candidates": [
+        "df_fish(shark):  => fish(shark)",
+        "df_organism(robin):  => organism(robin)",
+        "df_organism(goldfish):  => organism(goldfish)",
+        "df_organism(cat):  => organism(cat)",
+        "df_bird(parrot):  => bird(parrot)",
+        "df_animal(dog):  => animal(dog)"
+      ],
+      "gold": [
+        "df_fish(shark):  => fish(shark)"
+      ],
+      "metadata": {
+        "ablated_element": "df_fish(shark)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(lion)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(lion):  => mammal(lion)",
+        "df_bird(penguin):  => bird(penguin)",
+        "df_animal(goldfish):  => animal(goldfish)",
+        "df_organism(goldfish):  => organism(goldfish)",
+        "df_organism(parrot):  => organism(parrot)",
+        "df_organism(bat):  => organism(bat)"
+      ],
+      "gold": [
+        "df_mammal(lion):  => mammal(lion)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(lion)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "fish(goldfish)",
+      "level": 2,
+      "candidates": [
+        "df_fish(goldfish):  => fish(goldfish)",
+        "df_bird(owl):  => bird(owl)",
+        "df_organism(duck):  => organism(duck)",
+        "df_fish(shark):  => fish(shark)",
+        "df_animal(lion):  => animal(lion)",
+        "df_organism(goldfish):  => organism(goldfish)"
+      ],
+      "gold": [
+        "df_fish(goldfish):  => fish(goldfish)"
+      ],
+      "metadata": {
+        "ablated_element": "df_fish(goldfish)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "bird(penguin)",
+      "level": 2,
+      "candidates": [
+        "df_bird(penguin):  => bird(penguin)",
+        "df_bird(robin):  => bird(robin)",
+        "df_organism(parrot):  => organism(parrot)",
+        "df_organism(owl):  => organism(owl)",
+        "df_bird(owl):  => bird(owl)",
+        "df_animal(dolphin):  => animal(dolphin)"
+      ],
+      "gold": [
+        "df_bird(penguin):  => bird(penguin)"
+      ],
+      "metadata": {
+        "ablated_element": "df_bird(penguin)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "mammal(cat)",
+      "level": 2,
+      "candidates": [
+        "df_mammal(cat):  => mammal(cat)",
+        "df_animal(goldfish):  => animal(goldfish)",
+        "df_organism(lion):  => organism(lion)",
+        "df_fish(shark):  => fish(shark)",
+        "df_animal(salmon):  => animal(salmon)",
+        "df_animal(shark):  => animal(shark)"
+      ],
+      "gold": [
+        "df_mammal(cat):  => mammal(cat)"
+      ],
+      "metadata": {
+        "ablated_element": "df_mammal(cat)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 60,
+      "num_candidates": 6,
+      "num_gold": 1
+    }
+  ]
+}

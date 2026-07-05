@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\"kind\":\"marble\",\"category\":\"round\"}\n```",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"You have a red marble and need to place it into one of three holes: the star-shaped hole, t",
+  "user": "In general, which shape category fits a marble?"
+ }
+}

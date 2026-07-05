@@ -1,0 +1,85 @@
+{
+ "rb": 1024,
+ "R": {
+  "all": {
+   "n": 35,
+   "sysSym": 32,
+   "sysSymPure": 30,
+   "tiebreaks": 5,
+   "sysExt": 0,
+   "rb0": 0,
+   "rbON": 0
+  },
+  "biology": {
+   "n": 16,
+   "sysSym": 16,
+   "sysSymPure": 16,
+   "tiebreaks": 0,
+   "sysExt": 0,
+   "rb0": 0,
+   "rbON": 0
+  },
+  "legal": {
+   "n": 10,
+   "sysSym": 9,
+   "sysSymPure": 9,
+   "tiebreaks": 1,
+   "sysExt": 0,
+   "rb0": 0,
+   "rbON": 0
+  },
+  "materials": {
+   "n": 9,
+   "sysSym": 7,
+   "sysSymPure": 5,
+   "tiebreaks": 4,
+   "sysExt": 0,
+   "rb0": 0,
+   "rbON": 0
+  }
+ },
+ "fails": {
+  "sysSym": [
+   "laches:tiebreak=null",
+   "metallic_glass:tiebreak=null",
+   "superconductor:tiebreak=null"
+  ],
+  "sysExt": [
+   "penguin:unparsed",
+   "ostrich:unparsed",
+   "emu:unparsed",
+   "cassowary:unparsed",
+   "kiwi:unparsed",
+   "bat:unparsed",
+   "whale:unparsed",
+   "dolphin:unparsed",
+   "platypus:unparsed",
+   "panda:unparsed",
+   "cuckoo:unparsed",
+   "lungfish:unparsed",
+   "axolotl:unparsed",
+   "vampire_bat:unparsed",
+   "seahorse:unparsed",
+   "tardigrade:unparsed",
+   "emancipated_minor:unparsed",
+   "statute_of_limitations:unparsed",
+   "good_faith_purchaser:unparsed",
+   "diplomatic_immunity:unparsed",
+   "sovereign_immunity:unparsed",
+   "force_majeure:unparsed",
+   "qualified_immunity:unparsed",
+   "constitutional_supremacy:unparsed",
+   "ultra_vires:unparsed",
+   "laches:unparsed",
+   "metallic_glass:unparsed",
+   "aerogel:unparsed",
+   "superconductor:unparsed",
+   "graphene:unparsed",
+   "nitinol_sma:unparsed",
+   "piezoelectric:unparsed",
+   "thermoelectric:unparsed",
+   "superhydrophobic:unparsed",
+   "metamaterial:unparsed"
+  ]
+ }
+}

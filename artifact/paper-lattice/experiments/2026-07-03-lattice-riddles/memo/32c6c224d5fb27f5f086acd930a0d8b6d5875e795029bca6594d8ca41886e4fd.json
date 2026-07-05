@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you’re holding a single blue die and three different holes in front of you: one shaped like a star, one shaped like a square, and one shaped like a circle. Where would you fit the die so it fits perfectly?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a blue dice. Put it into one of these holes: the star-shaped one, the square one, or the round one. Which one?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\n    \"object\": {\n        \"kind\": \"sugar cube\",\n        \"category\": \"food\",\n        \"condition\": \"solid\",\n        \"color\": \"white\",\n        \"size\": \"small\"\n    },\n    \"holes\": [\n        {\n            \"name\": \"square hole\",\n            \"size\": \"perfectly fits sugar cube\"\n        },\n        {\n            \"name\": \"round hole\",\n            \"size\": \"too small\"\n        },\n        {\n            \"name\": \"triangular hole\",\n            \"size",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "This is a trick question! Sugar cubes are shaped like cubes. Therefore, the **square** hole is the only one the sugar cube will fit into.\n\n\n\nLet me know if you'd like to try another riddle! 😊"
+ }
+}

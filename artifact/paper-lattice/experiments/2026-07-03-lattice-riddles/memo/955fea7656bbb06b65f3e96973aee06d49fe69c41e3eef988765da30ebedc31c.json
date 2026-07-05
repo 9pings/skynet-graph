@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you’re holding a small, green aquatic creature. You need to place it in one of three spaces: a tank filled with water, a cage designed for flying birds, or a glass enclosure meant for land-dwelling reptiles and insects. Where does it belong?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a green fish. Put it into one of these enclosures: the aquarium, the aviary, or the terrarium. Which one?"
+ }
+}

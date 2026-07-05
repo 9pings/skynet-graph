@@ -1,0 +1,8 @@
+{
+ "response": "The user is asking for a choice between \"roundpin\", \"",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "A green US plug is available. You must insert it into one of three wall sockets: a round-pin, a flat-pin, or a three-pin socket. Which one do you choose?"
+ }
+}

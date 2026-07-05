@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nround",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You possess a gleaming yellow sphere. Which of the following apertures would you choose to place it in: the star-shaped hole, the square hole, or the round hole?"
+ }
+}

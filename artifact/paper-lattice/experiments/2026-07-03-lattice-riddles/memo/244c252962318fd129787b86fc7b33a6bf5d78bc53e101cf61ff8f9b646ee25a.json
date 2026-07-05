@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\n{\"kind\":\"sphere\",\"category\":\"round\"}",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"You possess a blue sphere. Into which of the following openings should you place it: the st",
+  "user": "In general, which shape category fits a sphere?"
+ }
+}

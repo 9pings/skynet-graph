@@ -1,0 +1,8 @@
+{
+ "response": "round",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "Imagine you’re holding a single red marble and three distinct holes in front of you: one shaped like a star, another shaped like a square, and the third shaped like a perfect circle. You need to place"
+ }
+}

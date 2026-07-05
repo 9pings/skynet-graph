@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nA standard green die has six faces with dots (pips) arranged in the traditional pattern, and it's a solid three-dimensional object. None of the hole shapes (star, square, or round) would accommodate a standard six-sided die that you can roll and play with. The die would need to fit through the hole, but the question doesn't specify that the die should be inserted through a hole - it just asks which hole to place the die in, and none of the hole shapes would properly contain or accommodate a standard die for gameplay purposes.",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You have a green die. Which hole should you place it in: the star-shaped opening, the square opening, or the round opening?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\"candidates\":[\"d_whale: whale(X) ~> ~walks(X)\", \"d_whale_broad: mammal(X) ~> ~walks(X)\", \"d_whale_wrong_head: whale(X) ~> ~warm_blooded(X)\", \"d_whale_positive: whale(X) => swims(X)\", \"d_whale_irrelevant: whale(X) ~> ~has_fur(X)\", \"d_whale_wrong_cond: aquatic(X) ~> ~walks(X)\"]}\n```",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"walks(wally)\", list the candidate rules. Reply ONLY JSON",
+  "user": "Facts: cat(felix), mammal(felix), mammal(wally), whale(wally).\nGeneral rules (=> means \"normally implies\"): r_walks: mammal(X) => walks(X); r_warm: mammal(X) => warm_blooded(X); r_fur: cat(X) => has_f"
+ }
+}

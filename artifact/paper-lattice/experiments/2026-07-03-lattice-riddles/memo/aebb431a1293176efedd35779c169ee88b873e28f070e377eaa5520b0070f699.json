@@ -1,0 +1,8 @@
+{
+ "response": "terrestrial",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "Choose an enclosure for your blue fern: the aquarium, the aviary, or the terrarium. Which one?"
+ }
+}

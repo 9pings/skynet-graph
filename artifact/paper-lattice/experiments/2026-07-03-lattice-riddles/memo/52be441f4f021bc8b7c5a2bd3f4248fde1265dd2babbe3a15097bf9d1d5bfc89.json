@@ -1,0 +1,8 @@
+{
+ "response": "large round",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small round | large round | large square | none.",
+  "user": "Imagine you’re holding a big, bright red soccer ball and three different holes in front of you: one tiny and circular, another large and round, and a third large but square-shaped. Where would you pla"
+ }
+}
