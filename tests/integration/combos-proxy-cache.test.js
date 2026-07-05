@@ -110,7 +110,7 @@ test('proxy — METRICS (the compass): coverage rises as repeats are served loca
 test('proxy — SEMANTIC coverage: a PARAPHRASE snaps to the same key and hits the stock (0 frontier call)', async () => {
 	// a stub local model: canonicalizes a query → a normal form (paraphrases collide); confirms fit = yes.
 	const localAsk = async ( { system, user } ) => {
-		if ( /normal form/i.test(system) ) return /france/i.test(user) ? 'capital france' : /japan/i.test(user) ? 'capital japan' : String(user).toLowerCase();
+		if ( /keyword/i.test(system) ) return /france/i.test(user) ? 'capital france' : /japan/i.test(user) ? 'capital japan' : String(user).toLowerCase();
 		if ( /does the answer/i.test(system) ) return 'yes';
 		return '';
 	};

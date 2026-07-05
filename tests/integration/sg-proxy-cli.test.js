@@ -79,7 +79,7 @@ test('runProxySession — a durable --store persists the stock: a FRESH proxy re
 test('runProxySession — SEMANTIC coverage via a stub local model: a paraphrase hits the stock (0 frontier call)', async () => {
 	// a stub local model: canonicalizes a query → a normal form (paraphrases collide); confirms fit = yes.
 	const localAsk = async ( { system, user } ) => {
-		if ( /normal form/i.test(system) ) return /france/i.test(user) ? 'capital france' : String(user).toLowerCase();
+		if ( /keyword/i.test(system) ) return /france/i.test(user) ? 'capital france' : String(user).toLowerCase();
 		if ( /does the answer/i.test(system) ) return 'yes';
 		return '';
 	};
@@ -89,6 +89,21 @@ test('runProxySession — SEMANTIC coverage via a stub local model: a paraphrase
 	const { metrics } = await runProxySession({ proxy: px, queries: ['capital of France?', "what is France's capital city?"] });
 	assert.equal(c.calls.n, 1, 'the paraphrase snapped to the same semantic key → one frontier call for both');
 	assert.equal(metrics.coverage, 0.5);
+});
+
+test('makeLocalCoverage — the default key prompt is the keyword-slot form; keyPrompt/fitPrompt overrides are honored', async () => {
+	const { makeLocalCoverage } = require('../../lib/combos/proxy-cache.js');
+	const seen = { key: null, fit: null };
+	const localAsk = async ( { system } ) => { if ( /reduce the question/i.test(system) || /DOMAIN KEY/.test(system) ) { seen.key = system; return 'k'; } seen.fit = system; return 'yes'; };
+	const def = makeLocalCoverage({ localAsk });
+	await def.semanticKey('anything');
+	assert.match(seen.key, /essential keywords/i, 'default key prompt is the keyword-slot form (the rehabilitated V2)');
+	// a domain host tightens the prompts:
+	const custom = makeLocalCoverage({ localAsk, keyPrompt: 'DOMAIN KEY: slotify', fitPrompt: 'DOMAIN FIT: ok?' });
+	seen.key = null; seen.fit = null;
+	await custom.semanticKey('q'); await custom.coverageCheck('q', 'a');
+	assert.equal(seen.key, 'DOMAIN KEY: slotify', 'keyPrompt override honored');
+	assert.equal(seen.fit, 'DOMAIN FIT: ok?', 'fitPrompt override honored');
 });
 
 test('runProxySession — rejects a missing proxy (guard)', async () => {
