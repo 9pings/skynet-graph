@@ -37,6 +37,9 @@ contract recovers correctness *selectively* and *composition-safely* — for a s
 chain, and head-to-head against named agent-memory systems (MemGPT, Reflexion, GraphRAG) — bounded by an honest,
 measured ceiling we call **K1**: only the typed, canonicalizable fraction of the workload amortizes.
 
+*Code & data: the engine, the experiment artifact (`artifact/paper-dll/`) and the replayable
+deterministic suite are public — `github.com/9pings/skynet-graph` (AGPL-3.0-or-later).*
+
 ---
 
 ## 1. Introduction
@@ -176,24 +179,27 @@ The defeasible lifecycle — **assume → assert → verify → retract → spec
 one-to-one onto the engine functions it calls:
 
 ```
-select(goal):                                   # ASSUME (compose time)
-    M ← library.match(goal.typed_facts)         #   typed key; a miss falls to the micro-task floor
-    assume M.contract                           #   checkCompose: post(prev) ⊨ pre(M); escalate, never false-admit
+select(goal):                                # ASSUME (compose time)
+    M ← library.match(goal.typed_facts)      #   typed key; a miss falls to the micro-task floor
+    assume M.contract                        #   checkCompose: post ⊨ pre — escalate
+                                             #   rather than admit: never a false-admit
 
-apply(M, case):                                 # ASSERT + VERIFY (run time)
-    key ← digest(case.typed_premise)            #   K1 canonical key
-    if memo.has(key): return memo[key]          #   amortize a recurrent typed case
-    out ← run(M, case)                          #   else derive (model call / sub-graph)
-    if not assertPost(M.contract, out):         #   post holds? + G1 frame-completeness + G2 effect-oracle
-        quarantine(case); blame(M.contract)     #   never commit a bad output
+apply(M, case):                              # ASSERT + VERIFY (run time)
+    key ← digest(case.typed_premise)         #   K1 canonical key
+    if memo.has(key): return memo[key]       #   amortize a recurrent typed case
+    out ← run(M, case)                       #   else derive (model call / sub-graph)
+    if not assertPost(M.contract, out):      #   post holds? + G1 frame + G2 effect
+        quarantine(case); blame(M.contract)  #   never commit a bad output
         return
     memo[key] ← out; return out
 
-on ingest(fact):                                # RETRACT + SPECIALIZE (drift)
-    for e in memo s.t. e depends on fact:        #   JTMS: re-assert each affected post against the new fact
+on ingest(fact):                             # RETRACT + SPECIALIZE (drift)
+    for e in memo s.t. e depends on fact:    #   JTMS: re-assert each affected post
         if not satisfies(e.contract.post, e.facts ∪ {fact}):
-            retract(e); blame(e.contract)        #   un-learn: evict the invalidated entry + assign blame
-    library.revise(blame): pre ← specialize(pre) #   reviseOnBlame (CEGIS, counterexample-guided synthesis): narrow the pre, do not delete
+            retract(e); blame(e.contract)    #   un-learn: evict + assign blame
+    library.revise(blame): pre ← specialize(pre)
+                                             #   reviseOnBlame (CEGIS, counterexample-guided):
+                                             #   narrow the pre, do not delete
 ```
 
 The verify-and-retract suffix is the only part absent from a similarity memory, and it is exactly the part the
@@ -723,9 +729,7 @@ e1-transfer.js, e3-compose.js, p4-coverage.js, scale.js, measure-e2-live.js, F6-
 (named-arms.js, struct-real.js, measure-named-h2h.js); the E7 composition-under-drift suite (composed-workload.js,
 composed-harness.js, composed-arms.js, composed-named-arms.js, struct-real-composed.js, durable-composed.js,
 chain-depth.js, measure-composed-h2h.js, measure-chain-depth.js); the E8 revision suite (revise.js) — with the
-deterministic suite
-`tests/integration/paper-{harness,e1-transfer,e3-compose,p4-coverage,scale,named-systems,struct-real,composed-h2h,durable-composed,chain-depth,revise}.test.js`
-(`npm test`). Figures F1–F7 are generated from these same harnesses by `figures/generate-figures.js`
+deterministic suite `tests/integration/paper-*.test.js` (`npm test`). Figures F1–F7 are generated from these same harnesses by `figures/generate-figures.js`
 (zero dependencies): every drawn value is recomputed at generation time and pinned against the
 paper's tables — any divergence fails the generation. Live runs use a local OpenAI-compatible endpoint serving Qwen3.6-27B (Q2_K_XL, MTP). Licensed
 AGPL-3.0-or-later.*

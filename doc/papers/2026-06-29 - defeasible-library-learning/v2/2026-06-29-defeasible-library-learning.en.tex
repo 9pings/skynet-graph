@@ -72,6 +72,8 @@ We present \textbf{defeasible library learning}. The object is a learned library
 
 We evaluate each mechanism in isolation on a real rule-driven engine — first under a deterministic stub, then with a live local model. Under an external mid-stream drift, recall-only memories serve \emph{stale} answers while the declarative contract recovers correctness \emph{selectively} and \emph{composition-safely} — for a single method, across a learned method chain, and head-to-head against named agent-memory systems (MemGPT, Reflexion, GraphRAG) — bounded by an honest, measured ceiling we call \textbf{K1}: only the typed, canonicalizable fraction of the workload amortizes.
 
+*Code \& data: the engine, the experiment artifact (\texttt{artifact/\allowbreak{}paper-dll/\allowbreak{}}) and the replayable deterministic suite are public — \texttt{github.com/\allowbreak{}9pings/\allowbreak{}skynet-graph} (AGPL-3.0-or-later).*
+
 \medskip\hrule\medskip
 
 \section*{1. Introduction}
@@ -128,24 +130,27 @@ All mechanisms are realized on an existing rule-driven, JTMS-coherent typed-fact
 The defeasible lifecycle — \textbf{assume → assert → verify → retract → specialize} — is the whole mechanism, mapping one-to-one onto the engine functions it calls:
 
 \begin{small}\begin{verbatim}
-select(goal):                                   # ASSUME (compose time)
-    M ← library.match(goal.typed_facts)         #   typed key; a miss falls to the micro-task floor
-    assume M.contract                           #   checkCompose: post(prev) ⊨ pre(M); escalate, never false-admit
+select(goal):                                # ASSUME (compose time)
+    M ← library.match(goal.typed_facts)      #   typed key; a miss falls to the micro-task floor
+    assume M.contract                        #   checkCompose: post ⊨ pre — escalate
+                                             #   rather than admit: never a false-admit
 
-apply(M, case):                                 # ASSERT + VERIFY (run time)
-    key ← digest(case.typed_premise)            #   K1 canonical key
-    if memo.has(key): return memo[key]          #   amortize a recurrent typed case
-    out ← run(M, case)                          #   else derive (model call / sub-graph)
-    if not assertPost(M.contract, out):         #   post holds? + G1 frame-completeness + G2 effect-oracle
-        quarantine(case); blame(M.contract)     #   never commit a bad output
+apply(M, case):                              # ASSERT + VERIFY (run time)
+    key ← digest(case.typed_premise)         #   K1 canonical key
+    if memo.has(key): return memo[key]       #   amortize a recurrent typed case
+    out ← run(M, case)                       #   else derive (model call / sub-graph)
+    if not assertPost(M.contract, out):      #   post holds? + G1 frame + G2 effect
+        quarantine(case); blame(M.contract)  #   never commit a bad output
         return
     memo[key] ← out; return out
 
-on ingest(fact):                                # RETRACT + SPECIALIZE (drift)
-    for e in memo s.t. e depends on fact:        #   JTMS: re-assert each affected post against the new fact
+on ingest(fact):                             # RETRACT + SPECIALIZE (drift)
+    for e in memo s.t. e depends on fact:    #   JTMS: re-assert each affected post
         if not satisfies(e.contract.post, e.facts ∪ {fact}):
-            retract(e); blame(e.contract)        #   un-learn: evict the invalidated entry + assign blame
-    library.revise(blame): pre ← specialize(pre) #   reviseOnBlame (CEGIS, counterexample-guided synthesis): narrow the pre, do not delete
+            retract(e); blame(e.contract)    #   un-learn: evict + assign blame
+    library.revise(blame): pre ← specialize(pre)
+                                             #   reviseOnBlame (CEGIS, counterexample-guided):
+                                             #   narrow the pre, do not delete
 \end{verbatim}\end{small}
 
 The verify-and-retract suffix is the only part absent from a similarity memory, and it is exactly the part the experiments isolate.
@@ -419,6 +424,6 @@ Recall-only agent memory cannot un-learn; static libraries are sound but frozen.
 
 \medskip\hrule\medskip
 
-*Code \& reproducibility: the engine and the self-contained experiment artifact are public at \texttt{github.com/9pings/skynet-graph} — \texttt{artifact/paper-dll/}: core mechanisms (workload.js, arms.js, harness.js, e1-transfer.js, e3-compose.js, p4-coverage.js, scale.js, measure-e2-live.js, F6-transfer.js); the E6 head-to-head (named-arms.js, struct-real.js, measure-named-h2h.js); the E7 composition-under-drift suite (composed-workload.js, composed-harness.js, composed-arms.js, composed-named-arms.js, struct-real-composed.js, durable-composed.js, chain-depth.js, measure-composed-h2h.js, measure-chain-depth.js); the E8 revision suite (revise.js) — with the deterministic suite \texttt{tests/integration/paper-\{harness,e1-transfer,e3-compose,p4-coverage,scale,named-systems,struct-real,composed-h2h,durable-composed,chain-depth,revise\}.test.js} (\texttt{npm test}). Figures F1–F7 are generated from these same harnesses by \texttt{figures/generate-figures.js} (zero dependencies): every drawn value is recomputed at generation time and pinned against the paper's tables — any divergence fails the generation. Live runs use a local OpenAI-compatible endpoint serving Qwen3.6-27B (Q2\_K\_XL, MTP). Licensed AGPL-3.0-or-later.*
+*Code \& reproducibility: the engine and the self-contained experiment artifact are public at \texttt{github.com/\allowbreak{}9pings/\allowbreak{}skynet-graph} — \texttt{artifact/\allowbreak{}paper-dll/\allowbreak{}}: core mechanisms (workload.js, arms.js, harness.js, e1-transfer.js, e3-compose.js, p4-coverage.js, scale.js, measure-e2-live.js, F6-transfer.js); the E6 head-to-head (named-arms.js, struct-real.js, measure-named-h2h.js); the E7 composition-under-drift suite (composed-workload.js, composed-harness.js, composed-arms.js, composed-named-arms.js, struct-real-composed.js, durable-composed.js, chain-depth.js, measure-composed-h2h.js, measure-chain-depth.js); the E8 revision suite (revise.js) — with the deterministic suite \texttt{tests/\allowbreak{}integration/\allowbreak{}paper-*.test.js} (\texttt{npm test}). Figures F1–F7 are generated from these same harnesses by \texttt{figures/\allowbreak{}generate-figures.js} (zero dependencies): every drawn value is recomputed at generation time and pinned against the paper's tables — any divergence fails the generation. Live runs use a local OpenAI-compatible endpoint serving Qwen3.6-27B (Q2\_K\_XL, MTP). Licensed AGPL-3.0-or-later.*
 
 \end{document}

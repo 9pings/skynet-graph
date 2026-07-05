@@ -22,7 +22,7 @@ def inline(t):
     out = []
     for p in parts:
         if p.startswith('`') and p.endswith('`') and len(p) > 1:
-            out.append(r'\texttt{' + esc(p[1:-1]) + '}')
+            out.append(r'\texttt{' + esc(p[1:-1]).replace('/', '/\\allowbreak{}') + '}')
         else:
             p = esc(p)
             p = re.sub(r'\*\*\*(.+?)\*\*\*', r'\\textbf{\\emph{\1}}', p)

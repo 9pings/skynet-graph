@@ -45,6 +45,9 @@ chaîne de méthodes apprise, et en tête-à-tête face aux systèmes de mémoir
 Reflexion, GraphRAG). Le tout est borné par un plafond honnête, mesuré, que nous appelons **K1** :
 seule la fraction typée et canonicalisable de la charge amortit.
 
+*Code & données : le moteur, l'artefact d'expériences (`artifact/paper-dll/`) et la suite
+déterministe rejouable sont publics — `github.com/9pings/skynet-graph` (AGPL-3.0-or-later).*
+
 ---
 
 ## 1. Introduction
@@ -211,24 +214,27 @@ Le cycle de vie défaisable — **supposer → vérifier → contrôler → rét
 mécanisme, en correspondance un-à-un avec les fonctions du moteur qu'il appelle :
 
 ```
-select(but):                                    # SUPPOSER (à la composition)
-    M ← bibliothèque.match(but.faits_typés)     #   clé typée ; un échec retombe au plancher de micro-tâches
-    supposer M.contrat                          #   checkCompose : post(préc.) ⊨ pre(M) ; escalade, jamais faux-admis
+select(but):                                 # SUPPOSER (à la composition)
+    M ← bibliothèque.match(but.faits_typés)  #   clé typée ; échec → plancher de micro-tâches
+    supposer M.contrat                       #   checkCompose : post ⊨ pre — escalade
+                                             #   plutôt qu'admettre : jamais de faux-admis
 
-apply(M, cas):                                  # VÉRIFIER + CONTRÔLER (à l'exécution)
-    clé ← digest(cas.prémisse_typée)            #   clé canonique K1
-    si memo.has(clé) : retourner memo[clé]      #   amortir un cas typé récurrent
-    sortie ← run(M, cas)                        #   sinon dériver (appel modèle / sous-graphe)
-    si non assertPost(M.contrat, sortie) :      #   la post tient ? + G1 complétude-de-cadre + G2 oracle-d'effet
-        quarantaine(cas) ; blâmer(M.contrat)    #   ne jamais valider une mauvaise sortie
+apply(M, cas):                               # VÉRIFIER + CONTRÔLER (à l'exécution)
+    clé ← digest(cas.prémisse_typée)         #   clé canonique K1
+    si memo.has(clé) : retourner memo[clé]   #   amortir un cas typé récurrent
+    sortie ← run(M, cas)                     #   sinon dériver (appel modèle / sous-graphe)
+    si non assertPost(M.contrat, sortie) :   #   la post tient ? + G1 cadre + G2 effet
+        quarantaine(cas) ; blâmer(M.contrat) #   ne jamais valider une mauvaise sortie
         retourner
     memo[clé] ← sortie ; retourner sortie
 
-on ingest(fait):                                # RÉTRACTER + SPÉCIALISER (dérive)
-    pour e dans memo t.q. e dépend de fait :     #   JTMS : re-vérifier chaque post affectée face au nouveau fait
+on ingest(fait):                             # RÉTRACTER + SPÉCIALISER (dérive)
+    pour e dans memo t.q. e dépend de fait : #   JTMS : re-vérifier chaque post affectée
         si non satisfies(e.contrat.post, e.faits ∪ {fait}) :
-            rétracter(e) ; blâmer(e.contrat)     #   désapprendre : évincer l'entrée invalidée + attribuer le blâme
-    bibliothèque.réviser(blâme) : pre ← spécialiser(pre)  #   reviseOnBlame (CEGIS, synthèse guidée par contre-exemples) : restreindre la pre, sans supprimer
+            rétracter(e) ; blâmer(e.contrat) #   désapprendre : évincer + attribuer le blâme
+    bibliothèque.réviser(blâme) : pre ← spécialiser(pre)
+                                             #   reviseOnBlame (CEGIS, synthèse guidée par
+                                             #   contre-exemples) : restreindre, sans supprimer
 ```
 
 Le suffixe contrôler-et-rétracter est la seule partie absente d'une mémoire par similarité, et c'est
@@ -849,9 +855,7 @@ F6-transfer.js) ; le tête-à-tête E6 (named-arms.js, struct-real.js, measure-n
 E7 composition-à-la-dérive (composed-workload.js, composed-harness.js, composed-arms.js,
 composed-named-arms.js, struct-real-composed.js, durable-composed.js, chain-depth.js,
 measure-composed-h2h.js, measure-chain-depth.js) ; la révision de bibliothèque E8 (revise.js) — avec
-la suite déterministe
-`tests/integration/paper-{harness,e1-transfer,e3-compose,p4-coverage,scale,named-systems,struct-real,composed-h2h,durable-composed,chain-depth,revise}.test.js`
-(`npm test`). Les figures F1–F7 sont générées depuis ces mêmes harnais par
+la suite déterministe `tests/integration/paper-*.test.js` (`npm test`). Les figures F1–F7 sont générées depuis ces mêmes harnais par
 `figures/generate-figures.js` (zéro dépendance) : chaque valeur dessinée est recalculée à la
 génération puis épinglée aux tables du papier — toute divergence fait échouer la génération. Les
 exécutions en réel utilisent un endpoint local compatible OpenAI servant
