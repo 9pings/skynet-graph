@@ -384,3 +384,25 @@ const r = await app.answer('…');   // { status:'answered', answer, confBand } 
 
 The underlying bricks stay usable "à nu" — the appliance is a thin, optional assembly. `session.answer(text)`
 (the legacy loop) resolves with `{answer, state}` and `Graph.settle(g)` is the promise-returning settle verb.
+
+### Combos (`Graph.combos.*`) — thin, delivered assemblies over the bricks
+
+Each combo composes existing bricks with the product posture ON by default (fail-closed, memo/store ON,
+validator ON, constrained grammar OFF); none is a required path — the bricks stay usable "à nu".
+
+```js
+// C1 — typed-QA appliance (above): intake → reason-loop → typed refusal → memo.
+const app = Graph.combos.createAppliance({ concepts: './concepts/mydomain', ask });
+
+// C2 — durable workflow runner: a compact spec → a crash-safe, memoizing, auditable run.
+const runner = Graph.combos.createDurableRunner({ store: 'flow.db', runTask });   // file → SQLite, else in-memory
+await runner.run('run-1', spec, records);   // compile → ensureRun → inject → drain (task calls amortize)
+await runner.resume('run-1', spec);          // crash-recovery: reclaim orphaned tokens → finish (exactly-once)
+const { summary } = runner.audit('run-1');   // the derivation forest + verdict + blame
+
+// C3 — learning method library (P2 skeleton): the always-on cost ladder + a persistent, shippable library.
+const lib = Graph.combos.createLearningLibrary({ signature, forge, store: 'lib.json' });
+await lib.solve(problem);   // MATCH→RETRIEVE→FORGE→ESCALATE; a warm class replays at 0 calls
+lib.drift(problem);         // a fallen premise → re-derive, never a stale replay
+const sgc = lib.pack({ name: 'methods', version: 'v1' });   // ship the warm library (version-gated)
+```
