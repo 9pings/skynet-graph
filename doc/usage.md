@@ -400,10 +400,13 @@ await runner.run('run-1', spec, records);   // compile → ensureRun → inject 
 await runner.resume('run-1', spec);          // crash-recovery: reclaim orphaned tokens → finish (exactly-once)
 const { summary } = runner.audit('run-1');   // the derivation forest + verdict + blame
 
-// C3 — learning method library (P2 skeleton): the always-on cost ladder + a persistent, shippable library.
-const lib = Graph.combos.createLearningLibrary({ signature, forge, store: 'lib.json' });
+// C3 — learning method library: the always-on cost ladder + a persistent, shippable, LEARNING library.
+const lib = Graph.combos.createLearningLibrary({ signature, forge, store: 'lib.json',
+	learning: true, target, dispatchFacts });   // learning OPT-IN: the FORGE arm becomes dispatch→adapt→forge
 await lib.solve(problem);   // MATCH→RETRIEVE→FORGE→ESCALATE; a warm class replays at 0 calls
-lib.drift(problem);         // a fallen premise → re-derive, never a stale replay
+lib.crystallizeFrom(mt.records, { episodeTree, schemaGraph });   // distill methods from a REAL trace → catalog
+lib.drift(problem);         // a fallen premise → re-derive BOTH layers (exact cache + catalog template)
+lib.blame({ contract, failedAtoms });   // localized per-slot blame (admissible iff ONE role) — credit() dual
 const sgc = lib.pack({ name: 'methods', version: 'v1' });   // ship the warm library (version-gated)
 
 // C4 — the reactive KG (the engine's original Use-1): a trivial preset over fromDirs (builtins ON).
