@@ -2,13 +2,13 @@
 'use strict';
 /*
  * generate-figures.js — figures F1–F8 of the lattice-growth paper, GENERATED from the recorded artifacts
- * (doc/WIP/experiments/*). Never redrawn from memory: every datum rendered below is read from a RESULTS
+ * (artifact/paper-lattice/experiments/*). Never redrawn from memory: every datum rendered below is read from a RESULTS
  * json, a durable memo entry, the declared lattice of the probe script, or the lib's own pack schema.
  * Emits f{1..8}-*.{fr,en}.svg next to this script.  Usage: node doc/papers/figures/generate-figures.js
  */
 const fs = require('fs'), path = require('path');
 const HERE = __dirname;
-const EXP  = path.join(HERE, '..', '..', '..', 'WIP', 'experiments');
+const EXP  = path.join(HERE, '..', '..', '..', '..', 'artifact', 'paper-lattice', 'experiments');
 const RID  = path.join(EXP, '2026-07-03-lattice-riddles');
 const RL   = path.join(EXP, '2026-07-03-restriction-learning');
 const PAR  = path.join(EXP, '2026-07-03-parametric-reuse');

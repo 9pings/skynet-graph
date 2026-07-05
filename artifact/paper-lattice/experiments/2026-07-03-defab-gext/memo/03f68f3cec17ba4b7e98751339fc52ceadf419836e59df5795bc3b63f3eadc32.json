@@ -1,0 +1,8 @@
+{
+ "response": "(1) df_contract(sales_contract) => contract(sales_contract)",
+ "at": null,
+ "meta": {
+  "system": "Reply ONLY the single candidate entry (copied exactly) that fills the gap.",
+  "user": "A knowledge base is missing exactly one entry. Because of that gap, the statement \"contract(sales_contract)\" cannot be derived. Exactly one of the following candidate entries fills the gap:\n  (1) df_c"
+ }
+}

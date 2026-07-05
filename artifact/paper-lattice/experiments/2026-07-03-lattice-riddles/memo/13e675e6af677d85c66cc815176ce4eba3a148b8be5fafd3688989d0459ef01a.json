@@ -1,0 +1,8 @@
+{
+ "response": "terrestrial",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: fish is-a aquatic; bird is-a aerial; reptile is-a terres",
+  "user": "You possess a blue fern. You must place it in one of the following: a terrarium, an aviary, or an aquarium. Which one should you choose?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"ball\",\"category\":\"round\",\"condition\":\"\",\"color\":\"yellow\",\"size\":\"large\"},\"holes\":[{\"name\":\"star\",\"size\":\"small\"},{\"name\":\"square\",\"size\":\"small\"},{\"name\":\"round\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You possess a gleaming yellow ball. You need to place it into one of these openings: the star-shaped one, the square one, or the round one. Which one do you choose?"
+ }
+}

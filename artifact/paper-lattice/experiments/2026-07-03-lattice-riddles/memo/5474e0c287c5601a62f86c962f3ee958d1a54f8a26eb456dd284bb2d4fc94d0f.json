@@ -1,0 +1,8 @@
+{
+ "response": "large roundpin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small roundpin | large roundpin | large flatpin | none.",
+  "user": "You have a big green plug from the US. You need to plug it into one of these outlets: a small round-pin socket, a large round-pin socket, or a large flat-pin socket. Which one should you choose?"
+ }
+}

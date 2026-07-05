@@ -1,0 +1,8 @@
+{
+ "response": "Okay, I'm ready for another round! Bring it on! 😊",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "The **small round one** is the best choice.\n\nHere's why:\n\n*   **Size matters:** A small marble will fit best in a small hole.\n*   **Shape compatibility:** A round marble will likely fit more easily in"
+ }
+}

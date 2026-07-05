@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nround",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You possess a green ball and must place it into one of three available openings: a star-shaped hole, a square hole, or a round hole. Which hole should you choose?"
+ }
+}

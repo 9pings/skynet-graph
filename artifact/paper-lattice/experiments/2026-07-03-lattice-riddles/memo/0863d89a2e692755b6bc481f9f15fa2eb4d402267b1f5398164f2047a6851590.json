@@ -1,0 +1,8 @@
+{
+ "response": "flat slot\n\nSince you have a flat red football, it would most naturally fit into the rectangular slot, as flat objects",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: round one | flat slot | none.",
+  "user": "You have a flat red football. You can place it into either the circular opening or the rectangular slot. Which hole should you choose?"
+ }
+}

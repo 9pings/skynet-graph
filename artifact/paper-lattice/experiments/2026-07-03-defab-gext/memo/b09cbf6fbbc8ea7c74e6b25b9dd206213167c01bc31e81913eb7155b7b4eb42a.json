@@ -1,0 +1,8 @@
+{
+ "response": "Okay, let's analyze the situation and craft an exception rule.\n\n**Understanding the Problem**\n\nThe rules state that *any* purchaser normally takes subject",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_good_faith: good_faith_purchaser(X) ~> ~takes_subject_to_prior_intere",
+  "user": "Facts: good_faith_purchaser(gfp_alice), purchaser(gfp_alice), purchaser(gfp_bob).\nGeneral rules (=> means \"normally implies\"): r_prior: purchaser(X) => takes_subject_to_prior_interests(X); r_bound_p: "
+ }
+}

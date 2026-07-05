@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"candidates\": [\n    \"label: d_thermoelectric_exception: thermoelectric(bismuth_telluride) ~> ~thermally_passive(bismuth_telluride)\",\n    \"label: d_te_semiconductor_exception: semiconductor(bismuth_telluride) ~> ~thermally_passive(bismuth_telluride)\",\n    \"label: d_te_material_exception: material(bismuth_telluride) ~> ~thermally_passive(bismuth_telluride)\"\n  ]\n}\n```",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"thermally_passive(bismuth_telluride)\", list the candidat",
+  "user": "Facts: material(bismuth_telluride), material(silicon_chip), semiconductor(bismuth_telluride), semiconductor(silicon_chip), thermoelectric(bismuth_telluride).\nGeneral rules (=> means \"normally implies\""
+ }
+}

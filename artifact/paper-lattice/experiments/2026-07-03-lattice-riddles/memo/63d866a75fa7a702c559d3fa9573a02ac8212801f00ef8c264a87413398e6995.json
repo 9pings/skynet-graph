@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nAn HDMI cable uses a proprietary 19-pin connector (Type A",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You've got a yellow HDMI cable and need to plug it into one of these wall outlets: the round-pin type, the flat-pin type, or the three-pin type. Which outlet should you choose?"
+ }
+}

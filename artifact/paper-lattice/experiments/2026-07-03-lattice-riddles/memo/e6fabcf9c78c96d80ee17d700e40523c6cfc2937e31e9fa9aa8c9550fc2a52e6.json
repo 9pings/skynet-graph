@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"yellow electrical plug\",\"category\":\"roundpin\",\"condition\":\"\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"name\":\"roundpin\",\"size\":\"large\"},{\"name\":\"flatpin\",\"size\":\"large\"},{\"name\":\"threepin\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You've got a yellow electrical plug from a lamp. You need to insert it into one of three types of wall outlets: the circular pin outlet, the flat pin outlet, or the triangular pin outlet. Which outlet"
+ }
+}

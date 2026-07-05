@@ -1,0 +1,55 @@
+{
+ "rb": 1024,
+ "R": {
+  "shapes/V1-facet-distractor": {
+   "n": 6,
+   "ok": 6,
+   "hallu": 0
+  },
+  "shapes/V2-isa-depth2": {
+   "n": 6,
+   "ok": 6,
+   "hallu": 0
+  },
+  "shapes/V3-no-match": {
+   "n": 6,
+   "ok": 0,
+   "hallu": 6
+  },
+  "shapes/V4-axis-product": {
+   "n": 6,
+   "ok": 6,
+   "hallu": 0
+  },
+  "shapes/V5-defeasible": {
+   "n": 3,
+   "ok": 1,
+   "hallu": 2
+  },
+  "shapes/V5-benign-mod": {
+   "n": 3,
+   "ok": 3,
+   "hallu": 0
+  },
+  "animals/V1-facet-distractor": {
+   "n": 6,
+   "ok": 6,
+   "hallu": 0
+  },
+  "animals/V2-isa-depth2": {
+   "n": 6,
+   "ok": 6,
+   "hallu": 0
+  },
+  "animals/V3-no-match": {
+   "n": 6,
+   "ok": 0,
+   "hallu": 6
+  },
+  "animals/V4-axis-product": {
+   "n": 6,
+   "ok": 6,
+   "hallu": 0
+  }
+ }
+}

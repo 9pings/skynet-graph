@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you’re holding a blue European electrical plug with two round prongs. You’re about to plug it into one of three different wall outlets: one with two round holes, another with two flat slots, or a third with three slots (two flat and one round). Which outlet will safely accept your plug?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a blue Euro plug. Put it into one of these wall sockets: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one?"
+ }
+}

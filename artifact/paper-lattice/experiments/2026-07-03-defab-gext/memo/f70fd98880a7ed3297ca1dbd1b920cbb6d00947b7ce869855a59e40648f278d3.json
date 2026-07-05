@@ -1,0 +1,8 @@
+{
+ "response": "\n\n{\"candidates\":[\"d_piezoelectric: piezoelectric(X) ~> ~electrically_passive(X)\", \"d_pz_broad: crystal(X) ~> ~electrically_passive(X)\", \"d_pz_wrong_head: piezoelectric(X) ~> ~rigid(X)\", \"d_pz_positive: piezoelectric(X) => voltage_generating(X)\", \"d_pz_wrong_cond: semiconductor(X) ~> ~electrically_passive(X)\", \"d_pz_irrelevant: charged(X) ~> ~electrically_passive(X)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"electrically_passive(quartz_crystal)\", list the candidat",
+  "user": "Facts: crystal(quartz_crystal), crystal(table_salt), material(quartz_crystal), material(table_salt), piezoelectric(quartz_crystal).\nGeneral rules (=> means \"normally implies\"): r_passive: crystal(X) ="
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "A deflated yellow football needs to be placed into one of three holes: a star, a square, or a circle. Which one should you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a deflated yellow football. Put it into one of these holes: the star-shaped one, the square one, or the round one. Which one?"
+ }
+}

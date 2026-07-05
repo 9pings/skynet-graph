@@ -1,0 +1,8 @@
+{
+ "response": "round",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "A deflated yellow football needs to be placed into one of three holes: a star, a square, or a circle. Which one should you choose?"
+ }
+}

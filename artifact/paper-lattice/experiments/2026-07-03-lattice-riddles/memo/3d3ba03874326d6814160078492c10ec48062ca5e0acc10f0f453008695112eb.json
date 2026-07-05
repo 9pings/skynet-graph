@@ -1,0 +1,8 @@
+{
+ "response": "That's a perfect and concise explanation! You've accurately identified the correct",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You would put the blue UK plug into the **three-pin socket**.\n\nHere's why:\n\n*   **UK plugs are designed for three-pin sockets.** They have a live, neutral, and earth pin for safety.\n*   **Round-pin an"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "terrestrial",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You own a red reptile. Should you place it in the aquarium, the aviary, or the terrarium?"
+ }
+}

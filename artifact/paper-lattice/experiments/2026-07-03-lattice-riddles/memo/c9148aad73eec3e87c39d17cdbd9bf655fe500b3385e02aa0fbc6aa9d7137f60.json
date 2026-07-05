@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nnone",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "Place your green coin into either the star-shaped, square, or round hole. Which one do you choose?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "You possess a blue phone charger plug. You must insert it into one of the following wall sockets: the round-pin, the flat-pin, or the three-pin. Which one do you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a blue phone charger plug. Put it into one of these wall sockets: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one?"
+ }
+}

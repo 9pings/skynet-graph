@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"ball\",\"category\":\"round\",\"condition\":\"wet\",\"color\":\"green\",\"size\":\"\"},\"holes\":[{\"name\":\"round\",\"size\":\"\"},{\"name\":\"flat\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You have a wet green ball. Should you place it in the round hole or the flat slot?"
+ }
+}

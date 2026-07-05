@@ -1,0 +1,8 @@
+{
+ "response": "{\n    \"object\": {\n        \"kind\": \"deflated football\",\n        \"category\": \"sports equipment\",\n        \"condition\": \"deflated\",\n        \"color\": \"brown\",\n        \"size\": \"medium\"\n    },\n    \"holes\": [\n        {\n            \"name\": \"small hole\",\n            \"size\": \"tiny\"\n        },\n        {\n            \"name\": \"medium hole\",\n            \"size\": \"small\"\n        },\n        {\n            \"name\": \"large hole\",\n            \"size\": \"big\"",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "This is a trick question! A deflated football won't fit into any of those holes. It needs to be inflated first. 😊"
+ }
+}

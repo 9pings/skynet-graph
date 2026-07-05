@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"football\",\"category\":\"flat\",\"condition\":\"\",\"color\":\"red\",\"size\":\"large\"},\"holes\":[{\"name\":\"circular\",\"size\":\"large\"},{\"name\":\"rectangular\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You have a flat red football. You can place it into either the circular opening or the rectangular slot. Which hole should you choose?"
+ }
+}

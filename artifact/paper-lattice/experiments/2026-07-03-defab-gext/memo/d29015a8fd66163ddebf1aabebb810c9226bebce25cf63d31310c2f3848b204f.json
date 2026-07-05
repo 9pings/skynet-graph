@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"target\": \"crystal(diamond) cannot be derived\",\n  \"candidates\": [\n    \"df_crystal(diamond):  => crystal(diamond)\",\n    \"df_material(diamond):  => material(diamond)\"\n  ]\n}\n```",
+ "at": null,
+ "meta": {
+  "system": "Extract from the text, VERBATIM. Reply ONLY JSON: {\"target\":\"<the underivable statement>\",\"candidates\":[\"<entry as writt",
+  "user": "A knowledge base is missing exactly one entry. Because of that gap, the statement \"crystal(diamond)\" cannot be derived. Exactly one of the following candidate entries fills the gap:\n  (1) df_crystal(d"
+ }
+}

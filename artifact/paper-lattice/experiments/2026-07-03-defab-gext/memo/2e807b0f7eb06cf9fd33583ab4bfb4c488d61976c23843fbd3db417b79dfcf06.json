@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\n{\"candidates\":[\"d_cassowary: cassowary(X) ~> ~flies(X)\", \"d_cassowary_broad: bird(X) ~> ~flies(X)\", \"d_cassowary_wrong_head: cassowary(X) ~> ~has_feathers(X)\", \"d_cassowary_irrelevant: cassowary(X) ~> ~warm_blooded(X)\", \"d_cassowary_positive: cassowary(X) => walks(X)\", \"d_cassowary_wrong_cond: large(X) ~> ~flies(X)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"flies(cass)\", list the candidate rules. Reply ONLY JSON:",
+  "user": "Facts: bird(cass), bird(tweety), cassowary(cass), sparrow(tweety).\nGeneral rules (=> means \"normally implies\"): r_flies: bird(X) => flies(X); r_feathers: bird(X) => has_feathers(X); r_warm: bird(X) =>"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "You are absolutely right! The **large round one** is the correct answer.",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small round | large round | large square | none.",
+  "user": "You should put the football into the **large round one**.\n\nHere's why:\n\n*   **Small round one:** Too small for a football.\n*   **Large round one:** A good fit for a football.\n*   **Large square one:**"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "\n\nYou possess a yellow US plug; which of the following wall sockets should you use: the round-pin, flat-pin, or three-pin variety?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a yellow US plug. Put it into one of these wall sockets: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one?"
+ }
+}

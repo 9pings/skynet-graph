@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"marble\",\"category\":\"\",\"condition\":\"shiny\",\"color\":\"blue\",\"size\":\"\"},\"holes\":[{\"name\":\"star-shaped\",\"size\":\"\"},{\"name\":\"square\",\"size\":\"\"},{\"name\":\"round\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "Pick one of these three holes—star-shaped, square, or round—and drop your shiny blue marble into it. Which hole do you choose?"
+ }
+}

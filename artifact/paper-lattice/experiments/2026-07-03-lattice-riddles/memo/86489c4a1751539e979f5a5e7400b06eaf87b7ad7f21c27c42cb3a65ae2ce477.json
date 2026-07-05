@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"ball\",\"category\":\"star|square|round\",\"condition\":\"\",\"color\":\"red\",\"size\":\"\"},\"holes\":[{\"name\":\"square\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Pick one of these three holes—star, square, or round—and place your red ball inside. Which hole do you choose?"
+ }
+}

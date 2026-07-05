@@ -1,0 +1,8 @@
+{
+ "response": "aquatic\n\nThe green fish is a fish, which derives from the aquatic category. The aquarium hole is designated for the",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: fish is-a aquatic; bird is-a aerial; reptile is-a terres",
+  "user": "You possess a green fish. Into which of these three habitats should you place it: the aquarium, the aviary, or the terrarium?"
+ }
+}

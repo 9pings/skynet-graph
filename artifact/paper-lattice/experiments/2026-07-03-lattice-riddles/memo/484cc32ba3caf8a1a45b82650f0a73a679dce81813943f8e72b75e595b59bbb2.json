@@ -1,0 +1,8 @@
+{
+ "response": "{\"kind\":\"sparrow\",\"category\":\"aerial\"}",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"You're holding a red sparrow. Where would you place it among these three options: the aquar",
+  "user": "In general, which habitat type fits a sparrow?"
+ }
+}

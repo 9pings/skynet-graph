@@ -1,0 +1,8 @@
+{
+ "response": "\n\nd_supremacy",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_supremacy: conflicts_with_federal(X) ~> ~enforceable(X)\nd_cs_broad: l",
+  "user": "Facts: conflicts_with_federal(state_law_x), law(state_law_x), law(state_law_y).\nGeneral rules (=> means \"normally implies\"): r_enforce: law(X) => enforceable(X); r_binding: law(X) => binding_on_citize"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "d_laches_near_gold: unreasonable_delay(mansion_case) ~> ~valid_claim(mansion_case)",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: valid_claim(mansion_case)\nCandidates:\nlabel: d_laches: laches_applies(mansion_case) ~> ~valid_claim(mansion_case)\nlabel: d_laches_broad: equity_claim(mansion_case) ~> ~valid_claim(mansion_cas"
+ }
+}

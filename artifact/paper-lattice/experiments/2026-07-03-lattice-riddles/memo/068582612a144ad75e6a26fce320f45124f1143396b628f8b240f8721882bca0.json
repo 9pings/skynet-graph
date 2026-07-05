@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"soccerball\",\"category\":\"round\",\"condition\":\"\",\"color\":\"red\",\"size\":\"large\"},\"holes\":[{\"name\":\"round\",\"size\":\"large\"},{\"name\":\"square\",\"size\":\"large\"},{\"name\":\"round\",\"size\":\"small\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you’re holding a big, bright red soccer ball and three different holes in front of you: one tiny and circular, another large and round, and a third large but square-shaped. Where would you pla"
+ }
+}

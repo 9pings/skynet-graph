@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"football\",\"category\":\"round\",\"condition\":\"damp\",\"color\":\"green\",\"size\":\"large\"},\"holes\":[{\"name\":\"star\",\"size\":\"small\"},{\"name\":\"square\",\"size\":\"small\"},{\"name\":\"round\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You have a damp green football. You need to place it into one of these holes: the star-shaped hole, the square hole, or the round hole. Which hole should you choose?"
+ }
+}

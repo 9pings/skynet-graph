@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nA sugar cube is typically cube-shaped (with six square faces), so",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You have a blue sugar cube. Choose which hole to put it in from these options: the star-shaped hole, the square hole, or the round hole. Which hole do you select?"
+ }
+}

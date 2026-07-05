@@ -1,0 +1,8 @@
+{
+ "response": "small roundpin\n\nA tiny yellow Euro plug (which is a Type F/S",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small roundpin | large roundpin | large flatpin | none.",
+  "user": "You possess a tiny yellow Euro plug. Which wall socket should you insert it into: the small round-pin variety, the large round-pin variety, or the large flat-pin variety?"
+ }
+}

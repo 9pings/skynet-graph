@@ -1,0 +1,8 @@
+{
+ "response": "aquatic\n\nA red fish should be placed in the aquarium, as fish are",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You possess a red fish. Place it into one of these habitats: the aquarium, the aviary, or the terrarium. Which option should you choose?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "You need to place a big green shark into one of these spaces: a small fish tank, a big fish tank, or a big terrarium. Where should you put it?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a large green shark. Put it into one of these enclosures: the small aquarium, the large aquarium, or the large terrarium. Which one?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"pyramid\",\"category\":\"shape\",\"condition\":\"red\",\"color\":\"red\",\"size\":\"medium\"},\"holes\":[{\"name\":\"star-shaped hole\",\"size\":\"medium\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "This is a classic shape puzzle! The red pyramid will fit into the **star-shaped hole**.\n\nHere's why:\n\n*   **Pyramids have corners:** The pyramid's sharp corners will match up with the points of the st"
+ }
+}

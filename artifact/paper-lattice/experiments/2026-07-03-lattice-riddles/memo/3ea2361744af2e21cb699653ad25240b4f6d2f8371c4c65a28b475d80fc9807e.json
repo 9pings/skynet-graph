@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"football\",\"category\":\"round\",\"condition\":\"\",\"color\":\"yellow\",\"size\":\"large\"},\"holes\":[{\"name\":\"star\",\"size\":\"large\"},{\"name\":\"square\",\"size\":\"large\"},{\"name\":\"round\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You possess a yellow football. Place it in any of these openings: the star-shaped, the square, or the circular one. Which opening will you choose?"
+ }
+}

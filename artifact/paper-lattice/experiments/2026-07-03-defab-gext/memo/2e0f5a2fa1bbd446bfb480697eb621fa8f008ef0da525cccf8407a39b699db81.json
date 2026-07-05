@@ -1,0 +1,8 @@
+{
+ "response": "d_ultra_vires",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: legally_valid(act_alpha)\nCandidates:\nlabel: d_ultra_vires: ultra_vires_act(X) ~> ~legally_valid(X)\nlabel: d_uv_broad: corporate_act(X) ~> ~legally_valid(X)\nlabel: d_uv_wrong_cond: unauthorize"
+ }
+}

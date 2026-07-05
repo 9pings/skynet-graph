@@ -1,0 +1,8 @@
+{
+ "response": "You are absolutely correct! That's a brilliant explanation. I fell for the red herring! Thanks for the clever riddle",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "This is a trick question! You'd put the sugar cube in the **square** hole. \n\nThe question plays on the color \"red\" to distract you. The key is the shape of the sugar cube – it's a cube, and a square h"
+ }
+}

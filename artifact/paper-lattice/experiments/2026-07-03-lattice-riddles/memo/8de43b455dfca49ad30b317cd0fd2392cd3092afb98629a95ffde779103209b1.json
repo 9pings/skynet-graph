@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nround",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You possess a green coin. Decide whether to place it in the star-shaped, square, or circular hole. Which one should you choose?"
+ }
+}

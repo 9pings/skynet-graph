@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"bent blue UK plug\",\"category\":\"threepin\",\"condition\":\"bent\",\"color\":\"blue\",\"size\":\"\"},\"holes\":[{\"name\":\"threepin\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You possess a bent blue UK plug. Which of the following wall sockets should you insert it into: the round-pin socket, the flat-pin socket, or the three-pin socket?"
+ }
+}

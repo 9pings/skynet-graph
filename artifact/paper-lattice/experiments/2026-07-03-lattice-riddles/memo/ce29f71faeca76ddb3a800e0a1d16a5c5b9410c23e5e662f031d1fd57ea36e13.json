@@ -1,0 +1,8 @@
+{
+ "response": "small aquatic",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small aquatic | large aquatic | large terrestrial | none.",
+  "user": "Imagine you’re holding a tiny golden trout—nowhere near full size. You need to place it in one of three spaces: a compact glass tank, a much bigger glass tank, or a spacious glass-and-plant enclosure "
+ }
+}

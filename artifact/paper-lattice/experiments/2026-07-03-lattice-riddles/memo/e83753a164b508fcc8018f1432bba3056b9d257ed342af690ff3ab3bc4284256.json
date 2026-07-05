@@ -1,0 +1,8 @@
+{
+ "response": "You have a tiny blue marble. Choose one of these holes to place it in: the small circular one, the big circular one, or the big square one. Which one do you pick?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a small blue marble. Put it into one of these holes: the small round one, the large round one, or the large square one. Which one?"
+ }
+}

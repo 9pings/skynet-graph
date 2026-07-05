@@ -1,0 +1,8 @@
+{
+ "response": "d_tard_broad",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: requires_water(tardigrade_specimen)\nCandidates:\nlabel: d_tardigrade ~> ~requires_water(X) | tardigrade(X)\nlabel: d_tard_broad ~> ~requires_water(X) | animal(X) & ~tardigrade(X)\nlabel: d_tard_"
+ }
+}

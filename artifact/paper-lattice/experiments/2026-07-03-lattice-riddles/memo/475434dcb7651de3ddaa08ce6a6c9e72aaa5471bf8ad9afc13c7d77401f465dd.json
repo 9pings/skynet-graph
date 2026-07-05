@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"football\",\"category\":\"\",\"condition\":\"deflated\",\"color\":\"red\",\"size\":\"\"},\"holes\":[{\"name\":\"the star\",\"size\":\"\"},{\"name\":\"the square\",\"size\":\"\"},{\"name\":\"the square\",\"size\":\"\"},{\"name\":\"the round one\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "Pick one of these three holes to put your deflated red football into: the star, the square, or the round one. Which will it be?"
+ }
+}

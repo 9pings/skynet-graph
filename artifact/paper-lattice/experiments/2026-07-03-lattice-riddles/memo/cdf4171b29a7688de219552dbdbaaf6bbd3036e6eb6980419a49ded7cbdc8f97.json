@@ -1,0 +1,8 @@
+{
+ "response": "terrestrial\n\nA yellow-colored reptile should go in the reptile cage,",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You possess a yellow-colored reptile. Place it inside one of these habitats: the fish tank, the bird house, or the reptile cage. Which option should you choose?"
+ }
+}

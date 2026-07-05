@@ -1,0 +1,8 @@
+{
+ "response": "\n\n{\"kind\":\"cube\",\"category\":\"square\"}",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"A green sugar cube has melted. Which of these three openings—the star-shaped, the square, o",
+  "user": "In general, which shape category fits a cube?"
+ }
+}

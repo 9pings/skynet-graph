@@ -1,0 +1,8 @@
+{
+ "response": "star\n\nThe yellow star token is-a star, and the star-shaped opening is the category star hole. Since the token",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You possess a yellow star token. Place it into one of three available holes: the star-shaped opening, the square opening, or the circular opening. Which opening will you choose?"
+ }
+}

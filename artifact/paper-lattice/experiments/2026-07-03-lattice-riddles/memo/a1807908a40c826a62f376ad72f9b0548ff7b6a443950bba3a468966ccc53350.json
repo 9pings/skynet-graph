@@ -1,0 +1,8 @@
+{
+ "response": "\n\n{\"kind\":\"sparrow\",\"category\":\"aerial\"}",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"You possess a red sparrow and must place it in either the aquarium, the aviary, or the terr",
+  "user": "In general, which habitat type fits a sparrow?"
+ }
+}

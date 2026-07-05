@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"candidates\": [\n    \"label: d_em_broad ~> ~lacks_contractual_capacity(X)\",\n    \"label: d_em_positive ~> lacks_contractual_capacity(X)\",\n    \"label: d_em_positive ~> lacks_contractual_capacity(X) & court_emancipated(X)\",\n    \"label: d_em_positive ~> lacks_contractual_capacity(X) & ~minor(X)\",\n    \"label: d_em_positive ~> lacks_contractual_capacity(X) & ~subject_to_parental_authority(X)\",\n    \"label: d_em_positive ~> lacks_contractual_capacity(X) & adult(X)\",\n    \"label: d_em_positive ~> lacks_contractual_capacity(X) & ~minor(X) & ~court_emancipated(X)\",\n    \"label: d_em_positive ~> lacks_contractual_capacity(X) & ~minor(X) & ~adult(X)\",\n    \"label: d_em_positive ~> lacks_contractual_capacity(X) & ~minor(X) & ~subject_to_parental_authority(X) & ~court_emancipated(X)\",\n    \"label: d_em_positive ~> lacks_contractual_capacity(X) & ~minor(X) & ~court_emancipated(X) & ~adult(X) & bound_by_contract(X)\",\n    \"label: d_em_positive ~> lacks_contractual_capacity(X) & ~minor(X) & ~court_emancipated(X) & ~adult(X) & ~bound_by_contract(X)\",\n    \"label: d_em_positive ~> lacks_contractual_capacity(X) & ~minor(X) & ~court_emancipated(X) & ~adult(X) & ~subject_to_parental_authority(X) & bound_by_contract(X)\",\n    \"label:",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"lacks_contractual_capacity(alex)\", list the candidate ru",
+  "user": "Facts: adult(taylor), minor(alex), minor(sam).\nGeneral rules (=> means \"normally implies\"): r_minor_cap: minor(X) => lacks_contractual_capacity(X); r_adult_bound: adult(X) => bound_by_contract(X); r_p"
+ }
+}

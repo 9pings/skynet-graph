@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"answer\",\"category\":\"riddle\",\"condition\":\"liquified sugar\",\"color\":\"any\",\"size\":\"any\"},\"holes\":[{\"name\":\"square\",\"size\":\"square\"},{\"name\":\"round\",\"size\":\"round\"},{\"name\":\"triangular\",\"size\":\"triangular\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "This is a classic trick question! Here's why:\n\n*   **Liquified sugar:** Liquified sugar will take the shape of its container.\n*   **The answer:** It will fit into **any** of the holes. It will simply "
+ }
+}

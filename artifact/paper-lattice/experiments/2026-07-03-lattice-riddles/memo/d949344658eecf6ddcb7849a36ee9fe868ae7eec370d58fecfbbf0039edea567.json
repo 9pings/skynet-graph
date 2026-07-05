@@ -1,0 +1,8 @@
+{
+ "response": "\n\n{\"kind\":\"trout\",\"category\":\"aquatic\"}",
+ "at": null,
+ "meta": {
+  "system": "State the GENERAL rule. Reply ONLY JSON: {\"kind\":\"trout\",\"category\":\"<aquatic|aerial|terrestrial|none>\"}",
+  "user": "In general, which habitat type fits a trout?"
+ }
+}

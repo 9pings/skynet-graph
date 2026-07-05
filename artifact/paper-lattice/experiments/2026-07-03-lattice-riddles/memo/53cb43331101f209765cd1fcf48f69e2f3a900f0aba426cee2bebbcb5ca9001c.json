@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nlarge flat-pin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small roundpin | large roundpin | large flatpin | none.",
+  "user": "Which wall socket should you use for a large green US plug: the small round-pin socket, the large round-pin socket, or the large flat-pin socket?"
+ }
+}

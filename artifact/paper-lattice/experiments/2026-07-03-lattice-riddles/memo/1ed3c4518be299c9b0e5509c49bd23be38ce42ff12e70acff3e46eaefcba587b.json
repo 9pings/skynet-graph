@@ -1,0 +1,8 @@
+{
+ "response": "\n\nnone",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You possess a red shaver plug and need to insert it into one of three available wall outlets: a round-pin socket, a flat-pin socket, or a three-pin socket. Which socket should you choose?"
+ }
+}

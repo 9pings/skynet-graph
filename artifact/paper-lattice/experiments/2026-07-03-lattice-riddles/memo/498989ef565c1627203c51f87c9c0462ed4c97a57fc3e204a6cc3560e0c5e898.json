@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"answer\",\"category\":\"riddle\",\"condition\":\"classic trick question\",\"color\":\"round\",\"size\":\"one\"},\"holes\":[{\"name\":\"star\",\"size\":\"shape\"},{\"name\":\"square\",\"size\":\"shape\"},{\"name\":\"round\",\"size\":\"shape\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "This is a classic trick question! The answer is the **round one**.\n\nHere's why:\n\n*   **Melted sugar** takes the shape of its container. If you put the melted sugar into the round hole, it will fill it"
+ }
+}

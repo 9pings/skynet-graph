@@ -1,0 +1,8 @@
+{
+ "response": "terrestrial",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "Imagine you own a small red bird. You need to place it in one of three different spaces: a glass tank filled with water, a large outdoor cage designed for birds, or a glass box with a dry, land-based "
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "The user is asking which socket a \"green Euro plug\" should",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "A green Euro plug is available. You must insert it into one of the following: a round-pin socket, a flat-pin socket, or a three-pin socket. Which one do you choose?"
+ }
+}

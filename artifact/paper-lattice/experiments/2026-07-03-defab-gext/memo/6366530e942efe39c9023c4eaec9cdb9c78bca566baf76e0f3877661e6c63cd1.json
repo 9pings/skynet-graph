@@ -1,0 +1,8 @@
+{
+ "response": "{\"candidates\":[\"d_axolotl: neotenic(X) ~> ~undergoes_metamorphosis(X)\", \"d_axo_broad: amphibian(X) ~> ~undergoes_metamorphosis(X)\", \"d_axo_no_novel: axolotl(X) ~> ~undergoes_metamorphosis(X)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"undergoes_metamorphosis(axo)\", list the candidate rules.",
+  "user": "Facts: amphibian(axo), amphibian(frog_fred), amphibian(normal_axo), axolotl(axo), axolotl(normal_axo), frog(frog_fred).\nGeneral rules (=> means \"normally implies\"): r_meta: amphibian(X) => undergoes_m"
+ }
+}

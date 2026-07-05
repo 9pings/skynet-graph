@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"ball\",\"category\":\"round\",\"condition\":\"damp\",\"color\":\"blue\",\"size\":\"\"},\"holes\":[{\"name\":\"round\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "A damp blue ball needs to be placed into either a flat slot or a round hole. Which one should you choose?"
+ }
+}

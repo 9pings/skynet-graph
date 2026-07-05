@@ -1,0 +1,8 @@
+{
+ "response": "\n\nYou have a green die. Which hole should you place it in: the star-shaped one, the square one, or the round one?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a green dice. Put it into one of these holes: the star-shaped one, the square one, or the round one. Which one?"
+ }
+}

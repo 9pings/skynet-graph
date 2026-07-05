@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you’re holding a small, green pyramid. You need to fit it into one of three openings: one shaped like a star, another shaped like a square, or the last one shaped like a circle. Which of these three will the pyramid fit into?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a green pyramid. Put it into one of these holes: the star-shaped one, the square one, or the round one. Which one?"
+ }
+}

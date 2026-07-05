@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"football\",\"category\":\"sports equipment\",\"condition\":\"deflated\",\"color\":\"brown\",\"size\":\"medium\"},\"holes\":[{\"name\":\"round hole\",\"size\":\"medium\"},{\"name\":\"flat slot\",\"size\":\"medium\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You would put the deflated football into the **round hole**.\n\nHere's why:\n\n*   **Football Shape:** Footballs are round (oval, technically, but rounder than flat).\n*   **Flat Slot:** A flat slot is des"
+ }
+}

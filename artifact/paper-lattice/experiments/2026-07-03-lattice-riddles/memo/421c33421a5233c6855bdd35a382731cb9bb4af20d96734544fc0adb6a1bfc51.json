@@ -1,0 +1,8 @@
+{
+ "response": "flat slot",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: round one | flat slot | none.",
+  "user": "Imagine you’re holding a damp, grassy sphere. You need to place it through either a circular opening or a wide, elongated gap. Where should you put it?"
+ }
+}

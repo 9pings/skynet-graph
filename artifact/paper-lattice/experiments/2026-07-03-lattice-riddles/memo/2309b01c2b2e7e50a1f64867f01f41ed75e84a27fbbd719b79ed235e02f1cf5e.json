@@ -1,0 +1,8 @@
+{
+ "response": "You possess a yellow fern. You must place it in either the aviary or the aquarium. Which location should you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a yellow fern. Put it into one of these enclosures: the aquarium, or the aviary. Which one?"
+ }
+}

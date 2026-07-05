@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"football\",\"category\":\"star|square|round\",\"condition\":\"\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"name\":\"star\",\"size\":\"\"},{\"name\":\"token_square\",\"size\":\"\"},{\"name\":\"round\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Pick one of these holes for your yellow football: the star, the square, or the round one. Which will it be?"
+ }
+}

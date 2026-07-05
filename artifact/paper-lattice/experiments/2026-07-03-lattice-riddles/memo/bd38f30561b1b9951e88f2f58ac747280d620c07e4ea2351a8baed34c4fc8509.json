@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"US plug\",\"category\":\"flatpin\",\"condition\":\"\",\"color\":\"red\",\"size\":\"large\"},\"holes\":[{\"name\":\"flatpin\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You possess a large red US plug. Which of the following wall sockets is it designed for: the small round-pin, the large round-pin, or the large flat-pin?"
+ }
+}

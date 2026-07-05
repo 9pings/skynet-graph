@@ -1,0 +1,8 @@
+{
+ "response": "Looking at the description of holding a \"big green football,\" I need to determine which opening it would fit into.\n\nA football is typically large and round (though not perfectly spherical, it's generally round). The options are:\n- Tiny circular hole\n- Big circular hole  \n- Large square hole\n\nA big green football would be too large for the tiny circular hole, and it would be too large for the large square hole (since footballs are round, not square). However, a football would fit into a big circular hole.\n\nlarge round",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small round | large round | large square | none.",
+  "user": "You're holding a big green football. Which opening would it fit into: the tiny circular hole, the big circular hole, or the large square hole?"
+ }
+}

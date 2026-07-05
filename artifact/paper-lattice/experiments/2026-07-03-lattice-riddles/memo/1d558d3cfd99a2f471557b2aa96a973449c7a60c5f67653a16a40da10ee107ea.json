@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nlarge aquarium",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquarium | aviary | terrarium | none.",
+  "user": "Where should you place a large red shark: in a small aquarium, a large aquarium, or a large terrarium?"
+ }
+}

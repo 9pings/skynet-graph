@@ -1,0 +1,8 @@
+{
+ "response": "The user is asking which socket a \"UK plug\" should go",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "A UK plug is white and red. Which wall socket should it go into: the round-pin, the flat-pin, or the three-pin socket?"
+ }
+}

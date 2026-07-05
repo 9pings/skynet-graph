@@ -1,0 +1,8 @@
+{
+ "response": "{\n    \"object\": {\n        \"kind\": \"green ball\",\n        \"category\": \"ball\",\n        \"condition\": \"normal\",\n        \"color\": \"green\",\n        \"size\": \"normal\"\n    },\n    \"holes\": [\n        {\n            \"name\": \"star-shaped hole\",\n            \"size\": \"normal\"\n        },\n        {\n            \"name\": \"square hole\",\n            \"size\": \"normal\"\n        },\n        {\n            \"name\": \"circular hole\",\n            \"size\": \"normal\"",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "This is a trick question! The question doesn't give you any information to suggest which hole the ball *should* go in. It's designed to make you overthink it.\n\nYou can put the green ball in **any** of"
+ }
+}

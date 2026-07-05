@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you’re holding a delicate blue fern. You need to place it inside one of two spaces: a glass tank filled with water and fish, or a cage filled with birds. Where would it belong?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a blue fern. Put it into one of these enclosures: the aquarium, or the aviary. Which one?"
+ }
+}

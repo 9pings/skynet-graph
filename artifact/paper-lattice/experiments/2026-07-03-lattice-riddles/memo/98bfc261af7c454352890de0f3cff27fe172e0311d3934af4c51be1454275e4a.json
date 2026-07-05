@@ -1,0 +1,8 @@
+{
+ "response": "aquatic",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You possess a yellow shark and need to decide where to place it among these options: an aquarium, an aviary, or a terrarium. Where should it go?"
+ }
+}

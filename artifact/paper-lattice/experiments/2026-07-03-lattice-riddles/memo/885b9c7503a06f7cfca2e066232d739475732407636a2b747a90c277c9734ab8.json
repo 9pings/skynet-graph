@@ -1,0 +1,8 @@
+{
+ "response": "\n\n{\"word\":\"sphere\",\"means\":\"ball\"}",
+ "at": null,
+ "meta": {
+  "system": "Vocabulary question. Reply ONLY JSON: {\"word\":\"sphere\",\"means\":\"<one of the options, or neither>\"}",
+  "user": "The word \"sphere\" used as a object kind word — which of these does it mean: round|square|star|triangle|ball|disc|cube|startoken|pyramid|marble|football|coin|sugarcube|dice, or neither?"
+ }
+}

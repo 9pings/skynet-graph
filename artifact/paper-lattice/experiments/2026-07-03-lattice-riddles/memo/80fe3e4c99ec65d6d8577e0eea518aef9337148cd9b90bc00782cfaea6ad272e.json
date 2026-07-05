@@ -1,0 +1,8 @@
+{
+ "response": "Pick one of these three holes for your tiny yellow marble: the small round one, the large round one, or the large square one. Which will it be?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a small yellow marble. Put it into one of these holes: the small round one, the large round one, or the large square one. Which one?"
+ }
+}

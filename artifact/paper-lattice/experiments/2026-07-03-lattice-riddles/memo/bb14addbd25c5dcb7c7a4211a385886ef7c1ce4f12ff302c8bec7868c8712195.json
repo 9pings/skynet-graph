@@ -1,0 +1,8 @@
+{
+ "response": "terrestrial",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You possess a red fern. You must place it in one of the following: a terrarium, an aviary, or an aquarium. Which one do you choose?"
+ }
+}

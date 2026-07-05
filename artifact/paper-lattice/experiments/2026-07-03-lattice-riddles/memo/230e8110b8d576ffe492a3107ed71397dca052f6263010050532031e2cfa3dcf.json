@@ -1,0 +1,8 @@
+{
+ "response": "**terrestrial**",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "Imagine you’re holding a small blue fern. You need to place it inside one of three spaces: a fish tank, a birdcage, or a glass enclosure for reptiles and small animals. Where would it belong?"
+ }
+}

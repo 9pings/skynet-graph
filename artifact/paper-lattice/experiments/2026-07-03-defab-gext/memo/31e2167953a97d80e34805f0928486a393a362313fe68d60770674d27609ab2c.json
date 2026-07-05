@@ -1,0 +1,8 @@
+{
+ "response": "d_dolphin",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: walks(flippy)\nCandidates:\nlabel: d_dolphin: dolphin(X) ~> ~walks(X)\nlabel: d_dolphin_broad: mammal(X) ~> ~walks(X)\nlabel: d_dolphin_wrong_cond: aquatic(X) ~> ~walks(X)"
+ }
+}

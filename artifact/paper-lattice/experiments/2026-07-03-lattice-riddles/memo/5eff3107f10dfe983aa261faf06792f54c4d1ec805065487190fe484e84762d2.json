@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"ball\",\"category\":\"round\",\"condition\":\"deflated\",\"color\":\"round\",\"size\":\"\"},\"holes\":[{\"name\":\"round\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You have a deflated red ball. Should you put it into the star-shaped hole, the square hole, or the round hole?"
+ }
+}

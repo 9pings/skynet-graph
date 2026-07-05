@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"ball\",\"category\":\"flat\",\"condition\":\"deflated\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"name\":\"<|channel>gemma-4-thought-01-2025-01-24-01-24-24-01-24-24-01-24-24-01-24-24-01-24-24-01-24-24-01-24-24-01-24-24-01-24-24-01-24-24-01-24-24-01-24-24-01-24-24-01",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You have a deflated yellow ball. Should you put it into the round hole or the flat slot?"
+ }
+}

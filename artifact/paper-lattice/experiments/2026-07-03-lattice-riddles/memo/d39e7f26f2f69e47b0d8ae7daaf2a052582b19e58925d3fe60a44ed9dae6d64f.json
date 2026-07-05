@@ -1,0 +1,8 @@
+{
+ "response": "Looking at this puzzle, I need to determine which outlet type corresponds to a yellow",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You've got a yellow electrical plug from a lamp. You need to insert it into one of three types of wall outlets: the circular pin outlet, the flat pin outlet, or the triangular pin outlet. Which outlet"
+ }
+}

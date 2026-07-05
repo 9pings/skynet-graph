@@ -1,0 +1,8 @@
+{
+ "response": "d_statute_of_lim: time_barred(X) ~> ~actionable(X)",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: actionable(claim_a)\nCandidates:\nlabel: d_statute_of_lim: time_barred(X) ~> ~actionable(X)\nlabel: d_sol_indirect: dismissed(X) ~> ~actionable(X)\nlabel: d_sol_wrong_cond: invalid(X) ~> ~actiona"
+ }
+}

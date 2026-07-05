@@ -1,0 +1,8 @@
+{
+ "response": "The goal is to find an exception rule that explains why `positive_refractive_index(split_ring_resonator)` is an anomaly",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_metamaterial: metamaterial(X) ~> ~positive_refractive_index(X)\nd_mm_b",
+  "user": "Facts: composite(carbon_fiber_plate), composite(split_ring_resonator), material(carbon_fiber_plate), material(split_ring_resonator), metamaterial(split_ring_resonator).\nGeneral rules (=> means \"normal"
+ }
+}

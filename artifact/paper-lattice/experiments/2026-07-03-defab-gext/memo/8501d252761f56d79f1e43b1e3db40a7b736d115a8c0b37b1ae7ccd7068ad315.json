@@ -1,0 +1,8 @@
+{
+ "response": "d_obi_ostrich",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: flies(obi)\nCandidates:\nlabel: d_obi_ostrich: ostrich(X) ~> ~flies(X)\nlabel: d_obi_bird: bird(X) ~> ~flies(X)\nlabel: d_obi_specific: ostrich(X) ∧ bird(X) ~> ~flies(X)"
+ }
+}

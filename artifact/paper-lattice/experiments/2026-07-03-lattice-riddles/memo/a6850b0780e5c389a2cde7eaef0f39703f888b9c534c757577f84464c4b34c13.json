@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"green star token\",\"category\":\"token\",\"condition\":\"perfect fit\",\"color\":\"green\",\"size\":\"small\"},\"holes\":[{\"name\":\"star-shaped hole\",\"size\":\"small\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You should put the green star token into the **star-shaped hole**.\n\n\n\nIt's a perfect fit!"
+ }
+}

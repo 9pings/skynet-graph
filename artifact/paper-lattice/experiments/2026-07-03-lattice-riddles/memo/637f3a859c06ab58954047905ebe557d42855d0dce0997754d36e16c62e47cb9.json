@@ -1,0 +1,8 @@
+{
+ "response": "large aquatic",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small aquatic | large aquatic | large terrestrial | none.",
+  "user": "Imagine you’re holding a massive green shark—nowhere near its natural habitat. You need to place it somewhere safe and suitable: either in a tiny aquarium, a spacious aquarium, or a large terrarium. W"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "\n\n{\"kind\":\"fern\",\"category\":\"terrestrial\"}",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"You have a red fern and need to place it in either the aquarium, the aviary, or the terrari",
+  "user": "In general, which habitat type fits a fern?"
+ }
+}

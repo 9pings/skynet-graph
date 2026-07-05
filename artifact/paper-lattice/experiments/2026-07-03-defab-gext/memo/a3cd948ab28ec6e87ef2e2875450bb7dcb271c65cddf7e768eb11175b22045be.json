@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\"candidates\":[\"d_platypus: platypus(X) ~> ~gives_live_birth(X)\",\"d_plat_broad: mammal(X) ~> ~gives_live_birth(X)\",\"d_plat_wrong_head: platypus(X) ~> ~warm_blooded(X)\",\"d_plat_positive: platypus(X) => lays_eggs(X)\",\"d_plat_irrelevant: platypus(X) ~> ~has_fur(X)\",\"d_plat_wrong_cond: aquatic(X) ~> ~gives_live_birth(X)\"]}\n```",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"gives_live_birth(percy)\", list the candidate rules. Repl",
+  "user": "Facts: cat(felix), mammal(felix), mammal(percy), platypus(percy).\nGeneral rules (=> means \"normally implies\"): r_birth: mammal(X) => gives_live_birth(X); r_warm_p: mammal(X) => warm_blooded(X); r_fur_"
+ }
+}

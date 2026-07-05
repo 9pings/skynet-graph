@@ -1,0 +1,8 @@
+{
+ "response": "aquarium\n\nA green fern plant would best be placed in the fish tank area, as ferns typically thrive in humid",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquarium | aviary | none.",
+  "user": "You have a green fern plant. Choose to place it in either the fish tank area or the bird house area. Where would you put it?"
+ }
+}

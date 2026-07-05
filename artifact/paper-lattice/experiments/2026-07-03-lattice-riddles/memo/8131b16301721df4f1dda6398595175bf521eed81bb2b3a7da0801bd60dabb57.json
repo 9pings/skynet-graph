@@ -1,0 +1,8 @@
+{
+ "response": "round\n\nA bright yellow ball would fit perfectly through a circular hole, as the ball's round shape allows it to pass through any opening that is large enough for its diameter. The other shapes (star and square) would not accommodate a round ball in the same way.",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You're holding a bright yellow ball. Choose which opening to place it in: the star-shaped hole, the square hole, or the circular hole. Where do you put it?"
+ }
+}

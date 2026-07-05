@@ -1,0 +1,8 @@
+{
+ "response": "round",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "A damp, green football needs to be placed into a hole. You have three options: a star, a square, or a circle. Which one do you choose?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "Looking at the plug and outlet options:\n\n- The green kettle plug has circular pins",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You possess a green kettle plug. Insert it into one of these electrical outlets: the circular-pin outlet, the flat-pin outlet, or the triangular-pin outlet. Which outlet should you choose?"
+ }
+}

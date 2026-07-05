@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"ball\",\"category\":\"sphere\",\"condition\":\"soggy\",\"color\":\"green\",\"size\":\"large\"},\"holes\":[{\"name\":\"star-shaped\",\"size\":\"large\"},{\"name\":\"square\",\"size\":\"large\"},{\"name\":\"round\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "You're holding a soggy green ball and need to choose where to place it among three differently shaped holes: one is star-shaped, one is square, and one is round. Which hole should you select?"
+ }
+}

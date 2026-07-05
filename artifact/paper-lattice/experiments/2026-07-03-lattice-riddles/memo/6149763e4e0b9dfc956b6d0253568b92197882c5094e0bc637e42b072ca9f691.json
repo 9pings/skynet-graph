@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"answer\",\"category\":\"reasoning\",\"condition\":\"best choice\",\"color\":\"green\",\"size\":\"bird\"},\"holes\":[{\"name\":\"aviary\",\"size\":\"best\"},{\"name\":\"aquarium\",\"size\":\"wrong\"},{\"name\":\"terrarium\",\"size\":\"wrong\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "The **aviary** is the best choice! Here's why:\n\n*   **Aviary:** Designed specifically for birds. It provides space to fly, often has perches and nesting areas, and is generally a suitable environment "
+ }
+}

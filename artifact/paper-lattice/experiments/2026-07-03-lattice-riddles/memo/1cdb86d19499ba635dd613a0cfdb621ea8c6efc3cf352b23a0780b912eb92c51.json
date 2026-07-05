@@ -1,0 +1,8 @@
+{
+ "response": "You have a tiny blue trout and need to decide where to place it: a small aquarium, a large aquarium, or a large terrarium. Where should you put it?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a small blue trout. Put it into one of these enclosures: the small aquarium, the large aquarium, or the large terrarium. Which one?"
+ }
+}

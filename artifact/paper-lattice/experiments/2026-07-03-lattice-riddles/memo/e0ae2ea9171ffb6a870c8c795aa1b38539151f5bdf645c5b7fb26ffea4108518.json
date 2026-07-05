@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"lump\",\"category\":\"round\",\"condition\":\"melted\",\"color\":\"blue\",\"size\":\"small\"},\"holes\":[{\"name\":\"round\",\"size\":\"small\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you’ve got a small, melted blue sugar lump—what’s the best hole to drop it into: the star-shaped one, the square one, or the round one? Which fits it best?"
+ }
+}

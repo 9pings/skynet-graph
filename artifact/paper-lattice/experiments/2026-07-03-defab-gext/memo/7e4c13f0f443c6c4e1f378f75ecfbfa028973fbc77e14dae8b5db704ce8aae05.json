@@ -1,0 +1,8 @@
+{
+ "response": "d_sh_anomaly_specific",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: wetted_by_water(lotus_coating)\nCandidates:\nlabel: d_sh_anomaly: superhydrophobic(lotus_coating) ~> ~wetted_by_water(lotus_coating)\nlabel: d_sh_anomaly_specific: (superhydrophobic(X) ∧ materia"
+ }
+}

@@ -1,0 +1,140 @@
+{
+ "shapes/order0": {
+  "divergence": {
+   "confounded": 2,
+   "spec": 4
+  },
+  "ungated": {
+   "wrongEdges": [
+    "pyramid→square"
+   ],
+   "damage": 1,
+   "ok": 5,
+   "calls": 5
+  },
+  "gated": {
+   "wrongEdges": [],
+   "damage": 0,
+   "ok": 5,
+   "calls": 8,
+   "quarantined": 2,
+   "refusals": 2,
+   "retries": 1
+  }
+ },
+ "shapes/order1": {
+  "divergence": {
+   "confounded": 2,
+   "spec": 4
+  },
+  "ungated": {
+   "wrongEdges": [
+    "pyramid→square"
+   ],
+   "damage": 2,
+   "ok": 5,
+   "calls": 5
+  },
+  "gated": {
+   "wrongEdges": [],
+   "damage": 1,
+   "ok": 5,
+   "calls": 7,
+   "quarantined": 1,
+   "refusals": 2,
+   "retries": 1
+  }
+ },
+ "shapes/order2": {
+  "divergence": {
+   "confounded": 2,
+   "spec": 4
+  },
+  "ungated": {
+   "wrongEdges": [
+    "pyramid→square"
+   ],
+   "damage": 2,
+   "ok": 5,
+   "calls": 5
+  },
+  "gated": {
+   "wrongEdges": [],
+   "damage": 1,
+   "ok": 5,
+   "calls": 7,
+   "quarantined": 1,
+   "refusals": 2,
+   "retries": 1
+  }
+ },
+ "animals/order0": {
+  "divergence": {
+   "confounded": 0,
+   "spec": 2
+  },
+  "ungated": {
+   "wrongEdges": [
+    "fern→terrestrial"
+   ],
+   "damage": 1,
+   "ok": 4,
+   "calls": 4
+  },
+  "gated": {
+   "wrongEdges": [],
+   "damage": 0,
+   "ok": 4,
+   "calls": 5,
+   "quarantined": 0,
+   "refusals": 2,
+   "retries": 1
+  }
+ },
+ "animals/order1": {
+  "divergence": {
+   "confounded": 0,
+   "spec": 2
+  },
+  "ungated": {
+   "wrongEdges": [
+    "fern→terrestrial"
+   ],
+   "damage": 1,
+   "ok": 4,
+   "calls": 4
+  },
+  "gated": {
+   "wrongEdges": [],
+   "damage": 0,
+   "ok": 4,
+   "calls": 5,
+   "quarantined": 0,
+   "refusals": 2,
+   "retries": 1
+  }
+ },
+ "animals/order2": {
+  "divergence": {
+   "confounded": 0,
+   "spec": 2
+  },
+  "ungated": {
+   "wrongEdges": [
+    "fern→terrestrial"
+   ],
+   "damage": 1,
+   "ok": 4,
+   "calls": 4
+  },
+  "gated": {
+   "wrongEdges": [],
+   "damage": 0,
+   "ok": 4,
+   "calls": 5,
+   "quarantined": 0,
+   "refusals": 2,
+   "retries": 1
+  }
+ }
+}

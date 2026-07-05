@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"fern\",\"category\":\"terrarium\",\"condition\":\"\",\"color\":\"green\",\"size\":\"large\"},\"holes\":[{\"name\":\"terrarium\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you’re holding a lush green fern—where would you place it to keep it thriving? You’ve got three options: a fish tank, a birdcage, or a glass enclosure for land plants. Which spot is the best f"
+ }
+}

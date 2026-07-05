@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nA sugar cube is typically cube-shaped (with six square faces), so it wouldn't fit through any of the star-shaped, square, or round holes in the traditional sense. The sugar cube is already the shape that would fit through a square hole, but since the question asks which hole to put it through, and a sugar cube is already a solid cube, it would fit through a square hole but not through a star or round hole. However, since the question asks for exactly one choice and the sugar cube is blue, I'll go with \"none\" as it's not a hole that would accommodate the cube's shape.",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You have a blue sugar cube. Choose which hole to put it in from these options: the star-shaped hole, the square hole, or the round hole. Which hole do you select?"
+ }
+}

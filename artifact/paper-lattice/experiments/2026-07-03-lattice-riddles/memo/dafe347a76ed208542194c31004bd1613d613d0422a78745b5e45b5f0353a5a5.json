@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"answer\",\"category\":\"trick question\",\"condition\":\"shark needs water to survive\",\"color\":\"red\",\"size\":\"large\"},\"holes\":[{\"name\":\"small aquarium\",\"size\":\"small\"},{\"name\":\"large terrarium\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "This is a trick question! A shark, even a red one, needs water to survive. Therefore, the correct answer is the **large aquarium**.\n\nHere's why the others don't work:\n\n*   **Small aquarium:** Too smal"
+ }
+}

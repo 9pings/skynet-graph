@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"sugar cube\",\"category\":\"\",\"condition\":\"liquefied\",\"color\":\"blue\",\"size\":\"\"},\"holes\":[{\"name\":\"star-shaped hole\",\"size\":\"\"},{\"name\":\"square hole\",\"size\":\"\"},{\"name\":\"round hole\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "A blue sugar cube has been liquefied. Should you pour it into the star-shaped hole, the square hole, or the round hole?"
+ }
+}

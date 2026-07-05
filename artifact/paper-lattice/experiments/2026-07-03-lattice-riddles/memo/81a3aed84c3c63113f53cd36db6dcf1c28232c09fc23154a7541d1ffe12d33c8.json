@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"ball\",\"category\":\"star-shaped\",\"condition\":\"\",\"color\":\"green\",\"size\":\"small\"},\"holes\":[{\"name\":\"star-shaped\",\"size\":\"small\"},{\"name\":\"square\",\"size\":\"small\"},{\"name\":\"circular\",\"size\":\"small\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "You possess a green ball and must place it into either the star-shaped, square, or circular hole. Which hole is the correct choice?"
+ }
+}

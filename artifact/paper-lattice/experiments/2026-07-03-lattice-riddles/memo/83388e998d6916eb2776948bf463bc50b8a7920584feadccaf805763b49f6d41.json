@@ -1,0 +1,8 @@
+{
+ "response": "Aquatic",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "Imagine you own a single blue fish. You need to place it in one of three spaces: a tank filled with water, a cage meant for birds, or a glass box designed for land animals. Where should you put it?"
+ }
+}

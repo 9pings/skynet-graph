@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"plug\",\"category\":\"roundpin\",\"condition\":\"green\",\"color\":\"green\",\"size\":\"large\"},\"holes\":[{\"name\":\"roundpin\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You possess a large green US plug. Which of the following wall sockets should you insert it into: the small round-pin socket, the large round-pin socket, or the large flat-pin socket?"
+ }
+}

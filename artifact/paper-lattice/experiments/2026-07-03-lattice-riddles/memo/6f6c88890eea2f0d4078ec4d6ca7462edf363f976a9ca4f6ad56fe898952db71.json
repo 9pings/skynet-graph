@@ -1,0 +1,8 @@
+{
+ "response": "aquatic\n\nThe yellow fish belongs to the category \"aquatic\" (as established in the taxonomy: fish is-a",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: fish is-a aquatic; bird is-a aerial; reptile is-a terres",
+  "user": "You possess a yellow fish. Place it into one of these habitats: the fish tank, the bird cage, or the reptile house. Which option should you choose?"
+ }
+}

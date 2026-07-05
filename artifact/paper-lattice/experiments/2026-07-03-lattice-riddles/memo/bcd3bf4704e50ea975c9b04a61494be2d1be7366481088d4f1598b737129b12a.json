@@ -1,0 +1,8 @@
+{
+ "response": "\n\nYou have a red HDMI cable. Which of the following wall sockets should you use: the round-pin, the flat-pin, or the three-pin?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a red hdmi. Put it into one of these wall sockets: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one?"
+ }
+}

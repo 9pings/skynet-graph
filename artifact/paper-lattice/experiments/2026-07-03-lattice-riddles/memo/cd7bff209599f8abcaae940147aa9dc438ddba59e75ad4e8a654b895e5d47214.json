@@ -1,0 +1,8 @@
+{
+ "response": "flatpin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "Imagine you’ve got a kettle with a green plug—now you need to plug it in. You’ve got three options: a socket with round pins, one with flat pins, or a standard three-pin socket. Which one will safely "
+ }
+}

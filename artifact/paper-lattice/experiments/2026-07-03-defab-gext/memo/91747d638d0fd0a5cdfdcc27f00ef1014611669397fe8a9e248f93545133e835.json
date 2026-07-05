@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\n{\"candidates\":[\"d_cuckoo: cuckoo(X) ~> ~builds_nest(X)\", \"d_cuck_broad: bird(X) ~> ~builds_nest(X)\", \"d_cuck_indirect: parasite(X) ~> ~builds_nest(X)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"builds_nest(coco)\", list the candidate rules. Reply ONLY",
+  "user": "Facts: bird(coco), bird(tweety), cuckoo(coco), sparrow(tweety).\nGeneral rules (=> means \"normally implies\"): r_nest: bird(X) => builds_nest(X); r_young: bird(X) => raises_own_young(X); r_flies_c: bird"
+ }
+}

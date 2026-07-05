@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"candidates\": [\n    \"d_metallic_glass: amorphous_solid(vitreloy) ~> ~brittle(vitreloy)\",\n    \"d_mg_broad: metal(vitreloy) ~> ~brittle(vitreloy)\",\n    \"d_mg_wrong_head: amorphous_solid(vitreloy) ~> ~conducts_electricity(vitreloy)\",\n    \"d_mg_wrong_cond: alloy(vitreloy) ~> ~brittle(vitreloy)\",\n    \"d_mg_positive: amorphous_solid(vitreloy) => ductile(vitreloy)\",\n    \"d_mg_irrelevant: ceramic(vitreloy) ~> ~brittle(vitreloy)\"\n  ]\n}\n```",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"brittle(vitreloy)\", list the candidate rules. Reply ONLY",
+  "user": "Facts: material(steel_a), material(vitreloy), metal(steel_a), metal(vitreloy).\nGeneral rules (=> means \"normally implies\"): r_brittle: metal(X) => brittle(X); r_conduct: metal(X) => conducts_electrici"
+ }
+}

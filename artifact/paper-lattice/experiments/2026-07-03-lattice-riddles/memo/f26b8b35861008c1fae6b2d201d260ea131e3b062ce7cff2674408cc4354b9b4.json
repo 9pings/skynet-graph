@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"pyramid\",\"category\":\"shape\",\"condition\":\"blue\",\"color\":\"blue\",\"size\":\"medium\"},\"holes\":[{\"name\":\"square\",\"size\":\"medium\"},{\"name\":\"star\",\"size\":\"medium\"},{\"name\":\"round\",\"size\":\"medium\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "This is a classic shape puzzle! The blue pyramid will fit into the **square** hole.\n\nHere's why:\n\n*   **Pyramids** have a square base.\n*   The star-shaped and round holes are not square.\n\n\n\nLet me kno"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "d_emu_broad",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: flies(emma)\nCandidates:\nlabel: d_emu ~> ~flies(X) | cond(emu(X))\nlabel: d_emu_broad ~> ~flies(X) | cond(bird(X) & ~emu(X))\nlabel: d_emu_wrong_cond ~> ~flies(X) | cond(large(X) & ~emu(X))"
+ }
+}

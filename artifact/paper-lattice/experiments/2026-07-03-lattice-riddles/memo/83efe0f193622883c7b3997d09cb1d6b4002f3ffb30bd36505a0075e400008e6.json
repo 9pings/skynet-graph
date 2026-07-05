@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"sphere\",\"category\":\"round\",\"condition\":\"gleaming\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"name\":\"circular\",\"size\":\"\"},{\"name\":\"rectangular\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you have a gleaming yellow sphere. You need to place it into either a circular opening or a rectangular slit. Which one will it fit into?"
+ }
+}

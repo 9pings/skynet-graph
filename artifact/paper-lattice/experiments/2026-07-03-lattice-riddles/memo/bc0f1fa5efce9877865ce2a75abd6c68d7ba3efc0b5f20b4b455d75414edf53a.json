@@ -1,0 +1,8 @@
+{
+ "response": "\n\nYou possess a yellow fern; should you place it in the aquarium or the aviary?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a yellow fern. Put it into one of these enclosures: the aquarium, or the aviary. Which one?"
+ }
+}

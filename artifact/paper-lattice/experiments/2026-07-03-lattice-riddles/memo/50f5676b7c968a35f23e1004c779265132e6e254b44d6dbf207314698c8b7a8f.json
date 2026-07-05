@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"damaged red American-style plug\",\"category\":\"flatpin\",\"condition\":\"damaged\",\"color\":\"red\",\"size\":\"\"},\"holes\":[{\"name\":\"flatpin\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You possess a damaged red American-style plug. Given the choice between a round-pin outlet, a flat-pin outlet, and a three-pin outlet, which one should you insert it into?"
+ }
+}

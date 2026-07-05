@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you’re holding a blue six-sided die and need to place it into one of three different holes: one shaped like a star, another shaped like a square, and the third shaped like a circle. Into which hole should you put the die?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a blue die. Put it into one of these holes: the star-shaped one, the square one, or the round one. Which one?"
+ }
+}

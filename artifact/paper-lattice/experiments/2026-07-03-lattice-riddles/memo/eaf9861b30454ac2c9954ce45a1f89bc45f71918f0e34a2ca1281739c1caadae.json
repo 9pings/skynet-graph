@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"football\",\"category\":\"\",\"condition\":\"\",\"color\":\"red\",\"size\":\"large\"},\"holes\":[{\"name\":\"round\",\"size\":\"small\"},{\"name\":\"round\",\"size\":\"large\"},{\"name\":\"square\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You have a big red football. Which hole should you place it in: the small round one, the large round one, or the large square one?"
+ }
+}

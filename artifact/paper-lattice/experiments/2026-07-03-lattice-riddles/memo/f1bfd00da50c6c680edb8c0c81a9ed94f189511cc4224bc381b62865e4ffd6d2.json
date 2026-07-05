@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"star\",\"category\":\"star\",\"condition\":\"\",\"color\":\"blue\",\"size\":\"\"},\"holes\":[{\"name\":\"star\",\"size\":\"\"},{\"name\":\"\",\"size\":\"\"},{\"name\":\"\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You possess a blue star token. Place it into one of the following openings: the star-shaped hole, the square hole, or the round hole. Which one do you choose?"
+ }
+}

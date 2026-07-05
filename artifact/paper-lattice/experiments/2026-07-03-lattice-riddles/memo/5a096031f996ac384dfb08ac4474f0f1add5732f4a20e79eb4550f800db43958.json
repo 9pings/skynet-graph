@@ -1,0 +1,8 @@
+{
+ "response": "Aquatic",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "Imagine you’re holding a freshly caught red trout—now you need to place it in one of three spaces: a glass tank filled with water, a birdcage filled with air, or a glass box lined with soil and plants"
+ }
+}

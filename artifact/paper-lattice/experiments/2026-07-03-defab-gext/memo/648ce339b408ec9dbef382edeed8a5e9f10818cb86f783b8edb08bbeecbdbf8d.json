@@ -1,0 +1,8 @@
+{
+ "response": "\n\n{\"candidates\":[\"d_panda: panda(X) ~> ~carnivore(X)\", \"d_panda_broad: bear(X) ~> ~carnivore(X)\", \"d_panda_wrong_head: panda(X) ~> ~large_mammal(X)\", \"d_panda_positive: panda(X) => herbivore(X)\", \"d_panda_wrong_cond: asian(X) ~> ~carnivore(X)\", \"d_panda_irrelevant: panda(X) => bamboo_eater(X)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"carnivore(pandy)\", list the candidate rules. Reply ONLY ",
+  "user": "Facts: bear(grizz), bear(pandy), grizzly(grizz), panda(pandy).\nGeneral rules (=> means \"normally implies\"): r_carn: bear(X) => carnivore(X); r_large: bear(X) => large_mammal(X).\nObserved anomaly (shou"
+ }
+}

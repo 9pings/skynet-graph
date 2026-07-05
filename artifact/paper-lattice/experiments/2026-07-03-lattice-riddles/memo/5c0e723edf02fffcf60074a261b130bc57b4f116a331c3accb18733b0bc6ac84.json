@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"blue UK plug\",\"category\":\"threepin\",\"condition\":\"\",\"color\":\"blue\",\"size\":\"\"},\"holes\":[{\"name\":\"threepin\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "Which of the following wall sockets—round-pin, flat-pin, or three-pin—is compatible with a blue UK plug?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "This is a clever riddle! The answer is **neither**.\n\nHere's why:\n\n*   **Hole shape words** refer to shapes that are *cut out* of something.\n",
+ "at": null,
+ "meta": {
+  "system": "Vocabulary question. Reply ONLY JSON: {\"word\":\"triangle\",\"means\":\"<one of the options, or neither>\"}",
+  "user": "The word \"triangle\" used as a hole shape word — which of these does it mean: star|square|round, or neither?"
+ }
+}

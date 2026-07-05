@@ -1,0 +1,8 @@
+{
+ "response": "\n\nYou have a sugar cube that has been melted into a yellow liquid. To pour it into a container, you must choose between a star-shaped hole, a square one, or a round one. Which hole should you use?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a liquefied yellow sugar cube. Put it into one of these holes: the star-shaped one, the square one, or the round one. Which one?"
+ }
+}

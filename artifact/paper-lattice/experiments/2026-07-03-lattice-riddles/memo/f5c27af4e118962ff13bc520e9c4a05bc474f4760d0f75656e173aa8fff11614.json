@@ -1,0 +1,8 @@
+{
+ "response": "aquatic\n\nA yellow fern would best thrive in the fish tank environment, as",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You possess a yellow fern. Place it in one of these habitats: the fish tank, the bird house, or the reptile cage. Which option would you choose?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "You possess a tiny yellow Euro plug. Which wall socket should you insert it into: the small round-pin variety, the large round-pin variety, or the large flat-pin variety?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a small yellow Euro plug. Put it into one of these wall sockets: the small round-pin socket, the large round-pin socket, or the large flat-pin socket. Which one?"
+ }
+}

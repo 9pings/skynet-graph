@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"sphere\",\"category\":\"round\",\"condition\":\"damp\",\"color\":\"green\",\"size\":\"\"},\"holes\":[{\"name\":\"circular\",\"size\":\"\"},{\"name\":\"flat\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You possess a damp, green sphere. You must place it into either the circular opening or the flat slot. Which one should you choose?"
+ }
+}

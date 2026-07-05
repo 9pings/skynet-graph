@@ -1,0 +1,8 @@
+{
+ "response": "\n\nround one",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: round one | flat slot | none.",
+  "user": "You possess a moist blue sphere. Should you place it in the circular opening or the rectangular slot?"
+ }
+}

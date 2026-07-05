@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\n{\"candidates\":[\"d_em_broad: minor(X) ~> ~lacks_contractual_capacity(X)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"lacks_contractual_capacity(alex)\", list the candidate ru",
+  "user": "Facts: adult(taylor), minor(alex), minor(sam).\nGeneral rules (=> means \"normally implies\"): r_minor_cap: minor(X) => lacks_contractual_capacity(X); r_adult_bound: adult(X) => bound_by_contract(X); r_p"
+ }
+}

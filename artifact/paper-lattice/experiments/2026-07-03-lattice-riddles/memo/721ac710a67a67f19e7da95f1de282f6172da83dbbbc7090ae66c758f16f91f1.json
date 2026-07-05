@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"explanation\",\"category\":\"electrical\",\"condition\":\"Euro plug compatibility\",\"color\":\"white\",\"size\":\"medium\"},\"holes\":[{\"name\":\"flat-pin socket\",\"size\":\"medium\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You should use the **flat-pin socket**.\n\nHere's why:\n\n*   **Euro plugs** (also known as Schuko plugs) have two flat pins.\n*   **Round-pin sockets** are for a different type of plug.\n*   **Three-pin so"
+ }
+}

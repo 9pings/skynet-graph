@@ -1,0 +1,8 @@
+{
+ "response": "You have a big green football and need to place it into one of these openings: a small circular one, a big circular one, or a big square one. Which one should you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a large green football. Put it into one of these holes: the small round one, the large round one, or the large square one. Which one?"
+ }
+}

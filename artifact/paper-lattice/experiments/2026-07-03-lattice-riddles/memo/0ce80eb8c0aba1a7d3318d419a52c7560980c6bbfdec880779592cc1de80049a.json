@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"sphere\",\"category\":\"round\",\"condition\":\"\",\"color\":\"golden\",\"size\":\"\"},\"holes\":[{\"name\":\"round\",\"size\":\"\"},{\"name\":\"square\",\"size\":\"\"},{\"name\":\"star\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you’re holding a bright, golden sphere. You need to place it into one of three openings: one shaped like a star, another shaped like a perfect square, and the last one shaped like a circle. Wh"
+ }
+}

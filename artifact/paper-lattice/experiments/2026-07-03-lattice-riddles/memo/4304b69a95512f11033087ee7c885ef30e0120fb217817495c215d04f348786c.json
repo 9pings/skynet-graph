@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"dice\",\"category\":\"game\",\"condition\":\"green\",\"color\":\"green\",\"size\":\"standard\"},\"holes\":[{\"name\":\"round\",\"size\":\"small\"},{\"name\":\"square\",\"size\":\"standard\"},{\"name\":\"triangular\",\"size\":\"small\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "This is a trick question! Dice have square faces. Therefore, the **square** hole is the only one the green dice will fit into.\n\n\n\nLet me know if you'd like to try another riddle!"
+ }
+}

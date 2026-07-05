@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"word\": \"die\",\n  \"means\": [\n    \"cube\",\n    \"dice\",\n    \"sugarcube\",\n    \"marble\",\n    \"foot",
+ "at": null,
+ "meta": {
+  "system": "Vocabulary question. Reply ONLY JSON: {\"word\":\"die\",\"means\":\"<one of the options, or neither>\"}",
+  "user": "The word \"die\" used as a object kind word — which of these does it mean: round|square|star|triangle|ball|disc|cube|startoken|pyramid|marble|football|coin|sugarcube|dice, or neither?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"plug\",\"category\":\"threepin\",\"condition\":\"\",\"color\":\"white and red\",\"size\":\"\"},\"holes\":[{\"name\":\"roundpin\",\"size\":\"\"},{\"name\":\"flatpin\",\"size\":\"\"},{\"name\":\"threepin\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You possess a UK plug with white and red coloring. You need to insert it into one of the following wall sockets: the one with round pins, the one with flat pins, or the one with three pins. Which sock"
+ }
+}

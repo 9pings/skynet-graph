@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\n{\"candidates\":[\"label: cond(X) ~> ~head(X)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"walks(flippy)\", list the candidate rules. Reply ONLY JSO",
+  "user": "Facts: cat(felix), dolphin(flippy), mammal(felix), mammal(flippy).\nGeneral rules (=> means \"normally implies\"): r_walks: mammal(X) => walks(X); r_warm: mammal(X) => warm_blooded(X); r_fur: cat(X) => h"
+ }
+}

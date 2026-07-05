@@ -1,0 +1,8 @@
+{
+ "response": "\n\nlarge aquatic",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small aquatic | large aquatic | large terrestrial | none.",
+  "user": "Imagine you have a large green shark. You need to place it in one of three available habitats: a small aquarium, a large aquarium, or a large terrarium. Which of these three options is the correct cho"
+ }
+}

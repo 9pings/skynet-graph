@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"HDMI cable\",\"category\":\"\\\"\\\"\",\"condition\":\"\",\"color\":\"blue\",\"size\":\"\"},\"holes\":[{\"name\":\"round-pin\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "An HDMI cable is blue. You need to plug it into one of three available wall sockets: a round-pin, a flat-pin, or a three-pin socket. Which one do you choose?"
+ }
+}

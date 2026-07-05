@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"ball\",\"category\":\"round\",\"condition\":\"deflated\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"name\":\"circular\",\"size\":\"\"},{\"name\":\"flat\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you have a yellow ball that has lost its air. You need to place it into either a circular opening or a flat slot. Which of these two options should you choose?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nA blue sugar cube has melted. Which of the following shapes should you place it into: the star, the square, or the circle?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a melted blue sugar cube. Put it into one of these holes: the star-shaped one, the square one, or the round one. Which one?"
+ }
+}

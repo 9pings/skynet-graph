@@ -1,0 +1,8 @@
+{
+ "response": "none",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "Imagine you’re holding a single green die and three different holes in front of you: one shaped like a star, one shaped like a square, and one shaped like a circle. Where would you fit the die so it f"
+ }
+}

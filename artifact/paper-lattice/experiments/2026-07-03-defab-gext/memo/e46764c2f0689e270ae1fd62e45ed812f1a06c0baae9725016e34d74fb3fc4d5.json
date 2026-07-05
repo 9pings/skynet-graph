@@ -1,0 +1,8 @@
+{
+ "response": "The correct exception rule is **d_good_faith**.\n\n**Reasoning:**\n1.  **Identify the Anomaly:** The general rule `r_prior` predicts that `gfp_alice` (a purchaser) takes subject to prior interests. However, the anomaly indicates that `takes_subject_to_prior_interests(gfp_alice)` should NOT hold.\n2.  **Evaluate Candidates:**\n    *   `d_good_faith`: Specifically targets `good_faith_purchaser(X)` to negate `takes_subject_to_prior_interests(X)`. This correctly overrides the general rule for `gfp_alice` without affecting `gfp_bob` (who is a purchaser but not specified as a good faith purchaser).\n    *   `d_gfp_broad`: Targets all `purchaser(X)`, which would incorrectly negate the rule for `gfp_bob` as well.\n    *   `d_gfp_wrong_head`: Targets `bound_by_contract`, which is not the anomaly being addressed.\n    *   `d_gfp_positive`: Provides a positive conclusion (`title_clear`) rather than overriding the specific anomaly.\n    *   `d_gfp_wrong_cond` and `d_gfp_irrelevant`: Use conditions (`paid_value`, `registered`) not present in the facts.\n\nThe most specific and accurate rule to resolve the anomaly is `d_good_faith`.",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_good_faith: good_faith_purchaser(X) ~> ~takes_subject_to_prior_intere",
+  "user": "Facts: good_faith_purchaser(gfp_alice), purchaser(gfp_alice), purchaser(gfp_bob).\nGeneral rules (=> means \"normally implies\"): r_prior: purchaser(X) => takes_subject_to_prior_interests(X); r_bound_p: "
+ }
+}

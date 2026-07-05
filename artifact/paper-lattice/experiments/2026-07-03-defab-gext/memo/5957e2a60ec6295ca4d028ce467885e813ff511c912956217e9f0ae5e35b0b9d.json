@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"target\": \"bird(parrot) cannot be derived\",\n  \"candidates\": [\n    \"(1) df_bird(parrot):  => bird(parrot)\",\n    \"(2) df_bird(penguin):  => bird(penguin)\",\n    \"(3) df_organism(goldfish):  => organism(goldfish)\",\n    \"(4) df_animal(shark):  => animal(shark)\",\n    \"(5) df_mammal(cat):  => mammal(cat)\",\n    \"(6) df_bird(duck):  => bird(duck)\"\n  ]\n}\n```",
+ "at": null,
+ "meta": {
+  "system": "Extract from the text, VERBATIM. Reply ONLY JSON: {\"target\":\"<the underivable statement>\",\"candidates\":[\"<entry as writt",
+  "user": "A knowledge base is missing exactly one entry. Because of that gap, the statement \"bird(parrot)\" cannot be derived. Exactly one of the following candidate entries fills the gap:\n  (1) df_bird(parrot):"
+ }
+}

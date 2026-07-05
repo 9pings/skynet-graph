@@ -1,0 +1,8 @@
+{
+ "response": "\n\nnone",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: round one | flat slot | none.",
+  "user": "Imagine you have a deflated yellow ball and need to place it into either a round hole or a flat slot. Which opening should you choose?"
+ }
+}

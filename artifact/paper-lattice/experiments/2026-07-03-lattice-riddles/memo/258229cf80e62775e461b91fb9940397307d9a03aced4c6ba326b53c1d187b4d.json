@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"fern\",\"category\":\"\",\"condition\":\"delicate\",\"color\":\"blue\",\"size\":\"small\"},\"holes\":[{\"name\":\"aquarium\",\"size\":\"\"},{\"name\":\"aviary\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you’re holding a delicate blue fern. You need to place it inside one of two spaces: a glass tank filled with water and fish, or a cage filled with birds. Where would it belong?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "none",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "There is a blue pyramid. You must place it into one of three holes: a star, a square, or a circle. Which hole should you use?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "\n\n{\"kind\":\"trout\",\"category\":\"aquatic\"}",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"You possess a blue trout and must place it in one of three enclosures: the aquarium, the av",
+  "user": "In general, which habitat type fits a trout?"
+ }
+}

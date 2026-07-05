@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"ball\",\"category\":\"\",\"condition\":\"wet\",\"color\":\"red\",\"size\":\"\"},\"holes\":[{\"name\":\"star-shaped\",\"size\":\"\"},{\"name\":\"square\",\"size\":\"\"},{\"name\":\"round\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "You have a wet red ball. Choose one of these holes to place it in: the star-shaped hole, the square hole, or the round hole. Which one do you pick?"
+ }
+}

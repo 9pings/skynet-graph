@@ -1,0 +1,8 @@
+{
+ "response": "aerial",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: fish is-a aquatic; bird is-a aerial; reptile is-a terres",
+  "user": "An aquarium, an aviary, and a terrarium are available. You have a red bird. In which of these should you place it?"
+ }
+}

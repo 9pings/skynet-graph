@@ -1,0 +1,8 @@
+{
+ "response": "*   Original text: \"You have a yellow hdmi. Put it into one of these wall sockets: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one?\"\n    *   Facts:\n        1.  Item: Yellow HDMI cable.\n        2.  Options: Round-pin socket, flat-pin socket, three-pin socket.\n    *   Question: Which one? (Implicitly asking for the correct choice based on the item).\n\n    *   The puzzle is a trick. HDMI cables",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a yellow hdmi. Put it into one of these wall sockets: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one?"
+ }
+}

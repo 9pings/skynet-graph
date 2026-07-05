@@ -1,0 +1,8 @@
+{
+ "response": "\n\n{\"candidates\":[\"d_dolphin: dolphin(X) ~> ~walks(X)\", \"d_dolphin_broad: mammal(X) ~> ~walks(X)\", \"d_dolphin_wrong_head: dolphin(X) ~> ~warm_blooded(X)\", \"d_dolphin_positive: dolphin(X) => swims(X)\", \"d_dolphin_irrelevant: dolphin(X) ~> ~has_fur(X)\", \"d_dolphin_wrong_cond: aquatic(X) ~> ~walks(X)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"walks(flippy)\", list the candidate rules. Reply ONLY JSO",
+  "user": "Facts: cat(felix), dolphin(flippy), mammal(felix), mammal(flippy).\nGeneral rules (=> means \"normally implies\"): r_walks: mammal(X) => walks(X); r_warm: mammal(X) => warm_blooded(X); r_fur: cat(X) => h"
+ }
+}

@@ -14,6 +14,7 @@ falls</b>. A forward-chaining loop stabilizes the graph to a fixpoint; every rev
 
 <p align="center">
 <a href="https://doi.org/10.5281/zenodo.21032471"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.21032471.svg" alt="DOI"></a>
+<a href="https://doi.org/10.5281/zenodo.21201877"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.21201877.svg" alt="DOI"></a>
 </p>
 
 ---
@@ -143,15 +144,26 @@ The `LLM::complete` provider is backend-agnostic: inject any async `ask`, or use
 > product). **How best to organize concepts is still open** — treat the shipped `concepts/` sets as illustrative,
 > not a recommended ontology. `examples/poc/` holds the runnable problem-solving, durable-executor, and contract demos.
 
-## Paper
+## Papers
 
-The R&D is written up as a preprint — **“Defeasible Library Learning: Typed Methods with Runtime Contracts that
-Un-learn on Drift”** (Nathanael Braun, 2026), open access on Zenodo (CC BY 4.0), in English and French. The
-self-contained reproducibility package is [`artifact/paper-dll/`](artifact/paper-dll/) (run with `npm test`).
+The R&D is written up as two companion preprints (Nathanael Braun, 2026), open access on Zenodo,
+each in English and French.
 
-**DOI: [10.5281/zenodo.21032471](https://doi.org/10.5281/zenodo.21032471)**
+**“Defeasible Library Learning: Typed Methods with Runtime Contracts that Un-learn on Drift”** —
+the system paper: the *life* of the typed method library (amortize, compose, un-learn on drift).
+Reproducibility package: [`artifact/paper-dll/`](artifact/paper-dll/) (run with `npm test`).
 
-**Preprint on [zenodo](https://zenodo.org/records/21032471)**
+**DOI v1: [10.5281/zenodo.21032471](https://doi.org/10.5281/zenodo.21032471)** · **v2 (editorial
+revision + harness-generated figures): [10.5281/zenodo.21201723](https://doi.org/10.5281/zenodo.21201723)**
+
+**“Sound online growth of a typed *isa* lattice from noisy LLM extraction, through candidate
+elimination made noise-tolerant by a localized-blame admission gate”** — the companion
+admission-gate paper: what may *enter* the library, one gate measured at three grains (slot
+restriction, *isa* edge, surface alias). Reproducibility package:
+[`artifact/paper-lattice/`](artifact/paper-lattice/) — the four experiment campaigns with their
+content-addressed durable memos: every table replays bit-for-bit without a GPU.
+
+**DOI: [10.5281/zenodo.21201877](https://doi.org/10.5281/zenodo.21201877)**
 
 ```bibtex
 @misc{braun2026dll,
@@ -159,8 +171,16 @@ self-contained reproducibility package is [`artifact/paper-dll/`](artifact/paper
   title     = {Defeasible Library Learning: Typed Methods with Runtime Contracts that Un-learn on Drift},
   year      = {2026},
   publisher = {Zenodo},
-  doi       = {10.5281/zenodo.21032471},
-  url       = {https://doi.org/10.5281/zenodo.21032471}
+  doi       = {10.5281/zenodo.21201723},
+  url       = {https://doi.org/10.5281/zenodo.21201723}
+}
+@misc{braun2026lattice,
+  author    = {Braun, Nathanael},
+  title     = {Sound online growth of a typed isa lattice from noisy LLM extraction, through candidate elimination made noise-tolerant by a localized-blame admission gate},
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.21201877},
+  url       = {https://doi.org/10.5281/zenodo.21201877}
 }
 ```
 

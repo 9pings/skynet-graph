@@ -1,0 +1,8 @@
+{
+ "response": "\n\n{\"word\":\"circularslot\",\"means\":\"round\"}",
+ "at": null,
+ "meta": {
+  "system": "Vocabulary question. Reply ONLY JSON: {\"word\":\"circularslot\",\"means\":\"<one of the options, or neither>\"}",
+  "user": "The word \"circularslot\" used as a hole shape word — which of these does it mean: star|square|round, or neither?"
+ }
+}

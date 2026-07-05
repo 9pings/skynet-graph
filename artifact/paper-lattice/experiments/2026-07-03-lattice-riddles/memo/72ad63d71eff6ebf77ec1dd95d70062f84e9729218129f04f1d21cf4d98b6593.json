@@ -1,0 +1,8 @@
+{
+ "response": "A sugarcube is generally a **cube**.\n\nIt's a three-dimensional solid object bounded by six square faces, all of equal size. That's the definition of a cube!\n\n\n\n",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"This is a trick question! Sugar cubes are shaped like cubes. Therefore, the **square** hole",
+  "user": "In general, which shape category fits a sugarcube?"
+ }
+}

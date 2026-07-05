@@ -1,0 +1,8 @@
+{
+ "response": "A yellow lamp plug needs to be inserted into a wall socket. You have three options: a round-pin socket, a flat-pin socket, or a three-pin socket. Which one do you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a yellow lamp plug. Put it into one of these wall sockets: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one?"
+ }
+}

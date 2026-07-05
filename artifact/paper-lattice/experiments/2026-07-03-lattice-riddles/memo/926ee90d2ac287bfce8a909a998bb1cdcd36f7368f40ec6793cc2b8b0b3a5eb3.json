@@ -1,0 +1,8 @@
+{
+ "response": "\"Liquified sugar\" as an object condition word most strongly suggests **melted**.\n\nHere's why:\n\n*   **Liquefy** means to turn into a liquid. Sugar,",
+ "at": null,
+ "meta": {
+  "system": "Vocabulary question. Reply ONLY JSON: {\"word\":\"liquifiedsugar\",\"means\":\"<one of the options, or neither>\"}",
+  "user": "The word \"liquifiedsugar\" used as a object condition word — which of these does it mean: deflated|melted, or neither?"
+ }
+}

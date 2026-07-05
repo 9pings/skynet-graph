@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"ball\",\"category\":\"sports\",\"condition\":\"shiny yellow\",\"color\":\"yellow\",\"size\":\"medium\"},\"holes\":[{\"name\":\"square hole\",\"size\":\"medium\"},{\"name\":\"round hole\",\"size\":\"medium\"},{\"name\":\"triangular hole\",\"size\":\"medium\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "This is a classic trick question! The answer is the **round one**.\n\nHere's why:\n\n*   **Shiny yellow** describes the ball.\n*   The question asks which hole to put the **ball** into.\n*   A ball fits bes"
+ }
+}

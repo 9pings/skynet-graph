@@ -1,0 +1,8 @@
+{
+ "response": "threepin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "Imagine you’re holding an old, slightly worn green European plug with two round prongs. You’re about to plug it into one of three different wall outlets: one with two round holes, another with two fla"
+ }
+}

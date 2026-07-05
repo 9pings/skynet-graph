@@ -1,0 +1,8 @@
+{
+ "response": "flatpin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "Imagine you’re holding a red electrical plug designed for use in Europe. You’re about to plug it into one of three different wall outlets: one with round pins, another with flat pins, or a third with "
+ }
+}

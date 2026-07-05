@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"sugar cube\",\"category\":\"cube\",\"condition\":\"melted into a liquid\",\"color\":\"green\",\"size\":\"\"},\"holes\":[{\"name\":\"star-shaped\",\"size\":\"\"},{\"name\":\"square\",\"size\":\"\"},{\"name\":\"round\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "Imagine you have a green sugar cube that has melted into a liquid. You need to place it into one of three available openings: a star-shaped hole, a square hole, or a round hole. Which hole should you "
+ }
+}

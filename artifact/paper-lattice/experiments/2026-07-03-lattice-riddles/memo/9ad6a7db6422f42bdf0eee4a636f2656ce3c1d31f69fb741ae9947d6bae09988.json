@@ -1,0 +1,8 @@
+{
+ "response": "You're holding a flat yellow ball. You can place it in either the circular opening or the rectangular groove. Which opening do you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a deflated yellow ball. Put it into one of these holes: the round one, or the flat slot. Which one?"
+ }
+}

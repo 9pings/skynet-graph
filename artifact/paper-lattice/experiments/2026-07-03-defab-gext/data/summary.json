@@ -1,0 +1,171 @@
+{
+  "total": 5736,
+  "by_level": {
+    "2": {
+      "correct": 4022,
+      "total": 5212,
+      "accuracy": 0.77168073676132
+    },
+    "3": {
+      "correct": 86,
+      "total": 524,
+      "accuracy": 0.16412213740458015
+    }
+  },
+  "by_model": {
+    "claude-sonnet-4-6": {
+      "correct": 4108,
+      "total": 5736,
+      "accuracy": 0.7161785216178521
+    }
+  },
+  "by_modality": {
+    "M1": {
+      "correct": 274,
+      "total": 1434,
+      "accuracy": 0.1910739191073919
+    },
+    "M2": {
+      "correct": 1253,
+      "total": 1434,
+      "accuracy": 0.8737796373779637
+    },
+    "M3": {
+      "correct": 1310,
+      "total": 1432,
+      "accuracy": 0.914804469273743
+    },
+    "M4": {
+      "correct": 1271,
+      "total": 1436,
+      "accuracy": 0.8850974930362117
+    }
+  },
+  "by_domain": {
+    "biology": {
+      "correct": 1502,
+      "total": 1824,
+      "accuracy": 0.8234649122807017
+    },
+    "legal": {
+      "correct": 1384,
+      "total": 1918,
+      "accuracy": 0.721584984358707
+    },
+    "materials": {
+      "correct": 1136,
+      "total": 1470,
+      "accuracy": 0.7727891156462585
+    },
+    "unknown": {
+      "correct": 86,
+      "total": 524,
+      "accuracy": 0.16412213740458015
+    }
+  },
+  "by_strategy": {
+    "cot": {
+      "correct": 1979,
+      "total": 2866,
+      "accuracy": 0.6905094207955338
+    },
+    "direct": {
+      "correct": 2129,
+      "total": 2870,
+      "accuracy": 0.7418118466898954
+    }
+  },
+  "by_model_modality": {
+    "claude-sonnet-4-6 x M1": {
+      "correct": 274,
+      "total": 1434,
+      "accuracy": 0.1910739191073919
+    },
+    "claude-sonnet-4-6 x M2": {
+      "correct": 1253,
+      "total": 1434,
+      "accuracy": 0.8737796373779637
+    },
+    "claude-sonnet-4-6 x M3": {
+      "correct": 1310,
+      "total": 1432,
+      "accuracy": 0.914804469273743
+    },
+    "claude-sonnet-4-6 x M4": {
+      "correct": 1271,
+      "total": 1436,
+      "accuracy": 0.8850974930362117
+    }
+  },
+  "by_model_level": {
+    "claude-sonnet-4-6 x 2": {
+      "correct": 4022,
+      "total": 5212,
+      "accuracy": 0.77168073676132
+    },
+    "claude-sonnet-4-6 x 3": {
+      "correct": 86,
+      "total": 524,
+      "accuracy": 0.16412213740458015
+    }
+  },
+  "decoder_distribution": {
+    "D1": 2610,
+    "D3": 329,
+    "D2": 1275,
+    "FAILED": 1522
+  },
+  "rendering_robust_accuracy": {
+    "claude-sonnet-4-6": {
+      "robust_accuracy": 0.15512465373961218,
+      "n_instances": 361,
+      "n_modalities_avg": 4.0
+    }
+  },
+  "cot_lift": {
+    "claude-sonnet-4-6": {
+      "2": {
+        "acc_direct": 0.7929447852760736,
+        "acc_cot": 0.7503840245775729,
+        "delta_cot": -0.04256076069850068,
+        "n_direct": 2608,
+        "n_cot": 2604
+      },
+      "3": {
+        "acc_direct": 0.23282442748091603,
+        "acc_cot": 0.09541984732824428,
+        "delta_cot": -0.13740458015267176,
+        "n_direct": 262,
+        "n_cot": 262
+      }
+    }
+  },
+  "graded_score_summary": {
+    "n": 524,
+    "mean_graded_score": 0.15076335877862596,
+    "score_distribution": {
+      "0.0": 445,
+      "0.25": 0,
+      "0.5": 0,
+      "0.75": 0,
+      "1.0": 79
+    },
+    "by_model": {
+      "claude-sonnet-4-6": {
+        "mean": 0.15076335877862596,
+        "n": 524
+      }
+    }
+  },
+  "level3_metrics": {
+    "n": 524,
+    "parse_success_rate": 0.7309160305343512,
+    "resolves_anomaly_rate": 0.47023809523809523,
+    "error_distribution": {
+      "E1_decoder_failure": 141,
+      "E2_derivation_failure": 304,
+      "correct": 63,
+      "E5_strength_shortfall": 16
+    }
+  }
+}

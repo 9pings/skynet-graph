@@ -1,0 +1,38 @@
+{
+ "rb": 0,
+ "R": {
+  "V3h-shapes": {
+   "n": 6,
+   "sys": 6,
+   "sysWrong": 0,
+   "rb0": 4,
+   "rb0Hallu": 2,
+   "rbON": 3,
+   "rbONHallu": 3,
+   "condSeen": 0,
+   "attrition": 0
+  },
+  "V3h-animals": {
+   "n": 6,
+   "sys": 6,
+   "sysWrong": 0,
+   "rb0": 0,
+   "rb0Hallu": 6,
+   "rbON": 0,
+   "rbONHallu": 3,
+   "condSeen": 0,
+   "attrition": 0
+  },
+  "V5h-remap": {
+   "n": 9,
+   "sys": 3,
+   "sysWrong": 6,
+   "rb0": 4,
+   "rb0Hallu": 0,
+   "rbON": 2,
+   "rbONHallu": 0,
+   "condSeen": 3,
+   "attrition": 6
+  }
+ }
+}

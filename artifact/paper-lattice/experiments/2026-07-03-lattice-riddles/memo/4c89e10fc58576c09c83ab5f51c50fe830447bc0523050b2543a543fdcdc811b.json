@@ -1,0 +1,8 @@
+{
+ "response": "\n\nlarge aquatic",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small aquatic | large aquatic | large terrestrial | none.",
+  "user": "You possess a large red shark and must choose a suitable habitat from three options: a small aquarium, a large aquarium, or a large terrarium. Which enclosure should you select?"
+ }
+}

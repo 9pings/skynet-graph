@@ -1,0 +1,1890 @@
+{
+  "cells": [
+    {
+      "cell": "L1/dump/ρ=0",
+      "arms": {
+        "A": {
+          "overGen": 16,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "column"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        },
+        "B": {
+          "overGen": 8,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        },
+        "C": {
+          "overGen": 0,
+          "overNarrowGood": 2,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "amount",
+            "client",
+            "copies",
+            "genre",
+            "priority",
+            "status"
+          ]
+        },
+        "D": {
+          "overGen": 8,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        }
+      }
+    },
+    {
+      "cell": "L1/dump/ρ=0.1",
+      "arms": {
+        "A": {
+          "overGen": 16,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "column"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        },
+        "B": {
+          "overGen": 4,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "genre",
+            "priority"
+          ]
+        },
+        "C": {
+          "overGen": 0,
+          "overNarrowGood": 2,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "amount",
+            "client",
+            "copies",
+            "genre",
+            "priority",
+            "status"
+          ]
+        },
+        "D": {
+          "overGen": 6,
+          "overNarrowGood": 0,
+          "extraMounts": 2,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "genre",
+            "priority"
+          ]
+        }
+      }
+    },
+    {
+      "cell": "L1/dump/ρ=0.3",
+      "arms": {
+        "A": {
+          "overGen": 16,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "column"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        },
+        "B": {
+          "overGen": 4,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "genre",
+            "priority"
+          ]
+        },
+        "C": {
+          "overGen": 0,
+          "overNarrowGood": 2,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "amount",
+            "client",
+            "copies",
+            "genre",
+            "priority",
+            "status"
+          ]
+        },
+        "D": {
+          "overGen": 6,
+          "overNarrowGood": 0,
+          "extraMounts": 2,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "genre",
+            "priority"
+          ]
+        }
+      }
+    },
+    {
+      "cell": "L1/reversed/ρ=0",
+      "arms": {
+        "A": {
+          "overGen": 16,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "column"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        },
+        "B": {
+          "overGen": 8,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        },
+        "C": {
+          "overGen": 4,
+          "overNarrowGood": 14,
+          "extraMounts": 0,
+          "finalFilterS": null,
+          "finalMetricS": null,
+          "blockedGood": [
+            "amount",
+            "client",
+            "copies",
+            "genre",
+            "priority",
+            "status"
+          ]
+        },
+        "D": {
+          "overGen": 8,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        }
+      }
+    },
+    {
+      "cell": "L1/reversed/ρ=0.1",
+      "arms": {
+        "A": {
+          "overGen": 16,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "column"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        },
+        "B": {
+          "overGen": 4,
+          "overNarrowGood": 3,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "genre",
+            "priority"
+          ]
+        },
+        "C": {
+          "overGen": 4,
+          "overNarrowGood": 14,
+          "extraMounts": 0,
+          "finalFilterS": null,
+          "finalMetricS": null,
+          "blockedGood": [
+            "amount",
+            "client",
+            "copies",
+            "genre",
+            "priority",
+            "status"
+          ]
+        },
+        "D": {
+          "overGen": 6,
+          "overNarrowGood": 3,
+          "extraMounts": 2,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "genre",
+            "priority"
+          ]
+        }
+      }
+    },
+    {
+      "cell": "L1/reversed/ρ=0.3",
+      "arms": {
+        "A": {
+          "overGen": 16,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "column"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        },
+        "B": {
+          "overGen": 4,
+          "overNarrowGood": 3,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "genre",
+            "priority"
+          ]
+        },
+        "C": {
+          "overGen": 4,
+          "overNarrowGood": 14,
+          "extraMounts": 0,
+          "finalFilterS": null,
+          "finalMetricS": null,
+          "blockedGood": [
+            "amount",
+            "client",
+            "copies",
+            "genre",
+            "priority",
+            "status"
+          ]
+        },
+        "D": {
+          "overGen": 6,
+          "overNarrowGood": 3,
+          "extraMounts": 2,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "genre",
+            "priority"
+          ]
+        }
+      }
+    },
+    {
+      "cell": "L1/interleaved/ρ=0",
+      "arms": {
+        "A": {
+          "overGen": 16,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "column"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        },
+        "B": {
+          "overGen": 8,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        },
+        "C": {
+          "overGen": 4,
+          "overNarrowGood": 12,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "amount",
+            "client",
+            "copies",
+            "genre",
+            "priority",
+            "status"
+          ]
+        },
+        "D": {
+          "overGen": 8,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        }
+      }
+    },
+    {
+      "cell": "L1/interleaved/ρ=0.1",
+      "arms": {
+        "A": {
+          "overGen": 16,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "column"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        },
+        "B": {
+          "overGen": 4,
+          "overNarrowGood": 3,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "genre",
+            "priority"
+          ]
+        },
+        "C": {
+          "overGen": 4,
+          "overNarrowGood": 12,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "amount",
+            "client",
+            "copies",
+            "genre",
+            "priority",
+            "status"
+          ]
+        },
+        "D": {
+          "overGen": 5,
+          "overNarrowGood": 2,
+          "extraMounts": 2,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "genre",
+            "priority"
+          ]
+        }
+      }
+    },
+    {
+      "cell": "L1/interleaved/ρ=0.3",
+      "arms": {
+        "A": {
+          "overGen": 16,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "column"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        },
+        "B": {
+          "overGen": 4,
+          "overNarrowGood": 3,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "genre",
+            "priority"
+          ]
+        },
+        "C": {
+          "overGen": 4,
+          "overNarrowGood": 12,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "amount",
+            "client",
+            "copies",
+            "genre",
+            "priority",
+            "status"
+          ]
+        },
+        "D": {
+          "overGen": 5,
+          "overNarrowGood": 2,
+          "extraMounts": 2,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "genre",
+            "priority"
+          ]
+        }
+      }
+    },
+    {
+      "cell": "L2/dump/ρ=0",
+      "arms": {
+        "A": {
+          "overGen": 16,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "column"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        },
+        "B": {
+          "overGen": 8,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        },
+        "C": {
+          "overGen": 0,
+          "overNarrowGood": 2,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "amount",
+            "client",
+            "copies",
+            "genre",
+            "priority",
+            "status"
+          ]
+        },
+        "D": {
+          "overGen": 8,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        }
+      }
+    },
+    {
+      "cell": "L2/dump/ρ=0.1",
+      "arms": {
+        "A": {
+          "overGen": 16,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "column"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        },
+        "B": {
+          "overGen": 4,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "genre",
+            "priority"
+          ]
+        },
+        "C": {
+          "overGen": 0,
+          "overNarrowGood": 2,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "amount",
+            "client",
+            "copies",
+            "genre",
+            "priority",
+            "status"
+          ]
+        },
+        "D": {
+          "overGen": 6,
+          "overNarrowGood": 0,
+          "extraMounts": 2,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "genre",
+            "priority"
+          ]
+        }
+      }
+    },
+    {
+      "cell": "L2/dump/ρ=0.3",
+      "arms": {
+        "A": {
+          "overGen": 16,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "column"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        },
+        "B": {
+          "overGen": 4,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "genre",
+            "priority"
+          ]
+        },
+        "C": {
+          "overGen": 0,
+          "overNarrowGood": 2,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "amount",
+            "client",
+            "copies",
+            "genre",
+            "priority",
+            "status"
+          ]
+        },
+        "D": {
+          "overGen": 6,
+          "overNarrowGood": 0,
+          "extraMounts": 2,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "genre",
+            "priority"
+          ]
+        }
+      }
+    },
+    {
+      "cell": "L2/reversed/ρ=0",
+      "arms": {
+        "A": {
+          "overGen": 16,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "column"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        },
+        "B": {
+          "overGen": 8,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        },
+        "C": {
+          "overGen": 4,
+          "overNarrowGood": 14,
+          "extraMounts": 0,
+          "finalFilterS": null,
+          "finalMetricS": null,
+          "blockedGood": [
+            "amount",
+            "client",
+            "copies",
+            "genre",
+            "priority",
+            "status"
+          ]
+        },
+        "D": {
+          "overGen": 8,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        }
+      }
+    },
+    {
+      "cell": "L2/reversed/ρ=0.1",
+      "arms": {
+        "A": {
+          "overGen": 16,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "column"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        },
+        "B": {
+          "overGen": 4,
+          "overNarrowGood": 3,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "genre",
+            "priority"
+          ]
+        },
+        "C": {
+          "overGen": 4,
+          "overNarrowGood": 14,
+          "extraMounts": 0,
+          "finalFilterS": null,
+          "finalMetricS": null,
+          "blockedGood": [
+            "amount",
+            "client",
+            "copies",
+            "genre",
+            "priority",
+            "status"
+          ]
+        },
+        "D": {
+          "overGen": 6,
+          "overNarrowGood": 3,
+          "extraMounts": 2,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "genre",
+            "priority"
+          ]
+        }
+      }
+    },
+    {
+      "cell": "L2/reversed/ρ=0.3",
+      "arms": {
+        "A": {
+          "overGen": 16,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "column"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        },
+        "B": {
+          "overGen": 4,
+          "overNarrowGood": 3,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "genre",
+            "priority"
+          ]
+        },
+        "C": {
+          "overGen": 4,
+          "overNarrowGood": 14,
+          "extraMounts": 0,
+          "finalFilterS": null,
+          "finalMetricS": null,
+          "blockedGood": [
+            "amount",
+            "client",
+            "copies",
+            "genre",
+            "priority",
+            "status"
+          ]
+        },
+        "D": {
+          "overGen": 6,
+          "overNarrowGood": 3,
+          "extraMounts": 2,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "genre",
+            "priority"
+          ]
+        }
+      }
+    },
+    {
+      "cell": "L2/interleaved/ρ=0",
+      "arms": {
+        "A": {
+          "overGen": 16,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "column"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        },
+        "B": {
+          "overGen": 8,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        },
+        "C": {
+          "overGen": 4,
+          "overNarrowGood": 12,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "amount",
+            "client",
+            "copies",
+            "genre",
+            "priority",
+            "status"
+          ]
+        },
+        "D": {
+          "overGen": 8,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        }
+      }
+    },
+    {
+      "cell": "L2/interleaved/ρ=0.1",
+      "arms": {
+        "A": {
+          "overGen": 16,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "column"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        },
+        "B": {
+          "overGen": 4,
+          "overNarrowGood": 3,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "genre",
+            "priority"
+          ]
+        },
+        "C": {
+          "overGen": 4,
+          "overNarrowGood": 12,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "amount",
+            "client",
+            "copies",
+            "genre",
+            "priority",
+            "status"
+          ]
+        },
+        "D": {
+          "overGen": 5,
+          "overNarrowGood": 2,
+          "extraMounts": 2,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "genre",
+            "priority"
+          ]
+        }
+      }
+    },
+    {
+      "cell": "L2/interleaved/ρ=0.3",
+      "arms": {
+        "A": {
+          "overGen": 16,
+          "overNarrowGood": 0,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "column"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": []
+        },
+        "B": {
+          "overGen": 4,
+          "overNarrowGood": 3,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "genre",
+            "priority"
+          ]
+        },
+        "C": {
+          "overGen": 4,
+          "overNarrowGood": 12,
+          "extraMounts": 0,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "amount",
+            "client",
+            "copies",
+            "genre",
+            "priority",
+            "status"
+          ]
+        },
+        "D": {
+          "overGen": 5,
+          "overNarrowGood": 2,
+          "extraMounts": 2,
+          "finalFilterS": [
+            "categorical"
+          ],
+          "finalMetricS": [
+            "numeric"
+          ],
+          "blockedGood": [
+            "genre",
+            "priority"
+          ]
+        }
+      }
+    }
+  ],
+  "checks": [
+    {
+      "cell": "L1/dump/ρ=0",
+      "name": "wedge>0 (A overGen > B overGen)",
+      "pass": true,
+      "detail": "A=16 B=8"
+    },
+    {
+      "cell": "L1/dump/ρ=0",
+      "name": "B first-exposure bound (overGen ≤ distinct bad combos)",
+      "pass": true,
+      "detail": "B=8 ≤? 8"
+    },
+    {
+      "cell": "L1/dump/ρ=0",
+      "name": "A fixpoint = column (wrong, lifted)",
+      "pass": true,
+      "detail": "[\"column\"]"
+    },
+    {
+      "cell": "L1/dump/ρ=0",
+      "name": "B fixpoint = target cut",
+      "pass": true,
+      "detail": "[\"categorical\"]"
+    },
+    {
+      "cell": "L1/dump/ρ=0",
+      "name": "ρ=0: B overNarrow-on-good == A (==0 beyond ignorance)",
+      "pass": true,
+      "detail": "A=0 B=0"
+    },
+    {
+      "cell": "L1/dump/ρ=0",
+      "name": "ρ=0: D pays insurance for nothing (cost ≥ B, extraMounts>0 possible)",
+      "pass": true,
+      "detail": "D=8+0 B=8"
+    },
+    {
+      "cell": "L1/dump/ρ=0",
+      "name": "C blocks good sorts (self-sealing) where B blocks none at ρ=0",
+      "pass": true,
+      "detail": "C=priority,status,amount,genre,client,copies B="
+    },
+    {
+      "cell": "L1/dump/ρ=0.1",
+      "name": "wedge>0 (A overGen > B overGen)",
+      "pass": true,
+      "detail": "A=16 B=4"
+    },
+    {
+      "cell": "L1/dump/ρ=0.1",
+      "name": "B first-exposure bound (overGen ≤ distinct bad combos)",
+      "pass": true,
+      "detail": "B=4 ≤? 10"
+    },
+    {
+      "cell": "L1/dump/ρ=0.1",
+      "name": "A fixpoint = column (wrong, lifted)",
+      "pass": true,
+      "detail": "[\"column\"]"
+    },
+    {
+      "cell": "L1/dump/ρ=0.1",
+      "name": "B fixpoint = target cut",
+      "pass": true,
+      "detail": "[\"categorical\"]"
+    },
+    {
+      "cell": "L1/dump/ρ=0.1",
+      "name": "C blocks good sorts (self-sealing) where B blocks none at ρ=0",
+      "pass": true,
+      "detail": "C=priority,status,amount,genre,client,copies B=priority,genre"
+    },
+    {
+      "cell": "L1/dump/ρ=0.1",
+      "name": "ρ=0.1: wrong-blame seals good sorts in B",
+      "pass": true,
+      "detail": "B blockedGood=priority,genre"
+    },
+    {
+      "cell": "L1/dump/ρ=0.1",
+      "name": "ρ=0.1: D ends with fewer sealed good sorts than B",
+      "pass": true,
+      "detail": "D=amount,genre B=genre"
+    },
+    {
+      "cell": "L1/dump/ρ=0.3",
+      "name": "wedge>0 (A overGen > B overGen)",
+      "pass": true,
+      "detail": "A=16 B=4"
+    },
+    {
+      "cell": "L1/dump/ρ=0.3",
+      "name": "B first-exposure bound (overGen ≤ distinct bad combos)",
+      "pass": true,
+      "detail": "B=4 ≤? 12"
+    },
+    {
+      "cell": "L1/dump/ρ=0.3",
+      "name": "A fixpoint = column (wrong, lifted)",
+      "pass": true,
+      "detail": "[\"column\"]"
+    },
+    {
+      "cell": "L1/dump/ρ=0.3",
+      "name": "B fixpoint = target cut",
+      "pass": true,
+      "detail": "[\"categorical\"]"
+    },
+    {
+      "cell": "L1/dump/ρ=0.3",
+      "name": "C blocks good sorts (self-sealing) where B blocks none at ρ=0",
+      "pass": true,
+      "detail": "C=priority,status,amount,genre,client,copies B=priority,genre"
+    },
+    {
+      "cell": "L1/dump/ρ=0.3",
+      "name": "ρ=0.3: wrong-blame seals good sorts in B",
+      "pass": true,
+      "detail": "B blockedGood=priority,genre"
+    },
+    {
+      "cell": "L1/dump/ρ=0.3",
+      "name": "ρ=0.3: D ends with fewer sealed good sorts than B",
+      "pass": true,
+      "detail": "D=amount,genre B=genre"
+    },
+    {
+      "cell": "L1/reversed/ρ=0",
+      "name": "wedge>0 (A overGen > B overGen)",
+      "pass": true,
+      "detail": "A=16 B=8"
+    },
+    {
+      "cell": "L1/reversed/ρ=0",
+      "name": "B first-exposure bound (overGen ≤ distinct bad combos)",
+      "pass": true,
+      "detail": "B=8 ≤? 8"
+    },
+    {
+      "cell": "L1/reversed/ρ=0",
+      "name": "A fixpoint = column (wrong, lifted)",
+      "pass": true,
+      "detail": "[\"column\"]"
+    },
+    {
+      "cell": "L1/reversed/ρ=0",
+      "name": "B fixpoint = target cut",
+      "pass": true,
+      "detail": "[\"categorical\"]"
+    },
+    {
+      "cell": "L1/reversed/ρ=0",
+      "name": "ρ=0: B overNarrow-on-good == A (==0 beyond ignorance)",
+      "pass": true,
+      "detail": "A=0 B=0"
+    },
+    {
+      "cell": "L1/reversed/ρ=0",
+      "name": "ρ=0: D pays insurance for nothing (cost ≥ B, extraMounts>0 possible)",
+      "pass": true,
+      "detail": "D=8+0 B=8"
+    },
+    {
+      "cell": "L1/reversed/ρ=0",
+      "name": "C blocks good sorts (self-sealing) where B blocks none at ρ=0",
+      "pass": true,
+      "detail": "C=client,status,genre,copies,priority,amount B="
+    },
+    {
+      "cell": "L1/reversed/ρ=0.1",
+      "name": "wedge>0 (A overGen > B overGen)",
+      "pass": true,
+      "detail": "A=16 B=4"
+    },
+    {
+      "cell": "L1/reversed/ρ=0.1",
+      "name": "B first-exposure bound (overGen ≤ distinct bad combos)",
+      "pass": true,
+      "detail": "B=4 ≤? 10"
+    },
+    {
+      "cell": "L1/reversed/ρ=0.1",
+      "name": "A fixpoint = column (wrong, lifted)",
+      "pass": true,
+      "detail": "[\"column\"]"
+    },
+    {
+      "cell": "L1/reversed/ρ=0.1",
+      "name": "B fixpoint = target cut",
+      "pass": true,
+      "detail": "[\"categorical\"]"
+    },
+    {
+      "cell": "L1/reversed/ρ=0.1",
+      "name": "C blocks good sorts (self-sealing) where B blocks none at ρ=0",
+      "pass": true,
+      "detail": "C=client,status,genre,copies,priority,amount B=genre,priority"
+    },
+    {
+      "cell": "L1/reversed/ρ=0.1",
+      "name": "ρ=0.1: wrong-blame seals good sorts in B",
+      "pass": true,
+      "detail": "B blockedGood=genre,priority"
+    },
+    {
+      "cell": "L1/reversed/ρ=0.1",
+      "name": "ρ=0.1: D ends with fewer sealed good sorts than B",
+      "pass": true,
+      "detail": "D=genre,year B=genre"
+    },
+    {
+      "cell": "L1/reversed/ρ=0.3",
+      "name": "wedge>0 (A overGen > B overGen)",
+      "pass": true,
+      "detail": "A=16 B=4"
+    },
+    {
+      "cell": "L1/reversed/ρ=0.3",
+      "name": "B first-exposure bound (overGen ≤ distinct bad combos)",
+      "pass": true,
+      "detail": "B=4 ≤? 12"
+    },
+    {
+      "cell": "L1/reversed/ρ=0.3",
+      "name": "A fixpoint = column (wrong, lifted)",
+      "pass": true,
+      "detail": "[\"column\"]"
+    },
+    {
+      "cell": "L1/reversed/ρ=0.3",
+      "name": "B fixpoint = target cut",
+      "pass": true,
+      "detail": "[\"categorical\"]"
+    },
+    {
+      "cell": "L1/reversed/ρ=0.3",
+      "name": "C blocks good sorts (self-sealing) where B blocks none at ρ=0",
+      "pass": true,
+      "detail": "C=client,status,genre,copies,priority,amount B=genre,priority"
+    },
+    {
+      "cell": "L1/reversed/ρ=0.3",
+      "name": "ρ=0.3: wrong-blame seals good sorts in B",
+      "pass": true,
+      "detail": "B blockedGood=genre,priority"
+    },
+    {
+      "cell": "L1/reversed/ρ=0.3",
+      "name": "ρ=0.3: D ends with fewer sealed good sorts than B",
+      "pass": true,
+      "detail": "D=genre,year B=genre"
+    },
+    {
+      "cell": "L1/interleaved/ρ=0",
+      "name": "wedge>0 (A overGen > B overGen)",
+      "pass": true,
+      "detail": "A=16 B=8"
+    },
+    {
+      "cell": "L1/interleaved/ρ=0",
+      "name": "B first-exposure bound (overGen ≤ distinct bad combos)",
+      "pass": true,
+      "detail": "B=8 ≤? 8"
+    },
+    {
+      "cell": "L1/interleaved/ρ=0",
+      "name": "A fixpoint = column (wrong, lifted)",
+      "pass": true,
+      "detail": "[\"column\"]"
+    },
+    {
+      "cell": "L1/interleaved/ρ=0",
+      "name": "B fixpoint = target cut",
+      "pass": true,
+      "detail": "[\"categorical\"]"
+    },
+    {
+      "cell": "L1/interleaved/ρ=0",
+      "name": "ρ=0: B overNarrow-on-good == A (==0 beyond ignorance)",
+      "pass": true,
+      "detail": "A=0 B=0"
+    },
+    {
+      "cell": "L1/interleaved/ρ=0",
+      "name": "ρ=0: D pays insurance for nothing (cost ≥ B, extraMounts>0 possible)",
+      "pass": true,
+      "detail": "D=8+0 B=8"
+    },
+    {
+      "cell": "L1/interleaved/ρ=0",
+      "name": "C blocks good sorts (self-sealing) where B blocks none at ρ=0",
+      "pass": true,
+      "detail": "C=priority,amount,genre,copies,status,client B="
+    },
+    {
+      "cell": "L1/interleaved/ρ=0.1",
+      "name": "wedge>0 (A overGen > B overGen)",
+      "pass": true,
+      "detail": "A=16 B=4"
+    },
+    {
+      "cell": "L1/interleaved/ρ=0.1",
+      "name": "B first-exposure bound (overGen ≤ distinct bad combos)",
+      "pass": true,
+      "detail": "B=4 ≤? 10"
+    },
+    {
+      "cell": "L1/interleaved/ρ=0.1",
+      "name": "A fixpoint = column (wrong, lifted)",
+      "pass": true,
+      "detail": "[\"column\"]"
+    },
+    {
+      "cell": "L1/interleaved/ρ=0.1",
+      "name": "B fixpoint = target cut",
+      "pass": true,
+      "detail": "[\"categorical\"]"
+    },
+    {
+      "cell": "L1/interleaved/ρ=0.1",
+      "name": "C blocks good sorts (self-sealing) where B blocks none at ρ=0",
+      "pass": true,
+      "detail": "C=priority,amount,genre,copies,status,client B=priority,genre"
+    },
+    {
+      "cell": "L1/interleaved/ρ=0.1",
+      "name": "ρ=0.1: wrong-blame seals good sorts in B",
+      "pass": true,
+      "detail": "B blockedGood=priority,genre"
+    },
+    {
+      "cell": "L1/interleaved/ρ=0.1",
+      "name": "ρ=0.1: D ends with fewer sealed good sorts than B",
+      "pass": true,
+      "detail": "D=amount,genre B=genre"
+    },
+    {
+      "cell": "L1/interleaved/ρ=0.3",
+      "name": "wedge>0 (A overGen > B overGen)",
+      "pass": true,
+      "detail": "A=16 B=4"
+    },
+    {
+      "cell": "L1/interleaved/ρ=0.3",
+      "name": "B first-exposure bound (overGen ≤ distinct bad combos)",
+      "pass": true,
+      "detail": "B=4 ≤? 12"
+    },
+    {
+      "cell": "L1/interleaved/ρ=0.3",
+      "name": "A fixpoint = column (wrong, lifted)",
+      "pass": true,
+      "detail": "[\"column\"]"
+    },
+    {
+      "cell": "L1/interleaved/ρ=0.3",
+      "name": "B fixpoint = target cut",
+      "pass": true,
+      "detail": "[\"categorical\"]"
+    },
+    {
+      "cell": "L1/interleaved/ρ=0.3",
+      "name": "C blocks good sorts (self-sealing) where B blocks none at ρ=0",
+      "pass": true,
+      "detail": "C=priority,amount,genre,copies,status,client B=priority,genre"
+    },
+    {
+      "cell": "L1/interleaved/ρ=0.3",
+      "name": "ρ=0.3: wrong-blame seals good sorts in B",
+      "pass": true,
+      "detail": "B blockedGood=priority,genre"
+    },
+    {
+      "cell": "L1/interleaved/ρ=0.3",
+      "name": "ρ=0.3: D ends with fewer sealed good sorts than B",
+      "pass": true,
+      "detail": "D=amount,genre B=genre"
+    },
+    {
+      "cell": "L2/dump/ρ=0",
+      "name": "wedge>0 (A overGen > B overGen)",
+      "pass": true,
+      "detail": "A=16 B=8"
+    },
+    {
+      "cell": "L2/dump/ρ=0",
+      "name": "B first-exposure bound (overGen ≤ distinct bad combos)",
+      "pass": true,
+      "detail": "B=8 ≤? 8"
+    },
+    {
+      "cell": "L2/dump/ρ=0",
+      "name": "A fixpoint = column (wrong, lifted)",
+      "pass": true,
+      "detail": "[\"column\"]"
+    },
+    {
+      "cell": "L2/dump/ρ=0",
+      "name": "B fixpoint = target cut",
+      "pass": true,
+      "detail": "[\"categorical\"]"
+    },
+    {
+      "cell": "L2/dump/ρ=0",
+      "name": "ρ=0: B overNarrow-on-good == A (==0 beyond ignorance)",
+      "pass": true,
+      "detail": "A=0 B=0"
+    },
+    {
+      "cell": "L2/dump/ρ=0",
+      "name": "ρ=0: D pays insurance for nothing (cost ≥ B, extraMounts>0 possible)",
+      "pass": true,
+      "detail": "D=8+0 B=8"
+    },
+    {
+      "cell": "L2/dump/ρ=0",
+      "name": "C blocks good sorts (self-sealing) where B blocks none at ρ=0",
+      "pass": true,
+      "detail": "C=priority,status,amount,genre,client,copies B="
+    },
+    {
+      "cell": "L2/dump/ρ=0.1",
+      "name": "wedge>0 (A overGen > B overGen)",
+      "pass": true,
+      "detail": "A=16 B=4"
+    },
+    {
+      "cell": "L2/dump/ρ=0.1",
+      "name": "B first-exposure bound (overGen ≤ distinct bad combos)",
+      "pass": true,
+      "detail": "B=4 ≤? 10"
+    },
+    {
+      "cell": "L2/dump/ρ=0.1",
+      "name": "A fixpoint = column (wrong, lifted)",
+      "pass": true,
+      "detail": "[\"column\"]"
+    },
+    {
+      "cell": "L2/dump/ρ=0.1",
+      "name": "B fixpoint = target cut",
+      "pass": true,
+      "detail": "[\"categorical\"]"
+    },
+    {
+      "cell": "L2/dump/ρ=0.1",
+      "name": "C blocks good sorts (self-sealing) where B blocks none at ρ=0",
+      "pass": true,
+      "detail": "C=priority,status,amount,genre,client,copies B=priority,genre"
+    },
+    {
+      "cell": "L2/dump/ρ=0.1",
+      "name": "ρ=0.1: wrong-blame seals good sorts in B",
+      "pass": true,
+      "detail": "B blockedGood=priority,genre"
+    },
+    {
+      "cell": "L2/dump/ρ=0.1",
+      "name": "ρ=0.1: D ends with fewer sealed good sorts than B",
+      "pass": true,
+      "detail": "D=amount,genre B=genre"
+    },
+    {
+      "cell": "L2/dump/ρ=0.3",
+      "name": "wedge>0 (A overGen > B overGen)",
+      "pass": true,
+      "detail": "A=16 B=4"
+    },
+    {
+      "cell": "L2/dump/ρ=0.3",
+      "name": "B first-exposure bound (overGen ≤ distinct bad combos)",
+      "pass": true,
+      "detail": "B=4 ≤? 12"
+    },
+    {
+      "cell": "L2/dump/ρ=0.3",
+      "name": "A fixpoint = column (wrong, lifted)",
+      "pass": true,
+      "detail": "[\"column\"]"
+    },
+    {
+      "cell": "L2/dump/ρ=0.3",
+      "name": "B fixpoint = target cut",
+      "pass": true,
+      "detail": "[\"categorical\"]"
+    },
+    {
+      "cell": "L2/dump/ρ=0.3",
+      "name": "C blocks good sorts (self-sealing) where B blocks none at ρ=0",
+      "pass": true,
+      "detail": "C=priority,status,amount,genre,client,copies B=priority,genre"
+    },
+    {
+      "cell": "L2/dump/ρ=0.3",
+      "name": "ρ=0.3: wrong-blame seals good sorts in B",
+      "pass": true,
+      "detail": "B blockedGood=priority,genre"
+    },
+    {
+      "cell": "L2/dump/ρ=0.3",
+      "name": "ρ=0.3: D ends with fewer sealed good sorts than B",
+      "pass": true,
+      "detail": "D=amount,genre B=genre"
+    },
+    {
+      "cell": "L2/reversed/ρ=0",
+      "name": "wedge>0 (A overGen > B overGen)",
+      "pass": true,
+      "detail": "A=16 B=8"
+    },
+    {
+      "cell": "L2/reversed/ρ=0",
+      "name": "B first-exposure bound (overGen ≤ distinct bad combos)",
+      "pass": true,
+      "detail": "B=8 ≤? 8"
+    },
+    {
+      "cell": "L2/reversed/ρ=0",
+      "name": "A fixpoint = column (wrong, lifted)",
+      "pass": true,
+      "detail": "[\"column\"]"
+    },
+    {
+      "cell": "L2/reversed/ρ=0",
+      "name": "B fixpoint = target cut",
+      "pass": true,
+      "detail": "[\"categorical\"]"
+    },
+    {
+      "cell": "L2/reversed/ρ=0",
+      "name": "ρ=0: B overNarrow-on-good == A (==0 beyond ignorance)",
+      "pass": true,
+      "detail": "A=0 B=0"
+    },
+    {
+      "cell": "L2/reversed/ρ=0",
+      "name": "ρ=0: D pays insurance for nothing (cost ≥ B, extraMounts>0 possible)",
+      "pass": true,
+      "detail": "D=8+0 B=8"
+    },
+    {
+      "cell": "L2/reversed/ρ=0",
+      "name": "C blocks good sorts (self-sealing) where B blocks none at ρ=0",
+      "pass": true,
+      "detail": "C=client,status,genre,copies,priority,amount B="
+    },
+    {
+      "cell": "L2/reversed/ρ=0.1",
+      "name": "wedge>0 (A overGen > B overGen)",
+      "pass": true,
+      "detail": "A=16 B=4"
+    },
+    {
+      "cell": "L2/reversed/ρ=0.1",
+      "name": "B first-exposure bound (overGen ≤ distinct bad combos)",
+      "pass": true,
+      "detail": "B=4 ≤? 10"
+    },
+    {
+      "cell": "L2/reversed/ρ=0.1",
+      "name": "A fixpoint = column (wrong, lifted)",
+      "pass": true,
+      "detail": "[\"column\"]"
+    },
+    {
+      "cell": "L2/reversed/ρ=0.1",
+      "name": "B fixpoint = target cut",
+      "pass": true,
+      "detail": "[\"categorical\"]"
+    },
+    {
+      "cell": "L2/reversed/ρ=0.1",
+      "name": "C blocks good sorts (self-sealing) where B blocks none at ρ=0",
+      "pass": true,
+      "detail": "C=client,status,genre,copies,priority,amount B=genre,priority"
+    },
+    {
+      "cell": "L2/reversed/ρ=0.1",
+      "name": "ρ=0.1: wrong-blame seals good sorts in B",
+      "pass": true,
+      "detail": "B blockedGood=genre,priority"
+    },
+    {
+      "cell": "L2/reversed/ρ=0.1",
+      "name": "ρ=0.1: D ends with fewer sealed good sorts than B",
+      "pass": true,
+      "detail": "D=genre,year B=genre"
+    },
+    {
+      "cell": "L2/reversed/ρ=0.3",
+      "name": "wedge>0 (A overGen > B overGen)",
+      "pass": true,
+      "detail": "A=16 B=4"
+    },
+    {
+      "cell": "L2/reversed/ρ=0.3",
+      "name": "B first-exposure bound (overGen ≤ distinct bad combos)",
+      "pass": true,
+      "detail": "B=4 ≤? 12"
+    },
+    {
+      "cell": "L2/reversed/ρ=0.3",
+      "name": "A fixpoint = column (wrong, lifted)",
+      "pass": true,
+      "detail": "[\"column\"]"
+    },
+    {
+      "cell": "L2/reversed/ρ=0.3",
+      "name": "B fixpoint = target cut",
+      "pass": true,
+      "detail": "[\"categorical\"]"
+    },
+    {
+      "cell": "L2/reversed/ρ=0.3",
+      "name": "C blocks good sorts (self-sealing) where B blocks none at ρ=0",
+      "pass": true,
+      "detail": "C=client,status,genre,copies,priority,amount B=genre,priority"
+    },
+    {
+      "cell": "L2/reversed/ρ=0.3",
+      "name": "ρ=0.3: wrong-blame seals good sorts in B",
+      "pass": true,
+      "detail": "B blockedGood=genre,priority"
+    },
+    {
+      "cell": "L2/reversed/ρ=0.3",
+      "name": "ρ=0.3: D ends with fewer sealed good sorts than B",
+      "pass": true,
+      "detail": "D=genre,year B=genre"
+    },
+    {
+      "cell": "L2/interleaved/ρ=0",
+      "name": "wedge>0 (A overGen > B overGen)",
+      "pass": true,
+      "detail": "A=16 B=8"
+    },
+    {
+      "cell": "L2/interleaved/ρ=0",
+      "name": "B first-exposure bound (overGen ≤ distinct bad combos)",
+      "pass": true,
+      "detail": "B=8 ≤? 8"
+    },
+    {
+      "cell": "L2/interleaved/ρ=0",
+      "name": "A fixpoint = column (wrong, lifted)",
+      "pass": true,
+      "detail": "[\"column\"]"
+    },
+    {
+      "cell": "L2/interleaved/ρ=0",
+      "name": "B fixpoint = target cut",
+      "pass": true,
+      "detail": "[\"categorical\"]"
+    },
+    {
+      "cell": "L2/interleaved/ρ=0",
+      "name": "ρ=0: B overNarrow-on-good == A (==0 beyond ignorance)",
+      "pass": true,
+      "detail": "A=0 B=0"
+    },
+    {
+      "cell": "L2/interleaved/ρ=0",
+      "name": "ρ=0: D pays insurance for nothing (cost ≥ B, extraMounts>0 possible)",
+      "pass": true,
+      "detail": "D=8+0 B=8"
+    },
+    {
+      "cell": "L2/interleaved/ρ=0",
+      "name": "C blocks good sorts (self-sealing) where B blocks none at ρ=0",
+      "pass": true,
+      "detail": "C=priority,amount,genre,copies,status,client B="
+    },
+    {
+      "cell": "L2/interleaved/ρ=0.1",
+      "name": "wedge>0 (A overGen > B overGen)",
+      "pass": true,
+      "detail": "A=16 B=4"
+    },
+    {
+      "cell": "L2/interleaved/ρ=0.1",
+      "name": "B first-exposure bound (overGen ≤ distinct bad combos)",
+      "pass": true,
+      "detail": "B=4 ≤? 10"
+    },
+    {
+      "cell": "L2/interleaved/ρ=0.1",
+      "name": "A fixpoint = column (wrong, lifted)",
+      "pass": true,
+      "detail": "[\"column\"]"
+    },
+    {
+      "cell": "L2/interleaved/ρ=0.1",
+      "name": "B fixpoint = target cut",
+      "pass": true,
+      "detail": "[\"categorical\"]"
+    },
+    {
+      "cell": "L2/interleaved/ρ=0.1",
+      "name": "C blocks good sorts (self-sealing) where B blocks none at ρ=0",
+      "pass": true,
+      "detail": "C=priority,amount,genre,copies,status,client B=priority,genre"
+    },
+    {
+      "cell": "L2/interleaved/ρ=0.1",
+      "name": "ρ=0.1: wrong-blame seals good sorts in B",
+      "pass": true,
+      "detail": "B blockedGood=priority,genre"
+    },
+    {
+      "cell": "L2/interleaved/ρ=0.1",
+      "name": "ρ=0.1: D ends with fewer sealed good sorts than B",
+      "pass": true,
+      "detail": "D=amount,genre B=genre"
+    },
+    {
+      "cell": "L2/interleaved/ρ=0.3",
+      "name": "wedge>0 (A overGen > B overGen)",
+      "pass": true,
+      "detail": "A=16 B=4"
+    },
+    {
+      "cell": "L2/interleaved/ρ=0.3",
+      "name": "B first-exposure bound (overGen ≤ distinct bad combos)",
+      "pass": true,
+      "detail": "B=4 ≤? 12"
+    },
+    {
+      "cell": "L2/interleaved/ρ=0.3",
+      "name": "A fixpoint = column (wrong, lifted)",
+      "pass": true,
+      "detail": "[\"column\"]"
+    },
+    {
+      "cell": "L2/interleaved/ρ=0.3",
+      "name": "B fixpoint = target cut",
+      "pass": true,
+      "detail": "[\"categorical\"]"
+    },
+    {
+      "cell": "L2/interleaved/ρ=0.3",
+      "name": "C blocks good sorts (self-sealing) where B blocks none at ρ=0",
+      "pass": true,
+      "detail": "C=priority,amount,genre,copies,status,client B=priority,genre"
+    },
+    {
+      "cell": "L2/interleaved/ρ=0.3",
+      "name": "ρ=0.3: wrong-blame seals good sorts in B",
+      "pass": true,
+      "detail": "B blockedGood=priority,genre"
+    },
+    {
+      "cell": "L2/interleaved/ρ=0.3",
+      "name": "ρ=0.3: D ends with fewer sealed good sorts than B",
+      "pass": true,
+      "detail": "D=amount,genre B=genre"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+ "response": "threepin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "Imagine you have a red electrical shaver adapter with its own unique plug. You’re about to plug it into one of three different wall outlets: one with round prongs, another with flat prongs, or the thi"
+ }
+}

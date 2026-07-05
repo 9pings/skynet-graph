@@ -1,0 +1,8 @@
+{
+ "response": "aquatic",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "Imagine you’re holding a small, green aquatic creature. You need to place it in one of three spaces: a tank filled with water, a cage designed for flying birds, or a glass enclosure meant for land-dwe"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"soccerball\",\"category\":\"round\",\"condition\":\"deflated\",\"color\":\"green\",\"size\":\"large\"},\"holes\":[{\"name\":\"round\",\"size\":\"large\"},{\"name\":\"rectangular\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you have a soft, green soccer ball that’s completely flat. You’re given two options to place it: a circular opening or a rectangular slot. Where would you put it?"
+ }
+}

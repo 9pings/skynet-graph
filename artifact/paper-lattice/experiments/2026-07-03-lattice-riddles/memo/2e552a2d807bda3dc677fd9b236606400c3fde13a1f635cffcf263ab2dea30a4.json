@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"pyramid\",\"category\":\"geometric shape\",\"condition\":\"blue\",\"color\":\"blue\",\"size\":\"medium\"},\"holes\":[]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You would put the blue pyramid into the **round hole**.\n\nPyramids have a generally square or triangular shape, which fits best in a round hole. A star-shaped hole would be too irregular.\n\n\n\nLet me kno"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "\n\nYou have a yellow sugar cube and must choose between a star-shaped hole, a square hole, or a round hole. Which hole do you put it in?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a yellow sugar cube. Put it into one of these holes: the star-shaped one, the square one, or the round one. Which one?"
+ }
+}

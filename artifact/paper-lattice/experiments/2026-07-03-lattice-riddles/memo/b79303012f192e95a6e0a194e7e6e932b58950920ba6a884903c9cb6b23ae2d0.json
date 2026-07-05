@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"reasoning\",\"category\":\"environmental suitability\",\"condition\":\"fern vs. aviary vs. aquarium\",\"color\":\"red\",\"size\":\"medium\"},\"holes\":[]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "The **aviary** is the better choice for the red fern. Here's why:\n\n*   **Ferns need air circulation and light:** Aviaries are designed to mimic natural environments for birds, which means they typical"
+ }
+}

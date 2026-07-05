@@ -1,0 +1,8 @@
+{
+ "response": "triangle\n\nThe pyramid is-a triangle, and among the given hole options (star-shaped, square opening, or circular opening",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You have a red pyramid-shaped object. Which hole should you place it in: the star-shaped opening, the square opening, or the circular opening?"
+ }
+}

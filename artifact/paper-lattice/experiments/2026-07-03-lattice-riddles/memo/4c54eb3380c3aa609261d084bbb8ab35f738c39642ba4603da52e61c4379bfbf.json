@@ -1,0 +1,8 @@
+{
+ "response": "You are absolutely correct! The fern belongs in the **terrarium**. Your reasoning is spot-on. Thanks for the",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: fish is-a aquatic; bird is-a aerial; reptile is-a terres",
+  "user": "You should put the fern in the **terrarium**. Here's why:\n\n*   **Terrarium:** Terrariums are specifically designed for plants, especially those that thrive in humid environments like ferns. They are t"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "round one",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: round one | flat slot | none.",
+  "user": "You're holding a flat blue ball. You can place it in either the circular opening or the rectangular groove. Where do you put it?"
+ }
+}

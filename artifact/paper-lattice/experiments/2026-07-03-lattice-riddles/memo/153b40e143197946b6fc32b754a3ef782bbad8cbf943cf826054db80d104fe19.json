@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"football\",\"category\":\"flat own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own own",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You've got a flat green football. Should you put it in the round hole or the flat slot?"
+ }
+}

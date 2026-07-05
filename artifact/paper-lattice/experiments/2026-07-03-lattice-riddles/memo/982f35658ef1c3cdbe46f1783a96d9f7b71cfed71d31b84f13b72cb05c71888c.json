@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\n{\"kind\":\"trout\",\"category\":\"aquatic\"}",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"Where should you place a blue trout: in an aquarium, an aviary, or a terrarium?\". Now state",
+  "user": "In general, which habitat type fits a trout?"
+ }
+}

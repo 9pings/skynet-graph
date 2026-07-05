@@ -1,0 +1,8 @@
+{
+ "response": "{\"candidates\":[\"label: d_kiwi ~> ~flies(kiri)\", \"label: d_kiwi_broad ~> ~flies(kiri)\", \"label: d_kiwi_wrong_head ~> ~flies(kiri)\", \"label: d_kiwi_irrelevant ~> ~flies(kiri)\", \"label: d_kiwi_positive ~> ~flies(kiri)\", \"label: d_kiwi_wrong_cond ~> ~flies(kiri)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"flies(kiri)\", list the candidate rules. Reply ONLY JSON:",
+  "user": "Facts: bird(kiri), bird(tweety), kiwi(kiri), sparrow(tweety).\nGeneral rules (=> means \"normally implies\"): r_flies: bird(X) => flies(X); r_feathers: bird(X) => has_feathers(X); r_warm: bird(X) => warm"
+ }
+}

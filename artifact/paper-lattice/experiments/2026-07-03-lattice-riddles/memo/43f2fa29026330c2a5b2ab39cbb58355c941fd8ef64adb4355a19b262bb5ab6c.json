@@ -1,0 +1,8 @@
+{
+ "response": "roundpin\n\nWait, let me reconsider this more carefully. The question asks which",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You've got a brand-new yellow US plug and need to insert it into one of three wall outlets: the round-pin type, the flat-pin type, or the three-pin type. Which outlet should you choose?"
+ }
+}

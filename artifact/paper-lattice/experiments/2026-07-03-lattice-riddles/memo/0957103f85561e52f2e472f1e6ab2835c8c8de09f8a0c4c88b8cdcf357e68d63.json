@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"pyramid\",\"category\":\"square\",\"condition\":\"\",\"color\":\"red\",\"size\":\"\"},\"holes\":[{\"name\":\"star\",\"size\":\"\"},{\"name\":\"square\",\"size\":\"\"},{\"name\":\"circle\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you’re holding a red pyramid-shaped object and you need to fit it into one of three different openings: one shaped like a star, another shaped like a square, or the last one shaped like a circ"
+ }
+}

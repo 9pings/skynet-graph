@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"green kettle plug\",\"category\":\"roundpin\",\"condition\":\"\",\"color\":\"green\",\"size\":\"\"},\"holes\":[{\"name\":\"roundpin\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "A green kettle plug is available. You must insert it into one of three wall sockets: a round-pin, a flat-pin, or a three-pin socket. Which one do you choose?"
+ }
+}

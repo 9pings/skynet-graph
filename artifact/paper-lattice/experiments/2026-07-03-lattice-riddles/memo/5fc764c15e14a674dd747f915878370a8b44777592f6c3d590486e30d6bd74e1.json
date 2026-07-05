@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"word\": \"slit\",\n  \"means\": \"neither\"\n}\n```",
+ "at": null,
+ "meta": {
+  "system": "Vocabulary question. Reply ONLY JSON: {\"word\":\"slit\",\"means\":\"<one of the options, or neither>\"}",
+  "user": "The word \"slit\" used as a hole shape word — which of these does it mean: star|square|round, or neither?"
+ }
+}

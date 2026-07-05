@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"phone charger plug\",\"category\":\"roundpin\",\"condition\":\"\",\"color\":\"blue\",\"size\":\"\"},\"holes\":[{\"name\":\"roundpin\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You possess a blue phone charger plug. You must insert it into one of the following wall sockets: the round-pin, the flat-pin, or the three-pin. Which one do you choose?"
+ }
+}

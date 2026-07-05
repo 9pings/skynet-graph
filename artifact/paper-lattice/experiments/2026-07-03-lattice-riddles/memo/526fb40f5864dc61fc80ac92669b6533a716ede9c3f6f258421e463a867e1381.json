@@ -1,0 +1,8 @@
+{
+ "response": "{\"kind\":\"marble\",\"category\":\"round\"}",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"You possess a red marble. Place it into one of three holes available: either the star-shape",
+  "user": "In general, which shape category fits a marble?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"candidates\": [\n    \"d_seahorse: paternal_gestation(X) ~> ~female_gestates(X)\",\n    \"d_sea_broad: fish(X) ~> ~female_gestates(X)\",\n    \"d_sea_no_novel: seahorse(X) ~> ~female_gestates(X)\"\n  ]\n}\n```",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"female_gestates(floaty)\", list the candidate rules. Repl",
+  "user": "Facts: clownfish(nemo2), fish(floaty), fish(nemo2), fish(sandy), seahorse(floaty), seahorse(sandy).\nGeneral rules (=> means \"normally implies\"): r_gestate: fish(X) => female_gestates(X); r_cold_s: fis"
+ }
+}

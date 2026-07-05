@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"kind\": \"sphere\",\n  \"category\": \"round\"\n}\n```",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"Imagine you’re holding a blue sphere and need to place it into one of three openings: a fiv",
+  "user": "In general, which shape category fits a sphere?"
+ }
+}

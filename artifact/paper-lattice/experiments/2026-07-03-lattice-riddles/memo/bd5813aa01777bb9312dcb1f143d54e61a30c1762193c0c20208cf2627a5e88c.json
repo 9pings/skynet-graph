@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"socket\",\"category\":\"three-pin socket\",\"condition\":\"compatible\",\"color\":\"unspecified\",\"size\":\"unspecified\"},\"holes\":[]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You would put the yellow UK plug into the **three-pin socket**.\n\nHere's why:\n\n*   **UK plugs are designed for three-pin sockets.** They have a fuse and grounding pin for safety.\n*   **Round-pin and fl"
+ }
+}

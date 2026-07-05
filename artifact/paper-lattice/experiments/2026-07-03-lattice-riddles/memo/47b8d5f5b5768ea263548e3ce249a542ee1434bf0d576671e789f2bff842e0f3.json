@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"answer\",\"category\":\"riddle\",\"condition\":\"melted sugar cube\",\"color\":\"any\",\"size\":\"any\"},\"holes\":[{\"name\":\"square\",\"size\":\"square\"},{\"name\":\"round\",\"size\":\"round\"},{\"name\":\"triangular\",\"size\":\"triangular\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "This is a classic trick question! Here's why:\n\nSince the sugar cube is *melted*, it will take the shape of the hole it's placed in. Therefore, it will fit in **any** of the holes.\n\nLet me know if you'"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "\n\nround",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "Imagine you have a yellow football and three openings to choose from: one shaped like a star, one that is square, and one that is round. Into which of these holes should you place the ball?"
+ }
+}

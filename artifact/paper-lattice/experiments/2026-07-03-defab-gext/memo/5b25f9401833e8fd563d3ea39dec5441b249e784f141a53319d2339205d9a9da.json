@@ -1,0 +1,8 @@
+{
+ "response": "d_kiwi_broad",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: flies(kiri)\nCandidates:\nlabel: d_kiwi ~> ~flies(kiri)\nlabel: d_kiwi_broad ~> ~flies(kiri)\nlabel: d_kiwi_wrong_head ~> ~flies(kiri)\nlabel: d_kiwi_irrelevant ~> ~flies(kiri)\nlabel: d_kiwi_posit"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"HDMI cable\",\"category\":\"\",\"condition\":\"\",\"color\":\"green\",\"size\":\"\"},\"holes\":[]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You have a green HDMI cable; which of these wall sockets should you use: the round-pin, flat-pin, or three-pin variety?"
+ }
+}

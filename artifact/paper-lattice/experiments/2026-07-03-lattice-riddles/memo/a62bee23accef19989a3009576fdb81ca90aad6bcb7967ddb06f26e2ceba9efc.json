@@ -1,0 +1,8 @@
+{
+ "response": "You have a green US plug and need to insert it into one of three wall sockets: the round-pin socket, the flat-pin socket, or the three-pin socket. Which socket should you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a green US plug. Put it into one of these wall sockets: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one?"
+ }
+}

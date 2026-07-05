@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"ball\",\"category\":\"round\",\"condition\":\"deflated\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"name\":\"round\",\"size\":\"\"},{\"name\":\"flat\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You've got a deflated yellow ball. Should you place it in the round hole or the flat slot?"
+ }
+}

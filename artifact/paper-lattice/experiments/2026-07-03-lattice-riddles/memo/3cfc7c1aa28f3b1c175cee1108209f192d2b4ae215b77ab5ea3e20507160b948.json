@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"gecko\",\"category\":\"terrarium\",\"condition\":\"\",\"color\":\"green\",\"size\":\"\"},\"holes\":[{\"name\":\"aquarium\",\"size\":\"\"},{\"name\":\"aviary\",\"size\":\"\"},{\"name\":\"terrarium\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You have a green gecko that needs to be placed in one of three enclosures: an aquarium, an aviary, or a terrarium. Which one is the correct choice?"
+ }
+}

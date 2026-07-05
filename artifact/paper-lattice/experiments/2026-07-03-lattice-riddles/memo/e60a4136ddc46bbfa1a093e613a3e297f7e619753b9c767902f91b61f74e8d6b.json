@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"terrarium\",\"category\":\"enclosure\",\"condition\":\"appropriate for reptiles\",\"color\":\"various\",\"size\":\"various\"},\"holes\":[]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "The correct enclosure is the **terrarium**.\n\nHere's why:\n\n*   **Terrarium:** Designed for reptiles and other land-dwelling creatures. It typically has features like substrate, plants, and heating/ligh"
+ }
+}

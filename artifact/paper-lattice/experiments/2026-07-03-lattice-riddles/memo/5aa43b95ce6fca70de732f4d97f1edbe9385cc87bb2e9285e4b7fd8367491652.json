@@ -1,0 +1,8 @@
+{
+ "response": "Looking at this puzzle, I need to determine which habitat is most appropriate for a yellow bird.\n\nThe three options are:\n- Fish tank (aquatic habitat)\n- Bird house (terrestrial habitat) \n- Reptile cage (terrestrial habitat)\n\nA yellow bird is a terrestrial animal that belongs in a bird house, which is specifically designed for birds. While a bird house is technically a terrestrial habitat, it's the appropriate and logical choice for housing a bird.\n\nHowever, looking more carefully at the four options provided (aquatic, aerial, terrestrial, none), and considering that a bird house would be a terrestrial habitat, I should select \"terrestrial.\"\n\nBut wait - the question asks which habitat to place it in, and the options are fish tank, bird house, or reptile cage. The bird house is the only appropriate choice among these three options, and it represents a terrestrial habitat.\n\nThe answer is: terrestrial\n\nThe bird house represents a terrestrial habitat where the yellow bird would naturally belong, and this is the only logical choice among the three given options.",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You possess a yellow bird. In which of these three habitats would you place it: the fish tank, the bird house, or the reptile cage? What choice do you make?"
+ }
+}

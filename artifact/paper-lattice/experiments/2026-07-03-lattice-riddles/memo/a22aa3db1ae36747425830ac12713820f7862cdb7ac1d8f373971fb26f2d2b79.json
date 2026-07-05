@@ -1,0 +1,8 @@
+{
+ "response": "Aquatic",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "Imagine you’re holding a single red fish—nowhere else to go. You have three options to place it: a glass tank filled with water, a birdcage with air and perches, or a glass box with soil and plants. W"
+ }
+}

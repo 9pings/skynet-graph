@@ -1,0 +1,8 @@
+{
+ "response": "plant\n\nWait, let me re-read the question more carefully.\n\nThe question asks which habitat (fish tank, bird house",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: fish is-a aquatic; bird is-a aerial; reptile is-a terres",
+  "user": "You possess a blue fern. Place it inside one of these habitats: the fish tank, the bird house, or the reptile cage. Which option would you choose?"
+ }
+}

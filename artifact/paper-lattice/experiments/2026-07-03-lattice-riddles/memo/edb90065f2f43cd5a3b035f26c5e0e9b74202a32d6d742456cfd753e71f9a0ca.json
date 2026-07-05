@@ -1,0 +1,8 @@
+{
+ "response": "roundpin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "A dusty green Euro plug needs to be inserted into a wall socket. You have three options: a round-pin socket, a flat-pin socket, or a three-pin socket. Which one should you use?"
+ }
+}

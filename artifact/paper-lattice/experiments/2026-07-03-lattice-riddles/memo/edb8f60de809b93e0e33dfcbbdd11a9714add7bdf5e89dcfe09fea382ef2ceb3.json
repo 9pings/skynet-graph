@@ -1,0 +1,8 @@
+{
+ "response": "{\n    \"object\": {\n        \"kind\": \"die\",\n        \"category\": \"\",\n        \"condition\": \"\",\n        \"color\": \"yellow\",\n        \"size\": \"small\"\n    },\n    \"holes\": [\n        {\n            \"name\": \"star\",\n            \"size\": \"\"\n        },\n        {\n            \"name\": \"square\",\n            \"size\": \"\"\n        },\n        {\n            \"name\": \"circle\",\n            \"size\": \"\"",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "Imagine you’re holding a six-sided die that’s painted entirely yellow. You need to place it into one of three different holes: one shaped like a star, another shaped like a square, and the last one sh"
+ }
+}

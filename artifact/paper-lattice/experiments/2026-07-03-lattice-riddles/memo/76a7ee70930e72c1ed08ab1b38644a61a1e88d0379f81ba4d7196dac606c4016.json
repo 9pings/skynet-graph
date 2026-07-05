@@ -1,0 +1,8 @@
+{
+ "response": "large round",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You've got a big green football. Which hole should you put it in: the small round one, the large round one, or the large square one?"
+ }
+}

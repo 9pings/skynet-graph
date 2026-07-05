@@ -1,0 +1,8 @@
+{
+ "response": "You've got a melted green sugar cube and need to decide which hole to put it in: the star-shaped one, the square one, or the round one. Which hole do you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a melted green sugar cube. Put it into one of these holes: the star-shaped one, the square one, or the round one. Which one?"
+ }
+}

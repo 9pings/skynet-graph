@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nlarge roundpin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small roundpin | large roundpin | large flatpin | none.",
+  "user": "You possess a compact yellow Euro plug. Determine which of the following wall outlets it fits into: the small round-pin socket, the large round-pin socket, or the large flat-pin socket."
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"fern\",\"category\":\"aquarium\",\"condition\":\"\",\"color\":\"yellow\",\"size\":\"small\"},\"holes\":[{\"name\":\"aquarium\",\"size\":\"small\"},{\"name\":\"aviary\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You possess a yellow fern; should you place it in the aquarium or the aviary?"
+ }
+}

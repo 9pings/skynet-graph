@@ -1,0 +1,8 @@
+{
+ "response": "{\n    \"object\": {\n        \"kind\": \"trick question\",\n        \"category\": \"logic puzzle\",\n        \"condition\": \"liquified sugar cube\",\n        \"color\": \"white\",\n        \"size\": \"small\"\n    },\n    \"holes\": [\n        {\n            \"name\": \"square hole\",\n            \"size\": \"medium\"\n        },\n        {\n            \"name\": \"round hole\",\n            \"size\": \"small\"\n        },\n        {\n            \"name\": \"triangular hole\",\n            \"size\":",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "This is a trick question!\n\nLiquified sugar is a liquid. Liquids take the shape of their container. Therefore, the sugar will fit into **any** of the holes.\n\nThe question is designed to make you think "
+ }
+}

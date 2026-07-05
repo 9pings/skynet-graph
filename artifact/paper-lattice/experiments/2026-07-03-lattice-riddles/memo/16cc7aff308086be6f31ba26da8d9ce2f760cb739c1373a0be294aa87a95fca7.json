@@ -1,0 +1,8 @@
+{
+ "response": "\n\nYou possess a blue sparrow and must choose the correct enclosure from the aquarium, the aviary, or the terrarium. Which one should you select?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a blue sparrow. Put it into one of these enclosures: the aquarium, the aviary, or the terrarium. Which one?"
+ }
+}

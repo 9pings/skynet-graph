@@ -1,0 +1,8 @@
+{
+ "response": "You're holding a big red football. Which of these openings would it fit into: the tiny circular hole, the big circular hole, or the large square hole?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a large red football. Put it into one of these holes: the small round one, the large round one, or the large square one. Which one?"
+ }
+}

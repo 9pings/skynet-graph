@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you have a blue marble. You need to place it into one of three holes: a star, a square, or a circle. Which one do you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a blue marble. Put it into one of these holes: the star-shaped one, the square one, or the round one. Which one?"
+ }
+}

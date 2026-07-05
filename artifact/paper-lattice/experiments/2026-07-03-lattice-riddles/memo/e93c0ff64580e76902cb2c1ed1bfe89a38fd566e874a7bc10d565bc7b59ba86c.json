@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"standard British three-pin plug\",\"category\":\"threepin\",\"condition\":\"\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"name\":\"flatpin\",\"size\":\"large\"},{\"name\":\"flatpin\",\"size\":\"large\"},{\"name\":\"roundpin\",\"size\":\"small\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "Imagine you’re holding a standard British three-pin plug with its distinctive yellow insulation. You’re about to plug it into one of three different wall sockets: one with two round pins, another with"
+ }
+}

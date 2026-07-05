@@ -1,0 +1,8 @@
+{
+ "response": "Here's an exception rule that addresses the anomaly while minimizing disruption to other expectations:\n\n**~r_opaque: carbon_material(X) => opaque(X) ~> not(thin(X))**\n\n**Explanation:**\n\n*   **~r_opaque:** This indicates we're creating an exception to the rule `r_opaque`.\n*   **carbon_material(X) => opaque(X):** This is the rule we're modifying.\n*   **~> not(thin(X)):** This is the condition that makes the exception apply. It means \"Normally, carbon materials are opaque, *except when* they are thin.\"\n\n**Why this works:**\n\n*   **Addresses the Anomaly:** Graphene sheets are extremely thin. This exception rule allows `graphene_sheet` to be an exception to the \"carbon material is opaque\" rule because it's thin.\n*   **Doesn't Break Other Expectations:**\n    *   `graphite_block` and `thick_graphene` are not thin, so the exception doesn't apply to them. They will still be correctly predicted as opaque according to the original rule.\n    *   The rule `r_cond_g` (carbon material is electrically conductive) is unaffected because it's a separate rule.\n*   **Specificity:** The exception is tied to the \"thinness\" of the material, which is a relevant characteristic of graphene sheets.\n\n**In simpler terms:** \"Carbon materials are usually opaque, but this isn't true for thin ones.\"",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"opaque(graphene_sheet)\", list the candidate rules. Reply",
+  "user": "Facts: carbon_material(graphene_sheet), carbon_material(graphite_block), carbon_material(thick_graphene), material(graphene_sheet), material(graphite_block), material(thick_graphene).\nGeneral rules (="
+ }
+}

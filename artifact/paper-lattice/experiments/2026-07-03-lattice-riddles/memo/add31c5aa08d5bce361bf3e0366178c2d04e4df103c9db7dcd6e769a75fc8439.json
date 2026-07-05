@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nA green Euro plug (which is a type of 3-pin plug",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You possess a green Euro plug. Which wall socket out of the round-pin one, the flat-pin one, or the three-pin one should you insert it into?"
+ }
+}

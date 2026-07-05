@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"pyramid\",\"category\":\"star\",\"condition\":\"\",\"color\":\"blue\",\"size\":\"\"},\"holes\":[{\"name\":\"star\",\"size\":\"\"},{\"name\":\"round\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You have a blue pyramid-shaped object. You need to place it in either the star-shaped hole or the circular hole. Which hole should you choose?"
+ }
+}

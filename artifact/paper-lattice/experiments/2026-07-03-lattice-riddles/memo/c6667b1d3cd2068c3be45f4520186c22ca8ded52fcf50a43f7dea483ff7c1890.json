@@ -1,0 +1,8 @@
+{
+ "response": "aquatic\n\nA red trout is a fish, and according to the taxonomy, fish is-a aquatic. The aquarium hole",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: fish is-a aquatic; bird is-a aerial; reptile is-a terres",
+  "user": "You're holding a red trout. Where would you place it among these three habitats: the fish tank, the bird cage, or the reptile house? Which option would you choose?"
+ }
+}

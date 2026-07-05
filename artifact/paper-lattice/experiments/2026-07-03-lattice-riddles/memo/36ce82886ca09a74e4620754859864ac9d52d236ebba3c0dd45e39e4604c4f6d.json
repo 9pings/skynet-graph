@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"die\",\"category\":\"\",\"condition\":\"\",\"color\":\"green\",\"size\":\"\"},\"holes\":[{\"name\":\"\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Pick one of these three holes for your green die: the star, the square, or the circle. Which one do you choose?"
+ }
+}

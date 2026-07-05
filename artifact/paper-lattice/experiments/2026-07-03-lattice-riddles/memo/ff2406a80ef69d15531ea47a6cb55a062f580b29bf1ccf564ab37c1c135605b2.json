@@ -1,0 +1,8 @@
+{
+ "response": "\n\nstar",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You possess a small yellow marble. Into which of the following openings should you place it: the small circular hole, the large circular hole, or the large square hole?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"terrarium\",\"category\":\"enclosure\",\"condition\":\"empty\",\"color\":\"neutral\",\"size\":\"medium\"},\"holes\":[]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You would put the blue reptile into the **terrarium**.\n\nHere's why:\n\n*   **Terrarium:** Designed for reptiles and other land-dwelling creatures. It provides a controlled environment with appropriate s"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"candidates\": [\n    \"label: d_laches_broad_override: equity_claim(mansion_case) ~> ~valid_claim(mansion_case)\",\n    \"label: d_laches_broad_park_preserve: equity_claim(park_case) => valid_claim(park_case)\",\n    \"label: d_laches_broad_equity_preserve: equity_claim(X) => valid_claim(X)\"\n  ]\n}\n```",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"valid_claim(mansion_case)\", list the candidate rules. Re",
+  "user": "Facts: equity_claim(mansion_case), equity_claim(park_case).\nGeneral rules (=> means \"normally implies\"): r_eq_valid: equity_claim(X) => valid_claim(X); r_remedy: equity_claim(X) => remedy_available(X)"
+ }
+}

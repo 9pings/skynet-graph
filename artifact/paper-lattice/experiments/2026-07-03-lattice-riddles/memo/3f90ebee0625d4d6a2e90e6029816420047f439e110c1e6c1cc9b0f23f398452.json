@@ -1,0 +1,8 @@
+{
+ "response": "\n\nYou possess a damaged red American-style plug. Given the choice between a round-pin outlet, a flat-pin outlet, and a three-pin outlet, which one should you insert it into?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a bent red US plug. Put it into one of these wall sockets: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one?"
+ }
+}

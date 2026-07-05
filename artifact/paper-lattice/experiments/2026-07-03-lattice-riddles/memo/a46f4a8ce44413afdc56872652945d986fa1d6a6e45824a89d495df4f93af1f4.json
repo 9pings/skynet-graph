@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"tiny yellow European plug\",\"category\":\"threepin\",\"condition\":\"\",\"color\":\"yellow\",\"size\":\"small\"},\"holes\":[{\"name\":\"roundpin\",\"size\":\"small\"},{\"name\":\"roundpin\",\"size\":\"large\"},{\"name\":\"flatpin\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "Imagine you’re holding a tiny yellow European plug—now try plugging it into one of these outlets: the one with two small circular pins, the one with two big circular pins, or the one with two wide fla"
+ }
+}

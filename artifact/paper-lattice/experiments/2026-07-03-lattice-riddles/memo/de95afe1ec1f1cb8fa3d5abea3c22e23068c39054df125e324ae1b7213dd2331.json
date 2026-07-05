@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"gecko\",\"category\":\"terrarium\",\"condition\":\"\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"name\":\"aquarium\",\"size\":\"\"},{\"name\":\"aviary\",\"size\":\"\"},{\"name\":\"terrarium\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You're holding a yellow gecko and need to choose where to place it among three options: the aquarium, the aviary, or the terrarium. Where do you put it?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "\n\nnone",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You possess a red marble and must place it into either the star-shaped, square, or round hole. Which hole do you choose?"
+ }
+}

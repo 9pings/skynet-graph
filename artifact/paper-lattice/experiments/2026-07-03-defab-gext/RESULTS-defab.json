@@ -1,0 +1,402 @@
+{
+ "rb": 1024,
+ "R": {
+  "all": {
+   "n": 35,
+   "sysSym": 34,
+   "sysSymPure": 30,
+   "tiebreaks": 5,
+   "sysExt": 33,
+   "rb0": 30,
+   "rbON": 30
+  },
+  "biology": {
+   "n": 16,
+   "sysSym": 16,
+   "sysSymPure": 16,
+   "tiebreaks": 0,
+   "sysExt": 16,
+   "rb0": 13,
+   "rbON": 13
+  },
+  "legal": {
+   "n": 10,
+   "sysSym": 9,
+   "sysSymPure": 9,
+   "tiebreaks": 1,
+   "sysExt": 8,
+   "rb0": 8,
+   "rbON": 9
+  },
+  "materials": {
+   "n": 9,
+   "sysSym": 9,
+   "sysSymPure": 5,
+   "tiebreaks": 4,
+   "sysExt": 9,
+   "rb0": 9,
+   "rbON": 8
+  }
+ },
+ "fails": {
+  "sysSym": [
+   "laches:tiebreak=d_laches_near_gold"
+  ],
+  "sysExt": [
+   "emancipated_minor:impracticable",
+   "laches:ambiguous"
+  ]
+ },
+ "direct": {
+  "penguin": {
+   "rb0": {
+    "pick": "d_penguin",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_penguin",
+    "type": "gold"
+   }
+  },
+  "ostrich": {
+   "rb0": {
+    "pick": "d_ostrich",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_ostrich",
+    "type": "gold"
+   }
+  },
+  "emu": {
+   "rb0": {
+    "pick": "d_emu",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_emu",
+    "type": "gold"
+   }
+  },
+  "cassowary": {
+   "rb0": {
+    "pick": "d_cassowary",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_cassowary",
+    "type": "gold"
+   }
+  },
+  "kiwi": {
+   "rb0": {
+    "pick": "d_kiwi",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_kiwi",
+    "type": "gold"
+   }
+  },
+  "bat": {
+   "rb0": {
+    "pick": "d_bat",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_bat",
+    "type": "gold"
+   }
+  },
+  "whale": {
+   "rb0": {
+    "pick": "d_whale",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_whale",
+    "type": "gold"
+   }
+  },
+  "dolphin": {
+   "rb0": {
+    "pick": "d_dolphin",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_dolphin",
+    "type": "gold"
+   }
+  },
+  "platypus": {
+   "rb0": {
+    "pick": "d_platypus",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_platypus",
+    "type": "gold"
+   }
+  },
+  "panda": {
+   "rb0": {
+    "pick": "d_panda",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_panda",
+    "type": "gold"
+   }
+  },
+  "cuckoo": {
+   "rb0": {
+    "pick": "d_cuckoo",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_cuckoo",
+    "type": "gold"
+   }
+  },
+  "lungfish": {
+   "rb0": {
+    "pick": "d_lung_no_novel",
+    "type": "no_novel"
+   },
+   "rbON": {
+    "pick": "d_lung_no_novel",
+    "type": "no_novel"
+   }
+  },
+  "axolotl": {
+   "rb0": {
+    "pick": "d_axolotl",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_axolotl",
+    "type": "gold"
+   }
+  },
+  "vampire_bat": {
+   "rb0": {
+    "pick": "d_vbat_no_novel",
+    "type": "no_novel"
+   },
+   "rbON": {
+    "pick": "d_vbat_no_novel",
+    "type": "no_novel"
+   }
+  },
+  "seahorse": {
+   "rb0": {
+    "pick": "d_sea_no_novel",
+    "type": "no_novel"
+   },
+   "rbON": {
+    "pick": "d_sea_no_novel",
+    "type": "no_novel"
+   }
+  },
+  "tardigrade": {
+   "rb0": {
+    "pick": "d_tardigrade",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_tardigrade",
+    "type": "gold"
+   }
+  },
+  "emancipated_minor": {
+   "rb0": {
+    "pick": "d_em_broad",
+    "type": "broad"
+   },
+   "rbON": {
+    "pick": "d_em_broad",
+    "type": "broad"
+   }
+  },
+  "statute_of_limitations": {
+   "rb0": {
+    "pick": "d_statute_of_lim",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_statute_of_lim",
+    "type": "gold"
+   }
+  },
+  "good_faith_purchaser": {
+   "rb0": {
+    "pick": "d_good_faith",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_good_faith",
+    "type": "gold"
+   }
+  },
+  "diplomatic_immunity": {
+   "rb0": {
+    "pick": "d_diplomatic",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_diplomatic",
+    "type": "gold"
+   }
+  },
+  "sovereign_immunity": {
+   "rb0": {
+    "pick": "d_sovereign",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_sovereign",
+    "type": "gold"
+   }
+  },
+  "force_majeure": {
+   "rb0": {
+    "pick": "d_force_majeure",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_force_majeure",
+    "type": "gold"
+   }
+  },
+  "qualified_immunity": {
+   "rb0": {
+    "pick": "d_qualified_immunity",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_qualified_immunity",
+    "type": "gold"
+   }
+  },
+  "constitutional_supremacy": {
+   "rb0": {
+    "pick": "d_supremacy",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_supremacy",
+    "type": "gold"
+   }
+  },
+  "ultra_vires": {
+   "rb0": {
+    "pick": "d_ultra_vires",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_ultra_vires",
+    "type": "gold"
+   }
+  },
+  "laches": {
+   "rb0": {
+    "pick": "d_laches_broad",
+    "type": "broad"
+   },
+   "rbON": {
+    "pick": "d_laches",
+    "type": "gold"
+   }
+  },
+  "metallic_glass": {
+   "rb0": {
+    "pick": "d_metallic_glass",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_metallic_glass",
+    "type": "gold"
+   }
+  },
+  "aerogel": {
+   "rb0": {
+    "pick": "d_aerogel",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_aerogel",
+    "type": "gold"
+   }
+  },
+  "superconductor": {
+   "rb0": {
+    "pick": "d_superconductor",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_sc_no_novel",
+    "type": "no_novel"
+   }
+  },
+  "graphene": {
+   "rb0": {
+    "pick": "d_graphene",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_graphene",
+    "type": "gold"
+   }
+  },
+  "nitinol_sma": {
+   "rb0": {
+    "pick": "d_nitinol",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_nitinol",
+    "type": "gold"
+   }
+  },
+  "piezoelectric": {
+   "rb0": {
+    "pick": "d_piezoelectric",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_piezoelectric",
+    "type": "gold"
+   }
+  },
+  "thermoelectric": {
+   "rb0": {
+    "pick": "d_thermoelectric",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_thermoelectric",
+    "type": "gold"
+   }
+  },
+  "superhydrophobic": {
+   "rb0": {
+    "pick": "d_superhydrophobic",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_superhydrophobic",
+    "type": "gold"
+   }
+  },
+  "metamaterial": {
+   "rb0": {
+    "pick": "d_metamaterial",
+    "type": "gold"
+   },
+   "rbON": {
+    "pick": "d_metamaterial",
+    "type": "gold"
+   }
+  }
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"candidates\": [\n    \"label: d_statute_of_lim: time_barred(X) ~> ~actionable(X)\",\n    \"label: d_sol_wrong_head: time_barred(X) ~> ~entitles_to_remedy(X)\",\n    \"label: d_sol_positive: time_barred(X) => dismissed(X)\",\n    \"label: d_sol_indirect: dismissed(X) ~> ~actionable(X)\",\n    \"label: d_sol_wrong_cond: invalid(X) ~> ~actionable(X)\"\n  ]\n}\n```",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"actionable(claim_a)\", list the candidate rules. Reply ON",
+  "user": "Facts: legal_claim(claim_a), legal_claim(claim_b), time_barred(claim_a), timely(claim_b).\nGeneral rules (=> means \"normally implies\"): r_actionable: legal_claim(X) => actionable(X); r_remedy: legal_cl"
+ }
+}

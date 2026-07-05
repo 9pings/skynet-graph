@@ -1,0 +1,8 @@
+{
+ "response": "{\"target\":\"material(bronze)\",\"candidates\":[\"df_material(bronze):  => material(bronze)\",\"df_metal(iron):  => metal(iron)\",\"df_material(diamond):  => material(diamond)\",\"df_material(steel):  => material(steel)\",\"df_material(gold):  => material(gold)\",\"df_material(quartz):  => material(quartz)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract from the text, VERBATIM. Reply ONLY JSON: {\"target\":\"<the underivable statement>\",\"candidates\":[\"<entry as writt",
+  "user": "A knowledge base is missing exactly one entry. Because of that gap, the statement \"material(bronze)\" cannot be derived. Exactly one of the following candidate entries fills the gap:\n  (1) df_material("
+ }
+}

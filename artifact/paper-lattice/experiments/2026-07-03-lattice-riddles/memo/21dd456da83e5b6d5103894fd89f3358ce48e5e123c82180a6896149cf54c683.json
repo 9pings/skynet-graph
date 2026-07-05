@@ -1,0 +1,8 @@
+{
+ "response": "You are absolutely correct! This is a classic trick question designed to see if someone",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "This is a trick question! HDMI cables are for video and audio signals, and they connect to devices like TVs, monitors, or sound systems.\n\n**None of those wall sockets are for HDMI.**\n\n*   **Round-pin,"
+ }
+}

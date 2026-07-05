@@ -1,0 +1,8 @@
+{
+ "response": "large round",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small round | large round | large square | none.",
+  "user": "There is a big green football. You need to place it into one of three holes: a small round one, a large round one, or a large square one. Which hole should you use?"
+ }
+}

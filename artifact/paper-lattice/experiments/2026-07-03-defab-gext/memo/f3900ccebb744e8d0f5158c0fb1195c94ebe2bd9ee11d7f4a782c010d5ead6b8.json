@@ -1,0 +1,8 @@
+{
+ "response": "d_force_majeure: force_majeure_event(X) ~> ~performance_required(X)",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: performance_required(contract_x)\nCandidates:\nlabel: d_force_majeure: force_majeure_event(X) ~> ~performance_required(X)\nlabel: d_fm_broad: contract(X) ~> ~performance_required(X)\nlabel: d_fm_"
+ }
+}

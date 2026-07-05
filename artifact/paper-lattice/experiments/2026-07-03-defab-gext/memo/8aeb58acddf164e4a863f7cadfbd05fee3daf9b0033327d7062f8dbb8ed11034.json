@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\n{\"target\":\"legal_action(summons)\",\"candidates\":[\"df_legal_action(summons):  => legal_action(summons)\",\"df_legal_role(defendant):  => legal_role(defendant)\",\"df_legal_document(geneva_convention):  => legal_document(geneva_convention)\",\"df_statute(ccpa):  => statute(ccpa)\",\"df_legal_role(judge):  => legal_role(judge)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract from the text, VERBATIM. Reply ONLY JSON: {\"target\":\"<the underivable statement>\",\"candidates\":[\"<entry as writt",
+  "user": "A knowledge base is missing exactly one entry. Because of that gap, the statement \"legal_action(summons)\" cannot be derived. Exactly one of the following candidate entries fills the gap:\n  (1) df_lega"
+ }
+}

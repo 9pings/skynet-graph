@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\n{\"candidates\":[\"d_sh_wrong_cond: waxed(X) ~> ~wetted_by_water(X)\", \"d_sh_irrelevant: coated(X) ~> ~wetted_by_water(X)\", \"d_sh_broad: polymer(X) ~> ~wetted_by_water(X)\", \"d_superhydrophobic: superhydrophobic(X) ~> ~wetted_by_water(X)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"wetted_by_water(lotus_coating)\", list the candidate rule",
+  "user": "Facts: material(lotus_coating), material(polyethylene_film), polymer(lotus_coating), polymer(polyethylene_film), superhydrophobic(lotus_coating).\nGeneral rules (=> means \"normally implies\"): r_wet: po"
+ }
+}

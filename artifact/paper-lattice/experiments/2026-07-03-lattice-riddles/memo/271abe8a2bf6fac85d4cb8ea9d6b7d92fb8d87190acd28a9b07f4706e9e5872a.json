@@ -1,0 +1,8 @@
+{
+ "response": "You are absolutely correct! That was a clever trick question. My apologies for not",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "This is a trick question! A **aquarium** is the correct choice.\n\nHere's why:\n\n*   **Aquarium:** Designed for aquatic life (fish, etc.).\n*   **Aviary:** Designed for birds.\n*   **Terrarium:** Designed "
+ }
+}

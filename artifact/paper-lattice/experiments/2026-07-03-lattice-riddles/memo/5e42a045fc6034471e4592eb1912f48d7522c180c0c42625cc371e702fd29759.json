@@ -1,0 +1,8 @@
+{
+ "response": "\n\naquatic",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You have a yellow fish. Which of these three enclosures is the correct place for it: the aquarium, the aviary, or the terrarium?"
+ }
+}

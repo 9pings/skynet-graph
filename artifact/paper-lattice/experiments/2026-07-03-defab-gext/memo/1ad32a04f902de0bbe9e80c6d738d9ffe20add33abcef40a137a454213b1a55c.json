@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"candidates\": [\n    \"label: d_qi_override_1 ~> ~civilly_liable(X) | qualified_immunity_claimant(X)\",\n    \"label: d_qi_override_2 ~> ~civilly_liable(X) | official(X) & qualified_immunity_claimant(X)\",\n    \"label: d_qi_override_3 ~> ~civilly_liable(X) | official(X) & qualified_immunity_claimant(X) & ~immune_from_liability(X)\"\n  ]\n}\n```",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"civilly_liable(officer_davis)\", list the candidate rules",
+  "user": "Facts: official(officer_chen), official(officer_davis), qualified_immunity_claimant(officer_davis).\nGeneral rules (=> means \"normally implies\"): r_civil: official(X) => civilly_liable(X); r_suit: offi"
+ }
+}

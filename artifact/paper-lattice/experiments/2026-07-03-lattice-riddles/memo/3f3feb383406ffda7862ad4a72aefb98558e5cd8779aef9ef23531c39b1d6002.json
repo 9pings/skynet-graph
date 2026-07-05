@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"sugar cube\",\"category\":\"star-shaped\",\"condition\":\"melted down\",\"color\":\"blue\",\"size\":\"small\"},\"holes\":[{\"name\":\"star-shaped\",\"size\":\"small\"},{\"name\":\"square\",\"size\":\"small\"},{\"name\":\"round\",\"size\":\"small\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "You have a blue sugar cube that has been melted down. To pour it into a mold, you must choose between a star-shaped hole, a square one, or a round one. Which hole should you use?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "flatpin\n\nA yellow plug from the US is a Type B plug, which",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You have a yellow plug from the US. You need to decide which wall socket to use: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one should you choose?"
+ }
+}

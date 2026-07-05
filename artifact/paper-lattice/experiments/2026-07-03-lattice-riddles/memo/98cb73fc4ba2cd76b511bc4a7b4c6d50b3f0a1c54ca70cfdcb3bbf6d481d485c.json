@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you’ve got a kettle with a green plug—now you need to plug it in. You’ve got three options: a socket with round pins, one with flat pins, or a standard three-pin socket. Which one will safely fit your kettle’s plug?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a green kettle plug. Put it into one of these wall sockets: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one?"
+ }
+}

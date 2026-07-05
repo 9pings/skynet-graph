@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"big red US electrical plug\",\"category\":\"threepin\",\"condition\":\"\",\"color\":\"red\",\"size\":\"large\"},\"holes\":[{\"name\":\"roundpin\",\"size\":\"small\"},{\"name\":\"roundpin\",\"size\":\"large\"},{\"name\":\"flatpin\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "Imagine you’re holding a big red electrical plug from the US—now try fitting it into one of these outlets: the tiny round-pin one, the bigger round-pin one, or the wide flat-pin one. Which socket will"
+ }
+}

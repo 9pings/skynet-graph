@@ -1,0 +1,44 @@
+{
+ "perVariant": {
+  "V1-facet-distractor": {
+   "n": 6,
+   "sys": 6,
+   "sysHallu": 0,
+   "ablFailClosed": 6,
+   "ablLearned": 6,
+   "direct": 5,
+   "directHallu": 0,
+   "extract": 3
+  },
+  "V2-isa-depth2": {
+   "n": 6,
+   "sys": 6,
+   "sysHallu": 0,
+   "ablFailClosed": 6,
+   "ablLearned": 6,
+   "direct": 6,
+   "directHallu": 0,
+   "extract": 4
+  },
+  "V3-no-match": {
+   "n": 6,
+   "sys": 6,
+   "sysHallu": 0,
+   "ablFailClosed": 0,
+   "ablLearned": 0,
+   "direct": 6,
+   "directHallu": 0,
+   "extract": 6
+  },
+  "V4-axis-product": {
+   "n": 6,
+   "sys": 6,
+   "sysHallu": 0,
+   "ablFailClosed": 6,
+   "ablLearned": 6,
+   "direct": 5,
+   "directHallu": 0,
+   "extract": 6
+  }
+ }
+}

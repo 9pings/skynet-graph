@@ -1,0 +1,8 @@
+{
+ "response": "\n\nnone",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquarium | aviary | none.",
+  "user": "You possess a yellow fern; should you place it in the aquarium or the aviary?"
+ }
+}

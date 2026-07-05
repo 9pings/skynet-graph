@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"shark\",\"category\":\"aquarium\",\"condition\":\"\",\"color\":\"green\",\"size\":\"large\"},\"holes\":[{\"name\":\"aquarium\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you’re holding a massive green shark—nowhere near its natural habitat. You need to place it somewhere safe and suitable: either in a tiny aquarium, a spacious aquarium, or a large terrarium. W"
+ }
+}

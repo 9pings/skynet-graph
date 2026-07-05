@@ -1,0 +1,67 @@
+{
+ "rb": 0,
+ "R": {
+  "all": {
+   "n": 35,
+   "sysSym": 35,
+   "sysSymPure": 30,
+   "tiebreaks": 5,
+   "sysExt": 14,
+   "rb0": 28,
+   "rbON": 24
+  },
+  "biology": {
+   "n": 16,
+   "sysSym": 16,
+   "sysSymPure": 16,
+   "tiebreaks": 0,
+   "sysExt": 6,
+   "rb0": 13,
+   "rbON": 9
+  },
+  "legal": {
+   "n": 10,
+   "sysSym": 10,
+   "sysSymPure": 9,
+   "tiebreaks": 1,
+   "sysExt": 5,
+   "rb0": 9,
+   "rbON": 9
+  },
+  "materials": {
+   "n": 9,
+   "sysSym": 9,
+   "sysSymPure": 5,
+   "tiebreaks": 4,
+   "sysExt": 3,
+   "rb0": 6,
+   "rbON": 6
+  }
+ },
+ "fails": {
+  "sysSym": [],
+  "sysExt": [
+   "penguin:selected",
+   "ostrich:impracticable",
+   "emu:impracticable",
+   "cassowary:impracticable",
+   "kiwi:ambiguous",
+   "bat:impracticable",
+   "whale:impracticable",
+   "cuckoo:selected",
+   "seahorse:impracticable",
+   "tardigrade:impracticable",
+   "emancipated_minor:impracticable",
+   "good_faith_purchaser:selected",
+   "diplomatic_immunity:impracticable",
+   "ultra_vires:ambiguous",
+   "laches:impracticable",
+   "metallic_glass:impracticable",
+   "aerogel:selected",
+   "graphene:ambiguous",
+   "nitinol_sma:impracticable",
+   "superhydrophobic:impracticable",
+   "metamaterial:ambiguous"
+  ]
+ }
+}

@@ -1,0 +1,1898 @@
+{
+  "metadata": {
+    "name": "DeFAb Level 3 Instances v1.0",
+    "generated": "2026-02-18",
+    "total": 35,
+    "valid": 35,
+    "nov_positive": 10,
+    "domains": {
+      "biology": 16,
+      "legal": 10,
+      "materials": 9
+    }
+  },
+  "instances": [
+    {
+      "name": "penguin",
+      "domain": "biology",
+      "level": 3,
+      "anomaly": "flies(opus)",
+      "gold": "d_penguin: penguin(X) ~> ~flies(X)",
+      "gold_label": "d_penguin",
+      "beaten_rules": [
+        "r_flies"
+      ],
+      "distractors": [
+        "d_penguin_broad: bird(X) ~> ~flies(X)",
+        "d_penguin_wrong_head: penguin(X) ~> ~has_feathers(X)",
+        "d_penguin_irrelevant: penguin(X) ~> ~warm_blooded(X)",
+        "d_penguin_positive: penguin(X) => walks(X)",
+        "d_penguin_wrong_cond: large(X) ~> ~flies(X)"
+      ],
+      "candidates": [
+        "d_penguin: penguin(X) ~> ~flies(X)",
+        "d_penguin_broad: bird(X) ~> ~flies(X)",
+        "d_penguin_wrong_head: penguin(X) ~> ~has_feathers(X)",
+        "d_penguin_irrelevant: penguin(X) ~> ~warm_blooded(X)",
+        "d_penguin_positive: penguin(X) => walks(X)",
+        "d_penguin_wrong_cond: large(X) ~> ~flies(X)"
+      ],
+      "preserved_expectations": [
+        "flies(tweety)",
+        "has_feathers(tweety)",
+        "warm_blooded(tweety)"
+      ],
+      "defeater_type": "weak",
+      "description": "Penguins are birds but cannot fly; their wings are adapted as flippers.",
+      "novel_predicates": [],
+      "novel_facts_for_gold": [],
+      "nov": 0.0,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 7,
+      "theory_facts": [
+        "bird(opus)",
+        "bird(tweety)",
+        "penguin(opus)",
+        "sparrow(tweety)"
+      ],
+      "theory_rules": [
+        "r_flies: bird(X) => flies(X)",
+        "r_feathers: bird(X) => has_feathers(X)",
+        "r_warm: bird(X) => warm_blooded(X)"
+      ]
+    },
+    {
+      "name": "ostrich",
+      "domain": "biology",
+      "level": 3,
+      "anomaly": "flies(obi)",
+      "gold": "d_ostrich: ostrich(X) ~> ~flies(X)",
+      "gold_label": "d_ostrich",
+      "beaten_rules": [
+        "r_flies"
+      ],
+      "distractors": [
+        "d_ostrich_broad: bird(X) ~> ~flies(X)",
+        "d_ostrich_wrong_head: ostrich(X) ~> ~has_feathers(X)",
+        "d_ostrich_irrelevant: ostrich(X) ~> ~warm_blooded(X)",
+        "d_ostrich_positive: ostrich(X) => walks(X)",
+        "d_ostrich_wrong_cond: large(X) ~> ~flies(X)"
+      ],
+      "candidates": [
+        "d_ostrich: ostrich(X) ~> ~flies(X)",
+        "d_ostrich_broad: bird(X) ~> ~flies(X)",
+        "d_ostrich_wrong_head: ostrich(X) ~> ~has_feathers(X)",
+        "d_ostrich_irrelevant: ostrich(X) ~> ~warm_blooded(X)",
+        "d_ostrich_positive: ostrich(X) => walks(X)",
+        "d_ostrich_wrong_cond: large(X) ~> ~flies(X)"
+      ],
+      "preserved_expectations": [
+        "flies(tweety)",
+        "has_feathers(tweety)",
+        "warm_blooded(tweety)"
+      ],
+      "defeater_type": "weak",
+      "description": "Ostriches are the largest birds and are flightless; they run instead.",
+      "novel_predicates": [],
+      "novel_facts_for_gold": [],
+      "nov": 0.0,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 7,
+      "theory_facts": [
+        "bird(obi)",
+        "bird(tweety)",
+        "ostrich(obi)",
+        "sparrow(tweety)"
+      ],
+      "theory_rules": [
+        "r_flies: bird(X) => flies(X)",
+        "r_feathers: bird(X) => has_feathers(X)",
+        "r_warm: bird(X) => warm_blooded(X)"
+      ]
+    },
+    {
+      "name": "emu",
+      "domain": "biology",
+      "level": 3,
+      "anomaly": "flies(emma)",
+      "gold": "d_emu: emu(X) ~> ~flies(X)",
+      "gold_label": "d_emu",
+      "beaten_rules": [
+        "r_flies"
+      ],
+      "distractors": [
+        "d_emu_broad: bird(X) ~> ~flies(X)",
+        "d_emu_wrong_head: emu(X) ~> ~has_feathers(X)",
+        "d_emu_irrelevant: emu(X) ~> ~warm_blooded(X)",
+        "d_emu_positive: emu(X) => walks(X)",
+        "d_emu_wrong_cond: large(X) ~> ~flies(X)"
+      ],
+      "candidates": [
+        "d_emu: emu(X) ~> ~flies(X)",
+        "d_emu_broad: bird(X) ~> ~flies(X)",
+        "d_emu_wrong_head: emu(X) ~> ~has_feathers(X)",
+        "d_emu_irrelevant: emu(X) ~> ~warm_blooded(X)",
+        "d_emu_positive: emu(X) => walks(X)",
+        "d_emu_wrong_cond: large(X) ~> ~flies(X)"
+      ],
+      "preserved_expectations": [
+        "flies(tweety)",
+        "has_feathers(tweety)",
+        "warm_blooded(tweety)"
+      ],
+      "defeater_type": "weak",
+      "description": "Emus are large flightless birds native to Australia.",
+      "novel_predicates": [],
+      "novel_facts_for_gold": [],
+      "nov": 0.0,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 7,
+      "theory_facts": [
+        "bird(emma)",
+        "bird(tweety)",
+        "emu(emma)",
+        "sparrow(tweety)"
+      ],
+      "theory_rules": [
+        "r_flies: bird(X) => flies(X)",
+        "r_feathers: bird(X) => has_feathers(X)",
+        "r_warm: bird(X) => warm_blooded(X)"
+      ]
+    },
+    {
+      "name": "cassowary",
+      "domain": "biology",
+      "level": 3,
+      "anomaly": "flies(cass)",
+      "gold": "d_cassowary: cassowary(X) ~> ~flies(X)",
+      "gold_label": "d_cassowary",
+      "beaten_rules": [
+        "r_flies"
+      ],
+      "distractors": [
+        "d_cassowary_broad: bird(X) ~> ~flies(X)",
+        "d_cassowary_wrong_head: cassowary(X) ~> ~has_feathers(X)",
+        "d_cassowary_irrelevant: cassowary(X) ~> ~warm_blooded(X)",
+        "d_cassowary_positive: cassowary(X) => walks(X)",
+        "d_cassowary_wrong_cond: large(X) ~> ~flies(X)"
+      ],
+      "candidates": [
+        "d_cassowary: cassowary(X) ~> ~flies(X)",
+        "d_cassowary_broad: bird(X) ~> ~flies(X)",
+        "d_cassowary_wrong_head: cassowary(X) ~> ~has_feathers(X)",
+        "d_cassowary_irrelevant: cassowary(X) ~> ~warm_blooded(X)",
+        "d_cassowary_positive: cassowary(X) => walks(X)",
+        "d_cassowary_wrong_cond: large(X) ~> ~flies(X)"
+      ],
+      "preserved_expectations": [
+        "flies(tweety)",
+        "has_feathers(tweety)",
+        "warm_blooded(tweety)"
+      ],
+      "defeater_type": "weak",
+      "description": "Cassowaries are dangerous flightless birds found in New Guinea.",
+      "novel_predicates": [],
+      "novel_facts_for_gold": [],
+      "nov": 0.0,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 7,
+      "theory_facts": [
+        "bird(cass)",
+        "bird(tweety)",
+        "cassowary(cass)",
+        "sparrow(tweety)"
+      ],
+      "theory_rules": [
+        "r_flies: bird(X) => flies(X)",
+        "r_feathers: bird(X) => has_feathers(X)",
+        "r_warm: bird(X) => warm_blooded(X)"
+      ]
+    },
+    {
+      "name": "kiwi",
+      "domain": "biology",
+      "level": 3,
+      "anomaly": "flies(kiri)",
+      "gold": "d_kiwi: kiwi(X) ~> ~flies(X)",
+      "gold_label": "d_kiwi",
+      "beaten_rules": [
+        "r_flies"
+      ],
+      "distractors": [
+        "d_kiwi_broad: bird(X) ~> ~flies(X)",
+        "d_kiwi_wrong_head: kiwi(X) ~> ~has_feathers(X)",
+        "d_kiwi_irrelevant: kiwi(X) ~> ~warm_blooded(X)",
+        "d_kiwi_positive: kiwi(X) => walks(X)",
+        "d_kiwi_wrong_cond: large(X) ~> ~flies(X)"
+      ],
+      "candidates": [
+        "d_kiwi: kiwi(X) ~> ~flies(X)",
+        "d_kiwi_broad: bird(X) ~> ~flies(X)",
+        "d_kiwi_wrong_head: kiwi(X) ~> ~has_feathers(X)",
+        "d_kiwi_irrelevant: kiwi(X) ~> ~warm_blooded(X)",
+        "d_kiwi_positive: kiwi(X) => walks(X)",
+        "d_kiwi_wrong_cond: large(X) ~> ~flies(X)"
+      ],
+      "preserved_expectations": [
+        "flies(tweety)",
+        "has_feathers(tweety)",
+        "warm_blooded(tweety)"
+      ],
+      "defeater_type": "weak",
+      "description": "Kiwis are small flightless birds native to New Zealand with vestigial wings.",
+      "novel_predicates": [],
+      "novel_facts_for_gold": [],
+      "nov": 0.0,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 7,
+      "theory_facts": [
+        "bird(kiri)",
+        "bird(tweety)",
+        "kiwi(kiri)",
+        "sparrow(tweety)"
+      ],
+      "theory_rules": [
+        "r_flies: bird(X) => flies(X)",
+        "r_feathers: bird(X) => has_feathers(X)",
+        "r_warm: bird(X) => warm_blooded(X)"
+      ]
+    },
+    {
+      "name": "bat",
+      "domain": "biology",
+      "level": 3,
+      "anomaly": "walks(brucie)",
+      "gold": "d_bat: bat(X) ~> ~walks(X)",
+      "gold_label": "d_bat",
+      "beaten_rules": [
+        "r_walks"
+      ],
+      "distractors": [
+        "d_bat_broad: mammal(X) ~> ~walks(X)",
+        "d_bat_wrong_head: bat(X) ~> ~warm_blooded(X)",
+        "d_bat_positive: bat(X) => swims(X)",
+        "d_bat_irrelevant: bat(X) ~> ~has_fur(X)",
+        "d_bat_wrong_cond: aquatic(X) ~> ~walks(X)"
+      ],
+      "candidates": [
+        "d_bat: bat(X) ~> ~walks(X)",
+        "d_bat_broad: mammal(X) ~> ~walks(X)",
+        "d_bat_wrong_head: bat(X) ~> ~warm_blooded(X)",
+        "d_bat_positive: bat(X) => swims(X)",
+        "d_bat_irrelevant: bat(X) ~> ~has_fur(X)",
+        "d_bat_wrong_cond: aquatic(X) ~> ~walks(X)"
+      ],
+      "preserved_expectations": [
+        "walks(felix)",
+        "warm_blooded(felix)",
+        "has_fur(felix)"
+      ],
+      "defeater_type": "weak",
+      "description": "Bats are the only flying mammals; their forelimbs form wings.",
+      "novel_predicates": [],
+      "novel_facts_for_gold": [],
+      "nov": 0.0,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 7,
+      "theory_facts": [
+        "bat(brucie)",
+        "cat(felix)",
+        "mammal(brucie)",
+        "mammal(felix)"
+      ],
+      "theory_rules": [
+        "r_walks: mammal(X) => walks(X)",
+        "r_warm: mammal(X) => warm_blooded(X)",
+        "r_fur: cat(X) => has_fur(X)"
+      ]
+    },
+    {
+      "name": "whale",
+      "domain": "biology",
+      "level": 3,
+      "anomaly": "walks(wally)",
+      "gold": "d_whale: whale(X) ~> ~walks(X)",
+      "gold_label": "d_whale",
+      "beaten_rules": [
+        "r_walks"
+      ],
+      "distractors": [
+        "d_whale_broad: mammal(X) ~> ~walks(X)",
+        "d_whale_wrong_head: whale(X) ~> ~warm_blooded(X)",
+        "d_whale_positive: whale(X) => swims(X)",
+        "d_whale_irrelevant: whale(X) ~> ~has_fur(X)",
+        "d_whale_wrong_cond: aquatic(X) ~> ~walks(X)"
+      ],
+      "candidates": [
+        "d_whale: whale(X) ~> ~walks(X)",
+        "d_whale_broad: mammal(X) ~> ~walks(X)",
+        "d_whale_wrong_head: whale(X) ~> ~warm_blooded(X)",
+        "d_whale_positive: whale(X) => swims(X)",
+        "d_whale_irrelevant: whale(X) ~> ~has_fur(X)",
+        "d_whale_wrong_cond: aquatic(X) ~> ~walks(X)"
+      ],
+      "preserved_expectations": [
+        "walks(felix)",
+        "warm_blooded(felix)",
+        "has_fur(felix)"
+      ],
+      "defeater_type": "weak",
+      "description": "Whales are fully aquatic mammals with no functional hind limbs.",
+      "novel_predicates": [],
+      "novel_facts_for_gold": [],
+      "nov": 0.0,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 7,
+      "theory_facts": [
+        "cat(felix)",
+        "mammal(felix)",
+        "mammal(wally)",
+        "whale(wally)"
+      ],
+      "theory_rules": [
+        "r_walks: mammal(X) => walks(X)",
+        "r_warm: mammal(X) => warm_blooded(X)",
+        "r_fur: cat(X) => has_fur(X)"
+      ]
+    },
+    {
+      "name": "dolphin",
+      "domain": "biology",
+      "level": 3,
+      "anomaly": "walks(flippy)",
+      "gold": "d_dolphin: dolphin(X) ~> ~walks(X)",
+      "gold_label": "d_dolphin",
+      "beaten_rules": [
+        "r_walks"
+      ],
+      "distractors": [
+        "d_dolphin_broad: mammal(X) ~> ~walks(X)",
+        "d_dolphin_wrong_head: dolphin(X) ~> ~warm_blooded(X)",
+        "d_dolphin_positive: dolphin(X) => swims(X)",
+        "d_dolphin_irrelevant: dolphin(X) ~> ~has_fur(X)",
+        "d_dolphin_wrong_cond: aquatic(X) ~> ~walks(X)"
+      ],
+      "candidates": [
+        "d_dolphin: dolphin(X) ~> ~walks(X)",
+        "d_dolphin_broad: mammal(X) ~> ~walks(X)",
+        "d_dolphin_wrong_head: dolphin(X) ~> ~warm_blooded(X)",
+        "d_dolphin_positive: dolphin(X) => swims(X)",
+        "d_dolphin_irrelevant: dolphin(X) ~> ~has_fur(X)",
+        "d_dolphin_wrong_cond: aquatic(X) ~> ~walks(X)"
+      ],
+      "preserved_expectations": [
+        "walks(felix)",
+        "warm_blooded(felix)",
+        "has_fur(felix)"
+      ],
+      "defeater_type": "strong",
+      "description": "Dolphins are cetaceans whose limbs evolved into fins for aquatic locomotion.",
+      "novel_predicates": [],
+      "novel_facts_for_gold": [],
+      "nov": 0.0,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 7,
+      "theory_facts": [
+        "cat(felix)",
+        "dolphin(flippy)",
+        "mammal(felix)",
+        "mammal(flippy)"
+      ],
+      "theory_rules": [
+        "r_walks: mammal(X) => walks(X)",
+        "r_warm: mammal(X) => warm_blooded(X)",
+        "r_fur: cat(X) => has_fur(X)"
+      ]
+    },
+    {
+      "name": "platypus",
+      "domain": "biology",
+      "level": 3,
+      "anomaly": "gives_live_birth(percy)",
+      "gold": "d_platypus: platypus(X) ~> ~gives_live_birth(X)",
+      "gold_label": "d_platypus",
+      "beaten_rules": [
+        "r_birth"
+      ],
+      "distractors": [
+        "d_plat_broad: mammal(X) ~> ~gives_live_birth(X)",
+        "d_plat_wrong_head: platypus(X) ~> ~warm_blooded(X)",
+        "d_plat_positive: platypus(X) => lays_eggs(X)",
+        "d_plat_irrelevant: platypus(X) ~> ~has_fur(X)",
+        "d_plat_wrong_cond: aquatic(X) ~> ~gives_live_birth(X)"
+      ],
+      "candidates": [
+        "d_platypus: platypus(X) ~> ~gives_live_birth(X)",
+        "d_plat_broad: mammal(X) ~> ~gives_live_birth(X)",
+        "d_plat_wrong_head: platypus(X) ~> ~warm_blooded(X)",
+        "d_plat_positive: platypus(X) => lays_eggs(X)",
+        "d_plat_irrelevant: platypus(X) ~> ~has_fur(X)",
+        "d_plat_wrong_cond: aquatic(X) ~> ~gives_live_birth(X)"
+      ],
+      "preserved_expectations": [
+        "gives_live_birth(felix)",
+        "warm_blooded(felix)",
+        "has_fur(felix)"
+      ],
+      "defeater_type": "weak",
+      "description": "Platypuses are monotremes: egg-laying mammals, an exception to the mammalian default of live birth.",
+      "novel_predicates": [],
+      "novel_facts_for_gold": [],
+      "nov": 0.0,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 7,
+      "theory_facts": [
+        "cat(felix)",
+        "mammal(felix)",
+        "mammal(percy)",
+        "platypus(percy)"
+      ],
+      "theory_rules": [
+        "r_birth: mammal(X) => gives_live_birth(X)",
+        "r_warm_p: mammal(X) => warm_blooded(X)",
+        "r_fur_p: mammal(X) => has_fur(X)"
+      ]
+    },
+    {
+      "name": "panda",
+      "domain": "biology",
+      "level": 3,
+      "anomaly": "carnivore(pandy)",
+      "gold": "d_panda: panda(X) ~> ~carnivore(X)",
+      "gold_label": "d_panda",
+      "beaten_rules": [
+        "r_carn"
+      ],
+      "distractors": [
+        "d_panda_broad: bear(X) ~> ~carnivore(X)",
+        "d_panda_wrong_head: panda(X) ~> ~large_mammal(X)",
+        "d_panda_positive: panda(X) => herbivore(X)",
+        "d_panda_wrong_cond: asian(X) ~> ~carnivore(X)",
+        "d_panda_irrelevant: panda(X) => bamboo_eater(X)"
+      ],
+      "candidates": [
+        "d_panda: panda(X) ~> ~carnivore(X)",
+        "d_panda_broad: bear(X) ~> ~carnivore(X)",
+        "d_panda_wrong_head: panda(X) ~> ~large_mammal(X)",
+        "d_panda_positive: panda(X) => herbivore(X)",
+        "d_panda_wrong_cond: asian(X) ~> ~carnivore(X)",
+        "d_panda_irrelevant: panda(X) => bamboo_eater(X)"
+      ],
+      "preserved_expectations": [
+        "carnivore(grizz)",
+        "large_mammal(grizz)",
+        "large_mammal(pandy)"
+      ],
+      "defeater_type": "weak",
+      "description": "Giant pandas are bears that subsist almost entirely on bamboo, making them an exception to the default that bears are carnivores.",
+      "novel_predicates": [],
+      "novel_facts_for_gold": [],
+      "nov": 0.0,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 6,
+      "theory_facts": [
+        "bear(grizz)",
+        "bear(pandy)",
+        "grizzly(grizz)",
+        "panda(pandy)"
+      ],
+      "theory_rules": [
+        "r_carn: bear(X) => carnivore(X)",
+        "r_large: bear(X) => large_mammal(X)"
+      ]
+    },
+    {
+      "name": "cuckoo",
+      "domain": "biology",
+      "level": 3,
+      "anomaly": "builds_nest(coco)",
+      "gold": "d_cuckoo: cuckoo(X) ~> ~builds_nest(X)",
+      "gold_label": "d_cuckoo",
+      "beaten_rules": [
+        "r_nest"
+      ],
+      "distractors": [
+        "d_cuck_broad: bird(X) ~> ~builds_nest(X)",
+        "d_cuck_wrong_head: cuckoo(X) ~> ~raises_own_young(X)",
+        "d_cuck_wrong_action: cuckoo(X) ~> ~flies(X)",
+        "d_cuck_positive: cuckoo(X) => parasite(X)",
+        "d_cuck_indirect: parasite(X) ~> ~builds_nest(X)"
+      ],
+      "candidates": [
+        "d_cuckoo: cuckoo(X) ~> ~builds_nest(X)",
+        "d_cuck_broad: bird(X) ~> ~builds_nest(X)",
+        "d_cuck_wrong_head: cuckoo(X) ~> ~raises_own_young(X)",
+        "d_cuck_wrong_action: cuckoo(X) ~> ~flies(X)",
+        "d_cuck_positive: cuckoo(X) => parasite(X)",
+        "d_cuck_indirect: parasite(X) ~> ~builds_nest(X)"
+      ],
+      "preserved_expectations": [
+        "builds_nest(tweety)",
+        "raises_own_young(tweety)",
+        "flies(tweety)"
+      ],
+      "defeater_type": "weak",
+      "description": "Cuckoos are brood parasites: they lay eggs in other species' nests rather than building their own.",
+      "novel_predicates": [],
+      "novel_facts_for_gold": [],
+      "nov": 0.0,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 7,
+      "theory_facts": [
+        "bird(coco)",
+        "bird(tweety)",
+        "cuckoo(coco)",
+        "sparrow(tweety)"
+      ],
+      "theory_rules": [
+        "r_nest: bird(X) => builds_nest(X)",
+        "r_young: bird(X) => raises_own_young(X)",
+        "r_flies_c: bird(X) => flies(X)"
+      ]
+    },
+    {
+      "name": "lungfish",
+      "domain": "biology",
+      "level": 3,
+      "anomaly": "breathes_with_gills(lenny)",
+      "gold": "d_lungfish: has_accessory_lung(X) ~> ~breathes_with_gills(X)",
+      "gold_label": "d_lungfish",
+      "beaten_rules": [
+        "r_gills"
+      ],
+      "distractors": [
+        "d_lung_broad: fish(X) ~> ~breathes_with_gills(X)",
+        "d_lung_wrong_head: lungfish(X) ~> ~cold_blooded(X)",
+        "d_lung_no_novel: lungfish(X) ~> ~breathes_with_gills(X)",
+        "d_lung_positive: lungfish(X) => breathes_air(X)",
+        "d_lung_irrelevant: lungfish(X) ~> ~spawns_upstream(X)"
+      ],
+      "candidates": [
+        "d_lungfish: has_accessory_lung(X) ~> ~breathes_with_gills(X)",
+        "d_lung_broad: fish(X) ~> ~breathes_with_gills(X)",
+        "d_lung_wrong_head: lungfish(X) ~> ~cold_blooded(X)",
+        "d_lung_no_novel: lungfish(X) ~> ~breathes_with_gills(X)",
+        "d_lung_positive: lungfish(X) => breathes_air(X)",
+        "d_lung_irrelevant: lungfish(X) ~> ~spawns_upstream(X)"
+      ],
+      "preserved_expectations": [
+        "breathes_with_gills(gill_gill)",
+        "breathes_with_gills(nemo)",
+        "cold_blooded(nemo)",
+        "spawns_upstream(nemo)"
+      ],
+      "defeater_type": "weak",
+      "description": "Lungfish with accessory lungs can breathe air, an exception to the fish default of gill respiration. Not all lungfish have this adaptation.",
+      "novel_predicates": [
+        "has_accessory_lung"
+      ],
+      "novel_facts_for_gold": [
+        "has_accessory_lung(lenny)"
+      ],
+      "nov": 0.5,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 9,
+      "theory_facts": [
+        "fish(gill_gill)",
+        "fish(lenny)",
+        "fish(nemo)",
+        "lungfish(gill_gill)",
+        "lungfish(lenny)",
+        "salmon(nemo)"
+      ],
+      "theory_rules": [
+        "r_gills: fish(X) => breathes_with_gills(X)",
+        "r_cold: fish(X) => cold_blooded(X)",
+        "r_spawn: salmon(X) => spawns_upstream(X)"
+      ]
+    },
+    {
+      "name": "axolotl",
+      "domain": "biology",
+      "level": 3,
+      "anomaly": "undergoes_metamorphosis(axo)",
+      "gold": "d_axolotl: neotenic(X) ~> ~undergoes_metamorphosis(X)",
+      "gold_label": "d_axolotl",
+      "beaten_rules": [
+        "r_meta"
+      ],
+      "distractors": [
+        "d_axo_broad: amphibian(X) ~> ~undergoes_metamorphosis(X)",
+        "d_axo_wrong_head: axolotl(X) ~> ~cold_blooded(X)",
+        "d_axo_no_novel: axolotl(X) ~> ~undergoes_metamorphosis(X)",
+        "d_axo_positive: axolotl(X) => retains_gills(X)",
+        "d_axo_irrelevant: axolotl(X) ~> ~moist_skin(X)"
+      ],
+      "candidates": [
+        "d_axolotl: neotenic(X) ~> ~undergoes_metamorphosis(X)",
+        "d_axo_broad: amphibian(X) ~> ~undergoes_metamorphosis(X)",
+        "d_axo_wrong_head: axolotl(X) ~> ~cold_blooded(X)",
+        "d_axo_no_novel: axolotl(X) ~> ~undergoes_metamorphosis(X)",
+        "d_axo_positive: axolotl(X) => retains_gills(X)",
+        "d_axo_irrelevant: axolotl(X) ~> ~moist_skin(X)"
+      ],
+      "preserved_expectations": [
+        "undergoes_metamorphosis(normal_axo)",
+        "undergoes_metamorphosis(frog_fred)",
+        "cold_blooded(frog_fred)",
+        "moist_skin(frog_fred)"
+      ],
+      "defeater_type": "weak",
+      "description": "Neotenic axolotls retain larval features permanently and never metamorphose. Not all axolotls are neotenic.",
+      "novel_predicates": [
+        "neotenic"
+      ],
+      "novel_facts_for_gold": [
+        "neotenic(axo)"
+      ],
+      "nov": 0.5,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 9,
+      "theory_facts": [
+        "amphibian(axo)",
+        "amphibian(frog_fred)",
+        "amphibian(normal_axo)",
+        "axolotl(axo)",
+        "axolotl(normal_axo)",
+        "frog(frog_fred)"
+      ],
+      "theory_rules": [
+        "r_meta: amphibian(X) => undergoes_metamorphosis(X)",
+        "r_cold_a: amphibian(X) => cold_blooded(X)",
+        "r_skin: frog(X) => moist_skin(X)"
+      ]
+    },
+    {
+      "name": "vampire_bat",
+      "domain": "biology",
+      "level": 3,
+      "anomaly": "insectivore(vlad)",
+      "gold": "d_vampire_bat: hematophagous(X) ~> ~insectivore(X)",
+      "gold_label": "d_vampire_bat",
+      "beaten_rules": [
+        "r_insect"
+      ],
+      "distractors": [
+        "d_vbat_broad: bat(X) ~> ~insectivore(X)",
+        "d_vbat_wrong_head: vampire_bat(X) ~> ~nocturnal(X)",
+        "d_vbat_no_novel: vampire_bat(X) ~> ~insectivore(X)",
+        "d_vbat_positive: vampire_bat(X) => blood_feeder(X)",
+        "d_vbat_irrelevant: vampire_bat(X) ~> ~echolocates(X)"
+      ],
+      "candidates": [
+        "d_vampire_bat: hematophagous(X) ~> ~insectivore(X)",
+        "d_vbat_broad: bat(X) ~> ~insectivore(X)",
+        "d_vbat_wrong_head: vampire_bat(X) ~> ~nocturnal(X)",
+        "d_vbat_no_novel: vampire_bat(X) ~> ~insectivore(X)",
+        "d_vbat_positive: vampire_bat(X) => blood_feeder(X)",
+        "d_vbat_irrelevant: vampire_bat(X) ~> ~echolocates(X)"
+      ],
+      "preserved_expectations": [
+        "insectivore(reg)",
+        "insectivore(pip)",
+        "nocturnal(pip)",
+        "echolocates(pip)"
+      ],
+      "defeater_type": "weak",
+      "description": "Vampire bats that have the hematophagous feeding adaptation feed exclusively on blood, not insects. Not all vampire bats do.",
+      "novel_predicates": [
+        "hematophagous"
+      ],
+      "novel_facts_for_gold": [
+        "hematophagous(vlad)"
+      ],
+      "nov": 0.5,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 9,
+      "theory_facts": [
+        "bat(pip)",
+        "bat(reg)",
+        "bat(vlad)",
+        "pipistrelle(pip)",
+        "vampire_bat(reg)",
+        "vampire_bat(vlad)"
+      ],
+      "theory_rules": [
+        "r_insect: bat(X) => insectivore(X)",
+        "r_noc: bat(X) => nocturnal(X)",
+        "r_echo: pipistrelle(X) => echolocates(X)"
+      ]
+    },
+    {
+      "name": "seahorse",
+      "domain": "biology",
+      "level": 3,
+      "anomaly": "female_gestates(floaty)",
+      "gold": "d_seahorse: paternal_gestation(X) ~> ~female_gestates(X)",
+      "gold_label": "d_seahorse",
+      "beaten_rules": [
+        "r_gestate"
+      ],
+      "distractors": [
+        "d_sea_broad: fish(X) ~> ~female_gestates(X)",
+        "d_sea_wrong_head: seahorse(X) ~> ~cold_blooded(X)",
+        "d_sea_no_novel: seahorse(X) ~> ~female_gestates(X)",
+        "d_sea_positive: seahorse(X) => male_pregnancy(X)",
+        "d_sea_irrelevant: seahorse(X) ~> ~bright_colored(X)"
+      ],
+      "candidates": [
+        "d_seahorse: paternal_gestation(X) ~> ~female_gestates(X)",
+        "d_sea_broad: fish(X) ~> ~female_gestates(X)",
+        "d_sea_wrong_head: seahorse(X) ~> ~cold_blooded(X)",
+        "d_sea_no_novel: seahorse(X) ~> ~female_gestates(X)",
+        "d_sea_positive: seahorse(X) => male_pregnancy(X)",
+        "d_sea_irrelevant: seahorse(X) ~> ~bright_colored(X)"
+      ],
+      "preserved_expectations": [
+        "female_gestates(sandy)",
+        "female_gestates(nemo2)",
+        "cold_blooded(nemo2)",
+        "bright_colored(nemo2)"
+      ],
+      "defeater_type": "weak",
+      "description": "Individual seahorses exhibiting paternal gestation have the male carry and birth the young. Not all seahorses display this.",
+      "novel_predicates": [
+        "paternal_gestation"
+      ],
+      "novel_facts_for_gold": [
+        "paternal_gestation(floaty)"
+      ],
+      "nov": 0.5,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 9,
+      "theory_facts": [
+        "clownfish(nemo2)",
+        "fish(floaty)",
+        "fish(nemo2)",
+        "fish(sandy)",
+        "seahorse(floaty)",
+        "seahorse(sandy)"
+      ],
+      "theory_rules": [
+        "r_gestate: fish(X) => female_gestates(X)",
+        "r_cold_s: fish(X) => cold_blooded(X)",
+        "r_bright: clownfish(X) => bright_colored(X)"
+      ]
+    },
+    {
+      "name": "tardigrade",
+      "domain": "biology",
+      "level": 3,
+      "anomaly": "requires_water(tardigrade_specimen)",
+      "gold": "d_tardigrade: tardigrade(X) ~> ~requires_water(X)",
+      "gold_label": "d_tardigrade",
+      "beaten_rules": [
+        "r_water"
+      ],
+      "distractors": [
+        "d_tard_broad: animal(X) ~> ~requires_water(X)",
+        "d_tard_wrong_head: tardigrade(X) ~> ~requires_oxygen(X)",
+        "d_tard_wrong_prop: tardigrade(X) ~> ~temperature_sensitive(X)",
+        "d_tard_positive: tardigrade(X) => survives_desiccation(X)",
+        "d_tard_wrong_cond: microscopic(X) ~> ~requires_water(X)"
+      ],
+      "candidates": [
+        "d_tardigrade: tardigrade(X) ~> ~requires_water(X)",
+        "d_tard_broad: animal(X) ~> ~requires_water(X)",
+        "d_tard_wrong_head: tardigrade(X) ~> ~requires_oxygen(X)",
+        "d_tard_wrong_prop: tardigrade(X) ~> ~temperature_sensitive(X)",
+        "d_tard_positive: tardigrade(X) => survives_desiccation(X)",
+        "d_tard_wrong_cond: microscopic(X) ~> ~requires_water(X)"
+      ],
+      "preserved_expectations": [
+        "requires_water(rabbit_specimen)",
+        "requires_oxygen(rabbit_specimen)",
+        "temperature_sensitive(rabbit_specimen)"
+      ],
+      "defeater_type": "weak",
+      "description": "Tardigrades (water bears) can enter cryptobiosis, surviving complete desiccation that is lethal to all other animals. They are the exception to the rule that animals require continuous access to water.",
+      "novel_predicates": [],
+      "novel_facts_for_gold": [],
+      "nov": 0.0,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 6,
+      "theory_facts": [
+        "animal(rabbit_specimen)",
+        "animal(tardigrade_specimen)",
+        "tardigrade(tardigrade_specimen)"
+      ],
+      "theory_rules": [
+        "r_water: animal(X) => requires_water(X)",
+        "r_oxygen: animal(X) => requires_oxygen(X)",
+        "r_temp: animal(X) => temperature_sensitive(X)"
+      ]
+    },
+    {
+      "name": "emancipated_minor",
+      "domain": "legal",
+      "level": 3,
+      "anomaly": "lacks_contractual_capacity(alex)",
+      "gold": "d_emancipated: court_emancipated(X) ~> ~lacks_contractual_capacity(X)",
+      "gold_label": "d_emancipated",
+      "beaten_rules": [
+        "r_minor_cap"
+      ],
+      "distractors": [
+        "d_em_broad: minor(X) ~> ~lacks_contractual_capacity(X)",
+        "d_em_wrong_head: court_emancipated(X) ~> ~subject_to_parental_authority(X)",
+        "d_em_positive: court_emancipated(X) => has_contractual_capacity(X)",
+        "d_em_wrong_cond: adult(X) ~> ~lacks_contractual_capacity(X)",
+        "d_em_irrelevant: court_emancipated(X) ~> ~bound_by_contract(X)"
+      ],
+      "candidates": [
+        "d_emancipated: court_emancipated(X) ~> ~lacks_contractual_capacity(X)",
+        "d_em_broad: minor(X) ~> ~lacks_contractual_capacity(X)",
+        "d_em_wrong_head: court_emancipated(X) ~> ~subject_to_parental_authority(X)",
+        "d_em_positive: court_emancipated(X) => has_contractual_capacity(X)",
+        "d_em_wrong_cond: adult(X) ~> ~lacks_contractual_capacity(X)",
+        "d_em_irrelevant: court_emancipated(X) ~> ~bound_by_contract(X)"
+      ],
+      "preserved_expectations": [
+        "lacks_contractual_capacity(sam)",
+        "bound_by_contract(taylor)",
+        "subject_to_parental_authority(sam)"
+      ],
+      "defeater_type": "weak",
+      "description": "A court-emancipated minor has been legally freed from parental control and gains contractual capacity. Non-emancipated minors retain incapacity.",
+      "novel_predicates": [
+        "court_emancipated"
+      ],
+      "novel_facts_for_gold": [
+        "court_emancipated(alex)"
+      ],
+      "nov": 0.5,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 6,
+      "theory_facts": [
+        "adult(taylor)",
+        "minor(alex)",
+        "minor(sam)"
+      ],
+      "theory_rules": [
+        "r_minor_cap: minor(X) => lacks_contractual_capacity(X)",
+        "r_adult_bound: adult(X) => bound_by_contract(X)",
+        "r_parental: minor(X) => subject_to_parental_authority(X)"
+      ]
+    },
+    {
+      "name": "statute_of_limitations",
+      "domain": "legal",
+      "level": 3,
+      "anomaly": "actionable(claim_a)",
+      "gold": "d_statute_of_lim: time_barred(X) ~> ~actionable(X)",
+      "gold_label": "d_statute_of_lim",
+      "beaten_rules": [
+        "r_actionable"
+      ],
+      "distractors": [
+        "d_sol_broad: legal_claim(X) ~> ~actionable(X)",
+        "d_sol_wrong_head: time_barred(X) ~> ~entitles_to_remedy(X)",
+        "d_sol_positive: time_barred(X) => dismissed(X)",
+        "d_sol_indirect: dismissed(X) ~> ~actionable(X)",
+        "d_sol_wrong_cond: invalid(X) ~> ~actionable(X)"
+      ],
+      "candidates": [
+        "d_statute_of_lim: time_barred(X) ~> ~actionable(X)",
+        "d_sol_broad: legal_claim(X) ~> ~actionable(X)",
+        "d_sol_wrong_head: time_barred(X) ~> ~entitles_to_remedy(X)",
+        "d_sol_positive: time_barred(X) => dismissed(X)",
+        "d_sol_indirect: dismissed(X) ~> ~actionable(X)",
+        "d_sol_wrong_cond: invalid(X) ~> ~actionable(X)"
+      ],
+      "preserved_expectations": [
+        "actionable(claim_b)",
+        "entitles_to_remedy(claim_b)"
+      ],
+      "defeater_type": "weak",
+      "description": "A statute of limitations bars an otherwise valid legal claim if filed outside the prescribed time window.",
+      "novel_predicates": [],
+      "novel_facts_for_gold": [],
+      "nov": 0.0,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 6,
+      "theory_facts": [
+        "legal_claim(claim_a)",
+        "legal_claim(claim_b)",
+        "time_barred(claim_a)",
+        "timely(claim_b)"
+      ],
+      "theory_rules": [
+        "r_actionable: legal_claim(X) => actionable(X)",
+        "r_remedy: legal_claim(X) => entitles_to_remedy(X)"
+      ]
+    },
+    {
+      "name": "good_faith_purchaser",
+      "domain": "legal",
+      "level": 3,
+      "anomaly": "takes_subject_to_prior_interests(gfp_alice)",
+      "gold": "d_good_faith: good_faith_purchaser(X) ~> ~takes_subject_to_prior_interests(X)",
+      "gold_label": "d_good_faith",
+      "beaten_rules": [
+        "r_prior"
+      ],
+      "distractors": [
+        "d_gfp_broad: purchaser(X) ~> ~takes_subject_to_prior_interests(X)",
+        "d_gfp_wrong_head: good_faith_purchaser(X) ~> ~bound_by_contract(X)",
+        "d_gfp_positive: good_faith_purchaser(X) => title_clear(X)",
+        "d_gfp_wrong_cond: paid_value(X) ~> ~takes_subject_to_prior_interests(X)",
+        "d_gfp_irrelevant: registered(X) ~> ~takes_subject_to_prior_interests(X)"
+      ],
+      "candidates": [
+        "d_good_faith: good_faith_purchaser(X) ~> ~takes_subject_to_prior_interests(X)",
+        "d_gfp_broad: purchaser(X) ~> ~takes_subject_to_prior_interests(X)",
+        "d_gfp_wrong_head: good_faith_purchaser(X) ~> ~bound_by_contract(X)",
+        "d_gfp_positive: good_faith_purchaser(X) => title_clear(X)",
+        "d_gfp_wrong_cond: paid_value(X) ~> ~takes_subject_to_prior_interests(X)",
+        "d_gfp_irrelevant: registered(X) ~> ~takes_subject_to_prior_interests(X)"
+      ],
+      "preserved_expectations": [
+        "takes_subject_to_prior_interests(gfp_bob)",
+        "bound_by_contract(gfp_alice)"
+      ],
+      "defeater_type": "weak",
+      "description": "A bona fide purchaser for value without notice takes title free of prior equitable interests, defeating the default of subject-taking.",
+      "novel_predicates": [],
+      "novel_facts_for_gold": [],
+      "nov": 0.0,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 5,
+      "theory_facts": [
+        "good_faith_purchaser(gfp_alice)",
+        "purchaser(gfp_alice)",
+        "purchaser(gfp_bob)"
+      ],
+      "theory_rules": [
+        "r_prior: purchaser(X) => takes_subject_to_prior_interests(X)",
+        "r_bound_p: purchaser(X) => bound_by_contract(X)"
+      ]
+    },
+    {
+      "name": "diplomatic_immunity",
+      "domain": "legal",
+      "level": 3,
+      "anomaly": "subject_to_local_law(ambassador_jones)",
+      "gold": "d_diplomatic: diplomat(X) ~> ~subject_to_local_law(X)",
+      "gold_label": "d_diplomatic",
+      "beaten_rules": [
+        "r_local"
+      ],
+      "distractors": [
+        "d_di_broad: person(X) ~> ~subject_to_local_law(X)",
+        "d_di_wrong_head: diplomat(X) ~> ~taxable(X)",
+        "d_di_positive: diplomat(X) => immune(X)",
+        "d_di_wrong_cond: foreign_national(X) ~> ~subject_to_local_law(X)",
+        "d_di_indirect: immune(X) ~> ~subject_to_local_law(X)"
+      ],
+      "candidates": [
+        "d_diplomatic: diplomat(X) ~> ~subject_to_local_law(X)",
+        "d_di_broad: person(X) ~> ~subject_to_local_law(X)",
+        "d_di_wrong_head: diplomat(X) ~> ~taxable(X)",
+        "d_di_positive: diplomat(X) => immune(X)",
+        "d_di_wrong_cond: foreign_national(X) ~> ~subject_to_local_law(X)",
+        "d_di_indirect: immune(X) ~> ~subject_to_local_law(X)"
+      ],
+      "preserved_expectations": [
+        "subject_to_local_law(citizen_smith)",
+        "taxable(citizen_smith)"
+      ],
+      "defeater_type": "weak",
+      "description": "Accredited diplomats enjoy immunity from the jurisdiction of the host state under the Vienna Convention, defeating the general default.",
+      "novel_predicates": [],
+      "novel_facts_for_gold": [],
+      "nov": 0.0,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 5,
+      "theory_facts": [
+        "diplomat(ambassador_jones)",
+        "person(ambassador_jones)",
+        "person(citizen_smith)"
+      ],
+      "theory_rules": [
+        "r_local: person(X) => subject_to_local_law(X)",
+        "r_tax: person(X) => taxable(X)"
+      ]
+    },
+    {
+      "name": "sovereign_immunity",
+      "domain": "legal",
+      "level": 3,
+      "anomaly": "suable(state_agency)",
+      "gold": "d_sovereign: sovereign(X) ~> ~suable(X)",
+      "gold_label": "d_sovereign",
+      "beaten_rules": [
+        "r_suable"
+      ],
+      "distractors": [
+        "d_si_broad: entity(X) ~> ~suable(X)",
+        "d_si_wrong_head: sovereign(X) ~> ~liable_for_damages(X)",
+        "d_si_positive: sovereign(X) => immune_from_suit(X)",
+        "d_si_wrong_cond: governmental(X) ~> ~suable(X)",
+        "d_si_irrelevant: non_profit(X) ~> ~suable(X)"
+      ],
+      "candidates": [
+        "d_sovereign: sovereign(X) ~> ~suable(X)",
+        "d_si_broad: entity(X) ~> ~suable(X)",
+        "d_si_wrong_head: sovereign(X) ~> ~liable_for_damages(X)",
+        "d_si_positive: sovereign(X) => immune_from_suit(X)",
+        "d_si_wrong_cond: governmental(X) ~> ~suable(X)",
+        "d_si_irrelevant: non_profit(X) ~> ~suable(X)"
+      ],
+      "preserved_expectations": [
+        "suable(private_corp)",
+        "liable_for_damages(private_corp)"
+      ],
+      "defeater_type": "weak",
+      "description": "Sovereign immunity bars suits against a state without its consent, overriding the default that all legal entities may be sued.",
+      "novel_predicates": [],
+      "novel_facts_for_gold": [],
+      "nov": 0.0,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 5,
+      "theory_facts": [
+        "entity(private_corp)",
+        "entity(state_agency)",
+        "sovereign(state_agency)"
+      ],
+      "theory_rules": [
+        "r_suable: entity(X) => suable(X)",
+        "r_liable: entity(X) => liable_for_damages(X)"
+      ]
+    },
+    {
+      "name": "force_majeure",
+      "domain": "legal",
+      "level": 3,
+      "anomaly": "performance_required(contract_x)",
+      "gold": "d_force_majeure: force_majeure_event(X) ~> ~performance_required(X)",
+      "gold_label": "d_force_majeure",
+      "beaten_rules": [
+        "r_perform"
+      ],
+      "distractors": [
+        "d_fm_broad: contract(X) ~> ~performance_required(X)",
+        "d_fm_wrong_head: force_majeure_event(X) ~> ~breach_if_non_performance(X)",
+        "d_fm_positive: force_majeure_event(X) => excused(X)",
+        "d_fm_wrong_cond: frustrated(X) ~> ~performance_required(X)",
+        "d_fm_irrelevant: voided(X) ~> ~performance_required(X)"
+      ],
+      "candidates": [
+        "d_force_majeure: force_majeure_event(X) ~> ~performance_required(X)",
+        "d_fm_broad: contract(X) ~> ~performance_required(X)",
+        "d_fm_wrong_head: force_majeure_event(X) ~> ~breach_if_non_performance(X)",
+        "d_fm_positive: force_majeure_event(X) => excused(X)",
+        "d_fm_wrong_cond: frustrated(X) ~> ~performance_required(X)",
+        "d_fm_irrelevant: voided(X) ~> ~performance_required(X)"
+      ],
+      "preserved_expectations": [
+        "performance_required(contract_y)",
+        "breach_if_non_performance(contract_y)"
+      ],
+      "defeater_type": "weak",
+      "description": "A force majeure clause excuses non-performance when unforeseeable events (war, natural disaster) make performance impossible.",
+      "novel_predicates": [],
+      "novel_facts_for_gold": [],
+      "nov": 0.0,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 5,
+      "theory_facts": [
+        "contract(contract_x)",
+        "contract(contract_y)",
+        "force_majeure_event(contract_x)"
+      ],
+      "theory_rules": [
+        "r_perform: contract(X) => performance_required(X)",
+        "r_breach: contract(X) => breach_if_non_performance(X)"
+      ]
+    },
+    {
+      "name": "qualified_immunity",
+      "domain": "legal",
+      "level": 3,
+      "anomaly": "civilly_liable(officer_davis)",
+      "gold": "d_qualified_immunity: qualified_immunity_claimant(X) ~> ~civilly_liable(X)",
+      "gold_label": "d_qualified_immunity",
+      "beaten_rules": [
+        "r_civil"
+      ],
+      "distractors": [
+        "d_qi_broad: official(X) ~> ~civilly_liable(X)",
+        "d_qi_wrong_head: qualified_immunity_claimant(X) ~> ~subject_to_suit(X)",
+        "d_qi_positive: qualified_immunity_claimant(X) => immune_from_liability(X)",
+        "d_qi_wrong_cond: acting_in_good_faith(X) ~> ~civilly_liable(X)",
+        "d_qi_indirect: immune(X) ~> ~civilly_liable(X)"
+      ],
+      "candidates": [
+        "d_qualified_immunity: qualified_immunity_claimant(X) ~> ~civilly_liable(X)",
+        "d_qi_broad: official(X) ~> ~civilly_liable(X)",
+        "d_qi_wrong_head: qualified_immunity_claimant(X) ~> ~subject_to_suit(X)",
+        "d_qi_positive: qualified_immunity_claimant(X) => immune_from_liability(X)",
+        "d_qi_wrong_cond: acting_in_good_faith(X) ~> ~civilly_liable(X)",
+        "d_qi_indirect: immune(X) ~> ~civilly_liable(X)"
+      ],
+      "preserved_expectations": [
+        "civilly_liable(officer_chen)",
+        "subject_to_suit(officer_chen)"
+      ],
+      "defeater_type": "weak",
+      "description": "Qualified immunity shields government officials from civil liability for actions taken in good faith within their official authority.",
+      "novel_predicates": [],
+      "novel_facts_for_gold": [],
+      "nov": 0.0,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 5,
+      "theory_facts": [
+        "official(officer_chen)",
+        "official(officer_davis)",
+        "qualified_immunity_claimant(officer_davis)"
+      ],
+      "theory_rules": [
+        "r_civil: official(X) => civilly_liable(X)",
+        "r_suit: official(X) => subject_to_suit(X)"
+      ]
+    },
+    {
+      "name": "constitutional_supremacy",
+      "domain": "legal",
+      "level": 3,
+      "anomaly": "enforceable(state_law_x)",
+      "gold": "d_supremacy: conflicts_with_federal(X) ~> ~enforceable(X)",
+      "gold_label": "d_supremacy",
+      "beaten_rules": [
+        "r_enforce"
+      ],
+      "distractors": [
+        "d_cs_broad: law(X) ~> ~enforceable(X)",
+        "d_cs_wrong_head: conflicts_with_federal(X) ~> ~binding_on_citizens(X)",
+        "d_cs_positive: conflicts_with_federal(X) => preempted(X)",
+        "d_cs_wrong_cond: unconstitutional(X) ~> ~enforceable(X)",
+        "d_cs_indirect: preempted(X) ~> ~enforceable(X)"
+      ],
+      "candidates": [
+        "d_supremacy: conflicts_with_federal(X) ~> ~enforceable(X)",
+        "d_cs_broad: law(X) ~> ~enforceable(X)",
+        "d_cs_wrong_head: conflicts_with_federal(X) ~> ~binding_on_citizens(X)",
+        "d_cs_positive: conflicts_with_federal(X) => preempted(X)",
+        "d_cs_wrong_cond: unconstitutional(X) ~> ~enforceable(X)",
+        "d_cs_indirect: preempted(X) ~> ~enforceable(X)"
+      ],
+      "preserved_expectations": [
+        "enforceable(state_law_y)",
+        "binding_on_citizens(state_law_y)"
+      ],
+      "defeater_type": "weak",
+      "description": "Under the Supremacy Clause, a state law that conflicts with federal law is preempted and unenforceable, defeating the enforceability default.",
+      "novel_predicates": [],
+      "novel_facts_for_gold": [],
+      "nov": 0.0,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 5,
+      "theory_facts": [
+        "conflicts_with_federal(state_law_x)",
+        "law(state_law_x)",
+        "law(state_law_y)"
+      ],
+      "theory_rules": [
+        "r_enforce: law(X) => enforceable(X)",
+        "r_binding: law(X) => binding_on_citizens(X)"
+      ]
+    },
+    {
+      "name": "ultra_vires",
+      "domain": "legal",
+      "level": 3,
+      "anomaly": "legally_valid(act_alpha)",
+      "gold": "d_ultra_vires: ultra_vires_act(X) ~> ~legally_valid(X)",
+      "gold_label": "d_ultra_vires",
+      "beaten_rules": [
+        "r_valid"
+      ],
+      "distractors": [
+        "d_uv_broad: corporate_act(X) ~> ~legally_valid(X)",
+        "d_uv_wrong_head: ultra_vires_act(X) ~> ~binding_on_corporation(X)",
+        "d_uv_positive: ultra_vires_act(X) => void_ab_initio(X)",
+        "d_uv_wrong_cond: unauthorized(X) ~> ~legally_valid(X)",
+        "d_uv_irrelevant: fraudulent(X) ~> ~legally_valid(X)"
+      ],
+      "candidates": [
+        "d_ultra_vires: ultra_vires_act(X) ~> ~legally_valid(X)",
+        "d_uv_broad: corporate_act(X) ~> ~legally_valid(X)",
+        "d_uv_wrong_head: ultra_vires_act(X) ~> ~binding_on_corporation(X)",
+        "d_uv_positive: ultra_vires_act(X) => void_ab_initio(X)",
+        "d_uv_wrong_cond: unauthorized(X) ~> ~legally_valid(X)",
+        "d_uv_irrelevant: fraudulent(X) ~> ~legally_valid(X)"
+      ],
+      "preserved_expectations": [
+        "legally_valid(act_beta)",
+        "binding_on_corporation(act_beta)"
+      ],
+      "defeater_type": "weak",
+      "description": "An ultra vires act\u2014one beyond a corporation's legal authority\u2014is void, defeating the default that corporate acts are legally valid.",
+      "novel_predicates": [],
+      "novel_facts_for_gold": [],
+      "nov": 0.0,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 5,
+      "theory_facts": [
+        "corporate_act(act_alpha)",
+        "corporate_act(act_beta)",
+        "ultra_vires_act(act_alpha)"
+      ],
+      "theory_rules": [
+        "r_valid: corporate_act(X) => legally_valid(X)",
+        "r_binding_c: corporate_act(X) => binding_on_corporation(X)"
+      ]
+    },
+    {
+      "name": "laches",
+      "domain": "legal",
+      "level": 3,
+      "anomaly": "valid_claim(mansion_case)",
+      "gold": "d_laches: laches_applies(X) ~> ~valid_claim(X)",
+      "gold_label": "d_laches",
+      "beaten_rules": [
+        "r_eq_valid"
+      ],
+      "distractors": [
+        "d_laches_broad: equity_claim(X) ~> ~valid_claim(X)",
+        "d_laches_wrong_head: laches_applies(X) ~> ~remedy_available(X)",
+        "d_laches_positive: laches_applies(X) => claim_dismissed(X)",
+        "d_laches_wrong_cond: stale_claim(X) ~> ~valid_claim(X)",
+        "d_laches_near_gold: unreasonable_delay(X) ~> ~valid_claim(X)"
+      ],
+      "candidates": [
+        "d_laches: laches_applies(X) ~> ~valid_claim(X)",
+        "d_laches_broad: equity_claim(X) ~> ~valid_claim(X)",
+        "d_laches_wrong_head: laches_applies(X) ~> ~remedy_available(X)",
+        "d_laches_positive: laches_applies(X) => claim_dismissed(X)",
+        "d_laches_wrong_cond: stale_claim(X) ~> ~valid_claim(X)",
+        "d_laches_near_gold: unreasonable_delay(X) ~> ~valid_claim(X)"
+      ],
+      "preserved_expectations": [
+        "valid_claim(park_case)",
+        "remedy_available(park_case)"
+      ],
+      "defeater_type": "weak",
+      "description": "The equitable doctrine of laches bars a claim when the plaintiff unreasonably delayed asserting it and the delay prejudiced the defendant, defeating the equity court's default presumption that claims are valid.",
+      "novel_predicates": [
+        "laches_applies"
+      ],
+      "novel_facts_for_gold": [
+        "laches_applies(mansion_case)"
+      ],
+      "nov": 0.5,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 4,
+      "theory_facts": [
+        "equity_claim(mansion_case)",
+        "equity_claim(park_case)"
+      ],
+      "theory_rules": [
+        "r_eq_valid: equity_claim(X) => valid_claim(X)",
+        "r_remedy: equity_claim(X) => remedy_available(X)"
+      ]
+    },
+    {
+      "name": "metallic_glass",
+      "domain": "materials",
+      "level": 3,
+      "anomaly": "brittle(vitreloy)",
+      "gold": "d_metallic_glass: amorphous_solid(X) ~> ~brittle(X)",
+      "gold_label": "d_metallic_glass",
+      "beaten_rules": [
+        "r_brittle"
+      ],
+      "distractors": [
+        "d_mg_broad: metal(X) ~> ~brittle(X)",
+        "d_mg_wrong_head: amorphous_solid(X) ~> ~conducts_electricity(X)",
+        "d_mg_wrong_cond: alloy(X) ~> ~brittle(X)",
+        "d_mg_positive: amorphous_solid(X) => ductile(X)",
+        "d_mg_irrelevant: ceramic(X) ~> ~brittle(X)"
+      ],
+      "candidates": [
+        "d_metallic_glass: amorphous_solid(X) ~> ~brittle(X)",
+        "d_mg_broad: metal(X) ~> ~brittle(X)",
+        "d_mg_wrong_head: amorphous_solid(X) ~> ~conducts_electricity(X)",
+        "d_mg_wrong_cond: alloy(X) ~> ~brittle(X)",
+        "d_mg_positive: amorphous_solid(X) => ductile(X)",
+        "d_mg_irrelevant: ceramic(X) ~> ~brittle(X)"
+      ],
+      "preserved_expectations": [
+        "brittle(steel_a)",
+        "conducts_electricity(vitreloy)",
+        "conducts_electricity(steel_a)"
+      ],
+      "defeater_type": "weak",
+      "description": "Metallic glasses (e.g. Vitreloy) are amorphous solids that lack crystalline structure, making them tough rather than brittle.",
+      "novel_predicates": [
+        "amorphous_solid"
+      ],
+      "novel_facts_for_gold": [
+        "amorphous_solid(vitreloy)"
+      ],
+      "nov": 0.5,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 6,
+      "theory_facts": [
+        "material(steel_a)",
+        "material(vitreloy)",
+        "metal(steel_a)",
+        "metal(vitreloy)"
+      ],
+      "theory_rules": [
+        "r_brittle: metal(X) => brittle(X)",
+        "r_conduct: metal(X) => conducts_electricity(X)"
+      ]
+    },
+    {
+      "name": "aerogel",
+      "domain": "materials",
+      "level": 3,
+      "anomaly": "dense(silica_aerogel)",
+      "gold": "d_aerogel: aerogel(X) ~> ~dense(X)",
+      "gold_label": "d_aerogel",
+      "beaten_rules": [
+        "r_dense"
+      ],
+      "distractors": [
+        "d_ag_broad: solid(X) ~> ~dense(X)",
+        "d_ag_wrong_head: aerogel(X) ~> ~rigid(X)",
+        "d_ag_positive: aerogel(X) => porous(X)",
+        "d_ag_wrong_cond: foam(X) ~> ~dense(X)",
+        "d_ag_irrelevant: lightweight(X) ~> ~dense(X)"
+      ],
+      "candidates": [
+        "d_aerogel: aerogel(X) ~> ~dense(X)",
+        "d_ag_broad: solid(X) ~> ~dense(X)",
+        "d_ag_wrong_head: aerogel(X) ~> ~rigid(X)",
+        "d_ag_positive: aerogel(X) => porous(X)",
+        "d_ag_wrong_cond: foam(X) ~> ~dense(X)",
+        "d_ag_irrelevant: lightweight(X) ~> ~dense(X)"
+      ],
+      "preserved_expectations": [
+        "dense(concrete_block)",
+        "rigid(concrete_block)"
+      ],
+      "defeater_type": "weak",
+      "description": "Silica aerogels are among the least dense solid materials ever made, composed mainly of air, defeating the solids-are-dense default.",
+      "novel_predicates": [],
+      "novel_facts_for_gold": [],
+      "nov": 0.0,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 7,
+      "theory_facts": [
+        "aerogel(silica_aerogel)",
+        "material(concrete_block)",
+        "material(silica_aerogel)",
+        "solid(concrete_block)",
+        "solid(silica_aerogel)"
+      ],
+      "theory_rules": [
+        "r_dense: solid(X) => dense(X)",
+        "r_rigid: solid(X) => rigid(X)"
+      ]
+    },
+    {
+      "name": "superconductor",
+      "domain": "materials",
+      "level": 3,
+      "anomaly": "has_electrical_resistance(niobium)",
+      "gold": "d_superconductor: below_critical_temperature(X) ~> ~has_electrical_resistance(X)",
+      "gold_label": "d_superconductor",
+      "beaten_rules": [
+        "r_resistance"
+      ],
+      "distractors": [
+        "d_sc_broad: metal(X) ~> ~has_electrical_resistance(X)",
+        "d_sc_wrong_head: below_critical_temperature(X) ~> ~conducts_electricity(X)",
+        "d_sc_no_novel: superconductor(X) ~> ~has_electrical_resistance(X)",
+        "d_sc_positive: below_critical_temperature(X) => zero_resistance(X)",
+        "d_sc_wrong_cond: ceramic(X) ~> ~has_electrical_resistance(X)"
+      ],
+      "candidates": [
+        "d_superconductor: below_critical_temperature(X) ~> ~has_electrical_resistance(X)",
+        "d_sc_broad: metal(X) ~> ~has_electrical_resistance(X)",
+        "d_sc_wrong_head: below_critical_temperature(X) ~> ~conducts_electricity(X)",
+        "d_sc_no_novel: superconductor(X) ~> ~has_electrical_resistance(X)",
+        "d_sc_positive: below_critical_temperature(X) => zero_resistance(X)",
+        "d_sc_wrong_cond: ceramic(X) ~> ~has_electrical_resistance(X)"
+      ],
+      "preserved_expectations": [
+        "has_electrical_resistance(warm_niobium)",
+        "has_electrical_resistance(copper_wire)",
+        "conducts_electricity(copper_wire)",
+        "conducts_electricity(niobium)"
+      ],
+      "defeater_type": "weak",
+      "description": "Below their critical temperature Tc, superconductors exhibit zero electrical resistance. The same material above Tc still has resistance.",
+      "novel_predicates": [
+        "below_critical_temperature"
+      ],
+      "novel_facts_for_gold": [
+        "below_critical_temperature(niobium)"
+      ],
+      "nov": 0.5,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 10,
+      "theory_facts": [
+        "material(copper_wire)",
+        "material(niobium)",
+        "material(warm_niobium)",
+        "metal(copper_wire)",
+        "metal(niobium)",
+        "metal(warm_niobium)",
+        "superconductor(niobium)",
+        "superconductor(warm_niobium)"
+      ],
+      "theory_rules": [
+        "r_resistance: metal(X) => has_electrical_resistance(X)",
+        "r_conduct_s: metal(X) => conducts_electricity(X)"
+      ]
+    },
+    {
+      "name": "graphene",
+      "domain": "materials",
+      "level": 3,
+      "anomaly": "opaque(graphene_sheet)",
+      "gold": "d_graphene: monolayer_thickness(X) ~> ~opaque(X)",
+      "gold_label": "d_graphene",
+      "beaten_rules": [
+        "r_opaque"
+      ],
+      "distractors": [
+        "d_gr_broad: carbon_material(X) ~> ~opaque(X)",
+        "d_gr_wrong_head: monolayer_thickness(X) ~> ~electrically_conductive(X)",
+        "d_gr_wrong_cond: graphene_sheet(X) ~> ~opaque(X)",
+        "d_gr_positive: monolayer_thickness(X) => transparent(X)",
+        "d_gr_irrelevant: thin_film(X) ~> ~opaque(X)"
+      ],
+      "candidates": [
+        "d_graphene: monolayer_thickness(X) ~> ~opaque(X)",
+        "d_gr_broad: carbon_material(X) ~> ~opaque(X)",
+        "d_gr_wrong_head: monolayer_thickness(X) ~> ~electrically_conductive(X)",
+        "d_gr_wrong_cond: graphene_sheet(X) ~> ~opaque(X)",
+        "d_gr_positive: monolayer_thickness(X) => transparent(X)",
+        "d_gr_irrelevant: thin_film(X) ~> ~opaque(X)"
+      ],
+      "preserved_expectations": [
+        "opaque(thick_graphene)",
+        "opaque(graphite_block)",
+        "electrically_conductive(graphite_block)",
+        "electrically_conductive(graphene_sheet)"
+      ],
+      "defeater_type": "weak",
+      "description": "Single-layer graphene transmits ~97.7% of light because of its monolayer thickness; multilayer graphene remains opaque.",
+      "novel_predicates": [
+        "monolayer_thickness"
+      ],
+      "novel_facts_for_gold": [
+        "monolayer_thickness(graphene_sheet)"
+      ],
+      "nov": 0.5,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 8,
+      "theory_facts": [
+        "carbon_material(graphene_sheet)",
+        "carbon_material(graphite_block)",
+        "carbon_material(thick_graphene)",
+        "material(graphene_sheet)",
+        "material(graphite_block)",
+        "material(thick_graphene)"
+      ],
+      "theory_rules": [
+        "r_opaque: carbon_material(X) => opaque(X)",
+        "r_cond_g: carbon_material(X) => electrically_conductive(X)"
+      ]
+    },
+    {
+      "name": "nitinol_sma",
+      "domain": "materials",
+      "level": 3,
+      "anomaly": "permanently_deformed_when_bent(nitinol)",
+      "gold": "d_nitinol: thermoelastic_martensite(X) ~> ~permanently_deformed_when_bent(X)",
+      "gold_label": "d_nitinol",
+      "beaten_rules": [
+        "r_deform"
+      ],
+      "distractors": [
+        "d_sma_broad: alloy(X) ~> ~permanently_deformed_when_bent(X)",
+        "d_sma_wrong_head: thermoelastic_martensite(X) ~> ~conducts_electricity(X)",
+        "d_sma_no_novel: nitinol(X) ~> ~permanently_deformed_when_bent(X)",
+        "d_sma_positive: thermoelastic_martensite(X) => recovers_shape(X)",
+        "d_sma_wrong_cond: elastic(X) ~> ~permanently_deformed_when_bent(X)"
+      ],
+      "candidates": [
+        "d_nitinol: thermoelastic_martensite(X) ~> ~permanently_deformed_when_bent(X)",
+        "d_sma_broad: alloy(X) ~> ~permanently_deformed_when_bent(X)",
+        "d_sma_wrong_head: thermoelastic_martensite(X) ~> ~conducts_electricity(X)",
+        "d_sma_no_novel: nitinol(X) ~> ~permanently_deformed_when_bent(X)",
+        "d_sma_positive: thermoelastic_martensite(X) => recovers_shape(X)",
+        "d_sma_wrong_cond: elastic(X) ~> ~permanently_deformed_when_bent(X)"
+      ],
+      "preserved_expectations": [
+        "permanently_deformed_when_bent(nitinol_annealed)",
+        "permanently_deformed_when_bent(aluminum_alloy)",
+        "conducts_electricity(aluminum_alloy)",
+        "conducts_electricity(nitinol)"
+      ],
+      "defeater_type": "weak",
+      "description": "NiTi alloy in its thermoelastic martensite phase recovers its original shape when heated; annealed NiTi deforms permanently.",
+      "novel_predicates": [
+        "thermoelastic_martensite"
+      ],
+      "novel_facts_for_gold": [
+        "thermoelastic_martensite(nitinol)"
+      ],
+      "nov": 0.5,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 8,
+      "theory_facts": [
+        "alloy(aluminum_alloy)",
+        "alloy(nitinol)",
+        "alloy(nitinol_annealed)",
+        "material(aluminum_alloy)",
+        "material(nitinol)",
+        "material(nitinol_annealed)"
+      ],
+      "theory_rules": [
+        "r_deform: alloy(X) => permanently_deformed_when_bent(X)",
+        "r_cond_a: alloy(X) => conducts_electricity(X)"
+      ]
+    },
+    {
+      "name": "piezoelectric",
+      "domain": "materials",
+      "level": 3,
+      "anomaly": "electrically_passive(quartz_crystal)",
+      "gold": "d_piezoelectric: piezoelectric(X) ~> ~electrically_passive(X)",
+      "gold_label": "d_piezoelectric",
+      "beaten_rules": [
+        "r_passive"
+      ],
+      "distractors": [
+        "d_pz_broad: crystal(X) ~> ~electrically_passive(X)",
+        "d_pz_wrong_head: piezoelectric(X) ~> ~rigid(X)",
+        "d_pz_positive: piezoelectric(X) => voltage_generating(X)",
+        "d_pz_wrong_cond: semiconductor(X) ~> ~electrically_passive(X)",
+        "d_pz_irrelevant: charged(X) ~> ~electrically_passive(X)"
+      ],
+      "candidates": [
+        "d_piezoelectric: piezoelectric(X) ~> ~electrically_passive(X)",
+        "d_pz_broad: crystal(X) ~> ~electrically_passive(X)",
+        "d_pz_wrong_head: piezoelectric(X) ~> ~rigid(X)",
+        "d_pz_positive: piezoelectric(X) => voltage_generating(X)",
+        "d_pz_wrong_cond: semiconductor(X) ~> ~electrically_passive(X)",
+        "d_pz_irrelevant: charged(X) ~> ~electrically_passive(X)"
+      ],
+      "preserved_expectations": [
+        "electrically_passive(table_salt)",
+        "rigid(table_salt)",
+        "rigid(quartz_crystal)"
+      ],
+      "defeater_type": "weak",
+      "description": "Piezoelectric crystals like quartz generate electrical charge under mechanical stress, defeating the default passivity of crystals.",
+      "novel_predicates": [],
+      "novel_facts_for_gold": [],
+      "nov": 0.0,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 7,
+      "theory_facts": [
+        "crystal(quartz_crystal)",
+        "crystal(table_salt)",
+        "material(quartz_crystal)",
+        "material(table_salt)",
+        "piezoelectric(quartz_crystal)"
+      ],
+      "theory_rules": [
+        "r_passive: crystal(X) => electrically_passive(X)",
+        "r_rigid_p: crystal(X) => rigid(X)"
+      ]
+    },
+    {
+      "name": "thermoelectric",
+      "domain": "materials",
+      "level": 3,
+      "anomaly": "thermally_passive(bismuth_telluride)",
+      "gold": "d_thermoelectric: thermoelectric(X) ~> ~thermally_passive(X)",
+      "gold_label": "d_thermoelectric",
+      "beaten_rules": [
+        "r_therm_pass"
+      ],
+      "distractors": [
+        "d_te_broad: semiconductor(X) ~> ~thermally_passive(X)",
+        "d_te_wrong_head: thermoelectric(X) ~> ~band_gap(X)",
+        "d_te_positive: thermoelectric(X) => seebeck_effect(X)",
+        "d_te_wrong_cond: conductor(X) ~> ~thermally_passive(X)",
+        "d_te_irrelevant: doped(X) ~> ~thermally_passive(X)"
+      ],
+      "candidates": [
+        "d_thermoelectric: thermoelectric(X) ~> ~thermally_passive(X)",
+        "d_te_broad: semiconductor(X) ~> ~thermally_passive(X)",
+        "d_te_wrong_head: thermoelectric(X) ~> ~band_gap(X)",
+        "d_te_positive: thermoelectric(X) => seebeck_effect(X)",
+        "d_te_wrong_cond: conductor(X) ~> ~thermally_passive(X)",
+        "d_te_irrelevant: doped(X) ~> ~thermally_passive(X)"
+      ],
+      "preserved_expectations": [
+        "thermally_passive(silicon_chip)",
+        "band_gap(silicon_chip)",
+        "band_gap(bismuth_telluride)"
+      ],
+      "defeater_type": "weak",
+      "description": "Thermoelectric materials convert a temperature gradient directly into electrical voltage via the Seebeck effect.",
+      "novel_predicates": [],
+      "novel_facts_for_gold": [],
+      "nov": 0.0,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 7,
+      "theory_facts": [
+        "material(bismuth_telluride)",
+        "material(silicon_chip)",
+        "semiconductor(bismuth_telluride)",
+        "semiconductor(silicon_chip)",
+        "thermoelectric(bismuth_telluride)"
+      ],
+      "theory_rules": [
+        "r_therm_pass: semiconductor(X) => thermally_passive(X)",
+        "r_bandgap: semiconductor(X) => band_gap(X)"
+      ]
+    },
+    {
+      "name": "superhydrophobic",
+      "domain": "materials",
+      "level": 3,
+      "anomaly": "wetted_by_water(lotus_coating)",
+      "gold": "d_superhydrophobic: superhydrophobic(X) ~> ~wetted_by_water(X)",
+      "gold_label": "d_superhydrophobic",
+      "beaten_rules": [
+        "r_wet"
+      ],
+      "distractors": [
+        "d_sh_broad: polymer(X) ~> ~wetted_by_water(X)",
+        "d_sh_wrong_head: superhydrophobic(X) ~> ~flexible(X)",
+        "d_sh_positive: superhydrophobic(X) => water_repellent(X)",
+        "d_sh_wrong_cond: waxed(X) ~> ~wetted_by_water(X)",
+        "d_sh_irrelevant: coated(X) ~> ~wetted_by_water(X)"
+      ],
+      "candidates": [
+        "d_superhydrophobic: superhydrophobic(X) ~> ~wetted_by_water(X)",
+        "d_sh_broad: polymer(X) ~> ~wetted_by_water(X)",
+        "d_sh_wrong_head: superhydrophobic(X) ~> ~flexible(X)",
+        "d_sh_positive: superhydrophobic(X) => water_repellent(X)",
+        "d_sh_wrong_cond: waxed(X) ~> ~wetted_by_water(X)",
+        "d_sh_irrelevant: coated(X) ~> ~wetted_by_water(X)"
+      ],
+      "preserved_expectations": [
+        "wetted_by_water(polyethylene_film)",
+        "flexible(polyethylene_film)",
+        "flexible(lotus_coating)"
+      ],
+      "defeater_type": "weak",
+      "description": "Superhydrophobic surfaces (contact angle > 150\u00b0) repel water completely, defeating the default wettability of polymers.",
+      "novel_predicates": [],
+      "novel_facts_for_gold": [],
+      "nov": 0.0,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 7,
+      "theory_facts": [
+        "material(lotus_coating)",
+        "material(polyethylene_film)",
+        "polymer(lotus_coating)",
+        "polymer(polyethylene_film)",
+        "superhydrophobic(lotus_coating)"
+      ],
+      "theory_rules": [
+        "r_wet: polymer(X) => wetted_by_water(X)",
+        "r_flex: polymer(X) => flexible(X)"
+      ]
+    },
+    {
+      "name": "metamaterial",
+      "domain": "materials",
+      "level": 3,
+      "anomaly": "positive_refractive_index(split_ring_resonator)",
+      "gold": "d_metamaterial: metamaterial(X) ~> ~positive_refractive_index(X)",
+      "gold_label": "d_metamaterial",
+      "beaten_rules": [
+        "r_pos_ref"
+      ],
+      "distractors": [
+        "d_mm_broad: composite(X) ~> ~positive_refractive_index(X)",
+        "d_mm_wrong_head: metamaterial(X) ~> ~absorbs_electromagnetic(X)",
+        "d_mm_positive: metamaterial(X) => negative_refraction(X)",
+        "d_mm_wrong_cond: engineered_structure(X) ~> ~positive_refractive_index(X)",
+        "d_mm_irrelevant: periodic_structure(X) ~> ~positive_refractive_index(X)"
+      ],
+      "candidates": [
+        "d_metamaterial: metamaterial(X) ~> ~positive_refractive_index(X)",
+        "d_mm_broad: composite(X) ~> ~positive_refractive_index(X)",
+        "d_mm_wrong_head: metamaterial(X) ~> ~absorbs_electromagnetic(X)",
+        "d_mm_positive: metamaterial(X) => negative_refraction(X)",
+        "d_mm_wrong_cond: engineered_structure(X) ~> ~positive_refractive_index(X)",
+        "d_mm_irrelevant: periodic_structure(X) ~> ~positive_refractive_index(X)"
+      ],
+      "preserved_expectations": [
+        "positive_refractive_index(carbon_fiber_plate)",
+        "absorbs_electromagnetic(carbon_fiber_plate)"
+      ],
+      "defeater_type": "weak",
+      "description": "Electromagnetic metamaterials can exhibit negative refractive indices through engineered subwavelength structures, defeating the natural default.",
+      "novel_predicates": [],
+      "novel_facts_for_gold": [],
+      "nov": 0.0,
+      "d_rev": 1,
+      "conservative": true,
+      "lost_expectations": [],
+      "valid": true,
+      "errors": [],
+      "theory_size": 7,
+      "theory_facts": [
+        "composite(carbon_fiber_plate)",
+        "composite(split_ring_resonator)",
+        "material(carbon_fiber_plate)",
+        "material(split_ring_resonator)",
+        "metamaterial(split_ring_resonator)"
+      ],
+      "theory_rules": [
+        "r_pos_ref: composite(X) => positive_refractive_index(X)",
+        "r_absorb: composite(X) => absorbs_electromagnetic(X)"
+      ]
+    }
+  ]
+}

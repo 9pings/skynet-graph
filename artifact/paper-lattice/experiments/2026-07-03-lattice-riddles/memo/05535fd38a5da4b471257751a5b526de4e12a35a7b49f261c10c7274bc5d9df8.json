@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nstar",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "Match the green star token to its corresponding hole among the star-shaped, square, and round options."
+ }
+}

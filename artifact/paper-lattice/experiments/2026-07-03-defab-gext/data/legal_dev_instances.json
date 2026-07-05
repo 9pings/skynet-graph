@@ -1,0 +1,4261 @@
+{
+  "metadata": {
+    "domain": "legal",
+    "purpose": "local development",
+    "kb_stats": {
+      "rules": 201,
+      "facts": 63,
+      "subset": "full"
+    },
+    "total_instances": 168,
+    "generation_date": "2026-02-12T07:18:10.459160"
+  },
+  "partition_results": {
+    "leaf": {
+      "instances": 20,
+      "defeasible_rules": 63
+    },
+    "rule": {
+      "instances": 0,
+      "defeasible_rules": 201
+    },
+    "rand_0.1": {
+      "instances": 4,
+      "defeasible_rules": 26
+    },
+    "rand_0.2": {
+      "instances": 6,
+      "defeasible_rules": 48
+    },
+    "rand_0.3": {
+      "instances": 13,
+      "defeasible_rules": 88
+    },
+    "rand_0.4": {
+      "instances": 17,
+      "defeasible_rules": 103
+    },
+    "rand_0.5": {
+      "instances": 20,
+      "defeasible_rules": 129
+    },
+    "rand_0.6": {
+      "instances": 20,
+      "defeasible_rules": 157
+    },
+    "rand_0.7": {
+      "instances": 20,
+      "defeasible_rules": 179
+    },
+    "rand_0.8": {
+      "instances": 20,
+      "defeasible_rules": 200
+    },
+    "rand_0.9": {
+      "instances": 20,
+      "defeasible_rules": 232
+    },
+    "depth_1": {
+      "instances": 8,
+      "defeasible_rules": 124
+    }
+  },
+  "instances": [
+    {
+      "target": "legal_document(ferpa)",
+      "level": 2,
+      "candidates": [
+        "df_legal_document(ferpa):  => legal_document(ferpa)",
+        "df_legal_document(service_agreement):  => legal_document(service_agreement)",
+        "df_statute(ada):  => statute(ada)",
+        "df_legal_action(subpoena):  => legal_action(subpoena)",
+        "df_legal_document(partnership_agreement):  => legal_document(partnership_agreement)",
+        "df_statute(ferpa):  => statute(ferpa)"
+      ],
+      "gold": [
+        "df_legal_document(ferpa):  => legal_document(ferpa)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_document(ferpa)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(lease_agreement)",
+      "level": 2,
+      "candidates": [
+        "df_contract(lease_agreement):  => contract(lease_agreement)",
+        "df_legal_document(kyoto_protocol):  => legal_document(kyoto_protocol)",
+        "df_legal_document(lease_agreement):  => legal_document(lease_agreement)",
+        "df_legal_action(filing):  => legal_action(filing)",
+        "df_legal_action(ruling):  => legal_action(ruling)",
+        "df_statute(ccpa):  => statute(ccpa)"
+      ],
+      "gold": [
+        "df_contract(lease_agreement):  => contract(lease_agreement)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(lease_agreement)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "treaty(geneva_convention)",
+      "level": 2,
+      "candidates": [
+        "df_treaty(geneva_convention):  => treaty(geneva_convention)",
+        "df_legal_document(gdpr):  => legal_document(gdpr)",
+        "df_treaty(nuclear_non_proliferation_treaty):  => treaty(nuclear_non_proliferation_treaty)",
+        "df_legal_action(subpoena):  => legal_action(subpoena)",
+        "df_legal_document(clean_air_act):  => legal_document(clean_air_act)",
+        "df_contract(service_agreement):  => contract(service_agreement)"
+      ],
+      "gold": [
+        "df_treaty(geneva_convention):  => treaty(geneva_convention)"
+      ],
+      "metadata": {
+        "ablated_element": "df_treaty(geneva_convention)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_document(hipaa)",
+      "level": 2,
+      "candidates": [
+        "df_legal_document(hipaa):  => legal_document(hipaa)",
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)",
+        "df_legal_document(coppa):  => legal_document(coppa)",
+        "df_legal_action(motion):  => legal_action(motion)",
+        "df_legal_action(warrant):  => legal_action(warrant)",
+        "df_legal_document(voting_rights_act):  => legal_document(voting_rights_act)"
+      ],
+      "gold": [
+        "df_legal_document(hipaa):  => legal_document(hipaa)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_document(hipaa)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(hipaa)",
+      "level": 2,
+      "candidates": [
+        "df_statute(hipaa):  => statute(hipaa)",
+        "df_legal_document(licensing_agreement):  => legal_document(licensing_agreement)",
+        "df_contract(purchase_order):  => contract(purchase_order)",
+        "df_statute(clean_air_act):  => statute(clean_air_act)",
+        "df_statute(coppa):  => statute(coppa)",
+        "df_contract(nda):  => contract(nda)"
+      ],
+      "gold": [
+        "df_statute(hipaa):  => statute(hipaa)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(hipaa)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(service_agreement)",
+      "level": 2,
+      "candidates": [
+        "df_contract(service_agreement):  => contract(service_agreement)",
+        "df_legal_action(subpoena):  => legal_action(subpoena)",
+        "df_legal_document(civil_rights_act):  => legal_document(civil_rights_act)",
+        "df_legal_document(licensing_agreement):  => legal_document(licensing_agreement)",
+        "df_legal_document(nuclear_non_proliferation_treaty):  => legal_document(nuclear_non_proliferation_treaty)",
+        "df_legal_role(jury):  => legal_role(jury)"
+      ],
+      "gold": [
+        "df_contract(service_agreement):  => contract(service_agreement)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(service_agreement)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_document(geneva_convention)",
+      "level": 2,
+      "candidates": [
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)",
+        "df_legal_document(licensing_agreement):  => legal_document(licensing_agreement)",
+        "df_contract(purchase_order):  => contract(purchase_order)",
+        "df_legal_document(sales_contract):  => legal_document(sales_contract)",
+        "df_treaty(nuclear_non_proliferation_treaty):  => treaty(nuclear_non_proliferation_treaty)",
+        "df_legal_document(voting_rights_act):  => legal_document(voting_rights_act)"
+      ],
+      "gold": [
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_document(geneva_convention)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(injunction)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(injunction):  => legal_action(injunction)",
+        "df_statute(clean_water_act):  => statute(clean_water_act)",
+        "df_legal_document(lease_agreement):  => legal_document(lease_agreement)",
+        "df_legal_action(judgment):  => legal_action(judgment)",
+        "df_contract(licensing_agreement):  => contract(licensing_agreement)",
+        "df_legal_document(hipaa):  => legal_document(hipaa)"
+      ],
+      "gold": [
+        "df_legal_action(injunction):  => legal_action(injunction)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(injunction)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(jury)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(jury):  => legal_role(jury)",
+        "df_legal_role(judge):  => legal_role(judge)",
+        "df_legal_document(partnership_agreement):  => legal_document(partnership_agreement)",
+        "df_legal_role(witness):  => legal_role(witness)",
+        "df_legal_action(subpoena):  => legal_action(subpoena)",
+        "df_statute(ccpa):  => statute(ccpa)"
+      ],
+      "gold": [
+        "df_legal_role(jury):  => legal_role(jury)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(jury)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(coppa)",
+      "level": 2,
+      "candidates": [
+        "df_statute(coppa):  => statute(coppa)",
+        "df_legal_document(clean_water_act):  => legal_document(clean_water_act)",
+        "df_legal_role(magistrate):  => legal_role(magistrate)",
+        "df_legal_document(kyoto_protocol):  => legal_document(kyoto_protocol)",
+        "df_legal_document(service_agreement):  => legal_document(service_agreement)",
+        "df_contract(licensing_agreement):  => contract(licensing_agreement)"
+      ],
+      "gold": [
+        "df_statute(coppa):  => statute(coppa)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(coppa)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(partnership_agreement)",
+      "level": 2,
+      "candidates": [
+        "df_contract(partnership_agreement):  => contract(partnership_agreement)",
+        "df_legal_document(voting_rights_act):  => legal_document(voting_rights_act)",
+        "df_legal_action(filing):  => legal_action(filing)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)",
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_legal_document(clean_air_act):  => legal_document(clean_air_act)"
+      ],
+      "gold": [
+        "df_contract(partnership_agreement):  => contract(partnership_agreement)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(partnership_agreement)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_document(purchase_order)",
+      "level": 2,
+      "candidates": [
+        "df_legal_document(purchase_order):  => legal_document(purchase_order)",
+        "df_treaty(nuclear_non_proliferation_treaty):  => treaty(nuclear_non_proliferation_treaty)",
+        "df_contract(nda):  => contract(nda)",
+        "df_legal_role(attorney):  => legal_role(attorney)",
+        "df_legal_action(filing):  => legal_action(filing)",
+        "df_legal_document(service_agreement):  => legal_document(service_agreement)"
+      ],
+      "gold": [
+        "df_legal_document(purchase_order):  => legal_document(purchase_order)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_document(purchase_order)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_document(clean_water_act)",
+      "level": 2,
+      "candidates": [
+        "df_legal_document(clean_water_act):  => legal_document(clean_water_act)",
+        "df_contract(partnership_agreement):  => contract(partnership_agreement)",
+        "df_legal_action(judgment):  => legal_action(judgment)",
+        "df_legal_document(coppa):  => legal_document(coppa)",
+        "df_contract(lease_agreement):  => contract(lease_agreement)",
+        "df_legal_action(appeal):  => legal_action(appeal)"
+      ],
+      "gold": [
+        "df_legal_document(clean_water_act):  => legal_document(clean_water_act)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_document(clean_water_act)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(magistrate)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(magistrate):  => legal_role(magistrate)",
+        "df_contract(partnership_agreement):  => contract(partnership_agreement)",
+        "df_legal_action(injunction):  => legal_action(injunction)",
+        "df_legal_action(subpoena):  => legal_action(subpoena)",
+        "df_legal_document(clean_water_act):  => legal_document(clean_water_act)",
+        "df_legal_document(hipaa):  => legal_document(hipaa)"
+      ],
+      "gold": [
+        "df_legal_role(magistrate):  => legal_role(magistrate)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(magistrate)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "treaty(treaty_of_rome)",
+      "level": 2,
+      "candidates": [
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)",
+        "df_legal_document(licensing_agreement):  => legal_document(licensing_agreement)",
+        "df_legal_document(voting_rights_act):  => legal_document(voting_rights_act)",
+        "df_treaty(kyoto_protocol):  => treaty(kyoto_protocol)",
+        "df_contract(partnership_agreement):  => contract(partnership_agreement)",
+        "df_legal_document(civil_rights_act):  => legal_document(civil_rights_act)"
+      ],
+      "gold": [
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)"
+      ],
+      "metadata": {
+        "ablated_element": "df_treaty(treaty_of_rome)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(employment_contract)",
+      "level": 2,
+      "candidates": [
+        "df_contract(employment_contract):  => contract(employment_contract)",
+        "df_legal_document(voting_rights_act):  => legal_document(voting_rights_act)",
+        "df_legal_action(appeal):  => legal_action(appeal)",
+        "df_legal_document(nuclear_non_proliferation_treaty):  => legal_document(nuclear_non_proliferation_treaty)",
+        "df_legal_document(employment_contract):  => legal_document(employment_contract)",
+        "df_legal_action(subpoena):  => legal_action(subpoena)"
+      ],
+      "gold": [
+        "df_contract(employment_contract):  => contract(employment_contract)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(employment_contract)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_document(sales_contract)",
+      "level": 2,
+      "candidates": [
+        "df_legal_document(sales_contract):  => legal_document(sales_contract)",
+        "df_legal_action(filing):  => legal_action(filing)",
+        "df_contract(purchase_order):  => contract(purchase_order)",
+        "df_legal_action(injunction):  => legal_action(injunction)",
+        "df_legal_role(magistrate):  => legal_role(magistrate)",
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)"
+      ],
+      "gold": [
+        "df_legal_document(sales_contract):  => legal_document(sales_contract)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_document(sales_contract)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_document(treaty_of_rome)",
+      "level": 2,
+      "candidates": [
+        "df_legal_document(treaty_of_rome):  => legal_document(treaty_of_rome)",
+        "df_statute(clean_water_act):  => statute(clean_water_act)",
+        "df_contract(lease_agreement):  => contract(lease_agreement)",
+        "df_legal_document(purchase_order):  => legal_document(purchase_order)",
+        "df_legal_role(attorney):  => legal_role(attorney)",
+        "df_legal_document(hipaa):  => legal_document(hipaa)"
+      ],
+      "gold": [
+        "df_legal_document(treaty_of_rome):  => legal_document(treaty_of_rome)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_document(treaty_of_rome)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(motion)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(motion):  => legal_action(motion)",
+        "df_legal_document(kyoto_protocol):  => legal_document(kyoto_protocol)",
+        "df_legal_document(clean_water_act):  => legal_document(clean_water_act)",
+        "df_legal_action(subpoena):  => legal_action(subpoena)",
+        "df_treaty(kyoto_protocol):  => treaty(kyoto_protocol)",
+        "df_statute(coppa):  => statute(coppa)"
+      ],
+      "gold": [
+        "df_legal_action(motion):  => legal_action(motion)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(motion)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_document(kyoto_protocol)",
+      "level": 2,
+      "candidates": [
+        "df_legal_document(kyoto_protocol):  => legal_document(kyoto_protocol)",
+        "df_legal_document(treaty_of_rome):  => legal_document(treaty_of_rome)",
+        "df_legal_document(purchase_order):  => legal_document(purchase_order)",
+        "df_legal_document(lease_agreement):  => legal_document(lease_agreement)",
+        "df_legal_document(employment_contract):  => legal_document(employment_contract)",
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)"
+      ],
+      "gold": [
+        "df_legal_document(kyoto_protocol):  => legal_document(kyoto_protocol)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_document(kyoto_protocol)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(summons)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)",
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_legal_role(judge):  => legal_role(judge)"
+      ],
+      "gold": [
+        "df_legal_action(summons):  => legal_action(summons)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(summons)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 5,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(defendant)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)",
+        "df_legal_role(judge):  => legal_role(judge)"
+      ],
+      "gold": [
+        "df_legal_role(defendant):  => legal_role(defendant)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(defendant)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 5,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(ccpa)",
+      "level": 2,
+      "candidates": [
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)",
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_legal_role(judge):  => legal_role(judge)",
+        "df_legal_role(defendant):  => legal_role(defendant)"
+      ],
+      "gold": [
+        "df_statute(ccpa):  => statute(ccpa)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(ccpa)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 5,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(judge)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(judge):  => legal_role(judge)",
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)",
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_legal_action(summons):  => legal_action(summons)"
+      ],
+      "gold": [
+        "df_legal_role(judge):  => legal_role(judge)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(judge)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 5,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(summons)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_legal_action(subpoena):  => legal_action(subpoena)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)",
+        "df_legal_document(nda):  => legal_document(nda)",
+        "df_legal_document(paris_agreement):  => legal_document(paris_agreement)",
+        "df_legal_role(judge):  => legal_role(judge)"
+      ],
+      "gold": [
+        "df_legal_action(summons):  => legal_action(summons)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(summons)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(defendant)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_legal_role(judge):  => legal_role(judge)",
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_legal_document(paris_agreement):  => legal_document(paris_agreement)",
+        "df_legal_document(nda):  => legal_document(nda)",
+        "df_legal_action(summons):  => legal_action(summons)"
+      ],
+      "gold": [
+        "df_legal_role(defendant):  => legal_role(defendant)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(defendant)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(sales_contract)",
+      "level": 2,
+      "candidates": [
+        "df_contract(sales_contract):  => contract(sales_contract)",
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_legal_role(judge):  => legal_role(judge)",
+        "df_legal_document(paris_agreement):  => legal_document(paris_agreement)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)",
+        "df_legal_action(subpoena):  => legal_action(subpoena)"
+      ],
+      "gold": [
+        "df_contract(sales_contract):  => contract(sales_contract)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(sales_contract)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(ccpa)",
+      "level": 2,
+      "candidates": [
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_legal_document(nda):  => legal_document(nda)",
+        "df_contract(sales_contract):  => contract(sales_contract)",
+        "df_legal_role(judge):  => legal_role(judge)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)",
+        "df_legal_action(summons):  => legal_action(summons)"
+      ],
+      "gold": [
+        "df_statute(ccpa):  => statute(ccpa)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(ccpa)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(judge)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(judge):  => legal_role(judge)",
+        "df_legal_action(subpoena):  => legal_action(subpoena)",
+        "df_legal_document(nda):  => legal_document(nda)",
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_legal_document(paris_agreement):  => legal_document(paris_agreement)"
+      ],
+      "gold": [
+        "df_legal_role(judge):  => legal_role(judge)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(judge)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(subpoena)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(subpoena):  => legal_action(subpoena)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)",
+        "df_legal_document(nda):  => legal_document(nda)",
+        "df_legal_document(paris_agreement):  => legal_document(paris_agreement)",
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_statute(ccpa):  => statute(ccpa)"
+      ],
+      "gold": [
+        "df_legal_action(subpoena):  => legal_action(subpoena)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(subpoena)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(service_agreement)",
+      "level": 2,
+      "candidates": [
+        "df_contract(service_agreement):  => contract(service_agreement)",
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_legal_document(paris_agreement):  => legal_document(paris_agreement)",
+        "df_statute(clean_air_act):  => statute(clean_air_act)",
+        "df_legal_role(witness):  => legal_role(witness)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)"
+      ],
+      "gold": [
+        "df_contract(service_agreement):  => contract(service_agreement)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(service_agreement)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(jury)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(jury):  => legal_role(jury)",
+        "df_legal_role(judge):  => legal_role(judge)",
+        "df_contract(service_agreement):  => contract(service_agreement)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)",
+        "df_legal_document(treaty_of_rome):  => legal_document(treaty_of_rome)",
+        "df_legal_role(defendant):  => legal_role(defendant)"
+      ],
+      "gold": [
+        "df_legal_role(jury):  => legal_role(jury)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(jury)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(coppa)",
+      "level": 2,
+      "candidates": [
+        "df_statute(coppa):  => statute(coppa)",
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_legal_document(paris_agreement):  => legal_document(paris_agreement)",
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_legal_action(motion):  => legal_action(motion)",
+        "df_legal_document(employment_contract):  => legal_document(employment_contract)"
+      ],
+      "gold": [
+        "df_statute(coppa):  => statute(coppa)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(coppa)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(motion)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(motion):  => legal_action(motion)",
+        "df_legal_role(witness):  => legal_role(witness)",
+        "df_contract(service_agreement):  => contract(service_agreement)",
+        "df_legal_document(treaty_of_rome):  => legal_document(treaty_of_rome)",
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_legal_document(employment_contract):  => legal_document(employment_contract)"
+      ],
+      "gold": [
+        "df_legal_action(motion):  => legal_action(motion)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(motion)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(summons)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_legal_document(civil_rights_act):  => legal_document(civil_rights_act)",
+        "df_legal_role(judge):  => legal_role(judge)",
+        "df_contract(sales_contract):  => contract(sales_contract)",
+        "df_legal_role(jury):  => legal_role(jury)"
+      ],
+      "gold": [
+        "df_legal_action(summons):  => legal_action(summons)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(summons)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(defendant)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_legal_document(nda):  => legal_document(nda)",
+        "df_legal_document(employment_contract):  => legal_document(employment_contract)",
+        "df_legal_action(subpoena):  => legal_action(subpoena)",
+        "df_legal_role(judge):  => legal_role(judge)",
+        "df_legal_document(treaty_of_rome):  => legal_document(treaty_of_rome)"
+      ],
+      "gold": [
+        "df_legal_role(defendant):  => legal_role(defendant)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(defendant)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(sales_contract)",
+      "level": 2,
+      "candidates": [
+        "df_contract(sales_contract):  => contract(sales_contract)",
+        "df_legal_document(civil_rights_act):  => legal_document(civil_rights_act)",
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_statute(coppa):  => statute(coppa)",
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_contract(service_agreement):  => contract(service_agreement)"
+      ],
+      "gold": [
+        "df_contract(sales_contract):  => contract(sales_contract)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(sales_contract)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(ccpa)",
+      "level": 2,
+      "candidates": [
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_contract(service_agreement):  => contract(service_agreement)",
+        "df_legal_document(paris_agreement):  => legal_document(paris_agreement)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)",
+        "df_legal_action(motion):  => legal_action(motion)",
+        "df_legal_document(treaty_of_rome):  => legal_document(treaty_of_rome)"
+      ],
+      "gold": [
+        "df_statute(ccpa):  => statute(ccpa)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(ccpa)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(judge)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(judge):  => legal_role(judge)",
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)",
+        "df_legal_action(subpoena):  => legal_action(subpoena)",
+        "df_contract(service_agreement):  => contract(service_agreement)",
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_legal_document(treaty_of_rome):  => legal_document(treaty_of_rome)"
+      ],
+      "gold": [
+        "df_legal_role(judge):  => legal_role(judge)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(judge)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(witness)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(witness):  => legal_role(witness)",
+        "df_statute(coppa):  => statute(coppa)",
+        "df_legal_document(paris_agreement):  => legal_document(paris_agreement)",
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_legal_role(jury):  => legal_role(jury)",
+        "df_statute(ccpa):  => statute(ccpa)"
+      ],
+      "gold": [
+        "df_legal_role(witness):  => legal_role(witness)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(witness)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(plaintiff)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)",
+        "df_legal_document(civil_rights_act):  => legal_document(civil_rights_act)",
+        "df_contract(service_agreement):  => contract(service_agreement)",
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_statute(coppa):  => statute(coppa)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)"
+      ],
+      "gold": [
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(plaintiff)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(subpoena)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(subpoena):  => legal_action(subpoena)",
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)",
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_legal_role(judge):  => legal_role(judge)",
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_contract(sales_contract):  => contract(sales_contract)"
+      ],
+      "gold": [
+        "df_legal_action(subpoena):  => legal_action(subpoena)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(subpoena)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(clean_air_act)",
+      "level": 2,
+      "candidates": [
+        "df_statute(clean_air_act):  => statute(clean_air_act)",
+        "df_legal_document(employment_contract):  => legal_document(employment_contract)",
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)",
+        "df_legal_document(civil_rights_act):  => legal_document(civil_rights_act)",
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_legal_action(subpoena):  => legal_action(subpoena)"
+      ],
+      "gold": [
+        "df_statute(clean_air_act):  => statute(clean_air_act)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(clean_air_act)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(service_agreement)",
+      "level": 2,
+      "candidates": [
+        "df_contract(service_agreement):  => contract(service_agreement)",
+        "df_legal_role(attorney):  => legal_role(attorney)",
+        "df_legal_action(subpoena):  => legal_action(subpoena)",
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)",
+        "df_legal_role(jury):  => legal_role(jury)",
+        "df_contract(sales_contract):  => contract(sales_contract)"
+      ],
+      "gold": [
+        "df_contract(service_agreement):  => contract(service_agreement)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(service_agreement)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(injunction)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(injunction):  => legal_action(injunction)",
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)",
+        "df_legal_document(paris_agreement):  => legal_document(paris_agreement)",
+        "df_legal_document(employment_contract):  => legal_document(employment_contract)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)",
+        "df_contract(sales_contract):  => contract(sales_contract)"
+      ],
+      "gold": [
+        "df_legal_action(injunction):  => legal_action(injunction)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(injunction)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(jury)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(jury):  => legal_role(jury)",
+        "df_statute(coppa):  => statute(coppa)",
+        "df_legal_document(treaty_of_rome):  => legal_document(treaty_of_rome)",
+        "df_legal_document(paris_agreement):  => legal_document(paris_agreement)",
+        "df_legal_action(subpoena):  => legal_action(subpoena)",
+        "df_legal_action(summons):  => legal_action(summons)"
+      ],
+      "gold": [
+        "df_legal_role(jury):  => legal_role(jury)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(jury)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(coppa)",
+      "level": 2,
+      "candidates": [
+        "df_statute(coppa):  => statute(coppa)",
+        "df_legal_document(clean_water_act):  => legal_document(clean_water_act)",
+        "df_legal_role(witness):  => legal_role(witness)",
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_contract(service_agreement):  => contract(service_agreement)",
+        "df_legal_document(paris_agreement):  => legal_document(paris_agreement)"
+      ],
+      "gold": [
+        "df_statute(coppa):  => statute(coppa)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(coppa)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "treaty(treaty_of_rome)",
+      "level": 2,
+      "candidates": [
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)",
+        "df_legal_document(treaty_of_rome):  => legal_document(treaty_of_rome)",
+        "df_legal_document(clean_water_act):  => legal_document(clean_water_act)",
+        "df_legal_document(paris_agreement):  => legal_document(paris_agreement)",
+        "df_statute(coppa):  => statute(coppa)",
+        "df_legal_role(jury):  => legal_role(jury)"
+      ],
+      "gold": [
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)"
+      ],
+      "metadata": {
+        "ablated_element": "df_treaty(treaty_of_rome)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(motion)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(motion):  => legal_action(motion)",
+        "df_statute(coppa):  => statute(coppa)",
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)",
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)",
+        "df_legal_document(clean_water_act):  => legal_document(clean_water_act)"
+      ],
+      "gold": [
+        "df_legal_action(motion):  => legal_action(motion)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(motion)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(attorney)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(attorney):  => legal_role(attorney)",
+        "df_legal_action(subpoena):  => legal_action(subpoena)",
+        "df_legal_role(witness):  => legal_role(witness)",
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)"
+      ],
+      "gold": [
+        "df_legal_role(attorney):  => legal_role(attorney)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(attorney)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(summons)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_legal_document(nda):  => legal_document(nda)",
+        "df_statute(coppa):  => statute(coppa)",
+        "df_legal_role(attorney):  => legal_role(attorney)",
+        "df_contract(service_agreement):  => contract(service_agreement)",
+        "df_legal_document(paris_agreement):  => legal_document(paris_agreement)"
+      ],
+      "gold": [
+        "df_legal_action(summons):  => legal_action(summons)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(summons)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(defendant)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_legal_role(judge):  => legal_role(judge)",
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_legal_document(paris_agreement):  => legal_document(paris_agreement)",
+        "df_contract(licensing_agreement):  => contract(licensing_agreement)"
+      ],
+      "gold": [
+        "df_legal_role(defendant):  => legal_role(defendant)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(defendant)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(sales_contract)",
+      "level": 2,
+      "candidates": [
+        "df_contract(sales_contract):  => contract(sales_contract)",
+        "df_statute(clean_air_act):  => statute(clean_air_act)",
+        "df_legal_action(subpoena):  => legal_action(subpoena)",
+        "df_statute(coppa):  => statute(coppa)",
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_legal_role(judge):  => legal_role(judge)"
+      ],
+      "gold": [
+        "df_contract(sales_contract):  => contract(sales_contract)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(sales_contract)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(ccpa)",
+      "level": 2,
+      "candidates": [
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_legal_role(attorney):  => legal_role(attorney)",
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)",
+        "df_contract(sales_contract):  => contract(sales_contract)",
+        "df_legal_document(clean_water_act):  => legal_document(clean_water_act)",
+        "df_legal_role(defendant):  => legal_role(defendant)"
+      ],
+      "gold": [
+        "df_statute(ccpa):  => statute(ccpa)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(ccpa)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(licensing_agreement)",
+      "level": 2,
+      "candidates": [
+        "df_contract(licensing_agreement):  => contract(licensing_agreement)",
+        "df_legal_document(clean_water_act):  => legal_document(clean_water_act)",
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_legal_document(civil_rights_act):  => legal_document(civil_rights_act)",
+        "df_legal_document(paris_agreement):  => legal_document(paris_agreement)",
+        "df_legal_document(treaty_of_rome):  => legal_document(treaty_of_rome)"
+      ],
+      "gold": [
+        "df_contract(licensing_agreement):  => contract(licensing_agreement)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(licensing_agreement)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(judge)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(judge):  => legal_role(judge)",
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)",
+        "df_legal_document(treaty_of_rome):  => legal_document(treaty_of_rome)",
+        "df_contract(sales_contract):  => contract(sales_contract)",
+        "df_legal_action(motion):  => legal_action(motion)",
+        "df_legal_document(civil_rights_act):  => legal_document(civil_rights_act)"
+      ],
+      "gold": [
+        "df_legal_role(judge):  => legal_role(judge)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(judge)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(witness)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(witness):  => legal_role(witness)",
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)",
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_legal_document(treaty_of_rome):  => legal_document(treaty_of_rome)",
+        "df_legal_role(jury):  => legal_role(jury)",
+        "df_contract(sales_contract):  => contract(sales_contract)"
+      ],
+      "gold": [
+        "df_legal_role(witness):  => legal_role(witness)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(witness)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(plaintiff)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)",
+        "df_legal_role(witness):  => legal_role(witness)",
+        "df_legal_action(subpoena):  => legal_action(subpoena)",
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_statute(clean_air_act):  => statute(clean_air_act)",
+        "df_legal_role(attorney):  => legal_role(attorney)"
+      ],
+      "gold": [
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(plaintiff)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(subpoena)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(subpoena):  => legal_action(subpoena)",
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)",
+        "df_legal_document(employment_contract):  => legal_document(employment_contract)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)",
+        "df_legal_document(clean_water_act):  => legal_document(clean_water_act)",
+        "df_statute(clean_air_act):  => statute(clean_air_act)"
+      ],
+      "gold": [
+        "df_legal_action(subpoena):  => legal_action(subpoena)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(subpoena)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(clean_air_act)",
+      "level": 2,
+      "candidates": [
+        "df_statute(clean_air_act):  => statute(clean_air_act)",
+        "df_contract(service_agreement):  => contract(service_agreement)",
+        "df_statute(coppa):  => statute(coppa)",
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)",
+        "df_legal_document(clean_water_act):  => legal_document(clean_water_act)",
+        "df_legal_document(civil_rights_act):  => legal_document(civil_rights_act)"
+      ],
+      "gold": [
+        "df_statute(clean_air_act):  => statute(clean_air_act)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(clean_air_act)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(service_agreement)",
+      "level": 2,
+      "candidates": [
+        "df_contract(service_agreement):  => contract(service_agreement)",
+        "df_legal_document(nda):  => legal_document(nda)",
+        "df_legal_document(clean_water_act):  => legal_document(clean_water_act)",
+        "df_statute(civil_rights_act):  => statute(civil_rights_act)",
+        "df_statute(ada):  => statute(ada)",
+        "df_legal_document(employment_contract):  => legal_document(employment_contract)"
+      ],
+      "gold": [
+        "df_contract(service_agreement):  => contract(service_agreement)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(service_agreement)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(injunction)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(injunction):  => legal_action(injunction)",
+        "df_legal_document(nda):  => legal_document(nda)",
+        "df_legal_document(employment_contract):  => legal_document(employment_contract)",
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)",
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_contract(licensing_agreement):  => contract(licensing_agreement)"
+      ],
+      "gold": [
+        "df_legal_action(injunction):  => legal_action(injunction)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(injunction)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(jury)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(jury):  => legal_role(jury)",
+        "df_contract(sales_contract):  => contract(sales_contract)",
+        "df_legal_document(clean_water_act):  => legal_document(clean_water_act)",
+        "df_legal_action(subpoena):  => legal_action(subpoena)",
+        "df_legal_role(witness):  => legal_role(witness)",
+        "df_legal_document(treaty_of_rome):  => legal_document(treaty_of_rome)"
+      ],
+      "gold": [
+        "df_legal_role(jury):  => legal_role(jury)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(jury)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(coppa)",
+      "level": 2,
+      "candidates": [
+        "df_statute(coppa):  => statute(coppa)",
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)",
+        "df_legal_role(judge):  => legal_role(judge)",
+        "df_contract(licensing_agreement):  => contract(licensing_agreement)",
+        "df_statute(ada):  => statute(ada)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)"
+      ],
+      "gold": [
+        "df_statute(coppa):  => statute(coppa)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(coppa)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "treaty(treaty_of_rome)",
+      "level": 2,
+      "candidates": [
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)",
+        "df_statute(gdpr):  => statute(gdpr)",
+        "df_legal_document(treaty_of_rome):  => legal_document(treaty_of_rome)",
+        "df_legal_action(injunction):  => legal_action(injunction)",
+        "df_legal_document(clean_water_act):  => legal_document(clean_water_act)",
+        "df_statute(coppa):  => statute(coppa)"
+      ],
+      "gold": [
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)"
+      ],
+      "metadata": {
+        "ablated_element": "df_treaty(treaty_of_rome)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_document(sales_contract)",
+      "level": 2,
+      "candidates": [
+        "df_legal_document(sales_contract):  => legal_document(sales_contract)",
+        "df_legal_document(nda):  => legal_document(nda)",
+        "df_legal_role(attorney):  => legal_role(attorney)",
+        "df_statute(civil_rights_act):  => statute(civil_rights_act)",
+        "df_legal_document(civil_rights_act):  => legal_document(civil_rights_act)",
+        "df_legal_document(clean_water_act):  => legal_document(clean_water_act)"
+      ],
+      "gold": [
+        "df_legal_document(sales_contract):  => legal_document(sales_contract)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_document(sales_contract)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(motion)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(motion):  => legal_action(motion)",
+        "df_statute(coppa):  => statute(coppa)",
+        "df_legal_document(sales_contract):  => legal_document(sales_contract)",
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_legal_role(attorney):  => legal_role(attorney)",
+        "df_legal_role(witness):  => legal_role(witness)"
+      ],
+      "gold": [
+        "df_legal_action(motion):  => legal_action(motion)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(motion)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(attorney)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(attorney):  => legal_role(attorney)",
+        "df_legal_document(sales_contract):  => legal_document(sales_contract)",
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_legal_document(clean_water_act):  => legal_document(clean_water_act)",
+        "df_statute(gdpr):  => statute(gdpr)",
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)"
+      ],
+      "gold": [
+        "df_legal_role(attorney):  => legal_role(attorney)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(attorney)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(summons)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_legal_action(subpoena):  => legal_action(subpoena)",
+        "df_legal_document(treaty_of_rome):  => legal_document(treaty_of_rome)",
+        "df_contract(licensing_agreement):  => contract(licensing_agreement)",
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)",
+        "df_contract(sales_contract):  => contract(sales_contract)"
+      ],
+      "gold": [
+        "df_legal_action(summons):  => legal_action(summons)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(summons)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(defendant)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_legal_role(jury):  => legal_role(jury)",
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)",
+        "df_statute(gdpr):  => statute(gdpr)",
+        "df_legal_document(civil_rights_act):  => legal_document(civil_rights_act)",
+        "df_legal_document(sales_contract):  => legal_document(sales_contract)"
+      ],
+      "gold": [
+        "df_legal_role(defendant):  => legal_role(defendant)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(defendant)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(sales_contract)",
+      "level": 2,
+      "candidates": [
+        "df_contract(sales_contract):  => contract(sales_contract)",
+        "df_legal_role(attorney):  => legal_role(attorney)",
+        "df_legal_role(witness):  => legal_role(witness)",
+        "df_statute(ada):  => statute(ada)",
+        "df_contract(licensing_agreement):  => contract(licensing_agreement)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)"
+      ],
+      "gold": [
+        "df_contract(sales_contract):  => contract(sales_contract)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(sales_contract)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(ada)",
+      "level": 2,
+      "candidates": [
+        "df_statute(ada):  => statute(ada)",
+        "df_legal_role(attorney):  => legal_role(attorney)",
+        "df_statute(coppa):  => statute(coppa)",
+        "df_legal_role(jury):  => legal_role(jury)",
+        "df_statute(civil_rights_act):  => statute(civil_rights_act)",
+        "df_statute(clean_air_act):  => statute(clean_air_act)"
+      ],
+      "gold": [
+        "df_statute(ada):  => statute(ada)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(ada)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(ccpa)",
+      "level": 2,
+      "candidates": [
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_legal_document(paris_agreement):  => legal_document(paris_agreement)",
+        "df_statute(ada):  => statute(ada)",
+        "df_statute(gdpr):  => statute(gdpr)",
+        "df_legal_action(injunction):  => legal_action(injunction)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)"
+      ],
+      "gold": [
+        "df_statute(ccpa):  => statute(ccpa)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(ccpa)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(licensing_agreement)",
+      "level": 2,
+      "candidates": [
+        "df_contract(licensing_agreement):  => contract(licensing_agreement)",
+        "df_statute(clean_air_act):  => statute(clean_air_act)",
+        "df_legal_document(civil_rights_act):  => legal_document(civil_rights_act)",
+        "df_legal_document(paris_agreement):  => legal_document(paris_agreement)",
+        "df_statute(ada):  => statute(ada)",
+        "df_statute(gdpr):  => statute(gdpr)"
+      ],
+      "gold": [
+        "df_contract(licensing_agreement):  => contract(licensing_agreement)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(licensing_agreement)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(judge)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(judge):  => legal_role(judge)",
+        "df_statute(civil_rights_act):  => statute(civil_rights_act)",
+        "df_legal_document(treaty_of_rome):  => legal_document(treaty_of_rome)",
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)",
+        "df_contract(sales_contract):  => contract(sales_contract)",
+        "df_legal_role(attorney):  => legal_role(attorney)"
+      ],
+      "gold": [
+        "df_legal_role(judge):  => legal_role(judge)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(judge)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(witness)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(witness):  => legal_role(witness)",
+        "df_statute(ada):  => statute(ada)",
+        "df_statute(clean_air_act):  => statute(clean_air_act)",
+        "df_legal_document(clean_water_act):  => legal_document(clean_water_act)",
+        "df_legal_action(motion):  => legal_action(motion)",
+        "df_legal_role(jury):  => legal_role(jury)"
+      ],
+      "gold": [
+        "df_legal_role(witness):  => legal_role(witness)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(witness)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(civil_rights_act)",
+      "level": 2,
+      "candidates": [
+        "df_statute(civil_rights_act):  => statute(civil_rights_act)",
+        "df_legal_document(paris_agreement):  => legal_document(paris_agreement)",
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)",
+        "df_legal_document(civil_rights_act):  => legal_document(civil_rights_act)",
+        "df_legal_action(injunction):  => legal_action(injunction)"
+      ],
+      "gold": [
+        "df_statute(civil_rights_act):  => statute(civil_rights_act)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(civil_rights_act)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(gdpr)",
+      "level": 2,
+      "candidates": [
+        "df_statute(gdpr):  => statute(gdpr)",
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_legal_role(jury):  => legal_role(jury)",
+        "df_contract(sales_contract):  => contract(sales_contract)",
+        "df_legal_action(injunction):  => legal_action(injunction)"
+      ],
+      "gold": [
+        "df_statute(gdpr):  => statute(gdpr)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(gdpr)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(plaintiff)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)",
+        "df_legal_document(sales_contract):  => legal_document(sales_contract)",
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_contract(service_agreement):  => contract(service_agreement)",
+        "df_legal_action(subpoena):  => legal_action(subpoena)",
+        "df_legal_document(paris_agreement):  => legal_document(paris_agreement)"
+      ],
+      "gold": [
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(plaintiff)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(subpoena)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(subpoena):  => legal_action(subpoena)",
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_legal_role(jury):  => legal_role(jury)",
+        "df_contract(service_agreement):  => contract(service_agreement)",
+        "df_legal_role(witness):  => legal_role(witness)",
+        "df_statute(ccpa):  => statute(ccpa)"
+      ],
+      "gold": [
+        "df_legal_action(subpoena):  => legal_action(subpoena)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(subpoena)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(lease_agreement)",
+      "level": 2,
+      "candidates": [
+        "df_contract(lease_agreement):  => contract(lease_agreement)",
+        "df_treaty(paris_agreement):  => treaty(paris_agreement)",
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_statute(clean_air_act):  => statute(clean_air_act)",
+        "df_legal_action(injunction):  => legal_action(injunction)",
+        "df_legal_role(jury):  => legal_role(jury)"
+      ],
+      "gold": [
+        "df_contract(lease_agreement):  => contract(lease_agreement)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(lease_agreement)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(service_agreement)",
+      "level": 2,
+      "candidates": [
+        "df_contract(service_agreement):  => contract(service_agreement)",
+        "df_legal_document(kyoto_protocol):  => legal_document(kyoto_protocol)",
+        "df_legal_action(injunction):  => legal_action(injunction)",
+        "df_statute(voting_rights_act):  => statute(voting_rights_act)",
+        "df_legal_document(clean_water_act):  => legal_document(clean_water_act)",
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)"
+      ],
+      "gold": [
+        "df_contract(service_agreement):  => contract(service_agreement)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(service_agreement)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(injunction)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(injunction):  => legal_action(injunction)",
+        "df_statute(ferpa):  => statute(ferpa)",
+        "df_legal_document(voting_rights_act):  => legal_document(voting_rights_act)",
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)",
+        "df_legal_document(sales_contract):  => legal_document(sales_contract)",
+        "df_legal_role(judge):  => legal_role(judge)"
+      ],
+      "gold": [
+        "df_legal_action(injunction):  => legal_action(injunction)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(injunction)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(jury)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(jury):  => legal_role(jury)",
+        "df_legal_role(prosecutor):  => legal_role(prosecutor)",
+        "df_legal_action(filing):  => legal_action(filing)",
+        "df_contract(service_agreement):  => contract(service_agreement)",
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_contract(lease_agreement):  => contract(lease_agreement)"
+      ],
+      "gold": [
+        "df_legal_role(jury):  => legal_role(jury)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(jury)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(coppa)",
+      "level": 2,
+      "candidates": [
+        "df_statute(coppa):  => statute(coppa)",
+        "df_statute(voting_rights_act):  => statute(voting_rights_act)",
+        "df_statute(ferpa):  => statute(ferpa)",
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)",
+        "df_legal_document(kyoto_protocol):  => legal_document(kyoto_protocol)"
+      ],
+      "gold": [
+        "df_statute(coppa):  => statute(coppa)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(coppa)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "treaty(treaty_of_rome)",
+      "level": 2,
+      "candidates": [
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)",
+        "df_legal_action(filing):  => legal_action(filing)",
+        "df_legal_role(witness):  => legal_role(witness)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)",
+        "df_contract(service_agreement):  => contract(service_agreement)",
+        "df_statute(coppa):  => statute(coppa)"
+      ],
+      "gold": [
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)"
+      ],
+      "metadata": {
+        "ablated_element": "df_treaty(treaty_of_rome)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_document(sales_contract)",
+      "level": 2,
+      "candidates": [
+        "df_legal_document(sales_contract):  => legal_document(sales_contract)",
+        "df_legal_action(injunction):  => legal_action(injunction)",
+        "df_legal_role(witness):  => legal_role(witness)",
+        "df_legal_document(nda):  => legal_document(nda)",
+        "df_contract(service_agreement):  => contract(service_agreement)",
+        "df_statute(ada):  => statute(ada)"
+      ],
+      "gold": [
+        "df_legal_document(sales_contract):  => legal_document(sales_contract)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_document(sales_contract)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(motion)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(motion):  => legal_action(motion)",
+        "df_legal_action(subpoena):  => legal_action(subpoena)",
+        "df_statute(clean_air_act):  => statute(clean_air_act)",
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)",
+        "df_legal_document(civil_rights_act):  => legal_document(civil_rights_act)",
+        "df_legal_role(judge):  => legal_role(judge)"
+      ],
+      "gold": [
+        "df_legal_action(motion):  => legal_action(motion)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(motion)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "treaty(paris_agreement)",
+      "level": 2,
+      "candidates": [
+        "df_treaty(paris_agreement):  => treaty(paris_agreement)",
+        "df_statute(gdpr):  => statute(gdpr)",
+        "df_legal_document(employment_contract):  => legal_document(employment_contract)",
+        "df_legal_document(sales_contract):  => legal_document(sales_contract)",
+        "df_statute(civil_rights_act):  => statute(civil_rights_act)",
+        "df_contract(sales_contract):  => contract(sales_contract)"
+      ],
+      "gold": [
+        "df_treaty(paris_agreement):  => treaty(paris_agreement)"
+      ],
+      "metadata": {
+        "ablated_element": "df_treaty(paris_agreement)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(attorney)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(attorney):  => legal_role(attorney)",
+        "df_legal_document(voting_rights_act):  => legal_document(voting_rights_act)",
+        "df_legal_action(motion):  => legal_action(motion)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)",
+        "df_legal_document(sales_contract):  => legal_document(sales_contract)",
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)"
+      ],
+      "gold": [
+        "df_legal_role(attorney):  => legal_role(attorney)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(attorney)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(filing)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(filing):  => legal_action(filing)",
+        "df_statute(gdpr):  => statute(gdpr)",
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)",
+        "df_legal_role(witness):  => legal_role(witness)",
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_legal_action(injunction):  => legal_action(injunction)"
+      ],
+      "gold": [
+        "df_legal_action(filing):  => legal_action(filing)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(filing)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(summons)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_statute(ada):  => statute(ada)",
+        "df_legal_document(kyoto_protocol):  => legal_document(kyoto_protocol)",
+        "df_treaty(paris_agreement):  => treaty(paris_agreement)",
+        "df_statute(coppa):  => statute(coppa)",
+        "df_legal_document(paris_agreement):  => legal_document(paris_agreement)"
+      ],
+      "gold": [
+        "df_legal_action(summons):  => legal_action(summons)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(summons)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(defendant)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_legal_role(jury):  => legal_role(jury)",
+        "df_contract(licensing_agreement):  => contract(licensing_agreement)",
+        "df_statute(voting_rights_act):  => statute(voting_rights_act)",
+        "df_legal_document(treaty_of_rome):  => legal_document(treaty_of_rome)",
+        "df_contract(sales_contract):  => contract(sales_contract)"
+      ],
+      "gold": [
+        "df_legal_role(defendant):  => legal_role(defendant)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(defendant)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(sales_contract)",
+      "level": 2,
+      "candidates": [
+        "df_contract(sales_contract):  => contract(sales_contract)",
+        "df_statute(clean_air_act):  => statute(clean_air_act)",
+        "df_legal_document(nda):  => legal_document(nda)",
+        "df_legal_document(clean_air_act):  => legal_document(clean_air_act)",
+        "df_legal_document(sales_contract):  => legal_document(sales_contract)",
+        "df_statute(coppa):  => statute(coppa)"
+      ],
+      "gold": [
+        "df_contract(sales_contract):  => contract(sales_contract)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(sales_contract)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(ada)",
+      "level": 2,
+      "candidates": [
+        "df_statute(ada):  => statute(ada)",
+        "df_treaty(paris_agreement):  => treaty(paris_agreement)",
+        "df_contract(licensing_agreement):  => contract(licensing_agreement)",
+        "df_legal_document(employment_contract):  => legal_document(employment_contract)",
+        "df_statute(clean_air_act):  => statute(clean_air_act)",
+        "df_statute(gdpr):  => statute(gdpr)"
+      ],
+      "gold": [
+        "df_statute(ada):  => statute(ada)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(ada)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(ccpa)",
+      "level": 2,
+      "candidates": [
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_legal_document(clean_air_act):  => legal_document(clean_air_act)",
+        "df_legal_action(injunction):  => legal_action(injunction)",
+        "df_legal_action(filing):  => legal_action(filing)",
+        "df_statute(coppa):  => statute(coppa)",
+        "df_legal_document(treaty_of_rome):  => legal_document(treaty_of_rome)"
+      ],
+      "gold": [
+        "df_statute(ccpa):  => statute(ccpa)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(ccpa)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(licensing_agreement)",
+      "level": 2,
+      "candidates": [
+        "df_contract(licensing_agreement):  => contract(licensing_agreement)",
+        "df_statute(voting_rights_act):  => statute(voting_rights_act)",
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)",
+        "df_legal_document(sales_contract):  => legal_document(sales_contract)",
+        "df_statute(ada):  => statute(ada)"
+      ],
+      "gold": [
+        "df_contract(licensing_agreement):  => contract(licensing_agreement)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(licensing_agreement)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(judge)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(judge):  => legal_role(judge)",
+        "df_legal_action(motion):  => legal_action(motion)",
+        "df_statute(clean_air_act):  => statute(clean_air_act)",
+        "df_contract(licensing_agreement):  => contract(licensing_agreement)",
+        "df_legal_document(civil_rights_act):  => legal_document(civil_rights_act)",
+        "df_legal_document(clean_water_act):  => legal_document(clean_water_act)"
+      ],
+      "gold": [
+        "df_legal_role(judge):  => legal_role(judge)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(judge)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(prosecutor)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(prosecutor):  => legal_role(prosecutor)",
+        "df_legal_action(motion):  => legal_action(motion)",
+        "df_legal_action(injunction):  => legal_action(injunction)",
+        "df_legal_document(treaty_of_rome):  => legal_document(treaty_of_rome)",
+        "df_statute(gdpr):  => statute(gdpr)",
+        "df_legal_document(paris_agreement):  => legal_document(paris_agreement)"
+      ],
+      "gold": [
+        "df_legal_role(prosecutor):  => legal_role(prosecutor)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(prosecutor)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(witness)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(witness):  => legal_role(witness)",
+        "df_contract(licensing_agreement):  => contract(licensing_agreement)",
+        "df_statute(ferpa):  => statute(ferpa)",
+        "df_legal_action(filing):  => legal_action(filing)",
+        "df_statute(clean_air_act):  => statute(clean_air_act)",
+        "df_legal_document(nda):  => legal_document(nda)"
+      ],
+      "gold": [
+        "df_legal_role(witness):  => legal_role(witness)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(witness)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(lease_agreement)",
+      "level": 2,
+      "candidates": [
+        "df_contract(lease_agreement):  => contract(lease_agreement)",
+        "df_legal_action(motion):  => legal_action(motion)",
+        "df_legal_action(injunction):  => legal_action(injunction)",
+        "df_statute(ada):  => statute(ada)",
+        "df_legal_document(employment_contract):  => legal_document(employment_contract)",
+        "df_legal_action(subpoena):  => legal_action(subpoena)"
+      ],
+      "gold": [
+        "df_contract(lease_agreement):  => contract(lease_agreement)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(lease_agreement)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "treaty(geneva_convention)",
+      "level": 2,
+      "candidates": [
+        "df_treaty(geneva_convention):  => treaty(geneva_convention)",
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_contract(sales_contract):  => contract(sales_contract)",
+        "df_statute(clean_air_act):  => statute(clean_air_act)",
+        "df_legal_action(motion):  => legal_action(motion)"
+      ],
+      "gold": [
+        "df_treaty(geneva_convention):  => treaty(geneva_convention)"
+      ],
+      "metadata": {
+        "ablated_element": "df_treaty(geneva_convention)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(service_agreement)",
+      "level": 2,
+      "candidates": [
+        "df_contract(service_agreement):  => contract(service_agreement)",
+        "df_legal_role(judge):  => legal_role(judge)",
+        "df_contract(licensing_agreement):  => contract(licensing_agreement)",
+        "df_legal_document(ccpa):  => legal_document(ccpa)",
+        "df_legal_role(jury):  => legal_role(jury)",
+        "df_legal_document(employment_contract):  => legal_document(employment_contract)"
+      ],
+      "gold": [
+        "df_contract(service_agreement):  => contract(service_agreement)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(service_agreement)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(injunction)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(injunction):  => legal_action(injunction)",
+        "df_legal_document(nda):  => legal_document(nda)",
+        "df_legal_document(ccpa):  => legal_document(ccpa)",
+        "df_legal_action(ruling):  => legal_action(ruling)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)",
+        "df_contract(nda):  => contract(nda)"
+      ],
+      "gold": [
+        "df_legal_action(injunction):  => legal_action(injunction)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(injunction)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(jury)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(jury):  => legal_role(jury)",
+        "df_legal_document(paris_agreement):  => legal_document(paris_agreement)",
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)",
+        "df_legal_action(subpoena):  => legal_action(subpoena)",
+        "df_legal_document(clean_air_act):  => legal_document(clean_air_act)",
+        "df_statute(ferpa):  => statute(ferpa)"
+      ],
+      "gold": [
+        "df_legal_role(jury):  => legal_role(jury)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(jury)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(coppa)",
+      "level": 2,
+      "candidates": [
+        "df_statute(coppa):  => statute(coppa)",
+        "df_legal_role(judge):  => legal_role(judge)",
+        "df_legal_document(ccpa):  => legal_document(ccpa)",
+        "df_legal_document(sales_contract):  => legal_document(sales_contract)",
+        "df_statute(civil_rights_act):  => statute(civil_rights_act)",
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)"
+      ],
+      "gold": [
+        "df_statute(coppa):  => statute(coppa)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(coppa)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(magistrate)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(magistrate):  => legal_role(magistrate)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)",
+        "df_statute(ada):  => statute(ada)",
+        "df_legal_role(judge):  => legal_role(judge)",
+        "df_legal_document(nda):  => legal_document(nda)",
+        "df_legal_document(voting_rights_act):  => legal_document(voting_rights_act)"
+      ],
+      "gold": [
+        "df_legal_role(magistrate):  => legal_role(magistrate)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(magistrate)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "treaty(treaty_of_rome)",
+      "level": 2,
+      "candidates": [
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)",
+        "df_legal_action(filing):  => legal_action(filing)",
+        "df_treaty(geneva_convention):  => treaty(geneva_convention)",
+        "df_contract(sales_contract):  => contract(sales_contract)",
+        "df_legal_action(appeal):  => legal_action(appeal)",
+        "df_statute(clean_air_act):  => statute(clean_air_act)"
+      ],
+      "gold": [
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)"
+      ],
+      "metadata": {
+        "ablated_element": "df_treaty(treaty_of_rome)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_document(sales_contract)",
+      "level": 2,
+      "candidates": [
+        "df_legal_document(sales_contract):  => legal_document(sales_contract)",
+        "df_legal_document(employment_contract):  => legal_document(employment_contract)",
+        "df_legal_document(civil_rights_act):  => legal_document(civil_rights_act)",
+        "df_statute(ferpa):  => statute(ferpa)",
+        "df_legal_document(clean_water_act):  => legal_document(clean_water_act)",
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)"
+      ],
+      "gold": [
+        "df_legal_document(sales_contract):  => legal_document(sales_contract)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_document(sales_contract)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(motion)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(motion):  => legal_action(motion)",
+        "df_legal_action(ruling):  => legal_action(ruling)",
+        "df_legal_role(attorney):  => legal_role(attorney)",
+        "df_treaty(geneva_convention):  => treaty(geneva_convention)",
+        "df_contract(sales_contract):  => contract(sales_contract)",
+        "df_statute(coppa):  => statute(coppa)"
+      ],
+      "gold": [
+        "df_legal_action(motion):  => legal_action(motion)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(motion)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "treaty(paris_agreement)",
+      "level": 2,
+      "candidates": [
+        "df_treaty(paris_agreement):  => treaty(paris_agreement)",
+        "df_statute(coppa):  => statute(coppa)",
+        "df_legal_action(ruling):  => legal_action(ruling)",
+        "df_contract(sales_contract):  => contract(sales_contract)",
+        "df_contract(lease_agreement):  => contract(lease_agreement)",
+        "df_statute(ada):  => statute(ada)"
+      ],
+      "gold": [
+        "df_treaty(paris_agreement):  => treaty(paris_agreement)"
+      ],
+      "metadata": {
+        "ablated_element": "df_treaty(paris_agreement)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(attorney)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(attorney):  => legal_role(attorney)",
+        "df_statute(ferpa):  => statute(ferpa)",
+        "df_legal_action(ruling):  => legal_action(ruling)",
+        "df_legal_role(magistrate):  => legal_role(magistrate)",
+        "df_contract(sales_contract):  => contract(sales_contract)",
+        "df_contract(lease_agreement):  => contract(lease_agreement)"
+      ],
+      "gold": [
+        "df_legal_role(attorney):  => legal_role(attorney)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(attorney)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(filing)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(filing):  => legal_action(filing)",
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_statute(ada):  => statute(ada)",
+        "df_statute(voting_rights_act):  => statute(voting_rights_act)",
+        "df_statute(gdpr):  => statute(gdpr)",
+        "df_statute(civil_rights_act):  => statute(civil_rights_act)"
+      ],
+      "gold": [
+        "df_legal_action(filing):  => legal_action(filing)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(filing)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(summons)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_legal_document(treaty_of_rome):  => legal_document(treaty_of_rome)",
+        "df_legal_document(clean_water_act):  => legal_document(clean_water_act)",
+        "df_statute(ada):  => statute(ada)",
+        "df_statute(voting_rights_act):  => statute(voting_rights_act)",
+        "df_statute(civil_rights_act):  => statute(civil_rights_act)"
+      ],
+      "gold": [
+        "df_legal_action(summons):  => legal_action(summons)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(summons)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(defendant)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_legal_action(appeal):  => legal_action(appeal)",
+        "df_treaty(geneva_convention):  => treaty(geneva_convention)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)",
+        "df_contract(service_agreement):  => contract(service_agreement)",
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)"
+      ],
+      "gold": [
+        "df_legal_role(defendant):  => legal_role(defendant)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(defendant)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(sales_contract)",
+      "level": 2,
+      "candidates": [
+        "df_contract(sales_contract):  => contract(sales_contract)",
+        "df_legal_action(appeal):  => legal_action(appeal)",
+        "df_legal_document(voting_rights_act):  => legal_document(voting_rights_act)",
+        "df_legal_role(attorney):  => legal_role(attorney)",
+        "df_legal_document(employment_contract):  => legal_document(employment_contract)",
+        "df_statute(coppa):  => statute(coppa)"
+      ],
+      "gold": [
+        "df_contract(sales_contract):  => contract(sales_contract)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(sales_contract)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(nda)",
+      "level": 2,
+      "candidates": [
+        "df_contract(nda):  => contract(nda)",
+        "df_statute(coppa):  => statute(coppa)",
+        "df_legal_action(appeal):  => legal_action(appeal)",
+        "df_legal_action(injunction):  => legal_action(injunction)",
+        "df_contract(lease_agreement):  => contract(lease_agreement)",
+        "df_legal_action(ruling):  => legal_action(ruling)"
+      ],
+      "gold": [
+        "df_contract(nda):  => contract(nda)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(nda)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(ada)",
+      "level": 2,
+      "candidates": [
+        "df_statute(ada):  => statute(ada)",
+        "df_legal_document(ccpa):  => legal_document(ccpa)",
+        "df_legal_role(witness):  => legal_role(witness)",
+        "df_contract(nda):  => contract(nda)",
+        "df_legal_document(clean_water_act):  => legal_document(clean_water_act)",
+        "df_statute(ccpa):  => statute(ccpa)"
+      ],
+      "gold": [
+        "df_statute(ada):  => statute(ada)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(ada)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(ccpa)",
+      "level": 2,
+      "candidates": [
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_legal_document(lease_agreement):  => legal_document(lease_agreement)",
+        "df_legal_action(filing):  => legal_action(filing)",
+        "df_legal_document(treaty_of_rome):  => legal_document(treaty_of_rome)",
+        "df_legal_document(voting_rights_act):  => legal_document(voting_rights_act)",
+        "df_legal_action(ruling):  => legal_action(ruling)"
+      ],
+      "gold": [
+        "df_statute(ccpa):  => statute(ccpa)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(ccpa)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(licensing_agreement)",
+      "level": 2,
+      "candidates": [
+        "df_contract(licensing_agreement):  => contract(licensing_agreement)",
+        "df_statute(civil_rights_act):  => statute(civil_rights_act)",
+        "df_legal_document(employment_contract):  => legal_document(employment_contract)",
+        "df_legal_action(ruling):  => legal_action(ruling)",
+        "df_legal_role(jury):  => legal_role(jury)",
+        "df_statute(clean_air_act):  => statute(clean_air_act)"
+      ],
+      "gold": [
+        "df_contract(licensing_agreement):  => contract(licensing_agreement)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(licensing_agreement)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(lease_agreement)",
+      "level": 2,
+      "candidates": [
+        "df_contract(lease_agreement):  => contract(lease_agreement)",
+        "df_legal_document(sales_contract):  => legal_document(sales_contract)",
+        "df_treaty(paris_agreement):  => treaty(paris_agreement)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)",
+        "df_legal_document(kyoto_protocol):  => legal_document(kyoto_protocol)",
+        "df_statute(ferpa):  => statute(ferpa)"
+      ],
+      "gold": [
+        "df_contract(lease_agreement):  => contract(lease_agreement)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(lease_agreement)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "treaty(geneva_convention)",
+      "level": 2,
+      "candidates": [
+        "df_treaty(geneva_convention):  => treaty(geneva_convention)",
+        "df_treaty(paris_agreement):  => treaty(paris_agreement)",
+        "df_legal_document(sales_contract):  => legal_document(sales_contract)",
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_legal_document(ferpa):  => legal_document(ferpa)",
+        "df_legal_role(jury):  => legal_role(jury)"
+      ],
+      "gold": [
+        "df_treaty(geneva_convention):  => treaty(geneva_convention)"
+      ],
+      "metadata": {
+        "ablated_element": "df_treaty(geneva_convention)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(hipaa)",
+      "level": 2,
+      "candidates": [
+        "df_statute(hipaa):  => statute(hipaa)",
+        "df_contract(nda):  => contract(nda)",
+        "df_legal_document(service_agreement):  => legal_document(service_agreement)",
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)",
+        "df_legal_document(kyoto_protocol):  => legal_document(kyoto_protocol)",
+        "df_legal_document(nuclear_non_proliferation_treaty):  => legal_document(nuclear_non_proliferation_treaty)"
+      ],
+      "gold": [
+        "df_statute(hipaa):  => statute(hipaa)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(hipaa)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(service_agreement)",
+      "level": 2,
+      "candidates": [
+        "df_contract(service_agreement):  => contract(service_agreement)",
+        "df_legal_action(injunction):  => legal_action(injunction)",
+        "df_legal_action(appeal):  => legal_action(appeal)",
+        "df_legal_document(treaty_of_rome):  => legal_document(treaty_of_rome)",
+        "df_legal_document(ferpa):  => legal_document(ferpa)",
+        "df_legal_document(kyoto_protocol):  => legal_document(kyoto_protocol)"
+      ],
+      "gold": [
+        "df_contract(service_agreement):  => contract(service_agreement)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(service_agreement)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(injunction)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(injunction):  => legal_action(injunction)",
+        "df_legal_action(ruling):  => legal_action(ruling)",
+        "df_legal_role(witness):  => legal_role(witness)",
+        "df_legal_document(employment_contract):  => legal_document(employment_contract)",
+        "df_contract(licensing_agreement):  => contract(licensing_agreement)",
+        "df_legal_action(motion):  => legal_action(motion)"
+      ],
+      "gold": [
+        "df_legal_action(injunction):  => legal_action(injunction)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(injunction)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(jury)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(jury):  => legal_role(jury)",
+        "df_legal_document(employment_contract):  => legal_document(employment_contract)",
+        "df_statute(civil_rights_act):  => statute(civil_rights_act)",
+        "df_statute(hipaa):  => statute(hipaa)",
+        "df_statute(ferpa):  => statute(ferpa)",
+        "df_statute(clean_air_act):  => statute(clean_air_act)"
+      ],
+      "gold": [
+        "df_legal_role(jury):  => legal_role(jury)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(jury)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(coppa)",
+      "level": 2,
+      "candidates": [
+        "df_statute(coppa):  => statute(coppa)",
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)",
+        "df_legal_document(lease_agreement):  => legal_document(lease_agreement)",
+        "df_legal_document(nda):  => legal_document(nda)",
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_statute(gdpr):  => statute(gdpr)"
+      ],
+      "gold": [
+        "df_statute(coppa):  => statute(coppa)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(coppa)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(magistrate)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(magistrate):  => legal_role(magistrate)",
+        "df_treaty(paris_agreement):  => treaty(paris_agreement)",
+        "df_legal_document(sales_contract):  => legal_document(sales_contract)",
+        "df_legal_document(paris_agreement):  => legal_document(paris_agreement)",
+        "df_legal_role(jury):  => legal_role(jury)",
+        "df_statute(civil_rights_act):  => statute(civil_rights_act)"
+      ],
+      "gold": [
+        "df_legal_role(magistrate):  => legal_role(magistrate)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(magistrate)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "treaty(treaty_of_rome)",
+      "level": 2,
+      "candidates": [
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)",
+        "df_statute(ada):  => statute(ada)",
+        "df_legal_document(lease_agreement):  => legal_document(lease_agreement)",
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_legal_role(attorney):  => legal_role(attorney)",
+        "df_legal_document(ccpa):  => legal_document(ccpa)"
+      ],
+      "gold": [
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)"
+      ],
+      "metadata": {
+        "ablated_element": "df_treaty(treaty_of_rome)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(motion)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(motion):  => legal_action(motion)",
+        "df_statute(hipaa):  => statute(hipaa)",
+        "df_legal_document(voting_rights_act):  => legal_document(voting_rights_act)",
+        "df_legal_action(filing):  => legal_action(filing)",
+        "df_legal_document(sales_contract):  => legal_document(sales_contract)",
+        "df_legal_document(nuclear_non_proliferation_treaty):  => legal_document(nuclear_non_proliferation_treaty)"
+      ],
+      "gold": [
+        "df_legal_action(motion):  => legal_action(motion)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(motion)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "treaty(paris_agreement)",
+      "level": 2,
+      "candidates": [
+        "df_treaty(paris_agreement):  => treaty(paris_agreement)",
+        "df_legal_role(witness):  => legal_role(witness)",
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_legal_document(nda):  => legal_document(nda)",
+        "df_legal_document(clean_water_act):  => legal_document(clean_water_act)"
+      ],
+      "gold": [
+        "df_treaty(paris_agreement):  => treaty(paris_agreement)"
+      ],
+      "metadata": {
+        "ablated_element": "df_treaty(paris_agreement)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(attorney)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(attorney):  => legal_role(attorney)",
+        "df_contract(lease_agreement):  => contract(lease_agreement)",
+        "df_contract(nda):  => contract(nda)",
+        "df_legal_document(lease_agreement):  => legal_document(lease_agreement)",
+        "df_legal_document(sales_contract):  => legal_document(sales_contract)",
+        "df_legal_document(ccpa):  => legal_document(ccpa)"
+      ],
+      "gold": [
+        "df_legal_role(attorney):  => legal_role(attorney)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(attorney)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(filing)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(filing):  => legal_action(filing)",
+        "df_legal_document(civil_rights_act):  => legal_document(civil_rights_act)",
+        "df_legal_document(treaty_of_rome):  => legal_document(treaty_of_rome)",
+        "df_legal_document(kyoto_protocol):  => legal_document(kyoto_protocol)",
+        "df_legal_document(nda):  => legal_document(nda)",
+        "df_legal_document(clean_water_act):  => legal_document(clean_water_act)"
+      ],
+      "gold": [
+        "df_legal_action(filing):  => legal_action(filing)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(filing)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(summons)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_statute(gdpr):  => statute(gdpr)",
+        "df_legal_document(clean_air_act):  => legal_document(clean_air_act)",
+        "df_statute(clean_air_act):  => statute(clean_air_act)",
+        "df_contract(licensing_agreement):  => contract(licensing_agreement)",
+        "df_contract(lease_agreement):  => contract(lease_agreement)"
+      ],
+      "gold": [
+        "df_legal_action(summons):  => legal_action(summons)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(summons)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(defendant)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_legal_action(filing):  => legal_action(filing)",
+        "df_legal_document(employment_contract):  => legal_document(employment_contract)",
+        "df_statute(ferpa):  => statute(ferpa)",
+        "df_contract(sales_contract):  => contract(sales_contract)",
+        "df_statute(voting_rights_act):  => statute(voting_rights_act)"
+      ],
+      "gold": [
+        "df_legal_role(defendant):  => legal_role(defendant)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(defendant)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(sales_contract)",
+      "level": 2,
+      "candidates": [
+        "df_contract(sales_contract):  => contract(sales_contract)",
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_legal_role(witness):  => legal_role(witness)",
+        "df_legal_document(voting_rights_act):  => legal_document(voting_rights_act)",
+        "df_legal_document(service_agreement):  => legal_document(service_agreement)",
+        "df_legal_document(paris_agreement):  => legal_document(paris_agreement)"
+      ],
+      "gold": [
+        "df_contract(sales_contract):  => contract(sales_contract)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(sales_contract)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(nda)",
+      "level": 2,
+      "candidates": [
+        "df_contract(nda):  => contract(nda)",
+        "df_legal_document(geneva_convention):  => legal_document(geneva_convention)",
+        "df_treaty(geneva_convention):  => treaty(geneva_convention)",
+        "df_statute(ferpa):  => statute(ferpa)",
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)",
+        "df_legal_document(kyoto_protocol):  => legal_document(kyoto_protocol)"
+      ],
+      "gold": [
+        "df_contract(nda):  => contract(nda)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(nda)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "treaty(nuclear_non_proliferation_treaty)",
+      "level": 2,
+      "candidates": [
+        "df_treaty(nuclear_non_proliferation_treaty):  => treaty(nuclear_non_proliferation_treaty)",
+        "df_legal_document(civil_rights_act):  => legal_document(civil_rights_act)",
+        "df_treaty(paris_agreement):  => treaty(paris_agreement)",
+        "df_legal_document(nda):  => legal_document(nda)",
+        "df_legal_action(ruling):  => legal_action(ruling)",
+        "df_legal_document(paris_agreement):  => legal_document(paris_agreement)"
+      ],
+      "gold": [
+        "df_treaty(nuclear_non_proliferation_treaty):  => treaty(nuclear_non_proliferation_treaty)"
+      ],
+      "metadata": {
+        "ablated_element": "df_treaty(nuclear_non_proliferation_treaty)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(ada)",
+      "level": 2,
+      "candidates": [
+        "df_statute(ada):  => statute(ada)",
+        "df_legal_document(ferpa):  => legal_document(ferpa)",
+        "df_contract(lease_agreement):  => contract(lease_agreement)",
+        "df_legal_role(attorney):  => legal_role(attorney)",
+        "df_legal_role(judge):  => legal_role(judge)",
+        "df_legal_role(magistrate):  => legal_role(magistrate)"
+      ],
+      "gold": [
+        "df_statute(ada):  => statute(ada)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(ada)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(ccpa)",
+      "level": 2,
+      "candidates": [
+        "df_statute(ccpa):  => statute(ccpa)",
+        "df_legal_role(jury):  => legal_role(jury)",
+        "df_legal_document(nuclear_non_proliferation_treaty):  => legal_document(nuclear_non_proliferation_treaty)",
+        "df_legal_document(service_agreement):  => legal_document(service_agreement)",
+        "df_contract(sales_contract):  => contract(sales_contract)",
+        "df_statute(ada):  => statute(ada)"
+      ],
+      "gold": [
+        "df_statute(ccpa):  => statute(ccpa)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(ccpa)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(lease_agreement)",
+      "level": 2,
+      "candidates": [
+        "df_contract(lease_agreement):  => contract(lease_agreement)",
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)",
+        "df_legal_document(clean_water_act):  => legal_document(clean_water_act)",
+        "df_legal_document(nda):  => legal_document(nda)",
+        "df_statute(coppa):  => statute(coppa)",
+        "df_treaty(geneva_convention):  => treaty(geneva_convention)"
+      ],
+      "gold": [
+        "df_contract(lease_agreement):  => contract(lease_agreement)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(lease_agreement)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "treaty(geneva_convention)",
+      "level": 2,
+      "candidates": [
+        "df_treaty(geneva_convention):  => treaty(geneva_convention)",
+        "df_treaty(nuclear_non_proliferation_treaty):  => treaty(nuclear_non_proliferation_treaty)",
+        "df_legal_document(ccpa):  => legal_document(ccpa)",
+        "df_legal_document(ada):  => legal_document(ada)",
+        "df_legal_document(purchase_order):  => legal_document(purchase_order)",
+        "df_legal_document(nda):  => legal_document(nda)"
+      ],
+      "gold": [
+        "df_treaty(geneva_convention):  => treaty(geneva_convention)"
+      ],
+      "metadata": {
+        "ablated_element": "df_treaty(geneva_convention)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(hipaa)",
+      "level": 2,
+      "candidates": [
+        "df_statute(hipaa):  => statute(hipaa)",
+        "df_statute(ferpa):  => statute(ferpa)",
+        "df_legal_role(magistrate):  => legal_role(magistrate)",
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_legal_document(nda):  => legal_document(nda)",
+        "df_legal_role(judge):  => legal_role(judge)"
+      ],
+      "gold": [
+        "df_statute(hipaa):  => statute(hipaa)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(hipaa)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(service_agreement)",
+      "level": 2,
+      "candidates": [
+        "df_contract(service_agreement):  => contract(service_agreement)",
+        "df_legal_document(service_agreement):  => legal_document(service_agreement)",
+        "df_legal_role(magistrate):  => legal_role(magistrate)",
+        "df_legal_document(nda):  => legal_document(nda)",
+        "df_legal_document(voting_rights_act):  => legal_document(voting_rights_act)",
+        "df_treaty(geneva_convention):  => treaty(geneva_convention)"
+      ],
+      "gold": [
+        "df_contract(service_agreement):  => contract(service_agreement)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(service_agreement)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(injunction)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(injunction):  => legal_action(injunction)",
+        "df_legal_role(witness):  => legal_role(witness)",
+        "df_statute(voting_rights_act):  => statute(voting_rights_act)",
+        "df_contract(licensing_agreement):  => contract(licensing_agreement)",
+        "df_legal_role(magistrate):  => legal_role(magistrate)",
+        "df_legal_document(nuclear_non_proliferation_treaty):  => legal_document(nuclear_non_proliferation_treaty)"
+      ],
+      "gold": [
+        "df_legal_action(injunction):  => legal_action(injunction)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(injunction)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(jury)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(jury):  => legal_role(jury)",
+        "df_legal_document(employment_contract):  => legal_document(employment_contract)",
+        "df_statute(gdpr):  => statute(gdpr)",
+        "df_legal_document(kyoto_protocol):  => legal_document(kyoto_protocol)",
+        "df_legal_action(ruling):  => legal_action(ruling)",
+        "df_contract(nda):  => contract(nda)"
+      ],
+      "gold": [
+        "df_legal_role(jury):  => legal_role(jury)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(jury)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(coppa)",
+      "level": 2,
+      "candidates": [
+        "df_statute(coppa):  => statute(coppa)",
+        "df_treaty(nuclear_non_proliferation_treaty):  => treaty(nuclear_non_proliferation_treaty)",
+        "df_legal_document(lease_agreement):  => legal_document(lease_agreement)",
+        "df_statute(gdpr):  => statute(gdpr)",
+        "df_statute(civil_rights_act):  => statute(civil_rights_act)",
+        "df_legal_action(ruling):  => legal_action(ruling)"
+      ],
+      "gold": [
+        "df_statute(coppa):  => statute(coppa)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(coppa)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(magistrate)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(magistrate):  => legal_role(magistrate)",
+        "df_statute(voting_rights_act):  => statute(voting_rights_act)",
+        "df_legal_action(appeal):  => legal_action(appeal)",
+        "df_contract(service_agreement):  => contract(service_agreement)",
+        "df_legal_document(clean_water_act):  => legal_document(clean_water_act)",
+        "df_legal_role(judge):  => legal_role(judge)"
+      ],
+      "gold": [
+        "df_legal_role(magistrate):  => legal_role(magistrate)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(magistrate)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "treaty(treaty_of_rome)",
+      "level": 2,
+      "candidates": [
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)",
+        "df_legal_action(warrant):  => legal_action(warrant)",
+        "df_legal_action(filing):  => legal_action(filing)",
+        "df_contract(lease_agreement):  => contract(lease_agreement)",
+        "df_treaty(paris_agreement):  => treaty(paris_agreement)",
+        "df_treaty(nuclear_non_proliferation_treaty):  => treaty(nuclear_non_proliferation_treaty)"
+      ],
+      "gold": [
+        "df_treaty(treaty_of_rome):  => treaty(treaty_of_rome)"
+      ],
+      "metadata": {
+        "ablated_element": "df_treaty(treaty_of_rome)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(motion)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(motion):  => legal_action(motion)",
+        "df_treaty(nuclear_non_proliferation_treaty):  => treaty(nuclear_non_proliferation_treaty)",
+        "df_statute(civil_rights_act):  => statute(civil_rights_act)",
+        "df_legal_action(subpoena):  => legal_action(subpoena)",
+        "df_statute(coppa):  => statute(coppa)",
+        "df_statute(hipaa):  => statute(hipaa)"
+      ],
+      "gold": [
+        "df_legal_action(motion):  => legal_action(motion)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(motion)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "treaty(paris_agreement)",
+      "level": 2,
+      "candidates": [
+        "df_treaty(paris_agreement):  => treaty(paris_agreement)",
+        "df_legal_role(jury):  => legal_role(jury)",
+        "df_legal_action(motion):  => legal_action(motion)",
+        "df_legal_document(purchase_order):  => legal_document(purchase_order)",
+        "df_statute(coppa):  => statute(coppa)",
+        "df_statute(ada):  => statute(ada)"
+      ],
+      "gold": [
+        "df_treaty(paris_agreement):  => treaty(paris_agreement)"
+      ],
+      "metadata": {
+        "ablated_element": "df_treaty(paris_agreement)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "treaty(kyoto_protocol)",
+      "level": 2,
+      "candidates": [
+        "df_treaty(kyoto_protocol):  => treaty(kyoto_protocol)",
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_treaty(geneva_convention):  => treaty(geneva_convention)",
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_legal_document(employment_contract):  => legal_document(employment_contract)",
+        "df_treaty(paris_agreement):  => treaty(paris_agreement)"
+      ],
+      "gold": [
+        "df_treaty(kyoto_protocol):  => treaty(kyoto_protocol)"
+      ],
+      "metadata": {
+        "ablated_element": "df_treaty(kyoto_protocol)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(attorney)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(attorney):  => legal_role(attorney)",
+        "df_legal_document(lease_agreement):  => legal_document(lease_agreement)",
+        "df_legal_action(warrant):  => legal_action(warrant)",
+        "df_legal_document(ada):  => legal_document(ada)",
+        "df_legal_action(ruling):  => legal_action(ruling)",
+        "df_contract(licensing_agreement):  => contract(licensing_agreement)"
+      ],
+      "gold": [
+        "df_legal_role(attorney):  => legal_role(attorney)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(attorney)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(filing)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(filing):  => legal_action(filing)",
+        "df_legal_document(clean_air_act):  => legal_document(clean_air_act)",
+        "df_treaty(geneva_convention):  => treaty(geneva_convention)",
+        "df_legal_document(nuclear_non_proliferation_treaty):  => legal_document(nuclear_non_proliferation_treaty)",
+        "df_legal_action(subpoena):  => legal_action(subpoena)",
+        "df_legal_document(ccpa):  => legal_document(ccpa)"
+      ],
+      "gold": [
+        "df_legal_action(filing):  => legal_action(filing)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(filing)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_action(summons)",
+      "level": 2,
+      "candidates": [
+        "df_legal_action(summons):  => legal_action(summons)",
+        "df_statute(ada):  => statute(ada)",
+        "df_legal_action(motion):  => legal_action(motion)",
+        "df_legal_role(jury):  => legal_role(jury)",
+        "df_legal_document(hipaa):  => legal_document(hipaa)",
+        "df_contract(nda):  => contract(nda)"
+      ],
+      "gold": [
+        "df_legal_action(summons):  => legal_action(summons)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_action(summons)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(defendant)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_legal_role(witness):  => legal_role(witness)",
+        "df_statute(gdpr):  => statute(gdpr)",
+        "df_legal_document(employment_contract):  => legal_document(employment_contract)",
+        "df_legal_action(ruling):  => legal_action(ruling)",
+        "df_legal_document(clean_air_act):  => legal_document(clean_air_act)"
+      ],
+      "gold": [
+        "df_legal_role(defendant):  => legal_role(defendant)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(defendant)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(sales_contract)",
+      "level": 2,
+      "candidates": [
+        "df_contract(sales_contract):  => contract(sales_contract)",
+        "df_treaty(kyoto_protocol):  => treaty(kyoto_protocol)",
+        "df_legal_document(treaty_of_rome):  => legal_document(treaty_of_rome)",
+        "df_statute(ferpa):  => statute(ferpa)",
+        "df_legal_action(injunction):  => legal_action(injunction)",
+        "df_contract(purchase_order):  => contract(purchase_order)"
+      ],
+      "gold": [
+        "df_contract(sales_contract):  => contract(sales_contract)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(sales_contract)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "contract(nda)",
+      "level": 2,
+      "candidates": [
+        "df_contract(nda):  => contract(nda)",
+        "df_legal_document(sales_contract):  => legal_document(sales_contract)",
+        "df_treaty(paris_agreement):  => treaty(paris_agreement)",
+        "df_contract(sales_contract):  => contract(sales_contract)",
+        "df_legal_action(ruling):  => legal_action(ruling)",
+        "df_legal_role(magistrate):  => legal_role(magistrate)"
+      ],
+      "gold": [
+        "df_contract(nda):  => contract(nda)"
+      ],
+      "metadata": {
+        "ablated_element": "df_contract(nda)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "treaty(nuclear_non_proliferation_treaty)",
+      "level": 2,
+      "candidates": [
+        "df_treaty(nuclear_non_proliferation_treaty):  => treaty(nuclear_non_proliferation_treaty)",
+        "df_legal_role(prosecutor):  => legal_role(prosecutor)",
+        "df_contract(lease_agreement):  => contract(lease_agreement)",
+        "df_legal_role(jury):  => legal_role(jury)",
+        "df_legal_action(subpoena):  => legal_action(subpoena)",
+        "df_legal_role(witness):  => legal_role(witness)"
+      ],
+      "gold": [
+        "df_treaty(nuclear_non_proliferation_treaty):  => treaty(nuclear_non_proliferation_treaty)"
+      ],
+      "metadata": {
+        "ablated_element": "df_treaty(nuclear_non_proliferation_treaty)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "statute(ada)",
+      "level": 2,
+      "candidates": [
+        "df_statute(ada):  => statute(ada)",
+        "df_legal_role(jury):  => legal_role(jury)",
+        "df_statute(coppa):  => statute(coppa)",
+        "df_statute(gdpr):  => statute(gdpr)",
+        "df_statute(clean_air_act):  => statute(clean_air_act)",
+        "df_treaty(geneva_convention):  => treaty(geneva_convention)"
+      ],
+      "gold": [
+        "df_statute(ada):  => statute(ada)"
+      ],
+      "metadata": {
+        "ablated_element": "df_statute(ada)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(jury)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(jury):  => legal_role(jury)",
+        "df_legal_role(judge):  => legal_role(judge)",
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)",
+        "df_legal_role(magistrate):  => legal_role(magistrate)",
+        "df_legal_role(attorney):  => legal_role(attorney)"
+      ],
+      "gold": [
+        "df_legal_role(jury):  => legal_role(jury)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(jury)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(magistrate)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(magistrate):  => legal_role(magistrate)",
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)",
+        "df_legal_role(witness):  => legal_role(witness)",
+        "df_legal_role(attorney):  => legal_role(attorney)",
+        "df_legal_role(judge):  => legal_role(judge)"
+      ],
+      "gold": [
+        "df_legal_role(magistrate):  => legal_role(magistrate)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(magistrate)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(attorney)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(attorney):  => legal_role(attorney)",
+        "df_legal_role(judge):  => legal_role(judge)",
+        "df_legal_role(magistrate):  => legal_role(magistrate)",
+        "df_legal_role(jury):  => legal_role(jury)",
+        "df_legal_role(prosecutor):  => legal_role(prosecutor)",
+        "df_legal_role(defendant):  => legal_role(defendant)"
+      ],
+      "gold": [
+        "df_legal_role(attorney):  => legal_role(attorney)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(attorney)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(defendant)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_legal_role(witness):  => legal_role(witness)",
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)",
+        "df_legal_role(attorney):  => legal_role(attorney)",
+        "df_legal_role(judge):  => legal_role(judge)",
+        "df_legal_role(magistrate):  => legal_role(magistrate)"
+      ],
+      "gold": [
+        "df_legal_role(defendant):  => legal_role(defendant)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(defendant)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(judge)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(judge):  => legal_role(judge)",
+        "df_legal_role(attorney):  => legal_role(attorney)",
+        "df_legal_role(magistrate):  => legal_role(magistrate)",
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)",
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_legal_role(prosecutor):  => legal_role(prosecutor)"
+      ],
+      "gold": [
+        "df_legal_role(judge):  => legal_role(judge)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(judge)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(prosecutor)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(prosecutor):  => legal_role(prosecutor)",
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)",
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_legal_role(magistrate):  => legal_role(magistrate)",
+        "df_legal_role(attorney):  => legal_role(attorney)",
+        "df_legal_role(judge):  => legal_role(judge)"
+      ],
+      "gold": [
+        "df_legal_role(prosecutor):  => legal_role(prosecutor)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(prosecutor)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(witness)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(witness):  => legal_role(witness)",
+        "df_legal_role(judge):  => legal_role(judge)",
+        "df_legal_role(attorney):  => legal_role(attorney)",
+        "df_legal_role(magistrate):  => legal_role(magistrate)",
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)",
+        "df_legal_role(jury):  => legal_role(jury)"
+      ],
+      "gold": [
+        "df_legal_role(witness):  => legal_role(witness)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(witness)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    },
+    {
+      "target": "legal_role(plaintiff)",
+      "level": 2,
+      "candidates": [
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)",
+        "df_legal_role(witness):  => legal_role(witness)",
+        "df_legal_role(magistrate):  => legal_role(magistrate)",
+        "df_legal_role(prosecutor):  => legal_role(prosecutor)",
+        "df_legal_role(defendant):  => legal_role(defendant)",
+        "df_legal_role(judge):  => legal_role(judge)"
+      ],
+      "gold": [
+        "df_legal_role(plaintiff):  => legal_role(plaintiff)"
+      ],
+      "metadata": {
+        "ablated_element": "df_legal_role(plaintiff)",
+        "ablated_type": "rule",
+        "ablated_rule_type": "defeasible",
+        "distractor_strategy": "syntactic",
+        "k_distractors": 5
+      },
+      "theory_size": 263,
+      "num_candidates": 6,
+      "num_gold": 1
+    }
+  ]
+}

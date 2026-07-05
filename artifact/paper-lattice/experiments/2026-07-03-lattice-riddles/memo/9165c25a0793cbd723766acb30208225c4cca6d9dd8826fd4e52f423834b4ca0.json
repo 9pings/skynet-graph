@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"riddle\",\"category\":\"logic\",\"condition\":\"trick\",\"color\":\"white\",\"size\":\"small\"},\"holes\":[{\"name\":\"square\",\"size\":\"medium\"},{\"name\":\"round\",\"size\":\"small\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "This is a trick question! The answer is the **round one**.\n\nHere's why:\n\n*   The question focuses on the ball being \"damp.\" Damp things are often associated with water or moisture.\n*   The round hole "
+ }
+}

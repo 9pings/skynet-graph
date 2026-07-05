@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"marble\",\"category\":\"round\",\"condition\":\"\",\"color\":\"yellow\",\"size\":\"small\"},\"holes\":[{\"name\":\"round\",\"size\":\"small\"},{\"name\":\"round\",\"size\":\"large\"},{\"name\":\"square\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you’re holding a tiny yellow marble and three different openings in front of you: one is a tiny circle, another is a big circle, and the third is a large square. Where would you place the marb"
+ }
+}

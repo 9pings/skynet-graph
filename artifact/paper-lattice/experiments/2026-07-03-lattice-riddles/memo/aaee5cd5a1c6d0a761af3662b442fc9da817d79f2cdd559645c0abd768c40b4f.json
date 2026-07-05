@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"bird\",\"category\":\"aviary\",\"condition\":\"\",\"color\":\"red\",\"size\":\"\"},\"holes\":[{\"name\":\"aquarium\",\"size\":\"\"},{\"name\":\"aviary\",\"size\":\"\"},{\"name\":\"terrarium\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Place your red bird in either the aquarium, the aviary, or the terrarium. Which one is the correct choice?"
+ }
+}

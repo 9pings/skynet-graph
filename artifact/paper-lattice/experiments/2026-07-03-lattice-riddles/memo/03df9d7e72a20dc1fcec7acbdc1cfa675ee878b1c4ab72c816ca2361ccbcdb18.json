@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nYou possess a blue sphere. Into which of the following openings should you place it: the star-shaped aperture, the square cavity, or the circular hole?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a blue ball. Put it into one of these holes: the star-shaped one, the square one, or the round one. Which one?"
+ }
+}

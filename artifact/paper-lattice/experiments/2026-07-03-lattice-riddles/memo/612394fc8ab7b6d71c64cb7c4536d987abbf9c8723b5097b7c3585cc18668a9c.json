@@ -1,0 +1,8 @@
+{
+ "response": "{\"kind\":\"ball\",\"category\":\"round\"}",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"You possess a deflated yellow ball. Into which of the following openings should you place i",
+  "user": "In general, which category does a ball belong to?"
+ }
+}

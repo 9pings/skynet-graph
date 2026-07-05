@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"gecko\",\"category\":\"terrarium\",\"condition\":\"\",\"color\":\"yellow\",\"size\":\"small\"},\"holes\":[{\"name\":\"terrarium\",\"size\":\"\"},{\"name\":\"aviary\",\"size\":\"\"},{\"name\":\"aquarium\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you own a small, bright yellow gecko. You need to place it in one of three spaces: a glass tank filled with water plants, a birdcage with open air and perches, or a glass box designed for rept"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"soccerball\",\"category\":\"flat\",\"condition\":\"\",\"color\":\"red\",\"size\":\"large\"},\"holes\":[{\"name\":\"round\",\"size\":\"\"},{\"name\":\"rectangular\",\"size\":\"wide\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you have a completely flat red soccer ball. You need to slide it into one of two openings: a perfectly circular hole or a wide, rectangular slot. Which opening would you choose?"
+ }
+}

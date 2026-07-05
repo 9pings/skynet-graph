@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"shark\",\"category\":\"aquarium\",\"condition\":\"\",\"color\":\"red\",\"size\":\"large\"},\"holes\":[{\"name\":\"aquarium\",\"size\":\"small\"},{\"name\":\"aquarium\",\"size\":\"large\"},{\"name\":\"terrarium\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You have a big red shark and need to place it in one of these spaces: a small aquarium, a large aquarium, or a large terrarium. Where should you put it?"
+ }
+}

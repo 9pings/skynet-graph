@@ -1,0 +1,8 @@
+{
+ "response": "terrestrial\n\nGreen geckos are terrestrial reptiles that live on land,",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You're holding a green gecko and need to choose where to place it among three options: the aquarium, the aviary, or the terrarium. Where do you put the gecko?"
+ }
+}

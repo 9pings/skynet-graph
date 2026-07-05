@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you’re holding a green pyramid and need to place it into one of two openings: one shaped like a star or the other shaped like a perfect circle. Where should you put it?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a green pyramid. Put it into one of these holes: the star-shaped one, or the round one. Which one?"
+ }
+}

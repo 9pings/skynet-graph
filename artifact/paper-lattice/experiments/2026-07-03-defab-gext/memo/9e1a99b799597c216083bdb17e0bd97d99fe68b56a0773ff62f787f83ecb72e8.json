@@ -1,0 +1,8 @@
+{
+ "response": "{\"candidates\":[\"label: cond(X) ~> ~head(X)\", \"label: purchaser(X) ~> ~takes_subject_to_prior_interests(X)\", \"label: good_faith_purchaser(X) ~> ~takes_subject_to_prior_interests(X)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"takes_subject_to_prior_interests(gfp_alice)\", list the c",
+  "user": "Facts: good_faith_purchaser(gfp_alice), purchaser(gfp_alice), purchaser(gfp_bob).\nGeneral rules (=> means \"normally implies\"): r_prior: purchaser(X) => takes_subject_to_prior_interests(X); r_bound_p: "
+ }
+}

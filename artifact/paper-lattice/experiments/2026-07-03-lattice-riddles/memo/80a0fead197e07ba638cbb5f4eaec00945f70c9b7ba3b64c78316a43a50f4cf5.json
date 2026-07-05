@@ -1,0 +1,8 @@
+{
+ "response": "\n\nImagine you have a brand-new yellow US plug. You need to insert it into one of three available wall sockets: a round-pin socket, a flat-pin socket, or a three-pin socket. Which one should you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a brand-new yellow US plug. Put it into one of these wall sockets: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one?"
+ }
+}

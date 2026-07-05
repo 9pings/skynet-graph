@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"plant\",\"category\":\"aquarium\",\"condition\":\"green\",\"color\":\"green\",\"size\":\"large\"},\"holes\":[{\"name\":\"aquarium\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You have a green fern plant. Choose to place it in either the fish tank area or the bird house area. Where would you put it?"
+ }
+}

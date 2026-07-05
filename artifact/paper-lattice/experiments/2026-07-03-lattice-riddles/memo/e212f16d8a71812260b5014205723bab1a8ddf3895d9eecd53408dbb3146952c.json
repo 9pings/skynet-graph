@@ -1,0 +1,8 @@
+{
+ "response": "\n\nnone",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star-shaped one | round one | none.",
+  "user": "Imagine you have a yellow pyramid. You need to place it into either a star-shaped hole or a round hole. Which hole should you choose?"
+ }
+}

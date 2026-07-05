@@ -1,0 +1,8 @@
+{
+ "response": "Here's an exception rule designed to address the anomaly, along with the reasoning:\n\n**Exception Rule:**\n\n`qualified_immunity_claimant(X) ~> ~civilly_liable(X)`\n\n**Explanation:**\n\n*   **Anomaly:** The rules predict `civilly_liable(officer_davis)` because `official(officer_davis)` holds. However, the observed fact states that `officer_davis` is a `qualified_immunity_claimant`, and qualified immunity *should* prevent civil liability.\n*   **Why this rule works:** This rule states that *if* someone is a `qualified_immunity_claimant`, then they are *not* normally `civilly_liable`. This directly addresses the conflict.\n*   **Specificity:** The rule is specific because it only applies to individuals who are `qualified_immunity_claimant`. It doesn't broadly negate civil liability for all officials.\n*   **Preserves other expectations:** This rule doesn't break any other expectations. It doesn't interfere with the general rule that officials are subject to suit (`r_suit: official(X) => subject_to_suit(X)`) or that officials are generally civilly liable (`r_civil: official(X) => civilly_liable(X)`) when qualified immunity isn't invoked. It simply adds a specific exception.\n\n**In simpler terms:**  \"Normally, officials are civilly liable. *However*, if an official is claiming qualified immunity, they are *not* civilly liable.\"",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"civilly_liable(officer_davis)\", list the candidate rules",
+  "user": "Facts: official(officer_chen), official(officer_davis), qualified_immunity_claimant(officer_davis).\nGeneral rules (=> means \"normally implies\"): r_civil: official(X) => civilly_liable(X); r_suit: offi"
+ }
+}

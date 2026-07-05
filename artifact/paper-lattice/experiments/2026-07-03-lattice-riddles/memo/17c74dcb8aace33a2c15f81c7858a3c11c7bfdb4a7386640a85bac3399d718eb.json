@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"marble\",\"category\":\"round\",\"condition\":\"\",\"color\":\"blue\",\"size\":\"small\"},\"holes\":[{\"name\":\"round\",\"size\":\"\"},{\"name\":\"square\",\"size\":\"\"},{\"name\":\"star\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you’re holding a single blue marble and three different holes in front of you: one shaped like a star, another shaped like a square, and the third shaped like a circle. Where would you place t"
+ }
+}

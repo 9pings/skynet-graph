@@ -1,0 +1,8 @@
+{
+ "response": "d_supremacy",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: enforceable(state_law_x)\nCandidates:\nlabel: d_supremacy ~> ~enforceable(state_law_x)\nlabel: d_cs_broad ~> ~enforceable(state_law_x)\nlabel: d_cs_wrong_cond ~> ~enforceable(state_law_x)\nlabel: "
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"ball\",\"category\":\"sports\",\"condition\":\"wet\",\"color\":\"green\",\"size\":\"round\"},\"holes\":[{\"name\":\"round hole\",\"size\":\"round\"},{\"name\":\"flat slot\",\"size\":\"flat\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "This is a trick question! You'd put the wet, green ball into the **flat slot**. \n\nHere's why:\n\n*   The question is designed to make you focus on the \"round one.\"\n*   A ball (even a wet one) can't fit "
+ }
+}

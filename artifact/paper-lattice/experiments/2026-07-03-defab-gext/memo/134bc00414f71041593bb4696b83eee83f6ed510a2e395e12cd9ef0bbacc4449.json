@@ -1,0 +1,8 @@
+{
+ "response": "d_cuckoo",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: builds_nest(coco)\nCandidates:\nlabel: d_cuckoo: cuckoo(X) ~> ~builds_nest(X)\nlabel: d_cuck_broad: bird(X) ~> ~builds_nest(X)\nlabel: d_cuck_indirect: parasite(X) ~> ~builds_nest(X)"
+ }
+}

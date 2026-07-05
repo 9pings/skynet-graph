@@ -1,0 +1,8 @@
+{
+ "response": "round",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "Imagine you’re holding a bright yellow ball shaped like a football. You need to place it into one of three different holes: one shaped like a star, another shaped like a square, or the last one shaped"
+ }
+}

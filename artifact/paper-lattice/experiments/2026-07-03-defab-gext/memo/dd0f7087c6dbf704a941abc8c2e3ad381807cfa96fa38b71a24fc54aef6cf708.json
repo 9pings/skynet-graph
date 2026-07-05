@@ -1,0 +1,8 @@
+{
+ "response": "d_sol_claim_specific",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: actionable(claim_a)\nCandidates:\nlabel: d_sol_claim_specific ~> ~actionable(claim_a)\nlabel: d_sol_time_barred_specific ~> ~actionable(claim_a)"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "\n\nnone",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "Imagine you have a blue sugar cube that has melted into a puddle. You need to place it into one of three available slots: a star-shaped hole, a square hole, or a round hole. Which hole should you choo"
+ }
+}

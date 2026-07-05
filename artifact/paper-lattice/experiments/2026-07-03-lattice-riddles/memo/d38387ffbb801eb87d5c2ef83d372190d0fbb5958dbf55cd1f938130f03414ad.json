@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"UK plug\",\"category\":\"flatpin\",\"condition\":\"\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"name\":\"roundpin\",\"size\":\"\"},{\"name\":\"flatpin\",\"size\":\"\"},{\"name\":\"threepin\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You possess a yellow UK plug. Which wall socket out of the round-pin socket, flat-pin socket, or three-pin socket should you insert it into?"
+ }
+}

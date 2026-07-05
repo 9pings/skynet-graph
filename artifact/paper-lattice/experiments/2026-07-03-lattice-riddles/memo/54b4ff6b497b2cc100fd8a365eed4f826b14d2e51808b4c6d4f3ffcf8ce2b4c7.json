@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nnone",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You have a green kettle plug and need to insert it into one of three wall sockets: the round-pin, the flat-pin, or the three-pin. Which socket is the correct choice?"
+ }
+}

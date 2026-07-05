@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"shiny new yellow electrical plug designed for American outlets\",\"category\":\"threepin\",\"condition\":\"\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"name\":\"threepin\",\"size\":\"\"},{\"name\":\"roundpin\",\"size\":\"\"},{\"name\":\"flatpin\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "Imagine you just got a shiny new yellow electrical plug designed for American outlets. You’re holding it over three different wall sockets: one with two round prongs, another with two flat prongs, and"
+ }
+}

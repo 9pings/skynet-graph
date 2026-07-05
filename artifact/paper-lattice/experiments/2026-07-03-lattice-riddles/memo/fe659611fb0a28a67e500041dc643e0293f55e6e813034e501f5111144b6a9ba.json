@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"ball\",\"category\":\"damp\",\"condition\":\"blue\",\"color\":\"blue\",\"size\":\"spherical\"},\"holes\":[{\"name\":\"round one\",\"size\":\"round\"},{\"name\":\"flat slot\",\"size\":\"flat\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You should put the damp blue ball into the **round one**.\n\nHere's why:\n\n*   **Round hole:** Designed for spherical objects. A ball will fit through a round hole.\n*   **Flat slot:** Designed for flat o"
+ }
+}

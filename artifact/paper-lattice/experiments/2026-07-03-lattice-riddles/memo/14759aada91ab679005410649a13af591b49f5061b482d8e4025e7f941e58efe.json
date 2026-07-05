@@ -1,0 +1,8 @@
+{
+ "response": "This is a clever and tricky question! \"Liquifiedsugarcube\" strongly suggests **melted**.\n\nHere's why:\n\n*   **Liquified** directly implies a change of",
+ "at": null,
+ "meta": {
+  "system": "Vocabulary question. Reply ONLY JSON: {\"word\":\"liquifiedsugarcube\",\"means\":\"<one of the options, or neither>\"}",
+  "user": "The word \"liquifiedsugarcube\" used as a object condition word — which of these does it mean: deflated|melted, or neither?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nround",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "Where does a blue pyramid fit: in the star-shaped, square, or round hole?"
+ }
+}

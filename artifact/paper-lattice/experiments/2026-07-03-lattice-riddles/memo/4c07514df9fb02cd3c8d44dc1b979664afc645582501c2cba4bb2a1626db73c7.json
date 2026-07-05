@@ -1,0 +1,8 @@
+{
+ "response": "You have a collapsed green football. Which opening should you place it in: the circular hole or the rectangular slot?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a deflated green football. Put it into one of these holes: the round one, or the flat slot. Which one?"
+ }
+}

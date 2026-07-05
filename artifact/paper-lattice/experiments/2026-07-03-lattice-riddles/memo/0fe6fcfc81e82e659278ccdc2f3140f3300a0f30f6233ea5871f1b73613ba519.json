@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"plug\",\"category\":\"flatpin\",\"condition\":\"red\",\"color\":\"red\",\"size\":\"large\"},\"holes\":[{\"name\":\"flatpin\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Which of the following wall outlets is compatible with a large red US plug: the small round-pin socket, the large round-pin socket, or the large flat-pin socket?"
+ }
+}

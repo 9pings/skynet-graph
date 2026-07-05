@@ -1,0 +1,8 @@
+{
+ "response": "round",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "Imagine you’re holding a blue sphere and need to place it into one of three openings: a five-pointed star, a perfect square, or a circle. Into which shape should you drop it?"
+ }
+}

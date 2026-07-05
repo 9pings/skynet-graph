@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"fern\",\"category\":\"terrarium\",\"condition\":\" \",\"color\":\"red\",\"size\":\" \"},\"holes\":[{\"name\":\"aquarium\",\"size\":\" \"},{\"name\":\"aviary\",\"size\":\" \"},{\"name\":\"terrarium\",\"size\":\" \"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You possess a red fern. Place it inside one of these habitats: the fish tank, the bird house, or the reptile cage. Which habitat will you choose?"
+ }
+}

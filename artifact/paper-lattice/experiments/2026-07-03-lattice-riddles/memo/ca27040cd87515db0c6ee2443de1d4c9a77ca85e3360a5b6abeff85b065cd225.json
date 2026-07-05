@@ -1,0 +1,8 @@
+{
+ "response": "{\"kind\":\"cube\",\"category\":\"square\"}",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"You've got a melted green sugar cube and need to decide which hole to put it in: the star-s",
+  "user": "In general, which shape category fits a cube?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "\n\nYou have a green HDMI cable. Which of these wall outlets should you plug it into: the round-pin, the flat-pin, or the three-pin?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a green hdmi. Put it into one of these wall sockets: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one?"
+ }
+}

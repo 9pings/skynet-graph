@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nA pyramid is a three-dimensional shape with a polygonal base and triangular",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You have a green pyramid shape. Which hole should you place it in: the star-shaped opening, the square opening, or the circular opening?"
+ }
+}

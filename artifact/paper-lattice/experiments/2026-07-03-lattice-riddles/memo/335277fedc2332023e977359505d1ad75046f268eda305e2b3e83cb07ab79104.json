@@ -1,0 +1,8 @@
+{
+ "response": "A yellow fern needs to be placed in one of three locations: the aquarium, the aviary, or the terrarium. Which one should you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a yellow fern. Put it into one of these enclosures: the aquarium, the aviary, or the terrarium. Which one?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"coin\",\"category\":\"round\",\"condition\":\"\",\"color\":\"green\",\"size\":\"\"},\"holes\":[{\"name\":\"star\",\"size\":\"\"},{\"name\":\"square\",\"size\":\"\"},{\"name\":\"circle\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You possess a green coin. Place it into one of the following openings: the star, the square, or the circle. Which one do you choose?"
+ }
+}

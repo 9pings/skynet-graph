@@ -1,0 +1,8 @@
+{
+ "response": "terrestrial",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: fish is-a aquatic; bird is-a aerial; reptile is-a terres",
+  "user": "Imagine you’re holding a vibrant red fern. You need to place it inside one of three spaces: a glass tank filled with water, a cage filled with birds, or a glass box designed for land-dwelling creature"
+ }
+}

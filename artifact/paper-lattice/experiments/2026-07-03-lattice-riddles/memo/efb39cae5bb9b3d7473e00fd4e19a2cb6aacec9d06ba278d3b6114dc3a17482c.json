@@ -1,0 +1,8 @@
+{
+ "response": "The red marble is-a marble, and marble is-a ball. According to the taxonomy, ball is-a round. Therefore",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You have a red marble and need to place it into one of three holes: the star-shaped hole, the square hole, or the round hole. Which hole do you choose?"
+ }
+}

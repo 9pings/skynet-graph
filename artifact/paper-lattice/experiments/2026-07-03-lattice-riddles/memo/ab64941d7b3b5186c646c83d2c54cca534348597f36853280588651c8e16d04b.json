@@ -1,0 +1,8 @@
+{
+ "response": "aquatic",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "An aquarium, an aviary, and a terrarium are available. You have a red fish. In which of these should you place it?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"kind\":\"ball\",\"category\":\"round\"}",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"You're holding a flat yellow ball. Choose which opening to drop it into: the star-shaped op",
+  "user": "In general, which shape category fits a ball?"
+ }
+}

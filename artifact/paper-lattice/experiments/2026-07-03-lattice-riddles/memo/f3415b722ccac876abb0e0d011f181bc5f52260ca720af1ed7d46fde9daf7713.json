@@ -1,0 +1,8 @@
+{
+ "response": "\n\nroundpin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You possess a yellow Euro plug and need to insert it into one of three available wall outlets: a round-pin socket, a flat-pin socket, or a three-pin socket. Which socket is the correct choice?"
+ }
+}

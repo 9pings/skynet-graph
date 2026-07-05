@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\"kind\":\"fern\",\"category\":\"terrestrial\"}\n```",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"You possess a yellow fern and need to decide where to place it among three options: an aqua",
+  "user": "In general, which habitat type fits a fern?"
+ }
+}

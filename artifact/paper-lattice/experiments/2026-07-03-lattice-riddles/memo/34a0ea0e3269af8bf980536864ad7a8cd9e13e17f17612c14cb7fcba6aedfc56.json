@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nthreepin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You possess a damaged blue British plug. Determine which of the following wall outlets it fits into: the one with round pins, the one with flat pins, or the one with three pins."
+ }
+}

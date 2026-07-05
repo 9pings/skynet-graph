@@ -1,0 +1,8 @@
+{
+ "response": "{\"candidates\":[\"d_mm_wrong_cond: engineered_structure(X) ~> ~positive_refractive_index(X)\", \"d_mm_irrelevant: periodic_structure(X) ~> ~positive_refractive_index(X)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"positive_refractive_index(split_ring_resonator)\", list t",
+  "user": "Facts: composite(carbon_fiber_plate), composite(split_ring_resonator), material(carbon_fiber_plate), material(split_ring_resonator), metamaterial(split_ring_resonator).\nGeneral rules (=> means \"normal"
+ }
+}

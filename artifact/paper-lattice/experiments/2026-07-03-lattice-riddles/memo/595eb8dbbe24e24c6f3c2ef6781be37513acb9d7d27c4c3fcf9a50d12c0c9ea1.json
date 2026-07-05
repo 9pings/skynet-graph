@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"fish\",\"category\":\"aquarium\",\"condition\":\"\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"name\":\"aquarium\",\"size\":\"\"},{\"name\":\"aviary\",\"size\":\"\"},{\"name\":\"terrarium\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You possess a yellow fish and must place it in one of three habitats: an aquarium, an aviary, or a terrarium. Which enclosure is the correct choice?"
+ }
+}

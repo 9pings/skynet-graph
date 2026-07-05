@@ -1,0 +1,8 @@
+{
+ "response": "You've got a green pyramid. Which hole should it go into: the round one or the star-shaped one?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a green pyramid. Put it into one of these holes: the star-shaped one, or the round one. Which one?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "The **aviary** is the correct choice. Here's why:\n\n*   **Aviary:** Designed specifically for birds, providing space to fly and a suitable environment.\n*   **Aquarium:** For aquatic life (fish, etc.).\n*   **Terrarium:** For land-based animals, typically reptiles or amphibians.\n\n\n\nA blue sparrow is a bird, so it needs an aviary!",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a blue sparrow. Put it into one of these enclosures: the aquarium, the aviary, or the terrarium. Which one?"
+ }
+}

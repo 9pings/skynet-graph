@@ -1,0 +1,8 @@
+{
+ "response": "aerial",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "Imagine you own a bright yellow bird and need to place it in one of three spaces: a glass tank filled with water, a large outdoor cage designed for birds, or a glass box with dry soil and plants. Wher"
+ }
+}

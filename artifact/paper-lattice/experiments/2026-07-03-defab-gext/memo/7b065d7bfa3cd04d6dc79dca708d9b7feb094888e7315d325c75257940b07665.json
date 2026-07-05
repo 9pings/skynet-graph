@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\n{\"candidates\":[\"d_gr_wrong_cond\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"opaque(graphene_sheet)\", list the candidate rules. Reply",
+  "user": "Facts: carbon_material(graphene_sheet), carbon_material(graphite_block), carbon_material(thick_graphene), material(graphene_sheet), material(graphite_block), material(thick_graphene).\nGeneral rules (="
+ }
+}

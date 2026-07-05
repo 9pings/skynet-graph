@@ -1,0 +1,8 @@
+{
+ "response": "small round",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "Pick one of these three holes for your tiny yellow marble: the small round one, the large round one, or the large square one. Which will it be?"
+ }
+}

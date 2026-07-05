@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"sugar\",\"category\":\"square\",\"condition\":\"\",\"color\":\"yellow\",\"size\":\"small\"},\"holes\":[{\"name\":\"square\",\"size\":\"\"},{\"name\":\"star\",\"size\":\"\"},{\"name\":\"round\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you’re holding a single yellow sugar cube and three different holes in front of you: one shaped like a star, one shaped like a square, and one shaped like a circle. Where would you place the c"
+ }
+}

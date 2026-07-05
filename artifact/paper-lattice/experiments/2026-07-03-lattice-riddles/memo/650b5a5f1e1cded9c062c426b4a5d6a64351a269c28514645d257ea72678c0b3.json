@@ -1,0 +1,8 @@
+{
+ "response": "large flatpin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small roundpin | large roundpin | large flatpin | none.",
+  "user": "You possess a big red US plug. Which of these three wall outlets should you insert it into: the tiny round-pin outlet, the big round-pin outlet, or the large flat-pin outlet?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"sugar cube\",\"category\":\"\",\"condition\":\"liquefied\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"name\":\"star\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "A yellow sugar cube has been liquefied. Which hole should you place it in: the star, the square, or the circle?"
+ }
+}

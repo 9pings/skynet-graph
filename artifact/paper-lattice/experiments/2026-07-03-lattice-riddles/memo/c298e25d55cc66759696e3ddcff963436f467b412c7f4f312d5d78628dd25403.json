@@ -1,0 +1,8 @@
+{
+ "response": "\n\nYou have a deflated blue ball. Should you insert it into the round hole or the flat slot?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a deflated blue ball. Put it into one of these holes: the round one, or the flat slot. Which one?"
+ }
+}

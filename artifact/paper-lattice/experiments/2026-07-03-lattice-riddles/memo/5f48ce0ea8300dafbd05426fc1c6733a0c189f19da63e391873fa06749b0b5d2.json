@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"round one\",\"category\":\"hole\",\"condition\":\"round\",\"color\":\"none\",\"size\":\"none\"},\"holes\":[{\"name\":\"round one\",\"size\":\"none\"},{\"name\":\"star\",\"size\":\"none\"},{\"name\":\"square\",\"size\":\"none\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You should put the deflated red ball into the **round one**.\n\nHere's why:\n\n*   **Deflated** means the ball is flat and takes up very little space.\n*   A round ball will best fit into a round hole.\n\n\n\n"
+ }
+}

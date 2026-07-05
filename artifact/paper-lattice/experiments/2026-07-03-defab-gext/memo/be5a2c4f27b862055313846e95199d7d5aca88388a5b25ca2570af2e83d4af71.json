@@ -1,0 +1,8 @@
+{
+ "response": "\n\nd_sma_no_novel",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_nitinol: thermoelastic_martensite(X) ~> ~permanently_deformed_when_be",
+  "user": "Facts: alloy(aluminum_alloy), alloy(nitinol), alloy(nitinol_annealed), material(aluminum_alloy), material(nitinol), material(nitinol_annealed).\nGeneral rules (=> means \"normally implies\"): r_deform: a"
+ }
+}

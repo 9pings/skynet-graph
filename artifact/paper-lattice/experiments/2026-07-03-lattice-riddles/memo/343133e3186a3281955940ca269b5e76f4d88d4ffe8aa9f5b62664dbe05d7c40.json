@@ -1,0 +1,8 @@
+{
+ "response": "\n\nlarge round",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small round | large round | large square | none.",
+  "user": "You have a big red football. Which hole should you place it in: the small round one, the large round one, or the large square one?"
+ }
+}

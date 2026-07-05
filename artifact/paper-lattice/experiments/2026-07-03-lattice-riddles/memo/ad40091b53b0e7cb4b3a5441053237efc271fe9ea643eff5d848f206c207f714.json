@@ -1,0 +1,8 @@
+{
+ "response": "You possess a yellow Euro plug. Which wall socket out of the round-pin one, the flat-pin one, or the three-pin one should you insert it into?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a yellow Euro plug. Put it into one of these wall sockets: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one?"
+ }
+}

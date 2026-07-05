@@ -1,0 +1,8 @@
+{
+ "response": "{\n    \"object\": {\n        \"kind\": \"sugar pellet\",\n        \"category\": \"\",\n        \"condition\": \"dissolved\",\n        \"color\": \"blue\",\n        \"size\": \"tiny\"\n    },\n    \"holes\": [\n        {\n            \"name\": \"star-shaped slot\",\n            \"size\": \"\"\n        },\n        {\n            \"name\": \"square slot\",\n            \"size\": \"\"\n        },\n        {\n            \"name\": \"circ",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "Imagine you have a tiny, dissolved blue sugar pellet. You need to place it into one of three openings: a star-shaped slot, a square slot, or a circular slot. Which opening should you choose?"
+ }
+}

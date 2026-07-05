@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"token\",\"category\":\"star\",\"condition\":\"\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"name\":\"star\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You have a yellow star token. Should you place it in the star-shaped hole, the square hole, or the round hole?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\n    \"object\": {\n        \"kind\": \"ball\",\n        \"category\": \"sports\",\n        \"condition\": \"deflated\",\n        \"color\": \"unknown\",\n        \"size\": \"unknown\"\n    },\n    \"holes\": [\n        {\n            \"name\": \"basketball hoop\",\n            \"size\": \"large\"\n        },\n        {\n            \"name\": \"baseball hole\",\n            \"size\": \"medium\"\n        },\n        {\n            \"name\": \"golf hole\",\n            \"size\": \"small\"",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "This is a trick question! A deflated ball will fit into **any** of the holes. Since it's deflated, it doesn't have a specific shape and can conform to the shape of the hole.\n\n\n\nLet me know if you'd li"
+ }
+}

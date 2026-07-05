@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"football\",\"category\":\"round\",\"condition\":\"deflated\",\"color\":\"red\",\"size\":\"small\"},\"holes\":[{\"name\":\"round\",\"size\":\"small\"},{\"name\":\"flat\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You have a deflated red football. You need to decide where to place it: either in the round hole or the flat slot. Which one do you choose?"
+ }
+}

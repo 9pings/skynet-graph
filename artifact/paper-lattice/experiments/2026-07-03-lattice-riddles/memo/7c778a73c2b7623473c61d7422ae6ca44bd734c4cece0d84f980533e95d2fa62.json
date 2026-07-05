@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"HDMI cable\",\"category\":\"\",\"condition\":\"\",\"color\":\"blue\",\"size\":\"\"},\"holes\":[{\"name\":\"flatpin\",\"size\":\"\"},{\"name\":\"roundpin\",\"size\":\"\"},{\"name\":\"threepin\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "Imagine you’re holding a blue HDMI cable and need to plug it into one of three different wall outlets: one with round prongs, another with flat prongs, or the third with three prongs. Which outlet sho"
+ }
+}

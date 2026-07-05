@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nI cannot place the red sugar cube into any of the openings because the",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You possess a brand-new red sugar cube. Place it into one of these openings: the star-shaped one, the square one, or the round one. Which opening will you choose?"
+ }
+}

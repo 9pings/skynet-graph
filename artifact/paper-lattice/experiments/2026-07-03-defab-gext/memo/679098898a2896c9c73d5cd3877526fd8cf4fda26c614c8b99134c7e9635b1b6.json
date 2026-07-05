@@ -1,0 +1,8 @@
+{
+ "response": "d_panda",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: carnivore(pandy)\nCandidates:\nlabel: d_panda; cond: panda(X) ~> ~carnivore(X)\nlabel: d_panda_broad; cond: bear(X) ~> ~carnivore(X)\nlabel: d_panda_wrong_cond; cond: asian(X) ~> ~carnivore(X)"
+ }
+}

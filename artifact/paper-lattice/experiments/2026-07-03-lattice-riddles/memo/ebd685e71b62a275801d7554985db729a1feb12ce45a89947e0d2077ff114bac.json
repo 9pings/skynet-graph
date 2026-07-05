@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"Euro plug\",\"category\":\"threepin\",\"condition\":\"\",\"color\":\"yellow\",\"size\":\"small\"},\"holes\":[{\"name\":\"roundpin\",\"size\":\"small\"},{\"name\":\"roundpin\",\"size\":\"large\"},{\"name\":\"flatpin\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You possess a tiny yellow Euro plug. Which wall socket should you insert it into: the small round-pin variety, the large round-pin variety, or the large flat-pin variety?"
+ }
+}

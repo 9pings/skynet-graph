@@ -1,0 +1,8 @@
+{
+ "response": "aquatic\n\nI would choose the fish tank (aquatic habitat) because fern",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You possess a red fern. Place it inside one of these habitats: the fish tank, the bird house, or the reptile cage. Which habitat will you choose?"
+ }
+}

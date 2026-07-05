@@ -1,0 +1,8 @@
+{
+ "response": "{\n    \"object\": {\n        \"kind\": \"deflated football\",\n        \"category\": \"sports equipment\",\n        \"condition\": \"deflated\",\n        \"color\": \"brown\",\n        \"size\": \"medium\"\n    },\n    \"holes\": [\n        {\n            \"name\": \"Mailbox slot\",\n            \"size\": \"small\"\n        },\n        {\n            \"name\": \"Fence post hole\",\n            \"size\": \"medium\"\n        },\n        {\n            \"name\": \"Birdhouse entrance\",\n            \"size\":",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "This is a trick question! A deflated football won't fit into any of those holes. They are likely designed for something else entirely. 😊\n\n\n\nLet me know if you'd like to try another riddle!"
+ }
+}

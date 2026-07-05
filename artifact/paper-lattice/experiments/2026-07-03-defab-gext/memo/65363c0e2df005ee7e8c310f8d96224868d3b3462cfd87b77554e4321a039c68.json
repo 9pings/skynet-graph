@@ -1,0 +1,8 @@
+{
+ "response": "d_mm_wrong_cond",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: positive_refractive_index(split_ring_resonator)\nCandidates:\nd_mm_wrong_cond: engineered_structure(X) ~> ~positive_refractive_index(X)\nd_mm_irrelevant: periodic_structure(X) ~> ~positive_refra"
+ }
+}

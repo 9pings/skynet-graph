@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"candidates\": [\n    \"label: d_lungfish ~> ~breathes_with_gills(lenny)\",\n    \"label: lungfish(X) ~> ~breathes_with_gills(lenny)\",\n    \"label: lungfish(lenny) ~> ~breathes_with_gills(lenny)\",\n    \"label: fish(X) & lungfish(X) ~> ~breathes_with_gills(lenny)\",\n    \"label: fish(lenny) ~> ~breathes_with_gills(lenny)\",\n    \"label: breathes_with_gills(X) & lungfish(X) ~> ~breathes_with_gills(lenny)\"\n  ]\n}\n```",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"breathes_with_gills(lenny)\", list the candidate rules. R",
+  "user": "Facts: fish(gill_gill), fish(lenny), fish(nemo), lungfish(gill_gill), lungfish(lenny), salmon(nemo).\nGeneral rules (=> means \"normally implies\"): r_gills: fish(X) => breathes_with_gills(X); r_cold: fi"
+ }
+}

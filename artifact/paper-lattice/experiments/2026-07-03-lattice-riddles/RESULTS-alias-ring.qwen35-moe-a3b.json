@@ -1,0 +1,1338 @@
+{
+ "control": {
+  "pass": 12,
+  "of": 12
+ },
+ "shapes/order0": {
+  "gated": {
+   "admits": [
+    {
+     "key": "kind",
+     "tok": "die",
+     "member": "dice",
+     "equivalents": 4
+    },
+    {
+     "key": "holeName",
+     "tok": "circular",
+     "member": "round",
+     "equivalents": 1
+    },
+    {
+     "key": "condition",
+     "tok": "liquefied",
+     "member": "melted",
+     "equivalents": 1
+    },
+    {
+     "key": "holeName",
+     "tok": "circle",
+     "member": "round",
+     "equivalents": 1
+    }
+   ],
+   "confirmed": [
+    "holeName:circular→round"
+   ],
+   "falseConfirmed": [],
+   "wrongAdmits": [
+    "holeName:circle→round"
+   ],
+   "blameRetracts": [],
+   "refused": {
+    "vacuous": 0,
+    "failed-verify": 0,
+    "no-proposal": 4,
+    "confluence": 0
+   },
+   "quarantinedMulti": 0,
+   "maskAvoided": 0,
+   "damage": 0,
+   "res": {
+    "ok": 11,
+    "refusedTask": 0,
+    "wrong": 0
+   },
+   "proposalCalls": 8,
+   "reProposalAvoided": 1,
+   "attrition": 7,
+   "neverReExercised": [
+    "kind::die",
+    "condition::liquefied",
+    "holeName::circle"
+   ],
+   "finalRing": {
+    "kind": {
+     "dice": [
+      "die"
+     ]
+    },
+    "holeName": {
+     "round": [
+      "circular",
+      "circle"
+     ]
+    },
+    "condition": {
+     "melted": [
+      "liquefied"
+     ]
+    }
+   }
+  },
+  "ungated": {
+   "admits": [
+    {
+     "key": "kind",
+     "tok": "die",
+     "member": "dice"
+    },
+    {
+     "key": "holeName",
+     "tok": "circular",
+     "member": "round"
+    },
+    {
+     "key": "condition",
+     "tok": "liquefied",
+     "member": "melted"
+    },
+    {
+     "key": "holeName",
+     "tok": "circle",
+     "member": "round"
+    }
+   ],
+   "confirmed": [],
+   "falseConfirmed": [],
+   "wrongAdmits": [
+    "holeName:circle→round"
+   ],
+   "blameRetracts": [],
+   "refused": {
+    "vacuous": 0,
+    "failed-verify": 0,
+    "no-proposal": 4,
+    "confluence": 0
+   },
+   "quarantinedMulti": 0,
+   "maskAvoided": 0,
+   "damage": 0,
+   "res": {
+    "ok": 11,
+    "refusedTask": 0,
+    "wrong": 0
+   },
+   "proposalCalls": 8,
+   "reProposalAvoided": 1,
+   "attrition": 7,
+   "neverReExercised": [
+    "kind::die",
+    "condition::liquefied",
+    "holeName::circle"
+   ],
+   "finalRing": {
+    "kind": {
+     "dice": [
+      "die"
+     ]
+    },
+    "holeName": {
+     "round": [
+      "circular",
+      "circle"
+     ]
+    },
+    "condition": {
+     "melted": [
+      "liquefied"
+     ]
+    }
+   }
+  },
+  "trace": [
+   {
+    "arm": "gated",
+    "ep": "kind/die",
+    "gold": 1,
+    "pend": [
+     "kind:die→dice"
+    ],
+    "admitted": [
+     "kind:die"
+    ],
+    "status": "mounted",
+    "hole": 1,
+    "ok": true,
+    "exercised": [
+     "ring:kind:die→dice"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "kind/die",
+    "gold": 1,
+    "pend": [
+     "kind:die→dice"
+    ],
+    "admitted": [
+     "kind:die"
+    ],
+    "status": "mounted",
+    "hole": 1,
+    "ok": true,
+    "exercised": [
+     "trial:kind:die→dice"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [
+     "holeName:circular→round"
+    ],
+    "admitted": [
+     "holeName:circular"
+    ],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circular→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [
+     "holeName:circular→round"
+    ],
+    "admitted": [
+     "holeName:circular"
+    ],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "trial:holeName:circular→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circular→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circular→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circular→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circular→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:defeated",
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:defeated",
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [
+     "condition:liquefied→melted"
+    ],
+    "admitted": [
+     "condition:liquefied"
+    ],
+    "status": "impracticable:defeated",
+    "ok": true,
+    "exercised": [
+     "ring:condition:liquefied→melted"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [
+     "condition:liquefied→melted"
+    ],
+    "admitted": [
+     "condition:liquefied"
+    ],
+    "status": "impracticable:defeated",
+    "ok": true,
+    "exercised": [
+     "trial:condition:liquefied→melted"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [
+     "holeName:circle→round"
+    ],
+    "admitted": [
+     "holeName:circle"
+    ],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [
+     "holeName:circle→round"
+    ],
+    "admitted": [
+     "holeName:circle"
+    ],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "trial:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "benign/gleaming",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "benign/gleaming",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": []
+   }
+  ]
+ },
+ "shapes/order1": {
+  "gated": {
+   "admits": [
+    {
+     "key": "holeName",
+     "tok": "circular",
+     "member": "round",
+     "equivalents": 1
+    },
+    {
+     "key": "kind",
+     "tok": "die",
+     "member": "dice",
+     "equivalents": 4
+    },
+    {
+     "key": "condition",
+     "tok": "liquefied",
+     "member": "melted",
+     "equivalents": 1
+    },
+    {
+     "key": "holeName",
+     "tok": "circle",
+     "member": "round",
+     "equivalents": 1
+    }
+   ],
+   "confirmed": [
+    "holeName:circular→round"
+   ],
+   "falseConfirmed": [],
+   "wrongAdmits": [
+    "holeName:circle→round"
+   ],
+   "blameRetracts": [],
+   "refused": {
+    "vacuous": 0,
+    "failed-verify": 0,
+    "no-proposal": 4,
+    "confluence": 0
+   },
+   "quarantinedMulti": 0,
+   "maskAvoided": 0,
+   "damage": 0,
+   "res": {
+    "ok": 11,
+    "refusedTask": 0,
+    "wrong": 0
+   },
+   "proposalCalls": 8,
+   "reProposalAvoided": 1,
+   "attrition": 7,
+   "neverReExercised": [
+    "kind::die",
+    "condition::liquefied",
+    "holeName::circle"
+   ],
+   "finalRing": {
+    "kind": {
+     "dice": [
+      "die"
+     ]
+    },
+    "holeName": {
+     "round": [
+      "circular",
+      "circle"
+     ]
+    },
+    "condition": {
+     "melted": [
+      "liquefied"
+     ]
+    }
+   }
+  },
+  "ungated": {
+   "admits": [
+    {
+     "key": "holeName",
+     "tok": "circular",
+     "member": "round"
+    },
+    {
+     "key": "kind",
+     "tok": "die",
+     "member": "dice"
+    },
+    {
+     "key": "condition",
+     "tok": "liquefied",
+     "member": "melted"
+    },
+    {
+     "key": "holeName",
+     "tok": "circle",
+     "member": "round"
+    }
+   ],
+   "confirmed": [],
+   "falseConfirmed": [],
+   "wrongAdmits": [
+    "holeName:circle→round"
+   ],
+   "blameRetracts": [],
+   "refused": {
+    "vacuous": 0,
+    "failed-verify": 0,
+    "no-proposal": 4,
+    "confluence": 0
+   },
+   "quarantinedMulti": 0,
+   "maskAvoided": 0,
+   "damage": 0,
+   "res": {
+    "ok": 11,
+    "refusedTask": 0,
+    "wrong": 0
+   },
+   "proposalCalls": 8,
+   "reProposalAvoided": 1,
+   "attrition": 7,
+   "neverReExercised": [
+    "kind::die",
+    "condition::liquefied",
+    "holeName::circle"
+   ],
+   "finalRing": {
+    "kind": {
+     "dice": [
+      "die"
+     ]
+    },
+    "holeName": {
+     "round": [
+      "circular",
+      "circle"
+     ]
+    },
+    "condition": {
+     "melted": [
+      "liquefied"
+     ]
+    }
+   }
+  },
+  "trace": [
+   {
+    "arm": "gated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:defeated",
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:defeated",
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [
+     "holeName:circular→round"
+    ],
+    "admitted": [
+     "holeName:circular"
+    ],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circular→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [
+     "holeName:circular→round"
+    ],
+    "admitted": [
+     "holeName:circular"
+    ],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "trial:holeName:circular→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circular→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circular→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "kind/die",
+    "gold": 1,
+    "pend": [
+     "kind:die→dice"
+    ],
+    "admitted": [
+     "kind:die"
+    ],
+    "status": "mounted",
+    "hole": 1,
+    "ok": true,
+    "exercised": [
+     "ring:kind:die→dice"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "kind/die",
+    "gold": 1,
+    "pend": [
+     "kind:die→dice"
+    ],
+    "admitted": [
+     "kind:die"
+    ],
+    "status": "mounted",
+    "hole": 1,
+    "ok": true,
+    "exercised": [
+     "trial:kind:die→dice"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "benign/gleaming",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "benign/gleaming",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [
+     "condition:liquefied→melted"
+    ],
+    "admitted": [
+     "condition:liquefied"
+    ],
+    "status": "impracticable:defeated",
+    "ok": true,
+    "exercised": [
+     "ring:condition:liquefied→melted"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [
+     "condition:liquefied→melted"
+    ],
+    "admitted": [
+     "condition:liquefied"
+    ],
+    "status": "impracticable:defeated",
+    "ok": true,
+    "exercised": [
+     "trial:condition:liquefied→melted"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [
+     "holeName:circle→round"
+    ],
+    "admitted": [
+     "holeName:circle"
+    ],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [
+     "holeName:circle→round"
+    ],
+    "admitted": [
+     "holeName:circle"
+    ],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "trial:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circular→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circular→round"
+    ]
+   }
+  ]
+ },
+ "shapes/order2": {
+  "gated": {
+   "admits": [
+    {
+     "key": "holeName",
+     "tok": "circle",
+     "member": "round",
+     "equivalents": 1
+    },
+    {
+     "key": "condition",
+     "tok": "liquefied",
+     "member": "melted",
+     "equivalents": 1
+    },
+    {
+     "key": "holeName",
+     "tok": "circular",
+     "member": "round",
+     "equivalents": 1
+    },
+    {
+     "key": "kind",
+     "tok": "die",
+     "member": "dice",
+     "equivalents": 4
+    }
+   ],
+   "confirmed": [
+    "holeName:circular→round"
+   ],
+   "falseConfirmed": [],
+   "wrongAdmits": [
+    "holeName:circle→round"
+   ],
+   "blameRetracts": [],
+   "refused": {
+    "vacuous": 0,
+    "failed-verify": 0,
+    "no-proposal": 4,
+    "confluence": 0
+   },
+   "quarantinedMulti": 0,
+   "maskAvoided": 0,
+   "damage": 0,
+   "res": {
+    "ok": 11,
+    "refusedTask": 0,
+    "wrong": 0
+   },
+   "proposalCalls": 8,
+   "reProposalAvoided": 1,
+   "attrition": 7,
+   "neverReExercised": [
+    "holeName::circle",
+    "condition::liquefied",
+    "kind::die"
+   ],
+   "finalRing": {
+    "kind": {
+     "dice": [
+      "die"
+     ]
+    },
+    "holeName": {
+     "round": [
+      "circle",
+      "circular"
+     ]
+    },
+    "condition": {
+     "melted": [
+      "liquefied"
+     ]
+    }
+   }
+  },
+  "ungated": {
+   "admits": [
+    {
+     "key": "holeName",
+     "tok": "circle",
+     "member": "round"
+    },
+    {
+     "key": "condition",
+     "tok": "liquefied",
+     "member": "melted"
+    },
+    {
+     "key": "holeName",
+     "tok": "circular",
+     "member": "round"
+    },
+    {
+     "key": "kind",
+     "tok": "die",
+     "member": "dice"
+    }
+   ],
+   "confirmed": [],
+   "falseConfirmed": [],
+   "wrongAdmits": [
+    "holeName:circle→round"
+   ],
+   "blameRetracts": [],
+   "refused": {
+    "vacuous": 0,
+    "failed-verify": 0,
+    "no-proposal": 4,
+    "confluence": 0
+   },
+   "quarantinedMulti": 0,
+   "maskAvoided": 0,
+   "damage": 0,
+   "res": {
+    "ok": 11,
+    "refusedTask": 0,
+    "wrong": 0
+   },
+   "proposalCalls": 8,
+   "reProposalAvoided": 1,
+   "attrition": 7,
+   "neverReExercised": [
+    "holeName::circle",
+    "condition::liquefied",
+    "kind::die"
+   ],
+   "finalRing": {
+    "kind": {
+     "dice": [
+      "die"
+     ]
+    },
+    "holeName": {
+     "round": [
+      "circle",
+      "circular"
+     ]
+    },
+    "condition": {
+     "melted": [
+      "liquefied"
+     ]
+    }
+   }
+  },
+  "trace": [
+   {
+    "arm": "gated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [
+     "holeName:circle→round"
+    ],
+    "admitted": [
+     "holeName:circle"
+    ],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [
+     "holeName:circle→round"
+    ],
+    "admitted": [
+     "holeName:circle"
+    ],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "trial:holeName:circle→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:defeated",
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [],
+    "admitted": [],
+    "status": "impracticable:defeated",
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [
+     "condition:liquefied→melted"
+    ],
+    "admitted": [
+     "condition:liquefied"
+    ],
+    "status": "impracticable:defeated",
+    "ok": true,
+    "exercised": [
+     "ring:condition:liquefied→melted"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "condition/liquefied",
+    "gold": null,
+    "pend": [
+     "condition:liquefied→melted"
+    ],
+    "admitted": [
+     "condition:liquefied"
+    ],
+    "status": "impracticable:defeated",
+    "ok": true,
+    "exercised": [
+     "trial:condition:liquefied→melted"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "benign/damp",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [
+     "holeName:circular→round"
+    ],
+    "admitted": [
+     "holeName:circular"
+    ],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circular→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [
+     "holeName:circular→round"
+    ],
+    "admitted": [
+     "holeName:circular"
+    ],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "trial:holeName:circular→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "spont-false/waterlogged",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "benign/gleaming",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "ungated",
+    "ep": "benign/gleaming",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": []
+   },
+   {
+    "arm": "gated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circular→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circular→round"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "kind/die",
+    "gold": 1,
+    "pend": [
+     "kind:die→dice"
+    ],
+    "admitted": [
+     "kind:die"
+    ],
+    "status": "mounted",
+    "hole": 1,
+    "ok": true,
+    "exercised": [
+     "ring:kind:die→dice"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "kind/die",
+    "gold": 1,
+    "pend": [
+     "kind:die→dice"
+    ],
+    "admitted": [
+     "kind:die"
+    ],
+    "status": "mounted",
+    "hole": 1,
+    "ok": true,
+    "exercised": [
+     "trial:kind:die→dice"
+    ]
+   },
+   {
+    "arm": "gated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circular→round"
+    ]
+   },
+   {
+    "arm": "ungated",
+    "ep": "holeName/circular",
+    "gold": 2,
+    "pend": [],
+    "admitted": [],
+    "status": "mounted",
+    "hole": 2,
+    "ok": true,
+    "exercised": [
+     "ring:holeName:circular→round"
+    ]
+   }
+  ]
+ }
+}

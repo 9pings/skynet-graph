@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"word\": \"dissolved\",\n  \"means\": \"melted\"\n}\n```",
+ "at": null,
+ "meta": {
+  "system": "Vocabulary question. Reply ONLY JSON: {\"word\":\"dissolved\",\"means\":\"<one of the options, or neither>\"}",
+  "user": "The word \"dissolved\" used as a object condition word — which of these does it mean: deflated|melted, or neither?"
+ }
+}

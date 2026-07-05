@@ -1,0 +1,8 @@
+{
+ "response": "You have a yellow pyramid-shaped object. You need to place it in either the star-shaped hole or the circular hole. Which hole should you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a yellow pyramid. Put it into one of these holes: the star-shaped one, or the round one. Which one?"
+ }
+}

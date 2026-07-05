@@ -1,0 +1,8 @@
+{
+ "response": "Looking at the description of holding a \"big green football,\" I need to determine",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small round | large round | large square | none.",
+  "user": "You're holding a big green football. Which opening would it fit into: the tiny circular hole, the big circular hole, or the large square hole?"
+ }
+}

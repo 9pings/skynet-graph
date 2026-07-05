@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"candidates\": [\n    \"label: d_supremacy: conflicts_with_federal(X) ~> ~enforceable(X)\",\n    \"label: d_cs_broad: law(X) ~> ~enforceable(X)\",\n    \"label: d_cs_wrong_head: conflicts_with_federal(X) ~> ~binding_on_citizens(X)\",\n    \"label: d_cs_positive: conflicts_with_federal(X) => preempted(X)\",\n    \"label: d_cs_wrong_cond: unconstitutional(X) ~> ~enforceable(X)\",\n    \"label: d_cs_indirect: preempted(X) ~> ~enforceable(X)\"\n  ]\n}\n```",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"enforceable(state_law_x)\", list the candidate rules. Rep",
+  "user": "Facts: conflicts_with_federal(state_law_x), law(state_law_x), law(state_law_y).\nGeneral rules (=> means \"normally implies\"): r_enforce: law(X) => enforceable(X); r_binding: law(X) => binding_on_citize"
+ }
+}

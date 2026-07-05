@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"football\",\"category\":\"round\",\"condition\":\"\",\"color\":\"green\",\"size\":\"large\"},\"holes\":[{\"name\":\"star\",\"size\":\"small\"},{\"name\":\"square\",\"size\":\"large\"},{\"name\":\"round\",\"size\":\"big\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You're holding a big green football. Which opening would it fit into: the tiny circular hole, the big circular hole, or the large square hole?"
+ }
+}

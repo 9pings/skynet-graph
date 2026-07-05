@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"cube\",\"category\":\"square\",\"condition\":\"liquefied\",\"color\":\"green\",\"size\":\"\"},\"holes\":[{\"name\":\"star\",\"size\":\"\"},{\"name\":\"square\",\"size\":\"\"},{\"name\":\"circular\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You possess a liquefied green sugar cube. Into which of the following openings should you place it: the star-shaped, the square, or the circular one?"
+ }
+}

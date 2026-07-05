@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"trout\",\"category\":\"aquarium\",\"condition\":\"\",\"color\":\"blue\",\"size\":\"small\"},\"holes\":[{\"name\":\"aquarium\",\"size\":\"compact\"},{\"name\":\"aquarium\",\"size\":\"spacious\"},{\"name\":\"terrarium\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you’re holding a tiny blue trout—now you need to place it in one of three spots: the compact aquarium, the spacious aquarium, or the large terrarium. Where should it go?"
+ }
+}

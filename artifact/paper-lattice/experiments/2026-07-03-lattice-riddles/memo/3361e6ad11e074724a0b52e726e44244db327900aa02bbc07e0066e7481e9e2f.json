@@ -1,0 +1,8 @@
+{
+ "response": "\n\naquatic",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You possess a yellow fern and must place it in either the aquarium, the aviary, or the terrarium. Which enclosure is the correct choice?"
+ }
+}

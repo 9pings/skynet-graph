@@ -1,0 +1,8 @@
+{
+ "response": "Looking at the ontology:\n\n1. A yellow bird is-a bird (from the taxonomy)\n2. Birds are-a aerial",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: fish is-a aquatic; bird is-a aerial; reptile is-a terres",
+  "user": "You possess a yellow bird. In which of these three habitats would you place it: the fish tank, the bird house, or the reptile cage? What choice do you make?"
+ }
+}

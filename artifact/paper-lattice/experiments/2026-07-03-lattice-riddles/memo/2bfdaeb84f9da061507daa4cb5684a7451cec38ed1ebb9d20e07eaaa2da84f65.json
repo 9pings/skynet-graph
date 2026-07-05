@@ -1,0 +1,8 @@
+{
+ "response": "large round",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small round | large round | large square | none.",
+  "user": "You have a big red football and need to place it into one of these openings: a small circular one, a big circular one, or a big square one. Which one should you choose?"
+ }
+}

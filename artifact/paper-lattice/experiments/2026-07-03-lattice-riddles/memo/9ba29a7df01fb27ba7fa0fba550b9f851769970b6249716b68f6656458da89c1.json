@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\"kind\":\"gecko\",\"category\":\"terrestrial\"}\n```",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"You own a yellow gecko. Should you place it in the aquarium, the aviary, or the terrarium?\"",
+  "user": "In general, which habitat type fits a gecko?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "d_laches_wrong_head: laches_applies(X) ~> ~remedy_available(X)",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_laches: laches_applies(X) ~> ~valid_claim(X)\nd_laches_broad: equity_c",
+  "user": "Facts: equity_claim(mansion_case), equity_claim(park_case).\nGeneral rules (=> means \"normally implies\"): r_eq_valid: equity_claim(X) => valid_claim(X); r_remedy: equity_claim(X) => remedy_available(X)"
+ }
+}

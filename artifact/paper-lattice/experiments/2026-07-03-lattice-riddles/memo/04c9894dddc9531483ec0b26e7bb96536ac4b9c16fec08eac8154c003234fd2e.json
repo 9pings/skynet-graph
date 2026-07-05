@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"socket\",\"category\":\"large flat-pin\",\"condition\":\"compatible\",\"color\":\"unknown\",\"size\":\"large\"},\"holes\":[]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You would put the Euro plug into the **large flat-pin socket**.\n\nHere's why:\n\n*   **Euro plugs** (also known as Schuko plugs) are designed to fit into sockets with two large, flat pins.\n*   The other "
+ }
+}

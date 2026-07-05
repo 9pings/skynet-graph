@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"reasoning\",\"category\":\"enclosure_choice\",\"condition\":\"trout needs enclosure\",\"color\":\"yellow\",\"size\":\"small\"},\"holes\":[{\"name\":\"aquarium_type\",\"size\":\"large\"},{\"name\":\"aquarium_type\",\"size\":\"small\"},{\"name\":\"enclosure_type\",\"size\":\"terrarium\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "The **large aquarium** is the best choice for a trout. Here's why:\n\n*   **Trout are fish:** They need water to survive. Aquariums are designed for aquatic life.\n*   **Size:** Trout need space to swim "
+ }
+}

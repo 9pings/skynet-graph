@@ -1,0 +1,8 @@
+{
+ "response": "\n\n{\"candidates\":[\"d_force_majeure: force_majeure_event(X) ~> ~performance_required(X)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"performance_required(contract_x)\", list the candidate ru",
+  "user": "Facts: contract(contract_x), contract(contract_y), force_majeure_event(contract_x).\nGeneral rules (=> means \"normally implies\"): r_perform: contract(X) => performance_required(X); r_breach: contract(X"
+ }
+}

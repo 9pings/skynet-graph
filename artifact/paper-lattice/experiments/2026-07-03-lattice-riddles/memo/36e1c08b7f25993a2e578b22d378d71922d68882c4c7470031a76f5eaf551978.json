@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\naquarium",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquarium | aviary | terrarium | none.",
+  "user": "Where should you place a red trout: in an aquarium, an aviary, or a terrarium?"
+ }
+}

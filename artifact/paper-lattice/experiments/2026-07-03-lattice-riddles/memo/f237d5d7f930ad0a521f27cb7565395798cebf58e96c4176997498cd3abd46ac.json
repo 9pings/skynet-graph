@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nA football is typically oval/shaped, and none of the standard geometric",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You possess a yellow football. Place it in any of these openings: the star-shaped, the square, or the circular one. Which opening will you choose?"
+ }
+}

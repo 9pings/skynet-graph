@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"American-style electrical plug\",\"category\":\"threepin\",\"condition\":\"\",\"color\":\"green\",\"size\":\"large\"},\"holes\":[{\"name\":\"threepin\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "Imagine you’re holding a big, green American-style electrical plug. You need to plug it into one of three different wall outlets: one with tiny round prongs, another with big round prongs, or a third "
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\naerial",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: fish is-a aquatic; bird is-a aerial; reptile is-a terres",
+  "user": "Where should you place a blue sparrow: in an aquarium, an aviary, or a terrarium?"
+ }
+}

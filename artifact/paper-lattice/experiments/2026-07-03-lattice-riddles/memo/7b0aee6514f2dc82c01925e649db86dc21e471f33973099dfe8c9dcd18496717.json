@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\"word\":\"circle\",\"means\":\"round\"}\n```",
+ "at": null,
+ "meta": {
+  "system": "Vocabulary question. Reply ONLY JSON: {\"word\":\"circle\",\"means\":\"<one of the options, or neither>\"}",
+  "user": "The word \"circle\" used as a hole shape word — which of these does it mean: star|square|round, or neither?"
+ }
+}

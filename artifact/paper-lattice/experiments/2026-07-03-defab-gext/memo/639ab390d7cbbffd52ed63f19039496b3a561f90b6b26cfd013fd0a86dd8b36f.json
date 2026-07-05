@@ -1,0 +1,8 @@
+{
+ "response": "The goal is to find an exception rule that explains why `legally_valid(act_alpha)` is an anomaly (meaning it should be",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_ultra_vires: ultra_vires_act(X) ~> ~legally_valid(X)\nd_uv_broad: corp",
+  "user": "Facts: corporate_act(act_alpha), corporate_act(act_beta), ultra_vires_act(act_alpha).\nGeneral rules (=> means \"normally implies\"): r_valid: corporate_act(X) => legally_valid(X); r_binding_c: corporate"
+ }
+}

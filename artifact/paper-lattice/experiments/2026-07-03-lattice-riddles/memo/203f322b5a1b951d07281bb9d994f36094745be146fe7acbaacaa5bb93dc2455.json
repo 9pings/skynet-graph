@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"sphere\",\"category\":\"sphere\",\"condition\":\"blue\",\"color\":\"blue\",\"size\":\"\"},\"holes\":[{\"name\":\"star-shaped\",\"size\":\"\"},{\"name\":\"square\",\"size\":\"\"},{\"name\":\"circular\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "You possess a blue sphere. Into which of the following apertures should you place it: the star-shaped, the square, or the circular?"
+ }
+}

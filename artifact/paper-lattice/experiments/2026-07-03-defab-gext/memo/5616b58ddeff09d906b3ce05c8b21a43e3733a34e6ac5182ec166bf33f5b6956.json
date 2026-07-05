@@ -1,0 +1,8 @@
+{
+ "response": "\n\n{\"candidates\":[\"d_lungfish: has_accessory_lung(X) ~> ~breathes_with_gills(X)\", \"d_lung_broad: fish(X) ~> ~breathes_with_gills(X)\", \"d_lung_no_novel: lungfish(X) ~> ~breathes_with_gills(X)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"breathes_with_gills(lenny)\", list the candidate rules. R",
+  "user": "Facts: fish(gill_gill), fish(lenny), fish(nemo), lungfish(gill_gill), lungfish(lenny), salmon(nemo).\nGeneral rules (=> means \"normally implies\"): r_gills: fish(X) => breathes_with_gills(X); r_cold: fi"
+ }
+}

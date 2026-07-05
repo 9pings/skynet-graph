@@ -1,0 +1,8 @@
+{
+ "response": "\n\nYou have a big green football. Which hole should you place it in: the small round one, the large round one, or the large square one?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a large green football. Put it into one of these holes: the small round one, the large round one, or the large square one. Which one?"
+ }
+}

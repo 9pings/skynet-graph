@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"trout\",\"category\":\"aquarium\",\"condition\":\"fresh\",\"color\":\"red\",\"size\":\"small\"},\"holes\":[{\"name\":\"aquarium\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you’re holding a freshly caught red trout—now you need to place it in one of three spaces: a glass tank filled with water, a birdcage filled with air, or a glass box lined with soil and plants"
+ }
+}

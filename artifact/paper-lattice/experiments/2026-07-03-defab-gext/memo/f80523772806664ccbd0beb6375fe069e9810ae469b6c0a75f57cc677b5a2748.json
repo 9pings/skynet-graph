@@ -1,0 +1,8 @@
+{
+ "response": "The goal is to find an exception rule that explains why `insectivore(vlad)` is an anomaly.\nThe general rule `r_",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_vampire_bat: hematophagous(X) ~> ~insectivore(X)\nd_vbat_broad: bat(X)",
+  "user": "Facts: bat(pip), bat(reg), bat(vlad), pipistrelle(pip), vampire_bat(reg), vampire_bat(vlad).\nGeneral rules (=> means \"normally implies\"): r_insect: bat(X) => insectivore(X); r_noc: bat(X) => nocturnal"
+ }
+}

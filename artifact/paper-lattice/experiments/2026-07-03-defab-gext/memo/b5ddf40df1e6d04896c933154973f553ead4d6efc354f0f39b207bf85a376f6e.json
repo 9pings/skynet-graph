@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"candidates\": [\n    \"label: cond(X) ~> ~head(X)\",\n    \"d_thermoelectric: thermoelectric(X) ~> ~thermally_passive(X)\",\n    \"d_te_broad: semiconductor(X) ~> ~thermally_passive(X)\",\n    \"d_te_wrong_head: thermoelectric(X) ~> ~band_gap(X)\",\n    \"d_te_positive: thermoelectric(X) => seebeck_effect(X)\",\n    \"d_te_wrong_cond: conductor(X) ~> ~thermally_passive(X)\",\n    \"d_te_irrelevant: doped(X) ~> ~thermally_passive(X)\"\n  ]\n}\n```",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"thermally_passive(bismuth_telluride)\", list the candidat",
+  "user": "Facts: material(bismuth_telluride), material(silicon_chip), semiconductor(bismuth_telluride), semiconductor(silicon_chip), thermoelectric(bismuth_telluride).\nGeneral rules (=> means \"normally implies\""
+ }
+}

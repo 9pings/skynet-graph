@@ -1,0 +1,8 @@
+{
+ "response": "large roundpin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small roundpin | large roundpin | large flatpin | none.",
+  "user": "Imagine you’re holding a big, green American-style electrical plug. You need to plug it into one of three different wall outlets: one with tiny round prongs, another with big round prongs, or a third "
+ }
+}

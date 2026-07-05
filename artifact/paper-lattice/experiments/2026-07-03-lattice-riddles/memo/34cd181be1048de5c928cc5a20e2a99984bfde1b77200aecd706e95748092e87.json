@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\"word\":\"soakedwithwater\",\"means\":\"neither\"}\n```",
+ "at": null,
+ "meta": {
+  "system": "Vocabulary question. Reply ONLY JSON: {\"word\":\"soakedwithwater\",\"means\":\"<one of the options, or neither>\"}",
+  "user": "The word \"soakedwithwater\" used as a object condition word — which of these does it mean: deflated|melted, or neither?"
+ }
+}

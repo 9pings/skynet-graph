@@ -1,0 +1,8 @@
+{
+ "response": "flat slot",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: round one | flat slot | none.",
+  "user": "You've got a deflated yellow ball. Should you place it in the round hole or the flat slot?"
+ }
+}

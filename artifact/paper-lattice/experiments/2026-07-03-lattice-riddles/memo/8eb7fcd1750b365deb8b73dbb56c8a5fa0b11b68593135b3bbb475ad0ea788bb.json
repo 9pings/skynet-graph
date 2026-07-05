@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"Euro plug\",\"category\":\"\",\"condition\":\"bent\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"name\":\"roundpin\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "Which wall socket should you insert your bent yellow Euro plug into: the round-pin socket, the flat-pin socket, or the three-pin socket?"
+ }
+}

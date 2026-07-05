@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"ball\",\"category\":\"round\",\"condition\":\"\",\"color\":\"bright yellow\",\"size\":\"large\"},\"holes\":[{\"name\":\"circular\",\"size\":\"large\"},{\"name\":\"flat\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You're holding a bright yellow ball. Choose which opening to place it in: the circular hole or the flat groove. Where do you put it?"
+ }
+}

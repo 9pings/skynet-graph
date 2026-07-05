@@ -1,0 +1,8 @@
+{
+ "response": "{\"word\":\"circularopening\",\"means\":\"round\"}",
+ "at": null,
+ "meta": {
+  "system": "Vocabulary question. Reply ONLY JSON: {\"word\":\"circularopening\",\"means\":\"<one of the options, or neither>\"}",
+  "user": "The word \"circularopening\" used as a hole shape word — which of these does it mean: star|square|round, or neither?"
+ }
+}

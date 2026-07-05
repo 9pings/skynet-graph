@@ -1,0 +1,8 @@
+{
+ "response": "\n\nsmall round",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You possess a tiny blue marble. You must place it into one of three available openings: a small circular hole, a large circular hole, or a large square hole. Which hole should you choose?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you have a flat red ball. You need to fit it into one of three openings: a star-shaped slit, a square hole, or a circular opening. Which one will it slide through?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a deflated red football. Put it into one of these holes: the star-shaped one, the square one, or the round one. Which one?"
+ }
+}

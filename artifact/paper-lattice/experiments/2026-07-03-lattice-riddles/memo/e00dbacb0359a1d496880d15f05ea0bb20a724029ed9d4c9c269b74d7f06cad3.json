@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you’re holding a flat, crumpled red balloon. You need to slide it into one of three openings: a five-pointed star, a perfect square, or a circle. Which hole will it fit through?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a deflated red ball. Put it into one of these holes: the star-shaped one, the square one, or the round one. Which one?"
+ }
+}

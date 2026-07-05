@@ -1,0 +1,8 @@
+{
+ "response": "square\n\nThe sugar cube is categorized as a \"cube,\" which is a type of \"square\" according to the taxonomy",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You've got a fresh red sugar cube. Now, you need to decide where to place it: in the star-shaped hole, the square hole, or the round hole. Which one do you choose?"
+ }
+}

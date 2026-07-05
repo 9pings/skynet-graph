@@ -1,0 +1,8 @@
+{
+ "response": "small round\n\nThe marble is a ball (round), and the small circular hole is the only opening that matches the round",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You're holding a tiny blue marble. Choose where to place it among these openings: the small circular hole, the big circular hole, or the large square hole. Which opening do you select?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nroundpin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You possess a bent yellow Euro plug. Into which of the following wall sockets should you insert it: the round-pin socket, the flat-pin socket, or the three-pin socket?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "\n\nYou possess a yellow star-shaped token. You must place it into one of three available openings: a star-shaped hole, a square hole, or a round hole. Which hole should you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a yellow star token. Put it into one of these holes: the star-shaped one, the square one, or the round one. Which one?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"sphere\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"shape\":\"star\",\"size\":\"\"},{\"shape\":\"square\",\"size\":\"\"},{\"shape\":\"round\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object noun, one word>\",\"color",
+  "user": "You possess a yellow sphere. Into which of the following openings should you place it: the star-shaped aperture, the square opening, or the circular one?"
+ }
+}

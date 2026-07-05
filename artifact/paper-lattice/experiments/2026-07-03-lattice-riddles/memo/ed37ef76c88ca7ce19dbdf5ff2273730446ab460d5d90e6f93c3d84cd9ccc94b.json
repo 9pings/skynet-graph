@@ -1,0 +1,8 @@
+{
+ "response": "square",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You've got a fresh red sugar cube. Now, you need to decide where to place it: in the star-shaped hole, the square hole, or the round hole. Which one do you choose?"
+ }
+}

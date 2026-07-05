@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"Euro plug\",\"category\":\"roundpin\",\"condition\":\"\",\"color\":\"blue\",\"size\":\"\"},\"holes\":[{\"name\":\"roundpin\",\"size\":\"small\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You possess a blue Euro plug; which of the following wall sockets is it designed for: the round-pin, the flat-pin, or the three-pin?"
+ }
+}

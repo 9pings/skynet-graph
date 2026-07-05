@@ -1,0 +1,52 @@
+{
+ "rb": 1024,
+ "R": {
+  "all": {
+   "n": 35,
+   "sysSym": 34,
+   "sysSymPure": 30,
+   "tiebreaks": 5,
+   "sysExt": 31,
+   "rb0": 30,
+   "rbON": 29
+  },
+  "biology": {
+   "n": 16,
+   "sysSym": 16,
+   "sysSymPure": 16,
+   "tiebreaks": 0,
+   "sysExt": 14,
+   "rb0": 12,
+   "rbON": 12
+  },
+  "legal": {
+   "n": 10,
+   "sysSym": 9,
+   "sysSymPure": 9,
+   "tiebreaks": 1,
+   "sysExt": 8,
+   "rb0": 9,
+   "rbON": 10
+  },
+  "materials": {
+   "n": 9,
+   "sysSym": 9,
+   "sysSymPure": 5,
+   "tiebreaks": 4,
+   "sysExt": 9,
+   "rb0": 9,
+   "rbON": 7
+  }
+ },
+ "fails": {
+  "sysSym": [
+   "laches:tiebreak=d_laches_near_gold"
+  ],
+  "sysExt": [
+   "vampire_bat:impracticable",
+   "seahorse:impracticable",
+   "emancipated_minor:impracticable",
+   "laches:ambiguous"
+  ]
+ }
+}

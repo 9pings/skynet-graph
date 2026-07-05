@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"lizard\",\"category\":\"terrarium\",\"condition\":\"\",\"color\":\"red\",\"size\":\"\"},\"holes\":[{\"name\":\"terrarium\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you own a scaly, red creature that thrives in a warm, dry environment. You have three options for housing it: a water-filled tank, a birdcage, or a specially designed habitat that mimics its n"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "You've got a dusty green Euro plug. You need to figure out which wall socket to use: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one should you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a dusty green Euro plug. Put it into one of these wall sockets: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one?"
+ }
+}

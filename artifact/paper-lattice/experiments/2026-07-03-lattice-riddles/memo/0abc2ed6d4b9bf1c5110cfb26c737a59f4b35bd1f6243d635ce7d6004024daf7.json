@@ -1,0 +1,8 @@
+{
+ "response": "\n\nnone",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You have a fresh red sugar cube. Which of these openings should you use: the star-shaped, the square, or the round one?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"ball\",\"category\":\"\",\"condition\":\"\",\"color\":\"red\",\"size\":\"\"},\"holes\":[{\"name\":\"the star\",\"size\":\"\"},{\"name\":\"ehe square\",\"size\":\"\"},{\"name\":\"the circle\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "Pick one of these holes for your red ball: the star, the square, or the circle. Which one?"
+ }
+}

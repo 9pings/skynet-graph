@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"reasoning\",\"category\":\"plant care\",\"condition\":\"choosing a suitable environment for a red fern\",\"color\":\"red\",\"size\":\"small\"},\"holes\":[{\"name\":\"terrarium\",\"size\":\"best\"},{\"name\":\"aquarium\",\"size\":\"unsuitable\"},{\"name\":\"aviary\",\"size\":\"unsuitable\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "The **terrarium** is the best choice for a red fern. Here's why:\n\n*   **Terrariums** are specifically designed for plants. They create a humid, enclosed environment that mimics a natural habitat, whic"
+ }
+}

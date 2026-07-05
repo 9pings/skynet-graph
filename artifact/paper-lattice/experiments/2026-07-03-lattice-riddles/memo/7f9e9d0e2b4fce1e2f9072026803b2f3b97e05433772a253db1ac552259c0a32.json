@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"lamp plug\",\"category\":\"threepin\",\"condition\":\"\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"name\":\"threepin\",\"size\":\"\"},{\"name\":\"flatpin\",\"size\":\"\"},{\"name\":\"roundpin\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "Imagine you’re holding a lamp with a yellow plug—now you need to decide which wall outlet it fits into: the one with round prongs, the one with flat prongs, or the one with three prongs. Which socket "
+ }
+}

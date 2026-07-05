@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"sphere\",\"category\":\"\",\"condition\":\"wet\",\"color\":\"crimson-colored\",\"size\":\"\"},\"holes\":[{\"name\":\"five-pointed star-shaped\",\"size\":\"\"},{\"name\":\"square\",\"size\":\"\"},{\"name\":\"circular\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "Imagine you’re holding a wet, crimson-colored sphere. You need to place it into one of three openings: a five-pointed star-shaped hole, a perfectly square hole, or a circular one. Where should you put"
+ }
+}

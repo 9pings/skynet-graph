@@ -1,0 +1,8 @@
+{
+ "response": "terrestrial",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You have a green gecko and need to choose an enclosure for it: the aquarium, the aviary, or the terrarium. Which one should you choose?"
+ }
+}

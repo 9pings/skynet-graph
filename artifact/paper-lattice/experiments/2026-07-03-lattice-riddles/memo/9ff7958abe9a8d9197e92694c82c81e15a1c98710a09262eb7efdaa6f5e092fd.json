@@ -1,0 +1,8 @@
+{
+ "response": "{\n    \"object\": {\n        \"kind\": \"sugar cube\",\n        \"category\": \"star-shaped\",\n        \"condition\": \"melted\",\n        \"color\": \"yellow\",\n        \"size\": \"\"\n    },\n    \"holes\": [\n        {\n            \"name\": \"star-shaped hole\",\n            \"size\": \"\"\n        },\n        {\n            \"name\": \"square one\",",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "You have a sugar cube that has been melted into a yellow liquid. To pour it into a container, you must choose between a star-shaped hole, a square one, or a round one. Which hole should you use?"
+ }
+}

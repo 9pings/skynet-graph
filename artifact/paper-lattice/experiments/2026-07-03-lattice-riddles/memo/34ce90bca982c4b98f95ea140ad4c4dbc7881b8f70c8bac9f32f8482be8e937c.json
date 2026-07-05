@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you’ve got a damaged blue UK electrical plug with a slightly curved prong. You’re trying to plug it into one of three different wall sockets: one with round pins, another with straight flat pins, or the third with the standard three-pin layout. Which socket will it fit into?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a bent blue UK plug. Put it into one of these wall sockets: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one?"
+ }
+}

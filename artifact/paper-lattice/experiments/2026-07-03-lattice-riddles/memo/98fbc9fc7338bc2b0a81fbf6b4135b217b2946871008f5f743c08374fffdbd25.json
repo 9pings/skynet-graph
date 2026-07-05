@@ -1,0 +1,8 @@
+{
+ "response": "{\"kind\":\"fern\",\"category\":\"terrestrial\"}",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"You possess a red fern. Place it inside one of these habitats: the fish tank, the bird hous",
+  "user": "In general, which habitat type fits a fern?"
+ }
+}

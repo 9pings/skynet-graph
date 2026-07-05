@@ -1,0 +1,8 @@
+{
+ "response": "Here's the exception rule that addresses the anomaly while minimizing disruption to other expectations:\n\n**~> superconductor(X) => ~has_electrical_resistance(X)**\n\n**Explanation:**\n\n*   **Anomaly:** The rules predict `has_electrical_resistance(niobium)` because `metal(niobium)` is true. However, we know `niobium` is a superconductor, and superconductors *do not* have electrical resistance.\n*   **Why this rule works:**\n    *   It specifically targets the conflict between being a superconductor and having electrical resistance.\n    *   It doesn't break unrelated expectations. The general rules `metal(X) => has_electrical_resistance(X)` and `metal(X) => conducts_electricity(X)` still hold for *other* metals that aren't superconductors.\n    *   It's as specific as possible, focusing only on the superconductor property.\n*   **How it resolves the anomaly:** When `superconductor(niobium)` is true, this exception rule overrides the default expectation that all metals have electrical resistance.\n\n**In simpler terms:** \"Normally, metals have electrical resistance, but *with the exception* that superconductors do not.\"",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_superconductor: below_critical_temperature(X) ~> ~has_electrical_resi",
+  "user": "Facts: material(copper_wire), material(niobium), material(warm_niobium), metal(copper_wire), metal(niobium), metal(warm_niobium), superconductor(niobium), superconductor(warm_niobium).\nGeneral rules ("
+ }
+}

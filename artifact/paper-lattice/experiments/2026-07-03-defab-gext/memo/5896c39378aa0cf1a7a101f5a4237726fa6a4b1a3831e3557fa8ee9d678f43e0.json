@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nd_aerogel",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_aerogel: aerogel(X) ~> ~dense(X)\nd_ag_broad: solid(X) ~> ~dense(X)\nd_",
+  "user": "Facts: aerogel(silica_aerogel), material(concrete_block), material(silica_aerogel), solid(concrete_block), solid(silica_aerogel).\nGeneral rules (=> means \"normally implies\"): r_dense: solid(X) => dens"
+ }
+}

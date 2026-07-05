@@ -1,0 +1,8 @@
+{
+ "response": "Okay, I'm ready for another round! Bring it on! 😊",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: small round | large round | large square | none.",
+  "user": "The **small round one** is the best choice.\n\nHere's why:\n\n*   **Size matters:** A small marble will fit best in a small hole.\n*   **Shape compatibility:** A round marble will likely fit more easily in"
+ }
+}

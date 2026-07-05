@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"red shaver plug\",\"category\":\"\",\"condition\":\"\",\"color\":\"red\",\"size\":\"\"},\"holes\":[{\"name\":\"roundpin\",\"size\":\"\"},{\"name\":\"flatpin\",\"size\":\"\"},{\"name\":\"threepin\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You possess a red shaver plug and need to insert it into one of three available wall outlets: a round-pin socket, a flat-pin socket, or a three-pin socket. Which socket should you choose?"
+ }
+}

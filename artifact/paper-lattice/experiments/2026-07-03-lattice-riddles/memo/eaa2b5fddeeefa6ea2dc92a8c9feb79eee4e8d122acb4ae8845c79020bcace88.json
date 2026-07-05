@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"bird\",\"category\":\"aviary\",\"condition\":\"\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"name\":\"bird house\",\"size\":\"\"},{\"name\":\"fish tank\",\"size\":\"\"},{\"name\":\"reptile cage\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You possess a yellow bird. In which of these three habitats would you place it: the fish tank, the bird house, or the reptile cage? What choice do you make?"
+ }
+}

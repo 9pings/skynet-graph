@@ -1,0 +1,8 @@
+{
+ "response": "{\n    \"object\": {\n        \"kind\": \"ball\",\n        \"category\": \"red\",\n        \"condition\": \"normal\",\n        \"color\": \"red\",\n        \"size\": \"normal\"\n    },\n    \"holes\": [\n        {\n            \"name\": \"star-shaped\",\n            \"size\": \"normal\"\n        },\n        {\n            \"name\": \"square\",\n            \"size\": \"normal\"\n        },\n        {\n            \"name\": \"round\",\n            \"size\": \"normal\"",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "This is a trick question! The question doesn't give you any information to suggest which hole the ball *should* go in. It's designed to make you overthink it.\n\nYou can put the red ball in **any** of t"
+ }
+}

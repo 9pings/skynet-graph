@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"candidates\": [\n    \"label: d_penguin ~> ~flies(opus)\",\n    \"label: penguin(X) ~> ~flies(X)\",\n    \"label: penguin(opus) ~> ~flies(opus)\"\n  ]\n}\n```",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"flies(opus)\", list the candidate rules. Reply ONLY JSON:",
+  "user": "Facts: bird(opus), bird(tweety), penguin(opus), sparrow(tweety).\nGeneral rules (=> means \"normally implies\"): r_flies: bird(X) => flies(X); r_feathers: bird(X) => has_feathers(X); r_warm: bird(X) => w"
+ }
+}

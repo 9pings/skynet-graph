@@ -1,0 +1,8 @@
+{
+ "response": "A damp blue ball needs to be placed into either a flat slot or a round hole. Which one should you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a damp blue ball. Put it into one of these holes: the round one, or the flat slot. Which one?"
+ }
+}

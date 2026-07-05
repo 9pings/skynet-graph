@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nround",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You possess a small blue marble. Decide whether to place it in the small circular hole, the large circular hole, or the large square hole. Which one should you choose?"
+ }
+}

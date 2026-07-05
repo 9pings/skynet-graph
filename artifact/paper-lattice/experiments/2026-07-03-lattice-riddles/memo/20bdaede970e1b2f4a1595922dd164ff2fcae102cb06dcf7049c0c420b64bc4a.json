@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"ball\",\"category\":\"round\",\"condition\":\"\",\"color\":\"green\",\"size\":\"large\"},\"holes\":[{\"name\":\"round\",\"size\":\"small\"},{\"name\":\"round\",\"size\":\"large\"},{\"name\":\"square\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you’re holding a big, round green ball. You need to place it into one of three openings: a tiny circular hole, a big circular hole, or a spacious square hole. Which hole should you choose?"
+ }
+}

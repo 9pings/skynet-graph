@@ -1,0 +1,8 @@
+{
+ "response": "d_metallic_glass",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: brittle(vitreloy)\nCandidates:\nd_metallic_glass: amorphous_solid(vitreloy) ~> ~brittle(vitreloy)\nd_mg_wrong_cond: alloy(vitreloy) ~> ~brittle(vitreloy)\nd_mg_irrelevant: ceramic(vitreloy) ~> ~b"
+ }
+}

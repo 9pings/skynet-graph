@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nstar",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "Which hole should you place a deflated yellow football into: the star-shaped one, the square one, or the round one?"
+ }
+}

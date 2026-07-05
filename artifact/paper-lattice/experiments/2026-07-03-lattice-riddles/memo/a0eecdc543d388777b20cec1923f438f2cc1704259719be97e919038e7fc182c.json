@@ -1,0 +1,8 @@
+{
+ "response": "You are absolutely right! The **large round one** is the correct answer. Thanks for the clear explanation! 😊\n\n",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You should put the football into the **large round one**.\n\nHere's why:\n\n*   **Small round one:** Too small for a football.\n*   **Large round one:** A good fit for a football.\n*   **Large square one:**"
+ }
+}

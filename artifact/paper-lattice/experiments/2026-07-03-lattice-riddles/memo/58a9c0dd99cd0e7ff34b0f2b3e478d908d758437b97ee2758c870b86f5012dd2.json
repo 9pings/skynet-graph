@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"sphere\",\"category\":\"flat\",\"condition\":\"bright\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"name\":\"round\",\"size\":\"small\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You have a bright yellow sphere. Should you place it into the circular opening or the narrow slit?"
+ }
+}

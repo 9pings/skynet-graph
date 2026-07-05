@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"soccerball\",\"category\":\"round\",\"condition\":\"flat\",\"color\":\"yellow\",\"size\":\"large\"},\"holes\":[{\"name\":\"round\",\"size\":\"\"},{\"name\":\"square\",\"size\":\"\"},{\"name\":\"star\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you have a flat, yellow soccer ball. You need to fit it into one of three openings: a star-shaped hole, a square hole, or a circular hole. Which hole will the ball fit into?"
+ }
+}

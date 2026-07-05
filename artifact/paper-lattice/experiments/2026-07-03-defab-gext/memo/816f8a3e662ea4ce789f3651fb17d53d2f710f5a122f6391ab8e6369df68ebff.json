@@ -1,0 +1,8 @@
+{
+ "response": "Here's an exception rule that addresses the anomaly while minimizing disruption to other expectations:\n\n**~> thermoelectric(X) => thermally_passive(X)**",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_thermoelectric: thermoelectric(X) ~> ~thermally_passive(X)\nd_te_broad",
+  "user": "Facts: material(bismuth_telluride), material(silicon_chip), semiconductor(bismuth_telluride), semiconductor(silicon_chip), thermoelectric(bismuth_telluride).\nGeneral rules (=> means \"normally implies\""
+ }
+}

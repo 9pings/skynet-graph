@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"answer\",\"category\":\"riddle\",\"condition\":\"waterlogged\",\"color\":\"round\",\"size\":\"one\"},\"holes\":[{\"name\":\"round\",\"size\":\"one\"},{\"name\":\"square\",\"size\":\"one\"},{\"name\":\"triangular\",\"size\":\"one\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "This is a classic riddle! The answer is the **round one**.\n\nHere's why:\n\nThe riddle plays on words. \"Waterlogged\" means saturated with water. A round hole is the only one that would accommodate a ball"
+ }
+}

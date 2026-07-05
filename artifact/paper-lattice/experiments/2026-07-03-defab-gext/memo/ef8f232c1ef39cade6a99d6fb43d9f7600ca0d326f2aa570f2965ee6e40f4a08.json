@@ -1,0 +1,8 @@
+{
+ "response": "d_supremacy: conflicts_with_federal(X) ~> ~enforceable(X)",
+ "at": null,
+ "meta": {
+  "system": "Two exception rules are both formally admissible. Using general knowledge only, pick the one whose condition is the TRUE",
+  "user": "Anomaly: enforceable(state_law_x)\nCandidates:\nlabel: d_supremacy: conflicts_with_federal(X) ~> ~enforceable(X)\nlabel: d_cs_broad: law(X) ~> ~enforceable(X)\nlabel: d_cs_wrong_cond: unconstitutional(X) "
+ }
+}

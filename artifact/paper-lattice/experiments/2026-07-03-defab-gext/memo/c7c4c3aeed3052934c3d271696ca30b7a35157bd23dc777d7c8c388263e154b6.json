@@ -1,0 +1,8 @@
+{
+ "response": "{\"candidates\":[\"label: d_tardigrade ~> ~requires_water\", \"label: d_tard_broad ~> ~requires_water\", \"label: d_tard_wrong_cond ~> ~requires_water\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"requires_water(tardigrade_specimen)\", list the candidate",
+  "user": "Facts: animal(rabbit_specimen), animal(tardigrade_specimen), tardigrade(tardigrade_specimen).\nGeneral rules (=> means \"normally implies\"): r_water: animal(X) => requires_water(X); r_oxygen: animal(X) "
+ }
+}

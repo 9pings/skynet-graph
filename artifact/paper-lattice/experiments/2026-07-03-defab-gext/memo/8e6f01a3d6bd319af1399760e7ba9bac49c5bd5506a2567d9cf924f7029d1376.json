@@ -1,0 +1,8 @@
+{
+ "response": "\n\n{\n\"target\": \"alloy(brass)\",\n\"candidates\": [\n\"df_alloy(brass):  => alloy(brass)\"\n]\n}",
+ "at": null,
+ "meta": {
+  "system": "Extract from the text, VERBATIM. Reply ONLY JSON: {\"target\":\"<the underivable statement>\",\"candidates\":[\"<entry as writt",
+  "user": "A knowledge base is missing exactly one entry. Because of that gap, the statement \"alloy(brass)\" cannot be derived. Exactly one of the following candidate entries fills the gap:\n  (1) df_alloy(brass):"
+ }
+}

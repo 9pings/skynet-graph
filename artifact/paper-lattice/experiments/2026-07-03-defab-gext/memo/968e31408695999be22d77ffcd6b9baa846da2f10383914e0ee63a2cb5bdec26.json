@@ -1,0 +1,8 @@
+{
+ "response": "The observed anomaly is that `female_gestates(floaty)` is predicted by the general rule `r_gestate: fish(X) => female_gestates(X)`, but it should not hold. We need an exception rule that overrides this prediction for `floaty` (who is a `seahorse`).\n\n1.  **Analyze the anomaly**: The rule `fish(X) => female_gestates(X)` predicts `female_gestates(floaty)` because `fish(floaty)` is true.\n2.  **Evaluate candidates**:\n    *   `d_sea_broad`: `fish(X) ~> ~female_gestates(X)` is too broad; it would contradict the general rule for all fish.\n    *   `d_sea_no_novel`: `seahorse(X) ~> ~female_gestates(X)` specifically targets seahorses, explaining why `floaty` (a seahorse) does not follow the general fish rule.\n    *   `d_seahorse`: `paternal_gestation(X) ~> ~female_gestates(X)` uses a term (`paternal_gestation`) not present in the facts.\n    *   `d_sea_wrong_head`: `seahorse(X) ~> ~cold_blooded(X)` addresses the wrong property.\n    *   `d_sea_positive`: `seahorse(X) => male_pregnancy(X)` is a positive rule, not an exception rule overriding `female_gestates`.\n    *   `d_sea_irrelevant`: `seahorse(X) ~> ~bright_colored(X)` addresses the wrong property.\n\nThe most specific and correct exception rule is `d_sea_no_novel`.\n\nd_sea_no_novel",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_seahorse: paternal_gestation(X) ~> ~female_gestates(X)\nd_sea_broad: f",
+  "user": "Facts: clownfish(nemo2), fish(floaty), fish(nemo2), fish(sandy), seahorse(floaty), seahorse(sandy).\nGeneral rules (=> means \"normally implies\"): r_gestate: fish(X) => female_gestates(X); r_cold_s: fis"
+ }
+}

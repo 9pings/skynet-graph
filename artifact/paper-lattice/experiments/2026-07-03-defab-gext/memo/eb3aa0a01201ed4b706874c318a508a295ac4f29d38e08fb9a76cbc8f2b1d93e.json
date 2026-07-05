@@ -1,0 +1,8 @@
+{
+ "response": "d_diplomatic",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_diplomatic: diplomat(X) ~> ~subject_to_local_law(X)\nd_di_broad: perso",
+  "user": "Facts: diplomat(ambassador_jones), person(ambassador_jones), person(citizen_smith).\nGeneral rules (=> means \"normally implies\"): r_local: person(X) => subject_to_local_law(X); r_tax: person(X) => taxa"
+ }
+}

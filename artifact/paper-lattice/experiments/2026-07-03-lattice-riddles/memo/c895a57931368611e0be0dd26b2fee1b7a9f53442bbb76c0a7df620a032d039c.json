@@ -1,0 +1,8 @@
+{
+ "response": "The green die is categorized as a \"cube,\" which is a type of \"square\" according to the ontology. Therefore",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You have a green die and need to place it into one of three holes: a star-shaped hole, a square hole, or a round hole. Which hole do you choose?"
+ }
+}

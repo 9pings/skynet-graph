@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nThe question asks which hole to choose, but the object is pyramid-shaped (which would fit in a star-shaped",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star-shaped one | round one | none.",
+  "user": "You have a blue pyramid-shaped object. You need to place it in either the star-shaped hole or the circular hole. Which hole should you choose?"
+ }
+}

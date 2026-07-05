@@ -1,0 +1,8 @@
+{
+ "response": "\n\nstar",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You possess a yellow star token. Which of the following holes should you place it in: the star-shaped, square, or round one?"
+ }
+}

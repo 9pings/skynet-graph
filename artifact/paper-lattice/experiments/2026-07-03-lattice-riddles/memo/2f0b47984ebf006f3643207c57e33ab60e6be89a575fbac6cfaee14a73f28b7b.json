@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nA red Euro plug is a type of 2-pin plug used in",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "You possess a red Euro plug. Which wall socket out of the round-pin one, the flat-pin one, or the three-pin one should you insert it into?"
+ }
+}

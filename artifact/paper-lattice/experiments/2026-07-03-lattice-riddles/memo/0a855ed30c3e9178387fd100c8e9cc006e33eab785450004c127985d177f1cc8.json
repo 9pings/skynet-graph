@@ -1,0 +1,8 @@
+{
+ "response": "Imagine you’re holding a tiny yellow European plug—now try plugging it into one of these outlets: the one with two small circular pins, the one with two big circular pins, or the one with two wide flat pins. Which socket will it fit into?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a small yellow Euro plug. Put it into one of these wall sockets: the small round-pin socket, the large round-pin socket, or the large flat-pin socket. Which one?"
+ }
+}

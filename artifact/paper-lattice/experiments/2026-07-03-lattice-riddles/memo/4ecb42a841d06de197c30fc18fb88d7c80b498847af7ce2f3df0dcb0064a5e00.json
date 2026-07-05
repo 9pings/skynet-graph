@@ -1,0 +1,8 @@
+{
+ "response": "You are absolutely correct! Thank you for the clear and concise explanation. An aquarium is indeed the right choice for a fish",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: fish is-a aquatic; bird is-a aerial; reptile is-a terres",
+  "user": "The **aquarium** is the correct choice!\n\nHere's why:\n\n*   **Aquarium:** Designed for aquatic life (things that live in water), like fish.\n*   **Aviary:** Designed for birds.\n*   **Terrarium:** Designe"
+ }
+}

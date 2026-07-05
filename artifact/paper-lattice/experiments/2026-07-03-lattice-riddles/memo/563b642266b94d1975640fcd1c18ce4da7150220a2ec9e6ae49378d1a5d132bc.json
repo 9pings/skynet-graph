@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nround",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You possess a red ball and must place it into one of three available holes: the star-shaped, the square, or the round one. Which hole do you choose?"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nThe taxonomy provided does not classify a fern as aquatic, aerial, or terrestrial. Ferns are classified as plants",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: fish is-a aquatic; bird is-a aerial; reptile is-a terres",
+  "user": "You possess a blue fern and need to decide where to place it among these options: an aquarium, an aviary, or a terrarium. Where should it go?"
+ }
+}

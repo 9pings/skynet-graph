@@ -1,0 +1,8 @@
+{
+ "response": "A blue sugar cube has been liquefied. Should you pour it into the star-shaped hole, the square hole, or the round hole?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a liquefied blue sugar cube. Put it into one of these holes: the star-shaped one, the square one, or the round one. Which one?"
+ }
+}

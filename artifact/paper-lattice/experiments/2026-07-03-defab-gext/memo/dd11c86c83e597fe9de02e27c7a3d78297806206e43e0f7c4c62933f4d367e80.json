@@ -1,0 +1,8 @@
+{
+ "response": "\n\nd_sc_no_novel",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_superconductor: below_critical_temperature(X) ~> ~has_electrical_resi",
+  "user": "Facts: material(copper_wire), material(niobium), material(warm_niobium), metal(copper_wire), metal(niobium), metal(warm_niobium), superconductor(niobium), superconductor(warm_niobium).\nGeneral rules ("
+ }
+}

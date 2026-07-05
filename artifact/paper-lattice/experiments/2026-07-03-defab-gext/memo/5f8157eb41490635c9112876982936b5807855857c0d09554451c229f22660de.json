@@ -1,0 +1,8 @@
+{
+ "response": "{\"candidates\":[\"metal(X) ~> ~brittle(X)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"brittle(vitreloy)\", list the candidate rules. Reply ONLY",
+  "user": "Facts: material(steel_a), material(vitreloy), metal(steel_a), metal(vitreloy).\nGeneral rules (=> means \"normally implies\"): r_brittle: metal(X) => brittle(X); r_conduct: metal(X) => conducts_electrici"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "\n\nnone",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You have a yellow pyramid and need to place it into one of three openings: the star-shaped hole, the square hole, or the round hole. Which hole is the correct fit?"
+ }
+}

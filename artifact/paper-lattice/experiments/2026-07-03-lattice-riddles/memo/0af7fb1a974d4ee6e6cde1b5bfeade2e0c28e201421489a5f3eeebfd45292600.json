@@ -1,0 +1,8 @@
+{
+ "response": "round\n\nThe bright yellow ball is a \"ball\" which is defined as \"is-a round\" in the taxonomy.",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You're holding a bright yellow ball. Choose which opening to place it in: the star-shaped hole, the square hole, or the circular hole. Where do you put it?"
+ }
+}

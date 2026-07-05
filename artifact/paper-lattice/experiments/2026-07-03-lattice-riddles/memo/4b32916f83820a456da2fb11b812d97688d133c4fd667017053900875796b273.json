@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"ball\",\"category\":\"\",\"condition\":\"red\",\"color\":\"red\",\"size\":\"\"},\"holes\":[{\"name\":\"star-shaped\",\"size\":\"\"},{\"name\":\"square-shaped\",\"size\":\"\"},{\"name\":\"circular\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "You have a red ball and need to place it into one of three holes: a star-shaped hole, a square-shaped hole, or a circular hole. Which hole do you choose?"
+ }
+}

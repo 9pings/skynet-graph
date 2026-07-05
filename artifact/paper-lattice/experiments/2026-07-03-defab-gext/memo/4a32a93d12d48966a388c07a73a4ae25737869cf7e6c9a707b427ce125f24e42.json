@@ -1,0 +1,8 @@
+{
+ "response": "\n\n{\"candidates\":[\"d_aerogel: aerogel(X) ~> ~dense(X)\", \"d_ag_broad: solid(X) ~> ~dense(X)\", \"d_ag_wrong_head: aerogel(X) ~> ~rigid(X)\", \"d_ag_positive: aerogel(X) => porous(X)\", \"d_ag_wrong_cond: foam(X) ~> ~dense(X)\", \"d_ag_irrelevant: lightweight(X) ~> ~dense(X)\"]}",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"dense(silica_aerogel)\", list the candidate rules. Reply ",
+  "user": "Facts: aerogel(silica_aerogel), material(concrete_block), material(silica_aerogel), solid(concrete_block), solid(silica_aerogel).\nGeneral rules (=> means \"normally implies\"): r_dense: solid(X) => dens"
+ }
+}

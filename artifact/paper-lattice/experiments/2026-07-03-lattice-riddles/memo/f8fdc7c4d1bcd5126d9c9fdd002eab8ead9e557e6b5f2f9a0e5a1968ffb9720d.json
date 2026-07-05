@@ -1,0 +1,8 @@
+{
+ "response": "aquatic\n\nThe red fern is a plant, which is not directly categorized in the taxonomy. However, the question asks",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: fish is-a aquatic; bird is-a aerial; reptile is-a terres",
+  "user": "You possess a red fern. Place it inside one of these habitats: the fish tank, the bird house, or the reptile cage. Which habitat will you choose?"
+ }
+}

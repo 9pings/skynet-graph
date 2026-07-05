@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"damaged red electrical plug\",\"category\":\"threepin\",\"condition\":\"slightly bent\",\"color\":\"red\",\"size\":\"\"},\"holes\":[{\"name\":\"roundpin\",\"size\":\"\"},{\"name\":\"flatpin\",\"size\":\"\"},{\"name\":\"threepin\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "Imagine you’ve got a damaged red electrical plug from the US that’s slightly bent. You need to plug it into one of three different wall sockets: one with round pins, another with flat pins, or a third"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\"candidates\":[\"d_ostrich: ostrich(X) ~> ~flies(X)\",\"d_ostrich_broad: bird(X) ~> ~flies(X)\",\"d_ostrich_wrong_head: ostrich(X) ~> ~has_feathers(X)\",\"d_ostrich_irrelevant: ostrich(X) ~> ~warm_blooded(X)\",\"d_ostrich_positive: ostrich(X) => walks(X)\",\"d_ostrich_wrong_cond: large(X) ~> ~flies(X)\"]}\n```",
+ "at": null,
+ "meta": {
+  "system": "Extract each candidate exception rule as JSON. For the anomaly \"flies(obi)\", list the candidate rules. Reply ONLY JSON: ",
+  "user": "Facts: bird(obi), bird(tweety), ostrich(obi), sparrow(tweety).\nGeneral rules (=> means \"normally implies\"): r_flies: bird(X) => flies(X); r_feathers: bird(X) => has_feathers(X); r_warm: bird(X) => war"
+ }
+}

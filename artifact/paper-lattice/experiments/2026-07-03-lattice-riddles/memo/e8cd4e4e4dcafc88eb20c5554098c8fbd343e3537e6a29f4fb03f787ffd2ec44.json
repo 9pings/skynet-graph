@@ -1,0 +1,8 @@
+{
+ "response": "aerial\n\nSince you're holding a red bird, the most appropriate place would be the bird house, which is an aerial space designed for birds. The fish tank is for aquatic creatures and the reptile cage is for terrestrial reptiles, neither of which would be suitable for a bird.",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquatic | aerial | terrestrial | none.",
+  "user": "You're holding a red bird and need to place it in one of three spaces: either the fish tank, the bird house, or the reptile cage. Where would you put it?"
+ }
+}

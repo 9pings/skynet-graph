@@ -1,0 +1,8 @@
+{
+ "response": "small round",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "Imagine you’re holding a tiny blue marble and three different openings in front of you: one is a tiny circle, another is a big circle, and the third is a large square. Where would you place the marble"
+ }
+}

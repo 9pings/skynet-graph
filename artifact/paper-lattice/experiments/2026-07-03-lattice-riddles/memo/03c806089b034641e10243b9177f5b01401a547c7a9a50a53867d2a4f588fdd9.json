@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"US electrical plug\",\"category\":\"roundpin\",\"condition\":\"\",\"color\":\"red\",\"size\":\"large\"},\"holes\":[{\"name\":\"roundpin\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You possess a standard red US electrical plug. Which wall outlet should you insert it into: the circular pin receptacle, the flat pin opening, or the trio pin socket?"
+ }
+}

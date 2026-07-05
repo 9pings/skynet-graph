@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"fish\",\"category\":\"aquarium\",\"condition\":\"\",\"color\":\"red\",\"size\":\"small\"},\"holes\":[{\"name\":\"aquarium\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Imagine you’re holding a single red fish—nowhere else to go. You have three options to place it: a glass tank filled with water, a birdcage with air and perches, or a glass box with soil and plants. W"
+ }
+}

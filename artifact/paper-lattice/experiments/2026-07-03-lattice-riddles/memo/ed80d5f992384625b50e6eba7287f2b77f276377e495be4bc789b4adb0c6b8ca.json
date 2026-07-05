@@ -1,0 +1,8 @@
+{
+ "response": "round\n\nA football is-a ball, and a ball is-a round. The football fits through the round hole.",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You have a flat yellow football. Which opening should you put it through - the star-shaped hole, the square hole, or the round hole?"
+ }
+}

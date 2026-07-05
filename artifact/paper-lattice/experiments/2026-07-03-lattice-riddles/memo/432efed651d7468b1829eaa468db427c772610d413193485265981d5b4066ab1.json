@@ -1,0 +1,8 @@
+{
+ "response": "```json\n{\n  \"kind\": \"pyramid\",\n  \"category\": \"none\"\n}\n```",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"Imagine you’re holding a small, green pyramid. You need to fit it into one of three opening",
+  "user": "In general, which shape category fits a pyramid?"
+ }
+}

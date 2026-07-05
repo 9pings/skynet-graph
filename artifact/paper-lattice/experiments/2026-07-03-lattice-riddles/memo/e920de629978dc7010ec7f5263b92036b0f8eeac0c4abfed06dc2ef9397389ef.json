@@ -1,0 +1,8 @@
+{
+ "response": "flatpin",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: roundpin | flatpin | threepin | none.",
+  "user": "Imagine you’ve got a damaged blue UK electrical plug with a slightly curved prong. You’re trying to plug it into one of three different wall sockets: one with round pins, another with straight flat pi"
+ }
+}

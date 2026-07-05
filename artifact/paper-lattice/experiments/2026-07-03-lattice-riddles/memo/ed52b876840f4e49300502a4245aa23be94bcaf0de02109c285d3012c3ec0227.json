@@ -1,0 +1,8 @@
+{
+ "response": "none\n\nA soggy green football is likely wet and soft, making it uns",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "You're holding a soggy green football. Which opening should you place it in: the star-shaped hole, the square hole, or the circular hole?"
+ }
+}

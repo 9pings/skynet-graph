@@ -1,0 +1,8 @@
+{
+ "response": "You possess a red shaver plug. Insert it into one of these electrical outlets: the round-pin outlet, the flat-pin outlet, or the three-pin outlet. Which one should you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a red shaver plug. Put it into one of these wall sockets: the round-pin socket, the flat-pin socket, or the three-pin socket. Which one?"
+ }
+}

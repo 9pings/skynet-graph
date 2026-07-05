@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nd_force_majeure",
+ "at": null,
+ "meta": {
+  "system": "Pick the single best exception rule. Candidates:\nd_force_majeure: force_majeure_event(X) ~> ~performance_required(X)\nd_f",
+  "user": "Facts: contract(contract_x), contract(contract_y), force_majeure_event(contract_x).\nGeneral rules (=> means \"normally implies\"): r_perform: contract(X) => performance_required(X); r_breach: contract(X"
+ }
+}

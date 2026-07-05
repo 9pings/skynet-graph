@@ -1,0 +1,8 @@
+{
+ "response": "square",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: star | square | round | none.",
+  "user": "Pick one of these three holes for your green die: the star, the square, or the circle. Which one do you choose?"
+ }
+}

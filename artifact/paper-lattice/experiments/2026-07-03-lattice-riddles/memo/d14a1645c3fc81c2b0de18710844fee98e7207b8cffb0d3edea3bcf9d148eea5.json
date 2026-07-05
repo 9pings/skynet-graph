@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"fish\",\"category\":\"aquarium\",\"condition\":\"\",\"color\":\"yellow\",\"size\":\"\"},\"holes\":[{\"name\":\"aquarium\",\"size\":\"\"},{\"name\":\"aviary\",\"size\":\"\"},{\"name\":\"terrarium\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "Where should you place a yellow fish: in an aquarium, an aviary, or a terrarium?"
+ }
+}

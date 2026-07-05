@@ -1,0 +1,8 @@
+{
+ "response": "square\n\nA sugar cube is-a cube, and a cube is-a square. The blue color doesn't change the geometric",
+ "at": null,
+ "meta": {
+  "system": "ONTOLOGY (authoritative — answer STRICTLY from it):\n- taxonomy: ball is-a round; disc is-a round; cube is-a square; star",
+  "user": "You have a blue sugar cube. Choose which hole to put it in from these options: the star-shaped hole, the square hole, or the round hole. Which hole do you select?"
+ }
+}

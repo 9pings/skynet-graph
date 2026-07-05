@@ -1,0 +1,8 @@
+{
+ "response": "aquarium\n\nBlue ferns are tropical plants that thrive in humid environments with consistent moisture, which makes the aquarium a suitable",
+ "at": null,
+ "meta": {
+  "system": "Answer the puzzle with EXACTLY one of: aquarium | aviary | none.",
+  "user": "You possess a blue fern. Place it in either the aquarium or the aviary. Which location should you choose?"
+ }
+}

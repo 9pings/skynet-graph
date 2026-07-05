@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"cube\",\"category\":\"\",\"condition\":\"melted\",\"color\":\"blue\",\"size\":\"\"},\"holes\":[{\"name\":\"star\",\"size\":\"\"},{\"name\":\"square\",\"size\":\"\"},{\"name\":\"round\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the object/creature noun, one word",
+  "user": "You have a melted blue sugar cube. Which hole should you place it in: the star-shaped one, the square one, or the round one?"
+ }
+}

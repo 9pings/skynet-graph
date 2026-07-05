@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"answer\",\"category\":\"general_knowledge\",\"condition\":\"true\",\"color\":\"green\",\"size\":\"medium\"},\"holes\":[{\"name\":\"plug_type\",\"size\":\"small\"},{\"name\":\"socket_type\",\"size\":\"small\"},{\"name\":\"safety_note\",\"size\":\"small\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You should put the Euro plug into the **flat-pin socket**.\n\nHere's why:\n\n*   **Euro plugs** (also known as Schuko plugs) have two flat pins.\n*   **Flat-pin sockets** are designed to accept plugs with "
+ }
+}

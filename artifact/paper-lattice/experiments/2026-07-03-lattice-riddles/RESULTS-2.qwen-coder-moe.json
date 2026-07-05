@@ -1,0 +1,112 @@
+{
+ "shapes/V1-facet-distractor": {
+  "n": 6,
+  "sys": 6,
+  "sysHallu": 0,
+  "ablFC": 6,
+  "ablLearn": 6,
+  "ablN": 6,
+  "direct": 3,
+  "directHallu": 0,
+  "condSeen": 0
+ },
+ "shapes/V2-isa-depth2": {
+  "n": 6,
+  "sys": 6,
+  "sysHallu": 0,
+  "ablFC": 6,
+  "ablLearn": 6,
+  "ablN": 6,
+  "direct": 1,
+  "directHallu": 0,
+  "condSeen": 0
+ },
+ "shapes/V3-no-match": {
+  "n": 6,
+  "sys": 6,
+  "sysHallu": 0,
+  "ablFC": 0,
+  "ablLearn": 0,
+  "ablN": 0,
+  "direct": 4,
+  "directHallu": 2,
+  "condSeen": 0
+ },
+ "shapes/V4-axis-product": {
+  "n": 6,
+  "sys": 1,
+  "sysHallu": 0,
+  "ablFC": 6,
+  "ablLearn": 1,
+  "ablN": 6,
+  "direct": 3,
+  "directHallu": 0,
+  "condSeen": 0
+ },
+ "shapes/V5-defeasible": {
+  "n": 3,
+  "sys": 2,
+  "sysHallu": 1,
+  "ablFC": 0,
+  "ablLearn": 0,
+  "ablN": 0,
+  "direct": 2,
+  "directHallu": 1,
+  "condSeen": 2
+ },
+ "shapes/V5-benign-mod": {
+  "n": 3,
+  "sys": 3,
+  "sysHallu": 0,
+  "ablFC": 3,
+  "ablLearn": 3,
+  "ablN": 3,
+  "direct": 1,
+  "directHallu": 0,
+  "condSeen": 1
+ },
+ "animals/V1-facet-distractor": {
+  "n": 6,
+  "sys": 3,
+  "sysHallu": 0,
+  "ablFC": 6,
+  "ablLearn": 3,
+  "ablN": 6,
+  "direct": 3,
+  "directHallu": 0,
+  "condSeen": 0
+ },
+ "animals/V2-isa-depth2": {
+  "n": 6,
+  "sys": 6,
+  "sysHallu": 0,
+  "ablFC": 6,
+  "ablLearn": 6,
+  "ablN": 6,
+  "direct": 6,
+  "directHallu": 0,
+  "condSeen": 0
+ },
+ "animals/V3-no-match": {
+  "n": 6,
+  "sys": 6,
+  "sysHallu": 0,
+  "ablFC": 0,
+  "ablLearn": 0,
+  "ablN": 0,
+  "direct": 0,
+  "directHallu": 5,
+  "condSeen": 0
+ },
+ "animals/V4-axis-product": {
+  "n": 6,
+  "sys": 5,
+  "sysHallu": 0,
+  "ablFC": 6,
+  "ablLearn": 5,
+  "ablN": 6,
+  "direct": 6,
+  "directHallu": 0,
+  "condSeen": 0
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"British plug\",\"category\":\"threepin\",\"condition\":\"damaged\",\"color\":\"blue\",\"size\":\"\"},\"holes\":[{\"name\":\"threepin\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You possess a damaged blue British plug. Determine which of the following wall outlets it fits into: the one with round pins, the one with flat pins, or the one with three pins."
+ }
+}

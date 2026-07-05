@@ -1,0 +1,8 @@
+{
+ "response": "\n\n{\"kind\":\"pyramid\",\"category\":\"square\"}",
+ "at": null,
+ "meta": {
+  "system": "You just handled this task: \"You have a yellow pyramid. Which of these holes should you place it in: the star-shaped one",
+  "user": "In general, which shape category fits a pyramid?"
+ }
+}

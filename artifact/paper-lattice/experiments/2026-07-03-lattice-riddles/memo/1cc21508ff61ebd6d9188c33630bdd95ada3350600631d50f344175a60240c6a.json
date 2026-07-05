@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"UK red plug\",\"category\":\"roundpin\",\"condition\":\"\",\"color\":\"red\",\"size\":\"\"},\"holes\":[{\"name\":\"roundpin\",\"size\":\"\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Reply ONLY JSON: {\"object\":{\"kind\":\"<the plug name exactly as written, ",
+  "user": "You possess a standard UK red plug. Which wall outlet should you insert it into: the circular-pin socket, the flat-pin socket, or the triangular-pin socket?"
+ }
+}

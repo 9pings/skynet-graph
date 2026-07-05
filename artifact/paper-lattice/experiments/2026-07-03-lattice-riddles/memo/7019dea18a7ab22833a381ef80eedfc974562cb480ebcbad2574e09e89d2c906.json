@@ -1,0 +1,8 @@
+{
+ "response": "{\"object\":{\"kind\":\"football\",\"category\":\"flat\",\"condition\":\"\",\"color\":\"red\",\"size\":\"large\"},\"holes\":[{\"name\":\"star-shaped hole\",\"size\":\"large\"},{\"name\":\"square hole\",\"size\":\"large\"},{\"name\":\"round hole\",\"size\":\"large\"}]}",
+ "at": null,
+ "meta": {
+  "system": "You extract the structure of a placement puzzle. Copy the words AS WRITTEN in the text (do not normalize). Reply ONLY JS",
+  "user": "You have a flat red football and need to place it into one of three hole options: the star-shaped hole, the square hole, or the round hole. Which hole should you choose?"
+ }
+}

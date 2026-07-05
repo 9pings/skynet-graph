@@ -1,0 +1,8 @@
+{
+ "response": "\n\n\nImagine you have a yellow ball that has lost its air. You need to place it into either a circular opening or a flat slot. Which of these two options should you choose?",
+ "at": null,
+ "meta": {
+  "system": "Reword this puzzle in a different natural style, SAME facts, SAME question. Reply ONLY the reworded text.",
+  "user": "You have a deflated yellow ball. Put it into one of these holes: the round one, or the flat slot. Which one?"
+ }
+}
