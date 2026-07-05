@@ -10,6 +10,7 @@
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
 \usepackage{caption}
+\usepackage{adjustbox}
 \usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
 \usepackage{newunicodechar}
@@ -148,7 +149,7 @@ The rest of this section, however, situates the composite described in this arti
 
 \begin{itemize}
 \item Logic-LM and Logic-LM++ translate the problem into solver input and self-refine on solver errors — a repair of \emph{formulation}, per problem, with no persistent memory and no blame;
-\item the closest mechanism twin is the self-correcting LLM-as-ASP-programmer pipeline (arXiv:2604.27960). \textbackslash\{\}par It natively expresses defaults and exceptions (ASP is non-monotonic) and is explicit about its own bounds:
+\item the closest mechanism twin is the self-correcting LLM-as-ASP-programmer pipeline (arXiv:2604.27960). \par It natively expresses defaults and exceptions (ASP is non-monotonic) and is explicit about its own bounds:
 
 \begin{itemize}
 \item one-shot correction, per session;
@@ -158,7 +159,7 @@ The rest of this section, however, situates the composite described in this arti
 
 \end{itemize}
 \item the s(CASP)-socialbot line and ProSLM have native defeasance and typed abstention — over a hand-written base and rules, a bottleneck their authors name;
-\item the sound-and-complete neurosymbolic reasoner of arXiv:2507.09751 delivers the fidelity face of our claim. \textbackslash\{\}par It offers abstention on inconsistent or uncertain cases and fidelity to a declared theory, with the LLM housed \emph{inside} the semantics' interpretation function — but the theory remains static: nothing in it learns a rule, an edge or an alias.
+\item the sound-and-complete neurosymbolic reasoner of arXiv:2507.09751 delivers the fidelity face of our claim. \par It offers abstention on inconsistent or uncertain cases and fidelity to a declared theory, with the LLM housed \emph{inside} the semantics' interpretation function — but the theory remains static: nothing in it learns a rule, an edge or an alias.
 \end{itemize}
 
 \textbf{The defeasance evaluations.} The second neighborhood builds no system: it measures. Three evaluations there document, at volume, the same failure:
@@ -176,7 +177,7 @@ Because this cell is both occupied and well measured, \emph{defeasance is this a
 \textbf{Self-growing knowledge bases.} The third neighborhood is that of the problem itself — bases that grow on their own. NELL (introduced in §1.1) is its textbook case, positive and cautionary at once; three lines live there today:
 
 \begin{itemize}
-\item NELL's direct heir exists: DySECT (arXiv:2603.06915, from the NELL team). \textbackslash\{\}par It continuously grows a self-expanding base from LLM-extracted triples, in a closed extraction↔knowledge loop — with no admission gate anywhere in the write path; this is exactly the configuration whose drift §6.5–§6.6 measure, and the contrast this article instruments;
+\item NELL's direct heir exists: DySECT (arXiv:2603.06915, from the NELL team). \par It continuously grows a self-expanding base from LLM-extracted triples, in a closed extraction↔knowledge loop — with no admission gate anywhere in the write path; this is exactly the configuration whose drift §6.5–§6.6 measure, and the contrast this article instruments;
 
 \item recent taxonomy-induction work (SC-Taxo; the LLMs4OL challenge series) treats structural inconsistencies and semantic misalignment with coherence filters — global consistency, not per-unit localization;
 \item provenance-favoring graph completion (TGComplete, arXiv:2606.15833) is the closest parent of an admission gate: it verifies a candidate through a lightweight retrieval loop and \emph{abstains} when textual support is missing.
@@ -188,7 +189,7 @@ The delta with this closest parent is precise: its verification is documentary s
 
 \begin{itemize}
 \item learning theory stopped at the corpus-batch setting of the 1990s (Resnik; class-based estimation);
-\item the neural era first turned the question into \emph{probing}, then reopened it on the learning side: arXiv:2011.02417 shows that a fine-tuned model forms robust selectional generalizations after one or two instances of a novel word. \textbackslash\{\}par That is a real neighbor of our question, with a clean delta: the learning there lives in the weights — neither auditable, nor attributable, nor retractable.
+\item the neural era first turned the question into \emph{probing}, then reopened it on the learning side: arXiv:2011.02417 shows that a fine-tuned model forms robust selectional generalizations after one or two instances of a novel word. \par That is a real neighbor of our question, with a clean delta: the learning there lives in the weights — neither auditable, nor attributable, nor retractable.
 \end{itemize}
 
 Online learning of restrictions \emph{from failures}, with localized blame, externalized into an inspectable structure, remains — as far as our review reaches — without an occupant.
@@ -208,7 +209,7 @@ Our mechanism is orthogonal: the boundary stays strict, and it is the \textbf{ad
 
 The position, in one table:
 
-\begin{center}\small\begin{tabular}{lll}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lll}\toprule
 Twin & Has & Lacks \\ \midrule
 Self-correcting LLM-as-ASP-programmer (2604.27960) & extraction → online solver, correction loop, natively non-monotonic & persistent learning · blame · defeasible revision of learned rules \\
 Sound-and-complete neurosymbolic (2507.09751) & soundness, abstention, fidelity (LLM in the interpretation) & any learning (static theory) · credit/blame \\
@@ -217,7 +218,7 @@ NELL / DySECT (2603.06915) & online growth at scale, closed loop & a sound admis
 TGComplete (2606.15833) & verify-and-abstain at completion, provenance & optimistic mount · per-unit credit/blame · retraction \\
 Noise-tolerant VS (Sebag; Hirsh; rough VS) & candidate elimination under noise & the boundary is relaxed; nothing is attributed or audited \\
 Popper / MDL-noise ILP (Hocquette et al.) & noise-tolerant induction, with exceptions & any link to an online LLM intake \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 Novelty is therefore claimed at the \textbf{mechanism delta}, not the cell: (c) online growth of lattice edges from LLM extraction \textbf{with} a localized-attribution admission path — where the self-growing line (NELL, DySECT) writes without a gate and the verifying line (TGComplete) verifies without learning; and (c′) localization \textbf{as the admission criterion} making candidate elimination tolerant to incompetence noise — where the noisy-version-space family relaxes the boundary instead of filtering the channel.
 
@@ -395,7 +396,7 @@ Before any model enters the loop, the learning rule itself goes on the bench: pu
 
 Because the article compares many arms, here they all are, one line each:
 
-\begin{center}\small\begin{tabular}{lll}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lll}\toprule
 Arm & What it is & Where \\ \midrule
 A / B / C / D & deterministic lab: LGG-only / + gate / + every-failure-negative / B + optimism & §5.1–§5.2 \\
 P-glob / P-loc & credit lab: success credits everything / per-atom localized credit & §5.3 \\
@@ -405,7 +406,7 @@ DIRECT & the model alone, same prose, reasoning budget 0 or 1024 (written rb) & 
 RAG & DIRECT + the full declared ontology in the prompt & §7.1 \\
 UNGATED / GATED & growth without the gate (the model writes the unit) / through the gate & §6.5–§6.6 \\
 SYS-extract & DeFAb: prose → model extraction → then the typed selector & §7.3 \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 \subsection*{5.1 The apparatus}
 
@@ -413,26 +414,26 @@ The objects first: two declared lattices, with branching ≥ 3 under every targe
 
 Four arms on bit-identical streams:
 
-\begin{center}\small\begin{tabular}{ll}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{ll}\toprule
 Arm & Rule \\ \midrule
 \textbf{A} & LGG-only (positives alone — §4.2's baseline) \\
 \textbf{B} & + negatives admitted \textbf{only} if blame-localized (the gate) \\
 \textbf{C} & + \emph{every} failure admitted as a negative (the unsound control) \\
 \textbf{D} & B + optimism (doubling-horizon re-mount of rejected sorts) \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 \subsection*{5.2 The results — 126/126 exact pre-registered checks}
 
 Four dynamics were predicted; all four are measured in every cell:
 
 \begin{enumerate}
-\item \textbf{The wedge exists and is worth its theoretical bound.} \textbackslash\{\}par A's over-generalization errors: \textbf{16} (every bad arrival — the LGG alone never brakes). B: \textbf{8} at ρ=0 — exactly one unavoidable first exposure per (facet × bad sort), the floor. The gate buys \textbf{−50\% over-generalization at zero over-tightening} (good tasks refused by B: 0, identical to A).
+\item \textbf{The wedge exists and is worth its theoretical bound.} \par A's over-generalization errors: \textbf{16} (every bad arrival — the LGG alone never brakes). B: \textbf{8} at ρ=0 — exactly one unavoidable first exposure per (facet × bad sort), the floor. The gate buys \textbf{−50\% over-generalization at zero over-tightening} (good tasks refused by B: 0, identical to A).
 
-\item \textbf{A converges — to the wrong fixed point.} \textbackslash\{\}par In every cell, \texttt{S\_filter(A)} settles on \texttt{column} (lifted there by the permissive oracle's accidental matches); \texttt{S\_filter(B)} holds \texttt{categorical}, the declared target. The wedge is not "A does not learn"; it is "A learns \emph{too broad}, stably" — which is worse, because it looks like convergence.
+\item \textbf{A converges — to the wrong fixed point.} \par In every cell, \texttt{S\_filter(A)} settles on \texttt{column} (lifted there by the permissive oracle's accidental matches); \texttt{S\_filter(B)} holds \texttt{categorical}, the declared target. The wedge is not "A does not learn"; it is "A learns \emph{too broad}, stably" — which is worse, because it looks like convergence.
 
-\item \textbf{The unsound control self-seals, monotonically, on the rare.} \textbackslash\{\}par C refuses 2 to 14 \emph{good} tasks per cell, concentrated exactly on the rare sorts N1 hit — and never recovers them. B at ρ=0: zero. This is §4.3's asymmetry made visible, and it is the measured answer to "why not just count every failure as a negative".
+\item \textbf{The unsound control self-seals, monotonically, on the rare.} \par C refuses 2 to 14 \emph{good} tasks per cell, concentrated exactly on the rare sorts N1 hit — and never recovers them. B at ρ=0: zero. This is §4.3's asymmetry made visible, and it is the measured answer to "why not just count every failure as a negative".
 
-\item \textbf{False blame degrades B; optimism recovers it, at a visible premium.} \textbackslash\{\}par At ρ>0, B seals good-rares (3 per cell); D ends with ≤ sealed (2–3) at the price of 2 extra mounts and an over-generalization of 5–6 versus 4. The insurance is not free — and at ρ=0, D ≡ B: the premium is only paid when there is something to insure.
+\item \textbf{False blame degrades B; optimism recovers it, at a visible premium.} \par At ρ>0, B seals good-rares (3 per cell); D ends with ≤ sealed (2–3) at the price of 2 extra mounts and an over-generalization of 5–6 versus 4. The insurance is not free — and at ρ=0, D ≡ B: the premium is only paid when there is something to insure.
 \end{enumerate}
 
 One unforeseen dynamic is recorded, because it will return in the live metrics: at ρ>0, B's over-generalization \emph{goes down} (8→4) — a bad seal on a good-rare collaterally refuses the bad events that carry that sort on the other slot. A false blame can "protect" by accident while inflating over-tightening.
@@ -479,13 +480,13 @@ The prose is always paraphrased by the model — the surface is never ours. Wher
 
 On fresh instances and on a full domain transposition (animals/enclosures: \texttt{trout ⊑ fish ⊑ aquatic}, an aviary, a terrarium):
 
-\begin{center}\small\begin{tabular}{p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}}\toprule
 cell & SYS & ABLATED (strict path) & DIRECT \\ \midrule
 shapes V1–V4, fresh (24) & \textbf{24/24} & fail-closed 18/18 → learned and solved 18/18 & 20/24 \\
 shapes V5 defeasible (3) & \textbf{3/3 retracted} & — & 1/3 (2 hallucinations) \\
 shapes V5 benign (3) & \textbf{3/3 mounted} & 3/3 → 3/3 & 3/3 \\
 animals V1–V4, transposed (24) & \textbf{24/24} & fail-closed 18/18 → learned and solved 18/18 & 16/24 \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 (Counting convention, ABLATED column: the V3 no-match cell ablates nothing — there is no edge under a refusal — so each domain exposes 18 ablatable edges across its 24 V1–V4 tasks.)
 
@@ -499,12 +500,12 @@ The typed path's value concentrates precisely where knowing is not the question:
 
 A first reading of V3 ("the model hallucinates on no-match") did not survive our own scrutiny, and the correction is more interesting than the original cell. With reasoning on, the model's V3 answers are \emph{world-plausible}: a canonical pyramid does have a square base ("it fits base-first"); ferns do live in terrariums. Those oracles were contestable; we hardened them until no world-plausible escape remained — and the collapse of the artifact is reported as such:
 
-\begin{center}\small\begin{tabular}{p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}}\toprule
 hardened cell & SYS & DIRECT rb=0 & DIRECT reasoning \\ \midrule
 V3h-shapes (square hole removed) & \textbf{6/6 none} & 6/6 & 6/6 — the old V3's "hallucinations" were the \emph{oracle's} artifact \\
 V3h-animals (terrarium removed) & \textbf{6/6 none} & 4/6 (2 hallucinations) & 4/6 (2 hallucinations) \\
 V5h-remap (deflated: round→flat slot, positive gold) & \textbf{9/9} (6 retract+remap · 3 benign) & 3/9 & 3/9 \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 Two results carry into every later section. First, the refusal cell that survives (V3h-animals) is non-empty and incontestable: every escape removed, the direct model still fabricates a placement in 2 cases out of 6 — \textbf{in both reasoning regimes} — where the typed path refuses 6 out of 6. Second, and more generally: reasoning repairs the model's \emph{knowledge} cells, not its \emph{fidelity} cells. The clean statement of the contrast is not "the model hallucinates"; it is \textbf{"the model follows world-plausibility; the typed path follows the declared specification — in both regimes."} This reframing strengthens the governance reading of the claim (fidelity to a declared ontology is what a regulated deployment needs), and it is the honest reframing.
 
@@ -512,10 +513,10 @@ Two results carry into every later section. First, the refusal cell that survive
 
 Scaled to n=24 per cell over three domains — the third (plugs/sockets: \texttt{europlug ⊑ round-pin …}, defeater "bent", world-aligned by §6.3's lesson) onboarded from scratch — with exact 95\% Clopper–Pearson intervals:
 
-\begin{center}\small\begin{tabular}{lll}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lll}\toprule
 16 cells, n=300 & SYS & DIRECT rb=0 \\ \midrule
 \textbf{total} & \textbf{300/300} [99–100\%] & 245/300 [77–86\%] \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 The direct model's deficit concentrates exactly on the claim's cells: animals-V3 no-match \textbf{0/24 with 24 hallucinations}; V5-defeasible 1/3 and 0/3 on the defeater domains; plugs-V2 12/24 (the model does not know the pin geometry the declared lattice states).
 
@@ -529,13 +530,13 @@ That is why the article never concludes from a single perfect cell, and reads th
 
 The decisive baseline for any self-growth claim is the obvious shortcut: the model proposes the missing edge and the system takes it as is. The temptation is legitimate — §6.2 just showed that the model alone solves most riddles on its world knowledge; if it knows where the trout goes, why a gate on \texttt{trout ⊑ fish}? Two arms on identical streams, two domains × three permutations, answer:
 
-\begin{center}\small\begin{tabular}{lll}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lll}\toprule
 ×3 orders & UNGATED (the model writes the edge) & GATED (localization + verification) \\ \midrule
 false edges admitted & \textbf{6/6 cells} (pyramid→square · fern→terrestrial — the model's world-plausible ontology, absorbed) & \textbf{0 everywhere} \\
 silent downstream damage (wrong answers at 0 calls, uncorrectable) & 1–2 per cell, order-robust & 0 (residual: 1 in 2 cells — the vocabulary hole below) \\
 premium & — & +1 to +3 calls per cell (quarantines, refusals, one retry) \\
 amortization & ≤1 proposal/sort ✓ & identical ✓ — correct edges admit and serve the same \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 The ungated arm reproduces the NELL signature in miniature: plausible-but-false edges enter, then answer later episodes at zero calls, with no correction channel left — a \emph{silent} damage, the kind no downstream check ever sees. The gate admits zero false edges on the same streams, at a bounded premium, and — the architectural point — correct edges admit and amortize identically: the gate is a ratchet, not an average.
 
@@ -555,13 +556,13 @@ The full circuit reads in five steps:
 
 Fifteen episodes, three stream orders:
 
-\begin{center}\small\begin{tabular}{lll}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lll}\toprule
 ×3 orders & GATED & UNGATED \\ \midrule
 admissions & exactly the \textbf{6 spec-true aliases} the stream produces & the same 6 \textbf{+ 3 poisons} \\
 false aliases admitted / confirmed & \textbf{0 / 0} & \textbf{3} (aperture/cavity/hole→round), never removed \\
 task resolution (ok / typed refusal / wrong) & \textbf{13 / 2 / 0} & 13 / 0 / \textbf{2} \\
 cost & 14 proposals/arm, ≤1 per (key, token), re-proposals blocked by memo & identical \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=\linewidth]{../figures/png/f6-ratchet-timeline.en.png}
@@ -582,14 +583,14 @@ Four objections structure this section, each answered by an arm or a campaign. \
 
 The complete declared ontology (taxonomy, holes, exceptions, and the lowest-derivable rule) is placed in the prompt, marked "authoritative", on the same 54 memo-served tasks:
 
-\begin{center}\small\begin{tabular}{p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}}\toprule
 cell & RAG-context & DIRECT & SYS \\ \midrule
 V1/V2/V4 knowledge (×2 domains) & 36/36 & 32/36 & 36/36 \\
 V5 defeasible + benign & 6/6 & 4/6 & 6/6 \\
 V3 no-match, shapes & \textbf{0/6} (3 hallucinations + 3 broken formats) & 6/6 & 6/6 \\
 V3 no-match, animals & \textbf{3/6} (3 hallucinations) & 0/6 & 6/6 \\
 \textbf{total} & \textbf{45/54} & 42/54 & \textbf{54/54} \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 Let us start with the honesty: context helps \emph{on average} (45 > 42). It repairs exactly the knowledge cells — V1/V2 rise to 6/6, and the exception supplied in the prompt settles V5. The claim is about where it fails, and its failures concentrate on the claim's own cells, in two distinct modes, verified on the raw outputs. First mode: context \emph{induces derivation chatter} that breaks the answer discipline — on the pyramid cell, the model recites its derivation instead of answering in the requested format (0/6, including 3 broken formats); we had already met this family of collapses elsewhere: context added at the semantic touchpoint produces narration instead of an answer. Second mode: world-plausibility \emph{survives} a context marked "authoritative" — the fern is placed "terrestrial" against the ontology supplied in the very prompt (3/6). The lesson of both modes fits in one sentence: even equipped with its ontology, the model is not a reliable evaluator of it.
 
@@ -607,13 +608,13 @@ Both riddle oracles are ours; the external test is not. \textbf{DeFAb} (Cooper \
 
 We use its Level-3: defeater abduction. An instance gives a theory, an anomaly (a conclusion the rules predict but that should not hold), and six candidate exception rules, typed — one gold and five distractors (too-broad cut, wrong head, irrelevant, positive, wrong condition). The right one must be chosen. This task maps directly onto our gate: the right candidate is the one that is \emph{load-bearing} (the ring admission's decisiveness test), on the \emph{right slot and right polarity}, \textbf{conservative} (it kills no preserved expectation of any covered individual — the vacuity/over-generalization tooth) and \emph{minimal} (fewest posited facts, then coverage). The residual formal ties (≤ 2 verified candidates) go to the model — §3's layered doctrine, at the knowledge frontier only.
 
-\begin{center}\small\begin{tabular}{lll}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lll}\toprule
 arm (N=35, three domains) & total & notes \\ \midrule
 \textbf{SYS (gate + in-set tie-break)} & \textbf{34/35} & 30/35 purely structural, at \textbf{zero} model calls \\
 SYS-extract (prose → extraction → gate) & 33/35 & extraction noise costs one cell, fail-closed \\
 DIRECT rb=0 & 30/35 &  \\
 DIRECT reasoning & 30/35 & reasoning moves the errors around; it does not fix them \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 Attribution matters more than the margin: \textbf{all five DIRECT losses are over-general cuts} (\texttt{no\_novel} ×3, \texttt{broad} ×2 — defeaters that would kill the preserved default of \emph{another} covered individual; the per-instance typing of the direct model's choices is replayed from the memo and shipped in the artifact with the deposit).
 
@@ -625,7 +626,7 @@ On Level-2 (374 dev instances), the typed selector scores \textbf{374/374 at zer
 
 A single model played every role so far — the article's most obvious external-validity confound. We therefore replayed the entire live protocol (§6–§7), identically and memo-isolated per model, on \textbf{nine local models} covering four families (Qwen, Google, Mistral, Microsoft), three quantizations of one family ("extreme" 2-bit, 2-bit, 6-bit), two architectures (dense and mixture-of-experts with \textasciitilde{}3 billion active parameters) and two size brackets (12 to 35 billion) — with a reproduction control first replaying the paper's model bit-for-bit (the harness is faithful):
 
-\begin{center}\small\begin{tabular}{p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}}\toprule
 model (family, quant) & §6.4 SYS & §6.4 DIRECT & wrong mounts (shapes-V3) & DeFAb pure §7.3 & GATED false edges \\ \midrule
 Qwen 27B Q2 (paper, control) & \textbf{300/300} & 245/300 & \textbf{0} (24/24 refusals) & 30/35 & \textbf{0} \\
 Qwen 27B IQ2 (extreme 2-bit) & 259/300 & 213/300 & \textbf{0} & 30/35 & \textbf{0} \\
@@ -636,7 +637,7 @@ phi-4 14B Q4 (Microsoft) & 265/300 & 231/300 & \textbf{0} (after the fix) & 30/3
 Coder 30B-A3B Q4 (Qwen, MoE) & 252/300 & 168/300 & \textbf{0} & 30/35 & \textbf{0} \\
 Qwen3.5 35B-A3B Q4 (Qwen, MoE) & 271/300 & 192/300 & \textbf{0} & 30/35 & \textbf{0} \\
 gemma-3 12B Q4 (Google, small) & \textbf{79/300} & 50/300 & \textbf{0} & 30/35 & \textbf{0} \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 The verdict fits in three layers, with opposite sensitivities:
 

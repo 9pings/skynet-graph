@@ -10,6 +10,7 @@
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
 \usepackage{caption}
+\usepackage{adjustbox}
 \usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
 \usepackage{newunicodechar}
@@ -178,7 +179,7 @@ The Invalidating arm exists specifically to separate "has an invalidation mechan
 
 A typed approval domain (N = 80, two audited classes; the live run uses N = 48, one audited class) with an \emph{external} mid-stream premise-invalidation: a compliance audit marks a class non-compliant, flipping its previously-approved cases to reject. The audit is \textbf{not a record field} — it is exogenous — so a recall-only cache retrieves the same unchanged record and serves its cached pre-audit answer. Here are the stub results:
 
-\begin{center}\small\begin{tabular}{p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}}\toprule
 arm & calls & overall acc & \textbf{drift acc} & max per-call ctx \\ \midrule
 \textbf{Struct} (typed contract) & \textbf{26} & \textbf{1.00} & \textbf{1.00} & \textbf{290} \\
 Invalidating (hook, no contract) & 28 & 1.00 & 1.00 & 290 \\
@@ -187,7 +188,7 @@ Long-context & 80 & 1.00 & 1.00 & 2062 \\
 RAG & 48 & 0.95 & 0.00 & 290 \\
 CBR (typed key, no re-validation) & 24 & 0.95 & 0.00 & 290 \\
 Skill (prose) & 80 & 0.95 & 0.00 & 297 \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 The reading is three-fold. \textbf{Recall-only memories (RAG / CBR / Skill) serve stale} — recall alone cannot recover, because the audit never enters their reuse path. \textbf{Recovery requires an invalidation mechanism}, and \emph{both} the Invalidating cache and Struct have one, so both reach drift-acc 1.00. What the \textbf{typed defeasible contract adds over the hand-coded class-callback} comes down to three properties:
 
@@ -228,12 +229,12 @@ There remains §1's K1 constraint: what does it actually cost? On a mixed worklo
 
 A bookkeeping-cost check, not a claim about scaling the hard part — a growing library of \emph{distinct} methods, left to future work (end of section): over a 200-class typed space with one mid-stream audit, as the stream length N grows 1 320 → 20 320 (the \emph{class set} is fixed; no new methods, no model):
 
-\begin{center}\small\begin{tabular}{p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}}\toprule
 N & Struct calls & calls / N & Naive calls & library (memo) & evicted on drift \\ \midrule
 1 320 & 202 & 0.153 & 1 320 & 200 & 2 \\
 5 320 & 202 & 0.038 & 5 320 & 200 & 2 \\
 20 320 & 202 & 0.010 & 20 320 & 200 & 2 \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 Struct's call count stays \textbf{constant} (the bounded number of distinct classes plus the drift re-derivations), so the per-record call rate falls toward zero while Naive stays at one; the library size is bounded by the class count (trivially — it is a map keyed on a bounded class set); and a drift event \textbf{retracts only the invalidated classes} (O(invalidated): 2 evictions over a 200-entry library, not O(library)). Per-operation costs are small: canonicalization is low-single-digit µs/call (environment-dependent), and a single drift's eviction pass is ≈ 0.5 ms over the whole library. What E5 establishes is narrow: the typed bookkeeping (key, memo, selective eviction) does not become the bottleneck as the stream grows. This experiment does \textbf{not}, however, test scaling in the dimension that matters — a growing library of \emph{distinct} methods, a real corpus, or a live model across all arms — which we leave to future work (§6).
 
@@ -241,7 +242,7 @@ Struct's call count stays \textbf{constant} (the bounded number of distinct clas
 
 The §4.1 baselines are generic (RAG / CBR / Skill). The systems a reviewer compares against are the \emph{named} ones: \textbf{MemGPT/Letta} (tiered virtual context with self-editing memory) [Packer et al. 2023], \textbf{Reflexion} (an episodic verbal-reflection retry driven by a failure signal) [Shinn et al. 2023], and \textbf{GraphRAG} (an offline knowledge-graph index with LLM community summaries) [Edge et al. 2024]. We add a faithful minimal re-implementation of each behind the same interface, each in its \emph{fairest} configuration, with a paired ablation that turns its distinctive mechanism off (the negative control). The bench is a deterministic stub: N = 78, two audited classes, six drift cases:
 
-\begin{center}\small\begin{tabular}{p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}}\toprule
 arm & model calls & acc & drift-acc & max ctx \\ \midrule
 Naive & 78 & 1.00 & 1.00 & 290 \\
 \textbf{MemGPT} (audit paged into core) & 23 & 1.00 & 1.00 & 320 \\
@@ -251,7 +252,7 @@ Reflexion − signal (ablation) & 78 & 0.92 & 0.00 & 258 \\
 \textbf{GraphRAG} (offline index) & 87 & 0.92 & 0.00 & 336 \\
 GraphRAG + re-index (ablation) & 89 & 1.00 & 1.00 & 336 \\
 \textbf{Struct} & \textbf{20} & \textbf{1.00} & \textbf{1.00} & \textbf{290} \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=\linewidth]{../figures/png/f4-e6-pareto.en.png}
@@ -274,7 +275,7 @@ The named systems were not designed to amortize recurrent typed point-decisions;
 
 E6 measures a \emph{single} method. The differentiator of a \emph{library} is composition: when an upstream method's premise falls, does the recovery propagate through the chain? We extend the workload to a two-link chain — \texttt{decide → disburse}, where \texttt{disbursement = disbursed iff decision == approve} (link 2 reads link 1's outcome fact) — and re-run the head-to-head, scoring \textbf{both} links. The same exogenous audit now cascades: an audited high-score case must flip \texttt{decision} approve→reject \textbf{and} \texttt{disbursement} disbursed→held. Two regimes are run: the deterministic stub (N = 78, two audited classes) and a live run (Qwen3.6-27B (Q2\_K\_XL, MTP), N = 48):
 
-\begin{center}\small\begin{tabular}{p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}}\toprule
 arm & calls (stub / live) & drift-acc link 1 & drift-acc link 2 \\ \midrule
 Naive & 156 / 96 & 1.00 & 1.00 \\
 CBR (= Struct − contract) & 36 / 24 & \textbf{0.00} & \textbf{0.00} \\
@@ -283,7 +284,7 @@ Reflexion (fairest) & 160 / 108 & 1.00 & 1.00 \\
 GraphRAG + re-index & 178 / 116 & 1.00 & 1.00 \\
 \textbf{Struct} & \textbf{38 / 26} & \textbf{1.00} & \textbf{1.00} \\
 Struct (full engine) & 38 / 27 & 1.00 & 1.00 \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 Three things are measured. (i) \textbf{Staleness compounds.} Every recall-only or blind arm (CBR, and each named system's ablation) is wrong at link 1 \emph{and} link 2: a stale upstream answer poisons the downstream that reads it. Drift correctness is measured on the deterministic oracle; the live run confirms the CALL/WALL ordering (the live model is imperfect at small N, so we do not read per-record drift off it). (ii) \textbf{The recovery tax multiplies down the chain.} Reflexion, having no memo, pays a call per record \emph{per link} (calls ≈ 2N); GraphRAG re-indexes affected communities at \emph{each} link; MemGPT pays paging + coarse re-decode + a larger context at \emph{both} links. (iii) \textbf{Struct's cascade is selective.} A fallen premise un-casts the upstream belief and the change propagates to the downstream — recovering both links while re-deriving \emph{only} the violated upstream entry (the downstream re-derivation is elided because its cache key is disburse's true read-set \texttt{\{kind, region, decision\}}). Struct is the unique Pareto-optimal point among the drift-correct arms on (calls × drift-acc link 1 × drift-acc link 2 × per-call context), stub and live; the full-engine realization (four ensure-gated concepts over the derivation cache) reproduces it (38 = 38 stub; 26 ≈ 27 live, within model nondeterminism).
 
@@ -302,12 +303,12 @@ This is the capability the named surface memories structurally lack: a belief th
 
 E2/E6/E7 measure the \emph{retract → re-derive} path: a violated post evicts the cached belief, which is then re-derived. The loop's other half — \emph{revise}: specialize the method's precondition on blame, so the library is improved, not merely re-evaluated — is evaluated here. We run K = 5 recurrent-drift episodes (the same classes recur each episode after an over-general precondition is exposed) and compare evict-only against revision via the engine's \texttt{reviseOnBlame}:
 
-\begin{center}\small\begin{tabular}{lll}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lll}\toprule
 over K=5 episodes & Evict-only & Revise (\texttt{reviseOnBlame}) \\ \midrule
 blames (per episode → cumulative) & 1,1,1,1,1 → 5 & 1,0,0,0,0 → 1 \\
 re-derivations (model calls) & 4,1,1,1,1 → 8 & 4,1,0,0,0 → 5 \\
 false-admit rate & 0.25 every episode & 0.25 → 0.00 after e1 \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 Evict-only keeps the over-general rule, so it re-admits, re-blames, and re-derives the same stale class \emph{every} episode (cost ∝ K). Revision specializes the precondition once — narrowing it with the counterexample's discriminating atom — and then flatlines: no further blames, false-admit → 0. The revision is \emph{surgical}: the specialized precondition excludes the failing class while still admitting its sibling (it narrows, it does not delete the method). The effect holds for two premise kinds — a categorical compliance flip (\texttt{\$compliant != false}) and a numeric gate (\texttt{\$score != 680}). \textbf{Honest limit:} \texttt{reviseOnBlame} specializes by counterexample point-exclusion, not bound-tightening; a numeric drift spanning D distinct values converges in D one-time blames (bounded, per-value) rather than a single bound move — still categorically better than evict-only's per-episode recurrence.
 

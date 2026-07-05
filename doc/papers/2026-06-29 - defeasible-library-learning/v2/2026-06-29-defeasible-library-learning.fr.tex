@@ -10,6 +10,7 @@
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
 \usepackage{caption}
+\usepackage{adjustbox}
 \usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
 \usepackage{newunicodechar}
@@ -180,7 +181,7 @@ Le bras Invalidant existe pour séparer « possède un mécanisme d'invalidation
 
 Un domaine d'approbation typé (N = 80, deux classes auditées ; l'exécution réelle utilise N = 48, une classe auditée) avec une invalidation de prémisse \emph{externe} en cours de flux : un audit de conformité marque une classe non conforme, faisant basculer ses cas auparavant approuvés vers le refus. L'audit n'est \textbf{pas un champ d'enregistrement} — il est exogène — donc un cache par rappel seul retrouve le même enregistrement inchangé et sert sa réponse pré-audit. Voici les résultats simulés :
 
-\begin{center}\small\begin{tabular}{p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}}\toprule
 bras & appels & exactitude globale & \textbf{exactitude à la dérive} & contexte/appel max \\ \midrule
 \textbf{Struct} (contrat typé) & \textbf{26} & \textbf{1.00} & \textbf{1.00} & \textbf{290} \\
 Invalidant (crochet, sans contrat) & 28 & 1.00 & 1.00 & 290 \\
@@ -189,7 +190,7 @@ Long-contexte & 80 & 1.00 & 1.00 & 2062 \\
 RAG & 48 & 0.95 & 0.00 & 290 \\
 CBR (clé typée, sans re-vérification) & 24 & 0.95 & 0.00 & 290 \\
 Compétence (prose) & 80 & 0.95 & 0.00 & 297 \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 La lecture est triple. \textbf{Les mémoires par rappel seul (RAG / CBR / Compétence) servent du périmé} — le rappel seul ne récupère pas, l'audit n'entrant jamais dans leur chemin de réutilisation. \textbf{La récupération exige un mécanisme d'invalidation}, et l'Invalidant comme Struct en ont un, donc tous deux atteignent 1.00. Ce que le \textbf{contrat défaisable typé ajoute au rappel codé à la main} tient en trois propriétés :
 
@@ -232,12 +233,12 @@ Reste la contrainte K1 annoncée en §1 : que coûte-t-elle réellement ? Sur un
 
 Un contrôle de \textbf{coût de tenue de registre}, pas une affirmation sur le passage à l'échelle de la partie difficile — une bibliothèque de méthodes \emph{distinctes} qui croît, laissée en travaux futurs (fin de section) : sur un espace typé de 200 classes avec un audit unique, quand la longueur du flux N croît de 1 320 à 20 320 (l'\emph{ensemble des classes} est fixe ; aucune nouvelle méthode, aucun modèle) :
 
-\begin{center}\small\begin{tabular}{p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}}\toprule
 N & appels Struct & appels / N & appels Naïf & bibliothèque (mémo) & évincés à la dérive \\ \midrule
 1 320 & 202 & 0,153 & 1 320 & 200 & 2 \\
 5 320 & 202 & 0,038 & 5 320 & 200 & 2 \\
 20 320 & 202 & 0,010 & 20 320 & 200 & 2 \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 Le nombre d'appels de Struct reste \textbf{constant} (le nombre borné de classes distinctes plus les re-dérivations de dérive), donc le taux d'appels par enregistrement tend vers zéro tandis que Naïf reste à un ; la \textbf{bibliothèque est bornée} par le nombre de classes, indépendamment de N ; et un événement de dérive \textbf{ne rétracte que les classes invalidées} (2 évictions sur une bibliothèque de 200 entrées — O(invalidé), pas O(bibliothèque)). Les coûts par opération sont faibles : la canonicalisation est de quelques µs par appel (dépend de l'environnement), et une passe d'éviction de dérive ≈ 0,5 ms sur toute la bibliothèque. Le contenu honnête est étroit : la tenue de registre typée ne devient pas le goulet d'étranglement quand le flux croît. Cette expérience ne teste en revanche \textbf{pas} le passage à l'échelle dans la dimension qui compte — une bibliothèque croissante de méthodes \emph{distinctes}, un corpus réel, ou un modèle réel sur tous les bras — qui reste en travaux futurs.
 
@@ -245,7 +246,7 @@ Le nombre d'appels de Struct reste \textbf{constant} (le nombre borné de classe
 
 Les références de §4.1 sont génériques (RAG / CBR / Compétence). Les systèmes qu'un relecteur attend en comparaison sont les systèmes \emph{nommés} : \textbf{MemGPT/Letta} (contexte virtuel à étages, mémoire auto-éditée) [Packer et al. 2023], \textbf{Reflexion} (un essai-réflexion verbale épisodique piloté par un signal d'échec) [Shinn et al. 2023], et \textbf{GraphRAG} (un index de graphe de connaissances hors-ligne avec résumés de communautés par LLM) [Edge et al. 2024]. Nous ajoutons une ré-implémentation minimale fidèle de chacun de ces trois systèmes, derrière la même interface et dans sa configuration \emph{la plus favorable}, avec une ablation appariée qui éteint son mécanisme distinctif (le contrôle négatif). Le banc est un stub déterministe : N = 78, deux classes auditées, six cas de dérive :
 
-\begin{center}\small\begin{tabular}{p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}p{0.18\linewidth}}\toprule
 bras & appels modèle & exact. & exact.-dérive & ctx max \\ \midrule
 Naïf & 78 & 1,00 & 1,00 & 290 \\
 \textbf{MemGPT} (audit paginé en core) & 23 & 1,00 & 1,00 & 320 \\
@@ -255,7 +256,7 @@ Reflexion − signal (ablation) & 78 & 0,92 & 0,00 & 258 \\
 \textbf{GraphRAG} (index hors-ligne) & 87 & 0,92 & 0,00 & 336 \\
 GraphRAG + ré-index (ablation) & 89 & 1,00 & 1,00 & 336 \\
 \textbf{Struct} & \textbf{20} & \textbf{1,00} & \textbf{1,00} & \textbf{290} \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=\linewidth]{../figures/png/f4-e6-pareto.fr.png}
@@ -278,7 +279,7 @@ Les systèmes nommés n'ont pas été conçus pour amortir des décisions ponctu
 
 E6 mesure une \emph{seule} méthode. Le différenciateur d'une \emph{bibliothèque} est la composition : lorsque la prémisse d'une méthode amont tombe, la récupération se propage-t-elle dans la chaîne ? Nous étendons la charge à une chaîne à deux maillons — \texttt{decide → disburse}, où \texttt{disbursement = disbursed iff decision == approve} (le maillon 2 lit le fait-résultat du maillon 1) — et ré-exécutons le tête-à-tête en notant les \textbf{deux} maillons. Le même audit exogène se propage désormais en cascade : un cas audité à score élevé doit faire basculer \texttt{decision} approve→reject \textbf{et} \texttt{disbursement} disbursed→held. Deux régimes sont courus : le simulateur déterministe (N = 78, deux classes auditées) et une exécution réelle (Qwen3.6-27B (Q2\_K\_XL, MTP), N = 48) :
 
-\begin{center}\small\begin{tabular}{p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}}\toprule
 bras & appels (simu / réel) & exact.-dérive maillon 1 & exact.-dérive maillon 2 \\ \midrule
 Naïf & 156 / 96 & 1,00 & 1,00 \\
 CBR (= Struct − contrat) & 36 / 24 & \textbf{0,00} & \textbf{0,00} \\
@@ -287,7 +288,7 @@ Reflexion (le plus favorable) & 160 / 108 & 1,00 & 1,00 \\
 GraphRAG + ré-index & 178 / 116 & 1,00 & 1,00 \\
 \textbf{Struct} & \textbf{38 / 26} & \textbf{1,00} & \textbf{1,00} \\
 Struct (moteur complet) & 38 / 27 & 1,00 & 1,00 \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 Trois choses sont mesurées. (i) \textbf{La péremption se cumule.} Tout bras par rappel seul ou aveugle (CBR, et l'ablation de chaque système nommé) est faux au maillon 1 \emph{et} au maillon 2 : une réponse amont périmée empoisonne le maillon aval qui la lit. L'exactitude à la dérive est mesurée sur l'oracle déterministe ; l'exécution réelle confirme l'ordre des appels et du temps (le modèle réel est imparfait à petit N, nous ne lisons donc pas la dérive par enregistrement sur lui). (ii) \textbf{La taxe de récupération se multiplie le long de la chaîne.} Reflexion, sans mémo, paie un appel par enregistrement \emph{par maillon} (appels ≈ 2N) ; GraphRAG ré-indexe les communautés concernées à \emph{chaque} maillon ; MemGPT paie la pagination + un re-décodage grossier + un contexte plus grand aux \emph{deux} maillons. (iii) \textbf{La cascade de Struct est sélective.} Une prémisse tombée dé-cast la croyance amont et le changement se propage à l'aval — récupérant les deux maillons tout en re-dérivant \emph{seulement} l'entrée amont violée (la re-dérivation aval est élidée car sa clé de cache est l'ensemble de lecture réel de disburse \texttt{\{kind, region, decision\}}). Struct est l'unique point Pareto-optimal parmi les bras corrects-à-la-dérive sur (appels × exact.-dérive maillon 1 × exact.-dérive maillon 2 × contexte par appel), en simu comme en réel ; la réalisation sur moteur complet (quatre concepts \emph{ensure}-gated au-dessus du cache de dérivation) la reproduit (38 = 38 en simu ; 26 ≈ 27 en réel, dans le non-déterminisme du modèle).
 
@@ -306,12 +307,12 @@ C'est la capacité qui manque structurellement aux mémoires de surface nommées
 
 E2/E6/E7 mesurent le chemin \emph{rétracter → re-dériver} : une post violée évince la croyance en cache, qui est ensuite re-dérivée. L'autre moitié de la boucle — \emph{réviser} : spécialiser la précondition de la méthode sur blâme, de sorte que la bibliothèque soit améliorée, non simplement ré-évaluée — est évaluée ici. Nous exécutons K = 5 épisodes de dérive récurrente (les mêmes classes reviennent à chaque épisode après qu'une précondition trop générale a été exposée) et comparons l'éviction-seule à la révision via le \texttt{reviseOnBlame} du moteur :
 
-\begin{center}\small\begin{tabular}{lll}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lll}\toprule
 sur K=5 épisodes & Éviction-seule & Révision (\texttt{reviseOnBlame}) \\ \midrule
 blâmes (par épisode → cumulatif) & 1,1,1,1,1 → 5 & 1,0,0,0,0 → 1 \\
 re-dérivations (appels modèle) & 4,1,1,1,1 → 8 & 4,1,0,0,0 → 5 \\
 taux de faux-admis & 0,25 à chaque épisode & 0,25 → 0,00 après e1 \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 L'éviction-seule conserve la règle trop générale, donc elle ré-admet, re-blâme et re-dérive la même classe périmée à \emph{chaque} épisode (coût ∝ K). La révision spécialise la précondition une seule fois — en la restreignant avec l'atome discriminant du contre-exemple — puis se stabilise : plus aucun blâme, faux-admis → 0. La révision est \emph{chirurgicale} : la précondition spécialisée exclut la classe fautive tout en admettant encore son frère (elle restreint, elle ne supprime pas la méthode). L'effet tient pour deux types de prémisse — un basculement de conformité catégoriel (\texttt{\$compliant != false}) et une porte numérique (\texttt{\$score != 680}). \textbf{Limite honnête :} \texttt{reviseOnBlame} spécialise par exclusion ponctuelle de contre-exemple, non par resserrement de borne ; une dérive numérique couvrant D valeurs distinctes converge en D blâmes ponctuels (bornés, par valeur) plutôt qu'en un seul déplacement de borne — toujours catégoriquement mieux que la récurrence par épisode de l'éviction-seule.
 

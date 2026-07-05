@@ -43,6 +43,7 @@ PREAMBLE = r'''% Généré par md2tex.py — ne pas éditer à la main ; éditer
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
 \usepackage{caption}
+\usepackage{adjustbox}
 \usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
 \usepackage{newunicodechar}
@@ -176,12 +177,12 @@ def convert(src, lang):
                 rows.append([c.strip() for c in lines[i].strip().strip('|').split('|')]); i += 1
             ncol = len(header)
             colspec = 'p{%.2f\\linewidth}' % (0.92 / ncol) * ncol if ncol > 3 else 'l' * ncol
-            body.append('\\begin{center}\\small\\begin{tabular}{%s}\\toprule' % colspec)
+            body.append('\\begin{center}\\small\\begin{adjustbox}{max width=\\linewidth}\\begin{tabular}{%s}\\toprule' % colspec)
             body.append(' & '.join(inline(h) for h in header) + ' \\\\ \\midrule')
             for r in rows:
                 r = (r + [''] * ncol)[:ncol]
                 body.append(' & '.join(inline(c) for c in r) + ' \\\\')
-            body.append('\\bottomrule\\end{tabular}\\end{center}')
+            body.append('\\bottomrule\\end{tabular}\\end{adjustbox}\\end{center}')
             continue
         # image + légende italique éventuelle
         m = re.match(r'^!\[([^\]]*)\]\(([^)]+)\)\s*$', ls)
@@ -227,7 +228,7 @@ def convert(src, lang):
                     j = i
                     while j < n and lines[j].strip() == '': j += 1
                     if j < n and re.match(r'^\s{%d,}\S' % (indent + 2), lines[j]) and not re.match(r'^\s*([-*]|\d+\.)\s', lines[j]):
-                        item.append('\\par')
+                        item.append('⟦PAR⟧')
                         i = j
                         continue
                     break
@@ -236,7 +237,7 @@ def convert(src, lang):
                 if re.match(r'^\s{%d,}\S' % (indent + 1), nxt):
                     item.append(nxt.strip()); i += 1; continue
                 break
-            body.append('\\item ' + inline(' '.join(item)))
+            body.append('\\item ' + inline(' '.join(item)).replace('⟦PAR⟧ ', '\\par ').replace('⟦PAR⟧', '\\par '))
             continue
         # paragraphe : rassembler
         close_all()

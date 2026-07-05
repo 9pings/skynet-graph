@@ -10,6 +10,7 @@
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
 \usepackage{caption}
+\usepackage{adjustbox}
 \usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
 \usepackage{newunicodechar}
@@ -148,7 +149,7 @@ Cependant, la suite de cette section situe le composite décrit dans cet article
 
 \begin{itemize}
 \item Logic-LM et Logic-LM++ traduisent le problème en entrée de solveur et s'auto-raffinent sur les erreurs du solveur — une réparation de \emph{formulation}, par problème, sans mémoire persistante ni blâme ;
-\item le jumeau de mécanisme le plus proche est le pipeline auto-correctif LLM-programmeur-ASP (arXiv:2604.27960). \textbackslash\{\}par Il exprime nativement défauts et exceptions (l'ASP est non-monotone) et est explicite sur ses propres bornes :
+\item le jumeau de mécanisme le plus proche est le pipeline auto-correctif LLM-programmeur-ASP (arXiv:2604.27960). \par Il exprime nativement défauts et exceptions (l'ASP est non-monotone) et est explicite sur ses propres bornes :
 
 \begin{itemize}
 \item correction en un coup, par session ;
@@ -158,7 +159,7 @@ Cependant, la suite de cette section situe le composite décrit dans cet article
 
 \end{itemize}
 \item la ligne s(CASP)-socialbot et ProSLM a la défaisance native et l'abstention typée — sur une base et des règles écrites à la main, un goulot que leurs auteurs nomment ;
-\item le raisonneur neurosymbolique sain-et-complet d'arXiv:2507.09751 livre la face fidélité de notre revendication. \textbackslash\{\}par Il offre l'abstention sur les cas incohérents ou incertains et la fidélité à une théorie déclarée, avec le LLM logé \emph{dans} la fonction d'interprétation de la sémantique — mais la théorie reste statique : rien n'y apprend une règle, une arête ou un alias.
+\item le raisonneur neurosymbolique sain-et-complet d'arXiv:2507.09751 livre la face fidélité de notre revendication. \par Il offre l'abstention sur les cas incohérents ou incertains et la fidélité à une théorie déclarée, avec le LLM logé \emph{dans} la fonction d'interprétation de la sémantique — mais la théorie reste statique : rien n'y apprend une règle, une arête ou un alias.
 \end{itemize}
 
 \textbf{Les évaluations de défaisance.} Le deuxième voisinage ne construit pas de système : il mesure. Trois évaluations y documentent, avec du volume, le même échec :
@@ -176,7 +177,7 @@ Parce que cette cellule est à la fois occupée et bien mesurée, \emph{la défa
 \textbf{Bases de connaissances auto-croissantes.} Le troisième voisinage est celui du problème lui-même — les bases qui grandissent seules. NELL (présentée en §1.1) en est le cas d'école, positif et d'avertissement à la fois ; trois lignes y vivent aujourd'hui :
 
 \begin{itemize}
-\item l'héritier direct de NELL existe : DySECT (arXiv:2603.06915, issu de l'équipe NELL). \textbackslash\{\}par Il fait croître en continu une base auto-expansive depuis les triplets extraits par le LLM, en boucle fermée extraction↔connaissance — sans aucune porte d'admission dans le chemin d'écriture ; c'est exactement la configuration dont §6.5–§6.6 mesurent la dérive, et le contraste que cet article instrumente ;
+\item l'héritier direct de NELL existe : DySECT (arXiv:2603.06915, issu de l'équipe NELL). \par Il fait croître en continu une base auto-expansive depuis les triplets extraits par le LLM, en boucle fermée extraction↔connaissance — sans aucune porte d'admission dans le chemin d'écriture ; c'est exactement la configuration dont §6.5–§6.6 mesurent la dérive, et le contraste que cet article instrumente ;
 
 \item les travaux récents d'induction de taxonomies (SC-Taxo ; la série de challenges LLMs4OL) traitent les incohérences structurelles et le désalignement sémantique par des filtres de cohérence — de la consistance globale, pas de la localisation par-unité ;
 \item la complétion de graphe favorisant la provenance (TGComplete, arXiv:2606.15833) est le parent le plus proche d'une porte d'admission : elle vérifie un candidat par une boucle de récupération légère et \emph{s'abstient} quand le support textuel manque.
@@ -188,7 +189,7 @@ Le delta avec ce parent le plus proche est précis : sa vérification est un sup
 
 \begin{itemize}
 \item la théorie d'apprentissage s'est arrêtée au cadre corpus-batch des années 1990 (Resnik ; estimation par classes) ;
-\item l'ère neuronale a d'abord retourné la question en \emph{probing}, puis l'a rouverte côté apprentissage : arXiv:2011.02417 montre qu'un modèle fine-tuné forme des généralisations sélectionnelles robustes après une ou deux instances d'un mot nouveau. \textbackslash\{\}par C'est un voisin réel de notre question, avec un delta net : l'apprentissage y vit dans les poids, ni auditable, ni attribuable, ni rétractable.
+\item l'ère neuronale a d'abord retourné la question en \emph{probing}, puis l'a rouverte côté apprentissage : arXiv:2011.02417 montre qu'un modèle fine-tuné forme des généralisations sélectionnelles robustes après une ou deux instances d'un mot nouveau. \par C'est un voisin réel de notre question, avec un delta net : l'apprentissage y vit dans les poids, ni auditable, ni attribuable, ni rétractable.
 \end{itemize}
 
 L'apprentissage en ligne des restrictions \emph{depuis les échecs}, à blâme localisé, externalisé dans une structure inspectable, reste — aussi loin que porte notre revue — sans occupant.
@@ -208,7 +209,7 @@ Notre mécanisme est orthogonal : la frontière reste stricte, et c'est le \text
 
 La position, en une table :
 
-\begin{center}\small\begin{tabular}{lll}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lll}\toprule
 Jumeau & Possède & Manque \\ \midrule
 LLM-programmeur-ASP auto-correctif (2604.27960) & extraction → solveur en ligne, boucle de correction, non-monotone natif & apprentissage persistant · blâme · révision défaisable de règles apprises \\
 Neurosymbolique sain-et-complet (2507.09751) & soundness, abstention, fidélité (LLM dans l'interprétation) & tout apprentissage (théorie statique) · crédit/blâme \\
@@ -217,7 +218,7 @@ NELL / DySECT (2603.06915) & croissance en ligne à l'échelle, boucle fermée &
 TGComplete (2606.15833) & vérifie-et-s'abstient à la complétion, provenance & monture optimiste · crédit/blâme par-unité · rétraction \\
 VS tolérants au bruit (Sebag ; Hirsh ; rough VS) & élimination de candidats sous bruit & la frontière est relâchée ; rien n'est attribué ni audité \\
 Popper / ILP MDL-bruit (Hocquette et al.) & induction tolérante au bruit, à exceptions & tout lien à un intake LLM en ligne \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 La nouveauté se revendique donc au \textbf{delta de mécanisme}, pas à la cellule : (c) une croissance en ligne d'arêtes de treillis depuis une extraction LLM \textbf{avec} un chemin d'admission à attribution localisée — là où la ligne auto-croissante (NELL, DySECT) écrit sans porte et où la ligne vérifiante (TGComplete) vérifie sans apprendre ; et (c′) la localisation \textbf{comme critère d'admission} rendant l'élimination de candidats tolérante au bruit d'incompétence — là où la famille des version spaces bruités relâche la frontière au lieu de filtrer le canal.
 
@@ -395,7 +396,7 @@ Avant qu'aucun modèle n'entre dans la boucle, la règle d'apprentissage elle-m�
 
 Parce que l'article compare beaucoup de bras, les voici tous, une ligne chacun :
 
-\begin{center}\small\begin{tabular}{lll}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lll}\toprule
 Bras & Ce que c'est & Où \\ \midrule
 A / B / C / D & lab déterministe : LGG-seul / + porte / + tout-échec-négatif / B + optimisme & §5.1–§5.2 \\
 P-glob / P-loc & lab du crédit : succès crédite tout / crédit localisé par-atome & §5.3 \\
@@ -405,7 +406,7 @@ DIRECT & le modèle seul, même prose, budget de raisonnement 0 ou 1024 (noté r
 RAG & DIRECT + l'ontologie déclarée complète dans le prompt & §7.1 \\
 UNGATED / GATED & croissance sans porte (le modèle écrit l'unité) / à travers la porte & §6.5–§6.6 \\
 SYS-extract & DeFAb : prose → extraction modèle → puis le sélecteur typé & §7.3 \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 \subsection*{5.1 Le dispositif}
 
@@ -413,26 +414,26 @@ Les objets d'abord : deux treillis déclarés, avec un branchement ≥ 3 sous ch
 
 Quatre bras sur des flux bit-identiques :
 
-\begin{center}\small\begin{tabular}{ll}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{ll}\toprule
 Bras & Règle \\ \midrule
 \textbf{A} & LGG-seul (les positifs seuls — la référence de §4.2) \\
 \textbf{B} & + négatifs admis \textbf{seulement} si blâme-localisés (la porte) \\
 \textbf{C} & + \emph{tout} échec admis comme négatif (le contrôle non-sain) \\
 \textbf{D} & B + optimisme (remontage à horizon doublant des sortes rejetées) \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 \subsection*{5.2 Les résultats — 126/126 vérifications exactes pré-enregistrées}
 
 Quatre dynamiques étaient prédites ; les quatre sont mesurées dans chaque cellule :
 
 \begin{enumerate}
-\item \textbf{L'écart existe et vaut sa borne théorique.} \textbackslash\{\}par Erreurs de sur-généralisation de A : \textbf{16} (chaque arrivée mauvaise — la LGG seule ne freine jamais). B : \textbf{8} à ρ=0 — exactement une première exposition inévitable par (facette × sorte mauvaise), le plancher. La porte achète \textbf{−50 \% de sur-généralisation à sur-resserrement nul} (refus de bonnes tâches par B : 0, identique à A).
+\item \textbf{L'écart existe et vaut sa borne théorique.} \par Erreurs de sur-généralisation de A : \textbf{16} (chaque arrivée mauvaise — la LGG seule ne freine jamais). B : \textbf{8} à ρ=0 — exactement une première exposition inévitable par (facette × sorte mauvaise), le plancher. La porte achète \textbf{−50 \% de sur-généralisation à sur-resserrement nul} (refus de bonnes tâches par B : 0, identique à A).
 
-\item \textbf{A converge — vers le mauvais point fixe.} \textbackslash\{\}par Dans chaque cellule, \texttt{S\_filtre(A)} se pose sur \texttt{column} (soulevé là par les appariements accidentels de l'oracle permissif) ; \texttt{S\_filtre(B)} tient \texttt{categorical}, la cible déclarée. L'écart n'est pas « A n'apprend pas » ; c'est « A apprend \emph{trop large}, stablement » — ce qui est pire, parce que cela ressemble à une convergence.
+\item \textbf{A converge — vers le mauvais point fixe.} \par Dans chaque cellule, \texttt{S\_filtre(A)} se pose sur \texttt{column} (soulevé là par les appariements accidentels de l'oracle permissif) ; \texttt{S\_filtre(B)} tient \texttt{categorical}, la cible déclarée. L'écart n'est pas « A n'apprend pas » ; c'est « A apprend \emph{trop large}, stablement » — ce qui est pire, parce que cela ressemble à une convergence.
 
-\item \textbf{Le contrôle non-sain s'auto-scelle, de façon monotone, sur les rares.} \textbackslash\{\}par C refuse 2 à 14 \emph{bonnes} tâches par cellule, concentrées exactement sur les sortes rares que N1 a frappées — et ne les récupère jamais. B à ρ=0 : zéro. C'est l'asymétrie de §4.3 rendue visible, et c'est la réponse mesurée à « pourquoi ne pas simplement compter tous les échecs comme négatifs ».
+\item \textbf{Le contrôle non-sain s'auto-scelle, de façon monotone, sur les rares.} \par C refuse 2 à 14 \emph{bonnes} tâches par cellule, concentrées exactement sur les sortes rares que N1 a frappées — et ne les récupère jamais. B à ρ=0 : zéro. C'est l'asymétrie de §4.3 rendue visible, et c'est la réponse mesurée à « pourquoi ne pas simplement compter tous les échecs comme négatifs ».
 
-\item \textbf{Le faux-blâme dégrade B ; l'optimisme le récupère, à prime visible.} \textbackslash\{\}par À ρ>0, B scelle des bonnes-rares (3 par cellule) ; D finit avec ≤ scellées (2–3) au prix de 2 montures supplémentaires et d'une sur-généralisation de 5–6 contre 4. L'assurance n'est pas gratuite — et à ρ=0, D ≡ B : la prime ne se paie que lorsqu'il y a quelque chose à assurer.
+\item \textbf{Le faux-blâme dégrade B ; l'optimisme le récupère, à prime visible.} \par À ρ>0, B scelle des bonnes-rares (3 par cellule) ; D finit avec ≤ scellées (2–3) au prix de 2 montures supplémentaires et d'une sur-généralisation de 5–6 contre 4. L'assurance n'est pas gratuite — et à ρ=0, D ≡ B : la prime ne se paie que lorsqu'il y a quelque chose à assurer.
 \end{enumerate}
 
 Une dynamique non prévue est consignée, parce qu'elle reviendra dans les métriques live : à ρ>0, la sur-généralisation de B \emph{descend} (8→4) — un mauvais scellement sur une bonne-rare refuse collatéralement les événements mauvais qui portent cette sorte sur l'autre slot. Un faux blâme peut « protéger » par accident tout en gonflant le sur-resserrement.
@@ -479,13 +480,13 @@ La prose est toujours paraphrasée par le modèle — la surface n'est jamais la
 
 Sur instances fraîches et sur une transposition de domaine complète (animaux/enclos : \texttt{truite ⊑ poisson ⊑ aquatique}, une volière, un terrarium) :
 
-\begin{center}\small\begin{tabular}{p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}}\toprule
 cellule & SYS & ABLATED (chemin strict) & DIRECT \\ \midrule
 formes V1–V4, fraîches (24) & \textbf{24/24} & fail-closed 18/18 → appris et résolu 18/18 & 20/24 \\
 formes V5 défaisables (3) & \textbf{3/3 rétractées} & — & 1/3 (2 hallucinations) \\
 formes V5 bénignes (3) & \textbf{3/3 montées} & 3/3 → 3/3 & 3/3 \\
 animaux V1–V4, transposés (24) & \textbf{24/24} & fail-closed 18/18 → appris et résolu 18/18 & 16/24 \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 (Convention de compte, colonne ABLATED : la cellule V3 aucun-match n'ablate rien — il n'y a pas d'arête sous un refus — donc chaque domaine expose 18 arêtes ablatables sur ses 24 tâches V1–V4.)
 
@@ -499,12 +500,12 @@ La valeur du chemin typé se concentre précisément là où savoir n'est pas la
 
 Une première lecture de V3 (« le modèle hallucine sur l'aucun-match ») n'a pas survécu à notre propre examen, et la correction est plus intéressante que la cellule d'origine. Raisonnement activé, les réponses V3 du modèle sont \emph{plausibles-monde} : une pyramide canonique a bien une base carrée (« elle rentre base la première ») ; les fougères vivent bel et bien en terrarium. Ces oracles étaient contestables ; nous les avons durcis jusqu'à ce qu'aucune échappatoire plausible-monde ne subsiste — et l'effondrement de l'artefact est rapporté comme tel :
 
-\begin{center}\small\begin{tabular}{p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}}\toprule
 cellule durcie & SYS & DIRECT rb=0 & DIRECT raisonnement \\ \midrule
 V3h-formes (trou carré retiré) & \textbf{6/6 none} & 6/6 & 6/6 — les « hallucinations » de l'ancien V3 étaient l'artefact de l'\emph{oracle} \\
 V3h-animaux (terrarium retiré) & \textbf{6/6 none} & 4/6 (2 hallucinations) & 4/6 (2 hallucinations) \\
 V5h-remap (dégonflé : rond→fente plate, gold positif) & \textbf{9/9} (6 rétracte+remappe · 3 bénins) & 3/9 & 3/9 \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 Deux résultats portent jusque dans chaque section ultérieure. D'abord, la cellule de refus qui survit (V3h-animaux) est non-vide et incontestable : toute échappatoire retirée, le modèle direct fabrique encore un placement dans 2 cas sur 6 — \textbf{dans les deux régimes de raisonnement} — là où le chemin typé refuse 6 fois sur 6. Ensuite, et plus généralement : le raisonnement répare les cellules de \emph{connaissance} du modèle, pas ses cellules de \emph{fidélité}. L'énoncé propre du contraste n'est pas « le modèle hallucine » ; c'est \textbf{« le modèle suit la plausibilité-monde ; le chemin typé suit la spécification déclarée — dans les deux régimes. »} Ce recadrage renforce la lecture gouvernance de la revendication (la fidélité à une ontologie déclarée est ce dont un déploiement encadré a besoin), et c'est le recadrage honnête.
 
@@ -512,10 +513,10 @@ Deux résultats portent jusque dans chaque section ultérieure. D'abord, la cell
 
 Montée à n=24 par cellule sur trois domaines — le troisième (prises/fiches : \texttt{europlug ⊑ broche-ronde …}, défaiseur « tordue », aligné-monde par la leçon de §6.3) embarqué de zéro — avec intervalles exacts Clopper–Pearson à 95 \% :
 
-\begin{center}\small\begin{tabular}{lll}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lll}\toprule
 16 cellules, n=300 & SYS & DIRECT rb=0 \\ \midrule
 \textbf{total} & \textbf{300/300} [99–100 \%] & 245/300 [77–86 \%] \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 Le déficit du direct se concentre exactement sur les cellules de la revendication : animaux-V3 aucun-match \textbf{0/24 avec 24 hallucinations} ; V5-défaisable 1/3 et 0/3 sur les domaines à défaiseurs ; prises-V2 12/24 (le modèle ne connaît pas la géométrie de broches que le treillis déclaré énonce).
 
@@ -529,13 +530,13 @@ C'est pourquoi l'article ne conclut jamais depuis une seule cellule parfaite, et
 
 La référence décisive de toute revendication d'auto-croissance est le raccourci évident : le modèle propose l'arête manquante et le système la prend telle quelle. La tentation est légitime — §6.2 vient de montrer que le modèle seul résout la plupart des devinettes sur sa connaissance-monde ; s'il sait où va la truite, pourquoi une porte sur \texttt{truite ⊑ poisson} ? Deux bras sur flux identiques, deux domaines × trois permutations, répondent :
 
-\begin{center}\small\begin{tabular}{lll}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lll}\toprule
 ×3 ordres & UNGATED (le modèle écrit l'arête) & GATED (localisation + vérification) \\ \midrule
 arêtes fausses admises & \textbf{6/6 cellules} (pyramide→carré · fougère→terrestre — l'ontologie plausible-monde du modèle, absorbée) & \textbf{0 partout} \\
 dégât aval silencieux (réponses fausses à 0 appel, incorrigibles) & 1–2 par cellule, robuste à l'ordre & 0 (résidu : 1 sur 2 cellules — le trou de vocabulaire ci-dessous) \\
 prime & — & +1 à +3 appels selon la cellule (quarantaines, refus, un retry) \\
 amortissement & ≤1 proposition/sorte ✓ & identique ✓ — les arêtes correctes s'admettent et servent pareil \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 Le bras sans porte reproduit la signature NELL en miniature : des arêtes plausibles-mais-fausses entrent, puis répondent aux épisodes suivants à zéro appel, sans plus aucun canal de correction — un dégât \emph{silencieux}, celui qu'aucune vérification aval ne voit jamais. La porte admet zéro arête fausse sur les mêmes flux, à prime bornée, et — le point d'architecture — les arêtes correctes s'admettent et s'amortissent à l'identique : la porte est un cliquet, pas une moyenne.
 
@@ -555,13 +556,13 @@ Le circuit complet se lit en cinq temps :
 
 Quinze épisodes, trois ordres de flux :
 
-\begin{center}\small\begin{tabular}{lll}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lll}\toprule
 ×3 ordres & GATED & UNGATED \\ \midrule
 admissions & exactement les \textbf{6 alias vrais-selon-la-spec} produits par le flux & les mêmes 6 \textbf{+ 3 poisons} \\
 alias faux admis / confirmés & \textbf{0 / 0} & \textbf{3} (aperture/cavity/hole→rond), jamais retirés \\
 résolution des tâches (ok / refus typé / faux) & \textbf{13 / 2 / 0} & 13 / 0 / \textbf{2} \\
 coût & 14 propositions/bras, ≤1 par (clé, token), re-propositions bloquées par mémo & identique \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=\linewidth]{../figures/png/f6-ratchet-timeline.fr.png}
@@ -582,14 +583,14 @@ Quatre objections structurent cette section, chacune répondue par un bras ou un
 
 L'ontologie déclarée complète (taxonomie, trous, exceptions, et la règle du plus-bas-dérivable) est placée dans le prompt, marquée « authoritative », sur les mêmes 54 tâches mémo-servies :
 
-\begin{center}\small\begin{tabular}{p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}}\toprule
 cellule & RAG-contexte & DIRECT & SYS \\ \midrule
 V1/V2/V4 connaissance (×2 domaines) & 36/36 & 32/36 & 36/36 \\
 V5 défaisable + bénin & 6/6 & 4/6 & 6/6 \\
 V3 aucun-match, formes & \textbf{0/6} (3 hallucinations + 3 formats cassés) & 6/6 & 6/6 \\
 V3 aucun-match, animaux & \textbf{3/6} (3 hallucinations) & 0/6 & 6/6 \\
 \textbf{total} & \textbf{45/54} & 42/54 & \textbf{54/54} \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 Commençons par l'honnêteté : le contexte aide \emph{en moyenne} (45 > 42). Il répare exactement les cellules de connaissance — V1/V2 remontent à 6/6, et l'exception fournie dans le prompt règle V5. La revendication porte sur l'endroit où il échoue, et ses échecs se concentrent sur les cellules mêmes de la revendication, selon deux modes distincts, vérifiés sur les sorties brutes. Premier mode : le contexte \emph{induit un bavardage de dérivation} qui casse la discipline de réponse — sur la cellule pyramide, le modèle récite sa dérivation au lieu de répondre dans le format demandé (0/6, dont 3 formats cassés) ; nous avions déjà rencontré cette famille d'effondrements ailleurs : du contexte ajouté au point de contact sémantique produit de la narration au lieu d'une réponse. Second mode : la plausibilité-monde \emph{survit} à un contexte pourtant marqué « authoritative » — la fougère est placée « terrestre » contre l'ontologie fournie dans le prompt même (3/6). La leçon des deux modes tient en une phrase : même muni de son ontologie, le modèle n'en est pas un évaluateur fiable.
 
@@ -607,13 +608,13 @@ Les deux oracles des devinettes sont les nôtres ; le test externe, non. \textbf
 
 Nous utilisons son Level-3 : l'abduction de défaiseur. Une instance donne une théorie, une anomalie (une conclusion que les règles prédisent mais qui ne devrait pas tenir), et six règles d'exception candidates, typées — un gold et cinq distracteurs (coupe trop-large, mauvaise tête, non-pertinente, positive, mauvaise condition). Il faut choisir la bonne. Cette tâche se mappe directement sur notre porte : le bon candidat est celui qui est \emph{porteur} (le test de décisivité de l'admission au ring), sur le \emph{bon slot et la bonne polarité}, \textbf{conservatif} (il ne tue aucune attente préservée d'aucun individu couvert — la dent de vacuité/sur-généralisation) et \emph{minimal} (le moins de faits posés, puis la couverture). Les égalités formelles résiduelles (≤ 2 candidats vérifiés) vont au modèle — la doctrine en couches de §3, à la frontière de connaissance seulement.
 
-\begin{center}\small\begin{tabular}{lll}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lll}\toprule
 bras (N=35, trois domaines) & total & notes \\ \midrule
 \textbf{SYS (porte + départage dans-l'ensemble)} & \textbf{34/35} & 30/35 purement structurels, à \textbf{zéro} appel modèle \\
 SYS-extract (prose → extraction → porte) & 33/35 & le bruit d'extraction coûte une cellule, fail-closed \\
 DIRECT rb=0 & 30/35 &  \\
 DIRECT raisonnement & 30/35 & le raisonnement déplace les erreurs ; il ne les corrige pas \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 L'attribution compte plus que la marge : \textbf{les cinq pertes de DIRECT sont toutes des coupes sur-générales} (\texttt{no\_novel} ×3, \texttt{broad} ×2 — des défaiseurs qui tueraient le défaut préservé d'un \emph{autre} individu couvert ; le typage par-instance des choix du direct est rejoué du mémo et livré dans l'artefact avec le dépôt).
 
@@ -625,7 +626,7 @@ Sur le Level-2 (374 instances dev), le sélecteur typé score \textbf{374/374 à
 
 Un seul modèle jouait tous les rôles jusqu'ici — le confond de validité externe le plus évident de l'article. Nous avons donc rejoué le protocole live entier (§6–§7), à l'identique et mémo-isolé par modèle, sur \textbf{neuf modèles locaux} couvrant quatre familles (Qwen, Google, Mistral, Microsoft), trois quantisations d'une même famille (2 bits « extrême », 2 bits, 6 bits), deux architectures (denses et mixtures-d'experts à \textasciitilde{}3 milliards de paramètres actifs) et deux ordres de taille (12 à 35 milliards) — un contrôle de reproduction rejouant d'abord le modèle du papier bit-à-bit (le harnais est fidèle) :
 
-\begin{center}\small\begin{tabular}{p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}}\toprule
+\begin{center}\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}}\toprule
 modèle (famille, quant) & §6.4 SYS & §6.4 DIRECT & mauvaises montures (formes-V3) & DeFAb pur §7.3 & arêtes fausses GATED \\ \midrule
 Qwen 27B Q2 (papier, contrôle) & \textbf{300/300} & 245/300 & \textbf{0} (24/24 refus) & 30/35 & \textbf{0} \\
 Qwen 27B IQ2 (2 bits extrême) & 259/300 & 213/300 & \textbf{0} & 30/35 & \textbf{0} \\
@@ -636,7 +637,7 @@ phi-4 14B Q4 (Microsoft) & 265/300 & 231/300 & \textbf{0} (après correctif) & 3
 Coder 30B-A3B Q4 (Qwen, MoE) & 252/300 & 168/300 & \textbf{0} & 30/35 & \textbf{0} \\
 Qwen3.5 35B-A3B Q4 (Qwen, MoE) & 271/300 & 192/300 & \textbf{0} & 30/35 & \textbf{0} \\
 gemma-3 12B Q4 (Google, petit) & \textbf{79/300} & 50/300 & \textbf{0} & 30/35 & \textbf{0} \\
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular}\end{adjustbox}\end{center}
 
 Le verdict tient en trois couches, aux sensibilités opposées :
 
