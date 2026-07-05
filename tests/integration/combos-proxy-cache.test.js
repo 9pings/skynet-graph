@@ -6,7 +6,7 @@ require('../_boot.js');
 const test = require('node:test');
 const assert = require('node:assert');
 const { createLearningLibrary } = require('../../lib/combos/learning-library.js');
-const { createProxyCache } = require('../../lib/combos/proxy-cache.js');
+const { createProxyCache, makeLocalCoverage } = require('../../lib/combos/proxy-cache.js');
 
 function stubFrontier() {
 	const calls = { n: 0, seen: [] };
@@ -105,6 +105,30 @@ test('proxy — METRICS (the compass): coverage rises as repeats are served loca
 	assert.equal(m.stock.size, 3);
 	assert.equal(m.stock.reused, 2, 'a and b were reused; c never');
 	assert.equal(m.stock.reuseRate, 2 / 3);
+});
+
+test('proxy — SEMANTIC coverage: a PARAPHRASE snaps to the same key and hits the stock (0 frontier call)', async () => {
+	// a stub local model: canonicalizes a query → a normal form (paraphrases collide); confirms fit = yes.
+	const localAsk = async ( { system, user } ) => {
+		if ( /normal form/i.test(system) ) return /france/i.test(user) ? 'capital france' : /japan/i.test(user) ? 'capital japan' : String(user).toLowerCase();
+		if ( /does the answer/i.test(system) ) return 'yes';
+		return '';
+	};
+	const f = stubFrontier();
+	const { semanticKey, coverageCheck } = makeLocalCoverage({ localAsk });
+	const px = createProxyCache({ frontierAsk: f.ask, semanticKey, coverageCheck });
+
+	const r1 = await px.answer('capital of France?');
+	assert.equal(r1.source, 'frontier');
+	assert.equal(f.calls.n, 1);
+
+	const r2 = await px.answer("what is France's capital city?");   // a PARAPHRASE → same semantic key
+	assert.equal(r2.source, 'local', 'the paraphrase is COVERED by the stock (semantic hit)');
+	assert.equal(f.calls.n, 1, 'no new frontier call — the paraphrase was served from the stock');
+
+	const r3 = await px.answer('capital of Japan?');                // a DIFFERENT question still escalates
+	assert.equal(r3.source, 'frontier');
+	assert.equal(f.calls.n, 2);
 });
 
 test('proxy — LIFECYCLE: a bounded/evicting stock drops what is never reused (the owner compass)', async () => {
