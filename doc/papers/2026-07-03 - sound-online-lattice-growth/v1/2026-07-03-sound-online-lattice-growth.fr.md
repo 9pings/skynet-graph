@@ -58,6 +58,12 @@ grandir sans dériver.
 *isa* ; raisonnement défaisable ; dérive de base de connaissances ; attribution de blâme ; systèmes
 neurosymboliques ; apprentissage en ligne ; extraction par LLM.
 
+*Code & données : l'artefact de reproductibilité de cet article (source du moteur, campagnes
+d'expériences, mémos durables rejouables bit-à-bit) accompagne le dépôt. À ce jour, le dépôt public
+`github.com/9pings/skynet-graph` (AGPL-3.0-or-later) publie le substrat et l'artefact de l'article
+compagnon [Braun 2026] seuls ; le mécanisme et l'artefact du présent article y seront poussés après
+dépôt.*
+
 ---
 
 ## 1. Introduction
@@ -1314,8 +1320,10 @@ appel modèle est mémoïsé durablement (adressage par contenu) ; chaque table 
 depuis le mémo livré. Le laboratoire déterministe et les expériences de contrôle sont du code pur
 (zéro GPU). Les données DeFAb sont publiques (MIT) ; le harnais d'évaluation des auteurs n'était pas
 disponible à l'heure d'écrire — notre sémantique de vérifieur est réimplémentée depuis les champs
-d'instance et signalée comme telle (§7.3). [Note : structure du bundle d'artefacts + DOI à
-finaliser au dépôt.]
+d'instance et signalée comme telle (§7.3). Dépôt public : `github.com/9pings/skynet-graph` — à ce
+jour, il porte le substrat (moteur) et l'artefact de l'article compagnon [Braun 2026] seuls ; le
+mécanisme et les artefacts du présent article sont livrés dans le bundle du dépôt et seront poussés
+au dépôt public après dépôt. [Note : DOI à finaliser au dépôt.]
 
 ## Références
 

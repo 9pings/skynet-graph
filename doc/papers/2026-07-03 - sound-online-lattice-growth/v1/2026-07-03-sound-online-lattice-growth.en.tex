@@ -72,6 +72,8 @@ The evidence follows three levels. In a deterministic laboratory (no model, exac
 
 \textbf{Keywords:} selectional restrictions; version spaces; candidate elimination; \emph{isa} lattice; defeasible reasoning; knowledge-base drift; blame attribution; neurosymbolic systems; online learning; LLM extraction.
 
+*Code \& data: this paper's reproducibility artifact (engine source, experiment campaigns, durable memos replaying bit-for-bit) accompanies the deposit. As of this writing, the public repository \texttt{github.com/\allowbreak{}9pings/\allowbreak{}skynet-graph} (AGPL-3.0-or-later) publishes the substrate and the companion paper's artifact [Braun 2026] only; the present paper's mechanism and artifact will be pushed there after deposit.*
+
 \medskip\hrule\medskip
 
 \section*{1. Introduction}
@@ -714,7 +716,7 @@ All eight figures are \textbf{generated from the recorded artifacts} of the real
 
 \section*{Appendix B — Reproducibility}
 
-The main runs use an embedded open-weights model (27 billion parameters, 2-bit quantization), reasoning budget 0 unless stated (reasoning arm: budget 1024, answer budget sized above the thinking budget — an early arm that starved the answer is reported and discarded in the logs). The §7.4 campaign replays the protocol on the other models with the same harness, each model isolated in its own result artifacts, the durable memo shared and keyed per model; the inference backend is the official upstream implementation, KV cache at full precision — audited at the live-process level to rule out any modified build. Every model call is durably memoized (content-addressed); every table replays bit-for-bit from the shipped memo. The deterministic laboratory and the control experiments are pure code (zero GPU). The DeFAb data is public (MIT); the authors' evaluation harness was not available at the time of writing — our verifier semantics is reimplemented from the instance fields and flagged as such (§7.3). [Note: artifact-bundle structure + DOI to be finalized at deposit.]
+The main runs use an embedded open-weights model (27 billion parameters, 2-bit quantization), reasoning budget 0 unless stated (reasoning arm: budget 1024, answer budget sized above the thinking budget — an early arm that starved the answer is reported and discarded in the logs). The §7.4 campaign replays the protocol on the other models with the same harness, each model isolated in its own result artifacts, the durable memo shared and keyed per model; the inference backend is the official upstream implementation, KV cache at full precision — audited at the live-process level to rule out any modified build. Every model call is durably memoized (content-addressed); every table replays bit-for-bit from the shipped memo. The deterministic laboratory and the control experiments are pure code (zero GPU). The DeFAb data is public (MIT); the authors' evaluation harness was not available at the time of writing — our verifier semantics is reimplemented from the instance fields and flagged as such (§7.3). Public repository: \texttt{github.com/\allowbreak{}9pings/\allowbreak{}skynet-graph} — as of this writing it carries the substrate (engine) and the companion paper's artifact [Braun 2026] only; the present paper's mechanism and artifacts ship in the deposit bundle and will be pushed to the public repository after deposit. [Note: DOI to be finalized at deposit.]
 
 \section*{References}
 

@@ -55,6 +55,12 @@ LLM that extracts, a lattice that decides, and a gate that lets the lattice grow
 defeasible reasoning; knowledge-base drift; blame attribution; neurosymbolic systems; online
 learning; LLM extraction.
 
+*Code & data: this paper's reproducibility artifact (engine source, experiment campaigns, durable
+memos replaying bit-for-bit) accompanies the deposit. As of this writing, the public repository
+`github.com/9pings/skynet-graph` (AGPL-3.0-or-later) publishes the substrate and the companion
+paper's artifact [Braun 2026] only; the present paper's mechanism and artifact will be pushed there
+after deposit.*
+
 ---
 
 ## 1. Introduction
@@ -1274,7 +1280,10 @@ rule out any modified build. Every model call is durably memoized (content-addre
 replays bit-for-bit from the shipped memo. The deterministic laboratory and the control experiments
 are pure code (zero GPU). The DeFAb data is public (MIT); the authors' evaluation harness was not
 available at the time of writing — our verifier semantics is reimplemented from the instance fields
-and flagged as such (§7.3). [Note: artifact-bundle structure + DOI to be finalized at deposit.]
+and flagged as such (§7.3). Public repository: `github.com/9pings/skynet-graph` — as of this
+writing it carries the substrate (engine) and the companion paper's artifact [Braun 2026] only; the
+present paper's mechanism and artifacts ship in the deposit bundle and will be pushed to the public
+repository after deposit. [Note: DOI to be finalized at deposit.]
 
 ## References
 
