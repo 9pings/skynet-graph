@@ -3,7 +3,7 @@
 **Fichiers à téléverser (ce dossier) :**
 1. `2026-07-03-sound-online-lattice-growth.v1.fr.pdf` — le texte maître (français)
 2. `2026-07-03-sound-online-lattice-growth.v1.en.pdf` — la version anglaise (réalignée sur le maître)
-3. `sound-online-lattice-growth-artifact-v1.zip` — l'artefact de reproductibilité (source `6ec5439`
+3. `sound-online-lattice-growth-artifact-v1.zip` — l'artefact de reproductibilité (source `99105e3`
    + les 4 campagnes d'expériences avec mémos durables ; voir `ARTIFACT-README.md` à sa racine)
 
 ---
