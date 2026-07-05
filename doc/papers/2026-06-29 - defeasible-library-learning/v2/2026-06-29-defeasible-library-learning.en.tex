@@ -9,6 +9,7 @@
 \usepackage{booktabs,array}
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
+\usepackage{caption}
 \usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
 \usepackage{newunicodechar}
@@ -58,7 +59,7 @@
 \date{2026}
 \begin{document}
 \maketitle
-\begin{quote}\itshape \textbf{v2 — 2026-07-04.} Editorial revision of the deposited version (Zenodo): didactic paragraph structure, terminology aligned with the host engine's \texttt{concept-*} canon, and a cross-reference to the companion admission-gate article [Braun 2026b]. \textbf{The experiments, numbers and claims are those of the deposited v1, unchanged.}\end{quote}
+\begin{quote}\itshape \textbf{v2 — 2026-07-04.} Editorial revision of the deposited version (Zenodo): didactic paragraph structure, terminology aligned with the host engine's \texttt{concept-*} canon, a cross-reference to the companion admission-gate article [Braun 2026b], and seven figures F1–F7 generated from the artifact's deterministic harnesses. \textbf{The experiments, numbers and claims are those of the deposited v1, unchanged.}\end{quote}
 
 \medskip\hrule\medskip
 
@@ -106,6 +107,11 @@ First question: what is the reusable object? A \textbf{method} is, to its caller
 
 The object is in place; the question becomes: what contract must it carry for its reuse to be safe? A method declares a \textbf{read-footprint} and a \textbf{write-footprint} (a \emph{footprint} is the set of typed keys the method touches), a \textbf{precondition} over what it reads, a \textbf{postcondition} over what it writes, and an \textbf{effect tag} (pure, or carrying an external effect to verify). Composition under shared state is the frame problem [McCarthy \& Hayes 1969]; we discharge it with a separation-logic footprint discipline [O'Hearn, Reynolds \& Yang 2001; Reynolds 2002] over the finite typed alphabet — the tractable, non-aliasing regime. For a \emph{learned} method the postcondition is an induced hypothesis: \textbf{assumed at compose time, asserted at settle time (the engine's execution fixpoint), retracted with blame on violation} [Findler \& Felleisen 2002; Bader, Aldrich \& Tanter 2018]. The runtime monitor is the JTMS [Doyle 1979], and the result is \emph{eventual} (not static) soundness — which is exactly the un-learning the fuzzy baselines lack. This symbolic "un-learning" is belief retraction over a justification graph, distinct from parametric \emph{machine unlearning} [Bourtoule et al. 2021], which removes a training example's influence from model weights.
 
+\begin{figure}[htbp]\centering
+\includegraphics[width=\linewidth]{../figures/png/f1-method-contract.en.png}
+\caption*{\small Figure F1 — the two-faced method: to its caller, a contractual black box (read/write footprints, pre/post, effect tag — the artifact's real contracts); inside, the typed productions, never read at composition. Between two methods, the closed-box \texttt{checkCompose} decision has three outcomes — sound / unsound / escalate —, computed as the figure is rendered (§4.4).}
+\end{figure}
+
 \subsection*{2.3 The pipeline and the K1 floor}
 
 The third question remains: in what pipeline does this method live, and with what safety net when it is missing? The pipeline, end to end: a human formulation is typed into a goal; a method is selected and composed on its contracts; cases flow through it; traces distil into new typed methods (anti-unification [Plotkin 1970], MDL-gated as in DreamCoder/Stitch [Ellis et al. 2021; Bowers et al. 2023]); and drift retracts what it invalidates. The \emph{admission} step of this pipeline — under what conditions a unit learned from a noisy LLM episode may enter the library — is the subject of the companion article [Braun 2026b], which provides the localized-attribution admission gate (slot restriction, lattice edge, surface alias) that the loop described here assumes upstream.
@@ -142,6 +148,11 @@ on ingest(fact):                                # RETRACT + SPECIALIZE (drift)
 \end{verbatim}\end{small}
 
 The verify-and-retract suffix is the only part absent from a similarity memory, and it is exactly the part the experiments isolate.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\linewidth]{../figures/png/f2-defeasible-loop.en.png}
+\caption*{\small Figure F2 — the defeasible lifecycle, in one-to-one correspondence with the engine functions it calls: assume (\texttt{checkCompose}), amortize (the canonical K1 key and its memo), assert (\texttt{assertPost} plus the frame and effect guards), retract (the JTMS, when exogenous drift fells a premise), specialize (\texttt{reviseOnBlame}). A selection miss falls back to the micro-task floor.}
+\end{figure}
 
 \medskip\hrule\medskip
 
@@ -187,6 +198,11 @@ The reading is three-fold. \textbf{Recall-only memories (RAG / CBR / Skill) serv
 \end{itemize}
 live run (Qwen3.6-27B (Q2\_K\_XL, MTP), N = 48) reproduces this exactly: RAG/CBR/Skill drift-acc 0.00; Invalidating 14 calls / drift 1.00; Struct 13 calls / 2.6 s / drift 1.00 / ctx 278 vs Long-context 1304 — recall-only stale, both invalidating arms recover, Struct selective.
 
+\begin{figure}[htbp]\centering
+\includegraphics[width=\linewidth]{../figures/png/f3-e2-drift.en.png}
+\caption*{\small Figure F3 — E2: the exogenous audit flips a class mid-stream without changing the query. Recall-only memories (red) serve stale; invalidation-equipped arms (green) recover; the typed contract recovers selectively (26 calls, 2 evictions — only the violated classes). Bars, verdicts and counts are recomputed at render time from the artifact's deterministic harness.}
+\end{figure}
+
 So E2's defensible claim is not "only Struct recovers" but "recall-only memory cannot un-learn, and a \emph{declarative typed contract} provides the recovery selectively, generally, and composition-safely."
 
 \subsection*{4.3 E1 — amortization and structural transfer}
@@ -202,6 +218,11 @@ Third promise of §1: composing without opening the box. Composing method pairs 
 \subsection*{4.5 P4 — the K1-coverage ceiling}
 
 There remains §1's K1 constraint: what does it actually cost? On a mixed workload (fraction \emph{p} fully typed; the rest carrying a prose component that overrides the typed rule), with K1-membership decided by the \textbf{real} canonicalization barrier, amortization is a \textbf{gradient in coverage} (approval: 0 → 19 → 44 → 69 → 94\% elided at p = 0/.25/.5/.75/1; triage: 0 → 22 → 47 → 72 → 97\%). Struct's accuracy is \textbf{1.00 at every coverage} — the non-typed fraction is a micro-task \emph{cost}, never a soundness \emph{cliff}. A greedy variant that memoizes prose-bearing records on their typed key drops to an accuracy equal to the clean fraction: \textbf{amortizing beyond the canonicalizable fraction is unsound}, so the K1 ceiling is a \emph{soundness boundary}, not a missed optimization. The result holds on both domains and is deterministic. We are explicit that this is a \textbf{constructed illustration}, not a measurement of a real workload: we \emph{set} the typed fraction \emph{p}, and the prose-bearing records are defined to override the typed rule, so "amortizing past K1 is unsound" follows by construction rather than by surprise. What it establishes is the \emph{shape} (amortization is proportional to coverage, not a constant win) and that soundness is preserved at every level; the canonicalizable fraction of a real corpus is domain-dependent and not measured here (§6).
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\linewidth]{../figures/png/f6-p4-k1.en.png}
+\caption*{\small Figure F6 — P4: amortization is a gradient of K1 coverage (left, both domains); soundness does not depend on it (right: 1.00 at every coverage, while the greedy negative control drops to the clean fraction). K1 is a safety frontier, not a missed optimization.}
+\end{figure}
 
 \subsection*{4.6 E5 — scale and per-mechanism cost}
 
@@ -232,6 +253,11 @@ GraphRAG + re-index (ablation) & 89 & 1.00 & 1.00 & 336 \\
 \textbf{Struct} & \textbf{20} & \textbf{1.00} & \textbf{1.00} & \textbf{290} \\
 \bottomrule\end{tabular}\end{center}
 
+\begin{figure}[htbp]\centering
+\includegraphics[width=\linewidth]{../figures/png/f4-e6-pareto.en.png}
+\caption*{\small Figure F4 — E6 on the (calls × per-call context) plane: green = recovers on drift, red = stale. The dashed region — ≤ calls and ≤ context than Struct — is empty among the recovering arms: Struct is the unique Pareto-optimal point, uniqueness re-checked at render time.}
+\end{figure}
+
 The honest reading is \emph{not} "only Struct recovers": given its fairest shot, each named system \textbf{can} recover correctness on drift (MemGPT and Reflexion reach drift-acc 1.00; GraphRAG does once it re-indexes).
 
 The claim is that Struct recovers at the lowest cost on all three axes \emph{at once} — it is the only arm that recovers on drift while remaining undominated (no arm beats-or-ties it on calls AND per-call context while also recovering; the cheaper arms sit on the cost frontier but fail on drift). Each named system pays a different mechanism-specific tax:
@@ -261,6 +287,11 @@ Struct (full engine) & 38 / 27 & 1.00 & 1.00 \\
 
 Three things are measured. (i) \textbf{Staleness compounds.} Every recall-only or blind arm (CBR, and each named system's ablation) is wrong at link 1 \emph{and} link 2: a stale upstream answer poisons the downstream that reads it. Drift correctness is measured on the deterministic oracle; the live run confirms the CALL/WALL ordering (the live model is imperfect at small N, so we do not read per-record drift off it). (ii) \textbf{The recovery tax multiplies down the chain.} Reflexion, having no memo, pays a call per record \emph{per link} (calls ≈ 2N); GraphRAG re-indexes affected communities at \emph{each} link; MemGPT pays paging + coarse re-decode + a larger context at \emph{both} links. (iii) \textbf{Struct's cascade is selective.} A fallen premise un-casts the upstream belief and the change propagates to the downstream — recovering both links while re-deriving \emph{only} the violated upstream entry (the downstream re-derivation is elided because its cache key is disburse's true read-set \texttt{\{kind, region, decision\}}). Struct is the unique Pareto-optimal point among the drift-correct arms on (calls × drift-acc link 1 × drift-acc link 2 × per-call context), stub and live; the full-engine realization (four ensure-gated concepts over the derivation cache) reproduces it (38 = 38 stub; 26 ≈ 27 live, within model nondeterminism).
 
+\begin{figure}[htbp]\centering
+\includegraphics[width=\linewidth]{../figures/png/f5-e7-cascade.en.png}
+\caption*{\small Figure F5 — E7: drift through the learned chain decide → disburse. The upstream premise falls; the JTMS cascade retracts the decision and the disbursement that reads it; only the violated upstream entry is re-derived — the downstream re-derivation is elided by its read-set cache key, already filled by a sibling. Table recomputed at render time.}
+\end{figure}
+
 This is the capability the named surface memories structurally lack: a belief that depends on a premise which just fell, un-learned \emph{across composition}.
 
 \textbf{The wedge widens with chain depth.} Generalising the chain to L links (each positive iff the previous is), the staleness and the cost both scale while Struct's recovery does not: a recall-only cache's \emph{compounding depth} (links wrong on a drifted class) is exactly L; Naive and Reflexion pay O(L·N) calls; but Struct's recovery \textbf{drift-tax is O(1) in L} — the cascade re-derives only the violated upstream entry, every downstream re-derivation reusing a sibling's read-set entry. So the deeper the learned method chain, the larger Struct's advantage on the correctness gap (compounding ∝ L) and on recovery efficiency (O(1) vs an O(L) coarse rebuild). (O(1) recovery holds when each downstream re-derivation collapses onto a cache key a sibling already filled — true here: the negative branch is shared and low-score siblings pre-fill it; under high downstream fan-out the recovery tax grows toward O(L). The compounding ∝ L follows by construction from defining link \emph{i} as a function of link \emph{i}−1, and is \textbf{measured on the deterministic stub} — the live L-sweep is noise-confounded, §6.)
@@ -279,6 +310,11 @@ false-admit rate & 0.25 every episode & 0.25 → 0.00 after e1 \\
 \bottomrule\end{tabular}\end{center}
 
 Evict-only keeps the over-general rule, so it re-admits, re-blames, and re-derives the same stale class \emph{every} episode (cost ∝ K). Revision specializes the precondition once — narrowing it with the counterexample's discriminating atom — and then flatlines: no further blames, false-admit → 0. The revision is \emph{surgical}: the specialized precondition excludes the failing class while still admitting its sibling (it narrows, it does not delete the method). The effect holds for two premise kinds — a categorical compliance flip (\texttt{\$compliant != false}) and a numeric gate (\texttt{\$score != 680}). \textbf{Honest limit:} \texttt{reviseOnBlame} specializes by counterexample point-exclusion, not bound-tightening; a numeric drift spanning D distinct values converges in D one-time blames (bounded, per-value) rather than a single bound move — still categorically better than evict-only's per-episode recurrence.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\linewidth]{../figures/png/f7-e8-revision.en.png}
+\caption*{\small Figure F7 — E8: under recurrent drift (K = 5), evict-only re-blames and re-pays the same class every episode; revision specializes the precondition once (\texttt{reviseOnBlame}, with the real discriminating atom) and then flatlines — surgical: the sibling stays admitted.}
+\end{figure}
 
 This is the step that distinguishes the contract from cache invalidation (§5): blame feeds \emph{library revision}, not just value recomputation.
 
@@ -382,6 +418,6 @@ Recall-only agent memory cannot un-learn; static libraries are sound but frozen.
 
 \medskip\hrule\medskip
 
-*Code \& reproducibility: the engine and the self-contained experiment artifact are public at \texttt{github.com/9pings/skynet-graph} — \texttt{artifact/paper-dll/}: core mechanisms (workload.js, arms.js, harness.js, e1-transfer.js, e3-compose.js, p4-coverage.js, scale.js, measure-e2-live.js, F6-transfer.js); the E6 head-to-head (named-arms.js, struct-real.js, measure-named-h2h.js); the E7 composition-under-drift suite (composed-workload.js, composed-harness.js, composed-arms.js, composed-named-arms.js, struct-real-composed.js, durable-composed.js, chain-depth.js, measure-composed-h2h.js, measure-chain-depth.js); the E8 revision suite (revise.js) — with the deterministic suite \texttt{tests/integration/paper-\{harness,e1-transfer,e3-compose,p4-coverage,scale,named-systems,struct-real,composed-h2h,durable-composed,chain-depth,revise\}.test.js} (\texttt{npm test}). Live runs use a local OpenAI-compatible endpoint serving Qwen3.6-27B (Q2\_K\_XL, MTP). Licensed AGPL-3.0-or-later.*
+*Code \& reproducibility: the engine and the self-contained experiment artifact are public at \texttt{github.com/9pings/skynet-graph} — \texttt{artifact/paper-dll/}: core mechanisms (workload.js, arms.js, harness.js, e1-transfer.js, e3-compose.js, p4-coverage.js, scale.js, measure-e2-live.js, F6-transfer.js); the E6 head-to-head (named-arms.js, struct-real.js, measure-named-h2h.js); the E7 composition-under-drift suite (composed-workload.js, composed-harness.js, composed-arms.js, composed-named-arms.js, struct-real-composed.js, durable-composed.js, chain-depth.js, measure-composed-h2h.js, measure-chain-depth.js); the E8 revision suite (revise.js) — with the deterministic suite \texttt{tests/integration/paper-\{harness,e1-transfer,e3-compose,p4-coverage,scale,named-systems,struct-real,composed-h2h,durable-composed,chain-depth,revise\}.test.js} (\texttt{npm test}). Figures F1–F7 are generated from these same harnesses by \texttt{figures/generate-figures.js} (zero dependencies): every drawn value is recomputed at generation time and pinned against the paper's tables — any divergence fails the generation. Live runs use a local OpenAI-compatible endpoint serving Qwen3.6-27B (Q2\_K\_XL, MTP). Licensed AGPL-3.0-or-later.*
 
 \end{document}

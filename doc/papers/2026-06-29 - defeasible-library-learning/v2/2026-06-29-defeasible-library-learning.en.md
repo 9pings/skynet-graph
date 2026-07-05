@@ -3,9 +3,10 @@
 **Nathanael Braun** · skynet-graph · 2026-06-29
 
 > **v2 — 2026-07-04.** Editorial revision of the deposited version (Zenodo): didactic paragraph
-> structure, terminology aligned with the host engine's `concept-*` canon, and a cross-reference
-> to the companion admission-gate article [Braun 2026b]. **The experiments, numbers and claims
-> are those of the deposited v1, unchanged.**
+> structure, terminology aligned with the host engine's `concept-*` canon, a cross-reference
+> to the companion admission-gate article [Braun 2026b], and seven figures F1–F7 generated from
+> the artifact's deterministic harnesses. **The experiments, numbers and claims are those of the
+> deposited v1, unchanged.**
 
 ---
 
@@ -134,6 +135,13 @@ baselines lack. This symbolic "un-learning" is belief retraction over a justific
 parametric *machine unlearning* [Bourtoule et al. 2021], which removes a training example's influence from model
 weights.
 
+![F1 — the two-faced method and its contract](../figures/f1-method-contract.en.svg)
+
+*Figure F1 — the two-faced method: to its caller, a contractual black box (read/write footprints,
+pre/post, effect tag — the artifact's real contracts); inside, the typed productions, never read at
+composition. Between two methods, the closed-box `checkCompose` decision has three outcomes — sound /
+unsound / escalate —, computed as the figure is rendered (§4.4).*
+
 ### 2.3 The pipeline and the K1 floor
 
 The third question remains: in what pipeline does this method live, and with what safety net when it
@@ -190,6 +198,13 @@ on ingest(fact):                                # RETRACT + SPECIALIZE (drift)
 
 The verify-and-retract suffix is the only part absent from a similarity memory, and it is exactly the part the
 experiments isolate.
+
+![F2 — the defeasible loop](../figures/f2-defeasible-loop.en.svg)
+
+*Figure F2 — the defeasible lifecycle, in one-to-one correspondence with the engine functions it
+calls: assume (`checkCompose`), amortize (the canonical K1 key and its memo), assert (`assertPost`
+plus the frame and effect guards), retract (the JTMS, when exogenous drift fells a premise),
+specialize (`reviseOnBlame`). A selection miss falls back to the micro-task floor.*
 
 ---
 
@@ -265,6 +280,13 @@ live run (Qwen3.6-27B (Q2_K_XL, MTP), N = 48) reproduces this exactly: RAG/CBR/S
 drift 1.00; Struct 13 calls / 2.6 s / drift 1.00 / ctx 278 vs Long-context 1304 — recall-only stale, both
 invalidating arms recover, Struct selective.
 
+![F3 — E2, the decisive drift test](../figures/f3-e2-drift.en.svg)
+
+*Figure F3 — E2: the exogenous audit flips a class mid-stream without changing the query. Recall-only
+memories (red) serve stale; invalidation-equipped arms (green) recover; the typed contract recovers
+selectively (26 calls, 2 evictions — only the violated classes). Bars, verdicts and counts are
+recomputed at render time from the artifact's deterministic harness.*
+
 So E2's defensible claim is not "only Struct recovers" but
 "recall-only memory cannot un-learn, and a *declarative typed contract* provides the recovery selectively,
 generally, and composition-safely."
@@ -315,6 +337,12 @@ construction rather than by surprise. What it establishes is the *shape* (amorti
 coverage, not a constant win) and that soundness is preserved at every level; the canonicalizable fraction of a
 real corpus is domain-dependent and not measured here (§6).
 
+![F6 — the K1 gradient](../figures/f6-p4-k1.en.svg)
+
+*Figure F6 — P4: amortization is a gradient of K1 coverage (left, both domains); soundness does not
+depend on it (right: 1.00 at every coverage, while the greedy negative control drops to the clean
+fraction). K1 is a safety frontier, not a missed optimization.*
+
 ### 4.6 E5 — scale and per-mechanism cost
 
 A bookkeeping-cost check, not a claim about scaling the hard part — a growing library of
@@ -357,6 +385,12 @@ deterministic stub: N = 78, two audited classes, six drift cases:
 | **GraphRAG** (offline index) | 87 | 0.92 | 0.00 | 336 |
 | GraphRAG + re-index (ablation) | 89 | 1.00 | 1.00 | 336 |
 | **Struct** | **20** | **1.00** | **1.00** | **290** |
+
+![F4 — E6, the Pareto plane](../figures/f4-e6-pareto.en.svg)
+
+*Figure F4 — E6 on the (calls × per-call context) plane: green = recovers on drift, red = stale. The
+dashed region — ≤ calls and ≤ context than Struct — is empty among the recovering arms: Struct is
+the unique Pareto-optimal point, uniqueness re-checked at render time.*
 
 The honest reading is *not* "only Struct recovers": given its fairest shot, each named system **can** recover
 correctness on drift (MemGPT and Reflexion reach drift-acc 1.00; GraphRAG does once it re-indexes).
@@ -420,6 +454,13 @@ drift-correct arms on (calls × drift-acc link 1 × drift-acc link 2 × per-call
 (four ensure-gated concepts over the derivation cache) reproduces it (38 = 38 stub; 26 ≈ 27 live, within
 model nondeterminism).
 
+![F5 — E7, the selective cascade](../figures/f5-e7-cascade.en.svg)
+
+*Figure F5 — E7: drift through the learned chain decide → disburse. The upstream premise falls; the
+JTMS cascade retracts the decision and the disbursement that reads it; only the violated upstream
+entry is re-derived — the downstream re-derivation is elided by its read-set cache key, already
+filled by a sibling. Table recomputed at render time.*
+
 This is the capability the named surface memories structurally lack: a belief that
 depends on a premise which just fell, un-learned *across composition*.
 
@@ -467,6 +508,12 @@ and a numeric gate (`$score != 680`). **Honest limit:** `reviseOnBlame` speciali
 point-exclusion, not bound-tightening; a numeric drift spanning D distinct values converges in D one-time blames
 (bounded, per-value) rather than a single bound move — still categorically better than evict-only's per-episode
 recurrence.
+
+![F7 — E8, evict-only vs revision](../figures/f7-e8-revision.en.svg)
+
+*Figure F7 — E8: under recurrent drift (K = 5), evict-only re-blames and re-pays the same class
+every episode; revision specializes the precondition once (`reviseOnBlame`, with the real
+discriminating atom) and then flatlines — surgical: the sibling stays admitted.*
 
 This is the step that distinguishes the contract from cache invalidation (§5): blame feeds *library
 revision*, not just value recomputation.
@@ -678,5 +725,7 @@ composed-harness.js, composed-arms.js, composed-named-arms.js, struct-real-compo
 chain-depth.js, measure-composed-h2h.js, measure-chain-depth.js); the E8 revision suite (revise.js) — with the
 deterministic suite
 `tests/integration/paper-{harness,e1-transfer,e3-compose,p4-coverage,scale,named-systems,struct-real,composed-h2h,durable-composed,chain-depth,revise}.test.js`
-(`npm test`). Live runs use a local OpenAI-compatible endpoint serving Qwen3.6-27B (Q2_K_XL, MTP). Licensed
+(`npm test`). Figures F1–F7 are generated from these same harnesses by `figures/generate-figures.js`
+(zero dependencies): every drawn value is recomputed at generation time and pinned against the
+paper's tables — any divergence fails the generation. Live runs use a local OpenAI-compatible endpoint serving Qwen3.6-27B (Q2_K_XL, MTP). Licensed
 AGPL-3.0-or-later.*

@@ -42,6 +42,7 @@ PREAMBLE = r'''% Généré par md2tex.py — ne pas éditer à la main ; éditer
 \usepackage{booktabs,array}
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
+\usepackage{caption}
 \usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
 \usepackage{newunicodechar}

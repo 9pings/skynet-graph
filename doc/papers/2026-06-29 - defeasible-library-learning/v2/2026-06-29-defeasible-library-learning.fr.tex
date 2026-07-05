@@ -9,6 +9,7 @@
 \usepackage{booktabs,array}
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
+\usepackage{caption}
 \usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
 \usepackage{newunicodechar}
@@ -58,7 +59,7 @@
 \date{2026}
 \begin{document}
 \maketitle
-\begin{quote}\itshape \textbf{v2 — 2026-07-04.} Révision éditoriale de la version déposée (Zenodo) : structure didactique des paragraphes, terminologie alignée sur le canon \texttt{concept-*} du moteur hôte, et référence croisée vers l'article compagnon sur la porte d'admission [Braun 2026b]. \textbf{Les expériences, les chiffres et les revendications sont ceux de la v1 déposée, inchangés.}\end{quote}
+\begin{quote}\itshape \textbf{v2 — 2026-07-04.} Révision éditoriale de la version déposée (Zenodo) : structure didactique des paragraphes, terminologie alignée sur le canon \texttt{concept-*} du moteur hôte, référence croisée vers l'article compagnon sur la porte d'admission [Braun 2026b], et sept figures F1–F7 générées depuis les harnais déterministes de l'artefact. \textbf{Les expériences, les chiffres et les revendications sont ceux de la v1 déposée, inchangés.}\end{quote}
 
 \medskip\hrule\medskip
 
@@ -106,6 +107,11 @@ Première question : quel est l'objet réutilisable ? Une \textbf{méthode} est,
 
 L'objet est posé ; la question devient : quel contrat doit-il porter pour que sa réutilisation soit sûre ? Une méthode déclare une \textbf{empreinte de lecture} et une \textbf{empreinte d'écriture} (une \emph{empreinte} est l'ensemble des clés typées que la méthode touche), une \textbf{précondition} sur ce qu'elle lit, une \textbf{postcondition} sur ce qu'elle écrit et une \textbf{étiquette d'effet} (pure, ou porteuse d'un effet externe à vérifier). La composition sous état partagé est le problème du cadre [McCarthy \& Hayes 1969] ; nous le levons par une discipline d'empreintes issue de la logique de séparation [O'Hearn, Reynolds \& Yang 2001; Reynolds 2002] sur l'alphabet typé fini — le régime traitable, sans aliasing. Pour une méthode \emph{apprise} la postcondition est une hypothèse induite : \textbf{supposée à la composition, vérifiée à la stabilisation (le point fixe d'exécution du moteur), rétractée avec blâme en cas de violation} [Findler \& Felleisen 2002; Bader, Aldrich \& Tanter 2018]. Le moniteur d'exécution est le JTMS [Doyle 1979], et le résultat est une sûreté \emph{éventuelle} (non statique) — précisément le désapprentissage qui manque aux références floues. Ce désapprentissage est symbolique (une rétractation de croyance par JTMS) et distinct du \emph{machine unlearning} paramétrique [Bourtoule et al. 2021], qui efface l'influence de données d'entraînement des poids d'un modèle.
 
+\begin{figure}[htbp]\centering
+\includegraphics[width=\linewidth]{../figures/png/f1-method-contract.fr.png}
+\caption*{\small Figure F1 — la méthode à deux faces : pour l'appelant, une boîte noire contractuelle (empreintes lit/écrit, pre/post, étiquette d'effet — les contrats réels de l'artefact) ; à l'intérieur, les productions typées, jamais lues à la composition. Entre deux méthodes, la décision boîte-fermée \texttt{checkCompose} a trois issues — sain / non-sain / escalade —, calculées au rendu de la figure (§4.4).}
+\end{figure}
+
 \subsection*{2.3 Le pipeline et le plancher K1}
 
 Reste la troisième question : dans quel pipeline cette méthode vit-elle, et avec quel filet quand elle manque ? Le pipeline, de bout en bout : une formulation humaine est typée en un but ; une méthode est sélectionnée et composée sur ses contrats ; les cas la traversent ; les traces se distillent en de nouvelles méthodes typées (anti-unification [Plotkin 1970], filtrée par MDL comme dans DreamCoder/Stitch [Ellis et al. 2021; Bowers et al. 2023]) ; et la dérive rétracte ce qu'elle invalide. L'étape d'\emph{admission} de ce pipeline — sous quelles conditions une unité apprise depuis un épisode LLM bruité a le droit d'entrer dans la bibliothèque — est l'objet de l'article compagnon [Braun 2026b], qui fournit la porte d'admission à attribution localisée (restriction de slot, arête de treillis, alias de surface) que la boucle décrite ici suppose en amont.
@@ -144,6 +150,11 @@ on ingest(fait):                                # RÉTRACTER + SPÉCIALISER (dé
 \end{verbatim}\end{small}
 
 Le suffixe contrôler-et-rétracter est la seule partie absente d'une mémoire par similarité, et c'est exactement celle que les expériences isolent.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\linewidth]{../figures/png/f2-defeasible-loop.fr.png}
+\caption*{\small Figure F2 — le cycle de vie défaisable, en correspondance un-à-un avec les fonctions du moteur : supposer (\texttt{checkCompose}), vérifier (la clé canonique K1 et son mémo), contrôler (\texttt{assertPost} plus les barrières de cadre et d'effet), rétracter (le JTMS, quand la dérive exogène fait tomber une prémisse), spécialiser (\texttt{reviseOnBlame}). L'échec de sélection retombe au plancher de micro-tâches.}
+\end{figure}
 
 \medskip\hrule\medskip
 
@@ -189,6 +200,11 @@ La lecture est triple. \textbf{Les mémoires par rappel seul (RAG / CBR / Compé
 \end{itemize}
 MTP), N = 48) reproduit ce classement : RAG/CBR/Compétence 0.00 ; Invalidant 14 appels / 1.00 ; Struct 13 appels / 2,6 s / 1.00 / ctx 278 vs Long-contexte 1304.
 
+\begin{figure}[htbp]\centering
+\includegraphics[width=\linewidth]{../figures/png/f3-e2-drift.fr.png}
+\caption*{\small Figure F3 — E2 : l'audit exogène bascule une classe en cours de flux sans changer la requête. Les mémoires par rappel seul (rouge) servent du périmé ; les bras à invalidation (vert) récupèrent ; le contrat typé récupère sélectivement (26 appels, 2 évictions — les seules classes violées). Barres, verdicts et comptes recalculés au rendu depuis le harnais déterministe de l'artefact.}
+\end{figure}
+
 L'affirmation défendable n'est donc pas « seul Struct récupère » mais « la mémoire par rappel seul ne sait pas désapprendre, et un contrat typé déclaratif fournit la récupération de façon sélective, générale et sûre en composition ».
 
 \subsection*{4.3 E1 — amortissement et transfert structurel}
@@ -206,6 +222,11 @@ Chacune des trois barrières est porteuse sur un exemple dédié : retirer la co
 \subsection*{4.5 P4 — le plafond de couverture K1}
 
 Reste la contrainte K1 annoncée en §1 : que coûte-t-elle réellement ? Sur une charge mixte (fraction \emph{p} entièrement typée ; le reste portant un composant en prose qui prime sur la règle typée), l'appartenance à K1 étant décidée par la \textbf{vraie} barrière de canonicalisation, l'amortissement est un \textbf{gradient en couverture} (approbation : 0 → 19 → 44 → 69 → 94 \% élidé à p = 0/0,25/0,5/0,75/1 ; tri : 0 → 22 → 47 → 72 → 97 \%). L'exactitude de Struct est \textbf{1.00 à chaque couverture} — la fraction non typée est un \emph{coût} de micro-tâche, jamais une \emph{falaise} de sûreté. Une variante gloutonne qui mémoïse les enregistrements porteurs de prose sur leur clé typée chute à une exactitude égale à la fraction propre : \textbf{amortir au-delà de la fraction canonicalisable est non sain}, donc le plafond K1 est une \emph{frontière de sûreté}, pas une optimisation manquée. Le résultat tient sur les deux domaines et est déterministe. Nous sommes explicites : c'est une \textbf{illustration construite}, pas une mesure sur charge réelle — nous \emph{fixons} p et \emph{définissons} les enregistrements en prose pour primer sur la règle typée, donc « amortir au-delà de K1 est non sain » découle par construction. Ce qu'elle établit, c'est la \emph{forme} (amortissement proportionnel à la couverture) et la sûreté à chaque niveau ; la fraction canonicalisable d'un corpus réel est dépendante du domaine et non mesurée ici.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\linewidth]{../figures/png/f6-p4-k1.fr.png}
+\caption*{\small Figure F6 — P4 : l'amortissement est un gradient de la couverture K1 (à gauche, les deux domaines) ; la sûreté n'en dépend pas (à droite : 1,00 à chaque couverture, tandis que le contrôle négatif glouton chute à la fraction propre). K1 est une frontière de sûreté, pas une optimisation manquée.}
+\end{figure}
 
 \subsection*{4.6 E5 — passage à l'échelle et coût par mécanisme}
 
@@ -236,6 +257,11 @@ GraphRAG + ré-index (ablation) & 89 & 1,00 & 1,00 & 336 \\
 \textbf{Struct} & \textbf{20} & \textbf{1,00} & \textbf{1,00} & \textbf{290} \\
 \bottomrule\end{tabular}\end{center}
 
+\begin{figure}[htbp]\centering
+\includegraphics[width=\linewidth]{../figures/png/f4-e6-pareto.fr.png}
+\caption*{\small Figure F4 — E6 sur le plan (appels × contexte par appel) : vert = récupère à la dérive, rouge = périmé. La zone en pointillés — faire ≤ appels et ≤ contexte que Struct — est vide parmi les bras qui récupèrent : Struct est l'unique point Pareto-optimal, unicité re-vérifiée au rendu.}
+\end{figure}
+
 La lecture honnête n'est \emph{pas} « seul Struct récupère » : dans sa configuration la plus favorable, chaque système nommé \textbf{peut} récupérer l'exactitude à la dérive (MemGPT et Reflexion atteignent exact.-dérive 1,00 ; GraphRAG dès qu'il ré-indexe).
 
 Le propos est que Struct récupère au moindre coût sur les trois axes \emph{à la fois} — c'est le seul bras qui récupère à la dérive tout en restant non-dominé (aucun bras ne l'égale-ou-bat sur les appels ET le contexte par appel tout en récupérant ; les bras moins chers sont sur la frontière de coût mais échouent à la dérive). Chaque système nommé paie une taxe propre à son mécanisme :
@@ -265,6 +291,11 @@ Struct (moteur complet) & 38 / 27 & 1,00 & 1,00 \\
 
 Trois choses sont mesurées. (i) \textbf{La péremption se cumule.} Tout bras par rappel seul ou aveugle (CBR, et l'ablation de chaque système nommé) est faux au maillon 1 \emph{et} au maillon 2 : une réponse amont périmée empoisonne le maillon aval qui la lit. L'exactitude à la dérive est mesurée sur l'oracle déterministe ; l'exécution réelle confirme l'ordre des appels et du temps (le modèle réel est imparfait à petit N, nous ne lisons donc pas la dérive par enregistrement sur lui). (ii) \textbf{La taxe de récupération se multiplie le long de la chaîne.} Reflexion, sans mémo, paie un appel par enregistrement \emph{par maillon} (appels ≈ 2N) ; GraphRAG ré-indexe les communautés concernées à \emph{chaque} maillon ; MemGPT paie la pagination + un re-décodage grossier + un contexte plus grand aux \emph{deux} maillons. (iii) \textbf{La cascade de Struct est sélective.} Une prémisse tombée dé-cast la croyance amont et le changement se propage à l'aval — récupérant les deux maillons tout en re-dérivant \emph{seulement} l'entrée amont violée (la re-dérivation aval est élidée car sa clé de cache est l'ensemble de lecture réel de disburse \texttt{\{kind, region, decision\}}). Struct est l'unique point Pareto-optimal parmi les bras corrects-à-la-dérive sur (appels × exact.-dérive maillon 1 × exact.-dérive maillon 2 × contexte par appel), en simu comme en réel ; la réalisation sur moteur complet (quatre concepts \emph{ensure}-gated au-dessus du cache de dérivation) la reproduit (38 = 38 en simu ; 26 ≈ 27 en réel, dans le non-déterminisme du modèle).
 
+\begin{figure}[htbp]\centering
+\includegraphics[width=\linewidth]{../figures/png/f5-e7-cascade.fr.png}
+\caption*{\small Figure F5 — E7 : la dérive à travers la chaîne apprise decide → disburse. La prémisse amont tombe ; la cascade JTMS rétracte la décision et le versement qui la lit ; seule l'entrée amont violée est re-dérivée — la re-dérivation aval est élidée par sa clé d'ensemble-de-lecture, déjà remplie par un frère. Table recalculée au rendu.}
+\end{figure}
+
 C'est la capacité qui manque structurellement aux mémoires de surface nommées : une croyance qui dépend d'une prémisse qui vient de tomber, désapprise \emph{à travers la composition}.
 
 \textbf{L'avantage s'élargit avec la profondeur de chaîne.} Généralisons la chaîne à L maillons, chacun positif ssi le précédent l'est. La péremption et le coût croissent alors tous deux avec L, mais pas la récupération de Struct : la \emph{profondeur de cumul} d'un cache par rappel seul (le nombre de maillons faux sur une classe dérivée) vaut exactement L ; Naïf et Reflexion paient O(L·N) appels ; la \emph{taxe de dérive} de Struct, elle, est en \textbf{O(1) en L} — la cascade ne re-dérive que l'entrée amont violée, chaque re-dérivation aval réutilisant l'entrée d'ensemble-de-lecture d'un frère. Plus la chaîne de méthodes apprises est profonde, plus l'avantage de Struct est donc grand : sur l'exactitude (le cumul ∝ L) et sur l'efficacité de récupération (O(1) contre une reconstruction grossière en O(L)). Deux conditions de validité, dites : la récupération en O(1) tient lorsque chaque re-dérivation aval retombe sur une clé de cache qu'un frère a déjà remplie — vrai ici, la branche négative étant partagée et pré-remplie par les frères à faible score ; sous un fort éventail aval, la taxe croît vers O(L). Et le cumul ∝ L découle par construction de la définition du maillon \emph{i} comme fonction du maillon \emph{i}−1 ; il est mesuré sur le simulateur déterministe (le balayage en L en réel est confondu par le bruit, §6).
@@ -283,6 +314,11 @@ taux de faux-admis & 0,25 à chaque épisode & 0,25 → 0,00 après e1 \\
 \bottomrule\end{tabular}\end{center}
 
 L'éviction-seule conserve la règle trop générale, donc elle ré-admet, re-blâme et re-dérive la même classe périmée à \emph{chaque} épisode (coût ∝ K). La révision spécialise la précondition une seule fois — en la restreignant avec l'atome discriminant du contre-exemple — puis se stabilise : plus aucun blâme, faux-admis → 0. La révision est \emph{chirurgicale} : la précondition spécialisée exclut la classe fautive tout en admettant encore son frère (elle restreint, elle ne supprime pas la méthode). L'effet tient pour deux types de prémisse — un basculement de conformité catégoriel (\texttt{\$compliant != false}) et une porte numérique (\texttt{\$score != 680}). \textbf{Limite honnête :} \texttt{reviseOnBlame} spécialise par exclusion ponctuelle de contre-exemple, non par resserrement de borne ; une dérive numérique couvrant D valeurs distinctes converge en D blâmes ponctuels (bornés, par valeur) plutôt qu'en un seul déplacement de borne — toujours catégoriquement mieux que la récurrence par épisode de l'éviction-seule.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\linewidth]{../figures/png/f7-e8-revision.fr.png}
+\caption*{\small Figure F7 — E8 : sous dérive récurrente (K = 5), l'éviction-seule re-blâme et re-paye la même classe à chaque épisode ; la révision spécialise la précondition une seule fois (\texttt{reviseOnBlame}, avec l'atome discriminant réel) puis se stabilise — chirurgicale : le frère reste admis.}
+\end{figure}
 
 C'est l'étape qui distingue le contrat de l'invalidation de cache (§5) : le blâme alimente la \emph{révision de bibliothèque}, non le seul recalcul de valeurs.
 
@@ -386,6 +422,6 @@ La mémoire par rappel seul ne sait pas désapprendre ; les bibliothèques stati
 
 \medskip\hrule\medskip
 
-*Code \& reproductibilité : le moteur et l'artefact d'expérience autonome sont publics sur \texttt{github.com/9pings/skynet-graph} — \texttt{artifact/paper-dll/} : mécanismes de base (workload.js, arms.js, harness.js, e1-transfer.js, e3-compose.js, p4-coverage.js, scale.js, measure-e2-live.js, F6-transfer.js) ; le tête-à-tête E6 (named-arms.js, struct-real.js, measure-named-h2h.js) ; la suite E7 composition-à-la-dérive (composed-workload.js, composed-harness.js, composed-arms.js, composed-named-arms.js, struct-real-composed.js, durable-composed.js, chain-depth.js, measure-composed-h2h.js, measure-chain-depth.js) ; la révision de bibliothèque E8 (revise.js) — avec la suite déterministe \texttt{tests/integration/paper-\{harness,e1-transfer,e3-compose,p4-coverage,scale,named-systems,struct-real,composed-h2h,durable-composed,chain-depth,revise\}.test.js} (\texttt{npm test}). Les exécutions en réel utilisent un endpoint local compatible OpenAI servant \textbf{Qwen3.6-27B (Q2\_K\_XL, MTP)}. Sous licence AGPL-3.0-or-later.*
+*Code \& reproductibilité : le moteur et l'artefact d'expérience autonome sont publics sur \texttt{github.com/9pings/skynet-graph} — \texttt{artifact/paper-dll/} : mécanismes de base (workload.js, arms.js, harness.js, e1-transfer.js, e3-compose.js, p4-coverage.js, scale.js, measure-e2-live.js, F6-transfer.js) ; le tête-à-tête E6 (named-arms.js, struct-real.js, measure-named-h2h.js) ; la suite E7 composition-à-la-dérive (composed-workload.js, composed-harness.js, composed-arms.js, composed-named-arms.js, struct-real-composed.js, durable-composed.js, chain-depth.js, measure-composed-h2h.js, measure-chain-depth.js) ; la révision de bibliothèque E8 (revise.js) — avec la suite déterministe \texttt{tests/integration/paper-\{harness,e1-transfer,e3-compose,p4-coverage,scale,named-systems,struct-real,composed-h2h,durable-composed,chain-depth,revise\}.test.js} (\texttt{npm test}). Les figures F1–F7 sont générées depuis ces mêmes harnais par \texttt{figures/generate-figures.js} (zéro dépendance) : chaque valeur dessinée est recalculée à la génération puis épinglée aux tables du papier — toute divergence fait échouer la génération. Les exécutions en réel utilisent un endpoint local compatible OpenAI servant \textbf{Qwen3.6-27B (Q2\_K\_XL, MTP)}. Sous licence AGPL-3.0-or-later.*
 
 \end{document}

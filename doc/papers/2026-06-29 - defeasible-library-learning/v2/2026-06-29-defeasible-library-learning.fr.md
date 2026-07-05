@@ -4,8 +4,9 @@
 
 > **v2 — 2026-07-04.** Révision éditoriale de la version déposée (Zenodo) : structure didactique des
 > paragraphes, terminologie alignée sur le canon
-> `concept-*` du moteur hôte, et référence croisée vers l'article compagnon sur la porte d'admission
-> [Braun 2026b]. **Les expériences, les chiffres et les revendications sont ceux de la v1 déposée,
+> `concept-*` du moteur hôte, référence croisée vers l'article compagnon sur la porte d'admission
+> [Braun 2026b], et sept figures F1–F7 générées depuis les harnais déterministes de l'artefact.
+> **Les expériences, les chiffres et les revendications sont ceux de la v1 déposée,
 > inchangés.** 
 
 ---
@@ -163,6 +164,13 @@ désapprentissage qui manque aux références floues. Ce désapprentissage est s
 rétractation de croyance par JTMS) et distinct du *machine unlearning* paramétrique [Bourtoule et
 al. 2021], qui efface l'influence de données d'entraînement des poids d'un modèle.
 
+![F1 — la méthode à deux faces et son contrat](../figures/f1-method-contract.fr.svg)
+
+*Figure F1 — la méthode à deux faces : pour l'appelant, une boîte noire contractuelle (empreintes
+lit/écrit, pre/post, étiquette d'effet — les contrats réels de l'artefact) ; à l'intérieur, les
+productions typées, jamais lues à la composition. Entre deux méthodes, la décision boîte-fermée
+`checkCompose` a trois issues — sain / non-sain / escalade —, calculées au rendu de la figure (§4.4).*
+
 ### 2.3 Le pipeline et le plancher K1
 
 Reste la troisième question : dans quel pipeline cette méthode vit-elle, et avec quel filet quand elle
@@ -225,6 +233,13 @@ on ingest(fait):                                # RÉTRACTER + SPÉCIALISER (dé
 
 Le suffixe contrôler-et-rétracter est la seule partie absente d'une mémoire par similarité, et c'est
 exactement celle que les expériences isolent.
+
+![F2 — la boucle défaisable](../figures/f2-defeasible-loop.fr.svg)
+
+*Figure F2 — le cycle de vie défaisable, en correspondance un-à-un avec les fonctions du moteur :
+supposer (`checkCompose`), vérifier (la clé canonique K1 et son mémo), contrôler (`assertPost` plus
+les barrières de cadre et d'effet), rétracter (le JTMS, quand la dérive exogène fait tomber une
+prémisse), spécialiser (`reviseOnBlame`). L'échec de sélection retombe au plancher de micro-tâches.*
 
 ---
 
@@ -299,6 +314,13 @@ trois propriétés :
 MTP), N = 48) reproduit ce classement : RAG/CBR/Compétence 0.00 ; Invalidant 14 appels / 1.00 ;
 Struct 13 appels / 2,6 s / 1.00 / ctx 278 vs Long-contexte 1304.
 
+![F3 — E2, le test décisif de la dérive](../figures/f3-e2-drift.fr.svg)
+
+*Figure F3 — E2 : l'audit exogène bascule une classe en cours de flux sans changer la requête. Les
+mémoires par rappel seul (rouge) servent du périmé ; les bras à invalidation (vert) récupèrent ; le
+contrat typé récupère sélectivement (26 appels, 2 évictions — les seules classes violées). Barres,
+verdicts et comptes recalculés au rendu depuis le harnais déterministe de l'artefact.*
+
 L'affirmation défendable n'est donc
 pas « seul Struct récupère » mais « la mémoire par rappel seul ne sait pas désapprendre, et un
 contrat typé déclaratif fournit la récupération de façon sélective, générale et sûre en
@@ -359,6 +381,12 @@ découle par construction. Ce qu'elle établit, c'est la *forme* (amortissement 
 couverture) et la sûreté à chaque niveau ; la fraction canonicalisable d'un corpus réel est
 dépendante du domaine et non mesurée ici.
 
+![F6 — le gradient K1](../figures/f6-p4-k1.fr.svg)
+
+*Figure F6 — P4 : l'amortissement est un gradient de la couverture K1 (à gauche, les deux domaines) ;
+la sûreté n'en dépend pas (à droite : 1,00 à chaque couverture, tandis que le contrôle négatif
+glouton chute à la fraction propre). K1 est une frontière de sûreté, pas une optimisation manquée.*
+
 ### 4.6 E5 — passage à l'échelle et coût par mécanisme
 
 Un contrôle de **coût de tenue de registre**, pas une affirmation sur le passage à l'échelle de la
@@ -407,6 +435,12 @@ six cas de dérive :
 | **GraphRAG** (index hors-ligne) | 87 | 0,92 | 0,00 | 336 |
 | GraphRAG + ré-index (ablation) | 89 | 1,00 | 1,00 | 336 |
 | **Struct** | **20** | **1,00** | **1,00** | **290** |
+
+![F4 — E6, le plan de Pareto](../figures/f4-e6-pareto.fr.svg)
+
+*Figure F4 — E6 sur le plan (appels × contexte par appel) : vert = récupère à la dérive, rouge =
+périmé. La zone en pointillés — faire ≤ appels et ≤ contexte que Struct — est vide parmi les bras
+qui récupèrent : Struct est l'unique point Pareto-optimal, unicité re-vérifiée au rendu.*
 
 La lecture honnête n'est *pas* « seul Struct récupère » : dans sa configuration la plus favorable,
 chaque système nommé **peut** récupérer l'exactitude à la dérive (MemGPT et Reflexion atteignent
@@ -481,6 +515,13 @@ exact.-dérive maillon 2 × contexte par appel), en simu comme en réel ; la ré
 complet (quatre concepts *ensure*-gated au-dessus du cache de dérivation) la reproduit (38 = 38 en
 simu ; 26 ≈ 27 en réel, dans le non-déterminisme du modèle).
 
+![F5 — E7, la cascade sélective](../figures/f5-e7-cascade.fr.svg)
+
+*Figure F5 — E7 : la dérive à travers la chaîne apprise decide → disburse. La prémisse amont tombe ;
+la cascade JTMS rétracte la décision et le versement qui la lit ; seule l'entrée amont violée est
+re-dérivée — la re-dérivation aval est élidée par sa clé d'ensemble-de-lecture, déjà remplie par un
+frère. Table recalculée au rendu.*
+
 C'est la capacité qui manque
 structurellement aux mémoires de surface nommées : une croyance qui dépend d'une prémisse qui vient
 de tomber, désapprise *à travers la composition*.
@@ -537,6 +578,12 @@ par exclusion ponctuelle de contre-exemple, non par resserrement de borne ; une 
 couvrant D valeurs distinctes converge en D blâmes ponctuels (bornés, par valeur) plutôt qu'en un
 seul déplacement de borne — toujours catégoriquement mieux que la récurrence par épisode de
 l'éviction-seule.
+
+![F7 — E8, éviction-seule vs révision](../figures/f7-e8-revision.fr.svg)
+
+*Figure F7 — E8 : sous dérive récurrente (K = 5), l'éviction-seule re-blâme et re-paye la même
+classe à chaque épisode ; la révision spécialise la précondition une seule fois (`reviseOnBlame`,
+avec l'atome discriminant réel) puis se stabilise — chirurgicale : le frère reste admis.*
 
 C'est l'étape qui distingue le contrat de l'invalidation de cache (§5) : le blâme
 alimente la *révision de bibliothèque*, non le seul recalcul de valeurs.
@@ -804,5 +851,8 @@ composed-named-arms.js, struct-real-composed.js, durable-composed.js, chain-dept
 measure-composed-h2h.js, measure-chain-depth.js) ; la révision de bibliothèque E8 (revise.js) — avec
 la suite déterministe
 `tests/integration/paper-{harness,e1-transfer,e3-compose,p4-coverage,scale,named-systems,struct-real,composed-h2h,durable-composed,chain-depth,revise}.test.js`
-(`npm test`). Les exécutions en réel utilisent un endpoint local compatible OpenAI servant
+(`npm test`). Les figures F1–F7 sont générées depuis ces mêmes harnais par
+`figures/generate-figures.js` (zéro dépendance) : chaque valeur dessinée est recalculée à la
+génération puis épinglée aux tables du papier — toute divergence fait échouer la génération. Les
+exécutions en réel utilisent un endpoint local compatible OpenAI servant
 **Qwen3.6-27B (Q2_K_XL, MTP)**. Sous licence AGPL-3.0-or-later.*
