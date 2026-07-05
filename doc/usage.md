@@ -405,4 +405,12 @@ const lib = Graph.combos.createLearningLibrary({ signature, forge, store: 'lib.j
 await lib.solve(problem);   // MATCH→RETRIEVE→FORGE→ESCALATE; a warm class replays at 0 calls
 lib.drift(problem);         // a fallen premise → re-derive, never a stale replay
 const sgc = lib.pack({ name: 'methods', version: 'v1' });   // ship the warm library (version-gated)
+
+// C4 — the reactive KG (the engine's original Use-1): a trivial preset over fromDirs (builtins ON).
+const kg = Graph.combos.reactiveKG({ concepts: './concepts/common', seed });   // rule-KG + geo, usable à nu
+
+// C5 — supervised self-modification (OPT-IN, guarded): edits the LIVE rules; rollbackTo is the guarantee.
+const sm = Graph.combos.createSelfMod({ graph, propose });   // author() needs a proposer (the "judge")
+await sm.author({ goal });          // CEGIS: propose→validate→install→test→refine
+sm.rollbackTo(sm.revisions()[0]);   // reversibility — restore any prior coherent revision
 ```
