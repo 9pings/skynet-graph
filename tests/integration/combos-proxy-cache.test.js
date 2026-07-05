@@ -91,3 +91,32 @@ test('proxy — .sgc on demand: pack the warm stock, load it into a fresh proxy 
 	const r = fresh.load(bundle, { version: 'v1' });
 	assert.ok(r && typeof r === 'object', 'load returns a version-gated result');
 });
+
+test('proxy — METRICS (the compass): coverage rises as repeats are served local; stock reuse tracked', async () => {
+	const f = stubFrontier();
+	const px = createProxyCache({ frontierAsk: f.ask, retention: true });
+	// 3 distinct queries, then repeat 2 of them
+	for ( const q of ['a', 'b', 'c', 'a', 'b', 'a'] ) await px.answer(q);
+	const m = px.metrics();
+	assert.equal(m.frontier, 3, '3 distinct → 3 frontier calls');
+	assert.equal(m.local, 3, '3 repeats served local');
+	assert.equal(m.served, 6);
+	assert.equal(m.coverage, 0.5, 'half the queries were covered by the stock');
+	assert.equal(m.stock.size, 3);
+	assert.equal(m.stock.reused, 2, 'a and b were reused; c never');
+	assert.equal(m.stock.reuseRate, 2 / 3);
+});
+
+test('proxy — LIFECYCLE: a bounded/evicting stock drops what is never reused (the owner compass)', async () => {
+	const f = stubFrontier();
+	const px = createProxyCache({ frontierAsk: f.ask, evictGrace: 2 });
+	await px.answer('keep'); await px.answer('keep');       // reused → survives
+	await px.answer('junk1'); await px.answer('junk2'); await px.answer('junk3');   // one-offs, never reused
+	const u = px.usage();
+	assert.ok(u.evicted.deadWeight >= 1, 'never-reused entries were evicted');
+	// the reused entry is still served local (0 new frontier call):
+	const before = f.calls.n;
+	const r = await px.answer('keep');
+	assert.equal(r.source, 'local');
+	assert.equal(f.calls.n, before, 'the kept entry still covers → no re-escalation');
+});
