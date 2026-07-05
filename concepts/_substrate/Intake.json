@@ -9,10 +9,16 @@
   // a real domain specializes it via childConcepts. Fires on any object carrying inbound prose
   // (`rawText`); a required key that comes back out-of-vocabulary makes the intake `untyped`
   // (visible + escalated), never a silent wrong snap.
+  //
+  // The prompt MUST offer an honest out-of-enum escape ('other', deliberately NOT in the enum, so
+  // it lands OOV → `untyped`): a closed list with no escape pressures a compliant model to force-
+  // pick in-vocab — measured live (Qwen3.6-27B, 2026-07-05): without the escape an un-typeable
+  // "..." snaps to "statement" (silent wrong snap INVITED by the prompt); with it, "other" → typed
+  // refusal, while real questions still type cleanly. Same doctrine as snapToVocab's OOV-kept-raw.
   "require": ["rawText"],
   "provider": ["Intake::type"],
   "prompt": {
-    "system": "Classify the inbound message kind. Reply only JSON with a 'kind' field (one of question, request, statement) and a short 'prose' restatement.",
+    "system": "Classify the inbound message kind. Reply only JSON with a 'kind' field (one of question, request, statement — or 'other' if none of them faithfully fits) and a short 'prose' restatement.",
     "user": "${rawText}",
     "facts": { "kind": { "enum": ["question", "request", "statement"] } },
     "prose": "intakeNarrative"

@@ -28,15 +28,14 @@ const modelFlag = ( () => { const i = argv.indexOf('--local-model'); return i !=
 
 // The canned ask dispatches on the concept's system prompt (the substrate's authored prompts). It types
 // any question as a 'question', decomposes into two steps, answers each, synthesizes, grades high — and,
-// for the ONE input below, returns an out-of-vocab `kind` so we can show the typed refusal.
+// for the ONE input below, replies the honest out-of-enum 'other' (exactly what a real model does with
+// the intake prompt's escape — measured live) so the typed refusal shows on both backends.
 function cannedAsk() {
-	let n = 0;
-	const ask = async ( { system, user } ) => {
-		n++;
+	return async ( { system, user } ) => {
 		const s = String(system || '');
 		if ( /inbound message kind/i.test(s) ) {
-			// the deliberately-untypeable input → an out-of-vocab kind → the intake stays `untyped`
-			return /^\s*\.\.\./.test(String(user)) ? '{"kind":"???","prose":"unparseable request"}'
+			// the deliberately-untypeable input → the out-of-enum escape → the intake stays `untyped`
+			return /^\s*\.\.\./.test(String(user)) ? '{"kind":"other","prose":"unparseable request"}'
 			                                       : '{"kind":"question","prose":"' + String(user).slice(0, 40).replace(/"/g, '') + '"}';
 		}
 		if ( /complexityClass/.test(s) ) return '{"complexityClass":"compound"}';
@@ -45,12 +44,21 @@ function cannedAsk() {
 		if ( /Synthesize/i.test(s) )     return 'A concise, bounded synthesis of the sub-answers.';
 		return 'A direct answer to: ' + String(user).replace(/^Step:\s*/, '').slice(0, 60);
 	};
+}
+
+// Count model calls on ANY backend (canned or embedded) — the 0-call-replay gate is MEASURED, never
+// assumed. The embedded backend is resolved through the shared §4 defaults (buildAsk: one place for
+// reasoningBudget:0 etc.), then counted here like the canned one.
+function counted( fn ) {
+	let n = 0;
+	const ask = async ( a ) => { n++; return fn(a); };
 	ask.count = () => n;
 	return ask;
 }
 
 ( async () => {
-	const ask = modelFlag ? { localModel: modelFlag } : cannedAsk();
+	const ask = counted(modelFlag ? Graph.combos.buildAsk(Graph.combos.resolveComboDefaults({ ask: { localModel: modelFlag } }))
+	                              : cannedAsk());
 	const app = Graph.combos.createAppliance({ ask: ask, maxDepth: 1 });
 	const line = ( s ) => console.log(s);
 
@@ -64,22 +72,32 @@ function cannedAsk() {
 	line('  → ' + r1.status.toUpperCase() + (r1.status === 'answered' ? ': ' + r1.answer + '  [confidence: ' + r1.confBand + ']' : ''));
 
 	// 2. the SAME question again → served from the persisted sub-graph at 0 new model calls.
-	const before = ask.count ? ask.count() : null;
+	const before = ask.count();
 	const r1b = await app.answer(q1);
-	const replay = ask.count ? ask.count() - before : 'n/a';
+	const replay = ask.count() - before;
 	line('\nQ (repeat): ' + q1);
-	line('  → ' + r1b.status.toUpperCase() + ' — new model calls: ' + replay + (replay === 0 ? ' ✅ (0-call replay)' : ''));
+	line('  → ' + r1b.status.toUpperCase() + ' — new model calls: ' + replay + (replay === 0 ? ' ✅ (0-call replay)' : ' ❌ (expected 0)'));
 
 	// 3. an input that does NOT cross the typed barrier → a TYPED refusal that names the miss.
 	const q3 = '... (an unparseable request)';
 	const r3 = await app.answer(q3);
 	line('\nQ: ' + q3);
-	line('  → ' + r3.status.toUpperCase() + ': reason=' + r3.reason +
-		(r3.missing && r3.missing.length ? ', missing=[' + r3.missing.join(', ') + ']' : '') +
-		'  (refused, not wrong-answered)');
+	line('  → ' + (r3.status === 'refused'
+		? 'REFUSED: reason=' + r3.reason + (r3.missing && r3.missing.length ? ', missing=[' + r3.missing.join(', ') + ']' : '') + '  ✅ (refused, not wrong-answered)'
+		: 'ANSWERED: ' + r3.answer + '  ❌ (should have been refused)'));
 
-	line('\nThe appliance answered the typed question, replayed it at 0 calls, and REFUSED the');
-	line('un-typeable one by naming the missing requirement — the spec, not world-plausibility.\n');
+	// the verdict is COMPUTED from the three results (a demo that also checks itself) — never asserted.
+	const gates = [
+		['typed question answered',           r1.status === 'answered'],
+		['repeat served at 0 model calls',    r1b.status === 'answered' && replay === 0],
+		['un-typeable input refused, miss named', r3.status === 'refused' && !!(r3.missing && r3.missing.length)]
+	];
+	line('');
+	gates.forEach( ( g ) => line('  ' + (g[1] ? '✅' : '❌') + ' ' + g[0]) );
+	const ok = gates.every( ( g ) => g[1] );
+	line(ok ? '\nThe appliance follows the typed SPEC, not world-plausibility: answer, 0-call replay,'
+	        : '\n❌ a gate FAILED on this backend — the mechanism claim does not hold here.');
+	if ( ok ) line('and a typed refusal that names the missing requirement.\n');
 	app.close();
-	process.exit(0);
+	process.exit(ok ? 0 : 1);
 } )().catch( ( e ) => { console.error(e); process.exit(1); } );
