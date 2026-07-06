@@ -73,6 +73,61 @@ test('registerAdapter — a 2nd inline adapter (generic proof): any dataset flow
 	assert.equal(by['argmax'][0].query, 'largest state');
 });
 
+// ── Spider (built-in #2, the RECURSIVE query dataset): a structural SQL analyzer over the raw gold `query`
+//    (the HF release ships no parsed AST). Its point vs WikiSQL = nesting (subquery-in-WHERE) + set-ops, the
+//    compositional structure that makes a blend MEANINGFUL (a nested query's method = outer skeleton + subquery). ─
+test('spider adapter — flat queries → {query=question, klass=shape, goldShape} (structural parse of the gold SQL)', () => {
+	const sp = A.getAdapter('spider');
+	const m = ( q ) => sp.adapt({ db_id: 'd', question: 'nl?', query: q });
+	// count(*) → one aggregate + select; no where
+	assert.deepEqual(m('SELECT count(*) FROM singer').goldShape, ['aggregate', 'select']);
+	assert.equal(m('SELECT count(*) FROM singer').query, 'nl?');
+	// 1 filter + aggregate
+	assert.deepEqual(m("SELECT avg(age) FROM singer WHERE country = 'France'").goldShape, ['filter', 'aggregate', 'select']);
+	assert.equal(m("SELECT avg(age) FROM singer WHERE country = 'France'").klass, 'filter>aggregate>select');
+	// 2 joins + 2 filters + aggregate (an AND-condition counts 2 filters; joins counted top-level)
+	assert.deepEqual(m("SELECT count(*) FROM student AS T1 JOIN has_pet AS T2 ON T1.stuid = T2.stuid JOIN pets AS T3 ON T2.petid = T3.petid WHERE T1.sex = 'F' AND T3.pettype = 'dog'").goldShape,
+		['join', 'join', 'filter', 'filter', 'aggregate', 'select']);
+	// group + order (agg from ORDER BY count(*))
+	assert.deepEqual(m('SELECT YEAR FROM concert GROUP BY YEAR ORDER BY count(*) DESC LIMIT 1').goldShape, ['group', 'aggregate', 'order', 'select']);
+});
+
+test('spider adapter — a NESTED query: the outer skeleton is CLEAN (subquery masked) + the subquery is extracted (the blend material)', () => {
+	const sp = A.getAdapter('spider');
+	const m = sp.adapt({ db_id: 'concert_singer', question: 'songs by older-than-average singers', query: 'SELECT song_name FROM singer WHERE age > (SELECT avg(age) FROM singer)' });
+	assert.equal(m.nested, true, 'a WHERE-operand subquery is detected');
+	assert.deepEqual(m.goldShape, ['filter', 'select'], 'the OUTER skeleton is filter>select — the subquery avg does NOT pollute it (masked)');
+	assert.equal(m.klass, 'filter>select|n', 'the nesting flag makes it a DISTINCT class from a plain filter>select');
+	assert.equal(m.subquery, 'SELECT avg(age) FROM singer', 'the subquery SQL is pulled — it becomes the donor grammar');
+	// the subquery, analyzed on its own, is the aggregate grammar the blend grafts into the filter slot.
+	assert.deepEqual(A.spiderGoldShape(A.analyzeSpiderSQL(m.subquery)), ['aggregate', 'select'], 'donor = aggregate>select');
+});
+
+test('spider adapter — a SET-OP query is tagged (a 2nd, binary top-level composition; classified, out of blend scope)', () => {
+	const sp = A.getAdapter('spider');
+	const m = sp.adapt({ db_id: 'd', question: 'x', query: 'SELECT country FROM singer WHERE age > 40 INTERSECT SELECT country FROM singer WHERE age < 30' });
+	assert.equal(m.setop, 'intersect');
+	assert.equal(m.klass, 'filter>select|intersect', 'the set-op tags the class (left-operand shape + the combinator)');
+});
+
+test('spider adapter — NEG: no query / malformed → null (skipped, never crashes the load)', () => {
+	const sp = A.getAdapter('spider');
+	assert.equal(sp.adapt({ db_id: 'd', question: 'q' }), null, 'no query → null');
+	assert.equal(sp.adapt(null), null);
+});
+
+test('spider — loadDataset buckets by structural class; nesting/set-ops form their own classes (population richness)', () => {
+	const sp = A.getAdapter('spider');
+	const records = [
+		{ db_id: 'd', question: 'a', query: 'SELECT count(*) FROM t' },                                  // aggregate>select
+		{ db_id: 'd', question: 'b', query: "SELECT x FROM t WHERE y = 'k'" },                            // filter>select
+		{ db_id: 'd', question: 'c', query: 'SELECT x FROM t WHERE y > (SELECT avg(z) FROM t)' },         // filter>select|n
+		{ db_id: 'd', question: 'd', query: 'SELECT x FROM t EXCEPT SELECT x FROM u' }                    // select|except
+	];
+	const by = A.loadDataset(sp, { records });
+	assert.deepEqual(Object.keys(by).sort(), ['aggregate>select', 'filter>select', 'filter>select|n', 'select|except']);
+});
+
 test('getAdapter — unknown name throws with the registered list', () => {
 	assert.throws(() => A.getAdapter('nope'), /no dataset adapter "nope"/);
 });
