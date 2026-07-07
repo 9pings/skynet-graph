@@ -17,7 +17,7 @@
 
 ```bash
 npm install        # deps only; no compile
-npm test           # 980+ tests (node --test)
+npm test           # 1130+ tests (node --test)
 ```
 
 ```js
@@ -416,4 +416,40 @@ const kg = Graph.combos.reactiveKG({ concepts: './concepts/common', seed });   /
 const sm = Graph.combos.createSelfMod({ graph, propose });   // author() needs a proposer (the "judge")
 await sm.author({ goal });          // CEGIS: propose→validate→install→test→refine
 sm.rollbackTo(sm.revisions()[0]);   // reversibility — restore any prior coherent revision
+
+// C6 — the local-first PROXY CACHE / DISTILLER (the main use case): a verified stock in front of a
+// FRONTIER model. Covered → served local (0 frontier calls); miss → escalate + enrich; 0 hallucination.
+const px = Graph.combos.createProxyCache({
+	frontierAsk: Graph.combos.makeFrontierAsk(chatAsk),   // any ({system,user}) -> text backend = the truth
+	store: './stock.json', retention: true,               // durable cross-restart + usage-tracked eviction
+	...Graph.combos.makeLocalCoverage({ localAsk })       // opt-in: a small model snaps paraphrases to one key
+});
+const { answer, source } = await px.answer('What is the capital of France?');   // source: 'local'|'frontier'
 ```
+
+## 10. Serving surfaces — OpenAI-compatible endpoint & MCP tools
+
+The library serves its main use cases over two ZERO-INTEGRATION surfaces (both thin assemblies over the
+combos; both zero-dep):
+
+```bash
+# 1) sg serve — an OpenAI-COMPATIBLE endpoint over the C6 proxy. Point ANY OpenAI client's baseURL at it:
+sg serve --frontier-model <path.gguf> --store ./stock.json            # → http://127.0.0.1:4747/v1
+#   const client = new OpenAI({ baseURL: 'http://127.0.0.1:4747/v1', apiKey: 'sg-local' });
+# A covered query is served from the verified local stock at 0 frontier calls; provenance rides EVERY
+# completion (headers x-sg-served-from/-cost/-coverage/-saved + usage.sg_*). stream:true is honored
+# (simulated SSE). Add --studio to open the visual debugger on port+1 (live request lines in its trace
+# panel); Ctrl-C prints the economy report.
+
+# 2) sg mcp — the same capabilities as MCP TOOLS for an agent host (stdio JSON-RPC):
+claude mcp add sg -- node bin/sg mcp --frontier-model <path.gguf> --store ./stock.json
+# tools: ask (answer OR a STRUCTURED typed refusal naming the missing requirement), drift, metrics,
+# lattice_load (learning through the version-gated admission — there is NO direct-write tool),
+# methods_describe, lattice_rings, trace_tail (debug by applyId).
+
+# 3) sg flow run — a durable C2 workflow from a JS module (spec + tasks are code):
+sg flow run examples/poc/durable-flow.js --store ./flow.sqlite        # --resume = exactly-once recovery
+```
+
+Runnable, deterministic, GPU-free demos of every combo and both surfaces live in `examples/bootstrap/`
+(one file per use-case class, each printing the guarantee it demonstrates — run them with plain `node`).

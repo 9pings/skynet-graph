@@ -97,7 +97,7 @@ process restart at **0 calls**. *(Both bounds are proven by accounting + a fair 
 
 ```bash
 npm install        # no build step — pure CommonJS, Node 18+
-npm test           # 980+ tests
+npm test           # 1130+ tests
 
 node bin/sg run --concepts ./concepts --builtins --seed ./seed.json
 ```
@@ -120,6 +120,25 @@ const g = Graph.fromDirs({
 
 The `LLM::complete` provider is backend-agnostic: inject any async `ask`, or use the bundled client
 (`LLM_API=anthropic`, default; `LLM_API=openai` for vLLM / llama.cpp / LM-Studio).
+
+### Serve it — zero-integration surfaces
+
+```bash
+# OpenAI-COMPATIBLE endpoint over the local-first proxy cache (C6): point ANY OpenAI client's baseURL
+# at it — a covered query is served from the verified local stock at 0 frontier calls, a miss escalates
+# and enriches. Provenance on every completion (x-sg-* headers); 0 hallucination by construction.
+sg serve --frontier-model <path.gguf> --store ./stock.json          # → http://127.0.0.1:4747/v1
+
+# The same capabilities as MCP TOOLS for an agent host (typed refusals arrive STRUCTURED):
+claude mcp add sg -- node bin/sg mcp --frontier-model <path.gguf> --store ./stock.json
+
+# One-command typed QA, and the visual debugger:
+sg ask "your question" --concepts ./concepts --local-model <path.gguf>
+sg studio            # (or: sg serve --studio — live request lines in its trace panel)
+```
+
+Runnable, deterministic, GPU-free demos of every use-case class live in **`examples/bootstrap/`** —
+one short file per combo and per surface, each printing the guarantee it demonstrates.
 
 ## Docs
 
