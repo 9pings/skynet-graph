@@ -19,6 +19,28 @@ falls</b>. A forward-chaining loop stabilizes the graph to a fixpoint; every rev
 
 ---
 
+## Try it — the sandbox
+
+The repo IS the sandbox: a visual **Studio** to author, import and stress **your own concept grammars**
+(personal or professional) on a live, revision-snapshotted reasoning graph.
+
+```bash
+git clone https://github.com/9pings/skynet-graph && cd skynet-graph
+npm install          # no build step — pure CommonJS, Node 18+
+node bin/sg studio   # → http://localhost:4848
+```
+
+In the Studio: pick a corpus from the shipped **gallery** (`common` travel/geo · `clinical` ·
+`supply` · `_substrate`), or **import your own `.sgc` corpus** — then seed data and *watch* the rules
+cast, retract in cascade, and checkpoint every revision (timeline, rollback, diff, forks, live concept
+editing with author-time validation). Export your grammar as a portable `.sgc` when it works.
+
+**Bring your own LLM (optional — the substrate runs without one).** The generic `LLM::complete`
+provider takes any backend: an embedded local GGUF (`node-llama-cpp`), or any OpenAI-compatible
+endpoint — vLLM, llama.cpp, LM-Studio, Ollama, HF router, DeepSeek, Qwen/DashScope, Moonshot… — via
+`LLM_BASE`/`LLM_API=openai`, or the Claude API (`LLM_API=anthropic`, default). An in-Studio backend
+picker is on the roadmap.
+
 ## Two ways to use it
 
 The library is **one engine with two front doors**. They share the same core; you can stop at the first.
@@ -97,7 +119,7 @@ process restart at **0 calls**. *(Both bounds are proven by accounting + a fair 
 
 ```bash
 npm install        # no build step — pure CommonJS, Node 18+
-npm test           # 669 tests
+npm test           # 900+ tests
 
 node bin/sg run --concepts ./concepts --builtins --seed ./seed.json
 ```
@@ -144,6 +166,20 @@ The `LLM::complete` provider is backend-agnostic: inject any async `ask`, or use
 > product). **How best to organize concepts is still open** — treat the shipped `concepts/` sets as illustrative,
 > not a recommended ontology. `examples/poc/` holds the runnable problem-solving, durable-executor, and contract demos.
 
+## Reproduce the papers
+
+Both preprints ship their reproducibility package IN this repo — every table replays **bit-for-bit,
+no GPU** (model calls re-served from content-addressed durable memos):
+
+```bash
+node artifact/paper-lattice/experiments/2026-07-03-restriction-learning/stream-lab.js   # §5 lab: 126/126 checks
+node artifact/paper-dll/e1-transfer.js    # E1 — typed transfer + the #30 soundness ablation
+node artifact/paper-dll/e3-compose.js     # E3 — composition kill-criteria (0 false-admit)
+```
+
+Full campaign lists: [`artifact/paper-lattice/README.md`](artifact/paper-lattice/README.md) ·
+[`artifact/paper-dll/README.md`](artifact/paper-dll/README.md).
+
 ## Papers
 
 The R&D is written up as two companion preprints (Nathanael Braun, 2026), open access on Zenodo,
@@ -184,6 +220,23 @@ content-addressed durable memos: every table replays bit-for-bit without a GPU.
 }
 ```
 
+## Managed & Pro
+
+This repo (the engine + Studio sandbox, AGPL) is free and self-sufficient. On top of it we build a
+**commercial layer** for teams that want the guarantees without the maintenance:
+
+- **The managed local appliance** *(subscription)* — an OpenAI-compatible endpoint over a small LOCAL
+  model + **maintained, validated `.sgc` knowledge catalogs**, kept fresh from our catalog service.
+  Your data never leaves your machine; answers are served from verified stock or escalated — never
+  fabricated locally.
+- **The pro bundle** *(services)* — integration of the engine into private pipelines, an advanced
+  Studio (method-library panels, live proxy monitoring, multi-user), and **scaling features**
+  (cross-instance distribution). Design-partner enquiries welcome.
+
+Contact: <pp9ping@gmail.com>.
+
 ## License
 
 GNU AGPL-3.0-or-later — see [LICENSE](./LICENSE). © 2026 Nathanael Braun &lt;pp9ping@gmail.com&gt;
+Contributions require a CLA (see [CONTRIBUTING.md](./CONTRIBUTING.md)) so the project can offer
+commercial licensing alongside the AGPL.
