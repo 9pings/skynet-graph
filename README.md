@@ -222,15 +222,8 @@ content-addressed durable memos: every table replays bit-for-bit without a GPU.
 ## Managed & Pro
 
 This repo (the engine + Studio sandbox, AGPL) is free and self-sufficient. On top of it we build a
-**commercial layer** for teams that want the guarantees without the maintenance:
-
-- **The managed local appliance** *(subscription)* — an OpenAI-compatible endpoint over a small LOCAL
-  model + **maintained, validated `.sgc` knowledge catalogs**, kept fresh from our catalog service.
-  Your data never leaves your machine; answers are served from verified stock or escalated — never
-  fabricated locally.
-- **The pro bundle** *(services)* — integration of the engine into private pipelines, an advanced
-  Studio (method-library panels, live proxy monitoring, multi-user), and **scaling features**
-  (cross-instance distribution). Design-partner enquiries welcome.
+**professional layer** for teams: an advanced Studio (method-library panels, live proxy monitoring,
+multi-user) and **scaling features** (cross-instance distribution). Partner enquiries welcome.
 
 Contact: <pp9ping@gmail.com>.
 
