@@ -41,6 +41,18 @@ endpoint — vLLM, llama.cpp, LM-Studio, Ollama, HF router, DeepSeek, Qwen/DashS
 `LLM_BASE`/`LLM_API=openai`, or the Claude API (`LLM_API=anthropic`, default). An in-Studio backend
 picker is on the roadmap.
 
+**Serve it — the OpenAI-endpoint demo.** `sg serve` puts an OpenAI-compatible endpoint in front of
+your backend: point any OpenAI client's `baseURL` at it (zero integration code) and a repeated query
+answers from an exact-match session cache at **0 backend calls** — every response carries provenance
+headers (`x-sg-served-from: cache|backend`, `x-sg-saved`).
+
+```bash
+LLM_BASE=http://localhost:8000 LLM_API=openai node bin/sg serve   # → baseURL http://127.0.0.1:4747/v1
+```
+
+This is the demo of the gesture — an in-memory session cache, gone on restart. The professional
+appliance serves **maintained, verified knowledge** under the same wire contract (see Managed & Pro).
+
 ## Two ways to use it
 
 The library is **one engine with two front doors**. They share the same core; you can stop at the first.

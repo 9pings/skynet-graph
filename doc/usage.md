@@ -183,6 +183,12 @@ node bin/sg trace    out.json        # list every concept-apply (rev, concept, t
 node bin/sg show     out.json 3      # full detail of record 3 (prompt / reply / patch / why)
 node bin/sg concepts out.json        # per-concept rollup (count + total ms), heaviest first
 node bin/sg errors   out.json        # applies whose patch flagged an llmError
+
+# OpenAI-compatible proxy DEMO: point any OpenAI client's baseURL at it; a repeated query answers
+# from an exact-match SESSION cache at 0 backend calls (provenance: x-sg-served-from, x-sg-saved).
+# In-memory, per-process — the demo of the gesture, not a knowledge store.
+LLM_BASE=http://localhost:8000 LLM_API=openai node bin/sg serve [--port 4747] [--model id]
+node bin/sg serve --local-model /models/small.gguf     # or an embedded GGUF backend
 ```
 
 ### Logging
