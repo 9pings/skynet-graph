@@ -275,21 +275,19 @@ extend via `createVerifier({ checks: { … } })`.
 The engine has no internal wall-clock (replay stays hermetic). Time enters as an ordinary fact on a
 `clock` free-node; a time-bound concept gates freshness in an `ensure`. Advancing the clock re-tests
 exactly the concepts that follow it, so a fact that has gone **stale auto-retracts** (and its dependents
-cascade) — the cache-poisoning fix (an LLM/API fact otherwise lives forever). `_lab/clock.js` provides
-the helpers:
+cascade) — the cache-poisoning fix (an LLM/API fact otherwise lives forever). The whole pattern is plain
+seed + mutation, no dedicated API:
 
 ```js
-const { clockSeed, clockNow, advanceClock, refetch } = require('./_lab/clock');
-// seed: { freeNodes: [ clockSeed(0) ], nodes: [ { _id:'n', source:'db', sensedAt:0 } ] }
+// seed: { freeNodes: [ { _id:'clock', tick:0 } ], nodes: [ { _id:'n', source:'db', sensedAt:0 } ] }
 // concept: { "require":["source"], "ensure":["$$clock:tick - $sensedAt < 2"], "provider":["AI::sense"] }
 //   ($$clock — DOUBLE-$, a GLOBAL free-node ref; a single $clock is a key on the current scope)
-advanceClock(g, 3);          // tick 0 -> 3: the fact is now stale -> retracts + cascades
-refetch(g, 'n', 'Live');     // host-triggered re-run against the current clock
+g.pushMutation('clock', { $$_id: 'clock', tick: 3 });   // tick 0 -> 3: the fact is now stale -> retracts + cascades
 ```
 
 - **Invalidation is automatic and reliable.** **Refetch is host-triggered** — a provider is cast-once, so a
-  stale provider-fact re-derives only on uncast→recast (`refetch`). A fully-autonomous reaper is an optional
-  core primitive. A provider stamps its fetch time with `clockNow(graph)`.
+  stale provider-fact re-derives only on uncast→recast (retract the cast flag, restabilize). A provider
+  stamps its fetch time from the clock node.
 - Pitfall: an `ensure` with `||` (`"$x==null || $$clock:tick-$x<t"`) **short-circuits watcher registration** —
   seed the stamp so the freshness operand always evaluates, or split the fetch from the freshness gate.
 
@@ -341,8 +339,7 @@ Pure helpers: `paretoFront` / `paretoSelect` / `makePareto` / `dominates` / `red
   consumed facts **with polarity**, cross-corpus links, writer-collisions, entry points, tiling overlay.
 - **`.sgc` corpus exchange** (`corpus-pack.js`): `deriveManifest` (produces/consumes alphabet, required
   providers), `packCorpus` / `unpackCorpus` (a portable bundle of the *authored grammar*). Disk round-trip:
-  `Graph.loadConceptMap(dir, { validate })` ↔ `exportConceptsToDir(tree, dir)` (`lib/load.js`). The sibling
-  that packs the *learned method library* is `method-pack.js` (next section).
+  `Graph.loadConceptMap(dir, { validate })` ↔ `exportConceptsToDir(tree, dir)` (`lib/load.js`).
 
 ### The support grammar (`lib/authoring/support.js`)
 
@@ -351,20 +348,12 @@ escalateFn, escalateBar, rollupFn })` compose the decompose loop with the per-se
 **Propose → Pareto-SELECT → Adopt** alternative-search trio + escalation on `Stuck`. Inject the content
 functions (deterministic in tests, an LLM in production).
 
-### Concept-as-graph: the method library & supervisor (`lib/authoring/`)
+### Concept-as-graph: the method toolkit (`lib/authoring/`)
 
-The LLM-driven **Use 2** surface — forge / crystallize / reuse / compose typed methods on top of the substrate.
-Host-side, ZERO-CORE, additive (the base hand-authoring use needs none of it). Full guide:
-[concept-as-graph.md](concept-as-graph.md).
+The LLM-driven **Use 2** mechanism — forge / crystallize / reuse typed methods on top of the substrate.
+Host-side, ZERO-CORE, additive (the base hand-authoring use needs none of it). This is the mechanism the
+two preprints measure; their replay artifacts ship under `artifact/`.
 
-- **`master-loop.js`** — `createMasterLoop({ signature, forge, reForge, cache, index, mount })` → `{ solve,
-  drift, stats, cache, index, mount, keyOf, idOf }`. The cost-ladder controller MATCH→RETRIEVE→FORGE→ESCALATE;
-  `solve(p)` → `{ result, arm, regime, cost }`; `drift(p)` invalidates a method (cache + index) + records a deopt.
-- **`recall.js`** — fuzzy-recall → typed-verify: `createRecallIndex()` (`add`/`recall`/`remove`), `verify(q,
-  cand)` → `full`/`partial`/`reject` (the soundness gate — structure decides, never the similarity score),
-  `recallAndVerify`.
-- **`mount.js`** — `createMountController()` → `decide(id, signals)` (instance/inline/frozen/escalate, hysteresis
-  + a deopt-budget rank), `recordDeopt`, `regimeOf`, `deoptBudget`.
 - **`abstract.js`** — F6 abstractivation: `relativize`/`instantiate` (id/frontier holes), `antiUnify` (Plotkin
   LGG), `methodTransform` (the cache `{onStore,onReplay}`), `emitMethodAsSubgraph` (re-mountable parameterized
   method via `Graph#getMutationFromPath`). The cross-problem structural-transfer keystone.
@@ -375,22 +364,11 @@ Host-side, ZERO-CORE, additive (the base hand-authoring use needs none of it). F
   `schema.frontier` (a `FrontierSignature` — `{params:[{name,sort,field,role}], summaryFacts, appConditions}`,
   serializes with the tree) + a `libraryKey` (the O(1) dispatch index) + `lintFrontier`; a soundness gate refuses a
   method that would leak a learning id at replay (un-holed / base-prefix-phantom / collapsed endpoints).
-  `reaggregate.js` — defeasible re-aggregation (a summary updates on drift); `bounded-merge.js` — `boundedProject`
-  (cross only Σ_sep at a merge).
-- **The creative loop (`library.js` · `combinator.js` · `adapt.js`)** — the structuring↔concept-DLL juncture (one
-  graph-grammar, two levels). `library.js`: `makeLibrary`/`indexMethod`/`dispatch(lib, target, scopeFacts)` — an
-  **O(1) bucket lookup on `libraryKey`** → refine by application-conditions → ranked candidates (a lookup, never a
-  corpus search). `combinator.js`: `dispatchConcept`/`buildDispatchProvider` — a higher-order concept fills its
-  behavioral hole with a **dispatched** fragment + mounts it via `applySubgraphArg` (recombination at 0 calls; the
-  re-fire guard is a distinct durable fact, not the self-flag). `adapt.js`: `adaptOrForge({lib,target,scopeFacts,
-  forge,verify})` — retrieve(hit, 0 calls) / forge-or-adapt(reuse neighbours) / verifier-gate(contract) /
-  index-back(amortise). Structure-mapping (Gentner) over learned methods.
-- **Persistence & portability.** `store.js` — `createFileStore(path)` (write-through Map-like cache/store),
-  `saveIndex`/`loadIndex`, `saveSgc`/`loadSgc` (any `.sgc` file). `method-pack.js` — the `.sgc` **methods**
-  package: `packMethods(loop, { name, version })` / `loadMethods(bundle, host, { version })` /
-  `unpackMethods` / `deriveMethodSchema`. The **B8 version gate** covers both replay paths (versions agree →
-  hydrate index + exact cache; differ → re-forge, no stale verbatim replay), and the receiver's typed verify
-  rejects a structurally-foreign method.
+- **`library.js` · `adapt.js`** — the method-library index + the adapt-or-forge controller. `library.js`:
+  `makeLibrary`/`indexMethod`/`dispatch(lib, target, scopeFacts)` — an **O(1) bucket lookup on `libraryKey`** →
+  refine by application-conditions → ranked candidates (a lookup, never a corpus search). `adapt.js`:
+  `adaptOrForge({lib,target,scopeFacts,forge,verify})` — retrieve(hit, 0 calls) / forge-or-adapt(reuse
+  neighbours) / verifier-gate(contract) / index-back(amortise). Structure-mapping (Gentner) over learned methods.
 - **`method.js`** — the concept-as-graph host toolkit (the middle spine): `applySubgraphArg` / `mapTemplate` /
   `mapSubgraph` (a method receives + applies a sub-graph param; `Map` fans a body per element with fresh ids),
   `lintMethod(def)` (the decidability invariants + the footprint/frame check), `selectCluster` (case-parameterized
@@ -436,7 +414,7 @@ compiled method-net (the belief / durable boundary). ZERO-CORE; on the facade as
 ### Learned concepts — population training, plasticity & serving (`lib/authoring/`)
 
 Train concepts as neural-net populations instead of hand-authoring them, then bake the frozen result
-back into the engine. Host-side, ZERO-CORE. Full guide: [concept-learning.md](concept-learning.md).
+back into the engine. Host-side, ZERO-CORE, shelved (kept for the curious).
 
 - **`equilibrium.js`** — gradient through a fixpoint (Deep Equilibrium Models / implicit diff):
   `solveFixpoint(F, z0, {maxIter,tol})` (Picard to `z*`), `implicitGrad(Jz, Jtheta, gradL, {mode})`

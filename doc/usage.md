@@ -17,7 +17,7 @@
 
 ```bash
 npm install        # deps only; no compile
-npm test           # 900+ tests (node --test)
+npm test           # 750+ tests (node --test)
 ```
 
 ```js
@@ -68,8 +68,8 @@ const g = new Graph(seed, { conceptSets: ['common'], autoMount: true }, conceptM
 
 > **Authoring toolkit.** `Graph.authoring` namespaces the R&D/authoring tools (parity with `Graph.providers`),
 > so you reach them without deep paths — e.g. `Graph.authoring.concepts.buildConceptTree`, `.validate`,
-> `.contract`, `.method`, `.abstract`, `.crystallize`, `.library` / `.combinator` / `.adapt` (the creative loop:
-> dispatch → mount → **adapt-or-forge** → **antiUnify content-forge** → **blend** = combinational synthesis of a
+> `.contract`, `.method`, `.abstract`, `.crystallize`, `.library` / `.adapt` (the reuse path:
+> dispatch → **adapt-or-forge** → **antiUnify content-forge** → **blend** = combinational synthesis of a
 > novel composite method, with a bounded `synthesizeByBlend`). Each module also stays importable on its own
 > (`require('skynet-graph/lib/authoring/<module>')`); the barrel is a convenience, not a gate. A runnable, offline
 > end-to-end tour of the creative loop is `examples/creative-loop.js` (`node examples/creative-loop.js`); the

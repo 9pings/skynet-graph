@@ -161,8 +161,7 @@ writes). The training subsystem (host-side, ZERO-CORE) is a small, composable pi
 This converges (a student recovers a teacher's fixpoint map), scales (2→6 units), evolves its form, and round-trips to the
 real engine — all measured. **Honest limits:** it is a differentiable *mirror* + a serving bridge (the engine itself does
 not train); a *chain* topology collapses in depth (use width); cyclic serving is unrolled (N× the concepts); and
-non-differentiable concepts (LLM/rules) stay frozen / off-gradient (a Mixture of Reasoners, not a uniform net). Full
-walk-through: **[concept-learning.md](concept-learning.md)**.
+non-differentiable concepts (LLM/rules) stay frozen / off-gradient (a Mixture of Reasoners, not a uniform net).
 
 ## 5. What the substrate is for — and the building blocks Use 2 leans on
 
@@ -181,8 +180,8 @@ The substrate ships the pieces that make Use 2 possible, each usable **à nu**:
 - **Freshness / TTL (N1).** Time enters as a fact on a `clock` node; `ensure` invariants
   auto-retract stale facts (cache-poisoning fix).
 - **Declarative AI-authoring.** `addConcept` + an author-time validator (rejects prose on
-  dependency edges, missing self-flags, unparseable exprs, unknown refs) + a CEGIS loop
-  (`lib/authoring/author.js`) that proposes → validates → installs → tests → refines.
+  dependency edges, missing self-flags, unparseable exprs, unknown refs) — a model proposes,
+  the validator gates, the engine installs and re-tests.
 - **Safe live self-modification.** A supervised loop can hypothesize a self-mod, evaluate
   it with a better-model judge, and `rollbackTo` cleanly if it's worse — re-entrancy-safe,
   backstopped, and reversible (rules included).
@@ -215,7 +214,7 @@ the "a model call is a generic, templated request, dispatchable anywhere" path.
 | **K2 — terminize ≠ economy** (the fixpoint bounds *redundant* work, not the *size* of the productive tree / exploration cost) | assert-gated **budget cap**; beam/AO\* still only a cap |
 | **K3 — coherence ≠ truth** (a hallucinated-but-valid fact propagates and retracts *cleanly* — rigor can give false confidence) | verification concepts + freshness/TTL |
 | **K5 — one world (JTMS, not ATMS)** (compares plans only by forking) | `fork`/`merge` sub-graphs |
-| **Authoring cost** (who writes/maintains the concept corpus?) | the validator + CEGIS author; **and this is the open problem — see below** |
+| **Authoring cost** (who writes/maintains the concept corpus?) | the author-time validator + Studio; **and this is the open problem — see below** |
 
 ## 6. Status & what's R&D
 
@@ -223,10 +222,9 @@ The **engine** is mechanically complete and heavily tested (declarative AI-autho
 live self-modification included), and the **additive Mixture-of-Reasoners layer** (the P / C / M
 regime providers, verification, tiling), the **support grammar**, the **Studio**, and the
 `.sgc` corpus exchange are all shipped. The **Use-2 target system** built on top — concept-graphs as
-composable methods, the durable executor, the C-contract / un-learn loop, and the **creative loop** (a library
-**dispatch** over reified `FrontierSignature`s → combinator **mount** → `adaptOrForge`, so one method recombines
-another's learned method by structure-mapping) — is documented in **[concept-as-graph.md](concept-as-graph.md)**
-(900+ tests). What remains is **open research** + the deferred
+composable methods, the durable executor, the C-contract / un-learn loop, and the **library dispatch →
+`adaptOrForge`** reuse path — is measured in the two preprints (their replay artifacts ship under
+`artifact/`). What remains is **open research** + the deferred
 performance work, and the biggest research piece is **how to organize concepts** — the current bet is a
 semantically-meaningful hierarchical corpus keyed on *human vocabulary*, with judgment delegated to a
 better-model supervisor while the rules handle orchestration + coherence. The shipped `concepts/common/` set is an

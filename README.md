@@ -74,7 +74,7 @@ space of problems, that **un-learns** a method when its premise drifts.
 - **Build / execute separation** — the **graph builds + tests** the method (the belief-view: decidable, traceable, defeasible); a separate **durable workflow engine executes** a compiled translation (crash-resumable, at scale).
 - **Soundness under composition** — methods compose on their typed contracts; a wrong learned contract is **asserted at runtime, blamed, and revised** (the un-learn moat no RAG / skill-library has).
 
-→ **[doc/concept-as-graph.md](doc/concept-as-graph.md)**
+→ the two preprints under **Papers** below carry the full design + measurements; their replay artifacts ship in this repo.
 
 ---
 
@@ -119,7 +119,7 @@ process restart at **0 calls**. *(Both bounds are proven by accounting + a fair 
 
 ```bash
 npm install        # no build step — pure CommonJS, Node 18+
-npm test           # 900+ tests
+npm test           # 750+ tests
 
 node bin/sg run --concepts ./concepts --builtins --seed ./seed.json
 ```
@@ -158,9 +158,8 @@ The `LLM::complete` provider is backend-agnostic: inject any async `ask`, or use
 
 | | |
 |---|---|
-| [doc/concept-as-graph.md](doc/concept-as-graph.md) | The conception: the two-faced method, bounded context by contract, forge / reuse, the durable executor, the un-learn moat, the creative loop (library dispatch → mount → adapt-or-forge), and the **Construct → Method flex programme** (interface-only dispatch · multi-path Construct · bidirectional widen · the ancestry oracle behind the bag-separator Σ_sep gate) |
 | [doc/MODELISATION.md](doc/MODELISATION.md) | The full model + R&D roadmap |
-| [doc/concept-learning.md](doc/concept-learning.md) | *(optional, shelved)* training concept-populations at the fixpoint |
+| the papers (**Reproduce the papers** below) | The target system in full — the two-faced method, bounded context by contract, forge / reuse, the un-learn moat — with the measurements and their replay artifacts |
 
 > **Heads-up.** Active R&D. Use 1 is solid and tested; Use 2 is an advancing conception with measured PoCs (not a
 > product). **How best to organize concepts is still open** — treat the shipped `concepts/` sets as illustrative,

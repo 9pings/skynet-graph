@@ -26,18 +26,18 @@ set `LLM_BASE` / `LLM_MODEL` / `LLM_API=openai`; see `llm.js`). Run any with `no
 > Offline unless flagged ⚡ (needs an endpoint).
 
 - **Domain grammars:** `clinical.js`, `supply.js`, `demo.js`, `trip-decompose.js` — hand-authored concept grammars.
-- **Contracts & relearning:** `contract-compose.js`, `contract-unlearn.js`, `contract-relearn.js`,
-  `durable-contract.js` ⚡ — the separation-triple checker, blame → revise, defeasance.
+- **Contracts & un-learning:** `contract-compose.js`, `contract-unlearn.js`, `durable-contract.js` ⚡ —
+  the separation-triple checker, blame → revise, defeasance.
 - **Library learning / methods:** `method-instance.js`, `concept-bridge.js`, `concept-population.js`,
   `learn-nogood.js`, `equilibrium.js`, `cache-instances.js`, `plasticity.js` ⚡ — crystallize/abstract/cache.
 - **Problem-solving (search/decompose):** `problem-paths.js` ⚡, `problem-domain.js` ⚡, `problem-domain-dag.js` ⚡,
-  `problem-delegate.js` ⚡, `problem-compete.js`, `problem-adjacency.js`, `problem-bounded.js`,
+  `problem-delegate.js` ⚡, `problem-adjacency.js`, `problem-bounded.js`,
   `problem-worker.js` ⚡, `worker-solver-provider.js` ⚡ — the support grammar (Attempt/Candidate/Selected).
-- **Master / supervisor loop:** `master-graph.js`, `master-loop.js`, `bounded-context.js` ⚡ — retrieve-or-forge,
+- **Master / supervisor loop:** `master-graph.js`, `bounded-context.js` ⚡ — retrieve-or-forge,
   partial-collapse-on-drift, bounded context.
 - **Durable executor:** `durable-flow.js` ⚡, `durable-mapreduce.js` ⚡, `durable-contract.js` ⚡ — Layer-A/B
   checkpoint store + interpreter (map/fold/join, crash-resume).
-- **Distributed / forks:** `fork-driver.js`, `live-record.js` — fork/merge sub-graphs, CDC ingest.
+- **Distributed / forks:** `fork-driver.js` — fork/merge sub-graphs.
 
 ## More
 - Library + CLI guide: `../doc/usage.md`. Architecture + honest limits: `../doc/architecture.md`. Public API:
