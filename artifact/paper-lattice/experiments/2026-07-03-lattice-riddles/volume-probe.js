@@ -77,7 +77,7 @@ function cp95( k, n ) {
 		// score by hole IDENTITY (cat+size), never by index — the intake may extract a SUBSET of the holes
 		// (the paraphrase's "which socket is compatible…" style) and the mounted hole is then index-shifted
 		// while being semantically the RIGHT one (measured: every residual plugs miss was this artifact).
-		const { lattice } = require(ROOT + '/doc/WIP/experiments/2026-07-03-restriction-learning/learn-core.js');
+		const { lattice } = require(__dirname + '/../2026-07-03-restriction-learning/learn-core.js');
 		const L = lattice(D.isa);
 		const holeCatOf = ( name ) => { const w = normWord(name, Object.keys(D.isa).concat(Object.keys(D.holeSort))); return D.holeSort[w] || D.cats.find(( c ) => L.leq(w, c) ) || null; };
 		const goldHole = t.gold != null ? t.holes[t.gold] : null;

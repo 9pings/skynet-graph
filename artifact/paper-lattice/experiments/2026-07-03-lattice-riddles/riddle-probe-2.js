@@ -24,7 +24,7 @@ const fs = require('fs');
 const path = require('path');
 const ROOT = path.resolve(__dirname, '../../../..');
 const POP = path.resolve(__dirname, '../2026-07-03-population-scale');
-const { lattice } = require(ROOT + '/doc/WIP/experiments/2026-07-03-restriction-learning/learn-core.js');
+const { lattice } = require(__dirname + '/../2026-07-03-restriction-learning/learn-core.js');
 const { snapToVocab } = require(ROOT + '/lib/authoring/canon.js');
 const { makeDurableAsk } = require(POP + '/ask-memo.js');
 console.info = console.warn = () => {};

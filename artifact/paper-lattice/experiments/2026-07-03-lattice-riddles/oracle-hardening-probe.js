@@ -32,7 +32,7 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '../../../..');
 const POP = path.resolve(__dirname, '../2026-07-03-population-scale');
 const { DOMAINS, intake, normWord } = require('./riddle-probe-2.js');
-const { lattice } = require(ROOT + '/doc/WIP/experiments/2026-07-03-restriction-learning/learn-core.js');
+const { lattice } = require(__dirname + '/../2026-07-03-restriction-learning/learn-core.js');
 const { makeDurableAsk } = require(POP + '/ask-memo.js');
 console.info = console.warn = () => {};
 
