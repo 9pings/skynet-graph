@@ -37,5 +37,7 @@
   "devDependencies": {
     "openai": "^6.45.0",
     "puppeteer": "^25.1.0"
-  }
+  },
+  "private": true,
+  "description": "PRIVATE product trunk of skynet-graph (engine + combos + surfaces). The public substrate lives in ../skynet-graph (master). Never publish to npm from here."
 }

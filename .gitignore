@@ -26,7 +26,7 @@ Desktop.ini
 $RECYCLE.BIN/
 
 # App specific
-CLAUDE.md
+# CLAUDE.md is TRACKED here (private repo — Skynet-NRG)
 .tmp
 node_modules
 .idea
@@ -39,7 +39,6 @@ node_modules
 /docs/
 /.claude/
 # R&D working trail + offline papers — kept local, not published
+# the R&D trail moved to the multi-project root: ../WIP (2026-07-07 reorg)
 /doc/WIP/
-# pre-DLL-campaign experiment tests that import other offline doc/WIP harnesses — kept local
-/tests/integration/f6-transfer.test.js
-/tests/integration/defeasance-wedge.test.js
+# the two experiment-lock tests now live HERE (tracked) and import ../WIP harnesses
