@@ -50,14 +50,12 @@ headers (`x-sg-served-from: cache|backend`, `x-sg-saved`).
 LLM_BASE=http://localhost:8000 LLM_API=openai node bin/sg serve   # → baseURL http://127.0.0.1:4747/v1
 ```
 
-This is the demo of the gesture — an in-memory session cache, gone on restart. The professional
-appliance serves **maintained, verified knowledge** under the same wire contract (see Managed & Pro).
+This is the demo of the gesture — an in-memory session cache, gone on restart. More advanced & scalable systems are on the roadmap.
 
 ## Two ways to use it
 
 The library is **one engine with two front doors**. They share the same core; you can stop at the first.
 
-![the two uses](doc/img/two-uses.svg)
 
 ### Use 1 — the substrate: a *versionable, git-like reasoning orchestrator*
 
