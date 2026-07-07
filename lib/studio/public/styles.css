@@ -156,3 +156,30 @@ body { margin: 0; font: 13px/1.5 ui-sans-serif, system-ui, "Segoe UI", Roboto, s
 .split-merge { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border-top: 1px solid var(--border); }
 .split-prev { font-size: 12px; color: var(--muted); }
 .split-do { background: var(--accent); color: #0b1017; border: none; border-radius: 6px; padding: 6px 16px; font-weight: 600; cursor: pointer; }
+
+/* --- learning panel (typed lattice registry — track 4) --- */
+.learning { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px; padding: 12px 16px; overflow: auto; background: var(--panel); }
+.lp-head { font-weight: 600; }
+.lp-ver { color: var(--muted); font-size: 11px; margin-left: 8px; }
+.lp-block { padding: 10px 12px; background: #11171f; border: 1px solid var(--border); border-radius: 8px; }
+.lp-grow { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.lp-title { font-size: 12px; margin-bottom: 8px; }
+.lp-note { color: var(--muted); font-weight: 400; font-size: 11px; }
+.lp-row { display: flex; gap: 8px; align-items: center; }
+.lp-row input, .lp-row select { background: #222b36; color: var(--fg); border: 1px solid var(--border); border-radius: 6px; padding: 4px 8px; font: inherit; }
+.lp-row input.lp-enum { flex: 1; }
+.lp-row button { background: #222b36; color: var(--fg); border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; cursor: pointer; font: inherit; }
+.lp-row button:disabled { opacity: .4; cursor: default; }
+.lp-keys { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+.lp-kchip { font-family: ui-monospace, monospace; font-size: 11px; padding: 2px 8px; background: #0f1419; border: 1px solid var(--border); border-radius: 10px; color: var(--muted); }
+.lp-verdict { margin-top: 8px; font-family: ui-monospace, monospace; font-size: 12px; padding: 5px 8px; border-radius: 6px; }
+.lp-verdict.ok { background: rgba(70, 180, 110, .12); border-left: 2px solid var(--good, #4b6); }
+.lp-verdict.ko { background: rgba(220, 90, 90, .12); border-left: 2px solid #d55; }
+.lp-rings { flex: 1; overflow: auto; display: flex; flex-direction: column; gap: 4px; }
+.lp-ring { display: flex; gap: 8px; align-items: center; font-family: ui-monospace, monospace; font-size: 12px; padding: 3px 8px; background: #0f1419; border: 1px solid var(--border); border-radius: 6px; }
+.lp-rkey { color: var(--muted); }
+.lp-ralias { font-weight: 600; }
+.lp-rvia { color: var(--muted); font-size: 11px; margin-left: auto; }
+.lp-retract { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 13px; }
+.lp-retract:hover { color: #d55; }
+.lp-empty { color: var(--muted); font-size: 12px; }
