@@ -51,6 +51,15 @@ test('forge — the VALIDATION DOSSIER is a complete, structured certification r
 	assert.equal(d.verdict.pass, true);
 });
 
+test('forge — a VOTED run reports the model as the forge in the dossier, never "gold-forge" (certification correctness)', async () => {
+	const decompose = async ( ask, rec ) => rec.goldSteps.slice();   // ignore the ask value; the voters just need to be present
+	const voters = [async () => '', async () => '', async () => ''];
+	const r = await forgeStock({ classes: CLASSES, stepEnum: STEP_ENUM, decompose, voters, modelName: 'test-model', name: 'x', version: 'v1', negControl: false });
+	assert.equal(r.dossier.model.forge, 'test-model', 'a voted run used the model — the dossier must not mislabel it gold-forge');
+	assert.equal(r.dossier.model.voters, 3);
+	assert.equal(r.verdict.admitted, 3);
+});
+
 test('forge — a class whose forge is INCONSISTENT across instances is refused (yield is bounded by consistency, soundness is not)', async () => {
 	// a custom decompose that returns a WRONG (shorter) shape for one instance of 'count|1' → inconsistent → refused,
 	// but the two clean classes still admit. The stock stays clean; only the yield drops.

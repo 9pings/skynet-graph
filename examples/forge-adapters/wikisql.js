@@ -55,11 +55,20 @@ async function decompose( ask, rec, o ) {
 	o = o || {};
 	if ( !ask ) return o.corrupt ? rec.goldSteps.slice(0, Math.max(1, rec.goldSteps.length - 1)) : rec.goldSteps.slice();
 	const txt = await ask({
-		system: 'You break a natural-language table query into an ORDERED list of typed steps. Use ONLY these kinds: ' + stepEnum.join(', ')
-			+ '.\n- one "filter" per condition that restricts a column to a value.\n- EXACTLY ONE "aggregate" iff the query asks to '
-			+ 'count/total/sum/average or find the highest/largest/most/maximum or lowest/smallest/least/minimum — right before the final select.\n'
-			+ '- always a final "select".\nExamples: "How many players are from Butler?" -> filter, aggregate, select. '
-			+ '"What position does X play?" -> filter, select.\nReply ONLY JSON, steps are STRINGS: {"steps":["filter","aggregate","select"]}.',
+		system: 'You break a natural-language table query into an ORDERED list of typed steps. Kinds (use ONLY these): ' + stepEnum.join(', ') + '.\n'
+			+ 'RULES:\n'
+			+ '- one "filter" for EACH condition that restricts a column to a specific value.\n'
+			+ '- add EXACTLY ONE "aggregate" (right before the final select) if the query asks for a count/number/total/sum/average, '
+			+ 'OR the highest/largest/most/maximum/greatest, OR the lowest/smallest/least/minimum/fewest. If it just asks which/what/who value, there is NO aggregate.\n'
+			+ '- always end with exactly one "select".\n'
+			+ 'Worked examples:\n'
+			+ '  "How many players are from Butler?" -> {"steps":["filter","aggregate","select"]}\n'
+			+ '  "What is the highest score in 2010?" -> {"steps":["filter","aggregate","select"]}\n'
+			+ '  "What is the lowest attendance when the away team was X?" -> {"steps":["filter","aggregate","select"]}\n'
+			+ '  "What is the total number of points for team Y?" -> {"steps":["filter","aggregate","select"]}\n'
+			+ '  "What position does player X play?" -> {"steps":["filter","select"]}\n'
+			+ '  "What team is in city C and division D?" -> {"steps":["filter","filter","select"]}\n'
+			+ 'Reply ONLY JSON, steps are STRINGS: {"steps":["filter","aggregate","select"]}.',
 		user: 'Columns: ' + (rec.header || []).join(', ') + '\nQuery: ' + rec.problem, maxTokens: 80, temperature: o.temperature || 0
 	});
 	try { const m = String(txt).match(/\{[\s\S]*\}/); return (JSON.parse(m ? m[0] : txt).steps || []).map(snap); }
