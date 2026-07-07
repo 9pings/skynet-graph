@@ -26,6 +26,7 @@
     "ws": "^8.21.0"
   },
   "devDependencies": {
+    "esbuild": "^0.28.1",
     "puppeteer": "^25.1.0"
   },
   "files": [
