@@ -14,15 +14,17 @@ const ADAPTER = "module.exports={name:'tiny',stepEnum:['filter','aggregate','sel
 	+ "'count|1':[{problem:'c',goldSteps:['filter','aggregate','select']},{problem:'d',goldSteps:['filter','aggregate','select']}]}),"
 	+ "decompose:async(ask,rec,o)=>((o&&o.corrupt)?rec.goldSteps.slice(0,Math.max(1,rec.goldSteps.length-1)):rec.goldSteps.slice())};";
 
-test('sg forge — deterministic dry run writes a .sgc stock + a PASS validation dossier (exit 0)', () => {
+test('sg forge — deterministic dry run writes a .sgc stock + a PASS validation dossier into the ROOM (exit 0)', () => {
 	const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'sgforge-'));
 	const adapter = path.join(dir, 'adapter.js'); fs.writeFileSync(adapter, ADAPTER);
-	const out = path.join(dir, 'stock.sgc'), doss = path.join(dir, 'dossier.md');
-	const r = cp.spawnSync('node', ['bin/sg', 'forge', '--adapter', adapter, '--out', out, '--dossier', doss, '--name', 'tiny-stock', '--version', 'v1'],
+	// --room <dir> (no --out/--dossier): the room dir is created and filenames are derived from --name.
+	const room = path.join(dir, 'SG-Rooms', 'lib1');
+	const out = path.join(room, 'tiny-stock.sgc'), doss = path.join(room, 'tiny-stock.dossier.md');
+	const r = cp.spawnSync('node', ['bin/sg', 'forge', '--adapter', adapter, '--room', room, '--name', 'tiny-stock', '--version', 'v1'],
 		{ cwd: path.resolve(__dirname, '../..'), encoding: 'utf8' });
 	try {
 		assert.equal(r.status, 0, 'exit 0 (verdict PASS). stdout+stderr: ' + r.stdout + r.stderr);
-		assert.ok(fs.existsSync(out) && fs.existsSync(doss), 'the .sgc + dossier were written');
+		assert.ok(fs.existsSync(out) && fs.existsSync(doss), 'the .sgc + dossier were written into the room (dir auto-created, names from --name)');
 		const bundle = JSON.parse(fs.readFileSync(out, 'utf8'));
 		assert.equal(bundle.format, 'sgc');
 		assert.equal(bundle.kind, 'methods', 'a methods stock');
