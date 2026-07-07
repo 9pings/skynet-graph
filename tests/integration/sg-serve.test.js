@@ -60,6 +60,27 @@ test('handler — POST /v1/chat/completions: OpenAI shape + PROVENANCE (frontier
 	assert.equal(r2.body.usage.total_tokens, 0, 'token counts are NOT estimated (0 = not counted, never a made-up number)');
 });
 
+test('handler — x-sg-sgc-version: the loaded catalog state rides every completion, LIVE (a refresh shows up); absent without the opt', async () => {
+	const { px } = freshProxy();
+	let sgc = 'laws@2.1.0,units@1.0.0';
+	const handle = createServeHandler({ proxy: px, sgcVersion: () => sgc });
+	const req = ( q ) => ({ method: 'POST', url: '/v1/chat/completions', body: { messages: [{ role: 'user', content: q }] } });
+
+	const r1 = await handle(req('q1'));
+	assert.equal(r1.headers['x-sg-sgc-version'], 'laws@2.1.0,units@1.0.0', 'the stock freshness is on the wire');
+	assert.equal(r1.body.usage.sg_sgc_version, 'laws@2.1.0,units@1.0.0', 'mirrored in usage like the other sg_* fields');
+
+	sgc = 'laws@2.1.0,units@1.1.0';   // a catalog refresh landed — the host updated its state
+	const r2 = await handle(req('q2'));
+	assert.equal(r2.headers['x-sg-sgc-version'], 'laws@2.1.0,units@1.1.0', 'freshness is LIVE, not frozen at boot');
+
+	// without the opt: no header, no usage field — the lib carries no catalog notion of its own.
+	const bare = createServeHandler({ proxy: freshProxy().px });
+	const r3 = await bare(req('q3'));
+	assert.equal(r3.headers['x-sg-sgc-version'], undefined);
+	assert.equal(r3.body.usage.sg_sgc_version, undefined);
+});
+
 test('handler — GET /v1/models lists the proxy model (SDK bootstraps/model pickers work)', async () => {
 	const { px } = freshProxy();
 	const handle = createServeHandler({ proxy: px, model: 'my-proxy' });
