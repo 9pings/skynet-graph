@@ -112,3 +112,32 @@ test('8 DETERMINISM — the same task yields the same answer and trace', async (
 	assert.equal(a.answer, CLEAN);
 	assert.deepEqual(a.trace, b.trace);
 });
+
+test('9 PROJECTION — a leaf that reads another leaf’s write is served AFTER it, with the upstream value completed', async () => {
+	// B readsExtra [A] → the projection serves A first, then B WITH A's value in its bounded context (the R1 §2 projection).
+	const order = [];
+	const serveLeaf = async ( leaf ) => {
+		order.push(leaf.request.id);
+		if ( leaf.request.id === 'A' ) return 10;
+		if ( leaf.request.id === 'B' ) { assert.ok(leaf.inputs && leaf.inputs.A === 10, 'B is served WITH A’s value completed into its bounded context'); return leaf.inputs.A + 5; }
+		return GOLD[leaf.request.id];
+	};
+	// declared B-before-A on purpose → the ORDER must emerge from the dependency, not the decompose order.
+	const decompose = async () => [{ id: 'n_B', request: reqBody('B'), nl: 'fig B', readsExtra: ['A'] }, req('A')];
+	const r = await createPlanLoop({ decompose, serveLeaf }).run('report');
+	assert.equal(r.projected, true, 'the projection path was taken (an intra-plan dependency exists)');
+	assert.deepEqual(order, ['A', 'B'], 'A served BEFORE B — emergent dependency order, not decompose order');
+	assert.match(r.answer, /A=10/); assert.match(r.answer, /B=15/, 'B folded the value it computed FROM A (context completed)');
+	assert.equal(r.converged, true);
+	// NEG: drop the dependency → the flat fast path (no projection), both served independently
+	const flat = await createPlanLoop({ decompose: async () => [req('A'), { id: 'n_B', request: reqBody('B'), nl: 'fig B' }], serveLeaf: goldLadder(new Set(['A', 'B'])).serveLeaf }).run('report');
+	assert.equal(flat.projected, false, 'no intra-plan dependency → the direct serve fast path (degenerate projection)');
+});
+
+test('10 CYCLIC FOOTPRINT — a circular readsExtra is a typed refusal, never a hang', async () => {
+	// A reads B, B reads A → the projection guard refuses (falls back to flat serve), then rebalance E3 surfaces CYCLE.
+	const serveLeaf = async ( leaf ) => GOLD[leaf.request.id];
+	const decompose = async () => [{ id: 'n_A', request: reqBody('A'), nl: 'a', readsExtra: ['B'] }, { id: 'n_B', request: reqBody('B'), nl: 'b', readsExtra: ['A'] }];
+	const r = await createPlanLoop({ decompose, serveLeaf }).run('report');
+	assert.equal(r.refusal, 'CYCLE', 'the cyclic footprint is a typed refusal (never a silent wedge, never a hang)');
+});
