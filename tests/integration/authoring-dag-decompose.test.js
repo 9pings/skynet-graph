@@ -17,7 +17,7 @@
 global.__SERVER__ = true;
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { makeDagDecompose, leavesToRoadmap, keyOf } = require('../../lib/authoring/dag-decompose.js');
+const { makeDagDecompose, makeArchetypeRouter, leavesToRoadmap, keyOf, ARCHETYPE_HINTS } = require('../../lib/authoring/dag-decompose.js');
 const { createPlanLoop } = require('../../lib/combos/plan-loop.js');
 
 const KINDS = ['retrieve', 'compute', 'compare', 'summarize'];
@@ -95,4 +95,48 @@ test('8 keyOf — produces keys are normalized to stable typed ids', () => {
 	assert.equal(keyOf('Engine Model'), 'engine_model');
 	assert.equal(keyOf('  API-surface!! '), 'api_surface');
 	assert.equal(keyOf(''), 'part');
+});
+
+// ── the ARCHETYPE ROUTER (study §6.2/§6.3: type-of-prompt → decomposition organization) ──
+// a stub that answers a DETECT call (grammar = string enum) with an archetype, and a DECOMPOSE call (grammar =
+// array) with a DAG — recording the system prompt each got, so we can check the per-archetype hint was applied.
+function routerStub( archetype, dag, sink ) {
+	return async ( req ) => {
+		const sch = req.grammar && req.grammar.jsonSchema;
+		if ( sch && sch.type === 'string' ) { if ( sink ) sink.detectSystem = req.system; return JSON.stringify(archetype); }
+		if ( sink ) sink.decomposeSystem = req.system;
+		return JSON.stringify(dag);
+	};
+}
+
+test('9 DETECT — the router classifies a prompt into a closed-enum archetype (fail-closed to planning)', async () => {
+	const r = makeArchetypeRouter({ ask: routerStub('sequential', []), stepKinds: KINDS });
+	assert.equal(await r.detect('do A, then B, then C'), 'sequential');
+	// an out-of-enum label (a mis-behaving/ungrammared backend) fails CLOSED to the safe default
+	const r2 = makeArchetypeRouter({ ask: routerStub('nonsense', []), stepKinds: KINDS });
+	assert.equal(await r2.detect('x'), 'planning', 'unknown archetype → the general-DAG default, never a false class');
+});
+
+test('10 ROUTE — the detected archetype steers the decompose (its hint is appended to the decompose prompt)', async () => {
+	const sink = {};
+	const r = makeArchetypeRouter({ ask: routerStub('aggregate', CHAIN_DAG, sink), stepKinds: KINDS });
+	const out = await r.route('produce the pieces then merge them');
+	assert.equal(out.archetype, 'aggregate');
+	assert.equal(out.hint, ARCHETYPE_HINTS.aggregate);
+	assert.ok(sink.decomposeSystem.indexOf(ARCHETYPE_HINTS.aggregate) !== -1, 'the aggregate orientation was appended to the decompose system prompt');
+	assert.equal(out.leaves.length, 3, 'and the DAG was emitted');
+});
+
+test('11 CUSTOM — the archetype vocabulary + hints are overridable (usable à nu)', async () => {
+	const r = makeArchetypeRouter({ ask: routerStub('fanout', []), archetypes: ['fanout', 'chain'], hints: { fanout: 'FAN-OUT', chain: 'CHAIN' }, fallback: 'chain', stepKinds: KINDS });
+	assert.equal(await r.detect('extract every item'), 'fanout');
+	const r2 = makeArchetypeRouter({ ask: routerStub('unknown', []), archetypes: ['fanout', 'chain'], fallback: 'chain', stepKinds: KINDS });
+	assert.equal(await r2.detect('x'), 'chain', 'custom fallback honored');
+});
+
+test('12 END-TO-END — router.decompose is the plan-loop seam (detect → shaped DAG → projection)', async () => {
+	const r = makeArchetypeRouter({ ask: routerStub('sequential', CHAIN_DAG), stepKinds: KINDS });
+	const res = await createPlanLoop({ decompose: r.decompose, serveLeaf: async ( l ) => l.request.id + '<' + Object.keys(l.inputs || {}).join('+') + '>' }).run('build a doc');
+	assert.equal(res.projected, true, 'the routed DAG has dependencies → projection path');
+	assert.equal(res.converged, true); assert.equal(res.refusal, null);
 });
