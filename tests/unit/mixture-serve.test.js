@@ -7,7 +7,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { createMixtureServe, makeSurfaceDispatch } = require('../../lib/combos/mixture-serve.js');
+const { createMixtureServe, makeSurfaceDispatch, qualifyMenu } = require('../../lib/combos/mixture-serve.js');
 
 const SHAPES = ['aggregate>select', 'join>filter>select', 'filter>select'];
 // a labelled anchor corpus (training queries → their certified shape) for the surface-dispatch signal.
@@ -119,6 +119,13 @@ test('custom trust predicate overrides the default (e.g. a host self-fit gate)',
 	assert.equal(r.tier, 'local-trusted');
 	assert.equal(seen.shape, 'filter>select');
 	assert.ok('menu' in seen.ctx && 'predicted' in seen.ctx, 'trust receives the {menu, predicted} context');
+});
+
+test('qualifyMenu — annotates each shape with its slot roles (the +3 orientation lift), missing kinds echo', () => {
+	const q = qualifyMenu(['join>filter>select', 'aggregate>select'], { join: 'combine 2+ tables', filter: 'a WHERE value', select: 'return cols' });
+	assert.equal(q[0], 'join>filter>select (join=combine 2+ tables, filter=a WHERE value, select=return cols)');
+	assert.equal(q[1], 'aggregate>select (aggregate=aggregate, select=return cols)', 'a kind missing from the gloss echoes itself');
+	assert.deepEqual(qualifyMenu([], {}), []);
 });
 
 test('guards — missing certifiedShapes or small throw', () => {
