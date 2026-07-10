@@ -93,6 +93,10 @@ function loadClasses( o ) {
 		(byClass[sig] = byClass[sig] || []).push({
 			problem: q.question,
 			table: it.table, scale,
+			// the SUPPORTING FACTS (qa.gold_inds) — FinQA questions reference numbers from the TEXT, not only the
+			// table; without them a forge model reaches for table_* ops it does not need (0/12 run-1). Forge-time
+			// gold availability is legitimate (the runtime serving side owns retrieval).
+			facts: Object.values(q.gold_inds || {}).join('\n').slice(0, 800),
 			exeAns: q.exe_ans, goldProgram: q.program,
 			goldSteps: r.shape,
 		});
@@ -111,15 +115,18 @@ const snap = ( s ) => {
 async function decompose( ask, rec, o ) {
 	o = o || {};
 	if ( !ask ) return o.corrupt ? rec.goldSteps.slice(0, Math.max(1, rec.goldSteps.length - 1)) : rec.goldSteps.slice();
-	const tbl = (rec.table || []).map(( r ) => r.join(' | ') ).join('\n');
+	const tbl = (rec.table || []).map(( r ) => r.join(' | ') ).join('\n').slice(0, 900);
 	const txt = await ask({
-		system: 'You decompose a financial question over a table+text into the ORDERED sequence of calculator ops. Use ONLY these ops: '
+		system: 'You decompose a financial question over given facts+table into the ORDERED sequence of calculator ops. Use ONLY these ops: '
 			+ stepEnum.join(', ') + '.\n'
 			+ 'add/subtract/multiply/divide/exp take two numbers (a prior step result may be reused); greater compares; '
-			+ 'table_max/table_min/table_sum/table_average aggregate ONE table row.\n'
-			+ 'Emit the MINIMAL op sequence that computes the answer — the change-rate idiom is ["subtract","divide"], a share/ratio is ["divide"].\n'
+			+ 'table_max/table_min/table_sum/table_average aggregate ONE WHOLE table row.\n'
+			+ 'Emit the MINIMAL op sequence — if the needed numbers are already in the facts, use PLAIN ops, never table_* ops.\n'
+			+ 'Idioms: "what portion/percentage/share is X of Y?" -> {"steps":["divide"]} · "change / growth rate from A to B?" -> {"steps":["subtract","divide"]} · '
+			+ '"difference between A and B?" -> {"steps":["subtract"]} · "combined total of A and B?" -> {"steps":["add"]} · '
+			+ '"average of row R over the years?" -> {"steps":["table_average"]} · "is A greater than B?" -> {"steps":["greater"]}.\n'
 			+ 'Reply ONLY the JSON object {"steps":[...]}.',
-		user: 'Table:\n' + tbl + '\nQuestion: ' + rec.problem,
+		user: (rec.facts ? 'Facts:\n' + rec.facts + '\n' : '') + 'Table:\n' + tbl + '\nQuestion: ' + rec.problem,
 		maxTokens: 160, temperature: o.temperature || 0,
 		grammar: { jsonSchema: { type: 'object', properties: { steps: { type: 'array', minItems: 1, items: { type: 'string', enum: stepEnum } } }, required: ['steps'] } },
 	});
