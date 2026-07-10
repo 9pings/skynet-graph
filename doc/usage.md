@@ -17,7 +17,7 @@
 
 ```bash
 npm install        # deps only; no compile
-npm test           # 750+ tests (node --test)
+npm test           # 1130+ tests (node --test)
 ```
 
 ```js
@@ -68,8 +68,8 @@ const g = new Graph(seed, { conceptSets: ['common'], autoMount: true }, conceptM
 
 > **Authoring toolkit.** `Graph.authoring` namespaces the R&D/authoring tools (parity with `Graph.providers`),
 > so you reach them without deep paths — e.g. `Graph.authoring.concepts.buildConceptTree`, `.validate`,
-> `.contract`, `.method`, `.abstract`, `.crystallize`, `.library` / `.adapt` (the reuse path:
-> dispatch → **adapt-or-forge** → **antiUnify content-forge** → **blend** = combinational synthesis of a
+> `.contract`, `.method`, `.abstract`, `.crystallize`, `.library` / `.combinator` / `.adapt` (the creative loop:
+> dispatch → mount → **adapt-or-forge** → **antiUnify content-forge** → **blend** = combinational synthesis of a
 > novel composite method, with a bounded `synthesizeByBlend`). Each module also stays importable on its own
 > (`require('skynet-graph/lib/authoring/<module>')`); the barrel is a convenience, not a gate. A runnable, offline
 > end-to-end tour of the creative loop is `examples/creative-loop.js` (`node examples/creative-loop.js`); the
@@ -183,12 +183,6 @@ node bin/sg trace    out.json        # list every concept-apply (rev, concept, t
 node bin/sg show     out.json 3      # full detail of record 3 (prompt / reply / patch / why)
 node bin/sg concepts out.json        # per-concept rollup (count + total ms), heaviest first
 node bin/sg errors   out.json        # applies whose patch flagged an llmError
-
-# OpenAI-compatible proxy DEMO: point any OpenAI client's baseURL at it; a repeated query answers
-# from an exact-match SESSION cache at 0 backend calls (provenance: x-sg-served-from, x-sg-saved).
-# In-memory, per-process — the demo of the gesture, not a knowledge store.
-LLM_BASE=http://localhost:8000 LLM_API=openai node bin/sg serve [--port 4747] [--model id]
-node bin/sg serve --local-model /models/small.gguf     # or an embedded GGUF backend
 ```
 
 ### Logging
@@ -315,6 +309,8 @@ plain-JSON (`init` / `dispatch` / `ask` / `result`), so a cross-instance transpo
 node examples/run-basic.js     # non-LLM stabilization over the real `common` set
 node examples/run-prompt.js    # decompose → synthesize vs a local LLM (set LLM_BASE), writes a trace
 node examples/run-problem.js   # LLM-driven plan decomposition
+node examples/poc/appliance-typed-qa.js              # the typed-QA appliance (combo C1), canned & deterministic
+node examples/poc/appliance-typed-qa.js --local-model <gguf>   # …same, over a real embedded model
 ```
 
 ### LLM backend (`ask`)
@@ -370,7 +366,90 @@ served from an in-memory cache, and VRAM is bounded by **LRU eviction** — set 
 dedicated budget. (In-process analogue of a grant-based GPU orchestrator; the model loader is injectable, so the
 registry/cache/eviction logic is unit-testable without a GPU.)
 
-**Request/response (`sg ask`).** The reasoning-appliance endpoint: `sg ask "<question>" --local-model <gguf>` runs
-the decompose→synthesize answer loop over the embedded model and prints the answer (self-contained, no HTTP
-endpoint; `--json` for the structured result). Programmatically, `session.answer(text)` resolves with `{answer,
-state}` and `Graph.settle(g)` is the promise-returning settle verb.
+**Request/response (`sg ask`).** Two modes. **`sg ask "<q>" --concepts <dir> --local-model <gguf>`** is the
+**typed QA appliance** (`Graph.combos.createAppliance`): the prose→typed front door → the packaged reason loop
+over `concepts/_substrate` → a durable memo → a typed answer OR a **typed refusal that names the missing
+requirement** — the product posture ON by default (fail-closed, memo ON, validator ON, constrained grammar
+OFF). It follows the typed *spec* (refuse when the input isn't faithfully typed) rather than world-plausibility,
+and a repeat question replays from the persisted sub-graph at **0 model calls**. Without `--concepts`, `sg ask`
+runs the legacy best-effort decompose→synthesize loop (kept for compat). `--json` prints the structured result.
+
+Programmatically:
+
+```js
+const Graph = require('skynet-graph');
+const app = Graph.combos.createAppliance({ concepts: './concepts/mydomain', ask: { localModel: 'models/small.gguf' } });
+const r = await app.answer('…');   // { status:'answered', answer, confBand } | { status:'refused', reason, missing:[…], prose }
+```
+
+The underlying bricks stay usable "à nu" — the appliance is a thin, optional assembly. `session.answer(text)`
+(the legacy loop) resolves with `{answer, state}` and `Graph.settle(g)` is the promise-returning settle verb.
+
+### Combos (`Graph.combos.*`) — thin, delivered assemblies over the bricks
+
+Each combo composes existing bricks with the product posture ON by default (fail-closed, memo/store ON,
+validator ON, constrained grammar OFF); none is a required path — the bricks stay usable "à nu".
+
+```js
+// C1 — typed-QA appliance (above): intake → reason-loop → typed refusal → memo.
+const app = Graph.combos.createAppliance({ concepts: './concepts/mydomain', ask });
+
+// C2 — durable workflow runner: a compact spec → a crash-safe, memoizing, auditable run.
+const runner = Graph.combos.createDurableRunner({ store: 'flow.db', runTask });   // file → SQLite, else in-memory
+await runner.run('run-1', spec, records);   // compile → ensureRun → inject → drain (task calls amortize)
+await runner.resume('run-1', spec);          // crash-recovery: reclaim orphaned tokens → finish (exactly-once)
+const { summary } = runner.audit('run-1');   // the derivation forest + verdict + blame
+
+// C3 — learning method library: the always-on cost ladder + a persistent, shippable, LEARNING library.
+const lib = Graph.combos.createLearningLibrary({ signature, forge, store: 'lib.json',
+	learning: true, target, dispatchFacts });   // learning OPT-IN: the FORGE arm becomes dispatch→adapt→forge
+await lib.solve(problem);   // MATCH→RETRIEVE→FORGE→ESCALATE; a warm class replays at 0 calls
+lib.crystallizeFrom(mt.records, { episodeTree, schemaGraph });   // distill methods from a REAL trace → catalog
+lib.drift(problem);         // a fallen premise → re-derive BOTH layers (exact cache + catalog template)
+lib.blame({ contract, failedAtoms });   // localized per-slot blame (admissible iff ONE role) — credit() dual
+const sgc = lib.pack({ name: 'methods', version: 'v1' });   // ship the warm library (version-gated)
+
+// C4 — the reactive KG (the engine's original Use-1): a trivial preset over fromDirs (builtins ON).
+const kg = Graph.combos.reactiveKG({ concepts: './concepts/common', seed });   // rule-KG + geo, usable à nu
+
+// C5 — supervised self-modification (OPT-IN, guarded): edits the LIVE rules; rollbackTo is the guarantee.
+const sm = Graph.combos.createSelfMod({ graph, propose });   // author() needs a proposer (the "judge")
+await sm.author({ goal });          // CEGIS: propose→validate→install→test→refine
+sm.rollbackTo(sm.revisions()[0]);   // reversibility — restore any prior coherent revision
+
+// C6 — the local-first PROXY CACHE / DISTILLER (the main use case): a verified stock in front of a
+// FRONTIER model. Covered → served local (0 frontier calls); miss → escalate + enrich; 0 hallucination.
+const px = Graph.combos.createProxyCache({
+	frontierAsk: Graph.combos.makeFrontierAsk(chatAsk),   // any ({system,user}) -> text backend = the truth
+	store: './stock.json', retention: true,               // durable cross-restart + usage-tracked eviction
+	...Graph.combos.makeLocalCoverage({ localAsk })       // opt-in: a small model snaps paraphrases to one key
+});
+const { answer, source } = await px.answer('What is the capital of France?');   // source: 'local'|'frontier'
+```
+
+## 10. Serving surfaces — OpenAI-compatible endpoint & MCP tools
+
+The library serves its main use cases over two ZERO-INTEGRATION surfaces (both thin assemblies over the
+combos; both zero-dep):
+
+```bash
+# 1) sg serve — an OpenAI-COMPATIBLE endpoint over the C6 proxy. Point ANY OpenAI client's baseURL at it:
+sg serve --frontier-model <path.gguf> --store ./stock.json            # → http://127.0.0.1:4747/v1
+#   const client = new OpenAI({ baseURL: 'http://127.0.0.1:4747/v1', apiKey: 'sg-local' });
+# A covered query is served from the verified local stock at 0 frontier calls; provenance rides EVERY
+# completion (headers x-sg-served-from/-cost/-coverage/-saved + usage.sg_*). stream:true is honored
+# (simulated SSE). Add --studio to open the visual debugger on port+1 (live request lines in its trace
+# panel); Ctrl-C prints the economy report.
+
+# 2) sg mcp — the same capabilities as MCP TOOLS for an agent host (stdio JSON-RPC):
+claude mcp add sg -- node bin/sg mcp --frontier-model <path.gguf> --store ./stock.json
+# tools: ask (answer OR a STRUCTURED typed refusal naming the missing requirement), drift, metrics,
+# lattice_load (learning through the version-gated admission — there is NO direct-write tool),
+# methods_describe, lattice_rings, trace_tail (debug by applyId).
+
+# 3) sg flow run — a durable C2 workflow from a JS module (spec + tasks are code):
+sg flow run examples/poc/durable-flow.js --store ./flow.sqlite        # --resume = exactly-once recovery
+```
+
+Runnable, deterministic, GPU-free demos of every combo and both surfaces live in `examples/bootstrap/`
+(one file per use-case class, each printing the guarantee it demonstrates — run them with plain `node`).

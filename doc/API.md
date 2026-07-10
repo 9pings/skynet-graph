@@ -494,6 +494,25 @@ log records re-emit into it, tagged `{worker:true}`.
 
 `Graph.createLogger({ label, level, onRecord, capacity, console })` builds a logger standalone.
 
+## Serving surfaces (`lib/sg/serve.js`, `lib/sg/mcp.js`)
+
+Two zero-dep, zero-integration fronts over the combos (full guide: `doc/usage.md` §10):
+
+- **`sg serve`** — an OpenAI-compatible endpoint (`POST /v1/chat/completions`, `GET /v1/models`) over the
+  C6 proxy cache. `createServeHandler({proxy, model, onAnswer})` is the PURE request handler (stub-testable);
+  `startServeServer({handler, port, host})` is the node:http wrapper. Provenance on every completion:
+  headers `x-sg-served-from|arm|cost|coverage|saved` + `usage.sg_*` mirror; `stream:true` is simulated SSE.
+  The v1 wire contract: the query = the LAST user turn (a QA cache, not a dialog engine).
+- **`sg mcp`** — an MCP tools server (stdio JSON-RPC). `createMcpServer({tools, serverInfo})` is the pure
+  dispatcher; `defaultTools({proxy, appliance, logger})` wires `ask` (answer OR a STRUCTURED typed refusal),
+  `drift`, `metrics`, `lattice_load` (growth through `loadLattice` — the only registry write path),
+  `methods_describe`, `lattice_rings`, `trace_tail`; `startMcpStdio` is the line-framed transport.
+- **`sg flow run <module.js>`** — the C2 durable runner as a CLI; the module exports
+  `{ spec, runTask | makeRunTask(), keyOf?, STREAM? }`.
+- **Intake depth back-check** — `require('lib/providers/intake.js').makeProseBackCheck({ask, proseOf?,
+  onBlame?})` → a ready-made independent verifier for `createIntake({backCheck})` (a 'fail' downgrades the
+  intake to `untyped`; judged-wrong keys surface via `onBlame`).
+
 ## Running in-repo
 
 ```bash

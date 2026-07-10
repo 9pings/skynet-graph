@@ -132,6 +132,40 @@ try {
 	});
 	if ( !retracted ) errors.push('T15: retraction was not detected/emitted');
 
+	// T16: LEARNING panel (track 4) — declare a key, propose an alias THROUGH the gate (admitted, ring row
+	//      appears), propose a conflicting alias (rejected verdict with the reason), retract (row gone,
+	//      the corrected proposal becomes admissible).
+	await page.evaluate(() => { const b = [...document.querySelectorAll('.viewtoggle button')].find(( x ) => x.textContent.trim() === 'learning'); if ( b ) b.click(); });
+	await page.waitForSelector('.learning', { timeout: 8000 });
+	const setVal = ( sel, val ) => page.evaluate(( s, v ) => {
+		const i = document.querySelector(s);
+		const set = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+		set.call(i, v); i.dispatchEvent(new Event('input', { bubbles: true }));
+		i.dispatchEvent(new Event('change', { bubbles: true }));
+	}, sel, val);
+	await setVal('.lp-key', 'unit');
+	await setVal('.lp-enum', 'celsius, kelvin');
+	await page.evaluate(() => document.querySelector('.lp-declare').click());
+	await page.waitForFunction(() => document.querySelectorAll('.lp-kchip').length === 1, { timeout: 5000 });
+	await page.select('.lp-pkey', 'unit');
+	await page.select('.lp-pmember', 'celsius');
+	await setVal('.lp-palias', 'centigrade');
+	await page.evaluate(() => document.querySelector('.lp-propose').click());
+	await page.waitForFunction(() => document.querySelectorAll('.lp-ring').length === 1, { timeout: 5000 });
+	const admittedVerdict = await page.evaluate(() => { const v = document.querySelector('.lp-verdict'); return v ? v.className.includes('ok') && /ADMITTED/.test(v.textContent) : false; });
+	// the CONFLICT: the same alias proposed onto the OTHER member must be rejected by the confluence gate.
+	await page.select('.lp-pmember', 'kelvin');
+	await setVal('.lp-palias', 'centigrade');
+	await page.evaluate(() => document.querySelector('.lp-propose').click());
+	await page.waitForFunction(() => { const v = document.querySelector('.lp-verdict'); return v && /REJECTED/.test(v.textContent); }, { timeout: 5000 });
+	const rejectedReason = await page.evaluate(() => /confluence/.test(document.querySelector('.lp-verdict').textContent));
+	const ringsAfterConflict = await page.evaluate(() => document.querySelectorAll('.lp-ring').length);
+	// RETRACT — the row goes away (recoverability).
+	await page.evaluate(() => document.querySelector('.lp-retract').click());
+	await page.waitForFunction(() => document.querySelectorAll('.lp-ring').length === 0, { timeout: 5000 });
+	const learningOK = admittedVerdict && rejectedReason && ringsAfterConflict === 1;
+	if ( !learningOK ) errors.push('T16: learning panel failed (admitted=' + admittedVerdict + ' rejectedReason=' + rejectedReason + ' rings=' + ringsAfterConflict + ')');
+
 	await page.evaluate(() => { const b = [...document.querySelectorAll('.viewtoggle button')].find(( x ) => x.textContent.trim() === 'data'); if ( b ) b.click(); });
 	await page.select('.lyt select', 'elk');
 	await new Promise(( r ) => setTimeout(r, 600));
@@ -140,6 +174,7 @@ try {
 	console.log('T13 grammar: nodes=' + gNodes + ' edges=' + gEdges);
 	console.log('T14 corpus: exported=' + JSON.stringify(exported) + ' reimported=' + reimported);
 	console.log('T15 retraction: detected=' + retracted);
+	console.log('T16 learning: admitted=' + admittedVerdict + ' conflictRejected=' + rejectedReason + ' retractWorks=' + learningOK);
 	console.log('T9 timeline: checkpoints=' + ckpts + ' diffShown=' + diffShown + ' noteAfterRollback=' + noteAfter);
 	console.log('T10 editor: validation=' + validation + ' closedAfterApply=' + editorClosed);
 	console.log('T11 forks: activeAfterFork=' + activeAfterFork + ' forkCount=' + forkCount + ' forkNodeMerged=' + forkNodeMerged);

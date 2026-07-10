@@ -19,43 +19,11 @@ falls</b>. A forward-chaining loop stabilizes the graph to a fixpoint; every rev
 
 ---
 
-## Try it — the sandbox
-
-The repo IS the sandbox: a visual **Studio** to author, import and stress **your own concept grammars**
-(personal or professional) on a live, revision-snapshotted reasoning graph.
-
-```bash
-git clone https://github.com/9pings/skynet-graph && cd skynet-graph
-npm install          # no build step — pure CommonJS, Node 18+
-node bin/sg studio   # → http://localhost:4848
-```
-
-In the Studio: pick a corpus from the shipped **gallery** (`common` travel/geo · `clinical` ·
-`supply` · `_substrate`), or **import your own `.sgc` corpus** — then seed data and *watch* the rules
-cast, retract in cascade, and checkpoint every revision (timeline, rollback, diff, forks, live concept
-editing with author-time validation). Export your grammar as a portable `.sgc` when it works.
-
-**Bring your own LLM (optional — the substrate runs without one).** The generic `LLM::complete`
-provider takes any backend: an embedded local GGUF (`node-llama-cpp`), or any OpenAI-compatible
-endpoint — vLLM, llama.cpp, LM-Studio, Ollama, HF router, DeepSeek, Qwen/DashScope, Moonshot… — via
-`LLM_BASE`/`LLM_API=openai`, or the Claude API (`LLM_API=anthropic`, default). An in-Studio backend
-picker is on the roadmap.
-
-**Serve it — the OpenAI-endpoint demo.** `sg serve` puts an OpenAI-compatible endpoint in front of
-your backend: point any OpenAI client's `baseURL` at it (zero integration code) and a repeated query
-answers from an exact-match session cache at **0 backend calls** — every response carries provenance
-headers (`x-sg-served-from: cache|backend`, `x-sg-saved`).
-
-```bash
-LLM_BASE=http://localhost:8000 LLM_API=openai node bin/sg serve   # → baseURL http://127.0.0.1:4747/v1
-```
-
-This is the demo of the gesture — an in-memory session cache, gone on restart. More advanced & scalable systems are on the roadmap.
-
 ## Two ways to use it
 
 The library is **one engine with two front doors**. They share the same core; you can stop at the first.
 
+![the two uses](doc/img/two-uses.svg)
 
 ### Use 1 — the substrate: a *versionable, git-like reasoning orchestrator*
 
@@ -84,7 +52,7 @@ space of problems, that **un-learns** a method when its premise drifts.
 - **Build / execute separation** — the **graph builds + tests** the method (the belief-view: decidable, traceable, defeasible); a separate **durable workflow engine executes** a compiled translation (crash-resumable, at scale).
 - **Soundness under composition** — methods compose on their typed contracts; a wrong learned contract is **asserted at runtime, blamed, and revised** (the un-learn moat no RAG / skill-library has).
 
-→ the two preprints under **Papers** below carry the full design + measurements; their replay artifacts ship in this repo.
+→ **[doc/concept-as-graph.md](doc/concept-as-graph.md)**
 
 ---
 
@@ -129,7 +97,7 @@ process restart at **0 calls**. *(Both bounds are proven by accounting + a fair 
 
 ```bash
 npm install        # no build step — pure CommonJS, Node 18+
-npm test           # 750+ tests
+npm test           # 1130+ tests
 
 node bin/sg run --concepts ./concepts --builtins --seed ./seed.json
 ```
@@ -153,6 +121,25 @@ const g = Graph.fromDirs({
 The `LLM::complete` provider is backend-agnostic: inject any async `ask`, or use the bundled client
 (`LLM_API=anthropic`, default; `LLM_API=openai` for vLLM / llama.cpp / LM-Studio).
 
+### Serve it — zero-integration surfaces
+
+```bash
+# OpenAI-COMPATIBLE endpoint over the local-first proxy cache (C6): point ANY OpenAI client's baseURL
+# at it — a covered query is served from the verified local stock at 0 frontier calls, a miss escalates
+# and enriches. Provenance on every completion (x-sg-* headers); 0 hallucination by construction.
+sg serve --frontier-model <path.gguf> --store ./stock.json          # → http://127.0.0.1:4747/v1
+
+# The same capabilities as MCP TOOLS for an agent host (typed refusals arrive STRUCTURED):
+claude mcp add sg -- node bin/sg mcp --frontier-model <path.gguf> --store ./stock.json
+
+# One-command typed QA, and the visual debugger:
+sg ask "your question" --concepts ./concepts --local-model <path.gguf>
+sg studio            # (or: sg serve --studio — live request lines in its trace panel)
+```
+
+Runnable, deterministic, GPU-free demos of every use-case class live in **`examples/bootstrap/`** —
+one short file per combo and per surface, each printing the guarantee it demonstrates.
+
 ## Docs
 
 **Use 1 — the substrate**
@@ -168,26 +155,13 @@ The `LLM::complete` provider is backend-agnostic: inject any async `ask`, or use
 
 | | |
 |---|---|
+| [doc/concept-as-graph.md](doc/concept-as-graph.md) | The conception: the two-faced method, bounded context by contract, forge / reuse, the durable executor, the un-learn moat, the creative loop (library dispatch → mount → adapt-or-forge), and the **Construct → Method flex programme** (interface-only dispatch · multi-path Construct · bidirectional widen · the ancestry oracle behind the bag-separator Σ_sep gate) |
 | [doc/MODELISATION.md](doc/MODELISATION.md) | The full model + R&D roadmap |
-| the papers (**Reproduce the papers** below) | The target system in full — the two-faced method, bounded context by contract, forge / reuse, the un-learn moat — with the measurements and their replay artifacts |
+| [doc/concept-learning.md](doc/concept-learning.md) | *(optional, shelved)* training concept-populations at the fixpoint |
 
 > **Heads-up.** Active R&D. Use 1 is solid and tested; Use 2 is an advancing conception with measured PoCs (not a
 > product). **How best to organize concepts is still open** — treat the shipped `concepts/` sets as illustrative,
 > not a recommended ontology. `examples/poc/` holds the runnable problem-solving, durable-executor, and contract demos.
-
-## Reproduce the papers
-
-Both preprints ship their reproducibility package IN this repo — every table replays **bit-for-bit,
-no GPU** (model calls re-served from content-addressed durable memos):
-
-```bash
-node artifact/paper-lattice/experiments/2026-07-03-restriction-learning/stream-lab.js   # §5 lab: 126/126 checks
-node artifact/paper-dll/e1-transfer.js    # E1 — typed transfer + the #30 soundness ablation
-node artifact/paper-dll/e3-compose.js     # E3 — composition kill-criteria (0 false-admit)
-```
-
-Full campaign lists: [`artifact/paper-lattice/README.md`](artifact/paper-lattice/README.md) ·
-[`artifact/paper-dll/README.md`](artifact/paper-dll/README.md).
 
 ## Papers
 
@@ -229,16 +203,6 @@ content-addressed durable memos: every table replays bit-for-bit without a GPU.
 }
 ```
 
-## Managed & Pro
-
-This repo (the engine + Studio sandbox, AGPL) is free and self-sufficient. On top of it we build a
-**professional layer** for teams: an advanced Studio (method-library panels, live proxy monitoring,
-multi-user) and **scaling features** (cross-instance distribution). Partner enquiries welcome.
-
-Contact: <pp9ping@gmail.com>.
-
 ## License
 
 GNU AGPL-3.0-or-later — see [LICENSE](./LICENSE). © 2026 Nathanael Braun &lt;pp9ping@gmail.com&gt;
-Contributions require a CLA (see [CONTRIBUTING.md](./CONTRIBUTING.md)) so the project can offer
-commercial licensing alongside the AGPL.

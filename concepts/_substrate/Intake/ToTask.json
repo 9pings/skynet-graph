@@ -1,0 +1,22 @@
+{
+  // Intake→Task BRIDGE (roadmap P1.a / GAP B of doc/WIP/2026-07-05-combos-design.md §11).
+  //
+  // A TYPED intake is the prose→typed front door — but on its own it is a DEAD END: the answer
+  // loop (Task → Complexity → Answer / Rollup) runs on a Task *Segment*, and nothing converts a
+  // typed Intake node into one. Without this concept the intake and the answer loop are two
+  // disconnected sub-graphs, so an appliance can only ever emit typed refusals, never answers.
+  //
+  // This closes the gap: on a FAITHFUL (typed) intake it seeds a root Task Segment carrying the
+  // question, so the loop has something to run on. Gated on the DISCRETE `IntakeStatus` (never the
+  // untracked prose): an untyped/partial intake does NOT cast, so a barrier miss stays a visible
+  // typed refusal (IntakeStatus + IntakeMissing) instead of silently seeding a task. If the typing
+  // premise later falls, JTMS un-casts this and its whole sub-tree (the seeded task + its answers).
+  //
+  // The seed TEMPLATE is the provider's job — AI::seedTask (lib/providers/reason-loop.js) reads the
+  // node's rawText and emits the origin/goal nodes + the `_task` Segment. Self-flags `ToTask`
+  // (provider-cast-marker gotcha). No answer logic here: this concept ORIENTS (a typed question is
+  // a unit of work); the decompose/answer is the AI:: loop.
+  "require": ["Intake"],
+  "ensure": ["$IntakeStatus == 'typed'"],
+  "provider": ["AI::seedTask"]
+}

@@ -114,3 +114,33 @@ test('never memoize a miss: through the REAL provider cache, untyped is not stor
 	assert.equal(cache.stats.hits, before + 1, 'a repeat typed intake HITS the store (0 model cost)');
 	assert.equal(hit2.IntakeStatus, 'typed');
 });
+
+// ── <name>Missing: the REQUIRED-only subset of the canon misses (the decision-bearing keys a
+//    typed refusal names). `<name>CanonMiss` carries ALL misses; `<name>Missing` is required∩miss.
+const SEV = { severity: { enum: ['low', 'high'] } };
+
+test('IntakeMissing: a REQUIRED out-of-vocab key surfaces the decision-bearing subset (untyped)', async () => {
+	const r = await runIntake(JSON.stringify({ severity: 'gibberish', prose: 'p' }), { required: ['severity'], facts: SEV });
+	assert.equal(r.IntakeStatus, 'untyped', 'a required miss makes the intake untyped');
+	assert.ok(Array.isArray(r.IntakeMissing), 'IntakeMissing emitted as an array');
+	assert.deepEqual(r.IntakeMissing, ['severity'], 'IntakeMissing = the required subset that missed');
+	assert.deepEqual(r.IntakeCanonMiss, ['severity'], 'CanonMiss carries the full miss set (here identical)');
+	assert.equal(r.severity, null, 'the out-of-vocab value fell to the default, never a wrong snap');
+});
+
+test('IntakeMissing: required-only subset — an OPTIONAL miss is in CanonMiss but NOT in Missing (partial)', async () => {
+	const facts = { severity: { enum: ['low', 'high'] }, area: { enum: ['x', 'y'] } };   // area is NOT required
+	const r = await runIntake(JSON.stringify({ severity: 'high', area: 'zzz', prose: 'p' }), { required: ['severity'], facts });
+	assert.equal(r.IntakeStatus, 'partial', 'an optional-only miss is partial, not untyped');
+	assert.deepEqual(r.IntakeCanonMiss, ['area'], 'CanonMiss carries the optional miss');
+	assert.equal(r.IntakeMissing, undefined, 'no REQUIRED miss → IntakeMissing absent (required-only subset)');
+	assert.equal(r.severity, 'high', 'the required key still snapped');
+});
+
+test('IntakeMissing: a clean in-vocab intake is typed and emits NO IntakeMissing (negative control)', async () => {
+	const r = await runIntake(JSON.stringify({ severity: 'high', prose: 'p' }), { required: ['severity'], facts: SEV });
+	assert.equal(r.IntakeStatus, 'typed');
+	assert.equal(r.IntakeMissing, undefined, 'a clean typed intake never emits IntakeMissing');
+	assert.equal(r.IntakeCanonMiss, undefined, 'nor CanonMiss');
+	assert.equal(r.severity, 'high', 'the required key snapped');
+});
