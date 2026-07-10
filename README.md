@@ -1,9 +1,16 @@
 <h1 align="center">skynet-graph</h1>
 
 <p align="center">
-A neurosymbolic <b>reasoning graph</b>: typed-fact nodes and edges, enriched by declarative <b>concept</b>
-rules that cast facts when their preconditions hold and <b>retract them, cascading, when a premise later
-falls</b>. A forward-chaining loop stabilizes the graph to a fixpoint; every revision is snapshotted.
+<b>Make a small local model work a big task the way humans always have — piece by piece.</b><br>
+The engine cuts the task into typed pieces, <i>zooms</i> the model onto one piece at a time with exactly
+the context it needs, keeps every result as a typed fact with provenance so a late correction re-derives
+for free, and steers the model's output against a certified method vocabulary. Nothing leaves the machine.
+</p>
+
+<p align="center">
+Under the hood: a neurosymbolic <b>reasoning graph</b> — typed-fact nodes and edges, enriched by declarative
+<b>concept</b> rules that cast facts when their preconditions hold and <b>retract them, cascading, when a
+premise later falls</b>. A forward-chaining loop stabilizes the graph to a fixpoint; every revision is snapshotted.
 </p>
 
 <p align="center">
@@ -18,6 +25,40 @@ falls</b>. A forward-chaining loop stabilizes the graph to a fixpoint; every rev
 </p>
 
 ---
+
+## What it does for a small local model — four capabilities, measured
+
+Small local models are fine on a *surface* step; they derail when a request makes them **compose** several
+things at once. This library puts them in front of one surface at a time — and the effect is measured on
+real GPUs, with a standing rule: a refuted claim is removed from this page the day it falls.
+
+**Proof degrees:** **[live]** = measured on GPU with real local models · **[measured]** = deterministic,
+replayable without a model · **[PoC]** = an accounting demonstration, not a benchmark.
+
+| Capability | What happens | Measured |
+|---|---|---|
+| **Repair low-quants** | a menu of *certified* method shapes steers a heavily-quantized model's output — it recovers most of what compression broke, at **zero big-model calls** | SQL, covered queries: low-quant 8→**63 %** (high-quant 46→92 %), N=201 · finance, traffic view: 7→**62 %** (20→78 %), N=120 · [live] |
+| **Task memory that reopens** | task state = typed facts with provenance (JTMS): a drifted premise **retracts its consequences in cascade**, and a "done" step **reopens itself with the reason** — it never rots | recomputable drift re-derives at **0 model calls**, selectively (independent facts untouched); crash-replay is bit-identical at 0 calls [live] · 100 % recall at **894 constant tokens/call** vs 50 % at 4 286 for a carry-everything baseline [PoC] |
+| **Piece-by-piece (the zoom)** | the task becomes a typed DAG; each piece is served with ONLY its bounded neighbourhood (parent goal + resolved inputs + what to produce) — the model never sees the whole | a decomposed plan **beats full-context** processing 0.93 vs 0.73 at half the peak context [live] · composite queries unreachable in one shot (0 % strict) reach **55 %** by recursive split, 0 false routes on 24 controls [live, n=22] |
+| **An external think mode** | the model proposes; the graph **refutes with the reason** and enumerates the admissible options (tested through its own gate, never guessed); the model revises — bounded, with honest refusal | one dialogue round: 17/24 → **24/24** correct at zero false admissions [live] · a hallucination trap converges in 2 rounds; an over-constrained input is refused, not invented [live] |
+
+All four run assembled in **one continuous end-to-end demo** — a 9.5 GB quant handling a real annual-report
+analysis: typed plan, per-step gated admission with cell-level provenance, an erratum retracting and
+re-deriving selectively at 0 calls, a withdrawn value reopening its tasks, crash-replay bit-identical. [live]
+
+The certified vocabulary these capabilities lean on is **fuel, not the headline**: a *forge* (`sg forge`)
+builds `.sgc` method stocks from any dataset that has an executable oracle, behind a **zero-false-admission**
+gate (held across every campaign: 0 false shapes admitted, 3 datasets, 2 forge models) — each stock ships
+with an auditable sha256 validation dossier.
+
+**What is honestly NOT claimed** (each of these was tested, and the page follows the results):
+- the guarantee is **at admission, not at execution** — at use time the stock *orients*; a suggestion is not
+  a correctness proof (a runtime "trusted answers" tier was tested and **refuted** — removed);
+- the win lives on the **typed, recurrent slice** of the work: free prose and genuinely novel reasoning stay
+  in the model, without guarantee — a design boundary, not a bug;
+- forge yield is a **per-domain parameter** (not model-invariant — refuted), and amortization is a property
+  of the *domain's* stereotypy;
+- the small model executes surface steps well; it is **not** the task cutter (measured limit).
 
 ## Two ways to use it
 
@@ -139,6 +180,14 @@ sg studio            # (or: sg serve --studio — live request lines in its trac
 
 Runnable, deterministic, GPU-free demos of every use-case class live in **`examples/bootstrap/`** —
 one short file per combo and per surface, each printing the guarantee it demonstrates.
+
+> **The ready-made appliance** — if you just want the endpoint + local `.sgc` stock rooms without embedding
+> the library, use **[skynet-dequantizer](../skynet-dequantizer)**: `skynet-dequantizer serve` (OpenAI-compatible,
+> no-egress by default, proven on real sockets) · `skynet-dequantizer rooms list|import|export|freeze` (your own
+> shareable stock mini-repos — no catalog, no subscription, sha256 dossiers).
+>
+> **For AI agents reading this repo**: `CLAUDE.md` at the root is the machine-oriented map (architecture,
+> commands, gotchas); the MCP surface is one command away (`claude mcp add sg -- node bin/sg mcp …`).
 
 ## Docs
 
