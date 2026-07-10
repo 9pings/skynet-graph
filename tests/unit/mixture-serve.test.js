@@ -133,3 +133,91 @@ test('guards — missing certifiedShapes or small throw', () => {
 	assert.throws(() => createMixtureServe({ certifiedShapes: SHAPES }), /small/);
 	assert.throws(() => makeSurfaceDispatch({}), /anchors/);
 });
+
+// --- PRE-ROUTING (the Fable-review lever, 2026-07-09: gate-after-Q2 +28% vs pre-route +2% / perfect −18%).
+// A text-only predictor routes predicted-UNCOVERED queries straight to the big tier, skipping the wasted small pass.
+
+test('preRoute — predicted-uncovered goes STRAIGHT to big: the small pass is skipped entirely', async () => {
+	let smallCalls = 0, bigCalls = 0;
+	const mx = createMixtureServe({
+		certifiedShapes: SHAPES,
+		small: async () => { smallCalls++; return 'aggregate>select'; },
+		big: async () => { bigCalls++; return 'order>select'; },
+		predict: () => 'group>having>aggregate>select',            // predicted shape ∉ certified vocabulary
+		preRoute: true
+	});
+	const r = await mx.serve('q-uncovered');
+	assert.equal(smallCalls, 0, 'the small tier is never paid for a predicted-uncovered query');
+	assert.equal(bigCalls, 1);
+	assert.equal(r.tier, 'escalated');
+	assert.equal(r.preRouted, true, 'provenance records the direct route (no small pass)');
+	assert.equal(r.trusted, false, 'a pre-routed serve is never local-trusted (0-false invariant untouched)');
+	assert.equal(mx.stats.preRouted, 1);
+	assert.equal(mx.stats.escalated, 1);
+});
+
+test('preRoute — predicted-covered takes the NORMAL small path (gate still decides trust)', async () => {
+	let smallCalls = 0, bigCalls = 0;
+	const mx = createMixtureServe({
+		certifiedShapes: SHAPES,
+		small: async () => { smallCalls++; return 'aggregate>select'; },
+		big: async () => { bigCalls++; return 'x'; },
+		predict: () => 'aggregate>select',                         // predicted ∈ certified → small path
+		preRoute: true
+	});
+	const r = await mx.serve('q-covered');
+	assert.equal(smallCalls, 1, 'a predicted-covered query pays the small pass');
+	assert.equal(bigCalls, 0, 'small agrees with the predictor → trusted, no big call');
+	assert.equal(r.tier, 'local-trusted');
+	assert.equal(r.preRouted, undefined, 'a gate-path serve carries no preRouted mark');
+	assert.equal(mx.stats.preRouted, 0);
+});
+
+test('preRoute — predict is computed ONCE per serve (reused by the trust-gate, not recomputed)', async () => {
+	let predictCalls = 0;
+	const mx = createMixtureServe({
+		certifiedShapes: SHAPES,
+		small: async () => 'aggregate>select',
+		big: async () => 'x',
+		predict: () => { predictCalls++; return 'aggregate>select'; },
+		preRoute: true
+	});
+	await mx.serve('q');
+	assert.equal(predictCalls, 1, 'one predict call serves both the router and the cross-agreement gate');
+});
+
+test('preRoute — a custom router function decides, receiving the predicted shape', async () => {
+	let seen = null, bigCalls = 0;
+	const mx = createMixtureServe({
+		certifiedShapes: SHAPES,
+		small: async () => 'aggregate>select',
+		big: async () => { bigCalls++; return 'x'; },
+		predict: () => 'aggregate>select',                         // covered — but the custom router overrides
+		preRoute: ( q, ctx ) => { seen = { q, ctx }; return true; }
+	});
+	const r = await mx.serve('qz');
+	assert.equal(r.preRouted, true, 'the custom router verdict routes direct');
+	assert.equal(bigCalls, 1);
+	assert.equal(seen.q, 'qz');
+	assert.equal(seen.ctx.predicted, 'aggregate>select', 'the router sees the predicted shape');
+});
+
+test('preRoute — without a big tier the router is inert (fail-safe: the small path still serves)', async () => {
+	let smallCalls = 0;
+	const mx = createMixtureServe({
+		certifiedShapes: SHAPES,
+		small: async () => { smallCalls++; return 'aggregate>select'; },
+		predict: () => 'group>having>aggregate>select',            // predicted-uncovered, but nowhere to route
+		preRoute: true
+	});
+	const r = await mx.serve('q');
+	assert.equal(smallCalls, 1, 'no big tier → the query still gets a local answer');
+	assert.equal(r.tier, 'local-untrusted');
+	assert.equal(mx.stats.preRouted, 0);
+});
+
+test('preRoute:true without predict throws at construction (a router needs a text-only signal)', () => {
+	assert.throws(() => createMixtureServe({
+		certifiedShapes: SHAPES, small: async () => 'x', big: async () => 'y', preRoute: true
+	}), /preRoute/);
+});
