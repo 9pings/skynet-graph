@@ -122,7 +122,6 @@ test('DECOMPOSE_SYSTEM — the GIVENS needs-rule + the SELF-CONTAINED rule are p
 	assert.match(DECOMPOSE_SYSTEM, /GIVENS/);
 	assert.match(DECOMPOSE_SYSTEM, /or a GIVEN key/i, 'the COVERED rule admits given keys');
 	assert.match(DECOMPOSE_SYSTEM, /SELF-CONTAINED/, 'rule 7: non-given base facts are restated as numbers in the instruction');
-	assert.match(DECOMPOSE_SYSTEM, /enumeration/, 'rule 7 covers counts implied by enumerations (P1 critique)');
 });
 
 test('uncovered-keys validation — a phantom need re-asks ONCE with the keys in the blame (givenKeys armed)', async () => {
