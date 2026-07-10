@@ -46,6 +46,9 @@ test('cellGivens — numeric cells keyed by position + row label; accounting (1,
 	assert.deepEqual(g.map(( x ) => [x.key, x.value] ), [
 		['c1_1_revenue', 1500], ['c1_2_revenue', 2000], ['c2_1_net', -300],
 	]);
+	// the FinQA dup-in-parens surface: "-17.1 ( 17.1 )" / "$ -23158 ( 23158 )" / "10% ( 10 % )" keep the head value
+	const fq = cellGivens([['', 'x'], ['retail', '-17.1 ( 17.1 )'], ['fx', '$ -23158 ( 23158 )'], ['rate', '10% ( 10 % )']]);
+	assert.deepEqual(fq.map(( x ) => x.value ), [-17.1, -23158, 10]);
 	assert.equal(g[0].snippet, 'revenue · 2007');
 	assert.deepEqual(g[2].cell, { r: 2, c: 1 });
 });
