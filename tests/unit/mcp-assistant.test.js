@@ -103,3 +103,31 @@ test('graph_instances + graph_invoke — the P3 pool lifecycle: list, invoke by 
 	assert.equal(evicted, 'k2');
 	assert.equal(rel.released, 'k2');
 });
+
+// --- stockWiring: a .sgc methods bundle → the hint/gate wirings (the cli.js `--stock` bridge) ---
+const { stockWiring } = require('../../lib/sg/mcp.js');
+
+test('stockWiring — certified shapes come from structure.taskKind (deduped, sorted); hint + propose wire up', async () => {
+	const bundle = { format: 'sgc', kind: 'methods', methods: [
+		{ structure: { taskKind: 'subtract>divide' } },
+		{ structure: { taskKind: 'divide' } },
+		{ structure: { taskKind: 'subtract>divide' } },        // dup → dedup
+		{ structure: {} },                                     // no taskKind → skipped
+	] };
+	const w = stockWiring(bundle);
+	assert.deepEqual(w.hints.certifiedShapes, ['divide', 'subtract>divide']);
+	const tools = defaultTools(w);
+	const hint = await by(tools, 'hint').call({ query: 'q' });
+	assert.deepEqual(hint.menu, ['divide', 'subtract>divide']);
+	const ok = await by(tools, 'propose').call({ proposal: { shape: 'divide' } });
+	assert.equal(ok.status, 'admitted');
+	const ko = await by(tools, 'propose').call({ proposal: { shape: 'nope' } });
+	assert.equal(ko.status, 'refused');
+	assert.match(ko.blame, /référentiel|referential|certified/i);
+	assert.deepEqual(ko.options.map(( o ) => o.shape), ['divide', 'subtract>divide'], 'options = the certified shapes, gate-tested');
+});
+
+test('stockWiring — an empty/invalid bundle throws (fail-fast, no silent empty referential)', () => {
+	assert.throws(() => stockWiring({ methods: [] }), /stock/i);
+	assert.throws(() => stockWiring(null), /stock/i);
+});
