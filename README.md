@@ -182,7 +182,7 @@ Runnable, deterministic, GPU-free demos of every use-case class live in **`examp
 one short file per combo and per surface, each printing the guarantee it demonstrates.
 
 > **The ready-made appliance** — if you just want the endpoint + local `.sgc` stock rooms without embedding
-> the library, use **[skynet-dequantizer](../skynet-dequantizer)**: `skynet-dequantizer serve` (OpenAI-compatible,
+> the library, use **[skynet-dequantizer](https://github.com/9pings/skynet-dequantizer)**: `skynet-dequantizer serve` (OpenAI-compatible,
 > no-egress by default, proven on real sockets) · `skynet-dequantizer rooms list|import|export|freeze` (your own
 > shareable stock mini-repos — no catalog, no subscription, sha256 dossiers).
 >
