@@ -118,9 +118,38 @@ test('minSteps — a too-coarse split re-asks ONCE with a blame, keeps the large
 	assert.equal(calls3.length, 1);
 });
 
-test('DECOMPOSE_SYSTEM — the GIVENS needs-rule is part of the contract', () => {
+test('DECOMPOSE_SYSTEM — the GIVENS needs-rule + the SELF-CONTAINED rule are part of the contract', () => {
 	assert.match(DECOMPOSE_SYSTEM, /GIVENS/);
 	assert.match(DECOMPOSE_SYSTEM, /or a GIVEN key/i, 'the COVERED rule admits given keys');
+	assert.match(DECOMPOSE_SYSTEM, /SELF-CONTAINED/, 'rule 7: non-given base facts are restated as numbers in the instruction');
+});
+
+test('uncovered-keys validation — a phantom need re-asks ONCE with the keys in the blame (givenKeys armed)', async () => {
+	const calls = [];
+	const phantom = JSON.stringify([
+		{ produces: 'purple', stepKind: 'compute', instruction: 'increase yellow by 80%', needs: ['yellow_count'] },
+		{ produces: 'total', stepKind: 'compute', instruction: 'sum', needs: ['purple'] },
+	]);
+	const fixed = JSON.stringify([
+		{ produces: 'purple', stepKind: 'compute', instruction: 'increase 10 by 80%', needs: ['g1_yellow'] },
+		{ produces: 'total', stepKind: 'compute', instruction: 'sum', needs: ['purple', 'g1_yellow'] },
+	]);
+	const ask = async ({ system }) => { calls.push(system); return calls.length === 1 ? phantom : fixed; };
+	let info = null;
+	const leaves = await makeDagDecompose({ ask, stepKinds: ['compute'], givenKeys: ['g1_yellow'], onReask: ( i ) => { info = i; } })('task');
+	assert.equal(calls.length, 2, 'one bounded re-ask');
+	assert.match(calls[1], /yellow_count/, 'the blame names the phantom key');
+	assert.deepEqual(info.uncovered, ['yellow_count']);
+	assert.deepEqual(leaves.map(( l ) => l.readsExtra ), [['g1_yellow'], ['purple', 'g1_yellow']], 'the fixed plan is kept');
+	// NEG: without givenKeys the check is unarmed (old semantics — phantom tolerated, no re-ask)
+	const calls2 = [];
+	await makeDagDecompose({ ask: async ({ system }) => { calls2.push(system); return phantom; }, stepKinds: ['compute'] })('task');
+	assert.equal(calls2.length, 1, 'unarmed without a declared vocabulary');
+	// NEG: a stubborn phantom degrades honestly (first attempt kept — equal problems, no loop)
+	const calls3 = [];
+	const l3 = await makeDagDecompose({ ask: async ({ system }) => { calls3.push(system); return phantom; }, stepKinds: ['compute'], givenKeys: ['g1_yellow'] })('task');
+	assert.equal(calls3.length, 2, 'exactly one retry even when nothing improves');
+	assert.equal(l3.length, 2);
 });
 
 test('end-to-end wiring — numberGivens → seedOf → projection (the P0 harness path), deterministic', async () => {

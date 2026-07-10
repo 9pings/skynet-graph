@@ -30,7 +30,7 @@ test('numberGivens — stop-words are skipped for the slug; slug falls back to t
 	assert.notEqual(g[0].key, 'g1_the', 'stop-word never a slug');
 });
 
-test('numberGivens — NEG: prose with no digits extracts nothing (spelled numbers = declared limitation)', () => {
+test('numberGivens — NEG: digits-only by design (prose quantities = the decomposer restates them, rule 6)', () => {
 	assert.deepEqual(numberGivens('three-quarters of the tank was full'), []);
 	assert.deepEqual(numberGivens(''), []);
 	assert.deepEqual(numberGivens(null), []);
