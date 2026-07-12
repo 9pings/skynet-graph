@@ -54,6 +54,12 @@ test('kind text — a short bare string is accepted VERBATIM; label echo tolerat
 	assert.equal(parseLeafValue('Butler CC (KS)', { kind: 'text' }).value, 'Butler CC (KS)');
 	assert.equal(parseLeafValue('', { kind: 'text' }).ok, false);
 	assert.equal(parseLeafValue('The matching network in that row is ESPN as the host says', { kind: 'text' }).ok, false, 'prose refused');
+	// régression A2 (mutilation) : une cellule texte À CHIFFRES reste VERBATIM sous kind text — jamais
+	// dégradée en nombre (la préférence-nombre est le propre du kind any, pas de text).
+	assert.equal(parseLeafValue('A 50729', { kind: 'text' }).value, 'A 50729');
+	assert.equal(parseLeafValue('25mm', { kind: 'text' }).value, '25mm');
+	assert.equal(parseLeafValue('Saturday, 17 February', { kind: 'text' }).value, 'Saturday, 17 February');
+	assert.equal(parseLeafValue('Y2K remediation for all platforms', { kind: 'text' }).value, 'Y2K remediation for all platforms');
 });
 
 test('kind any — number preferred, then bool, then short text; the DEFAULT auto stays text-blind (compat)', () => {
