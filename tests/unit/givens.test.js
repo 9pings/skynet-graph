@@ -7,7 +7,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { numberGivens, cellGivens, givensBlock, seedOf } = require('../../lib/authoring/givens.js');
+const { numberGivens, cellGivens, givensBlock, seedOf, labelsOf } = require('../../lib/authoring/givens.js');
 
 test('numberGivens — integers with lexical slugs, in reading order', () => {
 	const g = numberGivens('A rectangle is 6 wide and 4 tall.');
@@ -51,6 +51,16 @@ test('cellGivens — numeric cells keyed by position + row label; accounting (1,
 	assert.deepEqual(fq.map(( x ) => x.value ), [-17.1, -23158, 10]);
 	assert.equal(g[0].snippet, 'revenue · 2007');
 	assert.deepEqual(g[2].cell, { r: 2, c: 1 });
+});
+
+test('labelsOf — the cells rule: STRUCTURED provenance only (cell givens labelled, prose givens NEVER)', () => {
+	const cells = cellGivens([['item', '2007'], ['revenue', '1,500']]);
+	assert.deepEqual(labelsOf(cells), { c1_1_revenue: 'revenue · 2007' }, 'a cell given is labelled row · col');
+	// NEG — prose givens are already restated self-contained by the decomposer (rule 7): labelling them is
+	// pure prompt perturbation (measured net-negative) → labelsOf must NEVER label them.
+	assert.deepEqual(labelsOf(numberGivens('6 wide and 4 tall')), {});
+	assert.deepEqual(labelsOf(null), {});
+	assert.deepEqual(labelsOf([]), {});
 });
 
 test('givensBlock + seedOf — the prompt block cites keys; the seed maps key→value; empty → empty', () => {

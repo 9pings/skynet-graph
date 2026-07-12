@@ -19,7 +19,7 @@
 global.__SERVER__ = true;
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { createPlanLoop } = require('../../lib/combos/plan-loop.js');
+const { createPlanLoop, sinkFold } = require('../../lib/combos/plan-loop.js');
 
 const GOLD = { A: 1, B: 2, C: 3, D: 4 };
 const CLEAN = 'A=1;B=2;C=3;D=4';
@@ -140,4 +140,49 @@ test('10 CYCLIC FOOTPRINT — a circular readsExtra is a typed refusal, never a 
 	const decompose = async () => [{ id: 'n_A', request: reqBody('A'), nl: 'a', readsExtra: ['B'] }, { id: 'n_B', request: reqBody('B'), nl: 'b', readsExtra: ['A'] }];
 	const r = await createPlanLoop({ decompose, serveLeaf }).run('report');
 	assert.equal(r.refusal, 'CYCLE', 'the cyclic footprint is a typed refusal (never a silent wedge, never a hang)');
+});
+
+test('11 FALLBACK — a DEGENERATE decompose (untyped echo / empty) serves WHOLE, FLAGGED; strictly opt-in', async () => {
+	// the Q6 failure surface: the decomposer echoes the task as ONE untyped leaf (no request.kind) — a failed
+	// split means "don't split": with opts.fallback the whole task is served and the result is flagged.
+	const neverServed = async () => { throw new Error('leaf must not be served on the fallback path'); };
+	const echo = async () => [{ id: 'n_echo', request: { id: 'echo' }, nl: 'the whole task again' }];
+	const r = await createPlanLoop({ decompose: echo, serveLeaf: neverServed, fallback: async ( task ) => 'WHOLE:' + task }).run('report');
+	assert.equal(r.answer, 'WHOLE:report'); assert.equal(r.fallback, true); assert.equal(r.refusal, null);
+	const empty = await createPlanLoop({ decompose: async () => [], serveLeaf: neverServed, fallback: async () => 'W' }).run('t');
+	assert.equal(empty.answer, 'W'); assert.equal(empty.fallback, true);
+	// NEG — without opts.fallback the behavior is UNCHANGED (the echo leaf is served normally, no flag).
+	const noFb = await createPlanLoop({ decompose: echo, serveLeaf: async ( leaf ) => 'v_' + leaf.request.id }).run('report');
+	assert.notEqual(noFb.fallback, true);
+	assert.match(String(noFb.answer), /echo=v_echo/);
+	// NEG — a HEALTHY multi-leaf plan with opts.fallback wired does NOT fall back.
+	const healthy = await createPlanLoop({ decompose: async () => [req('A'), req('B')], serveLeaf: goldLadder(new Set(['A', 'B'])).serveLeaf, fallback: async () => 'W' }).run('t');
+	assert.notEqual(healthy.fallback, true);
+});
+
+test('12 SINKFOLD — the answer is the LAST SINK value (nobody reads it); a refused sink is skipped', async () => {
+	// "the LAST part yields the final answer" plans (KG-ZOOM): A is read by B → B is the sink, its value IS the answer.
+	const serveLeaf = async ( leaf ) => leaf.request.id === 'B' ? 42 : 1;
+	const decompose = async () => [req('A'), { id: 'n_B', request: reqBody('B'), nl: 'fig B', readsExtra: ['A'] }];
+	const r = await createPlanLoop({ decompose, serveLeaf, fold: sinkFold }).run('report');
+	assert.equal(r.answer, '42');
+	// NEG — a SEVERED sink (null required field → refused) is skipped by the fold, never folded as a value.
+	const dec2 = async () => [req('A'), { id: 'n_B', request: reqBody('B'), nl: 'b', readsExtra: ['A'] },
+		{ id: 'n_C', request: reqBody('C', { col: null }), nl: 'c' }];
+	const r2 = await createPlanLoop({ decompose: dec2, serveLeaf, fold: sinkFold }).run('report');
+	assert.equal(r2.answer, '42', 'the refused sink C is skipped — the fold falls back to the healthy sink');
+});
+
+test('13 LABELS — ctx.labels renders provenance next to the labelled input (the cells rule) and rides to serveLeaf', async () => {
+	// B reads A's write AND a labelled cell given: the projected prompt renders `c1_1_rev=1500 (revenue · 2007)`;
+	// the produced input (step-id keyed in the projection prompt) stays BARE — structured provenance only.
+	const seen = {};
+	const serveLeaf = async ( leaf ) => { seen[leaf.request.id] = leaf; return 7; };
+	const decompose = async () => [req('A'), { id: 'n_B', request: reqBody('B'), nl: 'fig B', readsExtra: ['A', 'c1_1_rev'] }];
+	const r = await createPlanLoop({ decompose, serveLeaf }).run('report',
+		{ givens: { c1_1_rev: 1500 }, labels: { c1_1_rev: 'revenue · 2007' } });
+	assert.equal(r.refusal, null);
+	assert.match(String(seen.B.prompt), /c1_1_rev=1500 \(revenue · 2007\)/, 'the labelled given carries its provenance in the projected prompt');
+	assert.equal(String(seen.B.prompt).indexOf('=7 ('), -1, 'the unlabelled upstream input stays bare');
+	assert.deepEqual(seen.B.labels, { c1_1_rev: 'revenue · 2007' }, 'labels ride to a host serveLeaf that renders its own prompt');
 });
