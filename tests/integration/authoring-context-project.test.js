@@ -14,6 +14,9 @@
  *   6 GUARD-UNCOVERED— a need with no producer is REFUSED offline. NEG: covered plan runs.
  *   7 REBOOT     — serialize → new Graph → identical state, 0 re-fire (a completed roadmap is a fixpoint), incl. runtime sub-steps.
  *   8 DETERMINISM— the same roadmap yields the same results.
+ *   9 STRAT      — stratComplete (A3 promotion, K-paraphrases-gated): sub leaves = CONTEXT+DONE+TASK (chainsum),
+ *                  integration-level leaves = CONTEXT+ROADMAP (values, >>marker<<, guard) — read on the STRUCTURE.
+ *  10 STRAT-NEG  — default rendering untouched by the new metadata; strat runs are deterministic.
  */
 global.__SERVER__ = true;
 const { test } = require('node:test');
@@ -128,4 +131,45 @@ test('8 DETERMINISM — the same roadmap yields the same results', async () => {
 	const a = await proj().run(CHAIN, { statement: 'doc' });
 	const b = await proj().run(CHAIN, { statement: 'doc' });
 	assert.deepEqual(a.results, b.results);
+});
+
+// RECURSIVE + the strat metadata: nl on steps, statement on the composite (the sub-level énoncé).
+const RICH = [
+	{ id: 'T1', needs: [],         produces: 'spec', nl: 'write the spec' },
+	{ id: 'Tc', needs: ['spec'],   produces: 'engine', nl: 'build the engine', statement: 'Section B. Build the engine from the spec.', sub: [
+		{ id: 'C1', needs: ['spec'],   produces: 'parser', nl: 'write the parser' },
+		{ id: 'C2', needs: ['parser'], produces: 'engine', nl: 'assemble the engine' },
+	] },
+	{ id: 'T2', needs: ['engine'], produces: 'doc', nl: 'document the engine' },
+];
+const stratProj = () => createContextProjection({ serve, complete: cp.stratComplete });
+
+test('9 STRAT — sub leaves get CONTEXT+DONE (chainsum), integration leaves get CONTEXT+ROADMAP', async () => {
+	const r = await stratProj().run(RICH, { statement: 'ROOT: ship the compiler.' });
+	assert.equal(r.refusal, null);
+	// C1 (first sub leaf): CONTEXT = the COMPOSITE statement (down the recursion), no DONE yet, TASK from nl
+	assert.match(r.results.C1.prompt, /^CONTEXT: Section B\./, 'sub CONTEXT = the composite statement');
+	assert.ok(!/DONE:/.test(r.results.C1.prompt), 'no sibling served yet → no DONE section');
+	assert.match(r.results.C1.prompt, /TASK: write the parser Given: spec = spec<>\./, 'TASK = nl + typed Given');
+	// C2 (second sub leaf): DONE lists the served sibling (key = value (producer nl)); still no roadmap at sub level
+	assert.match(r.results.C2.prompt, /DONE: parser = parser<spec> \(write the parser\)/, 'DONE = level results so far');
+	assert.ok(!/PLAN:/.test(r.results.C2.prompt), 'no roadmap at calculation leaves (A3: they ignore it, it costs)');
+	// T2 (integration level — contains a composite): ROADMAP view with values, own marker + guard; DONE replaced
+	assert.match(r.results.T2.prompt, /^CONTEXT: ROOT: ship the compiler\./, 'top CONTEXT = the root statement');
+	assert.match(r.results.T2.prompt, /PLAN:/);
+	assert.match(r.results.T2.prompt, /engine \("Section B\."\) = engine<parser> \[done\]/, 'composite folded to its prose title + produced value');
+	assert.match(r.results.T2.prompt, /spec \(write the spec\) = spec<> \[done\]/, 'level step with instruction + value');
+	assert.match(r.results.T2.prompt, />>doc<< \(document the engine\) \[YOU ARE HERE\]/, 'own step marked');
+	assert.match(r.results.T2.prompt, /You are at the marked >>step<</, 'scope guard present');
+	assert.ok(!/DONE:/.test(r.results.T2.prompt), 'roadmap replaces DONE at the integration level');
+});
+
+test('10 STRAT-NEG — default rendering untouched by the metadata; strat is deterministic', async () => {
+	const d = await proj().run(RICH, { statement: 'ROOT' });                              // default complete, rich roadmap
+	assert.equal(d.refusal, null);
+	assert.match(d.results.T2.prompt, /^GOAL ROOT/, 'defaultComplete output format unchanged (GOAL/USE/PRODUCE)');
+	assert.ok(!/CONTEXT:|DONE:|PLAN:/.test(d.results.T2.prompt), 'no strat sections leak into the default rendering');
+	const a = await stratProj().run(RICH, { statement: 'R' });
+	const b = await stratProj().run(RICH, { statement: 'R' });
+	assert.deepEqual(a.results, b.results, 'strat runs are deterministic (single-threaded taskflow; hosts must serialize concurrent serves — header caveat)');
 });
