@@ -7,7 +7,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { parseLeafValue, LEAF_ANSWER_SYSTEM } = require('../../lib/authoring/leaf-io.js');
+const { parseLeafValue, LEAF_ANSWER_SYSTEM, LEAF_ANSWER_SYSTEM_ANY } = require('../../lib/authoring/leaf-io.js');
 
 test('accepts bare typed values', () => {
 	assert.deepEqual(parseLeafValue('24'), { ok: true, kind: 'number', value: 24 });
@@ -44,4 +44,31 @@ test('kind restriction — number-only rejects bool, bool-only rejects number', 
 test('LEAF_ANSWER_SYSTEM — the executor contract matches the parser (bare result, number or yes/no)', () => {
 	assert.match(LEAF_ANSWER_SYSTEM, /ONLY the bare result/);
 	assert.match(LEAF_ANSWER_SYSTEM, /yes\/no/);
+});
+
+test('kind text — a short bare string is accepted VERBATIM; label echo tolerated; prose/long refused', () => {
+	assert.deepEqual(parseLeafValue('ESPN', { kind: 'text' }), { ok: true, kind: 'text', value: 'ESPN' });
+	assert.equal(parseLeafValue('"Craig Zimmer"', { kind: 'text' }).value, 'Craig Zimmer');
+	assert.equal(parseLeafValue('network: ESPN', { kind: 'text' }).value, 'ESPN', 'label echo → RHS');
+	assert.equal(parseLeafValue('32, 44', { kind: 'text' }).value, '32, 44', 'a digit-bearing CELL text stays verbatim');
+	assert.equal(parseLeafValue('Butler CC (KS)', { kind: 'text' }).value, 'Butler CC (KS)');
+	assert.equal(parseLeafValue('', { kind: 'text' }).ok, false);
+	assert.equal(parseLeafValue('The matching network in that row is ESPN as the host says', { kind: 'text' }).ok, false, 'prose refused');
+});
+
+test('kind any — number preferred, then bool, then short text; the DEFAULT auto stays text-blind (compat)', () => {
+	assert.deepEqual(parseLeafValue('24', { kind: 'any' }), { ok: true, kind: 'number', value: 24 });
+	assert.equal(parseLeafValue('yes', { kind: 'any' }).kind, 'bool');
+	assert.deepEqual(parseLeafValue('Craig Zimmer', { kind: 'any' }), { ok: true, kind: 'text', value: 'Craig Zimmer' });
+	assert.equal(parseLeafValue('32, 44', { kind: 'any' }).kind, 'text', 'two numbers in a cell surface = TEXT under any, not ambiguity');
+	assert.equal(parseLeafValue('72 km/h', { kind: 'any' }).value, 72, 'a clean number+unit stays a NUMBER under any');
+	// NEG — fail-closed unchanged: the default (auto) still refuses text; any refuses refusal-prose and long prose.
+	assert.equal(parseLeafValue('Craig Zimmer').ok, false, 'auto (default) refuses text — backward compat');
+	assert.equal(parseLeafValue('I cannot determine this', { kind: 'any' }).ok, false, 'a refusal phrase NEVER becomes a pool value');
+	assert.equal(parseLeafValue('The area is 24 square units of surface', { kind: 'any' }).ok, false, 'prose stays refused under any');
+});
+
+test('LEAF_ANSWER_SYSTEM_ANY — the any-kind executor contract exists and names the exact-text option', () => {
+	assert.match(LEAF_ANSWER_SYSTEM_ANY, /ONLY the bare result/);
+	assert.match(LEAF_ANSWER_SYSTEM_ANY, /exact text/i);
 });
