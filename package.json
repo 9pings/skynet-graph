@@ -4,6 +4,9 @@
   "license": "AGPL-3.0-or-later",
   "main": "./lib/index.js",
   "author": "Nathanael Braun <pp9ping@gmail.com>",
+  "repository": { "type": "git", "url": "git+https://github.com/9pings/skynet-graph.git" },
+  "homepage": "https://github.com/9pings/skynet-graph#readme",
+  "bugs": "https://github.com/9pings/skynet-graph/issues",
   "bin": {
     "sg": "bin/sg"
   },

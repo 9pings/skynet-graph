@@ -23,7 +23,7 @@ measurement → shipped in the library behind a surface, with tests; not yet rep
 
 ## Where each capability is served
 
-| Feature | library | `sg mcp` | dequantizer `serve` | dequantizer `mcp` |
+| Feature | library | `sg mcp` | mindsmith `serve` | mindsmith `mcp` |
 |---|---|---|---|---|
 | F1 low-quant repair | ✓ | `ask` / `hint` / `propose` | ✓ (OpenAI endpoint) | ✓ `ask` / `hint` / `propose` |
 | F2 zoom | ✓ (bricks) | — (known gap, see F2) | — | — |
@@ -33,7 +33,7 @@ measurement → shipped in the library behind a surface, with tests; not yet rep
 | F6 rooms | ✓ | `lattice_load` | rooms CLI | `lattice_load` |
 | F7 substrate | ✓ (the engine itself) | — | — | — |
 
-[skynet-dequantizer](https://github.com/9pings/skynet-dequantizer) is the ready-made appliance over
+[mindsmith](https://github.com/9pings/mindsmith) is the ready-made appliance over
 this library (an OpenAI-compatible local endpoint + `.sgc` rooms); everything else ships here.
 
 ---
@@ -204,7 +204,7 @@ claude mcp add sg -- node bin/sg mcp --frontier-model <path.gguf> --stock ./meth
 # options; `force:true` → recorded UNTRUSTED, never admission. SOFT lane: `hint` (advisory menu).
 ```
 
-Also wired in the dequantizer's `mcp` surface.
+Also wired in the mindsmith's `mcp` surface.
 
 **In plain terms.** Like a chess coach who never moves the pieces for you: when you propose an
 illegal move it says exactly *why* it is illegal and lists the legal ones, and you choose again.
@@ -278,7 +278,7 @@ const cm = Graph.combos.createCriticalMind({ ask });
 const r  = await cm.run({ topic, statements, viewpoints });   // ledger + per-side synthesis + verdict|UNDECIDED
 ```
 
-Over MCP (both `sg mcp` and the dequantizer's `mcp`): the `critique` tool. Its **iteration
+Over MCP (both `sg mcp` and the mindsmith's `mcp`): the `critique` tool. Its **iteration
 contract**: OPEN points and an UNDECIDED verdict are a *typed data request* — the host gathers real
 statements (web, docs, its own context) and calls `critique` again with `statements`; the frame
 upgrades to MATERIAL and the margin can move honestly.
@@ -307,7 +307,7 @@ is refused, never written), and `freeze` pins it under a sha256 dossier you can 
 **How to use it, simply:**
 
 ```bash
-skynet-dequantizer rooms list|import|export|freeze     # your own shareable stock mini-repos
+mindsmith rooms list|import|export|freeze     # your own shareable stock mini-repos
 # in this repo, the MCP counterpart is `lattice_load` — learning through the version-gated
 # admission; there is NO direct-write tool.
 ```

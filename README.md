@@ -14,6 +14,10 @@ for free, and steers the model's output against a certified method vocabulary. N
 <p align="center"><i>Active R&D · a CommonJS library to embed + an <code>sg</code> CLI · Node 18+, no build step · AGPL-3.0</i></p>
 
 <p align="center">
+<a href="https://www.npmjs.com/package/skynet-graph"><img src="https://img.shields.io/npm/v/skynet-graph?logo=npm&amp;color=cb3837" alt="npm version"></a>
+<a href="https://www.npmjs.com/package/skynet-graph"><img src="https://img.shields.io/npm/dm/skynet-graph?color=cb3837" alt="npm downloads"></a>
+<a href="https://nodejs.org"><img src="https://img.shields.io/node/v/skynet-graph" alt="node version"></a>
+<a href="./LICENSE"><img src="https://img.shields.io/npm/l/skynet-graph?color=blue" alt="AGPL-3.0"></a>
 <a href="https://doi.org/10.5281/zenodo.21032471"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.21032471.svg" alt="DOI"></a>
 <a href="https://doi.org/10.5281/zenodo.21201877"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.21201877.svg" alt="DOI"></a>
 </p>
@@ -61,6 +65,12 @@ Where it sits in your setup — two zero-integration doors into one local loop:
                       ▼
         [your local GGUF model]    — nothing leaves the machine
 ```
+
+> **Two packages, one loop.** This repo — **`skynet-graph`** — is the **substrate + the combos**: the
+> reasoning engine and the composable bricks (`Graph.combos.*`, C1–C9 + the forge) that each *activate* a
+> capability for a task type. **[mindsmith](https://www.npmjs.com/package/mindsmith)** is the ready-made
+> **app that actually uses them** — the endpoint + MCP tools + local rooms drawn above, assembled and
+> hardened. **To *run* this on your model → `npx mindsmith serve`. Embed skynet-graph to *build* your own.**
 
 ---
 
@@ -171,10 +181,10 @@ sg studio            # (or: sg serve --studio — live request lines in its trac
 Runnable, deterministic, GPU-free demos of every use-case class live in **`examples/bootstrap/`** —
 one short file per combo and per surface, each printing the guarantee it demonstrates.
 
-> **The ready-made appliance** — if you just want the endpoint + local `.sgc` stock rooms without embedding
-> the library, use **[skynet-dequantizer](https://github.com/9pings/skynet-dequantizer)**: `skynet-dequantizer serve` (OpenAI-compatible,
-> no-egress by default, proven on real sockets) · `skynet-dequantizer rooms list|import|export|freeze` (your own
-> shareable stock mini-repos — no catalog, no subscription, sha256 dossiers).
+> **The app that uses these — [mindsmith](https://www.npmjs.com/package/mindsmith).** The endpoint + rooms
+> above, packaged and hardened: `npx mindsmith serve` (OpenAI-compatible, no-egress by default, proven on
+> real sockets) · `mindsmith rooms list|import|export|freeze` (your own shareable stock mini-repos — no
+> catalog, no subscription, sha256 dossiers). Embed *this* library instead when you are building your own.
 >
 > **For AI agents reading this repo**: `CLAUDE.md` at the root is the machine-oriented map (architecture,
 > commands, gotchas); the MCP surface is one command away (`claude mcp add sg -- node bin/sg mcp …`).
