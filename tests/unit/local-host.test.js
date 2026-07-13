@@ -115,3 +115,32 @@ test('reasoningBudget reaches the loader AND is part of the cache key (a differe
 	assert.equal(host.stats.cacheHits, 1);
 	assert.equal(host.stats.infer, 2);
 });
+
+// SINGLE-MODEL (mindsmith --model): one loaded gguf answers BOTH the graph's no-think work (budget 0) AND the
+// user-facing answer WITH think (budget N) on ONE VRAM load — because reasoningBudget is a per-CALL parameter,
+// NOT part of the load key. This is the "not enough VRAM for two models" case, proven without a GPU.
+test('SINGLE-MODEL — one load serves both no-think (budget 0) and with-think (budget N); budget is per-call', async () => {
+	const log = { loads: [], budgets: [] };
+	const host = createLocalModelHost({ loadModel: async function ( spec ) { log.loads.push(spec.modelPath); return {
+		vramBytes: 1e9, async complete( req ) { log.budgets.push(req.reasoningBudget); return 'ok'; }, dispose() {} }; } });
+	const base = { modelPath: '/m/A.gguf', system: 's', maxTokens: 8, temperature: 0, seed: 0, contextSize: 4096 };
+	await host.ask(Object.assign({}, base, { reasoningBudget: 0, user: 'graph — no think' }));
+	await host.ask(Object.assign({}, base, { reasoningBudget: 1024, user: 'answer — with think' }));
+	assert.equal(host.stats.loads, 1, 'ONE VRAM load serves both budgets (the single-model, two-budgets case)');
+	assert.deepEqual(log.budgets, [0, 1024], 'reasoningBudget flows PER-CALL, not baked into the load');
+});
+
+// distinct LOAD options (context size, gpu, gpuLayers, a custom llama.cpp build) change the VRAM footprint →
+// distinct loads; identical options SHARE. This is what lets --ctx/--gpu/--gpu-layers/--no-prebuilt be honest.
+test('SINGLE-MODEL — distinct load options → separate loads; identical options share one', async () => {
+	const log = { loads: 0 };
+	const host = createLocalModelHost({ loadModel: async function () { log.loads++; return { vramBytes: 1e9, async complete() { return 'ok'; }, dispose() {} }; } });
+	const base = { modelPath: '/m/A.gguf', system: 's', user: 'u', maxTokens: 8, temperature: 0, seed: 0 };
+	await host.ask(Object.assign({}, base, { contextSize: 4096 }));
+	await host.ask(Object.assign({}, base, { contextSize: 8192 }));                                  // different ctx
+	await host.ask(Object.assign({}, base, { contextSize: 4096, gpu: false }));                      // CPU
+	await host.ask(Object.assign({}, base, { contextSize: 4096, model: { gpuLayers: 20 } }));        // loadModel opt
+	await host.ask(Object.assign({}, base, { contextSize: 4096, llama: { usePrebuiltBinaries: false } })); // custom build
+	await host.ask(Object.assign({}, base, { contextSize: 4096 }));                                  // == the first → SHARE
+	assert.equal(host.stats.loads, 5, 'five distinct configs load once each; the repeat of the first shares (no 6th load)');
+});
