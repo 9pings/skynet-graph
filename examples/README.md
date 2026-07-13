@@ -4,6 +4,12 @@ Runnable demos of skynet-graph used **à nu** (standalone). Each example boots t
 Two kinds: **offline** (deterministic, no network) and **needs an endpoint** (an OpenAI-compatible local LLM —
 set `LLM_BASE` / `LLM_MODEL` / `LLM_API=openai`; see `llm.js`). Run any with `node examples/<file>`.
 
+## The headline — all four capabilities in one continuous run (offline replay)
+- **`integrated-demo/`** — a 9.5 GB local quant works a real annual-report analysis end-to-end:
+  typed plan, certified-stock repair + gated refusal (external think mode), cascading retraction +
+  REOPEN (memory), bit-identical crash-replay. `node examples/integrated-demo/run.js --replay`
+  verifies 7 checks with **no model and no GPU** — see its README.
+
 ## Start here — the base socle (offline)
 - **`run-basic.js`** — the engine's INITIAL objective: a rule-driven knowledge graph. Mounts the shipped `common`
   concept set (travel/geo) and **stabilizes** — nodes become `Vertice`, edges get `Distance`/`Travel`/`LongTravel`

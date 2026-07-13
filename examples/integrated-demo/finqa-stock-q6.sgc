@@ -1,0 +1,1167 @@
+{
+ "format": "sgc",
+ "sgcVersion": 1,
+ "kind": "methods",
+ "manifest": {
+  "name": "stock",
+  "version": "v1",
+  "description": "",
+  "methodCount": 8,
+  "schema": {
+   "structureKeys": [
+    "taskKind"
+   ],
+   "contentKeys": [],
+   "classes": [
+    {
+     "structure": {
+      "taskKind": "add"
+     },
+     "count": 1
+    },
+    {
+     "structure": {
+      "taskKind": "add>add"
+     },
+     "count": 1
+    },
+    {
+     "structure": {
+      "taskKind": "divide"
+     },
+     "count": 1
+    },
+    {
+     "structure": {
+      "taskKind": "greater"
+     },
+     "count": 1
+    },
+    {
+     "structure": {
+      "taskKind": "multiply"
+     },
+     "count": 1
+    },
+    {
+     "structure": {
+      "taskKind": "subtract"
+     },
+     "count": 1
+    },
+    {
+     "structure": {
+      "taskKind": "subtract>divide"
+     },
+     "count": 1
+    },
+    {
+     "structure": {
+      "taskKind": "table_average"
+     },
+     "count": 1
+    }
+   ]
+  }
+ },
+ "methods": [
+  {
+   "structure": {
+    "taskKind": "divide"
+   },
+   "content": {},
+   "method": {
+    "schema": {
+     "_id": "Crystal_divide",
+     "_name": "Crystal_divide",
+     "require": [
+      "Segment",
+      "taskKind"
+     ],
+     "provider": [
+      "Crystal::Crystal_divide"
+     ],
+     "ensure": [
+      "!$Planned"
+     ],
+     "contract": {
+      "read": [
+       "Segment",
+       "taskKind"
+      ],
+      "write": [
+       "Crystal_divide",
+       "Plan",
+       "Planned",
+       "nSteps"
+      ],
+      "pre": [],
+      "post": [
+       "Planned==true"
+      ],
+      "effect": "pure"
+     },
+     "frontier": {
+      "params": [
+       {
+        "name": "origin",
+        "field": "originNode",
+        "sort": "node-ref",
+        "role": "endpoint",
+        "requiredFacts": []
+       },
+       {
+        "name": "target",
+        "field": "targetNode",
+        "sort": "node-ref",
+        "role": "endpoint",
+        "requiredFacts": []
+       }
+      ],
+      "summaryFacts": [
+       "Planned==true"
+      ],
+      "appConditions": {
+       "require": [
+        "Segment",
+        "taskKind"
+       ],
+       "assert": []
+      },
+      "summary": {
+       "facts": [
+        "Planned==true"
+       ]
+      }
+     },
+     "libraryKey": "{\"params\":[\"endpoint:node-ref\",\"endpoint:node-ref\"],\"signature\":[\"Segment\",\"taskKind\"]}"
+    },
+    "providerName": "Crystal::Crystal_divide",
+    "signatureKeys": [
+     "Segment",
+     "taskKind"
+    ],
+    "frontier": {
+     "params": [
+      {
+       "name": "origin",
+       "field": "originNode",
+       "sort": "node-ref",
+       "role": "endpoint",
+       "requiredFacts": []
+      },
+      {
+       "name": "target",
+       "field": "targetNode",
+       "sort": "node-ref",
+       "role": "endpoint",
+       "requiredFacts": []
+      }
+     ],
+     "summaryFacts": [
+      "Planned==true"
+     ],
+     "appConditions": {
+      "require": [
+       "Segment",
+       "taskKind"
+      ],
+      "assert": []
+     },
+     "summary": {
+      "facts": [
+       "Planned==true"
+      ]
+     }
+    },
+    "libraryKey": "{\"params\":[\"endpoint:node-ref\",\"endpoint:node-ref\"],\"signature\":[\"Segment\",\"taskKind\"]}",
+    "frontierFields": {
+     "origin": "originNode",
+     "target": "targetNode"
+    },
+    "templatesBySig": {
+     "{\"Segment\":true,\"taskKind\":\"divide\"}": [
+      {
+       "Plan": true,
+       "Planned": true,
+       "nSteps": 1,
+       "$$_id": "⟦@base⟧"
+      },
+      {
+       "Segment": true,
+       "originNode": "⟦@ref:origin⟧",
+       "targetNode": "⟦@ref:target⟧",
+       "parentSeg": "⟦@base⟧",
+       "state": "divide",
+       "$$_id": "⟦@base⟧_s0"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "structure": {
+    "taskKind": "subtract>divide"
+   },
+   "content": {},
+   "method": {
+    "schema": {
+     "_id": "Crystal_subtract_divide",
+     "_name": "Crystal_subtract_divide",
+     "require": [
+      "Segment",
+      "taskKind"
+     ],
+     "provider": [
+      "Crystal::Crystal_subtract_divide"
+     ],
+     "ensure": [
+      "!$Planned"
+     ],
+     "contract": {
+      "read": [
+       "Segment",
+       "taskKind"
+      ],
+      "write": [
+       "Crystal_subtract_divide",
+       "Plan",
+       "Planned",
+       "nSteps"
+      ],
+      "pre": [],
+      "post": [
+       "Planned==true"
+      ],
+      "effect": "pure"
+     },
+     "frontier": {
+      "params": [
+       {
+        "name": "origin",
+        "field": "originNode",
+        "sort": "node-ref",
+        "role": "endpoint",
+        "requiredFacts": []
+       },
+       {
+        "name": "target",
+        "field": "targetNode",
+        "sort": "node-ref",
+        "role": "endpoint",
+        "requiredFacts": []
+       }
+      ],
+      "summaryFacts": [
+       "Planned==true"
+      ],
+      "appConditions": {
+       "require": [
+        "Segment",
+        "taskKind"
+       ],
+       "assert": []
+      },
+      "summary": {
+       "facts": [
+        "Planned==true"
+       ]
+      }
+     },
+     "libraryKey": "{\"params\":[\"endpoint:node-ref\",\"endpoint:node-ref\"],\"signature\":[\"Segment\",\"taskKind\"]}"
+    },
+    "providerName": "Crystal::Crystal_subtract_divide",
+    "signatureKeys": [
+     "Segment",
+     "taskKind"
+    ],
+    "frontier": {
+     "params": [
+      {
+       "name": "origin",
+       "field": "originNode",
+       "sort": "node-ref",
+       "role": "endpoint",
+       "requiredFacts": []
+      },
+      {
+       "name": "target",
+       "field": "targetNode",
+       "sort": "node-ref",
+       "role": "endpoint",
+       "requiredFacts": []
+      }
+     ],
+     "summaryFacts": [
+      "Planned==true"
+     ],
+     "appConditions": {
+      "require": [
+       "Segment",
+       "taskKind"
+      ],
+      "assert": []
+     },
+     "summary": {
+      "facts": [
+       "Planned==true"
+      ]
+     }
+    },
+    "libraryKey": "{\"params\":[\"endpoint:node-ref\",\"endpoint:node-ref\"],\"signature\":[\"Segment\",\"taskKind\"]}",
+    "frontierFields": {
+     "origin": "originNode",
+     "target": "targetNode"
+    },
+    "templatesBySig": {
+     "{\"Segment\":true,\"taskKind\":\"subtract>divide\"}": [
+      {
+       "Plan": true,
+       "Planned": true,
+       "nSteps": 2,
+       "$$_id": "⟦@base⟧"
+      },
+      {
+       "Node": true,
+       "state": "subtract",
+       "$$_id": "⟦@base⟧_m0"
+      },
+      {
+       "Segment": true,
+       "originNode": "⟦@ref:origin⟧",
+       "targetNode": "⟦@base⟧_m0",
+       "parentSeg": "⟦@base⟧",
+       "state": "subtract",
+       "$$_id": "⟦@base⟧_s0"
+      },
+      {
+       "Segment": true,
+       "originNode": "⟦@base⟧_m0",
+       "targetNode": "⟦@ref:target⟧",
+       "parentSeg": "⟦@base⟧",
+       "state": "divide",
+       "$$_id": "⟦@base⟧_s1"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "structure": {
+    "taskKind": "subtract"
+   },
+   "content": {},
+   "method": {
+    "schema": {
+     "_id": "Crystal_subtract",
+     "_name": "Crystal_subtract",
+     "require": [
+      "Segment",
+      "taskKind"
+     ],
+     "provider": [
+      "Crystal::Crystal_subtract"
+     ],
+     "ensure": [
+      "!$Planned"
+     ],
+     "contract": {
+      "read": [
+       "Segment",
+       "taskKind"
+      ],
+      "write": [
+       "Crystal_subtract",
+       "Plan",
+       "Planned",
+       "nSteps"
+      ],
+      "pre": [],
+      "post": [
+       "Planned==true"
+      ],
+      "effect": "pure"
+     },
+     "frontier": {
+      "params": [
+       {
+        "name": "origin",
+        "field": "originNode",
+        "sort": "node-ref",
+        "role": "endpoint",
+        "requiredFacts": []
+       },
+       {
+        "name": "target",
+        "field": "targetNode",
+        "sort": "node-ref",
+        "role": "endpoint",
+        "requiredFacts": []
+       }
+      ],
+      "summaryFacts": [
+       "Planned==true"
+      ],
+      "appConditions": {
+       "require": [
+        "Segment",
+        "taskKind"
+       ],
+       "assert": []
+      },
+      "summary": {
+       "facts": [
+        "Planned==true"
+       ]
+      }
+     },
+     "libraryKey": "{\"params\":[\"endpoint:node-ref\",\"endpoint:node-ref\"],\"signature\":[\"Segment\",\"taskKind\"]}"
+    },
+    "providerName": "Crystal::Crystal_subtract",
+    "signatureKeys": [
+     "Segment",
+     "taskKind"
+    ],
+    "frontier": {
+     "params": [
+      {
+       "name": "origin",
+       "field": "originNode",
+       "sort": "node-ref",
+       "role": "endpoint",
+       "requiredFacts": []
+      },
+      {
+       "name": "target",
+       "field": "targetNode",
+       "sort": "node-ref",
+       "role": "endpoint",
+       "requiredFacts": []
+      }
+     ],
+     "summaryFacts": [
+      "Planned==true"
+     ],
+     "appConditions": {
+      "require": [
+       "Segment",
+       "taskKind"
+      ],
+      "assert": []
+     },
+     "summary": {
+      "facts": [
+       "Planned==true"
+      ]
+     }
+    },
+    "libraryKey": "{\"params\":[\"endpoint:node-ref\",\"endpoint:node-ref\"],\"signature\":[\"Segment\",\"taskKind\"]}",
+    "frontierFields": {
+     "origin": "originNode",
+     "target": "targetNode"
+    },
+    "templatesBySig": {
+     "{\"Segment\":true,\"taskKind\":\"subtract\"}": [
+      {
+       "Plan": true,
+       "Planned": true,
+       "nSteps": 1,
+       "$$_id": "⟦@base⟧"
+      },
+      {
+       "Segment": true,
+       "originNode": "⟦@ref:origin⟧",
+       "targetNode": "⟦@ref:target⟧",
+       "parentSeg": "⟦@base⟧",
+       "state": "subtract",
+       "$$_id": "⟦@base⟧_s0"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "structure": {
+    "taskKind": "add"
+   },
+   "content": {},
+   "method": {
+    "schema": {
+     "_id": "Crystal_add",
+     "_name": "Crystal_add",
+     "require": [
+      "Segment",
+      "taskKind"
+     ],
+     "provider": [
+      "Crystal::Crystal_add"
+     ],
+     "ensure": [
+      "!$Planned"
+     ],
+     "contract": {
+      "read": [
+       "Segment",
+       "taskKind"
+      ],
+      "write": [
+       "Crystal_add",
+       "Plan",
+       "Planned",
+       "nSteps"
+      ],
+      "pre": [],
+      "post": [
+       "Planned==true"
+      ],
+      "effect": "pure"
+     },
+     "frontier": {
+      "params": [
+       {
+        "name": "origin",
+        "field": "originNode",
+        "sort": "node-ref",
+        "role": "endpoint",
+        "requiredFacts": []
+       },
+       {
+        "name": "target",
+        "field": "targetNode",
+        "sort": "node-ref",
+        "role": "endpoint",
+        "requiredFacts": []
+       }
+      ],
+      "summaryFacts": [
+       "Planned==true"
+      ],
+      "appConditions": {
+       "require": [
+        "Segment",
+        "taskKind"
+       ],
+       "assert": []
+      },
+      "summary": {
+       "facts": [
+        "Planned==true"
+       ]
+      }
+     },
+     "libraryKey": "{\"params\":[\"endpoint:node-ref\",\"endpoint:node-ref\"],\"signature\":[\"Segment\",\"taskKind\"]}"
+    },
+    "providerName": "Crystal::Crystal_add",
+    "signatureKeys": [
+     "Segment",
+     "taskKind"
+    ],
+    "frontier": {
+     "params": [
+      {
+       "name": "origin",
+       "field": "originNode",
+       "sort": "node-ref",
+       "role": "endpoint",
+       "requiredFacts": []
+      },
+      {
+       "name": "target",
+       "field": "targetNode",
+       "sort": "node-ref",
+       "role": "endpoint",
+       "requiredFacts": []
+      }
+     ],
+     "summaryFacts": [
+      "Planned==true"
+     ],
+     "appConditions": {
+      "require": [
+       "Segment",
+       "taskKind"
+      ],
+      "assert": []
+     },
+     "summary": {
+      "facts": [
+       "Planned==true"
+      ]
+     }
+    },
+    "libraryKey": "{\"params\":[\"endpoint:node-ref\",\"endpoint:node-ref\"],\"signature\":[\"Segment\",\"taskKind\"]}",
+    "frontierFields": {
+     "origin": "originNode",
+     "target": "targetNode"
+    },
+    "templatesBySig": {
+     "{\"Segment\":true,\"taskKind\":\"add\"}": [
+      {
+       "Plan": true,
+       "Planned": true,
+       "nSteps": 1,
+       "$$_id": "⟦@base⟧"
+      },
+      {
+       "Segment": true,
+       "originNode": "⟦@ref:origin⟧",
+       "targetNode": "⟦@ref:target⟧",
+       "parentSeg": "⟦@base⟧",
+       "state": "add",
+       "$$_id": "⟦@base⟧_s0"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "structure": {
+    "taskKind": "add>add"
+   },
+   "content": {},
+   "method": {
+    "schema": {
+     "_id": "Crystal_add_add",
+     "_name": "Crystal_add_add",
+     "require": [
+      "Segment",
+      "taskKind"
+     ],
+     "provider": [
+      "Crystal::Crystal_add_add"
+     ],
+     "ensure": [
+      "!$Planned"
+     ],
+     "contract": {
+      "read": [
+       "Segment",
+       "taskKind"
+      ],
+      "write": [
+       "Crystal_add_add",
+       "Plan",
+       "Planned",
+       "nSteps"
+      ],
+      "pre": [],
+      "post": [
+       "Planned==true"
+      ],
+      "effect": "pure"
+     },
+     "frontier": {
+      "params": [
+       {
+        "name": "origin",
+        "field": "originNode",
+        "sort": "node-ref",
+        "role": "endpoint",
+        "requiredFacts": []
+       },
+       {
+        "name": "target",
+        "field": "targetNode",
+        "sort": "node-ref",
+        "role": "endpoint",
+        "requiredFacts": []
+       }
+      ],
+      "summaryFacts": [
+       "Planned==true"
+      ],
+      "appConditions": {
+       "require": [
+        "Segment",
+        "taskKind"
+       ],
+       "assert": []
+      },
+      "summary": {
+       "facts": [
+        "Planned==true"
+       ]
+      }
+     },
+     "libraryKey": "{\"params\":[\"endpoint:node-ref\",\"endpoint:node-ref\"],\"signature\":[\"Segment\",\"taskKind\"]}"
+    },
+    "providerName": "Crystal::Crystal_add_add",
+    "signatureKeys": [
+     "Segment",
+     "taskKind"
+    ],
+    "frontier": {
+     "params": [
+      {
+       "name": "origin",
+       "field": "originNode",
+       "sort": "node-ref",
+       "role": "endpoint",
+       "requiredFacts": []
+      },
+      {
+       "name": "target",
+       "field": "targetNode",
+       "sort": "node-ref",
+       "role": "endpoint",
+       "requiredFacts": []
+      }
+     ],
+     "summaryFacts": [
+      "Planned==true"
+     ],
+     "appConditions": {
+      "require": [
+       "Segment",
+       "taskKind"
+      ],
+      "assert": []
+     },
+     "summary": {
+      "facts": [
+       "Planned==true"
+      ]
+     }
+    },
+    "libraryKey": "{\"params\":[\"endpoint:node-ref\",\"endpoint:node-ref\"],\"signature\":[\"Segment\",\"taskKind\"]}",
+    "frontierFields": {
+     "origin": "originNode",
+     "target": "targetNode"
+    },
+    "templatesBySig": {
+     "{\"Segment\":true,\"taskKind\":\"add>add\"}": [
+      {
+       "Plan": true,
+       "Planned": true,
+       "nSteps": 2,
+       "$$_id": "⟦@base⟧"
+      },
+      {
+       "Node": true,
+       "state": "add",
+       "$$_id": "⟦@base⟧_m0"
+      },
+      {
+       "Segment": true,
+       "originNode": "⟦@ref:origin⟧",
+       "targetNode": "⟦@base⟧_m0",
+       "parentSeg": "⟦@base⟧",
+       "state": "add",
+       "$$_id": "⟦@base⟧_s0"
+      },
+      {
+       "Segment": true,
+       "originNode": "⟦@base⟧_m0",
+       "targetNode": "⟦@ref:target⟧",
+       "parentSeg": "⟦@base⟧",
+       "state": "add",
+       "$$_id": "⟦@base⟧_s1"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "structure": {
+    "taskKind": "greater"
+   },
+   "content": {},
+   "method": {
+    "schema": {
+     "_id": "Crystal_greater",
+     "_name": "Crystal_greater",
+     "require": [
+      "Segment",
+      "taskKind"
+     ],
+     "provider": [
+      "Crystal::Crystal_greater"
+     ],
+     "ensure": [
+      "!$Planned"
+     ],
+     "contract": {
+      "read": [
+       "Segment",
+       "taskKind"
+      ],
+      "write": [
+       "Crystal_greater",
+       "Plan",
+       "Planned",
+       "nSteps"
+      ],
+      "pre": [],
+      "post": [
+       "Planned==true"
+      ],
+      "effect": "pure"
+     },
+     "frontier": {
+      "params": [
+       {
+        "name": "origin",
+        "field": "originNode",
+        "sort": "node-ref",
+        "role": "endpoint",
+        "requiredFacts": []
+       },
+       {
+        "name": "target",
+        "field": "targetNode",
+        "sort": "node-ref",
+        "role": "endpoint",
+        "requiredFacts": []
+       }
+      ],
+      "summaryFacts": [
+       "Planned==true"
+      ],
+      "appConditions": {
+       "require": [
+        "Segment",
+        "taskKind"
+       ],
+       "assert": []
+      },
+      "summary": {
+       "facts": [
+        "Planned==true"
+       ]
+      }
+     },
+     "libraryKey": "{\"params\":[\"endpoint:node-ref\",\"endpoint:node-ref\"],\"signature\":[\"Segment\",\"taskKind\"]}"
+    },
+    "providerName": "Crystal::Crystal_greater",
+    "signatureKeys": [
+     "Segment",
+     "taskKind"
+    ],
+    "frontier": {
+     "params": [
+      {
+       "name": "origin",
+       "field": "originNode",
+       "sort": "node-ref",
+       "role": "endpoint",
+       "requiredFacts": []
+      },
+      {
+       "name": "target",
+       "field": "targetNode",
+       "sort": "node-ref",
+       "role": "endpoint",
+       "requiredFacts": []
+      }
+     ],
+     "summaryFacts": [
+      "Planned==true"
+     ],
+     "appConditions": {
+      "require": [
+       "Segment",
+       "taskKind"
+      ],
+      "assert": []
+     },
+     "summary": {
+      "facts": [
+       "Planned==true"
+      ]
+     }
+    },
+    "libraryKey": "{\"params\":[\"endpoint:node-ref\",\"endpoint:node-ref\"],\"signature\":[\"Segment\",\"taskKind\"]}",
+    "frontierFields": {
+     "origin": "originNode",
+     "target": "targetNode"
+    },
+    "templatesBySig": {
+     "{\"Segment\":true,\"taskKind\":\"greater\"}": [
+      {
+       "Plan": true,
+       "Planned": true,
+       "nSteps": 1,
+       "$$_id": "⟦@base⟧"
+      },
+      {
+       "Segment": true,
+       "originNode": "⟦@ref:origin⟧",
+       "targetNode": "⟦@ref:target⟧",
+       "parentSeg": "⟦@base⟧",
+       "state": "greater",
+       "$$_id": "⟦@base⟧_s0"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "structure": {
+    "taskKind": "table_average"
+   },
+   "content": {},
+   "method": {
+    "schema": {
+     "_id": "Crystal_table_average",
+     "_name": "Crystal_table_average",
+     "require": [
+      "Segment",
+      "taskKind"
+     ],
+     "provider": [
+      "Crystal::Crystal_table_average"
+     ],
+     "ensure": [
+      "!$Planned"
+     ],
+     "contract": {
+      "read": [
+       "Segment",
+       "taskKind"
+      ],
+      "write": [
+       "Crystal_table_average",
+       "Plan",
+       "Planned",
+       "nSteps"
+      ],
+      "pre": [],
+      "post": [
+       "Planned==true"
+      ],
+      "effect": "pure"
+     },
+     "frontier": {
+      "params": [
+       {
+        "name": "origin",
+        "field": "originNode",
+        "sort": "node-ref",
+        "role": "endpoint",
+        "requiredFacts": []
+       },
+       {
+        "name": "target",
+        "field": "targetNode",
+        "sort": "node-ref",
+        "role": "endpoint",
+        "requiredFacts": []
+       }
+      ],
+      "summaryFacts": [
+       "Planned==true"
+      ],
+      "appConditions": {
+       "require": [
+        "Segment",
+        "taskKind"
+       ],
+       "assert": []
+      },
+      "summary": {
+       "facts": [
+        "Planned==true"
+       ]
+      }
+     },
+     "libraryKey": "{\"params\":[\"endpoint:node-ref\",\"endpoint:node-ref\"],\"signature\":[\"Segment\",\"taskKind\"]}"
+    },
+    "providerName": "Crystal::Crystal_table_average",
+    "signatureKeys": [
+     "Segment",
+     "taskKind"
+    ],
+    "frontier": {
+     "params": [
+      {
+       "name": "origin",
+       "field": "originNode",
+       "sort": "node-ref",
+       "role": "endpoint",
+       "requiredFacts": []
+      },
+      {
+       "name": "target",
+       "field": "targetNode",
+       "sort": "node-ref",
+       "role": "endpoint",
+       "requiredFacts": []
+      }
+     ],
+     "summaryFacts": [
+      "Planned==true"
+     ],
+     "appConditions": {
+      "require": [
+       "Segment",
+       "taskKind"
+      ],
+      "assert": []
+     },
+     "summary": {
+      "facts": [
+       "Planned==true"
+      ]
+     }
+    },
+    "libraryKey": "{\"params\":[\"endpoint:node-ref\",\"endpoint:node-ref\"],\"signature\":[\"Segment\",\"taskKind\"]}",
+    "frontierFields": {
+     "origin": "originNode",
+     "target": "targetNode"
+    },
+    "templatesBySig": {
+     "{\"Segment\":true,\"taskKind\":\"table_average\"}": [
+      {
+       "Plan": true,
+       "Planned": true,
+       "nSteps": 1,
+       "$$_id": "⟦@base⟧"
+      },
+      {
+       "Segment": true,
+       "originNode": "⟦@ref:origin⟧",
+       "targetNode": "⟦@ref:target⟧",
+       "parentSeg": "⟦@base⟧",
+       "state": "table_average",
+       "$$_id": "⟦@base⟧_s0"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "structure": {
+    "taskKind": "multiply"
+   },
+   "content": {},
+   "method": {
+    "schema": {
+     "_id": "Crystal_multiply",
+     "_name": "Crystal_multiply",
+     "require": [
+      "Segment",
+      "taskKind"
+     ],
+     "provider": [
+      "Crystal::Crystal_multiply"
+     ],
+     "ensure": [
+      "!$Planned"
+     ],
+     "contract": {
+      "read": [
+       "Segment",
+       "taskKind"
+      ],
+      "write": [
+       "Crystal_multiply",
+       "Plan",
+       "Planned",
+       "nSteps"
+      ],
+      "pre": [],
+      "post": [
+       "Planned==true"
+      ],
+      "effect": "pure"
+     },
+     "frontier": {
+      "params": [
+       {
+        "name": "origin",
+        "field": "originNode",
+        "sort": "node-ref",
+        "role": "endpoint",
+        "requiredFacts": []
+       },
+       {
+        "name": "target",
+        "field": "targetNode",
+        "sort": "node-ref",
+        "role": "endpoint",
+        "requiredFacts": []
+       }
+      ],
+      "summaryFacts": [
+       "Planned==true"
+      ],
+      "appConditions": {
+       "require": [
+        "Segment",
+        "taskKind"
+       ],
+       "assert": []
+      },
+      "summary": {
+       "facts": [
+        "Planned==true"
+       ]
+      }
+     },
+     "libraryKey": "{\"params\":[\"endpoint:node-ref\",\"endpoint:node-ref\"],\"signature\":[\"Segment\",\"taskKind\"]}"
+    },
+    "providerName": "Crystal::Crystal_multiply",
+    "signatureKeys": [
+     "Segment",
+     "taskKind"
+    ],
+    "frontier": {
+     "params": [
+      {
+       "name": "origin",
+       "field": "originNode",
+       "sort": "node-ref",
+       "role": "endpoint",
+       "requiredFacts": []
+      },
+      {
+       "name": "target",
+       "field": "targetNode",
+       "sort": "node-ref",
+       "role": "endpoint",
+       "requiredFacts": []
+      }
+     ],
+     "summaryFacts": [
+      "Planned==true"
+     ],
+     "appConditions": {
+      "require": [
+       "Segment",
+       "taskKind"
+      ],
+      "assert": []
+     },
+     "summary": {
+      "facts": [
+       "Planned==true"
+      ]
+     }
+    },
+    "libraryKey": "{\"params\":[\"endpoint:node-ref\",\"endpoint:node-ref\"],\"signature\":[\"Segment\",\"taskKind\"]}",
+    "frontierFields": {
+     "origin": "originNode",
+     "target": "targetNode"
+    },
+    "templatesBySig": {
+     "{\"Segment\":true,\"taskKind\":\"multiply\"}": [
+      {
+       "Plan": true,
+       "Planned": true,
+       "nSteps": 1,
+       "$$_id": "⟦@base⟧"
+      },
+      {
+       "Segment": true,
+       "originNode": "⟦@ref:origin⟧",
+       "targetNode": "⟦@ref:target⟧",
+       "parentSeg": "⟦@base⟧",
+       "state": "multiply",
+       "$$_id": "⟦@base⟧_s0"
+      }
+     ]
+    }
+   }
+  }
+ ]
+}
