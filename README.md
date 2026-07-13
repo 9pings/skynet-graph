@@ -22,22 +22,26 @@ for free, and steers the model's output against a certified method vocabulary. N
 <a href="https://doi.org/10.5281/zenodo.21201877"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.21201877.svg" alt="DOI"></a>
 </p>
 
-## What you get
+## What it is
 
-A 27B model crushed to 9.5 GB (IQ2) runs on your GPU — but quantization broke part of its judgment,
-and any big task overflows it. This engine gives that model four things, **each measured on real GPUs,
-with negative controls and deterministic re-runs**:
+**skynet-graph is the low-level reasoning substrate + a library of composable combos** — the engine you
+*embed*. The substrate is a versionable, git-like reasoning graph: declarative concept rules + provider
+functions driven to a coherent belief state by stabilization, with native cascading retraction and
+rollback / fork / merge on what the system currently holds true. On top of it, a set of **combos**
+(`Graph.combos.*`, C1–C9 + the forge) each turn on one capability for a task type — the *bricks* an
+application assembles.
 
-- **Big tasks, piece by piece** — the model never sees the whole problem, only one bounded piece at a
-  time: accuracy **×2.5–3.2** on multi-step tasks, and where whole-context prompting **collapses (0/33)**,
-  the pieces hold (**10/33**).
-- **Repair for low quants** — verified method shapes steer the output: SQL **8→63 %**, finance tables
-  **7→62 %**, at **zero big-model calls** on covered queries.
-- **Task memory that reopens** — a late correction automatically un-does everything that depended on
-  it, and "done" steps **reopen themselves with the reason**. No stale state, ever.
-- **An external think mode** — benched head-to-head: the model's *native* think budget scores
-  **13/24 ≈ a coin flip** on side-judgment; the external critical mind renders **0 wrong verdicts**
-  (24/24 provable on a declared frame, an honest UNDECIDED otherwise).
+For a small local model those bricks add up to four capabilities (one line each here; the measured
+numbers, negative controls, limits and maturity live in **[doc/CAPABILITIES.md](doc/CAPABILITIES.md)**):
+
+- **Piece-by-piece** — works a big task one bounded piece at a time: **×2.5–3.2** on multi-step tasks, and where whole-context prompting collapses (**0/33**) the pieces hold (**10/33**).
+- **Low-quant repair** — certified method shapes steer the output: SQL **8→63 %**, finance **7→62 %**, at zero big-model calls on covered queries.
+- **Task memory that reopens** — a late correction retracts its consequences in cascade; "done" steps reopen with the reason, at 0 model calls.
+- **External think mode** — the model proposes, the graph refutes with the reason: a native think budget scores **13/24 ≈ chance**, the external critical mind **0 wrong verdicts**.
+
+These are the building blocks; **[mindsmith](https://www.npmjs.com/package/mindsmith) is the public façade
+that puts them in users' hands** (an OpenAI endpoint + MCP tools + local rooms). This repo is what mindsmith
+— or your own app — is built on.
 
 **See it in 30 seconds — no model, no GPU** (a deterministic replay of a real end-to-end run — the
 9.5 GB quant analyzing an annual report, erratum and crash included):
@@ -74,20 +78,12 @@ Where it sits in your setup — two zero-integration doors into one local loop:
 
 ---
 
-## The four capabilities, measured
+## Capabilities & maturity
 
-Small local models are fine on a *surface* step; they derail when a request makes them **compose**
-several things at once. This library puts them in front of one surface at a time.
-
-**Proof degrees:** **[live]** = measured on GPU with real local models · **[measured]** = deterministic,
-replayable without a model · **[PoC]** = an accounting demonstration, not a benchmark.
-
-| Capability | What happens | Measured |
-|---|---|---|
-| **Repair low-quants** | a menu of *certified* method shapes steers a heavily-quantized model's output — it recovers most of what compression broke, at **zero big-model calls** | SQL, covered queries: low-quant 8→**63 %** (high-quant 46→92 %), N=201 · finance, traffic view: 7→**62 %** (20→78 %), N=120 · [live] |
-| **Task memory that reopens** | task state = typed facts with provenance (JTMS): a drifted premise **retracts its consequences in cascade**, and a "done" step **reopens itself with the reason** — it never rots | recomputable drift re-derives at **0 model calls**, selectively (independent facts untouched); crash-replay is bit-identical at 0 calls [live] · 100 % recall at **894 constant tokens/call** vs 50 % at 4 286 for a carry-everything baseline [PoC] |
-| **Piece-by-piece (the zoom)** | the task becomes a typed DAG; each piece is served with ONLY its bounded neighbourhood (parent goal + resolved inputs + what to produce) — the model never sees the whole | cross-domain at N=200/domain (560 tasks total): math word problems 16 %→**52 %** (×3.2), financial-table QA 20 %→**50 %** (×2.5), bootstrap CIs hold [live] · **where the lone model collapses, the pieces hold**: deep tasks 0/33 whole vs 10/33 decomposed [live] · on 20 compound "monster" tasks (~20 ops): whole-context floors at **0/20**, hierarchical 2-level split reaches 73 % of sections [live] |
-| **An external think mode** | the model proposes; the graph **refutes with the reason** and enumerates the admissible options (tested through its own gate, never guessed); the model revises — bounded, with honest refusal | one dialogue round: 17/24 → **24/24** correct at zero false admissions [live] · native think budget vs the external critical mind on side-judgment: **13/24 (≈ chance, 11 confident wrong verdicts) vs 0 wrong verdicts** — 24/24 mechanical on a declared perimeter, honest UNDECIDED otherwise [live] · disciplined argument coverage: **77 % vs 58 %** whole-context at 48 arguments [live] · anchored generation of MISSING theses: **0 fabrication** across every negative control [live] |
+The measured detail — numbers, negative controls, limits and snippets per feature — lives in
+**[doc/CAPABILITIES.md](doc/CAPABILITIES.md)**; **[mindsmith](https://www.npmjs.com/package/mindsmith)**
+is where those capabilities are framed and put in users' hands. Maturity uses a 6-rung honest scale
+(rung 6 = external replications, empty pre-launch):
 
 | Feature — details per row in [doc/CAPABILITIES.md](doc/CAPABILITIES.md) | Maturity (6-rung honest scale; rung 6 = external replications, empty pre-launch) |
 |---|---|
@@ -105,20 +101,12 @@ builds `.sgc` method stocks from any dataset that has an executable oracle, behi
 gate (held across every campaign: 0 false shapes admitted, 3 datasets, 2 forge models) — each stock ships
 with an auditable sha256 validation dossier.
 
-### Where it beats what you would reach for today
+### Where it beats what you'd reach for
 
-Each row is a measured delta or a checked absence — details, limits and snippets per row in
-[doc/CAPABILITIES.md](doc/CAPABILITIES.md).
-
-| You would reach for | The known weakness there | Here, measured |
-|---|---|---|
-| a bigger / higher-quant model | needs VRAM you don't have | certified-stock steering on *your* hardware: SQL 8→**63 %**, finance 7→**62 %**, 0 frontier calls on the covered slice |
-| an agent scratchpad / vector memory | boxes only get ticked; similarity retrieval serves **stale** answers | premise drift → cascade retraction + reopen-with-reason: **12/12 vs 0/12** (stale) on drift, 0 model calls |
-| a decomposition framework | free-text plans, unbounded context growth | typed needs/produces + bounded per-piece context: ×2.5–3.2 at N=200, and **0/33 → 10/33** where the whole-task baseline collapses |
-| a native think mode / self-critique loop | self-critique underperforms external feedback (2024-25 literature, + our own refutation ×3) | benched head-to-head: a native think budget scores **13/24 ≈ chance** on side-judgment (11 confident wrong verdicts) — the external critical mind renders **0 wrong verdicts**: 24/24 mechanical on a declared perimeter, honest UNDECIDED otherwise; and the gate **never yields** (17/24 → **24/24** at zero false admissions) |
-| LLM-as-judge / a debate prompt | miscalibrated, gameable, no audit trail | witness-gated coverage (0 fabrication), typed ledger, and a judge that **declines by measured bound** (UNDECIDED below margin) |
-| a prompt hub / RAG index for methods | anything pasted in is trusted | `.sgc` rooms: admission-gated import (a bad bundle never lands), sha256 dossiers, local files you own |
-| a rules engine / event sourcing | fires rules or versions events — never versions *belief* | rollback / diff / fork / merge on what the system currently holds true, **rules included** — no market equivalent found |
+The head-to-head against a bigger model, an agent scratchpad, a decomposition framework, a native think
+mode, LLM-as-judge, a RAG method-index, or a rules engine — each a measured delta or a checked absence —
+is framed for users in **[mindsmith](https://www.npmjs.com/package/mindsmith)**'s "Why not just…?", with
+the per-feature numbers behind each in **[doc/CAPABILITIES.md](doc/CAPABILITIES.md)**.
 
 **What is honestly NOT claimed** (each of these was tested, and the page follows the results):
 - the guarantee is **at admission, not at execution** — at use time the stock *orients*; a suggestion is not
