@@ -186,7 +186,7 @@ Return `cb(null, null)` to no-op (e.g. wait for a dependency).
 
 ```js
 const Graph = require('skynet-graph');
-const { register, CommonGeo, createLLMProvider } = require('skynet-graph/providers');
+const { register, CommonGeo, createLLMProvider } = require('skynet-graph/lib/providers');
 
 register(Graph, [ { CommonGeo }, createLLMProvider({ ask: myBackend }) ]);
 // register(Graph)  with no selection wires the defaults (Geo + a default LLM client)
@@ -249,7 +249,7 @@ The engine maintains **coherence**, never **truth** (K3): a hallucinated-but-val
 retracts cleanly. Verification makes unreliability *visible and non-propagating* by emitting discrete
 **verdict facts** that downstream concepts gate on via `ensure` — a refuted fact auto-retracts its
 dependents (refutation *is* defeasance; no new engine path). Verdicts are discrete (the typed-fact spine),
-never prose, and **never overwrite** the checked fact. `createVerifier()` (from `skynet-graph/providers`)
+never prose, and **never overwrite** the checked fact. `createVerifier()` (from `skynet-graph/lib/providers`)
 returns `{ Verify: { check }, Vote: { tally } }`; `checks` and `majority` are exported too.
 
 Three patterns (all engine-verified; pick by reactivity need):
@@ -313,7 +313,7 @@ and a bare dependency on a child-set (`expandedInto`/`answeredBy`/…) without `
 
 ### Mixture-of-Reasoners regime providers (host opt-in, additive)
 
-All are `require('skynet-graph/providers')` factories; pair each with its ready-made concept-tree
+All are `require('skynet-graph/lib/providers')` factories; pair each with its ready-made concept-tree
 fragment. The deterministic core is untouched.
 
 | factory | wires | concept-tree helper |
@@ -451,7 +451,9 @@ ON, validator ON); none is a required path — the bricks stay usable "à nu". F
 | `createCriticalMind` (C9) | the external critical mind: `run({topic, statements?, viewpoints?})` → typed ledger + verdict or honest UNDECIDED (mechanical only at the measured margin bound) |
 
 The C7 bricks are standalone `lib/authoring/` modules: `dag-decompose`, `context-project` (with the
-`stratComplete` stratified rendering), `givens`, `leaf-io`.
+`stratComplete` stratified rendering), `givens` (`numberGivens` / `cellGivens` / `seedOf` / `labelsOf` —
+`labelsOf` implements the measured CELLS rule: label an input iff its provenance is a structured table
+cell, and pass it as `run(task, { givens, labels })`), `leaf-io`.
 
 ### Studio (embeddable web workbench)
 
@@ -466,7 +468,7 @@ Events include a Session-derived `retract` (the red-flash signal). Also via `bin
 
 One logger per graph (`graph._log`, exposed as `graph.logger`). Levels, severity descending:
 `error > warn > log > info > verbose` — a record reaches sinks iff `rank(level) <= rank(threshold)`
-(default `warn`, or env `SG_LOG_LEVEL`). A `LogRecord` is `{ level, ts, label, ctx, msg, args }` and is
+(default `warn`, or env `SG_LOG_LEVEL`; the `sg run` CLI overrides its own session to `info`). A `LogRecord` is `{ level, ts, label, ctx, msg, args }` and is
 JSON-serializable (Errors in `args` are reduced to `{name,message,stack}`).
 
 **Configure** (in `cfg`, e.g. via `new Graph(seed, conf, conceptMap)` or `Graph.fromDirs({conf})`):
@@ -522,7 +524,7 @@ Two zero-dep, zero-integration fronts over the combos (full guide: `doc/usage.md
 - **`sg serve`** — an OpenAI-compatible endpoint (`POST /v1/chat/completions`, `GET /v1/models`) over the
   C6 proxy cache. `createServeHandler({proxy, model, onAnswer})` is the PURE request handler (stub-testable);
   `startServeServer({handler, port, host})` is the node:http wrapper. Provenance on every completion:
-  headers `x-sg-served-from|arm|cost|coverage|saved` + `usage.sg_*` mirror; `stream:true` is simulated SSE.
+  headers `x-sg-served-from|arm|cost|coverage|saved|sgc-version` + `usage.sg_*` mirror; `stream:true` is simulated SSE.
   The v1 wire contract: the query = the LAST user turn (a QA cache, not a dialog engine).
 - **`sg mcp`** — an MCP tools server (stdio JSON-RPC). `createMcpServer({tools, serverInfo})` is the pure
   dispatcher; `defaultTools(wiring)` wires the base tools — `ask` (answer OR a STRUCTURED typed refusal),
@@ -544,6 +546,7 @@ Two zero-dep, zero-integration fronts over the combos (full guide: `doc/usage.md
 
 ```bash
 npm test                     # unit + integration (node:test, native CJS — no Babel)
+node examples/integrated-demo/run.js --replay   # the public verifiable: 7 checks, deterministic, no GPU
 node examples/run-basic.js   # non-LLM end-to-end stabilization over the real `common` set
 node examples/run-problem.js # LLM-driven plan decomposition (needs an endpoint; see lib/providers/llm.js)
 node bin/sg run --concepts ./concepts --builtins   # standalone CLI boot

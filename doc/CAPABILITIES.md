@@ -55,6 +55,13 @@ with a sha256 validation dossier.
 cross-agreement tier was tested and **refuted** — it was removed. Forge yield is a per-domain
 parameter, and amortization is a property of the domain's stereotypy.
 
+**Against the existing landscape.** What you would reach for today: a bigger or higher-quant model
+(needs the VRAM you don't have), grammar-constrained decoding (tested here — it *hurt* output
+stability, so we use strong prompting with grammar as format-insurance only), or fine-tuning (cost,
+and it moves the whole model). This instead keeps your hardware and steers with a *verified* method
+vocabulary. We found no equivalent for the combination: an admission-gated stock (0 false
+admissions measured) + per-completion provenance headers telling you which slice you can trust.
+
 **How to use it, simply:**
 
 ```bash
@@ -91,6 +98,15 @@ inside that capacity (measured on simple lookups). The small model is **not** th
 (measured limit). The givens plumbing (the injected base facts) is per-domain — hence "not
 turnkey yet". And no MCP tool exposes this capability today.
 
+**Against the existing landscape.** Same family as the decomposition planners (LLMCompiler, ReWOO,
+plan-and-execute agents) — the deltas are the discipline, and they are measured: (i) pieces bind
+through a **typed needs/produces contract**, not a free-text scratchpad the model re-reads whole;
+(ii) per-piece context is **bounded and constant** — measured on a low-quant where the whole-task
+baseline collapses (0/33 deep tasks) rather than on a frontier model that hides the effect;
+(iii) the **neutral zone is published** (the zoom pays only past whole-task capacity — frameworks
+rarely state where their scaffolding does nothing); (iv) the cutter/executor split is measured,
+not assumed (the small model is *not* the task cutter).
+
 **How to use it, simply:**
 
 ```js
@@ -126,8 +142,11 @@ model calls**; a withdrawn value **reopens its dependent tasks with the reason**
 at 4 286 for a carry-everything baseline (PoC) · typed reuse: **6 calls vs 24**, with **12/12
 correct on drift vs 0/12** for retrieve-nearest (stale).
 
-**No market equivalent found**: task-reopen on premise drift was checked twice against the market —
-no agent tool reopens a task whose premise drifted.
+**Against the existing landscape.** What you would reach for today: an agent scratchpad or to-do
+framework (boxes only ever get *ticked*), vector / episodic memory (retrieves by surface
+similarity — measured here serving a **stale** answer 12/12 times on a policy drift), or RAG over
+notes (same failure class). **No market equivalent found**: task-reopen on premise drift was
+checked twice against the market — no agent tool reopens a task whose premise drifted.
 
 **How to use it, simply:**
 
@@ -155,6 +174,14 @@ The model proposes; the graph refuses with the reason and enumerates the admissi
 
 **Measured.** One dialogue round: 17/24 → **24/24** at **zero false admissions** · a forced write is
 recorded **UNTRUSTED**, never admitted · honest refusal on over-constrained input.
+
+**Against the existing landscape.** What you would reach for today: a model with a native think
+mode, or a self-critique / reflection loop. The 2024-25 literature converges on the weakness we
+also measured: **self-critique underperforms external feedback with localized blame** (Huang,
+Kamoi, Tyen, Stechly — and our own refutation: a low-quant cannot audit itself, 3 forms tested).
+This lane is that external feedback, structural: the gate **never yields**, the refusal carries a
+typed blame + gate-*tested* options, and a forced write lands as UNTRUSTED provenance — a
+discipline a prompt cannot provide, because a prompt can always be argued out of.
 
 **How to use it, simply:**
 
@@ -210,6 +237,13 @@ bound the output is counts + coverage + an honest **UNDECIDED** — never a fake
 weighting under the precision cap; goal-criteria weighting for a low-quant judge (2 forms);
 low-quant self-audit (3 forms).
 
+**Against the existing landscape.** What you would reach for today: LLM-as-judge (known to be
+miscalibrated and gameable — the essay-scoring literature documents verbatim-anchoring as the
+countermeasure, which is exactly what the witness gate hard-codes) or a debate prompt (no coverage
+guarantee, no audit trail). The deltas here: coverage is **witness-gated 0-false**, the ledger is
+the audit trail, and — we found no equivalent for this — the judge **declines by measured bound**:
+below its own decidability margin it returns UNDECIDED instead of picking a winner.
+
 **Limits (state them).** The entry templates (pool brainstorm, viewpoint naming) are not yet
 form-robustness-tested; on FREE frames, coverage is relative to the pool — and the payload says so.
 
@@ -240,6 +274,12 @@ Shareable certified-stock mini-repos: export a room, hand it over, import it —
 **through the engine gates** (never a raw write). sha256 dossiers; no catalog, no subscription, no
 egress by default.
 
+**Against the existing landscape.** What you would reach for today: a prompt library / hub
+(no admission gate — anything pasted in is trusted), a RAG index (retrieval, not certification),
+or a hosted marketplace (accounts, egress, someone else's catalog). A room is a **local file you
+own**: imports are dry-loaded through the same engine gates as everything else (a malformed bundle
+is refused, never written), and `freeze` pins it under a sha256 dossier you can hand to a colleague.
+
 **How to use it, simply:**
 
 ```bash
@@ -267,9 +307,12 @@ stabilization to a fixpoint. Every revision is snapshotted, which gives the cont
 - `fork` / `merge` — branch a sub-world and merge back only a snapped interface;
 - native cascading retraction — a falsified premise un-casts itself and its consequences.
 
-**No direct market equivalent found** for git-like control over belief state (rollback / diff /
-fork / merge on *what the system currently holds true*, rules included) — stated as a position we
-could not find matched, not as a grand claim.
+**Against the existing landscape.** Classic rules engines (RETE-family) match and fire but do not
+*version* belief; truth-maintenance systems (the JTMS lineage) retract but never shipped with
+git-like tooling; event sourcing versions *events*, not the derived belief state plus the rules
+that derived it. **No direct market equivalent found** for git-like control over belief state
+(rollback / diff / fork / merge on *what the system currently holds true*, rules included) —
+stated as a position we could not find matched, not as a grand claim.
 
 **How to use it, simply:**
 

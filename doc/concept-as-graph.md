@@ -239,7 +239,7 @@ replays verbatim); the typed verify re-gates on the receiver, so a structurally-
 > and limits live in **[CAPABILITIES.md](CAPABILITIES.md)** (the zoom: F2; the critical mind: F5).
 
 **Built + measured (2026-07-01, ZERO-CORE throughout, 759 tests at the time — the full repo suite is
-1343 today):** the middle spine (Bricks 1–3:
+1350 today):** the middle spine (Bricks 1–3:
 applySubgraphArg / lintMethod / selectCluster), the abstractivation slice (F6), the durable executor (Layer A +
 B + the fold-back JOIN + fail-fast / fold-survivors / nested-fold + C-fail retry/escalate + audit), C-xlate,
 C-contract (the checker · the §11.6 composition-soundness probe · the executor guard · the belief-view un-learn loop

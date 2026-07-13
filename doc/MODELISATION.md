@@ -14,10 +14,9 @@
 > ≥ 2 on a certified perimeter) — is consolidated in [CAPABILITIES.md](CAPABILITIES.md).
 
 *The definitive synthesis. Four R&D ideation lenses (agents/reasoning, live/reactive,
-truth-maintenance/audit, modeling/abstraction) plus two prior critical studies
-(`doc/aspect-modele-programmation-fiabilite.md`, `doc/aspect-calcul-incremental.md`) and the current
-design spec (`docs/superpowers/specs/2026-06-21-moe-graph-inspector-design.md`), merged into one
-curated, prioritized model. Every mechanism claim below is grounded in the engine code.*
+truth-maintenance/audit, modeling/abstraction) plus two prior critical studies and the
+2026-06-21 inspector design spec (kept in the author's local R&D trail, outside this repo), merged into one
+curated, prioritized model. Every mechanism claim below is grounded in the engine code; file/line pins reflect the 2026-06 revision and may have drifted a few lines.*
 
 **Convention.** `[C×N]` = convergence: N of the four lenses independently arrived at this (= high
 confidence). `[REAL]` / `[OVERHYPED]` / `[RISK]` keep the honesty discipline. Code refs are load-bearing.
@@ -449,6 +448,10 @@ High-leverage mechanisms the lenses surfaced that are not in the planned five.
 > Until that deliberate core change, **synthesis stays the deterministic post-pass** (correct, race-free).
 > Mechanisms that use only **distinct keys** (e.g. memory-on-retraction's `failed_<ctx>` flags, verdict
 > keys) are unaffected by replace-semantics and remain zero-core.
+> **Since shipped:** the `{__push}` append primitive in `Entity.set` closes exactly this — a race-free,
+> grow-only array append in core (see API.md, the k-of-n voting pattern with
+> `ensure:["$votes.length == $expected"]`). Reactive completion-gating is therefore available in core
+> today; the deterministic post-pass remains a valid, simpler alternative.
 
 ---
 
@@ -463,7 +466,7 @@ The risk ledger, carried forward intact (no hype). `[C×N]` = how many lenses in
 | **K3 — coherence ≠ truth** | **HIGH** `[C×4]` | a hallucinated-but-valid fact propagates & retracts cleanly; mechanism rigor → false sense of reliability | §6.3 verification (deterministic > LLM-refuters), §4.1/N3 confidence gates, N1 freshness, N4 contradiction. None makes facts *true*; they make unreliability **visible and non-propagating**. |
 | **K4 — incremental non-payoff zones** | **MEDIUM** `[C×3]` | one-shot (all cold), high-churn/global-input change (invalidate everything per tick → pay tracking *on top of* full recompute), prose inputs, non-decomposable holistic judgment | §4.2 + §4.3 + N1; M3 "large stable core + thin live edge." For one-shot, skip the reactive machinery — use the bounded-context decomposition only. **Be honest: incremental only wins under small-delta-over-large-stable-state.** |
 | **K5 — JTMS not ATMS (single world)** | **MEDIUM** `[C×3]` | comparing alternatives forces a coarse manual fork; no shared-derivation label sharing | N5 ATMS-lite for in-graph beam; fork for sandboxes; fork *only* at high-uncertainty decision points the verifier flags (each fork pays full cost). |
-| **K6 — authoring/maintenance cost** | **MEDIUM** `[C×2]` | who writes & maintains hundreds of concept↔prompt pairs when domain/model changes? An unbounded, non-auto-optimized **specification debt** (vs DSPy) | §6.5 AI-authoring (concept↔prompt = reusable skill). **Honest: not demonstrated cheaper than imp6erative code; the difficulty moves from "fragile imperative code" to "ontology to maintain."** |
+| **K6 — authoring/maintenance cost** | **MEDIUM** `[C×2]` | who writes & maintains hundreds of concept↔prompt pairs when domain/model changes? An unbounded, non-auto-optimized **specification debt** (vs DSPy) | §6.5 AI-authoring (concept↔prompt = reusable skill). **Honest: not demonstrated cheaper than imperative code; the difficulty moves from "fragile imperative code" to "ontology to maintain."** |
 | **K7 — stratification / oscillation** | **MEDIUM** `[C×2]` | `ensure` aggregate gates + memory + self-mod are non-monotone → A→fail→B→fail→A | §5.3 stratification (depth strata + Tarjan-SCC negative-cycle lint); §6.1 negative-only dependence; §6.4 apply-count ceiling. |
 | **K8 — self-mod re-entrancy / stop-the-world** | **MEDIUM** `[C×2]` | `patchConcept` re-evals every object & isn't queued mid-stabilize | §6.4 scoped re-eval + drain at `_loopTF` boundary; N6 concept-lib versioning. Gate the tier last. |
 

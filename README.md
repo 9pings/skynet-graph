@@ -85,6 +85,21 @@ builds `.sgc` method stocks from any dataset that has an executable oracle, behi
 gate (held across every campaign: 0 false shapes admitted, 3 datasets, 2 forge models) — each stock ships
 with an auditable sha256 validation dossier.
 
+### Where it beats what you would reach for today
+
+Each row is a measured delta or a checked absence — details, limits and snippets per row in
+[doc/CAPABILITIES.md](doc/CAPABILITIES.md).
+
+| You would reach for | The known weakness there | Here, measured |
+|---|---|---|
+| a bigger / higher-quant model | needs VRAM you don't have | certified-stock steering on *your* hardware: SQL 8→**63 %**, finance 7→**62 %**, 0 frontier calls on the covered slice |
+| an agent scratchpad / vector memory | boxes only get ticked; similarity retrieval serves **stale** answers | premise drift → cascade retraction + reopen-with-reason: **12/12 vs 0/12** (stale) on drift, 0 model calls |
+| a decomposition framework | free-text plans, unbounded context growth | typed needs/produces + bounded per-piece context: ×2.5–3.2 at N=200, and **0/33 → 10/33** where the whole-task baseline collapses |
+| a native think mode / self-critique loop | self-critique underperforms external feedback (2024-25 literature, + our own refutation ×3) | an external gate that **never yields**: typed blame + gate-tested options, 17/24 → **24/24** at zero false admissions |
+| LLM-as-judge / a debate prompt | miscalibrated, gameable, no audit trail | witness-gated coverage (0 fabrication), typed ledger, and a judge that **declines by measured bound** (UNDECIDED below margin) |
+| a prompt hub / RAG index for methods | anything pasted in is trusted | `.sgc` rooms: admission-gated import (a bad bundle never lands), sha256 dossiers, local files you own |
+| a rules engine / event sourcing | fires rules or versions events — never versions *belief* | rollback / diff / fork / merge on what the system currently holds true, **rules included** — no market equivalent found |
+
 **What is honestly NOT claimed** (each of these was tested, and the page follows the results):
 - the guarantee is **at admission, not at execution** — at use time the stock *orients*; a suggestion is not
   a correctness proof (a runtime "trusted answers" tier was tested and **refuted** — removed);
@@ -176,7 +191,7 @@ process restart at **0 calls**. *(Both bounds are proven by accounting + a fair 
 
 ```bash
 npm install        # no build step — pure CommonJS, Node 18+
-npm test           # 1343 tests
+npm test           # 1350 tests — 0 failures, 2 known skips
 
 node bin/sg run --concepts ./concepts --builtins --seed ./seed.json
 

@@ -202,6 +202,11 @@ The substrate ships the pieces that make Use 2 possible, each usable **à nu**:
 - **Safe live self-modification.** A supervised loop can hypothesize a self-mod, evaluate
   it with a better-model judge, and `rollbackTo` cleanly if it's worse — re-entrancy-safe,
   backstopped, and reversible (rules included).
+- **The zoom bricks (F2).** `lib/authoring/dag-decompose.js` (the typed cutter prompt + archetype
+  router — pieces bind through `needs`/`produces`, never free prose), `context-project.js` (the bounded
+  per-piece projection; `stratComplete` is the stratified CONTEXT/DONE/ROADMAP rendering that held on
+  the compound "monster" tasks), `givens.js` (the typed base-fact front door + the measured CELLS
+  labelling rule), `leaf-io.js` (typed leaf value or a typed refusal — never carried garbage).
 - **The support grammar** (`lib/authoring/support.js`). *Structure and search are reified in the graph, not held
   in the model's context*: a problem decomposes; each bounded atomic segment **proposes K candidate answers**; a
   `pareto` SELECT keeps the non-dominated front; a `Stuck` segment **escalates** to a better tier; the parent
@@ -217,11 +222,11 @@ Above the bricks sit the delivered **combos** (`Graph.combos.*`, C1–C9 — app
 learning library, reactive KG, self-mod, proxy cache, plan loop, mixture serve, and **C9
 `createCriticalMind`**, the external critical mind) and the **serving surfaces**: `sg serve` (an
 OpenAI-compatible endpoint) and `sg mcp` (MCP tools, including the SOFT/HARD assistant lanes —
-`hint` / `state_recall` / `plan_sync` vs the gate-tested `propose` — and the `critique` tool).
+`hint` / `state_recall` / `state_note` / `plan_sync` vs the gate-tested `propose` — and the `critique` tool).
 Per-capability maturity, the measured numbers (including the critical mind's measured decidability
 bound), and the limits are consolidated in **[CAPABILITIES.md](CAPABILITIES.md)**.
 
-## 5b. Distributed execution
+## 6. Distributed execution
 
 Sub-graphs stabilize in **separate worker processes**; graph parts dispatch to a pool of
 waiting workers. The master/client sync boundary is already plain JSON, so nothing
@@ -231,17 +236,18 @@ the "a model call is a generic, templated request, dispatchable anywhere" path.
 
 ![distributed sub-graphs + ask proxy](img/distributed.svg)
 
-## 5. Honest limits
+## 7. Honest limits
 
 | Limit | Mitigation built |
 |---|---|
 | **K1 — prose memo-fragmentation** (an LLM output feeding a dependency edge re-keys every run → cache never hits) | the typed-fact spine + canonicalization barrier |
 | **K2 — terminize ≠ economy** (the fixpoint bounds *redundant* work, not the *size* of the productive tree / exploration cost) | assert-gated **budget cap**; beam/AO\* still only a cap |
 | **K3 — coherence ≠ truth** (a hallucinated-but-valid fact propagates and retracts *cleanly* — rigor can give false confidence) | verification concepts + freshness/TTL |
+| **K4 — incremental non-payoff zones** (numbering follows MODELISATION §8: some workloads never amortize) | STAGE-0 compose gate — measure *does the workload compose?* before investing |
 | **K5 — one world (JTMS, not ATMS)** (compares plans only by forking) | `fork`/`merge` sub-graphs |
 | **Authoring cost** (who writes/maintains the concept corpus?) | the validator + CEGIS author; **and this is the open problem — see below** |
 
-## 6. Status & what's R&D
+## 8. Status & what's R&D
 
 The **engine** is mechanically complete and heavily tested (declarative AI-authoring + safe
 live self-modification included), and the **additive Mixture-of-Reasoners layer** (the P / C / M
@@ -250,9 +256,12 @@ regime providers, verification, tiling), the **support grammar**, the **Studio**
 composable methods, the durable executor, the C-contract / un-learn loop, and the **creative loop** (a library
 **dispatch** over reified `FrontierSignature`s → combinator **mount** → `adaptOrForge`, so one method recombines
 another's learned method by structure-mapping) — is documented in **[concept-as-graph.md](concept-as-graph.md)**
-(part of the repo's 1343-test suite). What remains is **open research** + the deferred
+(part of the repo's 1350-test suite). What remains is **open research** + the deferred
 performance work, and the biggest research piece is **how to organize concepts** — the current bet is a
 semantically-meaningful hierarchical corpus keyed on *human vocabulary*, with judgment delegated to a
 better-model supervisor while the rules handle orchestration + coherence. The shipped `concepts/common/` set is an
-*illustration*, not a recommended ontology. The detailed, evolving roadmap is in
-[MODELISATION.md](MODELISATION.md); the critical self-studies are kept in the project's local R&D trail.
+*illustration*, not a recommended ontology. The four capabilities run assembled in the shipped
+**integrated demo** — `node examples/integrated-demo/run.js --replay` re-verifies its 7 checks
+deterministically, no model, no GPU. The grounded model + historical roadmap is
+[MODELISATION.md](MODELISATION.md); the live roadmap and the critical self-studies are kept in the
+project's local R&D trail, outside this repo.

@@ -17,7 +17,7 @@
 
 ```bash
 npm install        # deps only; no compile
-npm test           # 1343 tests (node --test)
+npm test           # 1350 tests — 0 failures, 2 known skips (node --test)
 ```
 
 ```js
@@ -172,6 +172,15 @@ See [API.md](API.md) for exact signatures and semantics.
 ## 7. The `sg` CLI
 
 ```bash
+# the FORGE — dataset + executable oracle → certified .sgc method stock behind the zero-false-admission
+# gate, with a sha256 validation dossier (the fuel of F1):
+node bin/sg forge --adapter <adapter.js> --data <dir> --model <path.gguf> --out stock.sgc --dossier out/
+
+sg proxy      # C6 one-shot/batch over the proxy cache        sg methods   # explore a stock's method classes
+sg validate   # author-time grammar pre-flight on a concept dir (structure, not grammar)
+```
+
+```bash
 # boot a graph from folders and print the stabilized facts. A runnable seed ships in the repo
 # (the Paris→Singapore/Versailles travel graph, the same one examples/run-basic.js builds inline):
 node bin/sg run --concepts ./concepts/common --builtins --seed examples/seed-travel.json
@@ -309,6 +318,7 @@ plain-JSON (`init` / `dispatch` / `ask` / `result`), so a cross-instance transpo
 ## 9. Examples
 
 ```bash
+node examples/integrated-demo/run.js --replay   # the 4 capabilities assembled — 7 checks, deterministic, no GPU
 node examples/run-basic.js     # non-LLM stabilization over the real `common` set
 node examples/run-prompt.js    # decompose → synthesize vs a local LLM (set LLM_BASE), writes a trace
 node examples/run-problem.js   # LLM-driven plan decomposition
@@ -349,13 +359,14 @@ npm run local-inference:setup -- --turboquant # + guidance for the TheTom TurboQ
 ```
 
 ```js
-const { register, createLLMProvider, makeLocalAsk } = require('skynet-graph/providers');
+const { register, createLLMProvider, makeLocalAsk } = require('skynet-graph/lib/providers');
 register(Graph, [ createLLMProvider({ ask: makeLocalAsk({ modelPath: 'models/small.gguf' }) }) ]);
 ```
 
-The crown jewel is **grammar-constrained decoding**: pass `jsonSchema` (or `gbnf`) and the model is forced to
-emit grammar-valid tokens — a small (noisy) model then **cannot** produce a malformed typed fact, so the
-canonicalization barrier (`prompt.facts`) is enforced at the *decode* level (the K1 signature-stability lever).
+**Grammar-constrained decoding is format INSURANCE, not a quality lever** (measured: constrained decoding
+*hurt* signature stability — the shipped posture keeps it OFF by default): pass `jsonSchema` (or `gbnf`) only
+when a malformed typed fact is worse than a distorted one, e.g. as a last-resort parse backstop. The real K1
+signature-stability lever is the strong prompt + the canonicalization barrier (`prompt.facts`).
 Grammar guarantees valid *format*, not correct *content* — keep the C-contract/verify pass as the content check,
 and reserve a bigger/remote model for the META/supervisor tier. Per-concept **multi-model** = one `makeLocalAsk`
 per `namespace` (a specialist GGUF, or one base + a per-context LoRA). The no-build/browser sibling is `wllama`
@@ -433,12 +444,16 @@ const { answer, source } = await px.answer('What is the capital of France?');   
 // into typed leaves, each served with ONLY a projected digest, rebalanced to a fixpoint, reassembly verified.
 // decompose + serveLeaf are INJECTED (typed-loop + createProxyCache.solve in production) — usable "à nu".
 const loop = Graph.combos.createPlanLoop({ decompose, serveLeaf });
-const { answer: a7, refused } = await loop.run(task, { givens });   // givens: lib/authoring/givens.js#seedOf
+const { answer: a7, refused } = await loop.run(task, { givens, labels: labelsOf(givens) });
+// givens: lib/authoring/givens.js#seedOf · labelsOf = the measured CELLS rule (label an input iff its
+// provenance is a structured table cell — never prose, never producers)
 
 // C8 — the MIXTURE-RUNTIME server: a cheap local model ORIENTED by a forged certified stock, escalating the
 // rest to a bigger tier. NOTE: the runtime cross-agreement "trusted answers" tier documented in its header was
 // REFUTED at scale — keep the fail-closed default (nothing auto-trusted); orientation lifts the score only.
-const mx = Graph.combos.createMixtureServe({ small, big, proposeMenu, predict });   // all four injected
+const mx = Graph.combos.createMixtureServe({ certifiedShapes, small, big, proposeMenu });
+// certifiedShapes is REQUIRED. Caution: injecting `predict` without `trust: () => false` re-enables the
+// REFUTED cross-agreement default — keep fail-closed (nothing auto-trusted).
 
 // C9 — the external CRITICAL MIND: declared viewpoints established through a witness gate over a statement
 // pool, anchored generation of missing theses (0-fabrication measured), a typed LEDGER as the deliverable,
@@ -457,7 +472,7 @@ combos; both zero-dep):
 sg serve --frontier-model <path.gguf> --store ./stock.json            # → http://127.0.0.1:4747/v1
 #   const client = new OpenAI({ baseURL: 'http://127.0.0.1:4747/v1', apiKey: 'sg-local' });
 # A covered query is served from the verified local stock at 0 frontier calls; provenance rides EVERY
-# completion (headers x-sg-served-from/-cost/-coverage/-saved + usage.sg_*). stream:true is honored
+# completion (headers x-sg-served-from/-arm/-cost/-coverage/-saved/-sgc-version + usage.sg_*). stream:true is honored
 # (simulated SSE). Add --studio to open the visual debugger on port+1 (live request lines in its trace
 # panel); Ctrl-C prints the economy report.
 
