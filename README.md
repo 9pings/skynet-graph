@@ -123,13 +123,18 @@ the per-feature numbers behind each in **[doc/CAPABILITIES.md](doc/CAPABILITIES.
 
 ## Quick start
 
+**Run the demos + tests** — from a clone (the demos and the test suite are not in the npm tarball; npm is for
+*embedding the library in your app*, see just below):
+
 ```bash
+git clone https://github.com/9pings/skynet-graph && cd skynet-graph
 npm install        # no build step — pure CommonJS, Node 18+
 npm test           # 1350 tests — 0 failures, 2 known skips
-
 node bin/sg run --concepts ./concepts --builtins --seed ./seed.json
 node examples/integrated-demo/run.js --replay    # the four capabilities assembled, no GPU
 ```
+
+**Embed it in your app** — `npm install skynet-graph`, then:
 
 ```js
 const Graph = require('skynet-graph');
