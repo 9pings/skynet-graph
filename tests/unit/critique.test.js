@@ -292,6 +292,58 @@ test('C9 re-root — single-pass guard: generation is ONE proven pass, unused ar
 	assert.equal(r.ledger.find(( e ) => e.text === 'vpB' ).status, 'open');       // the open CON point is never faked
 });
 
+test('C9 dialectic — opt-in cross-refutation enriches a contested node with anchored attackers; counts/verdict NEVER move', async () => {
+	const ask = async ( q ) => {
+		const u = String(q.user);
+		if ( /Point of view \(PRO\): vpA/.test(u) ) return 'cites: p1';
+		if ( /Point of view \(CON\): vpC/.test(u) ) return 'cites: c1';
+		if ( /Point of view/.test(u) ) return 'cites: NONE';
+		if ( /Which statements GENUINELY/.test(u) ) return 'cites: NONE';
+		if ( /Propose ONE NEW/.test(u) ) return 'NONE';
+		if ( /genuinely CONTESTED/.test(u) ) return 'CONTESTED';
+		if ( /SPECIFICALLY CONTRADICT/.test(u) ) {
+			if ( /Established point \(PRO\): vpA/.test(u) ) return 'cites: c2, p3';   // c2 opposite-side (kept) · p3 same-side (stance-dropped)
+			if ( /Established point \(CON\): vpC/.test(u) ) return 'cites: p2';
+			return 'cites: NONE';
+		}
+		if ( /Summarize/.test(u) ) return 'syn.';
+		return 'NONE';
+	};
+	const cm = createCriticalMind({ ask });
+	const r = await cm.run({ topic: 'T?', statements: STATEMENTS,
+		viewpoints: [{ side: 'PRO', text: 'vpA' }, { side: 'CON', text: 'vpC' }], dialectic: true });
+	// counts/verdict are the SAME as without dialectic — the attack is an annotation, not a tie-breaker
+	assert.deepEqual(r.counts, { PRO: 1, CON: 1 });
+	assert.equal(r.verdict, 'UNDECIDED');
+	const a = r.ledger.find(( e ) => e.text === 'vpA' ), c = r.ledger.find(( e ) => e.text === 'vpC' );
+	assert.equal(a.contested, true);
+	assert.deepEqual(a.attackers, ['c2']);                                       // opposite-side kept; same-side p3 dropped by the stance gate
+	assert.equal(c.contested, true);
+	assert.deepEqual(c.attackers, ['p2']);
+	assert.match(r.prose, /contested — attacked by/);
+});
+
+test('C9 dialectic — placement: cross-refutation runs ONLY on a contested node, never on a decided one; OFF by default', async () => {
+	let refuteSeen = false;
+	const ask = async ( q ) => {
+		const u = String(q.user);
+		if ( /SPECIFICALLY CONTRADICT/.test(u) ) { refuteSeen = true; return 'cites: NONE'; }
+		if ( /Point of view \(PRO\): vpA/.test(u) ) return 'cites: p1';
+		if ( /Point of view \(PRO\): vpB/.test(u) ) return 'cites: p2';
+		if ( /Point of view \(CON\)/.test(u) ) return 'cites: NONE';
+		if ( /Which statements/.test(u) ) return 'cites: NONE';
+		if ( /Propose ONE NEW/.test(u) ) return /p3/.test(u) ? 'THESIS: extra pro one | cites: p3, p4' : 'NONE';
+		if ( /restatement/.test(u) ) return 'NEW';
+		if ( /Summarize/.test(u) ) return 'syn.';
+		return 'NONE';
+	};
+	const cm = createCriticalMind({ ask });
+	const r = await cm.run({ topic: 'T?', statements: STATEMENTS,
+		viewpoints: [{ side: 'PRO', text: 'vpA' }, { side: 'PRO', text: 'vpB' }, { side: 'CON', text: 'vpC' }, { side: 'CON', text: 'vpD' }], dialectic: true });
+	assert.equal(r.verdict, 'PRO');                                              // mechanical margin 3 → decided
+	assert.equal(refuteSeen, false);                                             // dialectic SKIPPED on a decided node (placement)
+});
+
 test('C9 critique — MCP tool exposure: present iff critiqueAsk is wired, typed payload', async () => {
 	const { defaultTools } = require('../../lib/sg/mcp.js');
 	assert.ok(!defaultTools({}).some(( t ) => t.name === 'critique' ));
