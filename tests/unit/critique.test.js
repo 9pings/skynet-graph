@@ -35,6 +35,7 @@ function scriptedAsk() {
 			return 'NONE';
 		}
 		if ( /restatement of one known point/.test(u) ) return 'NEW';
+		if ( /genuinely CONTESTED/.test(u) ) return 'CONTESTED';
 		if ( /Summarize the (PRO|CON) case/.test(u) ) return 'one-line synthesis.';
 		if ( /Rewrite the report/.test(u) ) return 'polished text.';
 		throw new Error('unexpected prompt: ' + u.slice(0, 80));
@@ -58,10 +59,11 @@ test('C9 critique — witness gate + generation + honest UNDECIDED + prose from 
 	assert.ok(g1 && g1.side === 'PRO');
 	assert.deepEqual(g1.witnesses, ['p3', 'p4']);
 	assert.equal(r.ledger.filter(( e ) => e.kind === 'generated' ).length, 1);
-	// counts PRO 2 vs CON 1 → margin 1 < 3 on MATERIAL → honest UNDECIDED (the measured bound)
+	// counts PRO 2 vs CON 1 → margin 1 < 3 on MATERIAL → probe says CONTESTED → honest UNDECIDED
 	assert.deepEqual(r.counts, { PRO: 2, CON: 1 });
 	assert.equal(r.verdict, 'UNDECIDED');
 	assert.equal(r.threshold, 3);
+	assert.equal(r.norm.status, 'CONTESTED');
 	// prose renders from the LEDGER: frame caveat, witness quotes, open points, bottom line
 	assert.match(r.prose, /Frame status: \*\*MATERIAL\*\*/);
 	assert.match(r.prose, /pro argument one about cost/);                        // witness quoted verbatim
@@ -89,6 +91,30 @@ test('C9 critique — mechanical verdict at margin ≥ 3, zero model weighing', 
 	assert.deepEqual(r.counts, { PRO: 3, CON: 0 });
 	assert.equal(r.verdict, 'PRO');                                              // mechanical, by counts
 	assert.match(r.prose, /the verdict is mechanical/);
+});
+
+test('C9 critique — settled-norm basis: a question that was never really open gets its verdict, LABELED advisory', async () => {
+	// margin below the bound BUT the forced-choice contestedness probe says SETTLED CON, and the
+	// counts do not lean the other way → verdict CON with basis 'settled-norm' (announced prior).
+	const ask = async ( q ) => {
+		const u = String(q.user);
+		if ( /Point of view \(PRO\): vpA/.test(u) ) return 'cites: p1';
+		if ( /Point of view \(CON\): vpC/.test(u) ) return 'cites: c1';
+		if ( /Point of view/.test(u) ) return 'cites: NONE';
+		if ( /Which statements/.test(u) ) return 'cites: NONE';
+		if ( /Propose ONE NEW/.test(u) ) return 'NONE';
+		if ( /genuinely CONTESTED/.test(u) ) return 'SETTLED CON';
+		if ( /Summarize/.test(u) ) return 'syn.';
+		return 'NONE';
+	};
+	const cm = createCriticalMind({ ask });
+	const r = await cm.run({ topic: 'T?', statements: STATEMENTS,
+		viewpoints: [{ side: 'PRO', text: 'vpA' }, { side: 'CON', text: 'vpC' }] });
+	assert.deepEqual(r.counts, { PRO: 1, CON: 1 });                              // tied — below the bound
+	assert.equal(r.verdict, 'CON');
+	assert.equal(r.basis, 'settled-norm');
+	assert.match(r.prose, /settled norm, not of the counts/);
+	assert.match(r.prose, /ADVISORY prior/);
 });
 
 test('C9 critique — MCP tool exposure: present iff critiqueAsk is wired, typed payload', async () => {
