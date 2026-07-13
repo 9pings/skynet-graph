@@ -1,35 +1,45 @@
-### SublimeText ###
-*.sublime-workspace
+# npm tarball = ONLY what's needed to EXECUTE + the .md docs.
+# The package.json "files" allowlist is the PRIMARY control (default-deny); this denylist is the
+# belt-and-suspenders (keeps the heavy/dev dirs out even if "files" is ever widened). Verify with
+# `npm pack --dry-run` before publishing — the tarball must NOT contain models/, artifact/, or tests/.
 
-### OSX ###
+# Heavy / non-exec (the big ones — models/ is tens of GB of gguf, NEVER ship)
+/models/
+/artifact/
+/examples/
+/tests/
+/scripts/
+/src/
+/samples
+/assets
+/coverage
+/.nyc_output
+
+# doc: ship only the top-level *.md (via "files"); drop the heavy subdirs/images
+/doc/*/
+/doc/**/*.png
+/doc/**/*.pdf
+/doc/**/*.gif
+
+# dev / local
+node_modules/
+*.log
+*.tgz
+.env
+.env.*
+.tmp
+
+# OS / editor cruft
 .DS_Store
 .AppleDouble
 .LSOverride
 Icon
-
-# Thumbnails
 ._*
-
-# Files that might appear on external disk
 .Spotlight-V100
 .Trashes
-
-### Windows ###
-# Windows image file caches
 Thumbs.db
 ehthumbs.db
-
-# Folder config file
 Desktop.ini
-
-# Recycle Bin used on file shares
 $RECYCLE.BIN/
-
-# App specific
-
-.tmp
 .idea
-/doc/
-/src/
-/samples
-/assets
+*.sublime-workspace

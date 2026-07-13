@@ -11,9 +11,7 @@
     "lib",
     "bin",
     "concepts",
-    "examples",
     "doc/*.md",
-    "artifact",
     "README.md",
     "CONTRIBUTING.md",
     "LICENSE"
