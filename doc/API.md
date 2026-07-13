@@ -8,7 +8,7 @@ Mental model: data objects (nodes, segments) carry **typed facts**. **Concepts**
 rules that become applicable when their `require`/`assert` conditions hold against the facts; when
 they cast, they add more facts and/or new child segments, which makes other concepts applicable —
 a forward-chaining cascade that runs to a fixpoint (**stabilization**). Mutations destabilize;
-stabilization re-casts/uncasts; repeat until nothing more fires. See `CLAUDE.md` and `doc/doc.md`
+stabilization re-casts/uncasts; repeat until nothing more fires. See `CLAUDE.md` and `doc/original-2016-doc.md`
 for the concept-schema and the embedded reference/template DSLs.
 
 ---

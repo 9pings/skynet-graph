@@ -1,7 +1,7 @@
 # Usage guide (Use 1 — the substrate)
 
 > **R&D library.** Pure CommonJS, runs natively on Node 18+ — **no build step**. For the
-> model see [architecture.md](architecture.md); for the concept schema see [doc.md](doc.md);
+> model see [architecture.md](architecture.md); for the concept schema see [original-2016-doc.md](original-2016-doc.md);
 > for the full API surface see [API.md](API.md). The **concept-organization strategy is
 > still WIP** — treat `concepts/common/` as an example, not a recommended ontology.
 
@@ -95,7 +95,7 @@ concepts/common/
 
 `Graph.loadConceptMap('./concepts')` auto-detects: a dir with top-level `*.json` is a
 single set (named by its basename); otherwise each immediate sub-dir holding `*.json` is a
-set. See [doc.md](doc.md) for every schema field.
+set. See [original-2016-doc.md](original-2016-doc.md) for every schema field.
 
 > **Typed-fact discipline (do not break it).** A `require`/`assert`/`ensure` must key only
 > on **discrete, typed** facts (enums, ids, numbers, booleans) — never on free-text prose,
