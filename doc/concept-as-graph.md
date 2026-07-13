@@ -230,7 +230,16 @@ replays verbatim); the typed verify re-gates on the receiver, so a structurally-
 
 ## 8. Status & honest lines
 
-**Built + measured (2026-07-01, ZERO-CORE throughout, 759 tests):** the middle spine (Bricks 1–3:
+> **Update (2026-07-13).** The blocks below are dated status snapshots and stand as written. Since
+> then the bounded-context thesis has shipped as a product combo: **C7 `createPlanLoop`** (decompose
+> → bounded projection per leaf → serve → rebalance → verified reassembly), on the standalone bricks
+> `dag-decompose`, `context-project` (the `stratComplete` stratified rendering), `givens` and
+> `leaf-io` — measured cross-domain at N=200/domain; and **C9 `createCriticalMind`** (the external
+> critical mind) is promoted to the library + MCP surface. The consolidated per-capability numbers
+> and limits live in **[CAPABILITIES.md](CAPABILITIES.md)** (the zoom: F2; the critical mind: F5).
+
+**Built + measured (2026-07-01, ZERO-CORE throughout, 759 tests at the time — the full repo suite is
+1343 today):** the middle spine (Bricks 1–3:
 applySubgraphArg / lintMethod / selectCluster), the abstractivation slice (F6), the durable executor (Layer A +
 B + the fold-back JOIN + fail-fast / fold-survivors / nested-fold + C-fail retry/escalate + audit), C-xlate,
 C-contract (the checker · the §11.6 composition-soundness probe · the executor guard · the belief-view un-learn loop
@@ -293,7 +302,7 @@ model* — via the prompt. The confront earned its keep: the naive arm-pair (gra
 would have shipped "constrained decoding fixes stability"; the mechanism-isolating arm showed the win is pure format and the
 semantics are hurt.
 
-**⇒ The target-system ROADMAP** (`doc/WIP/studies/2026-07-01-composed-roadmap.md`) composes five grounded strategy axes
+**⇒ The target-system ROADMAP** (kept in the project's local R&D trail) composes five grounded strategy axes
 (compositional distillation · grammar/vocabulary design · small-LLM controller · evaluation · embedded inference) into a
 staged plan whose spine is: one shared front gate (*does the real workload compose/recur?* — currently it does NOT, per
 `hotspot.js`), the **interface-alphabet registry (Σ_sep) as keystone**, and **constrained decoding** as the cross-axis

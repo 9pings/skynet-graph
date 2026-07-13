@@ -17,7 +17,7 @@
 
 ```bash
 npm install        # deps only; no compile
-npm test           # 1130+ tests (node --test)
+npm test           # 1343 tests (node --test)
 ```
 
 ```js
@@ -70,7 +70,10 @@ const g = new Graph(seed, { conceptSets: ['common'], autoMount: true }, conceptM
 > so you reach them without deep paths — e.g. `Graph.authoring.concepts.buildConceptTree`, `.validate`,
 > `.contract`, `.method`, `.abstract`, `.crystallize`, `.library` / `.combinator` / `.adapt` (the creative loop:
 > dispatch → mount → **adapt-or-forge** → **antiUnify content-forge** → **blend** = combinational synthesis of a
-> novel composite method, with a bounded `synthesizeByBlend`). Each module also stays importable on its own
+> novel composite method, with a bounded `synthesizeByBlend`). The plan-loop bricks live there too:
+> `dag-decompose` (the typed cutter prompt + archetype router), `context-project` (the bounded projection;
+> `stratComplete` = the stratified CONTEXT/DONE/ROADMAP rendering), `givens` (the typed base-fact front door)
+> and `leaf-io` (typed leaf output or a typed refusal). Each module also stays importable on its own
 > (`require('skynet-graph/lib/authoring/<module>')`); the barrel is a convenience, not a gate. A runnable, offline
 > end-to-end tour of the creative loop is `examples/creative-loop.js` (`node examples/creative-loop.js`); the
 > example map is `examples/README.md`.
@@ -425,6 +428,23 @@ const px = Graph.combos.createProxyCache({
 	...Graph.combos.makeLocalCoverage({ localAsk })       // opt-in: a small model snaps paraphrases to one key
 });
 const { answer, source } = await px.answer('What is the capital of France?');   // source: 'local'|'frontier'
+
+// C7 — the hierarchical PLAN LOOP (the piece-by-piece zoom): a task longer than the context is decomposed
+// into typed leaves, each served with ONLY a projected digest, rebalanced to a fixpoint, reassembly verified.
+// decompose + serveLeaf are INJECTED (typed-loop + createProxyCache.solve in production) — usable "à nu".
+const loop = Graph.combos.createPlanLoop({ decompose, serveLeaf });
+const { answer: a7, refused } = await loop.run(task, { givens });   // givens: lib/authoring/givens.js#seedOf
+
+// C8 — the MIXTURE-RUNTIME server: a cheap local model ORIENTED by a forged certified stock, escalating the
+// rest to a bigger tier. NOTE: the runtime cross-agreement "trusted answers" tier documented in its header was
+// REFUTED at scale — keep the fail-closed default (nothing auto-trusted); orientation lifts the score only.
+const mx = Graph.combos.createMixtureServe({ small, big, proposeMenu, predict });   // all four injected
+
+// C9 — the external CRITICAL MIND: declared viewpoints established through a witness gate over a statement
+// pool, anchored generation of missing theses (0-fabrication measured), a typed LEDGER as the deliverable,
+// and a certification-aware verdict — mechanical only at the measured margin bound, else an honest UNDECIDED.
+const cm = Graph.combos.createCriticalMind({ ask });
+const r  = await cm.run({ topic, statements, viewpoints });   // frame FREE/MATERIAL/DECLARED, announced
 ```
 
 ## 10. Serving surfaces — OpenAI-compatible endpoint & MCP tools
@@ -442,10 +462,21 @@ sg serve --frontier-model <path.gguf> --store ./stock.json            # → http
 # panel); Ctrl-C prints the economy report.
 
 # 2) sg mcp — the same capabilities as MCP TOOLS for an agent host (stdio JSON-RPC):
-claude mcp add sg -- node bin/sg mcp --frontier-model <path.gguf> --store ./stock.json
-# tools: ask (answer OR a STRUCTURED typed refusal naming the missing requirement), drift, metrics,
+claude mcp add sg -- node bin/sg mcp --frontier-model <path.gguf> --store ./stock.json [--stock <f.sgc>]
+# Base tools: ask (answer OR a STRUCTURED typed refusal naming the missing requirement), drift, metrics,
 # lattice_load (learning through the version-gated admission — there is NO direct-write tool),
 # methods_describe, lattice_rings, trace_tail (debug by applyId).
+#
+# The ASSISTANT lanes (--stock <f.sgc> wires hint/propose from a forged stock):
+#   SOFT  — hint (the certified-shape menu, advisory) · state_recall / state_note (the certified task
+#           state) · plan_sync (the graph plan mirrored onto the HOST's task list — REOPEN included)
+#   HARD  — propose (gate-tested: admitted, or refused with the reason + gate-tested options;
+#           force → recorded-untrusted, NEVER admission — the gate does not cede)
+#   C9    — critique (the external critical mind: viewpoints + witness gate + anchored generation +
+#           typed ledger + a verdict that is mechanical only at the measured margin, else UNDECIDED).
+#           Iteration contract: OPEN points + UNDECIDED = a typed DATA REQUEST — the host gathers real
+#           statements (web/docs) and re-calls critique with `statements` (the frame becomes MATERIAL).
+#   INSTANCES — graph_invoke / graph_instances.
 
 # 3) sg flow run — a durable C2 workflow from a JS module (spec + tasks are code):
 sg flow run examples/poc/durable-flow.js --store ./flow.sqlite        # --resume = exactly-once recovery

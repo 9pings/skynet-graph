@@ -1,3 +1,4 @@
+> **Note (EN).** This is the concept-schema reference (the rule language), kept in French. For an English overview of the same schema, see [architecture.md](architecture.md) §3 and [API.md](API.md).
 
 ## Objectifs
 
@@ -68,7 +69,7 @@ Dans les assert, ensure & follow, on rajoute un $ pour différencier les référ
 
 Afin de permettre de muter le graphe de façon "atomique" et scalable, un langage de templates y est dédié.
 
-### Exemple/schéma[Graph.js](..%2FApp%2FGraph.js)
+### Exemple/schéma — [Graph.js](../lib/graph/Graph.js)
 
     [
      {

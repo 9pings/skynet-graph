@@ -24,6 +24,21 @@ premise later falls</b>. A forward-chaining loop stabilizes the graph to a fixpo
 <a href="https://doi.org/10.5281/zenodo.21201877"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.21201877.svg" alt="DOI"></a>
 </p>
 
+Where it sits in your setup — two zero-integration doors into one local loop:
+
+```
+ [your agent / app / any OpenAI client]
+        │
+        ├─► OpenAI-compatible endpoint    sg serve  →  http://127.0.0.1:4747/v1
+        └─► MCP tools                     sg mcp    →  ask · hint · propose · state_recall · plan_sync · critique
+                      │
+                      ▼
+        [typed reasoning graph]    plan · admission gates · typed ledger · JTMS memory
+                      │
+                      ▼
+        [your local GGUF model]    — nothing leaves the machine
+```
+
 ---
 
 ## What it does for a small local model — four capabilities, measured
@@ -39,12 +54,31 @@ replayable without a model · **[PoC]** = an accounting demonstration, not a ben
 |---|---|---|
 | **Repair low-quants** | a menu of *certified* method shapes steers a heavily-quantized model's output — it recovers most of what compression broke, at **zero big-model calls** | SQL, covered queries: low-quant 8→**63 %** (high-quant 46→92 %), N=201 · finance, traffic view: 7→**62 %** (20→78 %), N=120 · [live] |
 | **Task memory that reopens** | task state = typed facts with provenance (JTMS): a drifted premise **retracts its consequences in cascade**, and a "done" step **reopens itself with the reason** — it never rots | recomputable drift re-derives at **0 model calls**, selectively (independent facts untouched); crash-replay is bit-identical at 0 calls [live] · 100 % recall at **894 constant tokens/call** vs 50 % at 4 286 for a carry-everything baseline [PoC] |
-| **Piece-by-piece (the zoom)** | the task becomes a typed DAG; each piece is served with ONLY its bounded neighbourhood (parent goal + resolved inputs + what to produce) — the model never sees the whole | a decomposed plan **beats full-context** processing 0.93 vs 0.73 at half the peak context [live] · composite queries unreachable in one shot (0 % strict) reach **55 %** by recursive split, 0 false routes on 24 controls [live, n=22] |
-| **An external think mode** | the model proposes; the graph **refutes with the reason** and enumerates the admissible options (tested through its own gate, never guessed); the model revises — bounded, with honest refusal | one dialogue round: 17/24 → **24/24** correct at zero false admissions [live] · a hallucination trap converges in 2 rounds; an over-constrained input is refused, not invented [live] |
+| **Piece-by-piece (the zoom)** | the task becomes a typed DAG; each piece is served with ONLY its bounded neighbourhood (parent goal + resolved inputs + what to produce) — the model never sees the whole | cross-domain at N=200/domain (560 tasks total): math word problems 16 %→**52 %** (×3.2), financial-table QA 20 %→**50 %** (×2.5), bootstrap CIs hold [live] · **where the lone model collapses, the pieces hold**: deep tasks 0/33 whole vs 10/33 decomposed [live] · on 20 compound "monster" tasks (~20 ops): whole-context floors at **0/20**, hierarchical 2-level split reaches 73 % of sections [live] |
+| **An external think mode** | the model proposes; the graph **refutes with the reason** and enumerates the admissible options (tested through its own gate, never guessed); the model revises — bounded, with honest refusal | one dialogue round: 17/24 → **24/24** correct at zero false admissions [live] · disciplined piece-by-piece argument coverage: **77 % vs 58 %** whole-context at 48 arguments [live] · with a *certified perimeter*, weighing decisions go 12/24 → **24/24** (self-believed coverage measured at ~106 % — the perimeter is what closes the illusion) [live] · anchored generation of MISSING theses: **0 fabrication** across every negative control [live] |
+
+### Capabilities at a glance
+
+The full feature map — each capability with its maturity bar, the measured numbers, the limits, and
+a minimal snippet — is **[doc/CAPABILITIES.md](doc/CAPABILITIES.md)**. The 6-rung scale is honest:
+rung 6 = external replications, and nothing is there yet (pre-launch).
+
+| Feature | Maturity |
+|---|---|
+| [F1 — Repair low-quants](doc/CAPABILITIES.md#f1-low-quant-repair) (a certified stock steers a heavily-quantized model) | `█████░` 5/6 — product-integrated |
+| [F2 — The piece-by-piece zoom](doc/CAPABILITIES.md#f2-piece-by-piece-zoom-on-big-tasks) (typed DAG, bounded context per piece) | `████░░` 4/6 — measured at scale, not turnkey yet |
+| [F3 — Task memory that reopens](doc/CAPABILITIES.md#f3-task-memory-that-reopens) (JTMS: typed facts + provenance) | `█████░` 5/6 — product-integrated |
+| [F4 — External think mode](doc/CAPABILITIES.md#f4-external-think-mode) (propose → gated refusal + options → revise) | `█████░` 5/6 — product-integrated |
+| [F5 — External critical mind](doc/CAPABILITIES.md#f5-external-critical-mind) (C9: witness gate, honest verdict) | `█████░` 5/6 — product-integrated |
+| [F6 — Local `.sgc` rooms](doc/CAPABILITIES.md#f6-local-sgc-rooms) (shareable certified stock mini-repos) | `█████░` 5/6 — product-integrated |
+| [F7 — The versionable reasoning substrate](doc/CAPABILITIES.md#f7-the-versionable-reasoning-substrate) (rollback / diff / fork on beliefs) | `█████░` 5/6 — product-integrated |
+| [The integrated demo](doc/CAPABILITIES.md#the-integrated-demo) (everything assembled, replayable without a GPU) | `█████░` 5/6 — ships in this repo |
 
 All four run assembled in **one continuous end-to-end demo** — a 9.5 GB quant handling a real annual-report
 analysis: typed plan, per-step gated admission with cell-level provenance, an erratum retracting and
 re-deriving selectively at 0 calls, a withdrawn value reopening its tasks, crash-replay bit-identical. [live]
+**Ships in this repo**: `node examples/integrated-demo/run.js --replay` re-verifies its 7 checks
+deterministically — no model, no GPU, self-contained. [measured]
 
 The certified vocabulary these capabilities lean on is **fuel, not the headline**: a *forge* (`sg forge`)
 builds `.sgc` method stocks from any dataset that has an executable oracle, behind a **zero-false-admission**
@@ -58,7 +92,11 @@ with an auditable sha256 validation dossier.
   in the model, without guarantee — a design boundary, not a bug;
 - forge yield is a **per-domain parameter** (not model-invariant — refuted), and amortization is a property
   of the *domain's* stereotypy;
-- the small model executes surface steps well; it is **not** the task cutter (measured limit).
+- the small model executes surface steps well; it is **not** the task cutter (measured limit);
+- a **verdict** (weighing which side wins) is reliable **on certified perimeters** or at wide margins;
+  on free, uncertified content the engine renders **counts + zero-false coverage + an honest UNDECIDED**,
+  not a verdict — the measured decidability bound, kept rather than papered over (graded weighting and
+  goal-criteria weighting were both tested and **refuted** for a low-quant judge).
 
 ## Two ways to use it
 
@@ -138,9 +176,12 @@ process restart at **0 calls**. *(Both bounds are proven by accounting + a fair 
 
 ```bash
 npm install        # no build step — pure CommonJS, Node 18+
-npm test           # 1130+ tests
+npm test           # 1343 tests
 
 node bin/sg run --concepts ./concepts --builtins --seed ./seed.json
+
+# see the four capabilities assembled, deterministically, right now (no model, no GPU):
+node examples/integrated-demo/run.js --replay
 ```
 
 ```js
@@ -190,6 +231,9 @@ one short file per combo and per surface, each printing the guarantee it demonst
 > commands, gotchas); the MCP surface is one command away (`claude mcp add sg -- node bin/sg mcp …`).
 
 ## Docs
+
+**Start here — [doc/CAPABILITIES.md](doc/CAPABILITIES.md)**: every feature with its maturity bar,
+the measured numbers, the limits, and a minimal usage snippet.
 
 **Use 1 — the substrate**
 

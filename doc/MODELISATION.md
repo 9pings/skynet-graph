@@ -6,7 +6,12 @@
 > with typed contracts + a durable executor ([concept-as-graph.md](concept-as-graph.md), the dryer current
 > conception, which supersedes the "flagship / answer-loop" framing in the later sections here). Read this for the
 > grounded model + the lens-convergence history; read concept-as-graph.md for the current target. The live roadmap
-> is kept in the project's local R&D ledger.
+> is kept in the project's local R&D ledger. Since this model was written, much of it has shipped: the delivered
+> combos now run C1–C9 (`Graph.combos.*` — C9 `createCriticalMind` is the external critical mind), the MCP surface
+> carries the SOFT/HARD assistant lanes + `critique`, and the plan-loop bricks (`dag-decompose`, `context-project`
+> with `stratComplete`, `givens`, `leaf-io`) realize the bounded-context workload at measured scale. What is
+> measured — including the critical mind's decidability bound (a mechanical verdict only at count margin ≥ 3, or
+> ≥ 2 on a certified perimeter) — is consolidated in [CAPABILITIES.md](CAPABILITIES.md).
 
 *The definitive synthesis. Four R&D ideation lenses (agents/reasoning, live/reactive,
 truth-maintenance/audit, modeling/abstraction) plus two prior critical studies

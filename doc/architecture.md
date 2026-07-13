@@ -2,7 +2,7 @@
 
 > **R&D.** This explains the **substrate** (Use 1 — the standalone reactive engine; see the [README](../README.md)
 > for the two uses). The engine is stable and tested; the *concept-organization strategy* is open research (see
-> [§6](#6-status--whats-r--d)). The high-level target system built on this substrate (Use 2 — concept-graphs as
+> [§6](#6-status--whats-rd)). The high-level target system built on this substrate (Use 2 — concept-graphs as
 > composable methods, the durable executor, the contract) is **[concept-as-graph.md](concept-as-graph.md)**. The
 > authoritative model + roadmap is [MODELISATION.md](MODELISATION.md); the concept schema is [doc.md](doc.md); the
 > public API is [API.md](API.md).
@@ -15,6 +15,22 @@ compute** (Adapton/Salsa-style), running over a **typed-fact hypergraph**. One m
 is reused everywhere: *everything is a fact, gated by `ensure`/`assert`*. The workload it
 targets is AND/OR-graph search + bounded catamorphism (fold) — i.e. decompose a problem,
 solve the leaves, roll the answer back up.
+
+The two front doors over that one engine:
+
+```
+                  ┌───────────────────────────────────────────────┐
+                  │                  one engine                   │
+                  │   typed facts · concepts · stabilize · JTMS   │
+                  └──────────┬─────────────────────┬──────────────┘
+                             │                     │
+              Use 1 — the substrate       Use 2 — the target system
+           (standalone, no LLM needed)     (built ON Use 1, additive)
+         declarative rules over your     concept-graphs as typed METHODS
+           data, to a fixpoint           bounded context per piece (zoom)
+         rollback / diff / fork /        forge · reuse · compose ·
+           merge on the belief state       un-learn on drift
+```
 
 ## 2. Objects and facts
 
@@ -197,6 +213,14 @@ no-build web workbench (graph canvas with retraction flash, a concept↔fact **g
 with polarity + cross-corpus links + the tiling overlay, fork/split + merge-preview, timeline,
 provider trace, live concept editor, and **`.sgc` corpus import/export** with a derived manifest).
 
+Above the bricks sit the delivered **combos** (`Graph.combos.*`, C1–C9 — appliance, durable runner,
+learning library, reactive KG, self-mod, proxy cache, plan loop, mixture serve, and **C9
+`createCriticalMind`**, the external critical mind) and the **serving surfaces**: `sg serve` (an
+OpenAI-compatible endpoint) and `sg mcp` (MCP tools, including the SOFT/HARD assistant lanes —
+`hint` / `state_recall` / `plan_sync` vs the gate-tested `propose` — and the `critique` tool).
+Per-capability maturity, the measured numbers (including the critical mind's measured decidability
+bound), and the limits are consolidated in **[CAPABILITIES.md](CAPABILITIES.md)**.
+
 ## 5b. Distributed execution
 
 Sub-graphs stabilize in **separate worker processes**; graph parts dispatch to a pool of
@@ -226,7 +250,7 @@ regime providers, verification, tiling), the **support grammar**, the **Studio**
 composable methods, the durable executor, the C-contract / un-learn loop, and the **creative loop** (a library
 **dispatch** over reified `FrontierSignature`s → combinator **mount** → `adaptOrForge`, so one method recombines
 another's learned method by structure-mapping) — is documented in **[concept-as-graph.md](concept-as-graph.md)**
-(930+ tests). What remains is **open research** + the deferred
+(part of the repo's 1343-test suite). What remains is **open research** + the deferred
 performance work, and the biggest research piece is **how to organize concepts** — the current bet is a
 semantically-meaningful hierarchical corpus keyed on *human vocabulary*, with judgment delegated to a
 better-model supervisor while the rules handle orchestration + coherence. The shipped `concepts/common/` set is an

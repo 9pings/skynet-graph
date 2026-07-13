@@ -16,7 +16,7 @@ for the concept-schema and the embedded reference/template DSLs.
 ## Construction
 
 ```js
-const Graph = require('skynet-graph');           // dist build; in-repo use _lab/_boot.js
+const Graph = require('skynet-graph');           // native CommonJS — no build step
 const graph = new Graph(record, conf, conceptMap);
 ```
 
@@ -35,8 +35,8 @@ const graph = new Graph(record, conf, conceptMap);
   | `onStabilize(graph, tokens)` | called once the graph settles (the main hook) |
   | `bagRefManagers` | external-data ref managers (default `caipi` matches `/^db:(.+)$/`) |
 - **`conceptMap`** — host-supplied, keyed by concept-set name (`{ common: <tree> }`). The tree is a
-  nested `childConcepts` hierarchy. `_lab/concepts.js#buildConceptTree(dir)` assembles one from the
-  `concepts/<set>/` directory.
+  nested `childConcepts` hierarchy. `lib/authoring/concepts.js#buildConceptTree(dir)` assembles one
+  from the `concepts/<set>/` directory.
 
 ---
 
@@ -299,12 +299,12 @@ A host-side validator enforces the typed-fact discipline **before** a concept tr
 the safety gate for hand- or AI-authored concepts. It validates *structure*, never the expression grammar.
 
 ```js
-const { validateConceptTree, validateOrThrow } = require('./_lab/validate');
+const { validateConceptTree, validateOrThrow } = require('skynet-graph/lib/authoring/validate');
 const { errors, warnings } = validateConceptTree(tree, { palette: ['LLM::complete', 'CommonGeo::Distance'] });
 ```
 
 Checks: every concept has a `_name` (the self-flag — without it the engine re-fires it forever);
-`assert`/`ensure` parse under the real evaluator (`App/expr.js`) and don't touch `constructor`/`__proto__`;
+`assert`/`ensure` parse under the real evaluator (`lib/graph/expr.js`) and don't touch `constructor`/`__proto__`;
 `provider` ∈ a vetted `palette` (advisory warning, or an error under `{ strict: true }`); and the valuable
 one — **ref soundness**: a `require`/`ensure`/`assert` that keys on a **prose** fact (a declared `prose`
 key, or the `<name>Prose`/`<name>CanonMiss` defaults) is **rejected** (it would fragment the memo, K1),
@@ -432,6 +432,27 @@ back into the engine. Host-side, ZERO-CORE, shelved (kept for the curious).
   `plasticity` into `createLLMProvider({ ask, plasticity })` (→ temperature) or `createNet(net,
   { plasticity })` (→ STE exploration noise) so `p=1` explores / `p=0` serves deterministically.
 
+### Combos (`Graph.combos.*`) — thin, delivered assemblies
+
+Each combo composes existing bricks with the product posture ON by default (fail-closed, memo/store
+ON, validator ON); none is a required path — the bricks stay usable "à nu". Full guide:
+`doc/usage.md` §9; per-capability maturity + numbers: [CAPABILITIES.md](CAPABILITIES.md).
+
+| combo | role |
+|---|---|
+| `createAppliance` (C1) | typed-QA appliance: intake → reason loop → typed refusal → memo |
+| `createDurableRunner` (C2) | durable workflow runner (compile / run / resume / audit) |
+| `createLearningLibrary` (C3) | learning method library: cost ladder + crystallize + blame/credit + `.sgc` |
+| `reactiveKG` (C4) | the engine's original Use-1 preset over `fromDirs` (builtins ON) |
+| `createSelfMod` (C5) | supervised self-modification (opt-in, guarded; `rollbackTo` = the guarantee) |
+| `createProxyCache` (C6) | local-first proxy cache / distiller (covered → local at 0 frontier calls) |
+| `createPlanLoop` (C7) | the hierarchical plan loop (the piece-by-piece zoom); `decompose`/`serveLeaf` injected |
+| `createMixtureServe` (C8) | orientation menu + optional `preRoute` over a low-quant target (the runtime cross-agreement trust tier is REFUTED at scale — fail-closed default) |
+| `createCriticalMind` (C9) | the external critical mind: `run({topic, statements?, viewpoints?})` → typed ledger + verdict or honest UNDECIDED (mechanical only at the measured margin bound) |
+
+The C7 bricks are standalone `lib/authoring/` modules: `dag-decompose`, `context-project` (with the
+`stratComplete` stratified rendering), `givens`, `leaf-io`.
+
 ### Studio (embeddable web workbench)
 
 `const server = Graph.createStudioServer({ Graph, root, ask, logger })` — an http+ws server over a
@@ -504,9 +525,15 @@ Two zero-dep, zero-integration fronts over the combos (full guide: `doc/usage.md
   headers `x-sg-served-from|arm|cost|coverage|saved` + `usage.sg_*` mirror; `stream:true` is simulated SSE.
   The v1 wire contract: the query = the LAST user turn (a QA cache, not a dialog engine).
 - **`sg mcp`** — an MCP tools server (stdio JSON-RPC). `createMcpServer({tools, serverInfo})` is the pure
-  dispatcher; `defaultTools({proxy, appliance, logger})` wires `ask` (answer OR a STRUCTURED typed refusal),
+  dispatcher; `defaultTools(wiring)` wires the base tools — `ask` (answer OR a STRUCTURED typed refusal),
   `drift`, `metrics`, `lattice_load` (growth through `loadLattice` — the only registry write path),
-  `methods_describe`, `lattice_rings`, `trace_tail`; `startMcpStdio` is the line-framed transport.
+  `methods_describe`, `lattice_rings`, `trace_tail` — plus the ASSISTANT lanes: SOFT `hint` /
+  `state_recall` / `state_note` / `plan_sync` (the typed task delta, JTMS `reopen` included), HARD
+  `propose` (gate-tested; `force` → recorded-untrusted, never admission), INSTANCES `graph_invoke` /
+  `graph_instances`, and the C9 `critique` tool (typed ledger + verdict or honest UNDECIDED; OPEN
+  points + UNDECIDED = a typed data request — re-call with `statements`). `stockWiring(sgc)` /
+  `--stock <f.sgc>` wires `hint`/`propose` from a forged stock; `startMcpStdio` is the line-framed
+  transport.
 - **`sg flow run <module.js>`** — the C2 durable runner as a CLI; the module exports
   `{ spec, runTask | makeRunTask(), keyOf?, STREAM? }`.
 - **Intake depth back-check** — `require('lib/providers/intake.js').makeProseBackCheck({ask, proseOf?,
