@@ -86,6 +86,19 @@ wiring; rung 6 = external replications (post-launch).
 The task becomes a typed DAG; each piece is served with only its bounded neighbourhood (parent
 goal + resolved inputs + what to produce) — the model never sees the whole.
 
+```
+      the big task                     what the MODEL sees (one call)
+  ┌──────────────────┐
+  │ ~20 operations,  │   typed cut     ┌────────────────────────────────┐
+  │ tables, prose …  │ ─────────────►  │ parent goal (one line)         │
+  └──────────────────┘                 │ inputs: c1_1_net = 991.1       │
+       │ the GRAPH holds:              │         (2007 net revenue)     │
+       ▼                               │ produce: decrease_amount       │
+  plan · needs/produces ·              └────────────────────────────────┘
+  every solved value + provenance          ~1 sticky note of context,
+  (never re-sent to the model)             constant as the task grows
+```
+
 **Measured.** Cross-domain at N=200/domain (560 tasks total): math word problems 16→**52 %**
 (×3.25 [2.4–4.8]), financial-table QA 20→**50 %** (×2.54 [1.96–3.5]), bootstrap CIs · where the
 lone model collapses, the pieces hold: deep tasks **0/33 whole vs 10/33 decomposed** · compound
@@ -236,6 +249,17 @@ bound the output is counts + coverage + an honest **UNDECIDED** — never a fake
 **Refuted and kept on the page** (tested, failed, removed from the claims): graded/prevalence
 weighting under the precision cap; goal-criteria weighting for a low-quant judge (2 forms);
 low-quant self-audit (3 forms).
+
+**Benchmarked head-to-head against the model's own think mode** (N=24 composed perimeters, gold
+hidden, every arm re-run bit-identical): on side-judgment over *unlabeled* statement pools, the
+naive single call scores **13/24 (≈ chance)** and the same model with a native 1024-token think
+budget **also scores 13/24** — each renders 11 confident wrong verdicts, zero refusals. The C9
+combo on the same pools renders **0 wrong verdicts anywhere**: with a *declared* perimeter it
+decides **24/24, all by mechanical count** (margins 3–6, witnesses 100 % in-pool); without one it
+returns an honest UNDECIDED instead of a coin flip. (When the pool is pre-labeled, counting is
+trivial for every arm — the critical mind's value is judgment + audit, not label-counting. The
+declared perimeter is input the naive arms don't have: that is the product point — declare the
+frame and a verdict becomes provable.) Cost: ~19 short calls ≈ 6 s per debate on the test GPU.
 
 **Against the existing landscape.** What you would reach for today: LLM-as-judge (known to be
 miscalibrated and gameable — the essay-scoring literature documents verbatim-anchoring as the
