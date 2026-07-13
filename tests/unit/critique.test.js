@@ -147,6 +147,33 @@ test('C9 critique — FREE frame: two-step brainstorm — unlabeled list, then O
 	assert.deepEqual(r.pool.map(( a ) => a.id ), ['p1', 'c1', 'p2', 'c2', 'p3']);
 });
 
+test('C9 critique — FREE frame: a short list gets ONE bounded "list MORE" re-ask (dedup, no forced balance)', async () => {
+	let listCalls = 0;
+	const ask = async ( q ) => {
+		const u = String(q.user);
+		if ( /Reply one per line, each: S:/.test(u) ) {
+			listCalls++;
+			if ( !/do NOT repeat/.test(u) ) return 'S: duty must prevail always\nS: suffering matters more than rules\nS: discipline holds the unit together';
+			assert.match(u, /Already listed/);                                   // the re-ask carries the already-listed block
+			return 'S: duty must prevail always\nS: compassion can outweigh orders\nS: accountability needs witnesses';   // 1 duplicate + 2 new
+		}
+		if ( /Reply ONLY one of: PRO \| CON \| OFF-TOPIC/.test(u) ) {
+			const s = (u.match(/Statement: ([^\n]+)/) || [])[1] || '';
+			return /suffering|compassion/.test(s) ? 'PRO' : 'CON';
+		}
+		if ( /Name the 2 main DISTINCT/.test(u) ) return 'V: some viewpoint';
+		if ( /Which statements GENUINELY/.test(u) ) return 'cites: NONE';
+		if ( /Propose ONE NEW/.test(u) ) return 'NONE';
+		if ( /genuinely CONTESTED/.test(u) ) return 'CONTESTED';
+		return 'NONE';
+	};
+	const cm = createCriticalMind({ ask });
+	const r = await cm.run({ topic: 'T?' });
+	assert.equal(listCalls, 2);                                                  // initial + exactly ONE re-ask
+	assert.equal(r.pool.length, 5);                                              // 3 + 3 − 1 duplicate
+	assert.ok(!r.error);
+});
+
 test('C9 critique — NEG: an all-OFF-TOPIC brainstorm yields NO pool, never a faked one', async () => {
 	const ask = async ( q ) => {
 		const u = String(q.user);
