@@ -171,8 +171,13 @@ sg ask "your question" --concepts ./concepts --local-model <path.gguf>
 sg studio            # (or: sg serve --studio — live request lines in its trace panel)
 ```
 
-Runnable, deterministic, GPU-free demos of every use-case class live in **`examples/bootstrap/`** —
-one short file per combo and per surface, each printing the guarantee it demonstrates.
+For the ready-made **appliance** — a full local LLM server on **one VRAM load** (the model answers *with*
+think, the graph runs *no-think*, sharing a single gguf), plus local `.sgc` rooms — use
+**[mindsmith](https://www.npmjs.com/package/mindsmith)** `serve --model <gguf>` (`--ctx`, `--gpu`,
+`--gpu-layers`, `--think`, custom llama.cpp build). It's built on these surfaces.
+
+Runnable, deterministic, GPU-free demos of every use-case class live (in the repo) under
+**`examples/bootstrap/`** — one short file per combo and per surface, each printing the guarantee it demonstrates.
 
 > **The app that uses these — [mindsmith](https://www.npmjs.com/package/mindsmith).** The endpoint + rooms
 > above, packaged and hardened: `npx mindsmith serve` (OpenAI-compatible, no-egress by default, proven on
