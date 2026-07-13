@@ -5,7 +5,7 @@
 // the ledger, and the MCP `critique` tool exposure.
 const { test } = require('node:test');
 const assert = require('node:assert');
-const { createCriticalMind } = require('../../lib/combos/critique.js');
+const { createCriticalMind, reconcile } = require('../../lib/combos/critique.js');
 
 const STATEMENTS = [
 	'PRO: pro argument one about cost',
@@ -211,6 +211,85 @@ test('C9 critique — explore retries: an OPEN point retries on the STANCE SLICE
 	assert.equal(vpBCalls, 2);                                                   // round 1 + exactly ONE retry (then established)
 	assert.deepEqual(r.ledger.find(( e ) => e.text === 'vpC' ).witnesses, ['c2']);   // stance gate: p2 dropped
 	assert.deepEqual(r.counts, { PRO: 2, CON: 1 });
+});
+
+test('C9 re-root — reconcile (JTMS): an out-of-pool witness retracts its entry only; a witness leaving the pool cascades to every citer', () => {
+	const pool = [{ id: 'p1' }, { id: 'p2' }, { id: 'p3' }, { id: 'c1' }];
+	const ledger = [
+		{ key: 'V1', side: 'PRO', witnesses: ['p1'], status: 'active' },
+		{ key: 'V2', side: 'PRO', witnesses: ['p2', 'p3'], status: 'active' },
+		{ key: 'G1', side: 'PRO', witnesses: ['p1', 'c1'], status: 'active' },   // shares p1 with V1
+		{ key: 'GX', side: 'CON', witnesses: ['x9', 'x8'], status: 'active' },   // injected bogus thesis, out-of-pool witnesses (NEG-ledger)
+	];
+	// NEG-ledger: only the injected out-of-pool entry retracts; its bad witnesses do NOT drag down the p1-citers
+	let out = reconcile(ledger, pool, []);
+	assert.deepEqual(out, ['GX']);
+	assert.equal(ledger.find(( e ) => e.key === 'GX' ).status, 'retracted');
+	assert.equal(ledger.find(( e ) => e.key === 'V1' ).status, 'active');
+	assert.equal(ledger.find(( e ) => e.key === 'G1' ).status, 'active');
+	// CASCADE via shared dead support: drop p1 from the pool → V1 AND G1 (both cite p1) fall together; V2 (p2,p3) survives
+	out = reconcile(ledger, [{ id: 'p2' }, { id: 'p3' }, { id: 'c1' }], []);
+	assert.deepEqual(out.sort(), ['G1', 'V1']);
+	assert.equal(ledger.find(( e ) => e.key === 'V2' ).status, 'active');
+});
+
+test('C9 re-root — G3 placement: generation does NOT run on a decidable + fully-explored node (rounds 0, journal exposed)', async () => {
+	let genSeen = false;
+	const ask = async ( q ) => {
+		const u = String(q.user);
+		if ( /Point of view \(PRO\): vpA/.test(u) ) return 'cites: p1';
+		if ( /Point of view \(PRO\): vpB/.test(u) ) return 'cites: p2';
+		if ( /Point of view \(PRO\): vpC/.test(u) ) return 'cites: p3';
+		if ( /Which statements GENUINELY/.test(u) ) return 'cites: NONE';
+		if ( /Propose ONE NEW/.test(u) ) { genSeen = true; return 'NONE'; }
+		if ( /Summarize/.test(u) ) return 'syn.';
+		return 'NONE';
+	};
+	const cm = createCriticalMind({ ask });
+	const r = await cm.run({ topic: 'T?', statements: STATEMENTS,
+		viewpoints: [{ side: 'PRO', text: 'vpA' }, { side: 'PRO', text: 'vpB' }, { side: 'PRO', text: 'vpC' }] });
+	assert.deepEqual(r.counts, { PRO: 3, CON: 0 });                              // decisive at explore (margin 3 ≥ 3), nothing open
+	assert.equal(genSeen, false);                                                // G3: not one generation call issued
+	assert.equal(r.rounds, 0);
+	assert.equal(r.verdict, 'PRO');
+	assert.match(r.prose, /the verdict is mechanical/);
+	assert.ok(Array.isArray(r.journal) && r.journal.filter(( j ) => /^R0 established/.test(j) ).length === 3);
+	assert.ok(!r.journal.some(( j ) => /^R1/.test(j) ));                         // no re-root round ran
+});
+
+test('C9 re-root — single-pass guard: generation is ONE proven pass, unused args are NOT mined by a 2nd round (uncertified-margin inflation guard)', async () => {
+	const DEEP = [];
+	for ( let i = 1; i <= 10; i++ ) DEEP.push('PRO: pro statement ' + i );       // p1..p10 — deep enough for a 2nd round to have mined more
+	DEEP.push('CON: con one'); DEEP.push('CON: con two');                        // c1,c2 — vpB stays open (would keep a K=2 loop re-rooting)
+	const ask = async ( q ) => {
+		const u = String(q.user);
+		if ( /Point of view \(PRO\): vpA/.test(u) ) return 'cites: p1';
+		if ( /Point of view \(CON\): vpB/.test(u) ) return 'cites: NONE';         // stays OPEN
+		if ( /Point of view/.test(u) ) return 'cites: NONE';
+		if ( /Which statements GENUINELY/.test(u) ) return 'cites: NONE';         // cluster leaves → full-slate fallback
+		if ( /Propose ONE NEW PRO/.test(u) ) {
+			const block = u.split('UNUSED statements:')[1] || '';                 // cite the first two genuinely-unused PRO ids in the slate
+			const ids = block.match(/p\d+/g) || [];
+			return ids.length >= 2 ? 'THESIS: another pro point | cites: ' + ids[0] + ', ' + ids[1] : 'NONE';
+		}
+		if ( /Propose ONE NEW CON/.test(u) ) return 'NONE';
+		if ( /restatement of one known point/.test(u) ) return 'NEW';
+		if ( /Summarize/.test(u) ) return 'syn.';
+		return 'NONE';
+	};
+	const cm = createCriticalMind({ ask });
+	const r = await cm.run({ topic: 'T?', statements: DEEP,
+		viewpoints: [{ side: 'PRO', text: 'vpA' }, { side: 'CON', text: 'vpB' }] });
+	// round 1 caps at GEN_TRIES=3 theses (p2..p7); p8,p9,p10 stay unused — a 2nd generation round is
+	// deliberately NOT run (it would inflate the count past the bound by mining majority coverage)
+	assert.equal(r.rounds, 1);                                                    // ONE re-root generation pass, never two
+	const gen = r.ledger.filter(( e ) => e.kind === 'generated' );
+	assert.equal(gen.length, 3);
+	assert.ok(gen.every(( e ) => e.round === 1 ));
+	assert.ok(!r.journal.some(( j ) => /^R2/.test(j) ));                          // no second round in the journal
+	const cited = new Set(r.ledger.flatMap(( e ) => e.witnesses || [] ));
+	assert.ok(!cited.has('p8') && !cited.has('p9') && !cited.has('p10'));         // the leftover unused args are left un-mined
+	assert.equal(r.ledger.find(( e ) => e.text === 'vpB' ).status, 'open');       // the open CON point is never faked
 });
 
 test('C9 critique — MCP tool exposure: present iff critiqueAsk is wired, typed payload', async () => {
