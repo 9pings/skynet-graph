@@ -1,10 +1,10 @@
 <h1 align="center">skynet-graph</h1>
 
 <p align="center">
-<b>Make a small local model work a big task the way humans always have — piece by piece.</b><br>
-The engine cuts the task into typed pieces, <i>zooms</i> the model onto one piece at a time with exactly
-the context it needs, keeps every result as a typed fact with provenance so a late correction re-derives
-for free, and steers the model's output against a certified method vocabulary. Nothing leaves the machine.
+<b>An externalized reasoning layer & toolbox for LLMs
+</b><br>
+
+
 </p>
 
 <p align="center">
@@ -24,24 +24,16 @@ for free, and steers the model's output against a certified method vocabulary. N
 
 ## What it is
 
-**skynet-graph is the low-level reasoning substrate + a library of composable combos** — the engine you
-*embed*. The substrate is a versionable, git-like reasoning graph: declarative concept rules + provider
-functions driven to a coherent belief state by stabilization, with native cascading retraction and
-rollback / fork / merge on what the system currently holds true. On top of it, a set of **combos**
-(`Graph.combos.*`, C1–C9 + the forge) each turn on one capability for a task type — the *bricks* an
-application assembles.
+**skynet-graph provide various advanced features, all based on a common, versioned, deterministic, reasoning graph with truth maintenance**
 
-For a small local model those bricks add up to four capabilities (one line each here; the measured
-numbers, negative controls, limits and maturity live in **[doc/CAPABILITIES.md](doc/CAPABILITIES.md)**):
-
+Depending on the "grammars" and specialized "combos" used, it aims to provide solutions for various use cases like : 
+- **Typed & verifiable** LLM work, 
 - **Piece-by-piece** — works a big task one bounded piece at a time: **×2.5–3.2** on multi-step tasks, and where whole-context prompting collapses (**0/33**) the pieces hold (**10/33**).
 - **Low-quant repair** — certified method shapes steer the output: SQL **8→63 %**, finance **7→62 %**, at zero big-model calls on covered queries.
 - **Task memory that reopens** — a late correction retracts its consequences in cascade; "done" steps reopen with the reason, at 0 model calls.
 - **External think mode** — the model proposes, the graph refutes with the reason: a native think budget scores **13/24 ≈ chance**, the external critical mind **0 wrong verdicts**.
 
-These are the building blocks; **[mindsmith](https://www.npmjs.com/package/mindsmith) is the public façade
-that puts them in users' hands** (an OpenAI endpoint + MCP tools + local rooms). This repo is what mindsmith
-— or your own app — is built on.
+The "concepts", the activated "combos" and the given prompt/data determine how the substrate mutate until it reach a coherent, stabilized result state that can be manipulated & serialized on purpose.
 
 **See it in 30 seconds — no model, no GPU** (a deterministic replay of a real end-to-end run — the
 9.5 GB quant analyzing an annual report, erratum and crash included):
