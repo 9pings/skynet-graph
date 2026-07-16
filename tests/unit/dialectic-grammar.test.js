@@ -38,8 +38,8 @@ const cast = (g, id, k) => !!(g._objById[id] && g._objById[id]._etty._mappedConc
 const fact = (g, id, k) => g._objById[id] && g._objById[id]._etty._[k];
 
 async function boot(seed) {
-	const { C9 } = require('../../lib/providers/dialectic.js');   // the pure ledger providers (tally/untally)
-	Graph._providers = { C9 };
+	const { Dialectic } = require('../../lib/providers/dialectic.js');   // the pure ledger providers (tally/untally)
+	Graph._providers = { Dialectic };
 	const g = new Graph(
 		{ lastRev: 0, freeNodes: seed.freeNodes || [], nodes: seed.nodes || [], segments: [] },
 		{ label: 'dialectic-test', isMaster: true, autoMount: true, conceptSets: ['_dialectic'], bagRefManagers: {}, logLevel: 'error' },

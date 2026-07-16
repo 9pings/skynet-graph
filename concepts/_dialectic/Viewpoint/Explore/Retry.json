@@ -5,5 +5,5 @@
   // not a K_RETRIES loop in JS. Self-flags `Retry`.
   "require": ["Explore"],
   "ensure": ["$witnessMiss", "$retryDone == null"],
-  "provider": ["C9::cite", { "slice": "stance", "cap": 2, "retry": true }]
+  "provider": ["Dialectic::cite", { "slice": "stance", "cap": 2, "retry": true }]
 }
