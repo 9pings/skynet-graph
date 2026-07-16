@@ -1,0 +1,7 @@
+{
+  // Fires once the attempted self-mod LANDS (the fix must post `hypothesized:true`). The judgment
+  // ('better' | 'worse') is NOT an engine metric — it is the injected `evaluate` policy's decision,
+  // written as a discrete `verdict` fact (Sup::judge, factory-built).
+  "require": ["Supervise", "hypothesized"],
+  "provider": ["Sup::judge"]
+}

@@ -13,6 +13,8 @@ const path = require('path');
 
 const { loopConceptTree, reactiveLoopConceptTree } = require('../../lib/authoring/loop.js');
 const { supportConceptTree } = require('../../lib/authoring/support.js');
+const { typedLoopConceptTree } = require('../../lib/authoring/typed-loop.js');
+const { reactiveSupervisorTree } = require('../../lib/authoring/supervise.js');
 const { selectConceptTree } = require('../../lib/providers/semiring.js');
 const { buildConceptTree } = require('../../lib/authoring/concepts.js');
 const { loadPlugin } = require('../../lib/plugins/load.js');
@@ -67,6 +69,26 @@ test('supportConceptTree(criteria) == the pre-refactor inline literal (Select st
 		}
 	};
 	assert.deepStrictEqual(supportConceptTree({ criteria: CRIT, lex: LEX }), exp);
+});
+
+test('typedLoopConceptTree == the pre-refactor literal (sigKey patch stays parametric)', () => {
+	// plain: the loop grammar with the discriminating typed key in Expand's require (Laurie B)
+	const exp = JSON.parse(JSON.stringify(EXP_LOOP));
+	exp.childConcepts.Task.childConcepts.Expand.require = ['Task', 'NeedsSplit', 'stepKind'];
+	assert.deepStrictEqual(typedLoopConceptTree(), exp);
+	// custom sigKey + reactive variant
+	const exp2 = JSON.parse(JSON.stringify(EXP_LOOP));
+	exp2.childConcepts.Task.childConcepts.Expand.require = ['Task', 'NeedsSplit', 'opKind'];
+	Object.assign(exp2.childConcepts.Task.childConcepts, { ReportUp: EXP_REPORT_UP, Rollup: EXP_ROLLUP });
+	assert.deepStrictEqual(typedLoopConceptTree({ sigKey: 'opKind', reactive: true }), exp2);
+});
+
+test('reactiveSupervisorTree == the pre-refactor inline literal', () => {
+	assert.deepStrictEqual(reactiveSupervisorTree(), { childConcepts: {
+		Supervise: { _id: 'Supervise', _name: 'Supervise', require: ['Stuck'], provider: ['Sup::propose'] },
+		Evaluate : { _id: 'Evaluate', _name: 'Evaluate', require: ['Supervise', 'hypothesized'], provider: ['Sup::judge'] },
+		Revert   : { _id: 'Revert', _name: 'Revert', require: ['Evaluate'], ensure: ["$verdict=='worse'"], provider: ['Sup::revert'] }
+	} });
 });
 
 test('forge Plan grammar (files) == the pre-refactor inline TREE literal', () => {

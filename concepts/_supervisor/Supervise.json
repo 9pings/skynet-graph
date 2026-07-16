@@ -1,0 +1,10 @@
+{
+  // The hypothesis-and-test self-modification TRIGGER (lib/authoring/supervise.js — roadmap #11.c.3):
+  // fires on a `Stuck` object (a sub-problem that exhausted its strategies / blew its budget). The
+  // Sup::propose provider is factory-built (makeSupervisorProviders closes over the injected
+  // `hypothesize` policy); it applies a self-mod and records the rollback checkpoint (`supRev`).
+  // Was hard-coded as an inline literal in supervise.js#reactiveSupervisorTree — extracted here so
+  // no grammar lives in code. Set convention: like `_substrate`, an engine-family core set in files.
+  "require": ["Stuck"],
+  "provider": ["Sup::propose"]
+}

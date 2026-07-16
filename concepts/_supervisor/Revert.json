@@ -1,0 +1,8 @@
+{
+  // The queued-rollback path: a 'worse' verdict cleanly UNDOES the self-mod (rollbackTo the
+  // checkpoint recorded by Supervise — concept-lib-versioned, #11.c.2/N6). Gates on the discrete
+  // verdict fact, never prose.
+  "require": ["Evaluate"],
+  "ensure": ["$verdict=='worse'"],
+  "provider": ["Sup::revert"]
+}
