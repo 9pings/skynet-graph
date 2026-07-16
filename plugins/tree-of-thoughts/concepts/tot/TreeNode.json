@@ -1,6 +1,10 @@
 {
-  // A tree node (TreeNode — never "Node": that name is the ENGINE object-type marker, pre-set on every seeded node, which makes a so-named concept look already-cast on the first pass and silently skips its children) — a kernel Thought carrying its `depth` and (except the root) a `parent` ref. The
+  // A tree node — a kernel Thought carrying its `depth` and (except the root) a `parent` ref. The
   // thought `text` is prose-terminal; the raw `score` (when the external judge wrote one) is snapped
   // by the kernel's Scored/Score::band — every gate downstream keys on the band, never the float.
+  // Named TreeNode, not "Node": Node/Segment are the pre-set ROOT FACTS the concept system anchors
+  // on via `require` (the Vertice/Edge pattern) — a concept NAMED like a root fact while carrying
+  // conditions maps at instant zero, before its requires (Thought here) resolve, and its children
+  // are never descended (the linted `engine-marker-name` trap, paid once here).
   "require": ["Thought", "depth"]
 }

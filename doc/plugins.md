@@ -186,7 +186,11 @@ Mark ← tree-of-thoughts), and **no strategy ships a self-scoring path** — a 
 must come from an EXTERNAL source (judge model, oracle, test): the generator judging itself is the
 measured, refuted self-audit.
 
-Two authoring gotchas these plugins paid for (both linted/documented): never name a concept after an
-ENGINE object-type marker (`Node`/`Segment` — pre-set facts; the validator warns `engine-marker-name`),
-and a cross-object gate must watch a FACT, not a concept flag (flags appear through `set()` but vanish
-through a silent delete on uncast — mirror with the kernel's `Mark::set/unset` so retraction cascades).
+Two authoring gotchas these plugins paid for (both linted/documented). (1) `Node`/`Segment` are the
+pre-set ROOT FACTS of the concept system — concept trees ANCHOR on them via `require` (the
+Vertice/Edge entry-point pattern, `require: "Node"`). Do not NAME a concept after a root fact while
+giving it conditions: it maps the instant the object exists, before its late requires resolve, and
+its children are silently never descended (the validator warns `engine-marker-name` on that exact
+shape). (2) a cross-object gate must watch a FACT, not a concept flag (flags appear through `set()`
+but vanish through a silent delete on uncast — mirror with the kernel's `Mark::set/unset` so
+retraction cascades).

@@ -1,8 +1,9 @@
 {
-  // A search-tree node (SearchNode — never "Node": that name is the ENGINE object-type marker,
-  // pre-set on every seeded node, which makes a so-named concept look already-cast on the first
-  // pass and silently skips its children) — a kernel Thought carrying its MCTS stats as typed
-  // facts: `visits`/`wins` (the driver backpropagates), `move` (the action that produced it),
-  // `parent` (the edge). 0 is a valid visits value (require = resolvability, not truthiness).
+  // A search-tree node — a kernel Thought carrying its MCTS stats as typed facts: `visits`/`wins`
+  // (the driver backpropagates), `move` (the action that produced it), `parent` (the edge). 0 is a
+  // valid visits value (require = resolvability, not truthiness). Named SearchNode, not "Node":
+  // Node/Segment are the pre-set ROOT FACTS one anchors on via `require` (the Vertice/Edge
+  // pattern); a conditioned concept NAMED like a root fact maps before its requires resolve and
+  // its children are never descended (the linted `engine-marker-name` trap).
   "require": ["Thought", "visits"]
 }
