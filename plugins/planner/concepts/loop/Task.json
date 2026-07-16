@@ -1,0 +1,6 @@
+{
+  // Task — the "answer a (huge) prompt" decompose-loop spine root (lib/authoring/loop.js). Casts on every
+  // seeded Segment; the loop children (EvalComplexity / Expand / Answer) are tested under it. Was hard-coded
+  // as an inline literal in lib/authoring/loop.js — extracted here so no grammar lives in code.
+  "require": "Segment"
+}

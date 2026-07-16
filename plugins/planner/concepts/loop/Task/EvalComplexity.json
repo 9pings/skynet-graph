@@ -1,0 +1,9 @@
+{
+  // Classify the segment: the injected evalFn (deterministic in tests, an LLM in production) judges; the
+  // provider writes the Atomic|NeedsSplit FLAG pair (this loop's discriminant — unlike concepts/_substrate,
+  // whose AI::evalComplexity writes a `complexityClass` enum; the two provider families share the ambient
+  // `AI` namespace and are never wired together). The depth floor forces Atomic. The provider is
+  // factory-built at run time by makeDecomposeProviders — the grammar only names it.
+  "require": ["Task"],
+  "provider": ["AI::evalComplexity"]
+}

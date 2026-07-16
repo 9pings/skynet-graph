@@ -1,0 +1,8 @@
+{
+  // J2: an atomic segment GENERATES candidate alternatives (canned/LLM via the injected proposeFn) instead
+  // of answering directly; writes `candidates` + `expected` (arming Select's cardinality gate). J3: if no
+  // candidate clears the escalateBar, the provider escalates to the better tier and records the weak
+  // candidates as nogood memory (`escalatedFrom`). Factory-built by makeSupportProviders.
+  "require": ["Task", "Atomic"],
+  "provider": ["Support::propose"]
+}

@@ -1,0 +1,7 @@
+{
+  // Split a compound segment into ordered child sub-step segments (+ `expandedInto` on the parent, the
+  // AND hyper-edge). Structural, id-generating — the injected expandFn provides the steps, the provider
+  // (makeDecomposeProviders) emits the template. Bounded by maxBranch; an empty split degrades to Atomic.
+  "require": ["Task", "NeedsSplit"],
+  "provider": ["AI::expand"]
+}

@@ -1,0 +1,6 @@
+{
+  // Task — the reactive-synthesis EXTENSION set: adds ReportUp/Rollup to the `loop` set. Composed OVER
+  // `loop` with deepmerge — the exact merge the engine applies to cfg.conceptSets (Graph.js:189) — so
+  // `reactiveLoopConceptTree` ≡ conceptSets ['loop', 'loop-reactive']. Same spine root as loop/Task.json.
+  "require": "Segment"
+}

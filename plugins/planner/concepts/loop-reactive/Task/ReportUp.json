@@ -1,0 +1,6 @@
+{
+  // Orchestration: an answered non-root segment appends its OWN id to its parent's grow-only `answeredBy`
+  // via the race-free `{__push}` primitive (distinct ids, no lost update). Stigmergic — decides nothing.
+  "require": ["Task", "Answered", "parentSeg"],
+  "provider": ["AI::reportUp"]
+}

@@ -1,0 +1,8 @@
+{
+  // Task — the SUPPORT-GRAMMAR extension set (lib/authoring/support.js): the Propose→Select→Adopt
+  // alternative-selection bracket over the decompose loop. supportConceptTree composes it as
+  // loop (minus Answer — Propose/Select/Adopt replace the direct leaf answer) + loop-reactive + this set,
+  // then injects `Select` — which stays PARAMETRIC (selectConceptTree(criteria) built at call time from
+  // the host's criteria/lex; same status as the CtxProj factory providers). Same spine root as loop/Task.json.
+  "require": "Segment"
+}

@@ -1,0 +1,7 @@
+{
+  // Leaf answer for an atomic segment. The answer is terminal prose on an untracked key; only the discrete
+  // `Answered` flag crosses downstream (K1 barrier). MUST self-flag `Answer:true` in the returned template
+  // (provider-cast-marker gotcha) — makeDecomposeProviders does.
+  "require": ["Task", "Atomic"],
+  "provider": ["AI::answer"]
+}

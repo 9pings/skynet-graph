@@ -1,0 +1,7 @@
+{
+  // Makes the SELECTED candidate (Select's `selectedId`, the pareto/lex winner) the segment's answer —
+  // multi-criteria selection stays reified in the graph, never flattened by the model. Factory-built by
+  // makeSupportProviders; self-flags + writes `Answered` so the reactive synthesis picks it up.
+  "require": ["Task", "selectedId"],
+  "provider": ["Support::adopt"]
+}

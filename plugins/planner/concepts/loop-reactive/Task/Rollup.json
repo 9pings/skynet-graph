@@ -1,0 +1,9 @@
+{
+  // Bounded bottom-up synthesis, IN stabilization. Gates on a DISCRETE cardinality equality (a monotone
+  // G-Set `.length` on both sides — never prose), so it fires exactly once when the last child reports;
+  // reads the children's answers in `expandedInto` order (deterministic) and writes the bounded parent
+  // answer. KNOWN LIMIT: reactive on COMPLETION, not on a live leaf-answer content change.
+  "require": ["Task", "expandedInto"],
+  "ensure": ["$answeredBy.length == $expandedInto.length"],
+  "provider": ["AI::rollup"]
+}
