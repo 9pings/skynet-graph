@@ -120,7 +120,7 @@ test('7 REBOOT — serialize → new Graph → identical, 0 re-fire (incl. runti
 	Graph._providers = Object.assign({}, saved, makeProviders(serve, defaultComplete, {}, rebootOrder));
 	let g2;
 	try {
-		g2 = new Graph(snapshot, { label: 'reboot', isMaster: true, autoMount: true, conceptSets: ['common'], bagRefManagers: {} }, CONCEPT_MAP);
+		g2 = new Graph(snapshot, { label: 'reboot', isMaster: true, autoMount: true, conceptSets: Object.keys(CONCEPT_MAP), bagRefManagers: {} }, CONCEPT_MAP);
 		await nextStable(g2);
 	} finally { Graph._providers = saved; }
 	assert.equal(stateOf(g2), before, 'rebooted state identical (deterministic, incl. sub-segments)');

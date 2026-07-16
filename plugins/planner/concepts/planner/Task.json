@@ -1,0 +1,6 @@
+{
+  // Task — a roadmap segment (the plan-loop / context-projection grammar, C7). Casts on a seeded Segment;
+  // its children Step (leaf) and Decompose (composite) are tested under it. Was hard-coded as an inline
+  // CONCEPT_MAP in lib/authoring/context-project.js — extracted here so no grammar lives in code.
+  "require": "Segment"
+}

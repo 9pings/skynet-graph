@@ -1,0 +1,8 @@
+{
+  // Decompose — a COMPOSITE: once its inputs are ready, CtxProj::decompose seeds a SUB-pool + the sub-steps,
+  // down-projects the resolved inputs (bounded context for the children), and wires the sub-plan's terminal
+  // leaf to report up. Same counter gate as Step; the provider is run-time supplied (see Step).
+  "require": ["Task", "isComposite"],
+  "ensure": ["$got.length == $expected"],
+  "provider": ["CtxProj::decompose"]
+}

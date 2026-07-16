@@ -1,0 +1,16 @@
+{
+  // planner (C7) — the plan-loop / graph-native context-projection grammar, extracted from
+  // lib/authoring/context-project.js's inline CONCEPT_MAP (owner: no grammar hard-coded in code). This
+  // tranche ships the GRAMMAR (Task/Step/Decompose) as files; the projection ENGINE (context-project.js +
+  // its cluster serve-leaf/givens/dag-decompose/…) moves into this plugin in the next tranche. The CtxProj
+  // providers are factory-built per run (they close over the injected `serve`), so there is no static
+  // providers.js — createContextProjection supplies them; the namespace is reserved below.
+  "name": "planner",
+  "version": "0.1.0",
+  "tier": 1,
+  "description": "C7 — plan-loop / graph-native context-projection grammar (Task/Step/Decompose). Grammar extracted; the engine follows.",
+  "engine": "^1.3.0",
+  "concepts": ["planner"],
+  "providerNamespaces": ["CtxProj"],
+  "deps": []
+}

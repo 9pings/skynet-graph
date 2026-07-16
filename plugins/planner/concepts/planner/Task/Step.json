@@ -1,0 +1,9 @@
+{
+  // Step — a LEAF: the counter gate (`$got.length == $expected`, arity-agnostic) fires when all inputs are
+  // in the pool, then CtxProj::step reads the bounded neighbourhood, serves the work, posts the result +
+  // notifies waiters (+ reports up if terminal). The provider is factory-built per run (closes over the
+  // injected `serve`), so it is supplied at run time by createContextProjection — the grammar only names it.
+  "require": ["Task", "isStep"],
+  "ensure": ["$got.length == $expected"],
+  "provider": ["CtxProj::step"]
+}
