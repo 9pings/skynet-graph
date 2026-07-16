@@ -121,13 +121,15 @@ test('the critical-mind index.js auto-export CARRIES reason-kernel (definePlugin
 	assert.deepEqual(cfg.order, ['reason-kernel', 'critical-mind']);
 });
 
-test('reason-kernel index.js auto-export resolves in-repo (providers-only foundation plugin)', () => {
+test('reason-kernel index.js auto-export resolves in-repo (Ledger bricks + the Thought concept)', () => {
 	const k = require('../../plugins/reason-kernel');
 	assert.equal(k.name, 'reason-kernel');
 	assert.deepEqual(k.pluginDeps, [], 'no deps');
-	assert.deepEqual(Object.keys(k.concepts), [], 'providers-only (no concept sets yet)');
+	assert.deepEqual(Object.keys(k.concepts), ['kernel'], 'ships the kernel concept set');
+	assert.ok(k.concepts.kernel.childConcepts.Thought, 'the generic Thought concept (the crossCorpus anchor)');
 	assert.equal(typeof k.providers.Ledger.tally, 'function');
 	assert.equal(typeof k.providers.Ledger.untally, 'function');
+	assert.equal(typeof k.providers.Ledger.decide, 'function', 'the k-ary margin decidability gate');
 });
 
 const FIX_MINI = path.join(__dirname, '..', 'fixtures', 'plugins', 'mini');

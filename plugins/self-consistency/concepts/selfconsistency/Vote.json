@@ -1,0 +1,9 @@
+{
+  // Each reasoning path (a kernel `Thought` carrying a snapped `answerClass`) casts one Vote: its class is
+  // appended to ledger.votes via the kernel's Ledger::tally (argz = side 'votes', value fact 'answerClass').
+  // require Thought → the crossCorpus edge onto reason-kernel (the dep is load-bearing). The Ledger::tally
+  // provider self-flags `Vote` (cast-marker gotcha), so a path votes exactly once — no re-fire, no double
+  // count. Zero JS in this plugin: the tally is the kernel's.
+  "require": ["Thought", "answerClass"],
+  "provider": ["Ledger::tally", "votes", "answerClass"]
+}

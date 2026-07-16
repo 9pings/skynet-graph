@@ -1,0 +1,16 @@
+{
+  // self-consistency — k independent reasoning paths → a snapped-vote ledger → a margin decidability gate.
+  // The SECOND client of reason-kernel and a TIER-0 plugin: pure grammar, ZERO JS providers. Its Vote and
+  // Decide concepts compose entirely on the kernel's Ledger (Ledger::tally / Ledger::decide) and require
+  // the kernel's `Thought` concept — a real grammar interdependence (crossCorpus), proven by the resolver.
+  // The k answers are produced by the host (run the model k times, snap each to answerClass, seed the
+  // paths); this plugin is the consensus machinery, safe-by-construction (no code to trust).
+  "name": "self-consistency",
+  "version": "0.1.0",
+  "tier": 0,
+  "description": "k reasoning paths → snapped-vote ledger → margin decidability gate. Tier-0 (pure grammar), built on reason-kernel.",
+  "engine": "^1.3.0",
+  "concepts": ["selfconsistency"],
+  "providerNamespaces": [],
+  "deps": [{ "name": "reason-kernel", "range": "^0.1.0" }]
+}

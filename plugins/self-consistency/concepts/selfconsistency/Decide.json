@@ -1,0 +1,10 @@
+{
+  // The decision node IS the ledger node (it carries the accumulating `votes`, the `threshold`, and `k` =
+  // the number of paths expected). Once all k votes are in, the kernel's Ledger::decide reads votes off the
+  // node, computes the majority + top-2 margin, and writes `verdict` (the consensus class iff margin ≥
+  // threshold, else UNDECIDED) + counts. Watches `votes.length`, so it fires exactly when the pool is
+  // complete. Zero JS here — the margin bound is the kernel's, shared with any strategy that counts.
+  "require": ["isDecision"],
+  "ensure": ["$votes.length >= $k"],
+  "provider": ["Ledger::decide", "votes"]
+}

@@ -1,15 +1,15 @@
 {
-  // reason-kernel — the shared foundation plugin for reasoning strategies. Extracted from the MEASURED
-  // client (critical-mind), never speculated (design §9.5). First brick = the LEDGER primitive
-  // (Ledger::tally/untally, generic append-only tally with native cascade retraction). Thought / Score /
-  // the Gate family are added here as real clients need them (self-consistency, refinement, …). Tier-1
-  // (JS providers). No concepts yet — the ledger is a client-seeded node the providers operate on.
+  // reason-kernel — the shared foundation plugin for reasoning strategies. Extracted from MEASURED clients
+  // (critical-mind, then self-consistency), never speculated (design §9.5). Bricks grow as real clients need
+  // them: the LEDGER (Ledger::tally/untally, append-only, native cascade retraction) + the k-ary MARGIN
+  // decidability gate (Ledger::decide) + the generic `Thought` concept (the crossCorpus anchor a strategy's
+  // grammar `require`s). Score / the rest of the Gate family follow the same rule. Tier-1 (JS providers).
   "name": "reason-kernel",
   "version": "0.1.0",
   "tier": 1,
-  "description": "Shared reasoning-kernel foundation plugin. Brick 1 = the Ledger primitive (append-only tally, native cascade retraction).",
+  "description": "Shared reasoning-kernel foundation plugin: the Ledger primitive, the margin decidability gate, and the generic Thought concept.",
   "engine": "^1.3.0",
-  "concepts": [],
+  "concepts": ["kernel"],
   "providerNamespaces": ["Ledger"],
   "entrypoints": { "providers": "./providers.js" },
   "deps": []

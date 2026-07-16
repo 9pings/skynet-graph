@@ -7,5 +7,5 @@
   "author": "Nathanael Braun <pp9ping@gmail.com>",
   "keywords": ["skynet-graph", "skynet-graph-plugin", "reasoning", "kernel", "ledger"],
   "peerDependencies": { "skynet-graph": ">=1.3.0" },
-  "files": ["index.js", "providers.js", "sg-plugin.json", "README.md"]
+  "files": ["index.js", "providers.js", "concepts", "sg-plugin.json", "README.md"]
 }

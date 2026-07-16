@@ -1,0 +1,7 @@
+{
+  // Thought — the kernel's generic reasoning node (a proposal / path / statement / viewpoint is a Thought).
+  // Pure-assert: any node seeded `isThought` casts Thought, so a strategy plugin's concepts can `require`
+  // it — the shared vocabulary that makes a client a REAL grammar dependent of the kernel (crossCorpus).
+  // `text`/`kind`/`depth` are prose-terminal / typed facts a client may carry; the kernel gates on none.
+  "require": ["isThought"]
+}
