@@ -25,7 +25,7 @@ const { spawn } = require('child_process');
 
 const ROOT = path.resolve(__dirname, '../..');
 const Graph = require(ROOT + '/lib/index.js');
-const cp = require(ROOT + '/lib/durable/checkpoint-store.js');
+const cp = require(ROOT + '/plugins/durable/lib/checkpoint-store.js');
 const { spec, keyOf, makeRunTask, STREAM } = require(ROOT + '/examples/poc/durable-flow.js');
 const createDurableRunner = Graph.combos.createDurableRunner;
 

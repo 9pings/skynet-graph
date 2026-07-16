@@ -1,0 +1,11 @@
+{
+  "name": "durable",
+  "version": "0.1.0",
+  "description": "C2 — durable workflow executor for skynet-graph: checkpoint-store, compileMethod, runFlow, audit.",
+  "main": "index.js",
+  "license": "AGPL-3.0-or-later",
+  "author": "Nathanael Braun <pp9ping@gmail.com>",
+  "keywords": ["skynet-graph", "skynet-graph-plugin", "durable", "workflow", "checkpoint"],
+  "peerDependencies": { "skynet-graph": ">=1.3.0" },
+  "files": ["index.js", "combo.js", "lib", "sg-plugin.json", "README.md"]
+}

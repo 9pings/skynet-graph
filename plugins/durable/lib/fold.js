@@ -21,7 +21,7 @@
  * (non-semantic) arrival order. Either way: non-deterministic schedule, deterministic value.
  */
 
-const { reduceSemiring } = require('../providers/semiring.js');
+const { reduceSemiring } = require('../../../lib/providers/semiring.js');
 
 // Each monoid: prep (per-value normaliser) + plus (⊕) + zero (a THUNK — a fresh identity per fold, never a
 // shared mutable) + commutative (does arrival order matter?). All are associative; commutative ones inherit

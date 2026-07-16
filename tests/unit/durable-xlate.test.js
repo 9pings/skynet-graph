@@ -5,7 +5,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { compileMethod, validateNet, indexByFrom } = require('../../lib/durable/xlate.js');
+const { compileMethod, validateNet, indexByFrom } = require('../../plugins/durable/lib/xlate.js');
 const { spec } = require('../../examples/poc/durable-flow.js');
 
 test('compileMethod emits a sound net for the Brick-1/3 select+task+map spec', () => {

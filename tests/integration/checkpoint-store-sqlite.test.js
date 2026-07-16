@@ -11,7 +11,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
-const { createSqliteCheckpointStore } = require('../../lib/durable/checkpoint-store.js');
+const { createSqliteCheckpointStore } = require('../../plugins/durable/lib/checkpoint-store.js');
 const { runCheckpointContract } = require('../_checkpoint-suite.js');
 
 // (1) the same contract, on the SQL backend (each store = a fresh isolated :memory: db).

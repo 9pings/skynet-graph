@@ -1,7 +1,7 @@
 'use strict';
 /**
  * The C-CONTRACT GUARD in the DURABLE EXECUTOR — the §2 defeasible contract's "assert-at-runtime" in the EXECUTE
- * layer (unifies `lib/durable/` + `lib/authoring/contract.js`). A method's per-step contract is enforced as cases
+ * layer (unifies `plugins/durable/lib/` + `lib/authoring/contract.js`). A method's per-step contract is enforced as cases
  * flow: the post is asserted AFTER the task output but BEFORE commit (the adversary's #3); a violation quarantines
  * the token (fail + blame, a seed of C-fail) and is NOT memoized. Negative controls throughout.
  */

@@ -19,7 +19,7 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const mr = require('../../examples/poc/durable-mapreduce.js');
-const { createMemoryCheckpointStore, createSqliteCheckpointStore } = require('../../lib/durable/checkpoint-store.js');
+const { createMemoryCheckpointStore, createSqliteCheckpointStore } = require('../../plugins/durable/lib/checkpoint-store.js');
 
 function tmpDir() { return fs.mkdtempSync(path.join(os.tmpdir(), 'sg-mrj-')); }
 

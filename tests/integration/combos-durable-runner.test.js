@@ -2,7 +2,7 @@
 /*
  * Copyright 2026 Nathanael Braun — AGPL-3.0-or-later.
  *
- * Integration test for the C2 DURABLE-RUNNER combo (lib/combos/durable-runner.js). Deterministic — no GPU, no
+ * Integration test for the C2 DURABLE-RUNNER combo (plugins/durable/combo.js). Deterministic — no GPU, no
  * network: the runner is driven with the POC's plain micro-tasks (examples/poc/durable-flow.js), whose outputs are
  * pure functions of the keyed facts, so the content-memo amortization and crash-resume properties are exact and
  * reproducible. Locks in the C2 gates:

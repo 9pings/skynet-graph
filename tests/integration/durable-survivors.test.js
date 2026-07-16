@@ -9,10 +9,10 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const os = require('node:os'); const path = require('node:path'); const fs = require('node:fs');
-const { createMemoryCheckpointStore, createSqliteCheckpointStore } = require('../../lib/durable/checkpoint-store.js');
-const { compileMethod } = require('../../lib/durable/xlate.js');
-const { runFlow } = require('../../lib/durable/interpreter.js');
-const { auditRun } = require('../../lib/durable/audit.js');
+const { createMemoryCheckpointStore, createSqliteCheckpointStore } = require('../../plugins/durable/lib/checkpoint-store.js');
+const { compileMethod } = require('../../plugins/durable/lib/xlate.js');
+const { runFlow } = require('../../plugins/durable/lib/interpreter.js');
+const { auditRun } = require('../../plugins/durable/lib/audit.js');
 
 const spec = (onFail) => ({ methods: { M: { map: { over: 'items', elemKey: 'it', body: [{ task: 'T::proc' }],
 	reduce: { monoid: 'sum', key: 'v', into: 'total', onFail, then: [{ task: null }] } } } } });

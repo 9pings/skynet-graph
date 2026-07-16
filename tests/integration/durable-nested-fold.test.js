@@ -12,10 +12,10 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const os = require('node:os'); const path = require('node:path'); const fs = require('node:fs');
-const { createMemoryCheckpointStore, createSqliteCheckpointStore } = require('../../lib/durable/checkpoint-store.js');
-const { compileMethod, validateNet } = require('../../lib/durable/xlate.js');
-const { runFlow } = require('../../lib/durable/interpreter.js');
-const { auditRun } = require('../../lib/durable/audit.js');
+const { createMemoryCheckpointStore, createSqliteCheckpointStore } = require('../../plugins/durable/lib/checkpoint-store.js');
+const { compileMethod, validateNet } = require('../../plugins/durable/lib/xlate.js');
+const { runFlow } = require('../../plugins/durable/lib/interpreter.js');
+const { auditRun } = require('../../plugins/durable/lib/audit.js');
 
 // orders → line-items: inner = sum of line amounts per order, outer = sum of order totals.
 const SUM_SPEC = { methods: { Orders: { map: {

@@ -18,7 +18,7 @@
 'use strict';
 /**
  * C2 — the DURABLE WORKFLOW RUNNER (roadmap P4). A thin assembly over the durable executor bricks
- * (`lib/durable/*`): the CheckpointStore (durable marking + content-memo + lease queue, memory or
+ * (`plugins/durable/lib/*`): the CheckpointStore (durable marking + content-memo + lease queue, memory or
  * SQLite), the C-xlate (`compileMethod`: a compact select+task+map+reduce spec → a workflow net), the
  * interpreter (`runFlow`: routes typed records, memoizes task calls, fans out maps, folds joins,
  * asserts a per-step contract), and the audit forest (`auditRun`). The properties are already MEASURED
@@ -45,12 +45,12 @@
  * @returns {{ compile, run, resume, audit, stats, marking, store, close }}
  */
 
-var defaults = require('./defaults.js');
-var xlate = require('../durable/xlate.js');
-var interp = require('../durable/interpreter.js');
-var audit = require('../durable/audit.js');
-var cp = require('../durable/checkpoint-store.js');
-var digest = require('../providers/canonicalize.js').digest;
+var defaults = require('../../lib/combos/defaults.js');
+var xlate = require('./lib/xlate.js');
+var interp = require('./lib/interpreter.js');
+var audit = require('./lib/audit.js');
+var cp = require('./lib/checkpoint-store.js');
+var digest = require('../../lib/providers/canonicalize.js').digest;
 
 function looksLikeSpec( x ) { return !!(x && (x.select || x.methods || x.steps || x.map)); }
 

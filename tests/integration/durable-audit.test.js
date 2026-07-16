@@ -7,10 +7,10 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { createMemoryCheckpointStore } = require('../../lib/durable/checkpoint-store.js');
-const { compileMethod } = require('../../lib/durable/xlate.js');
-const { runFlow } = require('../../lib/durable/interpreter.js');
-const { auditRun, auditSummary } = require('../../lib/durable/audit.js');
+const { createMemoryCheckpointStore } = require('../../plugins/durable/lib/checkpoint-store.js');
+const { compileMethod } = require('../../plugins/durable/lib/xlate.js');
+const { runFlow } = require('../../plugins/durable/lib/interpreter.js');
+const { auditRun, auditSummary } = require('../../plugins/durable/lib/audit.js');
 
 // a guarded map-reduce: score each element (score∈[0,100]) → sum. An out-of-range element fail-fasts the group.
 const net = compileMethod({ methods: { agg: { map: { over: 'items', elemKey: 'n',

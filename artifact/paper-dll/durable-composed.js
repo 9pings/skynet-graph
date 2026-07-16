@@ -2,7 +2,7 @@
 /*
  * Copyright 2026 Nathanael Braun — AGPL-3.0-or-later.
  *
- * M4 (deeper) — the composition-under-drift wedge ON THE REAL DURABLE EXECUTOR (lib/durable/), not the belief
+ * M4 (deeper) — the composition-under-drift wedge ON THE REAL DURABLE EXECUTOR (plugins/durable/lib/), not the belief
  * view (M4.4) nor a Map proxy. A learned 2-link chain  decide -> disburse  is compiled to a workflow-NET
  * (xlate.compileMethod) and run as a token-flow over the CheckpointStore (interpreter.runFlow), so each step is
  * content-memoized (C5), position is durable, and the run is crash-resumable. The chain:
@@ -22,9 +22,9 @@
 const path = require('path'), fs = require('fs'), os = require('os');
 const ROOT = path.resolve(__dirname, '../..');
 const { digest } = require(ROOT + '/lib/providers/canonicalize.js');
-const { compileMethod } = require(ROOT + '/lib/durable/xlate.js');
-const { runFlow } = require(ROOT + '/lib/durable/interpreter.js');
-const { createMemoryCheckpointStore, createSqliteCheckpointStore } = require(ROOT + '/lib/durable/checkpoint-store.js');
+const { compileMethod } = require(ROOT + '/plugins/durable/lib/xlate.js');
+const { runFlow } = require(ROOT + '/plugins/durable/lib/interpreter.js');
+const { createMemoryCheckpointStore, createSqliteCheckpointStore } = require(ROOT + '/plugins/durable/lib/checkpoint-store.js');
 const { makeComposedWorkload } = require('./composed-workload.js');
 const out = ( ...a ) => process.stdout.write(a.join(' ') + '\n');
 

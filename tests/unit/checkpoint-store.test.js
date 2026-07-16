@@ -6,7 +6,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { createMemoryCheckpointStore } = require('../../lib/durable/checkpoint-store.js');
+const { createMemoryCheckpointStore } = require('../../plugins/durable/lib/checkpoint-store.js');
 const { runCheckpointContract } = require('../_checkpoint-suite.js');
 
 runCheckpointContract('memory', ( o ) => createMemoryCheckpointStore(o), { test, assert });

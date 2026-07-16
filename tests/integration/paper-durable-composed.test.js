@@ -2,7 +2,7 @@
 /*
  * Copyright 2026 Nathanael Braun — AGPL-3.0-or-later.
  *
- * M4 (deeper) — the composition-under-drift wedge ON THE REAL DURABLE EXECUTOR (lib/durable/), the deterministic
+ * M4 (deeper) — the composition-under-drift wedge ON THE REAL DURABLE EXECUTOR (plugins/durable/lib/), the deterministic
  * regression for `artifact/paper-dll/durable-composed.js`. A 2-link chain decide→disburse compiled to a workflow
  * net and run as a token-flow over the CheckpointStore. Claims (each + a negative control): the chain amortizes
  * + cascades on drift (both links), a premise-less key compounds (neg control), the warm library survives a
@@ -14,7 +14,7 @@ const path = require('path'), fs = require('fs'), os = require('os');
 const ROOT = path.resolve(__dirname, '../..');
 const D = require(ROOT + '/artifact/paper-dll/durable-composed.js');
 const { makeComposedWorkload } = require(ROOT + '/artifact/paper-dll/composed-workload.js');
-const { createMemoryCheckpointStore, createSqliteCheckpointStore } = require(ROOT + '/lib/durable/checkpoint-store.js');
+const { createMemoryCheckpointStore, createSqliteCheckpointStore } = require(ROOT + '/plugins/durable/lib/checkpoint-store.js');
 
 const W = () => makeComposedWorkload({ kinds: ['loan', 'refund', 'wire'], regions: ['EU', 'US', 'APAC'],
 	heldOutRegion: 'APAC', audited: [{ region: 'EU', kind: 'loan' }, { region: 'US', kind: 'wire' }], preCycles: 2, postCycles: 3 });

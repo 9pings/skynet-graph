@@ -23,9 +23,9 @@
  *
  * Run: `node examples/poc/durable-mapreduce.js`.
  */
-const { createMemoryCheckpointStore, createSqliteCheckpointStore } = require('../../lib/durable/checkpoint-store.js');
-const { compileMethod } = require('../../lib/durable/xlate.js');
-const { runFlow } = require('../../lib/durable/interpreter.js');
+const { createMemoryCheckpointStore, createSqliteCheckpointStore } = require('../../plugins/durable/lib/checkpoint-store.js');
+const { compileMethod } = require('../../plugins/durable/lib/xlate.js');
+const { runFlow } = require('../../plugins/durable/lib/interpreter.js');
 const { digest } = require('../../lib/providers/canonicalize.js');
 
 // ── the per-element score (the body micro-task) — score(n) = n*n; pure fn of the element → the key is sound ──────

@@ -20,9 +20,9 @@
  *
  * Run: `node examples/poc/durable-contract.js`.
  */
-const { createMemoryCheckpointStore } = require('../../lib/durable/checkpoint-store.js');
-const { compileMethod } = require('../../lib/durable/xlate.js');
-const { runFlow } = require('../../lib/durable/interpreter.js');
+const { createMemoryCheckpointStore } = require('../../plugins/durable/lib/checkpoint-store.js');
+const { compileMethod } = require('../../plugins/durable/lib/xlate.js');
+const { runFlow } = require('../../plugins/durable/lib/interpreter.js');
 
 // a 2-step method: score (guarded: score∈[0,100]) → label. The body does NOT clamp, so an out-of-range raw violates.
 const guardedSpec = { methods: { grade: { steps: [

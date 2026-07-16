@@ -36,9 +36,9 @@
  * Termination = fuel (`maxSteps`): a step-indexed cutoff (a cyclic/divergent net stops; §4B), not a claim that
  * the net is sound (defeasance makes static workflow-soundness undecidable — we run to a fuel-bounded fixpoint).
  */
-const { compileExpression } = require('../graph/expr.js');
+const { compileExpression } = require('../../../lib/graph/expr.js');
 const { indexByFrom } = require('./xlate.js');
-const { stableStringify } = require('../providers/cache.js');
+const { stableStringify } = require('../../../lib/providers/cache.js');
 const { foldSiblings } = require('./fold.js');
 
 // resolve a `$ref` token against a flat/dotted record payload (the case's typed facts). selectCluster gates are
@@ -83,7 +83,7 @@ async function runFlow( store, runId, net, opts ) {
 	const foldKeyOf = opts.foldKeyOf || (( tr, sibs ) => 'fold:' + tr.reduce.task + '|' + stableStringify(sibs));
 	// the per-step C-contract guard (assert-before-commit). Lazy-required so an executor-only run without any
 	// transition `contract` never loads the authoring layer; a host may inject its own `assertStep`.
-	const assertStep = opts.assertStep || (( contract, facts, touched, o ) => require('../authoring/core/contract.js').assertPost(contract, facts, touched, o));
+	const assertStep = opts.assertStep || (( contract, facts, touched, o ) => require('../../../lib/authoring/core/contract.js').assertPost(contract, facts, touched, o));
 	// fail a token; if it is a REDUCING-map child (stamped `_join`), FAIL-FAST its whole group so the join can't
 	// hang waiting for a sibling that will never arrive (C-fail). A plain token just dead-letters.
 	// a REDUCING-map child (stamped `_join`) that fails: the GROUP POLICY (`_onFail`, stamped at fan-out) decides —
