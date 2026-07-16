@@ -1,0 +1,18 @@
+{
+  // The dialectic pass (v3, opt-in `dialectic:true` on the frame): anchored cross-refutation on an
+  // ESTABLISHED point of a frame whose verdict stayed UNDECIDED. Placement is STRUCTURAL (the CQ
+  // finding — confrontation on clear margins costs decisions): normStatus CONTESTED, or SETTLED
+  // with the counts leaning the other way (the tension case) — i.e. exactly the frames the margin
+  // gates left undecided, expressed positively so no race with a sibling cast. The provider finds
+  // OPPOSITE-side in-pool attackers (same classification-on-given-text family as Explore, never the
+  // refuted auto-audit) and writes `attackers` + `contested` — ANNOTATIONS: no concept in this set
+  // gates on them, the counts/verdict are never moved (the anti-illusion invariant, structural).
+  // One-shot (null-guard `refuteDone`); self-flags `Contested`.
+  "require": ["Established"],
+  "ensure": [
+    "$frame:dialectic",
+    "$refuteDone == null",
+    "$frame:normStatus == 'CONTESTED' || ($frame:normStatus == 'SETTLED_PRO' && $$ledger:con.length - $$ledger:conRetracted.length > $$ledger:pro.length - $$ledger:proRetracted.length) || ($frame:normStatus == 'SETTLED_CON' && $$ledger:pro.length - $$ledger:proRetracted.length > $$ledger:con.length - $$ledger:conRetracted.length)"
+  ],
+  "provider": ["Dialectic::attack"]
+}

@@ -1,0 +1,10 @@
+{
+  // The FREE pool, built by the unforced TWO-STEP brainstorm (list unlabeled → ONE forced-choice
+  // label per statement — the closed-competition structure that discriminates; yes/no acquiesces,
+  // measured 5×). Fires only when the caller supplied no statements (the shell seeds `needsPool`)
+  // and exactly once (null-guard `poolBuilt`). The provider runs the bounded LIST_TRIES re-ask
+  // INTRA-call and emits the Statement nodes + the frame's nPro/nCon (what PoolReady gates on).
+  "require": ["needsPool"],
+  "ensure": ["$poolBuilt == null"],
+  "provider": ["Dialectic::brainstorm"]
+}

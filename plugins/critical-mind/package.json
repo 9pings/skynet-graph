@@ -1,12 +1,12 @@
 {
   "name": "critical-mind",
-  "version": "0.1.0",
-  "description": "C9 — an external, auditable critical mind for LLMs, as a skynet-graph plugin.",
+  "version": "0.2.0",
+  "description": "C9 — an external, auditable critical mind for LLMs, as a skynet-graph plugin (grammar face + imperative reference).",
   "main": "index.js",
   "license": "AGPL-3.0-or-later",
   "author": "Nathanael Braun <pp9ping@gmail.com>",
   "keywords": ["skynet-graph", "skynet-graph-plugin", "critical-mind", "dialectic", "reasoning"],
   "peerDependencies": { "skynet-graph": ">=1.3.0" },
   "dependencies": { "reason-kernel": "^0.1.0" },
-  "files": ["index.js", "combo.js", "concepts", "sg-plugin.json", "README.md"]
+  "files": ["index.js", "factory.js", "factory-grammar.js", "providers.js", "concepts", "sg-plugin.json", "README.md"]
 }

@@ -1,0 +1,9 @@
+{
+  // Declare the viewpoints from the per-side pool slices when the caller declared none (the shell
+  // seeds `needsSplit`; a caller-declared frame seeds the Viewpoint nodes directly and this concept
+  // never opens). One-shot (null-guard `splitDone`); the provider emits the Viewpoint nodes and
+  // SETS `ledger.declared` — the roster every completion counter downstream is measured against.
+  "require": ["needsSplit", "PoolReady"],
+  "ensure": ["$splitDone == null"],
+  "provider": ["Dialectic::split"]
+}

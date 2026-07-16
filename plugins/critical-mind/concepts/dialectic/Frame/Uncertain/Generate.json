@@ -1,0 +1,12 @@
+{
+  // The generative pass, SINGLE by design. The consigned finding (a 2nd generation round inflates
+  // the margin of an uncertified frame by mining majority coverage — the illusion, measured live)
+  // is a BORNE SÉMANTIQUE: it is encoded as a null-guard, never left to the emergence. A later
+  // retraction re-decides the verdict natively (the Verdict watchers) but NEVER re-generates
+  // without an explicit host re-arm (a genRound reset). The provider runs GEN_TRIES per side
+  // INTRA-call (anchored ≥2-unused-witnesses gate, SAME/NEW, fuse-by-write) and emits the admitted
+  // theses as ordinary Viewpoint nodes — admitted by the SAME Established gate as the declared ones.
+  "require": ["Uncertain"],
+  "ensure": ["$genRound == null"],
+  "provider": ["Dialectic::propose"]
+}

@@ -1,9 +1,12 @@
 {
   // Round 2 for points that stayed OPEN: re-cite on the declared-side SLICE (the measured v1.1
-  // ladder -- a same-prompt retry at temp 0 is a no-op, only the structural narrowing discriminates).
-  // One-shot via null-guard (`$retryDone == null`, the _mission.js idiom) -- the bound is a FACT,
-  // not a K_RETRIES loop in JS. Self-flags `Retry`.
+  // ladder — the structural narrowing is what discriminates; the K_RETRIES budget runs INTRA-call
+  // in the provider, matching the imperative reference's budget). One-shot via null-guard
+  // (`$retryDone == null`, the _mission.js idiom) — the bound is a FACT, not a K_RETRIES loop in
+  // JS. `noRetrySlice` (set by the round-1 leaf when no narrower slice exists: side-less viewpoint,
+  // or a one-sided pool) blocks the retry STRUCTURALLY — that point is already definitively open.
+  // Self-flags `Retry`.
   "require": ["Explore"],
-  "ensure": ["$witnessMiss", "$retryDone == null"],
+  "ensure": ["$witnessMiss", "$noRetrySlice == null", "$retryDone == null"],
   "provider": ["Dialectic::cite", { "slice": "stance", "cap": 2, "retry": true }]
 }

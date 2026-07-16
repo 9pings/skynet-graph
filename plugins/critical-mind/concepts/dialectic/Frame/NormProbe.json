@@ -1,0 +1,18 @@
+{
+  // The contestedness probe (SOFT advisory lane: an announced prior, never a gated fact for the
+  // counts) — ONE forced-choice call that separates "genuinely contested at this margin" (honest
+  // UNDECIDED) from "settled by a broad norm". Placement mirrors the imperative: only AFTER the
+  // generative pass (`require genRound`) and only when the FINAL margin is still below the bound.
+  // The counter-gate (pro + con == declared − open + genTallies, all append-only) waits until every
+  // generation-admitted thesis has TALLIED — without it the probe could fire on a transient
+  // sub-threshold count and burn a call on a node the tallies were about to decide. One-shot
+  // (null-guard `normProbed`); writes the snapped enum `normStatus`.
+  "require": ["genRound"],
+  "ensure": [
+    "$normProbed == null",
+    "$$ledger:pro.length + $$ledger:con.length == $$ledger:declared.length - $$ledger:open.length + $$ledger:genTallies",
+    "($$ledger:pro.length - $$ledger:proRetracted.length) - ($$ledger:con.length - $$ledger:conRetracted.length) < $threshold",
+    "($$ledger:con.length - $$ledger:conRetracted.length) - ($$ledger:pro.length - $$ledger:proRetracted.length) < $threshold"
+  ],
+  "provider": ["Dialectic::normProbe"]
+}

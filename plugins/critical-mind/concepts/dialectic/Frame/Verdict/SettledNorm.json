@@ -1,0 +1,13 @@
+{
+  // The settled-norm upgrade gate: when the probe says SETTLED and the anchored counts do NOT lean
+  // the other way, the verdict follows the norm — LABELED advisory (basis 'settled-norm' in the
+  // projection), never a mechanical count. A SETTLED probe with counts leaning AGAINST it does not
+  // cast — that is the 'norm-vs-counts-tension' case, reported, never papered over. Expressed on
+  // the ledger counts directly (structural — no negative gate on a sibling concept, so no race with
+  // the Pro/Con verdicts: normStatus only ever exists when the margin was below the bound).
+  // Pure-assert (auto-flags `SettledNorm`).
+  "require": ["Verdict", "normStatus"],
+  "ensure": [
+    "($normStatus == 'SETTLED_PRO' && $$ledger:pro.length - $$ledger:proRetracted.length >= $$ledger:con.length - $$ledger:conRetracted.length) || ($normStatus == 'SETTLED_CON' && $$ledger:con.length - $$ledger:conRetracted.length >= $$ledger:pro.length - $$ledger:proRetracted.length)"
+  ]
+}

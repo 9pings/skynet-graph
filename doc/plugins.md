@@ -23,8 +23,8 @@ small — identity + what the resolver must check:
   "concepts": ["dialectic"],          // concept set(s) mounted from concepts/<set>/
   "providerNamespaces": ["Dialectic"],// namespaces this plugin CLAIMS (a second claimer is refused)
   "entrypoints": {
-    "providers": "./providers.js",    // Tier-1 only — exports { Ns: { fn } }
-    "combos": { "createCriticalMind": "./factory.js" }
+    "providers": "./providers.js",    // Tier-1 only — exports { Ns: { fn } } (static; factory-built providers stay out)
+    "factories": { "createCriticalMind": "./factory.js" }   // packaged assemblies ("combos" = legacy alias, read until 2.0)
   },
   "deps": [{ "name": "reason-kernel", "range": "^1.0.0" }]  // npm package names + semver ranges
 }
@@ -143,7 +143,9 @@ extension sets that share a spine, e.g. `loop`/`loop-reactive`).
 
 The repo ships its own capabilities as plugins under `plugins/` — they are the pattern to copy:
 `reason-kernel` (the Ledger/Thought/Score kernel foundation) · `critical-mind` (C9, depends on
-reason-kernel — the first real object-carried dep) · `self-consistency` and `refinement` (Tier-0 pure
+reason-kernel — the first real object-carried dep; ships the debate BOTH as a full concept-set grammar
+face — `createCriticalMindGrammar`, what `sg mcp critique` runs — and as the imperative reference,
+parity-enforced by `critique-grammar-parity.test.js`) · `self-consistency` and `refinement` (Tier-0 pure
 grammar, kernel clients) · `planner` (C7 — grammar + projection engine + `createPlanLoop`) · `learning`
 (the DLL toolkit + `createLearningLibrary`) · `forge` (dataset→certified stock, depends on learning) ·
 `durable` (C2 — checkpoint executor + `createDurableRunner`) · `mixture-serve` (C8). Every one of them

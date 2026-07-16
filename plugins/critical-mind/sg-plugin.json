@@ -1,20 +1,29 @@
 {
   // critical-mind (C9) — the external, auditable critical mind as a skynet-graph plugin. Two faces in one
-  // bundle: the GRAMMAR ledger-core (concepts/dialectic/ — witness gate, append-only ledger, native cascade
-  // retraction; its Pro/ConEntry tally into ledger.pro/con via reason-kernel's Ledger primitive) and the
-  // imperative FACTORY (factory.js) that drives the measured full pipeline (establish → generate anchored theses
-  // → typed ledger → certification-aware verdict at the decidability margin). The Dialectic namespace is
-  // RESERVED for C9's own LLM providers (cite/propose/synthesize — added in a later tranche); the generic
-  // ledger tally/untally moved DOWN to reason-kernel (deps below).
+  // bundle, SAME signature and result shape:
+  //   • the GRAMMAR face (concepts/dialectic/ + factory-grammar.js, tranche 2 COMPLETE): the whole debate
+  //     runs as a concept set on the native engine emergence — pool admission (Brainstorm/PoolReady/Split),
+  //     witness leaves (Explore/Retry), ONE admission gate for declared AND generated theses (Established),
+  //     append-only tally via reason-kernel's Ledger, G3 placement + the SINGLE generative pass as a
+  //     null-guard (Uncertain/Generate), LIVE margin verdicts (a retraction re-decides natively),
+  //     NormProbe/SettledNorm, Contested (dialectic, annotation-only). The `Dialectic` LLM providers
+  //     (cite/brainstorm/split/propose/normProbe/attack) are FACTORY-BUILT per run (providers.js — they
+  //     close over the host ask; the planner CtxProj precedent), hence no static provider entrypoint.
+  //   • the imperative FACTORY (factory.js): the measured reference pipeline, kept exported (fallback).
+  // Parity between the two faces is enforced by tests/unit/critique-grammar-parity.test.js (identical
+  // results + ask budgets + byte-identical prompt sets on every scripted scenario).
   "name": "critical-mind",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "tier": 1,
-  "description": "C9 — external critical mind: witness gate, anchored 0-fabrication generation, append-only ledger, certification-aware margin verdict.",
+  "description": "C9 — external critical mind: witness gate, anchored 0-fabrication generation, append-only ledger, certification-aware margin verdict. Ships both the grammar face (the debate as a concept set) and the imperative reference.",
   "engine": "^1.3.0",
   "concepts": ["dialectic"],
   "providerNamespaces": ["Dialectic"],
   "entrypoints": {
-    "factories": { "createCriticalMind": "./factory.js" }
+    "factories": {
+      "createCriticalMind": "./factory.js",
+      "createCriticalMindGrammar": "./factory-grammar.js"
+    }
   },
   "deps": [{ "name": "reason-kernel", "range": "^0.1.0" }]
 }

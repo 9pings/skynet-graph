@@ -1,0 +1,10 @@
+{
+  // The pool-admission gate (the imperative early-return, as a CONDITION): a debate runs iff the
+  // pool has ≥4 statements with ≥2 on at least one side. A LOPSIDED pool is not an error — it is
+  // the signal (the counts then separate mechanically); refuse only when there is nothing to anchor
+  // on at all. Everything downstream (Explore via `$frame:PoolReady`, Split, Uncertain) waits on
+  // this flag — an inadequate pool never costs one model call past the brainstorm.
+  // Pure-assert (auto-flags `PoolReady`).
+  "require": ["poolBuilt"],
+  "ensure": ["$nPro + $nCon >= 4", "$nPro >= 2 || $nCon >= 2"]
+}

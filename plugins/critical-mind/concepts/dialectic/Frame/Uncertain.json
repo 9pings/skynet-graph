@@ -1,0 +1,21 @@
+{
+  // The G3 placement, as a CONDITION (design §3.2): the node is UNCERTAIN iff exploration is
+  // COMPLETE and (the active margin is below THIS frame's decidability threshold OR a declared
+  // point stayed open). The completion barrier is a COUNTER-GATE pair, all on append-only ledger
+  // arrays (monotone, race-free):
+  //   • every declared point resolved:  explored == declared   (the cite/retry leaves push)
+  //   • every resolution TALLIED:       pro + con == declared − open   (the explore-phase entries
+  //     have landed — without it the margin would be read on a transient count and generation
+  //     could fire on a node that is actually decidable, the exact imperative c0 semantics).
+  //     After the generative pass the equality no longer holds — `$genRound != null` keeps the
+  //     clause satisfied so the uncertainty condition alone drives the (pure, harmless) re-test.
+  // |margin| < t without abs(): both signed differences under t. Pure-assert (auto-flags
+  // `Uncertain`); Generate below is what spends a model call, one-shot.
+  "require": ["PoolReady"],
+  "ensure": [
+    "$$ledger:declared.length > 0",
+    "$$ledger:explored.length == $$ledger:declared.length",
+    "$genRound != null || $$ledger:pro.length + $$ledger:con.length == $$ledger:declared.length - $$ledger:open.length",
+    "(($$ledger:pro.length - $$ledger:proRetracted.length) - ($$ledger:con.length - $$ledger:conRetracted.length) < $threshold && ($$ledger:con.length - $$ledger:conRetracted.length) - ($$ledger:pro.length - $$ledger:proRetracted.length) < $threshold) || $$ledger:open.length > 0"
+  ]
+}
