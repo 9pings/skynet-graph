@@ -27,5 +27,12 @@ const cfg = require('skynet-graph').plugins.resolvePlugins([sc]);
 // boot with cfg.conceptMap / cfg.conceptSets / cfg.providers → read `verdict` / `consensus` / `margin` off the ledger node
 ```
 
+A path that produces **no parseable answer abstains** — do not seed it as a Thought, and set `k` to the
+number of valid votes. A parse-failure is not a vote class; counting it as one would let "failed to answer"
+win the plurality. (With a thinking model, budget the tokens so the hidden reasoning does not consume the
+whole reply — otherwise paths abstain silently.)
+
 The verdict is mechanical only at margin ≥ threshold — below the bound the honest output is `UNDECIDED`.
-See [`doc/plugins.md`](../../doc/plugins.md).
+See [`doc/plugins.md`](../../doc/plugins.md). A runnable live demonstrator (k real 2-bit paths → snap → this
+plugin decides) lives in the R&D trail; the plugin's own logic is GPU-free and proven by
+`tests/unit/self-consistency.test.js`.
