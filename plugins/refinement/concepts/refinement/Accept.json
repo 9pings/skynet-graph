@@ -1,0 +1,7 @@
+{
+  // The ThresholdGate: an attempt (a kernel Scored Thought) is ACCEPTED iff its snapped band is 'high'.
+  // Keys on the K1 band, never the raw float — the canonicalization barrier holds (contrast the pre-refacto
+  // verify.js test, which gated on `$confidence >= 0.6`, a raw float on an edge). Pure-assert → auto-flags.
+  "require": ["Scored"],
+  "ensure": ["$scoreBand == 'high'"]
+}

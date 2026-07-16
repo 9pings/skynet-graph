@@ -1,0 +1,8 @@
+{
+  // Scored — a Thought carrying a raw `score` gets it snapped to a discrete `scoreBand` (Score::band, K1)
+  // and flagged Scored. This is the kernel's Score brick: a strategy gates on the snapped band
+  // (`$scoreBand == 'high'`), never on the raw float — refinement's threshold, a ToT prune, a judge all
+  // key on the same canonicalized band. `score` is a required fact (the client/host supplies it).
+  "require": ["Thought", "score"],
+  "provider": ["Score::band"]
+}

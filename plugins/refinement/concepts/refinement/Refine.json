@@ -1,0 +1,8 @@
+{
+  // The bounded refine signal: an attempt that did NOT reach 'high' and still has budget (round < maxRounds)
+  // casts Refine — the host reads it and produces the next, improved attempt (round+1) with a fresh score.
+  // `round < maxRounds` IS the null-guard-round: at the last round neither Accept nor Refine casts, so the
+  // loop terminates (no infinite refinement). Pure-assert → auto-flags. Zero JS: the control flow is grammar.
+  "require": ["Scored"],
+  "ensure": ["$scoreBand != 'high'", "$round < $maxRounds"]
+}

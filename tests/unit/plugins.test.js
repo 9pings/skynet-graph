@@ -121,6 +121,21 @@ test('the critical-mind index.js auto-export CARRIES reason-kernel (definePlugin
 	assert.deepEqual(cfg.order, ['reason-kernel', 'critical-mind']);
 });
 
+test('THREE strategy clients share ONE reason-kernel (the product thesis) — flatten dedups the kernel', () => {
+	// critical-mind + self-consistency + refinement each carry reason-kernel; passing all three top-level,
+	// the flatten collects the kernel ONCE (dedup by name) and topo-orders it before all its dependents.
+	const cm = require('../../plugins/critical-mind');
+	const sc = require('../../plugins/self-consistency');
+	const rf = require('../../plugins/refinement');
+	const cfg = resolvePlugins([cm, sc, rf]);
+	assert.equal(cfg.order.filter((n) => n === 'reason-kernel').length, 1, 'the shared kernel appears exactly once');
+	assert.equal(cfg.order[0], 'reason-kernel', 'kernel ordered before every dependent');
+	assert.deepEqual(cfg.order.slice(1).sort(), ['critical-mind', 'refinement', 'self-consistency'], 'all three strategies resolved');
+	assert.deepEqual(Object.keys(cfg.conceptMap).sort(), ['dialectic', 'kernel', 'refinement', 'selfconsistency'], 'four sets merged (one kernel)');
+	assert.equal(typeof cfg.providers.Ledger.tally, 'function');
+	assert.equal(typeof cfg.providers.Score.band, 'function');
+});
+
 test('reason-kernel index.js auto-export resolves in-repo (Ledger bricks + the Thought concept)', () => {
 	const k = require('../../plugins/reason-kernel');
 	assert.equal(k.name, 'reason-kernel');

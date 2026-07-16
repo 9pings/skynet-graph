@@ -1,0 +1,16 @@
+{
+  // refinement (iterative refinement / reflexion) — the THIRD client of reason-kernel and, like
+  // self-consistency, a TIER-0 plugin (pure grammar, zero JS). Each attempt is a kernel Thought carrying a
+  // raw score; the kernel snaps it to a band (Scored / Score::band). Accept = the ThresholdGate on the
+  // snapped band (`$scoreBand == 'high'`, never a raw float — K1-clean, unlike the old raw `>= 0.6` gate);
+  // Refine = the bounded refine signal (below threshold AND round < maxRounds, the null-guard-round). The
+  // host produces the refined answer + score each round; this plugin is the accept/keep-going control flow.
+  "name": "refinement",
+  "version": "0.1.0",
+  "tier": 0,
+  "description": "Iterative refinement / reflexion: accept on a snapped score band, keep going while below threshold within a bounded round budget. Tier-0, built on reason-kernel.",
+  "engine": "^1.3.0",
+  "concepts": ["refinement"],
+  "providerNamespaces": [],
+  "deps": [{ "name": "reason-kernel", "range": "^0.1.0" }]
+}

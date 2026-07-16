@@ -17,6 +17,16 @@
  * Provider signature is the engine's `(graph, concept, scope, argz, cb)`. Design §3.5/§9.3.
  */
 
+// snap a raw 0–1 score to a discrete BAND (K1: the canonicalization barrier — a gate must key on a snapped
+// enum, never a raw float on an edge). Cutoffs are grain-rounded; default low/mid/high at 0.5/0.75.
+function snapBand( score, cuts ) {
+	cuts = cuts || {};
+	var mid = cuts.mid != null ? cuts.mid : 0.5, high = cuts.high != null ? cuts.high : 0.75;
+	var s = Number(score);
+	if ( isNaN(s) ) return 'none';
+	return s >= high ? 'high' : s >= mid ? 'mid' : 'low';
+}
+
 // majority + top-2 MARGIN over an array of discrete votes (values JSON-keyed so objects vote too). The
 // decidability bound generalises C9's binary pro-vs-con to k classes: a verdict fires iff the winner beats
 // the runner-up by `threshold`, otherwise UNDECIDED — no fake verdict below the bound.
@@ -70,4 +80,14 @@ function decide( graph, concept, scope, argz, cb ) {
 	cb(null, facts);
 }
 
-module.exports = { Ledger: { tally, untally, decide } };
+// Score::band — snap a Thought's raw `score` fact to a discrete `scoreBand` (K1) and self-flag `Scored`, so
+// a gate can key on `$scoreBand == 'high'` instead of a raw float. `argz[0]` = optional {mid,high} cutoffs.
+// The Score brick: the shared scorer that subsumes a refinement threshold / a prune / a judge (design §9.3).
+function band( graph, concept, scope, argz, cb ) {
+	var facts = { $_id: '_parent' };
+	facts[concept._name] = true;
+	facts.scoreBand = snapBand(scope._.score, argz && argz[0]);
+	cb(null, facts);
+}
+
+module.exports = { Ledger: { tally, untally, decide }, Score: { band } };
