@@ -9,9 +9,11 @@
   //     NormProbe/SettledNorm, Contested (dialectic, annotation-only). The `Dialectic` LLM providers
   //     (cite/brainstorm/split/propose/normProbe/attack) are FACTORY-BUILT per run (providers.js — they
   //     close over the host ask; the planner CtxProj precedent), hence no static provider entrypoint.
-  //   • the imperative FACTORY (factory.js): the measured reference pipeline, kept exported (fallback).
-  // Parity between the two faces is enforced by tests/unit/critique-grammar-parity.test.js (identical
-  // results + ask budgets + byte-identical prompt sets on every scripted scenario).
+  //   • the imperative FACTORY (factory.js): the measured reference pipeline, kept exported one
+  //     release as `createCriticalMindImperative`.
+  // The GRAMMAR face is the DEFAULT `createCriticalMind` since the GPU parity re-measure (07-16:
+  // live Q2, results + budgets + prompt sets byte-identical, replay bit-identical). Scripted parity
+  // is permanently enforced by tests/unit/critique-grammar-parity.test.js.
   "name": "critical-mind",
   "version": "0.2.0",
   "tier": 1,
@@ -21,8 +23,8 @@
   "providerNamespaces": ["Dialectic"],
   "entrypoints": {
     "factories": {
-      "createCriticalMind": "./factory.js",
-      "createCriticalMindGrammar": "./factory-grammar.js"
+      "createCriticalMind": "./factory-grammar.js",
+      "createCriticalMindImperative": "./factory.js"
     }
   },
   "deps": [{ "name": "reason-kernel", "range": "^0.1.0" }]

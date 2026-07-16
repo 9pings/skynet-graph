@@ -374,4 +374,7 @@ function createCriticalMind( opts ) {
 	return { run, renderProse };
 }
 
-module.exports = { createCriticalMind, reconcile };
+// `createCriticalMindImperative` = the manifest-addressable name since the grammar face became the
+// default `createCriticalMind` (GPU parity re-measure GO, 07-16). This reference implementation
+// stays exported for one release (converge → tree-shake, no attachment).
+module.exports = { createCriticalMind, createCriticalMindImperative: createCriticalMind, reconcile };

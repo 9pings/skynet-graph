@@ -85,8 +85,12 @@ test('SC parity: agreement holds at the boundary (margin exactly = threshold →
 	assert.equal(plug.verdict, old.value, 'at margin == threshold the plugin decides the same majority the old form reported');
 });
 
-test('C9 surface parity: Graph.factories.createCriticalMind IS the relocated plugin combo (behaviour = unchanged critique.test)', () => {
-	const facade = require('../../lib/index.js').combos.createCriticalMind;
-	const pluginCombo = require('../../plugins/critical-mind/factory.js').createCriticalMind;
-	assert.equal(facade, pluginCombo, 'the public combo === the plugin combo — one implementation, relocated not rewritten');
+test('C9 surface: the facade DEFAULT is the grammar face; the imperative reference stays exported one release', () => {
+	// the flip (GPU parity re-measure GO, 07-16): createCriticalMind === factory-grammar.js — the
+	// behaviour contract is critique-grammar-parity.test.js (scripted) + the GPU harness (live).
+	const factories = require('../../lib/index.js').factories;
+	assert.equal(factories.createCriticalMind, require('../../plugins/critical-mind/factory-grammar.js').createCriticalMind,
+		'the public default === the grammar face');
+	assert.equal(factories.createCriticalMindImperative, require('../../plugins/critical-mind/factory.js').createCriticalMind,
+		'the measured imperative reference stays reachable (one release)');
 });

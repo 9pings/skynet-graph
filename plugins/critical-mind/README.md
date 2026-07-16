@@ -33,12 +33,14 @@ prompt sets on every scripted scenario):
 As a bundled foundation plugin, it is reached through the host facade — unchanged public API:
 
 ```js
-const cm = require('skynet-graph').factories.createCriticalMind({ ask });          // imperative reference
-const cg = require('skynet-graph').factories.createCriticalMindGrammar({ ask });   // grammar face (same API)
-const r  = await cg.run({ topic: 'is X a good idea?', viewpoints: ['X helps A', 'X harms B'] });
+const cm = require('skynet-graph').factories.createCriticalMind({ ask });            // the DEFAULT = the grammar face
+const ci = require('skynet-graph').factories.createCriticalMindImperative({ ask });  // the measured reference (one release)
+const r  = await cm.run({ topic: 'is X a good idea?', viewpoints: ['X helps A', 'X harms B'] });
 ```
 
-The `sg mcp` `critique` tool runs the grammar face.
+The `sg mcp` `critique` tool runs the grammar face. The default flipped to the grammar face after the
+GPU parity re-measure (live Q2: results, ask budgets and prompt sets byte-identical to the imperative
+reference across FREE/dialectic/FR topics; grammar replay bit-identical).
 
 As a standalone package (once published), it is a normal requireable plugin object:
 

@@ -143,9 +143,10 @@ extension sets that share a spine, e.g. `loop`/`loop-reactive`).
 
 The repo ships its own capabilities as plugins under `plugins/` — they are the pattern to copy:
 `reason-kernel` (the Ledger/Thought/Score kernel foundation) · `critical-mind` (C9, depends on
-reason-kernel — the first real object-carried dep; ships the debate BOTH as a full concept-set grammar
-face — `createCriticalMindGrammar`, what `sg mcp critique` runs — and as the imperative reference,
-parity-enforced by `critique-grammar-parity.test.js`) · `self-consistency` and `refinement` (Tier-0 pure
+reason-kernel — the first real object-carried dep; the DEFAULT `createCriticalMind` is the full
+concept-set GRAMMAR face — what `sg mcp critique` runs — with the measured imperative reference
+exported one release as `createCriticalMindImperative`; parity is enforced scripted by
+`critique-grammar-parity.test.js` and was re-measured live on GPU) · `self-consistency` and `refinement` (Tier-0 pure
 grammar, kernel clients) · `planner` (C7 — grammar + projection engine + `createPlanLoop`) · `learning`
 (the DLL toolkit + `createLearningLibrary`) · `forge` (dataset→certified stock, depends on learning) ·
 `durable` (C2 — checkpoint executor + `createDurableRunner`) · `mixture-serve` (C8). Every one of them

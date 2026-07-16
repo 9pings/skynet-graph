@@ -164,7 +164,9 @@ function createCriticalMind( opts ) {
 				const e = { key, kind, side: f.side || null, text: f.text, witnesses,
 					status: cast(key, 'Established') ? 'active' : (retractedSet.has(key) ? 'retracted' : 'open'),
 					round: kind === 'generated' ? 1 : 0, provenance: kind === 'generated' ? 'generated+witnesses' : 'declared' };
-				if ( f.contested ) { e.contested = true; e.attackers = f.attackers; }
+				// key INSERTION order mirrors the imperative crossRefute (attackers, then contested) so even a
+				// strict JSON.stringify comparison of the two faces is byte-identical (GPU parity bar GP1)
+				if ( f.contested ) { e.attackers = f.attackers; e.contested = true; }
 				return e;
 			};
 			const ledger = declaredKeys.map(( k ) => entryOf(k, 'declared') ).concat(genKeys.map(( k ) => entryOf(k, 'generated') ));
@@ -221,6 +223,7 @@ function createCriticalMind( opts ) {
 	return { run, renderProse: RENDER.renderProse };
 }
 
-// `createCriticalMindGrammar` = the manifest-addressable alias (loadPlugin picks module[key]);
-// same function — the grammar face keeps the imperative signature by contract.
-module.exports = { createCriticalMind, createCriticalMindGrammar: createCriticalMind };
+// THE default `createCriticalMind` since the GPU parity re-measure (07-16: GP1-GP5 all green on
+// live Q2 — results, budgets and prompt sets byte-identical to the imperative reference, replay
+// bit-identical). The imperative face stays exported one release as `createCriticalMindImperative`.
+module.exports = { createCriticalMind };
