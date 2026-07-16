@@ -1,0 +1,6 @@
+{
+  // A ranked sub-problem — a kernel Thought (crossCorpus require) carrying its `rank` (0 = easiest;
+  // the host orders by difficulty) and `prev` (a ref to the previous step's node — the chain the
+  // release order emerges from). `text` is prose-terminal. Pure-assert.
+  "require": ["Thought", "rank"]
+}

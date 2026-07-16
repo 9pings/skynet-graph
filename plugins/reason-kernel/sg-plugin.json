@@ -4,9 +4,10 @@
   // them: the LEDGER (Ledger::tally/untally, append-only, native cascade retraction) + the k-ary MARGIN
   // decidability gate (Ledger::decide) + the generic `Thought` concept (the crossCorpus anchor a strategy's
   // grammar `require`s) + the SCORE brick (Score::band snaps a raw score to a K1 band, `Scored` concept —
-  // added when refinement needed it). The rest of the Gate family follows the same rule. Tier-1 (JS providers).
+  // added when refinement needed it) + the generic typed `Relation` node (relKind enum — added when
+  // analogical needed maps-to). The rest of the Gate family follows the same rule. Tier-1 (JS providers).
   "name": "reason-kernel",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "tier": 1,
   "description": "Shared reasoning-kernel foundation plugin: the Ledger primitive, the margin decidability gate, the Score band, and the generic Thought concept.",
   "engine": "^1.3.0",

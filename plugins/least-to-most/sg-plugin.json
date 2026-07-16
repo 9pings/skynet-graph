@@ -1,0 +1,18 @@
+{
+  // least-to-most — ordered decomposition as a Tier-0 strategy plugin on reason-kernel: sub-problems
+  // are ranked easiest→hardest by the host; the RELEASE ORDER EMERGES from the dataflow (Step/Ready
+  // casts when the previous step is Solved — a chain of hop-watched gates, no scheduler), each step
+  // is solvable ONLY after its release (Solved requires Ready — the order guard: an out-of-order
+  // answer is structurally refused, never silently accepted), every solution TALLIES on the kernel
+  // ledger (the emergent order IS the audit), and the final synthesis gate opens at full coverage
+  // (counter-gate). The host solves each released step with the prior solutions in context; this
+  // plugin is the deposited control flow. Zero JS.
+  "name": "least-to-most",
+  "version": "0.1.0",
+  "tier": 0,
+  "description": "Least-to-most: ranked sub-problems released in emergent dataflow order (Ready gates on the previous Solved), order-guarded solving, ledger audit, completion counter-gate. Tier-0, built on reason-kernel.",
+  "engine": "^1.3.0",
+  "concepts": ["leasttomost"],
+  "providerNamespaces": [],
+  "deps": [{ "name": "reason-kernel", "range": "^0.1.0" }]
+}

@@ -1,0 +1,12 @@
+{
+  // The TRANSFER LICENSE: an analogy may be used iff its source case is LIVE and RESOLVED (typed
+  // booleans the host maintains — never the prose). `$from:live` / `$from:resolved` walk the ref
+  // AND post hop-watchers: retract the source (live:false — an erratum, a drift) and this license
+  // UNCASTS in cascade, the cleaner appending the retraction to the ledger (groundedRetracted) —
+  // the analogy is DEFEASIBLE by construction, the same JTMS the C9 witness gate runs on.
+  // Self-flags `Grounded` (cast-marker).
+  "require": ["Mapping"],
+  "ensure": ["$from:live", "$from:resolved"],
+  "provider": ["Ledger::tally", "grounded"],
+  "cleaner": ["Ledger::untally", "grounded"]
+}

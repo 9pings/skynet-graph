@@ -1,0 +1,7 @@
+{
+  // The completion counter-gate: every declared question has yielded its insight → the synthesis may
+  // run (the host reads this signal and folds the insights — presentation, out of the grammar). An
+  // unanswered question structurally blocks it: coverage is never faked. Pure-assert.
+  "require": ["Inquiry"],
+  "ensure": ["$insights.length >= $expected"]
+}

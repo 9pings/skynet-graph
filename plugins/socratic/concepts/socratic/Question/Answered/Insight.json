@@ -1,0 +1,8 @@
+{
+  // The distilled insight lands → the question TALLIES into the inquiry ledger (kernel
+  // Ledger::tally pushes this node's id into `insights`, append-only — the audit trail records the
+  // emergent completion order). The provider self-flags `Insight` (cast-marker), so a question
+  // contributes exactly once.
+  "require": ["insight"],
+  "provider": ["Ledger::tally", "insights"]
+}

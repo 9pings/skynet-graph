@@ -1,0 +1,7 @@
+{
+  // The completion counter-gate: all k ranked steps solved → the final composition may run (the
+  // host folds the chain of solutions — the hardest step was solved WITH every easier solution in
+  // context, which is the strategy's whole point). Pure-assert.
+  "require": ["Plan"],
+  "ensure": ["$solved.length >= $k"]
+}

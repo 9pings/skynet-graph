@@ -1,0 +1,9 @@
+{
+  // The BINARY accept gate — the Reflexion form of the refine family: an attempt whose critique came
+  // back CORRECT is accepted. `critiqueVerdict` is a snapped enum written by the host from an
+  // EXTERNAL critique source (a judge model, an oracle, a failing test) — NEVER the drafting model
+  // judging itself: the self-audit is refuted (measured 3 forms: acquiescent, bleeding, inventing).
+  // The plugin ships the control flow; the host must bring the external judge. Pure-assert.
+  "require": ["Thought", "critiqueVerdict"],
+  "ensure": ["$critiqueVerdict == 'CORRECT'"]
+}

@@ -1,0 +1,7 @@
+{
+  // The bounded follow-up signal: an answered question may spawn ONE deeper probe while under its
+  // depth budget — the host reads Deeper, poses the follow-up question (a new Question node at
+  // depth+1) and writes `followedUp` (the null-guard: one follow-up per question, never a regress).
+  "require": ["Answered"],
+  "ensure": ["$depth < $maxDepth", "$followedUp == null"]
+}

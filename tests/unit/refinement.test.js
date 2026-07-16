@@ -46,7 +46,7 @@ test('refinement is the 3rd client: resolves reason-kernel first, both concept s
 	const rf = definePlugin(RF_DIR, [loadPlugin(RK_DIR)]);
 	const cfg = resolvePlugins([rf]);
 	assert.deepEqual(cfg.order, ['reason-kernel', 'refinement']);
-	assert.deepEqual(Object.keys(cfg.conceptMap).sort(), ['kernel', 'refinement']);
+	assert.deepEqual(Object.keys(cfg.conceptMap).sort(), ['kernel', 'refinement', 'reflexion'], 'both family sets + the kernel');
 	assert.equal(typeof cfg.providers.Score.band, 'function', 'the Score brick from the kernel');
 });
 
@@ -88,4 +88,34 @@ test('re-run determinism', async () => {
 		return [cast(g, 'r0', 'Refine'), cast(g, 'r1', 'Accept'), fact(g, 'r1', 'scoreBand')].join('/');
 	};
 	assert.equal(await run(), await run());
+});
+
+// ── the `reflexion` set — the SAME family, the BINARY accept gate (external critiqueVerdict) ────────
+
+const verdictAttempt = (id, verdict, round, maxRounds) => ({ _id: id, isThought: true, critiqueVerdict: verdict, round, maxRounds: maxRounds == null ? 3 : maxRounds });
+
+test('reflexion — Correct accepts on an external CORRECT verdict; Revise keeps going within the budget', async () => {
+	const { g } = boot([
+		verdictAttempt('v-ok', 'CORRECT', 1, 3),
+		verdictAttempt('v-ko', 'FLAWED', 1, 3),
+	]);
+	await settle(g);
+	assert.equal(cast(g, 'v-ok', 'Correct'), true, 'CORRECT verdict → accepted');
+	assert.equal(cast(g, 'v-ok', 'Revise'), false, 'an accepted attempt does not revise');
+	assert.equal(cast(g, 'v-ko', 'Revise'), true, 'a flawed attempt with budget revises');
+	assert.equal(cast(g, 'v-ko', 'Correct'), false);
+});
+
+test('reflexion NEG — the null-guard-round holds: flawed at maxRounds → neither Correct nor Revise (bounded loop)', async () => {
+	const { g } = boot([verdictAttempt('v-last', 'FLAWED', 3, 3)]);
+	await settle(g);
+	assert.equal(cast(g, 'v-last', 'Correct'), false);
+	assert.equal(cast(g, 'v-last', 'Revise'), false, 'the round budget is spent — the loop terminates');
+});
+
+test('reflexion NEG — no critique verdict, no gate: the set never fires on an unjudged attempt (no self-audit path)', async () => {
+	const { g } = boot([{ _id: 'v-raw', isThought: true, round: 0, maxRounds: 3 }]);
+	await settle(g);
+	assert.equal(cast(g, 'v-raw', 'Correct'), false, 'requires an EXTERNAL critiqueVerdict — never inferred');
+	assert.equal(cast(g, 'v-raw', 'Revise'), false);
 });

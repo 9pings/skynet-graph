@@ -1,0 +1,5 @@
+{
+  // The host answered this question (`answer` = prose-terminal; its EXISTENCE is the resolvable
+  // require, its content is never a gate — the canonicalization barrier). Pure-assert.
+  "require": ["answer"]
+}

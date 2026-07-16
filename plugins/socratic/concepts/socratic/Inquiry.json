@@ -1,0 +1,6 @@
+{
+  // The inquiry root — BY CONVENTION the 'ledger' node (kernel Ledger::tally pushes there), carrying
+  // `expected` (the declared, bounded question count) and the `insights` array the questions tally
+  // into. Pure-assert (auto-flags `Inquiry`); Synthesize below is the completion gate.
+  "require": ["isInquiry"]
+}

@@ -1,0 +1,8 @@
+{
+  // The RELEASE gate: a step is ready iff it is the easiest (rank 0) or its predecessor is Solved.
+  // `$prev:Solved` walks the ref AND posts a hop-watcher — when the previous step's solution lands,
+  // THIS gate re-evaluates and casts: the easiest→hardest order EMERGES from the dataflow, no
+  // scheduler, no loop. The host reads the cast Ready set as "solve these now". Pure-assert.
+  "require": ["Step"],
+  "ensure": ["$rank == 0 || $prev:Solved"]
+}

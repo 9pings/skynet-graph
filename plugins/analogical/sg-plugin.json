@@ -1,0 +1,18 @@
+{
+  // analogical — analogical reasoning as a Tier-0 strategy plugin on reason-kernel: a MAPPING is a
+  // kernel Relation node (`relKind: 'maps-to'`) between a SOURCE case (a resolved, live Thought) and
+  // a TARGET; the transfer license (Grounded) casts only while the source is live AND resolved, and
+  // every grounded analogy tallies on the kernel ledger with a retraction cleaner. THE point of the
+  // grammar face: the analogy is DEFEASIBLE — retract the source (an erratum, a drifted fact) and
+  // the transfer license uncasts in cascade, the retraction APPENDED to the audit trail (the exact
+  // JTMS machinery C9's witness gate runs on, reused verbatim). The host does the structural match
+  // + the transfer prose; this plugin is the deposited admission + maintenance. Zero JS.
+  "name": "analogical",
+  "version": "0.1.0",
+  "tier": 0,
+  "description": "Analogical reasoning: maps-to Relations grounded on live+resolved sources, ledger-audited, DEFEASIBLE (source retraction cascades the transfer license). Tier-0, built on reason-kernel.",
+  "engine": "^1.3.0",
+  "concepts": ["analogical"],
+  "providerNamespaces": [],
+  "deps": [{ "name": "reason-kernel", "range": "^0.1.1" }]
+}

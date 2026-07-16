@@ -1,0 +1,8 @@
+{
+  // The bounded revise signal: the critique says not-CORRECT and budget remains → the host reads
+  // Revise and produces the improved attempt (round+1) with a fresh external critique. At the last
+  // round neither Correct nor Revise casts — the loop terminates (the same null-guard-round bound
+  // as refinement's Refine; one family, two accept gates: band threshold vs binary verdict).
+  "require": ["Thought", "critiqueVerdict"],
+  "ensure": ["$critiqueVerdict != 'CORRECT'", "$round < $maxRounds"]
+}

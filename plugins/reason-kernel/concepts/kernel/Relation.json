@@ -1,0 +1,8 @@
+{
+  // Relation — the kernel's generic TYPED relation node: `from`/`to` reference Thoughts, `relKind`
+  // is the snapped enum a client gates on (maps-to / attack / support / expands…). Added for a REAL
+  // client (analogical's maps-to Mapping — the kernel grows only when a client demands the brick,
+  // design §9.5); C9's attackers/witnesses carry the same idea as plain facts, a candidate to unify
+  // onto this later. Pure-assert (auto-flags `Relation`).
+  "require": ["isRelation", "relKind"]
+}

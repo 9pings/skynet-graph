@@ -131,7 +131,7 @@ test('THREE strategy clients share ONE reason-kernel (the product thesis) — fl
 	assert.equal(cfg.order.filter((n) => n === 'reason-kernel').length, 1, 'the shared kernel appears exactly once');
 	assert.equal(cfg.order[0], 'reason-kernel', 'kernel ordered before every dependent');
 	assert.deepEqual(cfg.order.slice(1).sort(), ['critical-mind', 'refinement', 'self-consistency'], 'all three strategies resolved');
-	assert.deepEqual(Object.keys(cfg.conceptMap).sort(), ['dialectic', 'kernel', 'refinement', 'selfconsistency'], 'four sets merged (one kernel)');
+	assert.deepEqual(Object.keys(cfg.conceptMap).sort(), ['dialectic', 'kernel', 'refinement', 'reflexion', 'selfconsistency'], 'five sets merged (one kernel; refinement carries its two family sets)');
 	assert.equal(typeof cfg.providers.Ledger.tally, 'function');
 	assert.equal(typeof cfg.providers.Score.band, 'function');
 });

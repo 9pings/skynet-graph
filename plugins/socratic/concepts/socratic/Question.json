@@ -1,0 +1,5 @@
+{
+  // A probing question — a kernel Thought (crossCorpus require) carrying its `question` text
+  // (prose-terminal, never gated on) and its `depth`/`maxDepth` bounds. Pure-assert.
+  "require": ["Thought", "question"]
+}

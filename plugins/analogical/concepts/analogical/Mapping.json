@@ -1,0 +1,7 @@
+{
+  // An analogical mapping — a kernel Relation node whose kind is 'maps-to' (`from` = the source
+  // case, `to` = the target). Any other relKind (attack, support…) never casts here: the enum is
+  // the router. Pure-assert (auto-flags `Mapping`).
+  "require": ["Relation"],
+  "ensure": ["$relKind == 'maps-to'"]
+}

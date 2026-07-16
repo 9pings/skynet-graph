@@ -1,0 +1,19 @@
+{
+  // socratic — guided questioning as a Tier-0 strategy plugin on reason-kernel. An INQUIRY (the
+  // 'ledger' node — the SC convention: the decision node IS the ledger node) declares a bounded
+  // number of probing questions (`expected`); each question is a kernel Thought that the host
+  // answers and distills into an insight; the insight TALLIES through the kernel Ledger (append-only
+  // audit — the emergent order is the trail), and the SYNTHESIS gate opens only when every declared
+  // insight is in (counter-gate: the join is arity-agnostic, the order emerges from the dataflow).
+  // Deeper follow-ups are null-guard-bounded per question (depth < maxDepth, one follow-up flag) —
+  // no unbounded Socratic regress. The host asks the questions; this plugin is the deposited
+  // control flow + audit. Zero JS.
+  "name": "socratic",
+  "version": "0.1.0",
+  "tier": 0,
+  "description": "Socratic questioning: bounded question→answer→insight chains tallied on the kernel ledger, synthesis gated on full coverage, follow-ups depth-bounded. Tier-0, built on reason-kernel.",
+  "engine": "^1.3.0",
+  "concepts": ["socratic"],
+  "providerNamespaces": [],
+  "deps": [{ "name": "reason-kernel", "range": "^0.1.0" }]
+}

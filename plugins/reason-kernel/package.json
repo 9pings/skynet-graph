@@ -1,7 +1,7 @@
 {
   "name": "reason-kernel",
-  "version": "0.1.0",
-  "description": "Shared reasoning-kernel foundation plugin for skynet-graph (Ledger primitive; Thought/Score/Gate to follow).",
+  "version": "0.1.1",
+  "description": "Shared reasoning-kernel foundation plugin for skynet-graph (Ledger primitive, margin gate, Thought, Score band, typed Relation).",
   "main": "index.js",
   "license": "AGPL-3.0-or-later",
   "author": "Nathanael Braun <pp9ping@gmail.com>",
