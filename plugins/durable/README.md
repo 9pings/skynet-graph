@@ -7,8 +7,8 @@ process kill and resumes exactly where it stopped, on the graph's own determinis
 `checkpoint-store` (durable marking + content-memo + rollback, fencing lease; memory or SQLite backend —
 `node:sqlite` loads only inside the sqlite factory), `xlate` (C-xlate `compileMethod`), `interpreter`
 (Layer B `runFlow`), `fold` (the fold-back JOIN's monoid algebra `foldSiblings`), `audit` (the trail).
-`combo.js` is the packaged `createDurableRunner` (compile/run/resume/audit), reachable as
-`Graph.combos.createDurableRunner` and what `sg flow run <module.js>` executes.
+`factory.js` is the packaged `createDurableRunner` (compile/run/resume/audit), reachable as
+`Graph.factories.createDurableRunner` and what `sg flow run <module.js>` executes.
 
 The host facade consumes it lazily: `Graph.durable` (the full namespace) and
 `Graph.createCheckpointStore({file})` (file → SQLite, none → memory).

@@ -2,7 +2,7 @@
 /**
  * PoC — the typed-QA APPLIANCE (combo C1) end-to-end (roadmap P1.c).
  *
- * `Graph.combos.createAppliance` assembles the shipped bricks into one governed request/response
+ * `Graph.factories.createAppliance` assembles the shipped bricks into one governed request/response
  * endpoint: the prose→typed front door (Intake), the packaged reason loop (createReasonLoop) over the
  * `concepts/_substrate` grammar, a durable content-addressed memo, and an answer/refusal projection —
  * with the product posture ON by default (fail-closed, memo ON, validator ON, constrained grammar OFF).
@@ -57,9 +57,9 @@ function counted( fn ) {
 }
 
 ( async () => {
-	const ask = counted(modelFlag ? Graph.combos.buildAsk(Graph.combos.resolveComboDefaults({ ask: { localModel: modelFlag } }))
+	const ask = counted(modelFlag ? Graph.factories.buildAsk(Graph.factories.resolveComboDefaults({ ask: { localModel: modelFlag } }))
 	                              : cannedAsk());
-	const app = Graph.combos.createAppliance({ ask: ask, maxDepth: 1 });
+	const app = Graph.factories.createAppliance({ ask: ask, maxDepth: 1 });
 	const line = ( s ) => console.log(s);
 
 	line('\n=== PoC — typed-QA appliance (combo C1) ===');

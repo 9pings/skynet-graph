@@ -42,7 +42,7 @@ const propose = async ( { round } ) => {
 async function main() {
 	const g = await bootGraph();
 	try {
-		const sm = Graph.combos.createSelfMod({ graph: g, propose, validate: { knownFacts: ['Distance', 'Segment'], palette: [] } });
+		const sm = Graph.factories.createSelfMod({ graph: g, propose, validate: { knownFacts: ['Distance', 'Segment'], palette: [] } });
 		const res = await sm.author({ goal, goalDescription: 'segment should be Far', maxRounds: 5 });
 
 		console.log('CEGIS   : converged=' + res.ok + ' in ' + res.rounds.length

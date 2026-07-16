@@ -18,7 +18,7 @@ global.__SERVER__ = true;
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { makeDagDecompose, makeArchetypeRouter, leavesToRoadmap, keyOf, ARCHETYPE_HINTS } = require('../../plugins/planner/lib/dag-decompose.js');
-const { createPlanLoop } = require('../../plugins/planner/combo.js');
+const { createPlanLoop } = require('../../plugins/planner/factory.js');
 
 const KINDS = ['retrieve', 'compute', 'compare', 'summarize'];
 // a stub grammar-capable ask that returns a FIXED JSON DAG and records the grammar it was handed.

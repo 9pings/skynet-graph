@@ -27,7 +27,7 @@ const crypto = require('crypto');
 const Graph = require('../../lib/graph');
 const { nextStable } = require('../../lib/authoring/core/supervise.js');
 const { methodTrace } = require('../learning/lib/mine.js');
-const { createLearningLibrary } = require('../learning/combo.js');
+const { createLearningLibrary } = require('../learning/factory.js');
 const stockMod = require('./lib/stock.js');   // goldGate + packStock + consistencyVote + shapeOf
 const packMod = require('../learning/lib/method-pack.js');
 

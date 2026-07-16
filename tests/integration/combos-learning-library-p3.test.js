@@ -3,7 +3,7 @@
  * Combos C3 — the LEARNING METHOD LIBRARY P3 gate verification (design doc 2026-07-05-p3-c3-wiring-design.md §5).
  *
  * DETERMINISTIC (no GPU, no network): a REAL trace is captured off a live engine run via `methodTrace`, then the
- * whole P3 surface of `plugins/learning/combo.js` is exercised end-to-end —
+ * whole P3 surface of `plugins/learning/factory.js` is exercised end-to-end —
  *   crystallizeFrom (admit + auto-index) → dispatch (O(1)) → the learning FORGE arm (adaptOrForgeAsync: hit 0-call /
  *   adapt 1-call / fail-closed reject) → drift (BOTH layers) → `.sgc` round-trip cross-restart.
  * It mirrors the verified-green smoke (scratchpad/smoke-p3-c3.js) and reuses the Refine fixture + helpers of
@@ -16,7 +16,7 @@ const Graph = require('../_boot.js');
 const { nextStable } = require('../../lib/authoring/core/supervise.js');
 const { methodTrace } = require('../../plugins/learning/lib/mine.js');
 const { digest } = require('../../lib/providers/canonicalize.js');
-const { createLearningLibrary } = require('../../plugins/learning/combo.js');
+const { createLearningLibrary } = require('../../plugins/learning/factory.js');
 console.log = console.info = console.warn = () => {};
 
 // ── the Refine fixture (from adapt-or-forge.test.js): a structural cast that SPLITS a segment into two. ──────

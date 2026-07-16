@@ -7,7 +7,7 @@
 // admitted. The --live path (the real embedded model as the forge) is exercised separately.
 const test = require('node:test');
 const assert = require('node:assert');
-const { forgeStock } = require('../../plugins/forge/combo.js');
+const { forgeStock } = require('../../plugins/forge/factory.js');
 
 // a tiny adapted corpus: three classes, each rec already carries its gold typed-step shape.
 const CLASSES = {

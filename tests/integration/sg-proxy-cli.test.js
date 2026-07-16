@@ -9,7 +9,7 @@ const assert = require('node:assert');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
-const { createProxyCache, makeFrontierAsk, makeLocalCoverage } = require('../../lib/combos/proxy-cache.js');
+const { createProxyCache, makeFrontierAsk, makeLocalCoverage } = require('../../lib/factories/proxy-cache.js');
 const { runProxySession, formatProxyReport } = require('../../lib/sg/proxy-run.js');
 
 // a stub CHAT backend ({system,user}) -> text, call-counted — stands in for an embedded gguf / an endpoint.
@@ -92,7 +92,7 @@ test('runProxySession — SEMANTIC coverage via a stub local model: a paraphrase
 });
 
 test('makeLocalCoverage — the default key prompt is the keyword-slot form; keyPrompt/fitPrompt overrides are honored', async () => {
-	const { makeLocalCoverage } = require('../../lib/combos/proxy-cache.js');
+	const { makeLocalCoverage } = require('../../lib/factories/proxy-cache.js');
 	const seen = { key: null, fit: null };
 	const localAsk = async ( { system } ) => { if ( /reduce the question/i.test(system) || /DOMAIN KEY/.test(system) ) { seen.key = system; return 'k'; } seen.fit = system; return 'yes'; };
 	const def = makeLocalCoverage({ localAsk });

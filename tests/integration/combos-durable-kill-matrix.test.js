@@ -27,7 +27,7 @@ const ROOT = path.resolve(__dirname, '../..');
 const Graph = require(ROOT + '/lib/index.js');
 const cp = require(ROOT + '/plugins/durable/lib/checkpoint-store.js');
 const { spec, keyOf, makeRunTask, STREAM } = require(ROOT + '/examples/poc/durable-flow.js');
-const createDurableRunner = Graph.combos.createDurableRunner;
+const createDurableRunner = Graph.factories.createDurableRunner;
 
 let sqliteReason = false;
 try { require('node:sqlite'); } catch ( e ) { sqliteReason = 'node:sqlite unavailable: ' + e.message; }
@@ -128,7 +128,7 @@ const runTask = async ( task, token ) => {
 	}
 	return r;
 };
-const runner = Graph.combos.createDurableRunner({ store: ${JSON.stringify(file)}, runTask, keyOf });
+const runner = Graph.factories.createDurableRunner({ store: ${JSON.stringify(file)}, runTask, keyOf });
 runner.run('k', spec, STREAM).catch(() => {});
 `);
 	try {

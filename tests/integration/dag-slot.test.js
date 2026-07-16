@@ -19,7 +19,7 @@ const assert = require('node:assert/strict');
 const { makeDagDecompose, leavesToRoadmap, SLOT_COMBINATORS } = require('../../plugins/planner/lib/dag-decompose.js');
 const { makeSlotAwareServe } = require('../../plugins/planner/lib/slot-aware-serve.js');
 const { createContextProjection } = require('../../plugins/planner/lib/context-project.js');
-const { createPlanLoop } = require('../../plugins/planner/combo.js');
+const { createPlanLoop } = require('../../plugins/planner/factory.js');
 console.log = console.info = console.warn = () => {};
 
 // a grammar-capable ask STUB: returns a fixed JSON array (the model output) per the user text. Deterministic, GPU-free.

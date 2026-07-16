@@ -274,7 +274,7 @@ form-robustness-tested; on FREE frames, coverage is relative to the pool — and
 **How to use it, simply:**
 
 ```js
-const cm = Graph.combos.createCriticalMind({ ask });
+const cm = Graph.factories.createCriticalMind({ ask });
 const r  = await cm.run({ topic, statements, viewpoints });   // ledger + per-side synthesis + verdict|UNDECIDED
 ```
 

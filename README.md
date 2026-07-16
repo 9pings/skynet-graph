@@ -81,7 +81,7 @@ Where it sits in your setup — two zero-integration doors into one local loop:
 
 > **Two packages, one loop.** This repo — **`skynet-graph`** — is a **minimal core + the capabilities as
 > plugins**: the reasoning engine, and each capability (C1–C9 + the forge) packaged as an installable
-> plugin that *activates* it for a task type (factories on `Graph.combos.*`; see
+> plugin that *activates* it for a task type (factories on `Graph.factories.*`; see
 > [Architecture](#architecture--a-minimal-core-capabilities-as-plugins) below).
 > **[mindsmith](https://www.npmjs.com/package/mindsmith)** is the ready-made
 > **app that actually uses them** — the endpoint + MCP tools + local rooms drawn above, assembled and
@@ -249,9 +249,9 @@ capabilities packaged as **plugins** under `plugins/`, each a self-contained, dr
 - **Tooling — `sg plugin`**: `list` (manifests only, no code run) · `validate <dir>` (dependency lint +
   author-time grammar validation + derived manifest cross-checks) · `scaffold <name>` (a loadable Tier-0
   skeleton). Every bundled plugin validates at zero errors — enforced by the test suite.
-- **Everything stays usable bare.** Each plugin's factory is re-exported on the flat `Graph.combos.*`
+- **Everything stays usable bare.** Each plugin's factory is re-exported on the flat `Graph.factories.*`
   catalog, and every underlying module remains importable on its own — the plugin layer is packaging,
-  not a gate. A few assemblies still live in `lib/combos/` (the C1 typed-QA appliance, the C4
+  not a gate. A few assemblies still live in `lib/factories/` (the C1 typed-QA appliance, the C4
   reactive-KG preset, the C5 self-mod guard, the C6 proxy cache), on the same catalog.
 
 The full contract — manifest schema, the dependency-cycle rule, the *alphabet-is-the-API* invariant —

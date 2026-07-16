@@ -1,12 +1,12 @@
 'use strict';
 /**
- * Combos shared defaults (lib/combos/defaults.js) — the ONE place the §4 product posture is decided.
+ * Combos shared defaults (lib/factories/defaults.js) — the ONE place the §4 product posture is decided.
  * Pure config; no engine, no network. buildAsk is exercised only on the function/throw paths (the
  * {localModel} path would load the native node-llama-cpp dep — a GPU/integration concern).
  */
 const { test } = require('node:test');
 const assert = require('node:assert');
-const { resolveComboDefaults, buildAsk } = require('../../lib/combos/defaults.js');
+const { resolveComboDefaults, buildAsk } = require('../../lib/factories/defaults.js');
 
 test('resolveComboDefaults: the §4 posture ON by default (fail-closed, gate, memo, validate; grammar OFF)', () => {
 	const d = resolveComboDefaults();

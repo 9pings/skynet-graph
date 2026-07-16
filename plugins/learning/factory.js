@@ -71,7 +71,7 @@
  *             library, loop, store, crystallizeFrom, dispatch, blame, credit }}
  */
 
-var defaults = require('../../lib/combos/defaults.js');
+var defaults = require('../../lib/factories/defaults.js');
 var master = require('./lib/master-loop.js');
 var mountMod = require('../../lib/authoring/core/mount.js');
 var libMod = require('./lib/library.js');

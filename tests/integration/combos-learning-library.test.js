@@ -4,7 +4,7 @@
  *
  * A DETERMINISTIC integration test (no GPU, no network): a canned `signature` + a call-counting `forge`
  * are injected exactly like the proven smoke (scratchpad/smoke-learnlib.js). It locks in
- * `plugins/learning/combo.js#createLearningLibrary` behavior AND doubles as the combo's product gates:
+ * `plugins/learning/factory.js#createLearningLibrary` behavior AND doubles as the combo's product gates:
  *
  *   1  élision curve  — a recurrent typed stream climbs MATCH→RECALL→FORGE; repeats elide the forge.
  *   2  restart        — a fresh process on the SAME disk-backed store replays a warm method at 0 calls.
@@ -24,7 +24,7 @@ const assert = require('node:assert');
 const os = require('os');
 const path = require('path');
 const fs = require('fs');
-const { createLearningLibrary } = require('../../plugins/learning/combo.js');
+const { createLearningLibrary } = require('../../plugins/learning/factory.js');
 
 // ── the typed K1 signature: STRUCTURE = method class (mount/deopt key), CONTENT = the derived diff. ──────
 const signature = ( p ) => ({ structure: { oKind: p.oKind, tKind: p.tKind }, content: { variant: p.variant } });
@@ -164,7 +164,7 @@ test('5 no forge: createLearningLibrary without opts.forge throws', () => {
 });
 
 // ── 6 · Facade — reachable via require(lib/index.js).combos.createLearningLibrary (same function) ────────
-test('6 facade: Graph.combos.createLearningLibrary is the live wiring', () => {
+test('6 facade: Graph.factories.createLearningLibrary is the live wiring', () => {
 	const facade = require('../../lib/index.js');
 	assert.equal(typeof facade.combos, 'object', 'the facade exposes a combos namespace');
 	assert.equal(facade.combos.createLearningLibrary, createLearningLibrary,

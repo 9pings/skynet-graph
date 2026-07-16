@@ -20,7 +20,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { createProxyCache, makeTypedIntakeKey } = require('../../lib/combos/proxy-cache.js');
+const { createProxyCache, makeTypedIntakeKey } = require('../../lib/factories/proxy-cache.js');
 
 // a declared domain: {subject ∈ countries} × {attribute ∈ the answerable dimensions}. The ANSWER-COMPLETE schema.
 const FACTS = { subject: { enum: ['france', 'japan', 'brazil'] }, attribute: { enum: ['capital', 'population', 'currency'] } };

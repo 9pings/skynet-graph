@@ -8,7 +8,7 @@
  *       On the same votes they pick the SAME consensus; the plugin ADDS the K1 margin decidability gate
  *       (UNDECIDED below the bound) the old majority lacked — the improvement, made explicit.
  *
- *   (2) critical-mind: `Graph.combos.createCriticalMind` still IS the (relocated) plugin combo — the public
+ *   (2) critical-mind: `Graph.factories.createCriticalMind` still IS the (relocated) plugin combo — the public
  *       surface is unchanged, and its behaviour is covered verbatim by the unchanged `critique.test.js`.
  *
  * The pre-refactor tests themselves (critique / dialectic-grammar / verification / aggregation) remain green
@@ -85,8 +85,8 @@ test('SC parity: agreement holds at the boundary (margin exactly = threshold →
 	assert.equal(plug.verdict, old.value, 'at margin == threshold the plugin decides the same majority the old form reported');
 });
 
-test('C9 surface parity: Graph.combos.createCriticalMind IS the relocated plugin combo (behaviour = unchanged critique.test)', () => {
+test('C9 surface parity: Graph.factories.createCriticalMind IS the relocated plugin combo (behaviour = unchanged critique.test)', () => {
 	const facade = require('../../lib/index.js').combos.createCriticalMind;
-	const pluginCombo = require('../../plugins/critical-mind/combo.js').createCriticalMind;
+	const pluginCombo = require('../../plugins/critical-mind/factory.js').createCriticalMind;
 	assert.equal(facade, pluginCombo, 'the public combo === the plugin combo — one implementation, relocated not rewritten');
 });

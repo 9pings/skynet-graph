@@ -12,7 +12,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 require('../_boot.js');
-const { createProxyCache } = require('../../lib/combos/proxy-cache.js');
+const { createProxyCache } = require('../../lib/factories/proxy-cache.js');
 
 // a query embedded in a long context block: a big schema/preamble + the real question after a marker + a big
 // postamble of column docs. The SHORT core and the LONG variant carry the SAME question.

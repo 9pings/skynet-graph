@@ -12,7 +12,7 @@ margin, otherwise an honest `UNDECIDED` with the counts.
 |---|---|
 | `concepts/dialectic/` | the grammar ledger-core (Statement · Viewpoint · Explore/Retry · Established Pro/ConEntry · Frame · Verdict) — witness gate + append-only ledger, cascade retraction native to the engine |
 | `providers.js` | `Dialectic::tally` / `untally` — the pure (0-LLM) ledger side of the grammar |
-| `combo.js` | `createCriticalMind({ ask })` — the imperative combo that drives the measured full pipeline (establish → anchored generation → ledger → margin verdict; re-root, dialectic cross-refutation) |
+| `factory.js` | `createCriticalMind({ ask })` — the imperative combo that drives the measured full pipeline (establish → anchored generation → ledger → margin verdict; re-root, dialectic cross-refutation) |
 | `sg-plugin.json` | the plugin manifest (concepts, provider namespace `Dialectic`, entrypoints) |
 
 ## Use

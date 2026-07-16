@@ -222,7 +222,7 @@ provider trace, live concept editor, and **`.sgc` corpus import/export** with a 
 Above the bricks sit the delivered **capabilities** (C1–C9 — appliance, durable runner, learning
 library, reactive KG, self-mod, proxy cache, plan loop, mixture serve, and **C9 `createCriticalMind`**,
 the external critical mind), most of them packaged as **plugins** (§5b) whose factories are re-exported
-on the flat `Graph.combos.*` catalog, and the **serving surfaces**: `sg serve` (an
+on the flat `Graph.factories.*` catalog, and the **serving surfaces**: `sg serve` (an
 OpenAI-compatible endpoint) and `sg mcp` (MCP tools, including the SOFT/HARD assistant lanes —
 `hint` / `state_recall` / `state_note` / `plan_sync` vs the gate-tested `propose` — and the `critique` tool).
 Per-capability maturity, the measured numbers (including the critical mind's measured decidability
@@ -240,7 +240,7 @@ lib/authoring/    the toolkit that stays in lib — core/ (27 modules: contract,
 lib/providers/    packaged providers (geo, llm + local host, canonicalize, verify, semiring, …)
 lib/plugins/      the plugin subsystem — resolvePlugins / loadPlugin / loadPlugins / definePlugin /
                   lintPluginDeps (flatten carried deps → dedup → topo-sort → semver → namespace claims)
-lib/combos/       the flat factory catalog (Graph.combos.*): the assemblies still in lib (C1 appliance,
+lib/factories/       the flat factory catalog (Graph.factories.*): the assemblies still in lib (C1 appliance,
                   C4 reactive-KG preset, C5 self-mod, C6 proxy cache) + re-exports of the plugins' factories
 lib/sg/ · lib/studio/ · lib/runtime/    the surfaces: CLI + serve + MCP · the web Studio · distributed workers
 plugins/          the nine shipped capability plugins (reason-kernel · critical-mind · self-consistency ·

@@ -4,7 +4,7 @@
  * AGPL-3.0-or-later. See <https://www.gnu.org/licenses/>.
  */
 /**
- * mixture-serve — the plugin auto-export. A self-contained JS combo (no concepts/providers, deps:[]); it
+ * mixture-serve — the plugin auto-export. A self-contained JS factory (no concepts/providers, deps:[]); it
  * exposes `createMixtureServe` + `makeSurfaceDispatch` as combo entrypoints. `definePlugin` resolves from
  * skynet-graph (peer dep when published, relative path when bundled in-repo).
  */

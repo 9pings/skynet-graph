@@ -5,8 +5,8 @@
 require('../_boot.js');
 const test = require('node:test');
 const assert = require('node:assert');
-const { createLearningLibrary } = require('../../plugins/learning/combo.js');
-const { createProxyCache, makeLocalCoverage } = require('../../lib/combos/proxy-cache.js');
+const { createLearningLibrary } = require('../../plugins/learning/factory.js');
+const { createProxyCache, makeLocalCoverage } = require('../../lib/factories/proxy-cache.js');
 
 function stubFrontier() {
 	const calls = { n: 0, seen: [] };

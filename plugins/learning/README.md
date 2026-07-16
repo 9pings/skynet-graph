@@ -9,13 +9,13 @@ its plugin): `crystallize` / `mine` (trace → structural method), `adapt` / `li
 (adapt-or-forge controller + O(1) dispatch index), `method-pack` / `method-explorer` (portable packages +
 population explorer), the distillation detectors (`hotspot` / `compose-hotspot` / `cost-probe` /
 `emittability` / `canon` / `compress` / `ancestry` / `debug-provider`), `parametric` (typed slot
-machinery), `combinator`, and `master-loop`. `combo.js` is the packaged `createLearningLibrary` assembly,
-reachable as `Graph.combos.createLearningLibrary`.
+machinery), `combinator`, and `master-loop`. `factory.js` is the packaged `createLearningLibrary` assembly,
+reachable as `Graph.factories.createLearningLibrary`.
 
 `relearn` (the standing un-learn loop) stays in `lib/authoring/core/` — it is consumed by the C5
-self-mod combo and belongs to the supervision family (it follows `reactiveSupervisorTree`'s shape).
+self-mod factory (C5) and belongs to the supervision family (it follows `reactiveSupervisorTree`'s shape).
 
 No concept sets and no static providers (Tier-1 JS machinery, assembled per host). The forge plugin
-depends on this one (`mine` / `method-pack` / the combo).
+depends on this one (`mine` / `method-pack` / the factory).
 
 See [`doc/plugins.md`](../../doc/plugins.md) and `doc/concept-learning.md`.

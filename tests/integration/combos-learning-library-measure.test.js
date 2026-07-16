@@ -2,7 +2,7 @@
 /*
  * Copyright 2026 Nathanael Braun — AGPL-3.0-or-later.
  *
- * P2-mesure (roadmap Phase 2) — the SHIPPED combo `Graph.combos.createLearningLibrary` is a COST-IDENTICAL
+ * P2-mesure (roadmap Phase 2) — the SHIPPED combo `Graph.factories.createLearningLibrary` is a COST-IDENTICAL
  * drop-in for the DLL-E2 paper's hand-coded STRUCT arm, on the real engine's productized API. This is the
  * deterministic regression that locks the measured finding (the GPU run lives in doc/WIP; the numbers there
  * match these). It reuses the DEPOSITED paper harness (artifact/paper-dll/*, frozen) unchanged and adds ONE
@@ -30,7 +30,7 @@ const ROOT = path.resolve(__dirname, '../..');
 const { ARMS, auditKey } = require(ROOT + '/artifact/paper-dll/arms.js');
 const E = require(ROOT + '/artifact/paper-dll/workload.js');
 const H = require(ROOT + '/artifact/paper-dll/harness.js');
-const { createLearningLibrary } = require(ROOT + '/plugins/learning/combo.js');
+const { createLearningLibrary } = require(ROOT + '/plugins/learning/factory.js');
 const { createFileStore, saveSgc, loadSgc } = require(ROOT + '/lib/authoring/core/store.js');
 const { packMethods, loadMethods } = require(ROOT + '/plugins/learning/lib/method-pack.js');
 const C = require(ROOT + '/lib/authoring/core/contract.js');

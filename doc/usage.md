@@ -385,7 +385,7 @@ dedicated budget. (In-process analogue of a grant-based GPU orchestrator; the mo
 registry/cache/eviction logic is unit-testable without a GPU.)
 
 **Request/response (`sg ask`).** Two modes. **`sg ask "<q>" --concepts <dir> --local-model <gguf>`** is the
-**typed QA appliance** (`Graph.combos.createAppliance`): the prose→typed front door → the packaged reason loop
+**typed QA appliance** (`Graph.factories.createAppliance`): the prose→typed front door → the packaged reason loop
 over `concepts/_substrate` → a durable memo → a typed answer OR a **typed refusal that names the missing
 requirement** — the product posture ON by default (fail-closed, memo ON, validator ON, constrained grammar
 OFF). It follows the typed *spec* (refuse when the input isn't faithfully typed) rather than world-plausibility,
@@ -396,33 +396,33 @@ Programmatically:
 
 ```js
 const Graph = require('skynet-graph');
-const app = Graph.combos.createAppliance({ concepts: './concepts/mydomain', ask: { localModel: 'models/small.gguf' } });
+const app = Graph.factories.createAppliance({ concepts: './concepts/mydomain', ask: { localModel: 'models/small.gguf' } });
 const r = await app.answer('…');   // { status:'answered', answer, confBand } | { status:'refused', reason, missing:[…], prose }
 ```
 
 The underlying bricks stay usable "à nu" — the appliance is a thin, optional assembly. `session.answer(text)`
 (the legacy loop) resolves with `{answer, state}` and `Graph.settle(g)` is the promise-returning settle verb.
 
-### Capability factories (`Graph.combos.*`) — thin, delivered assemblies over the bricks
+### Capability factories (`Graph.factories.*`) — thin, delivered assemblies over the bricks
 
 Each factory composes existing bricks with the product posture ON by default (fail-closed, memo/store ON,
 validator ON, constrained grammar OFF); none is a required path — the bricks stay usable "à nu". Most of
 them ship from a **plugin** (§10): C2 durable, C3 learning, C7 planner, C8 mixture-serve and C9
-critical-mind each export their factory from their plugin's `combo.js`, re-exported on this flat catalog;
-C1 / C4 / C5 / C6 still live in `lib/combos/`.
+critical-mind each export their factory from their plugin's `factory.js`, re-exported on this flat catalog;
+C1 / C4 / C5 / C6 still live in `lib/factories/`.
 
 ```js
 // C1 — typed-QA appliance (above): intake → reason-loop → typed refusal → memo.
-const app = Graph.combos.createAppliance({ concepts: './concepts/mydomain', ask });
+const app = Graph.factories.createAppliance({ concepts: './concepts/mydomain', ask });
 
 // C2 — durable workflow runner: a compact spec → a crash-safe, memoizing, auditable run.
-const runner = Graph.combos.createDurableRunner({ store: 'flow.db', runTask });   // file → SQLite, else in-memory
+const runner = Graph.factories.createDurableRunner({ store: 'flow.db', runTask });   // file → SQLite, else in-memory
 await runner.run('run-1', spec, records);   // compile → ensureRun → inject → drain (task calls amortize)
 await runner.resume('run-1', spec);          // crash-recovery: reclaim orphaned tokens → finish (exactly-once)
 const { summary } = runner.audit('run-1');   // the derivation forest + verdict + blame
 
 // C3 — learning method library: the always-on cost ladder + a persistent, shippable, LEARNING library.
-const lib = Graph.combos.createLearningLibrary({ signature, forge, store: 'lib.json',
+const lib = Graph.factories.createLearningLibrary({ signature, forge, store: 'lib.json',
 	learning: true, target, dispatchFacts });   // learning OPT-IN: the FORGE arm becomes dispatch→adapt→forge
 await lib.solve(problem);   // MATCH→RETRIEVE→FORGE→ESCALATE; a warm class replays at 0 calls
 lib.crystallizeFrom(mt.records, { episodeTree, schemaGraph });   // distill methods from a REAL trace → catalog
@@ -431,26 +431,26 @@ lib.blame({ contract, failedAtoms });   // localized per-slot blame (admissible 
 const sgc = lib.pack({ name: 'methods', version: 'v1' });   // ship the warm library (version-gated)
 
 // C4 — the reactive KG (the engine's original Use-1): a trivial preset over fromDirs (builtins ON).
-const kg = Graph.combos.reactiveKG({ concepts: './concepts/common', seed });   // rule-KG + geo, usable à nu
+const kg = Graph.factories.reactiveKG({ concepts: './concepts/common', seed });   // rule-KG + geo, usable à nu
 
 // C5 — supervised self-modification (OPT-IN, guarded): edits the LIVE rules; rollbackTo is the guarantee.
-const sm = Graph.combos.createSelfMod({ graph, propose });   // author() needs a proposer (the "judge")
+const sm = Graph.factories.createSelfMod({ graph, propose });   // author() needs a proposer (the "judge")
 await sm.author({ goal });          // CEGIS: propose→validate→install→test→refine
 sm.rollbackTo(sm.revisions()[0]);   // reversibility — restore any prior coherent revision
 
 // C6 — the local-first PROXY CACHE / DISTILLER (the main use case): a verified stock in front of a
 // FRONTIER model. Covered → served local (0 frontier calls); miss → escalate + enrich; 0 hallucination.
-const px = Graph.combos.createProxyCache({
-	frontierAsk: Graph.combos.makeFrontierAsk(chatAsk),   // any ({system,user}) -> text backend = the truth
+const px = Graph.factories.createProxyCache({
+	frontierAsk: Graph.factories.makeFrontierAsk(chatAsk),   // any ({system,user}) -> text backend = the truth
 	store: './stock.json', retention: true,               // durable cross-restart + usage-tracked eviction
-	...Graph.combos.makeLocalCoverage({ localAsk })       // opt-in: a small model snaps paraphrases to one key
+	...Graph.factories.makeLocalCoverage({ localAsk })       // opt-in: a small model snaps paraphrases to one key
 });
 const { answer, source } = await px.answer('What is the capital of France?');   // source: 'local'|'frontier'
 
 // C7 — the hierarchical PLAN LOOP (the piece-by-piece zoom): a task longer than the context is decomposed
 // into typed leaves, each served with ONLY a projected digest, rebalanced to a fixpoint, reassembly verified.
 // decompose + serveLeaf are INJECTED (typed-loop + createProxyCache.solve in production) — usable "à nu".
-const loop = Graph.combos.createPlanLoop({ decompose, serveLeaf });
+const loop = Graph.factories.createPlanLoop({ decompose, serveLeaf });
 const { answer: a7, refused } = await loop.run(task, { givens, labels: labelsOf(givens) });
 // givens: plugins/planner/lib/givens.js#seedOf · labelsOf = the measured CELLS rule (label an input iff its
 // provenance is a structured table cell — never prose, never producers)
@@ -458,21 +458,21 @@ const { answer: a7, refused } = await loop.run(task, { givens, labels: labelsOf(
 // C8 — the MIXTURE-RUNTIME server: a cheap local model ORIENTED by a forged certified stock, escalating the
 // rest to a bigger tier. NOTE: the runtime cross-agreement "trusted answers" tier documented in its header was
 // REFUTED at scale — keep the fail-closed default (nothing auto-trusted); orientation lifts the score only.
-const mx = Graph.combos.createMixtureServe({ certifiedShapes, small, big, proposeMenu });
+const mx = Graph.factories.createMixtureServe({ certifiedShapes, small, big, proposeMenu });
 // certifiedShapes is REQUIRED. Caution: injecting `predict` without `trust: () => false` re-enables the
 // REFUTED cross-agreement default — keep fail-closed (nothing auto-trusted).
 
 // C9 — the external CRITICAL MIND: declared viewpoints established through a witness gate over a statement
 // pool, anchored generation of missing theses (0-fabrication measured), a typed LEDGER as the deliverable,
 // and a certification-aware verdict — mechanical only at the measured margin bound, else an honest UNDECIDED.
-const cm = Graph.combos.createCriticalMind({ ask });
+const cm = Graph.factories.createCriticalMind({ ask });
 const r  = await cm.run({ topic, statements, viewpoints });   // frame FREE/MATERIAL/DECLARED, announced
 ```
 
 ## 10. Plugins — installable, droppable capabilities
 
 A capability ships as a **plugin**: `{ sg-plugin.json manifest, concepts/<set>/ (grammar in files),
-optional providers.js (Tier-1), optional combo.js (the packaged factory), index.js (the npm
+optional providers.js (Tier-1), optional factory.js (the packaged factory), index.js (the npm
 auto-export) }`. The repo ships nine under `plugins/` — `reason-kernel` · `critical-mind` ·
 `self-consistency` · `refinement` · `planner` · `learning` · `forge` · `durable` · `mixture-serve` —
 and they are the pattern to copy; the full contract is **[plugins.md](plugins.md)**.

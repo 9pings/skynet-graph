@@ -2,7 +2,7 @@
 /*
  * Copyright 2026 Nathanael Braun — AGPL-3.0-or-later.
  *
- * Integration test for the C2 DURABLE-RUNNER combo (plugins/durable/combo.js). Deterministic — no GPU, no
+ * Integration test for the C2 DURABLE-RUNNER combo (plugins/durable/factory.js). Deterministic — no GPU, no
  * network: the runner is driven with the POC's plain micro-tasks (examples/poc/durable-flow.js), whose outputs are
  * pure functions of the keyed facts, so the content-memo amortization and crash-resume properties are exact and
  * reproducible. Locks in the C2 gates:
@@ -11,7 +11,7 @@
  *   3. CRASH-RESUME — SQLite store, fuel-cut leaves an in-flight token → a fresh runner reclaims it (exactly-once).
  *   4. COMPILE      — a spec compiles to a workflow net (+ validation); a malformed spec throws.
  *   5. GUARD        — no runTask → throws /runTask/.
- *   6. FACADE       — Graph.combos.createDurableRunner is the live function.
+ *   6. FACADE       — Graph.factories.createDurableRunner is the live function.
  */
 global.__SERVER__ = true;
 
@@ -24,7 +24,7 @@ const fs = require('fs');
 const Graph = require('../../lib/index.js');
 const { spec, keyOf, makeRunTask, STREAM } = require('../../examples/poc/durable-flow.js');
 
-const createDurableRunner = Graph.combos.createDurableRunner;
+const createDurableRunner = Graph.factories.createDurableRunner;
 
 // node:sqlite (Node 22+, experimental) backs the file store. If unavailable, the SQLite case skips; the in-memory
 // cases must still pass.
@@ -136,6 +136,6 @@ test('C2 guard — createDurableRunner without runTask throws /runTask/', () => 
 });
 
 // 6 — FACADE: the combo is reachable off the package facade.
-test('C2 facade — Graph.combos.createDurableRunner is the live function', () => {
+test('C2 facade — Graph.factories.createDurableRunner is the live function', () => {
 	assert.strictEqual(typeof require('../../lib/index.js').combos.createDurableRunner, 'function');
 });

@@ -5,13 +5,13 @@
  */
 /**
  * durable — the plugin auto-export. `require('durable')` returns the resolved plugin object (the C2
- * durable executor + the createDurableRunner combo) via `definePlugin(__dirname)`.
+ * durable executor + the createDurableRunner factory) via `definePlugin(__dirname)`.
  *
  * `definePlugin` (from skynet-graph) resolves by npm name when this ships as its own package (peer
  * installed by npm), and by relative path when it ships bundled INSIDE the skynet-graph repo. The
  * executor lives in `lib/` here (checkpoint-store, xlate, interpreter, fold, audit) — the host facade
- * exposes it as `Graph.durable` / `Graph.createCheckpointStore`; the combo is the packaged runner
- * (`Graph.combos.createDurableRunner`, `sg flow run`).
+ * exposes it as `Graph.durable` / `Graph.createCheckpointStore`; the factory is the packaged runner
+ * (`Graph.factories.createDurableRunner`, `sg flow run`).
  */
 function requireEither( pkgName, relPath ) {                 // npm name (published) → relative sibling (bundled in-repo)
 	try { return require(pkgName); }

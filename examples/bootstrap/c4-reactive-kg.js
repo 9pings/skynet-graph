@@ -20,7 +20,7 @@ const Graph = require('../../lib/index.js');
 
 async function main() {
 	// boot the combo on the shipped `common` concept set (builtins ON = the geo provider is wired).
-	const g = Graph.combos.reactiveKG({
+	const g = Graph.factories.reactiveKG({
 		concepts: path.resolve(__dirname, '../../concepts/common'),
 		seed: {   // a serialized record (a string would be read as a snapshot PATH)
 			lastRev : 0,

@@ -5,13 +5,13 @@
  */
 /**
  * learning — the plugin auto-export. `require('learning')` returns the resolved plugin object (the DLL
- * machinery + the createLearningLibrary combo) via `definePlugin(__dirname)`.
+ * machinery + the createLearningLibrary factory) via `definePlugin(__dirname)`.
  *
  * `definePlugin` (from skynet-graph) resolves by npm name when this ships as its own package (peer
  * installed by npm), and by relative path when it ships bundled INSIDE the skynet-graph repo (a
  * foundation plugin). The DLL engine lives in `lib/` here (crystallize, mine, adapt, library, …) —
- * host code may require those modules directly; the combo is the packaged assembly
- * (`Graph.combos.createLearningLibrary`).
+ * host code may require those modules directly; the factory is the packaged assembly
+ * (`Graph.factories.createLearningLibrary`).
  */
 function requireEither( pkgName, relPath ) {                 // npm name (published) → relative sibling (bundled in-repo)
 	try { return require(pkgName); }

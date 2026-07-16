@@ -10,7 +10,7 @@ const assert = require('node:assert');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
-const { createProxyCache, makeFrontierAsk } = require('../../lib/combos/proxy-cache.js');
+const { createProxyCache, makeFrontierAsk } = require('../../lib/factories/proxy-cache.js');
 const { createServeHandler, startServeServer, queryOfMessages } = require('../../lib/sg/serve.js');
 
 // a stub CHAT backend ({system,user}) -> text, call-counted — stands in for an embedded gguf / an endpoint.

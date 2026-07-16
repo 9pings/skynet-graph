@@ -25,7 +25,7 @@ test('listPlugins enumerates the shipped plugins with their manifest facts', () 
 	assert.deepStrictEqual(planner.sets.sort(), ['loop', 'loop-reactive', 'planner', 'support']);
 	const forge = list.find(( p ) => p.name === 'forge');
 	assert.deepStrictEqual(forge.deps, ['learning']);
-	assert.ok(forge.combos.includes('forgeStock'));
+	assert.ok(forge.factories.includes('forgeStock'));
 });
 
 test('every shipped plugin validates clean (the dogfood — 0 errors)', () => {
@@ -61,4 +61,11 @@ test('scaffold writes a loadable skeleton package; refuses to overwrite', () => 
 	assert.deepStrictEqual(r.errors, [], 'skeleton validates clean');
 	assert.throws(() => scaffoldPlugin(tmp, 'my-strategy'), /exists/, 'no silent overwrite');
 	fs.rmSync(tmp, { recursive: true, force: true });
+});
+
+test('Graph.combos stays a working @deprecated alias of Graph.factories (until 2.0)', () => {
+	const Graph = require('../../lib/index.js');
+	assert.strictEqual(Graph.combos, Graph.factories, 'same object');
+	assert.equal(typeof Graph.combos.createPlanLoop, 'function');
+	assert.strictEqual(require('../../lib/combos'), require('../../lib/factories'), 'deep-path shim');
 });

@@ -1,6 +1,6 @@
 'use strict';
 /**
- * Combos C4 — the REACTIVE KG (roadmap P1 / design doc, `lib/combos/index.js#reactiveKG`).
+ * Combos C4 — the REACTIVE KG (roadmap P1 / design doc, `lib/factories/index.js#reactiveKG`).
  *
  * A DETERMINISTIC integration test (no GPU, no network). C4 is a one-line preset over
  * `Graph.fromDirs({ builtins:true, ... })` that names the engine's ORIGINAL Use-1 (rule-KG +
@@ -11,7 +11,7 @@
  *              whose active concept set includes 'common'.
  *   builtins — builtins are ON by default (the geo provider is registered) and the graph settles
  *              an empty seed without throwing.
- *   facade   — Graph.combos.reactiveKG is a function.
+ *   facade   — Graph.factories.reactiveKG is a function.
  *
  * The engine defaults __SERVER__ to server (lib/graph/index.js), but we set it explicitly so the
  * file boots standalone regardless of load order (mirrors combos-appliance.test.js).
@@ -27,7 +27,7 @@ const COMMON = path.resolve(__dirname, '../../concepts/common');
 
 // ── boot — a live Graph over concepts/common, active set includes 'common' ────────────────────────────
 test('C4 reactiveKG: boots a live Graph over concepts/common (conceptSets includes common)', () => {
-	const g = Graph.combos.reactiveKG({ concepts: COMMON });
+	const g = Graph.factories.reactiveKG({ concepts: COMMON });
 	try {
 		assert.equal(typeof g.pushMutation, 'function', 'a working Graph exposes pushMutation');
 		assert.equal(typeof g.rollbackTo, 'function', 'the MOE reversibility verb rollbackTo is present');
@@ -41,7 +41,7 @@ test('C4 reactiveKG: boots a live Graph over concepts/common (conceptSets includ
 
 // ── builtins ON by default — the geo provider is registered; the empty seed settles ───────────────────
 test('C4 reactiveKG: builtins ON by default (geo provider registered), settles an empty seed', async () => {
-	const g = Graph.combos.reactiveKG({ concepts: COMMON });
+	const g = Graph.factories.reactiveKG({ concepts: COMMON });
 	try {
 		assert.ok(Graph._providers && typeof Graph._providers.CommonGeo === 'object',
 			'builtins:true registered the packaged geo provider (CommonGeo)');
@@ -55,8 +55,8 @@ test('C4 reactiveKG: builtins ON by default (geo provider registered), settles a
 	}
 });
 
-// ── facade — Graph.combos.reactiveKG is a function ────────────────────────────────────────────────────
-test('C4 facade: Graph.combos.reactiveKG is a function', () => {
-	assert.equal(typeof Graph.combos.reactiveKG, 'function',
+// ── facade — Graph.factories.reactiveKG is a function ────────────────────────────────────────────────────
+test('C4 facade: Graph.factories.reactiveKG is a function', () => {
+	assert.equal(typeof Graph.factories.reactiveKG, 'function',
 		'the reactive KG preset is reachable via the facade combos namespace');
 });

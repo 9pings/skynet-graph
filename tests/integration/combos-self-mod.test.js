@@ -1,6 +1,6 @@
 'use strict';
 /**
- * Combos C5 — SUPERVISED SELF-MODIFICATION (roadmap P3-bis, `lib/combos/self-mod.js#createSelfMod`).
+ * Combos C5 — SUPERVISED SELF-MODIFICATION (roadmap P3-bis, `lib/factories/self-mod.js#createSelfMod`).
  *
  * A DETERMINISTIC integration test (no GPU, no network). C5 is a thin, GUARDED packaging of the engine's
  * live-rule-editing bricks (authorConcept/supervise/patchConcept/addConcept/rollbackTo/relearn). It edits
@@ -12,7 +12,7 @@
  *   reversibility — structural ops capture revisions() (a non-empty ascending array); rollbackTo(<earlier>)
  *                   restores the prior state and the authored concept is GONE (the engine supports it here).
  *   structural    — patch()/addConcept() return promises that resolve; the add casts on the live graph.
- *   facade        — Graph.combos.createSelfMod is the live wiring; relearn.tree/relearn.providers are exposed.
+ *   facade        — Graph.factories.createSelfMod is the live wiring; relearn.tree/relearn.providers are exposed.
  *
  * The graph is booted EXACTLY as author-cegis.test.js#bootGraph (a minimal conceptMap + a seed segment
  * carrying Distance 400), so the reused stub proposer converges bit-for-bit the same way — no invented schema.
@@ -22,7 +22,7 @@ process.env.SG_LOG_LEVEL = process.env.SG_LOG_LEVEL || 'error';   // quiet the b
 const { test } = require('node:test');
 const assert = require('node:assert');
 const Graph = require('../../lib/index.js');
-const { createSelfMod } = Graph.combos;
+const { createSelfMod } = Graph.factories;
 
 // ── boot — mirrors author-cegis.test.js#bootGraph EXACTLY: minimal conceptMap + a seg with Distance 400 ─
 function bootGraph( label ) {
@@ -147,9 +147,9 @@ test('C5 structural: addConcept()/patch() return promises that resolve on the li
 });
 
 // ── facade + relearn — the live wiring is reachable and relearn is exposed ─────────────────────────────
-test('C5 facade + relearn: Graph.combos.createSelfMod is the live wiring; relearn is exposed', async () => {
-	assert.equal(typeof Graph.combos.createSelfMod, 'function', 'the facade exposes createSelfMod');
-	assert.equal(Graph.combos.createSelfMod, require('../../lib/combos/self-mod.js').createSelfMod,
+test('C5 facade + relearn: Graph.factories.createSelfMod is the live wiring; relearn is exposed', async () => {
+	assert.equal(typeof Graph.factories.createSelfMod, 'function', 'the facade exposes createSelfMod');
+	assert.equal(Graph.factories.createSelfMod, require('../../lib/factories/self-mod.js').createSelfMod,
 		'the facade createSelfMod is the same function as the module export');
 
 	const g = await bootGraph('c5-facade');

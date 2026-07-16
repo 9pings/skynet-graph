@@ -432,7 +432,7 @@ back into the engine. Host-side, ZERO-CORE, shelved (kept for the curious).
   `plasticity` into `createLLMProvider({ ask, plasticity })` (→ temperature) or `createNet(net,
   { plasticity })` (→ STE exploration noise) so `p=1` explores / `p=0` serves deterministically.
 
-### Combos (`Graph.combos.*`) — thin, delivered assemblies
+### Combos (`Graph.factories.*`) — thin, delivered assemblies
 
 Each combo composes existing bricks with the product posture ON by default (fail-closed, memo/store
 ON, validator ON); none is a required path — the bricks stay usable "à nu". Full guide:

@@ -2,7 +2,7 @@
 /**
  * C9 as GRAMMAR — the dialectic / critical-mind ledger-core expressed as a concept set
  * (`plugins/critical-mind/concepts/dialectic/`) on the native engine emergence, replacing the imperative
- * pipeline of `plugins/critical-mind/combo.js`. Design: `WIP/2026-07-16-design-combos-as-grammar.md` §3.
+ * pipeline of `plugins/critical-mind/factory.js`. Design: `WIP/2026-07-16-design-combos-as-grammar.md` §3.
  *
  * TRANCHE 1 = the ledger core: Statement (life-in-pool) → Viewpoint → Explore (witness leaf) →
  * Established (the witness gate) → Pro/ConEntry (append-only tally) → Frame/Verdict (the margin gate).

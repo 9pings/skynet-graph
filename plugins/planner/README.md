@@ -4,13 +4,13 @@ The plan-loop / graph-native context-projection capability as a [skynet-graph](.
 task too big for one context window is seeded as a graph of segments; each part reads its **bounded**
 neighbourhood from the structure and completes its own prompt, order emerging from the data-flow.
 
-**The plugin now carries the GRAMMAR, the ENGINE and the COMBO.** `lib/` holds the projection engine —
+**The plugin now carries the GRAMMAR, the ENGINE and the FACTORY.** `lib/` holds the projection engine —
 `context-project` (graph-native bounded-context projection), `dag-decompose` (typed needs/produces DAG),
 `givens` / `leaf-io` (typed front door / leaf parsing), `rebalance` (defeasible rebalancing fixpoint),
 `serve-leaf` / `higher-order` / `forest` / `slot-aware-serve` (dispatch+mount serving), `segment-proxy` /
 `sound-invoke` (gated delegation), `negotiate` / `forge-fallback` / `split-serve` (bounded revision paths),
 `support` (alternative-selection bracket) — moved here from `lib/authoring/` (owner: the specific goes into
-its plugin). `combo.js` is the packaged `createPlanLoop` assembly, reachable as `Graph.combos.createPlanLoop`.
+its plugin). `factory.js` is the packaged `createPlanLoop` factory, reachable as `Graph.factories.createPlanLoop`.
 `lib/authoring` keeps `loop.js` / `typed-loop.js` (shared with the learning family via `parametric.js`);
 they load this plugin's grammar files.
 

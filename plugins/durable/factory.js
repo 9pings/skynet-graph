@@ -45,7 +45,7 @@
  * @returns {{ compile, run, resume, audit, stats, marking, store, close }}
  */
 
-var defaults = require('../../lib/combos/defaults.js');
+var defaults = require('../../lib/factories/defaults.js');
 var xlate = require('./lib/xlate.js');
 var interp = require('./lib/interpreter.js');
 var audit = require('./lib/audit.js');

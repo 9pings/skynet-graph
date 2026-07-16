@@ -1,7 +1,7 @@
 {
   // durable — the C2 durable-execution capability: CheckpointStore (durable marking + content-memo +
   // rollback, fencing lease; memory or SQLite), C-xlate (compileMethod), the flow interpreter (runFlow)
-  // with the fold-back JOIN monoid algebra, and the audit trail. combo.js = createDurableRunner
+  // with the fold-back JOIN monoid algebra, and the audit trail. factory.js = createDurableRunner
   // (compile/run/resume/audit — what `sg flow run` executes). No concept sets and no static providers
   // (Tier-1 JS machinery); the facade exposes it as Graph.durable / Graph.createCheckpointStore.
   "name": "durable",
@@ -12,7 +12,7 @@
   "concepts": [],
   "providerNamespaces": [],
   "entrypoints": {
-    "combos": { "createDurableRunner": "./combo.js" }
+    "factories": { "createDurableRunner": "./factory.js" }
   },
   "deps": []
 }

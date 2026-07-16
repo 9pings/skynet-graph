@@ -257,7 +257,7 @@ function adaptOrForge( opts ) {
 /**
  * The ASYNC twin of `adaptOrForge` — the SAME retrieve/adapt/forge ladder and the SAME gates (shared
  * helpers below, single source), for a LIVE host whose `forge` / `adaptContent` / `verify` are model
- * calls (async). This is the brick a thin assembly (lib/combos/learning-library.js P3) wires as the
+ * calls (async). This is the brick a thin assembly (plugins/learning/factory.js P3) wires as the
  * master-loop's FORGE arm — without it, an async forge's Promise would fail `f.candidate` and every
  * forge would silently `reject` (the sync controller cannot await).
  * Same params as `adaptOrForge`; `forge`/`adaptContent`/`verify` may return promises.

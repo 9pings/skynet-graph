@@ -5,7 +5,7 @@
  */
 /**
  * critical-mind — the plugin auto-export. `require('critical-mind')` returns the resolved plugin object
- * (the dialectic concepts + the createCriticalMind combo) via `definePlugin(__dirname, [reason-kernel])`.
+ * (the dialectic concepts + the createCriticalMind factory) via `definePlugin(__dirname, [reason-kernel])`.
  *
  * Both `definePlugin` (from skynet-graph) and the `reason-kernel` dependency resolve by npm name when this
  * ships as its own package (peer/dependency installed by npm), and by relative path when it ships bundled

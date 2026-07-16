@@ -2,7 +2,7 @@
 
 The mixture-runtime server as a [skynet-graph](../../README.md) plugin: a cheap local model **oriented** by a
 forged certified-method stock serves what a trust gate can vouch for at zero big-model cost, and **escalates**
-the rest to a bigger/frontier tier. A self-contained JS combo (`combo.js`) — no concepts, no providers of its
+the rest to a bigger/frontier tier. A self-contained JS factory (`factory.js`) — no concepts, no providers of its
 own; `small` / `big` / `proposeMenu` / `predict` are **injected** by the host.
 
 ```js

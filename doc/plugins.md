@@ -24,7 +24,7 @@ small — identity + what the resolver must check:
   "providerNamespaces": ["Dialectic"],// namespaces this plugin CLAIMS (a second claimer is refused)
   "entrypoints": {
     "providers": "./providers.js",    // Tier-1 only — exports { Ns: { fn } }
-    "combos": { "createCriticalMind": "./combo.js" }
+    "combos": { "createCriticalMind": "./factory.js" }
   },
   "deps": [{ "name": "reason-kernel", "range": "^1.0.0" }]  // npm package names + semver ranges
 }
@@ -38,7 +38,7 @@ Standard directory layout:
   package.json                 (npm-published plugins — see distribution below)
   concepts/<set>/…             one concept set per name in `concepts`
   providers.js                 Tier-1 only
-  combo.js                     optional Graph.combos.* factory
+  factory.js                     optional Graph.factories.* factory
   index.js                     npm-published plugins — the auto-export (see below)
 ```
 

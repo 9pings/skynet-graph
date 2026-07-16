@@ -10,7 +10,7 @@ global.__SERVER__ = true;
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { createContextProjection, guardPlan, buildSeed } = require('../../plugins/planner/lib/context-project.js');
-const { createPlanLoop } = require('../../plugins/planner/combo.js');
+const { createPlanLoop } = require('../../plugins/planner/factory.js');
 const { makeDagDecompose, leavesToRoadmap, DECOMPOSE_SYSTEM } = require('../../plugins/planner/lib/dag-decompose.js');
 const { numberGivens, seedOf } = require('../../plugins/planner/lib/givens.js');
 

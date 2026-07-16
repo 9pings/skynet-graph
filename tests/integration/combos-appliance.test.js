@@ -4,7 +4,7 @@
  *
  * A DETERMINISTIC integration test (no GPU, no network): a canned mock-`ask` is injected and dispatches
  * on the concept's system prompt exactly like the proven smoke (scratchpad/smoke-appliance.js). It locks
- * in `lib/combos/appliance.js#createAppliance` behavior AND doubles as the appliance's product gates:
+ * in `lib/factories/appliance.js#createAppliance` behavior AND doubles as the appliance's product gates:
  *
  *   G1 — a typed question is ANSWERED (synthesized answer + confidence band).
  *   G2 — an untyped intake is REFUSED and the refusal NAMES the missing requirement (never a wrong answer).
@@ -20,7 +20,7 @@
 global.__SERVER__ = true;
 const { test } = require('node:test');
 const assert = require('node:assert');
-const { createAppliance } = require('../../lib/combos/appliance.js');
+const { createAppliance } = require('../../lib/factories/appliance.js');
 
 // ── hermetic canned mock-ask (a call counter + the dispatch from the proven smoke) ────────────────────
 // The ANSWER-path mock: any typed question → question kind; complexity → compound; decompose → 2 fixed
@@ -156,7 +156,7 @@ test('opt-in backend: createAppliance with no ask throws (fail-closed)', () => {
 });
 
 // ── facade — reachable via require(lib/index.js).combos.createAppliance (same function) ────────────────
-test('facade: Graph.combos.createAppliance is the live wiring', async () => {
+test('facade: Graph.factories.createAppliance is the live wiring', async () => {
 	const facade = require('../../lib/index.js');
 	assert.equal(typeof facade.combos, 'object', 'the facade exposes a combos namespace');
 	assert.equal(facade.combos.createAppliance, createAppliance,
