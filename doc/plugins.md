@@ -122,3 +122,29 @@ Every dependent keys on the **fact names** its dependency produces — the alpha
 kernel's alphabet early and version it strictly; renaming a produced fact silently stops a dependent's
 concepts from casting. `deriveManifest` makes the alphabet inspectable and diffable so this stays a
 discipline, not a surprise.
+
+## The tooling — `sg plugin`
+
+```
+sg plugin list [dir]              # enumerate a folder's plugins from their manifests (no code is run)
+sg plugin validate <dir>          # load + lint ONE plugin (exit 0 = no errors)
+sg plugin scaffold <name> [root]  # write a loadable skeleton package (Tier-0 by default)
+```
+
+`validate` checks what would break a consumer — an unloadable plugin, a lying dependency declaration
+(`sg-plugin.deps` must be ⊆ `package.json` dependencies), structurally invalid grammar per set — and
+surfaces the **derived cross-checks** (`deriveManifest`) as warnings: provider namespaces the grammar
+actually references vs. the manifest's claims (an unclaimed namespace is legitimate when it is ambient —
+`AI`/`LLM`/`Semiring` — or claimed by a dependency), claims nothing serves (usually factory-built
+providers, supplied at run time), and fact collisions across the plugin's own sets (by design for
+extension sets that share a spine, e.g. `loop`/`loop-reactive`).
+
+## The bundled plugins
+
+The repo ships its own capabilities as plugins under `plugins/` — they are the pattern to copy:
+`reason-kernel` (the Ledger/Thought/Score kernel foundation) · `critical-mind` (C9, depends on
+reason-kernel — the first real object-carried dep) · `self-consistency` and `refinement` (Tier-0 pure
+grammar, kernel clients) · `planner` (C7 — grammar + projection engine + `createPlanLoop`) · `learning`
+(the DLL toolkit + `createLearningLibrary`) · `forge` (dataset→certified stock, depends on learning) ·
+`durable` (C2 — checkpoint executor + `createDurableRunner`) · `mixture-serve` (C8). Every one of them
+passes `sg plugin validate` with zero errors — the suite enforces it (`tests/unit/plugin-cli.test.js`).
