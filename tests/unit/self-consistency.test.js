@@ -109,3 +109,59 @@ test('re-run determinism (structural, 0-model): identical verdict twice', async 
 	};
 	assert.equal(await run(), await run(), 'deterministic verdict/margin');
 });
+
+// ── the MCP exposure (the strategy surface: params/tools — never a model-name suffix) ────────────────
+
+test('MCP self_consistency tool — k sampled paths, host snap, abstention rule, the PLUGIN decides', async () => {
+	const { defaultTools } = require('../../lib/sg/mcp.js');
+	assert.ok(!defaultTools({}).some(( t ) => t.name === 'self_consistency' ), 'absent without a wired backend');
+	const replies = ['thinking...\nANSWER: 42', 'ANSWER: 42.0', 'blah\nANSWER: 41', 'garbage with no final line', 'ANSWER: 42.'];
+	let calls = 0;
+	const ask = async ( q ) => {
+		assert.equal(q.temperature, 0.7, 'default sampling temperature');
+		assert.match(String(q.user), /what is 6\*7/);
+		return replies[calls++];
+	};
+	const tool = defaultTools({ critiqueAsk: ask }).find(( t ) => t.name === 'self_consistency' );
+	assert.ok(tool && tool.inputSchema.required.includes('question'));
+	const r = await tool.call({ question: 'what is 6*7?' });
+	assert.equal(calls, 5, 'k=5 paths sampled by default');
+	assert.equal(r.abstained, 1, 'the no-ANSWER-line path ABSTAINED (a parse-failure is not a vote class)');
+	assert.deepEqual(r.votes, ['42', '42', '41', '42'], 'numeric snap: 42.0 and "42." canonicalize to 42');
+	assert.equal(r.verdict, '42');
+	assert.equal(r.consensus, '42');
+	assert.equal(r.agree, 3);
+	assert.equal(r.margin, 2);
+	assert.equal(r.total, 4, 'the plugin decided over the VALID votes only');
+	assert.equal(r.advice, null);
+});
+
+test('MCP self_consistency — a tie is UNDECIDED (the margin bound), never coin-flipped; typed advice', async () => {
+	const { defaultTools } = require('../../lib/sg/mcp.js');
+	const replies = ['ANSWER: alpha', 'ANSWER: beta', 'ANSWER: Alpha', 'ANSWER: beta'];   // case-snap → 2 vs 2
+	let i = 0;
+	const tool = defaultTools({ critiqueAsk: async () => replies[i++] }).find(( t ) => t.name === 'self_consistency' );
+	const r = await tool.call({ question: 'q?', k: 4 });
+	assert.deepEqual(r.votes, ['alpha', 'beta', 'alpha', 'beta'], 'class snap lowercases');
+	assert.equal(r.verdict, 'UNDECIDED');
+	assert.equal(r.margin, 0);
+	assert.match(r.advice, /margin bound/);
+});
+
+test('MCP self_consistency — NEG: all paths abstain → typed refusal, never a fabricated vote', async () => {
+	const { defaultTools } = require('../../lib/sg/mcp.js');
+	const tool = defaultTools({ critiqueAsk: async () => 'no final line here' }).find(( t ) => t.name === 'self_consistency' );
+	const r = await tool.call({ question: 'q?', k: 3 });
+	assert.equal(r.verdict, 'UNDECIDED');
+	assert.equal(r.abstained, 3);
+	assert.match(r.error, /abstained/);
+	assert.match(r.advice, /maxTokens/, 'the advice names the measured cause (thinking eats the budget)');
+});
+
+test('MCP self_consistency — temperature 0 is announced as vacuous (k identical paths)', async () => {
+	const { defaultTools } = require('../../lib/sg/mcp.js');
+	const tool = defaultTools({ critiqueAsk: async () => 'ANSWER: same' }).find(( t ) => t.name === 'self_consistency' );
+	const r = await tool.call({ question: 'q?', k: 3, temperature: 0 });
+	assert.equal(r.verdict, 'same', 'unanimity still decides');
+	assert.match(r.advice, /vacuous/, 'but the payload SAYS the vote is vacuous at temp 0');
+});

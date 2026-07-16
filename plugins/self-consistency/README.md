@@ -36,3 +36,8 @@ The verdict is mechanical only at margin ≥ threshold — below the bound the h
 See [`doc/plugins.md`](../../doc/plugins.md). A runnable live demonstrator (k real 2-bit paths → snap → this
 plugin decides) lives in the R&D trail; the plugin's own logic is GPU-free and proven by
 `tests/unit/self-consistency.test.js`.
+
+**MCP exposure**: `sg mcp` ships this strategy as the `self_consistency` tool (params `question` / `k` /
+`threshold` / `temperature` / `maxTokens`) — the host samples the paths on the wired backend, applies the
+abstention rule, and THIS plugin decides on the graph. Strategies are exposed as MCP params/tools, never as
+model-name suffixes.
