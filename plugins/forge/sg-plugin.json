@@ -1,0 +1,17 @@
+{
+  // forge — the dataset→certified-stock capability's grammar: a Plan concept that decomposes a task
+  // segment (carrying a taskKind) into a typed-step chain. Extracted from lib/combos/forge.js's inline
+  // TREE literal (owner: no grammar hard-coded in code). This tranche ships the GRAMMAR as files; the
+  // forge ENGINE (lib/combos/forge.js + its authoring cluster mine/stock/method-pack/dataset-adapter)
+  // moves into this plugin in a later tranche (decomposition map, foundation plugin `forge`). The
+  // Plan::plan provider is factory-built per run (makePlanProvider closes over decompose/ask/voters),
+  // so there is no static providers.js — the namespace is reserved below.
+  "name": "forge",
+  "version": "0.1.0",
+  "tier": 1,
+  "description": "Forge — dataset+oracle → gold-gated .sgc stock. Plan grammar (typed-step decomposition). Grammar extracted; the engine follows.",
+  "engine": "^1.3.0",
+  "concepts": ["forge"],
+  "providerNamespaces": ["Plan"],
+  "deps": []
+}

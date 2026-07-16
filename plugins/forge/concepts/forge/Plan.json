@@ -1,0 +1,9 @@
+{
+  // Plan — decompose a task Segment (carrying a discrete `taskKind`) into an ordered typed-step chain
+  // (nodes + child segments, one `state` kind each). The Plan::plan provider is factory-built per run
+  // (lib/combos/forge.js#makePlanProvider closes over the decompose fn / ask / voters) and writes the
+  // chain + `Planned`; `!$Planned` is the re-fire guard (provider-cast-marker gotcha).
+  "require": ["Segment", "taskKind"],
+  "ensure": ["!$Planned"],
+  "provider": ["Plan::plan"]
+}

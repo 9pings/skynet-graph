@@ -9,10 +9,13 @@
 // goes red, the extracted files DRIFTED from the shipped grammar — fix the files, not the pin.
 const { test } = require('node:test');
 const assert = require('node:assert');
+const path = require('path');
 
 const { loopConceptTree, reactiveLoopConceptTree } = require('../../lib/authoring/loop.js');
 const { supportConceptTree } = require('../../lib/authoring/support.js');
 const { selectConceptTree } = require('../../lib/providers/semiring.js');
+const { buildConceptTree } = require('../../lib/authoring/concepts.js');
+const { loadPlugin } = require('../../lib/plugins/load.js');
 
 // ── the decompose-loop literal as shipped in lib/authoring/loop.js pre-extraction ──
 const EXP_LOOP = {
@@ -64,4 +67,23 @@ test('supportConceptTree(criteria) == the pre-refactor inline literal (Select st
 		}
 	};
 	assert.deepStrictEqual(supportConceptTree({ criteria: CRIT, lex: LEX }), exp);
+});
+
+test('forge Plan grammar (files) == the pre-refactor inline TREE literal', () => {
+	const tree = buildConceptTree(path.join(__dirname, '..', '..', 'plugins', 'forge', 'concepts', 'forge'));
+	assert.deepStrictEqual(tree, {
+		childConcepts: {
+			Plan: { _id: 'Plan', _name: 'Plan', require: ['Segment', 'taskKind'], ensure: ['!$Planned'], provider: ['Plan::plan'] }
+		}
+	});
+});
+
+test('planner + forge plugins load their grammar sets via loadPlugin', () => {
+	const planner = loadPlugin(path.join(__dirname, '..', '..', 'plugins', 'planner'));
+	assert.deepStrictEqual(Object.keys(planner.concepts).sort(), ['loop', 'loop-reactive', 'planner', 'support']);
+	assert.deepStrictEqual(planner.providerNamespaces, ['CtxProj', 'Support']);
+	const forge = loadPlugin(path.join(__dirname, '..', '..', 'plugins', 'forge'));
+	assert.deepStrictEqual(Object.keys(forge.concepts), ['forge']);
+	assert.deepStrictEqual(forge.providerNamespaces, ['Plan']);
+	assert.ok(forge.concepts.forge.childConcepts.Plan, 'the forge set carries the Plan concept');
 });
