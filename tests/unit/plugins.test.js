@@ -75,13 +75,14 @@ test('throws on an unresolved (missing) dependency', () => {
 	assert.throws(() => resolvePlugins([c]), /unresolved dependency: ghost/i);
 });
 
-test('boots the REAL critical-mind plugin through the resolver — bit-identical to hand-wiring', async () => {
-	const criticalMind = P('critical-mind', {
-		version: '0.1.0',
-		concepts: { dialectic: buildConceptTree(path.join(__dirname, '..', '..', 'concepts', '_dialectic')) },
-		providers: require('../../lib/providers/dialectic.js'),   // { Dialectic: { tally, untally } }
-		providerNamespaces: ['Dialectic'],
-	});
+const CRITICAL_MIND_DIR = path.join(__dirname, '..', '..', 'plugins', 'critical-mind');
+
+test('boots the REAL critical-mind plugin (loaded from plugins/critical-mind/) through the resolver', async () => {
+	const { loadPlugin } = require('../../lib/plugins');
+	const criticalMind = loadPlugin(CRITICAL_MIND_DIR);   // the actual shipped plugin dir: manifest + concepts/dialectic + providers.js + combo.js
+	assert.equal(criticalMind.name, 'critical-mind');
+	assert.ok(criticalMind.concepts.dialectic, 'the dialectic set built');
+	assert.equal(typeof criticalMind.combos.createCriticalMind, 'function', 'the combo entrypoint loaded');
 	const cfg = resolvePlugins([criticalMind]);
 	Graph._providers = cfg.providers;                            // the resolver output IS the host wiring
 	const g = new Graph(
@@ -101,6 +102,14 @@ test('boots the REAL critical-mind plugin through the resolver — bit-identical
 	await settle(g);
 	assert.equal(cast(g, 'V1', 'ProEntry'), true, 'ProEntry casts through the resolver-wired plugin');
 	assert.deepEqual(fact(g, 'ledger', 'pro'), ['V1'], 'ledger.pro tallied — identical to the hand-wired boot');
+});
+
+test('the critical-mind index.js auto-export (definePlugin) resolves in-repo', () => {
+	const p = require('../../plugins/critical-mind');   // exercises the require(skynet-graph)→relative fallback
+	assert.equal(p.name, 'critical-mind');
+	assert.deepEqual(p.pluginDeps, [], 'definePlugin attached empty pluginDeps (deps: [])');
+	assert.ok(p.concepts.dialectic && typeof p.providers.Dialectic.tally === 'function');
+	assert.equal(typeof p.combos.createCriticalMind, 'function');
 });
 
 const FIX_MINI = path.join(__dirname, '..', 'fixtures', 'plugins', 'mini');

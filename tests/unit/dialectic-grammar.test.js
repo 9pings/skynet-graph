@@ -1,8 +1,8 @@
 'use strict';
 /**
  * C9 as GRAMMAR — the dialectic / critical-mind ledger-core expressed as a concept set
- * (`concepts/_dialectic/`) on the native engine emergence, replacing the imperative pipeline of
- * `lib/combos/critique.js`. Design: `WIP/2026-07-16-design-combos-as-grammar.md` §3.
+ * (`plugins/critical-mind/concepts/dialectic/`) on the native engine emergence, replacing the imperative
+ * pipeline of `plugins/critical-mind/combo.js`. Design: `WIP/2026-07-16-design-combos-as-grammar.md` §3.
  *
  * TRANCHE 1 = the ledger core: Statement (life-in-pool) → Viewpoint → Explore (witness leaf) →
  * Established (the witness gate) → Pro/ConEntry (append-only tally) → Frame/Verdict (the margin gate).
@@ -20,10 +20,10 @@ const { validateConceptTree } = require('../../lib/authoring/validate');
 const Graph = require('../../lib/graph/index.js');
 const { nextStable } = require('../../lib/authoring/supervise.js');
 
-const DIALECTIC = path.join(__dirname, '..', '..', 'concepts', '_dialectic');
+const DIALECTIC = path.join(__dirname, '..', '..', 'plugins', 'critical-mind', 'concepts', 'dialectic');
 const tree = () => buildConceptTree(DIALECTIC);
 
-// ── runtime boot (0-model, structural): the _dialectic set + the pure tally providers ──
+// ── runtime boot (0-model, structural): the dialectic set + the pure tally providers ──
 async function settle(g) {
 	for (let i = 0; i < 60; i++) {
 		await nextStable(g);
@@ -38,12 +38,12 @@ const cast = (g, id, k) => !!(g._objById[id] && g._objById[id]._etty._mappedConc
 const fact = (g, id, k) => g._objById[id] && g._objById[id]._etty._[k];
 
 async function boot(seed) {
-	const { Dialectic } = require('../../lib/providers/dialectic.js');   // the pure ledger providers (tally/untally)
+	const { Dialectic } = require('../../plugins/critical-mind/providers.js');   // the pure ledger providers (tally/untally)
 	Graph._providers = { Dialectic };
 	const g = new Graph(
 		{ lastRev: 0, freeNodes: seed.freeNodes || [], nodes: seed.nodes || [], segments: [] },
-		{ label: 'dialectic-test', isMaster: true, autoMount: true, conceptSets: ['_dialectic'], bagRefManagers: {}, logLevel: 'error' },
-		{ _dialectic: buildConceptTree(DIALECTIC) }
+		{ label: 'dialectic-test', isMaster: true, autoMount: true, conceptSets: ['dialectic'], bagRefManagers: {}, logLevel: 'error' },
+		{ dialectic: buildConceptTree(DIALECTIC) }
 	);
 	await settle(g);
 	return g;

@@ -4,7 +4,7 @@
  * AGPL-3.0-or-later. See <https://www.gnu.org/licenses/>.
  */
 /**
- * C9 dialectic providers — the PURE ledger side of the critical-mind grammar (`concepts/_dialectic/`).
+ * C9 dialectic providers — the PURE ledger side of the critical-mind grammar (`concepts/dialectic/`).
  * `tally`/`untally` are deterministic (0 LLM): they turn an Established Pro/ConEntry cast/uncast into an
  * APPEND-ONLY ledger mutation. The active count of a side is `side.length - sideRetracted.length`, so a
  * retraction is an append (no `__pull` needed) and the journal falls out of the same channel. The LLM

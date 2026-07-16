@@ -5,7 +5,7 @@
 // the ledger, and the MCP `critique` tool exposure.
 const { test } = require('node:test');
 const assert = require('node:assert');
-const { createCriticalMind, reconcile } = require('../../lib/combos/critique.js');
+const { createCriticalMind, reconcile } = require('../../plugins/critical-mind/combo.js');
 
 const STATEMENTS = [
 	'PRO: pro argument one about cost',
