@@ -1,0 +1,6 @@
+{
+  // The ReAct session root — BY CONVENTION the 'ledger' node (the trace tallies there), carrying
+  // `maxRounds` (the loop budget every step's Continue gates on) and the `trace` audit array.
+  // Pure-assert (auto-flags `Session`).
+  "require": ["isReactSession"]
+}

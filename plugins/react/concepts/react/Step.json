@@ -1,0 +1,6 @@
+{
+  // One loop step — a kernel Thought (crossCorpus require) carrying its `round` (the position in
+  // the trajectory). `text` (the reasoning) is prose-terminal; a step may be pure thought (no
+  // action) or carry a TYPED `actionTool` + `actionInput` for the host's tools. Pure-assert.
+  "require": ["Thought", "round"]
+}

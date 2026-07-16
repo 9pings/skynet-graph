@@ -1,0 +1,21 @@
+{
+  // react — the Thought→Action→Observation loop as a Tier-0 strategy plugin on reason-kernel. Each
+  // step is a kernel Thought; a step carrying a TYPED `actionTool` casts NeedsAction — a LIVE signal
+  // (it UNCASTS the moment the host writes the observation: the set of cast NeedsAction IS the
+  // pending tool-call list, natively maintained by the ensure-fall). An observed step tallies into
+  // the session trace (kernel Ledger, append-only — the trajectory IS the audit), Continue is the
+  // bounded next-step signal (round < the session budget, null-guarded, and structurally OFF once
+  // the session carries a finalAnswer), Done is the terminal gate. The TOOLS are the host's (its
+  // model, its side-effects — the impure part stays out of the grammar); this plugin is the
+  // deposited control flow + trace. Zero JS.
+  // NOTE: the npm name "react" is taken — the package (= the plugin identity) is `react-loop`;
+  // the concept SET keeps the plain `react` name (sets are namespaced by the merged map, not npm).
+  "name": "react-loop",
+  "version": "0.1.0",
+  "tier": 0,
+  "description": "ReAct: the thought→action→observation loop as grammar — live pending-action signals, ledger-audited trajectory, bounded continuation, terminal gate. Tier-0, built on reason-kernel.",
+  "engine": "^1.3.0",
+  "concepts": ["react"],
+  "providerNamespaces": [],
+  "deps": [{ "name": "reason-kernel", "range": "^0.1.0" }]
+}

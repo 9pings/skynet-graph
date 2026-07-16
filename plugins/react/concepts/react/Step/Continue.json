@@ -1,0 +1,9 @@
+{
+  // The bounded next-step signal: this step is observed, the loop budget is not spent, the session
+  // has no final answer yet, and this step has not already spawned its successor (`continued` =
+  // the null-guard). The host reads Continue, produces the next Thought/Action step (round+1) and
+  // writes `continued`. Three independent stops: budget, terminal answer, one-successor — the loop
+  // cannot run away and cannot fork.
+  "require": ["Observed"],
+  "ensure": ["$round < $$ledger:maxRounds", "$continued == null", "$$ledger:finalAnswer == null"]
+}

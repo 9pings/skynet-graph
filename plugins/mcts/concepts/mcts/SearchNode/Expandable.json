@@ -1,0 +1,8 @@
+{
+  // The frontier gate: a node the search may still grow under — neither expanded (its actions are
+  // already instantiated as children) nor terminal (no actions exist). Both facts are written by
+  // the driver through the sequenced mutation path, so this gate re-evaluates live: the set of
+  // cast Expandable IS the expansion frontier, natively maintained. Pure-assert.
+  "require": ["SearchNode"],
+  "ensure": ["$expanded == null", "$terminal == null"]
+}

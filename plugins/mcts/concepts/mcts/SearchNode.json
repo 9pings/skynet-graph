@@ -1,0 +1,8 @@
+{
+  // A search-tree node (SearchNode — never "Node": that name is the ENGINE object-type marker,
+  // pre-set on every seeded node, which makes a so-named concept look already-cast on the first
+  // pass and silently skips its children) — a kernel Thought carrying its MCTS stats as typed
+  // facts: `visits`/`wins` (the driver backpropagates), `move` (the action that produced it),
+  // `parent` (the edge). 0 is a valid visits value (require = resolvability, not truthiness).
+  "require": ["Thought", "visits"]
+}

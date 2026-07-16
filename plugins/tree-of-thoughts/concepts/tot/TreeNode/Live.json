@@ -1,0 +1,13 @@
+{
+  // THE native cascade prune: a node is LIVE iff it was not pruned AND its parent (if any) is live.
+  // The gate rides the WATCHED MIRROR FACT `live` (kernel Mark::set/unset), not the concept flag:
+  // a flag appears loudly but VANISHES silently (unCast deletes it without firing watchers), so a
+  // cross-object gate must watch a fact whose fall goes through set() — the cleaner writes
+  // `live:null` on uncast, the children's hop-watchers fire, their ensures fall, their cleaners
+  // write… the whole subtree leaves the beam in RECURSIVE cascade, zero traversal code. The driver
+  // only ever writes `pruned:1` on the out-of-beam siblings; the engine does the rest.
+  "require": ["TreeNode"],
+  "ensure": ["$pruned == null", "$parent == null || $parent:live"],
+  "provider": ["Mark::set", "live"],
+  "cleaner": ["Mark::unset", "live"]
+}

@@ -1,0 +1,21 @@
+{
+  // mcts — Monte-Carlo Tree Search, the design's class-B shape: the STATE lives in the graph as
+  // typed facts (visits / wins / move / expanded / terminal / parent edges — inspectable,
+  // serializable, replayable), the SELECTION POLICY (UCB1 argmax over siblings + the rollout
+  // sequencing) stays a thin imperative driver — an argmax is a cross-sibling view the per-object
+  // expr-DSL cannot and should not express. Every driver decision is written back as facts, so the
+  // whole search is an audit trail. The SIMULATE (rollout) is the host's — with a DETERMINISTIC
+  // policy and seed the entire search replays bit-identically (no Math.random in the driver;
+  // exploration is the UCB1 term, not noise). Tier-1 (the driver factory).
+  "name": "mcts",
+  "version": "0.1.0",
+  "tier": 1,
+  "description": "MCTS: state-in-graph (visits/wins/expanded/terminal facts, parent edges), thin deterministic UCB1 driver, host-injected rollout. Built on reason-kernel.",
+  "engine": "^1.3.0",
+  "concepts": ["mcts"],
+  "providerNamespaces": [],
+  "entrypoints": {
+    "factories": { "createMCTS": "./factory.js" }
+  },
+  "deps": [{ "name": "reason-kernel", "range": "^0.1.0" }]
+}

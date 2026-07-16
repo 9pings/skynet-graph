@@ -90,4 +90,26 @@ function band( graph, concept, scope, argz, cb ) {
 	cb(null, facts);
 }
 
-module.exports = { Ledger: { tally, untally, decide }, Score: { band } };
+// Mark::set / Mark::unset — the WATCHED MIRROR of a concept's cast state (added for a real client:
+// tree-of-thoughts' recursive Live gate). An engine subtlety makes this brick necessary: a concept
+// flag APPEARS loudly (auto-flag/provider go through Entity.set → watchers fire) but VANISHES
+// silently (unCast `delete`s the fact — no watcher fires), so a CROSS-OBJECT gate on `$other:Flag`
+// re-evaluates on cast but never on uncast. The mirror closes the asymmetry: on cast, `set` writes
+// the mirror fact (argz[0], default the lowercased concept name) via the normal watched path; on
+// uncast, the CLEANER writes it back to null — also through set() — so distant hop-watchers fire
+// and the retraction CASCADES across objects (recursive liveness, subtree prune, …).
+function markSet( graph, concept, scope, argz, cb ) {
+	var key = argz[0] || concept._name.toLowerCase();
+	var t = { $_id: '_parent' };
+	t[concept._name] = true;                                              // cast-marker (gotcha)
+	t[key] = 1;
+	cb(null, t);
+}
+function markUnset( graph, concept, scope, argz, cb ) {
+	var key = argz[0] || concept._name.toLowerCase();
+	var t = { $_id: '_parent' };
+	t[key] = null;
+	cb(null, t);
+}
+
+module.exports = { Ledger: { tally, untally, decide }, Score: { band }, Mark: { set: markSet, unset: markUnset } };

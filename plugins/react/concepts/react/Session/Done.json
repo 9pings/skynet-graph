@@ -1,0 +1,6 @@
+{
+  // The terminal gate: the host distilled a `finalAnswer` (prose-terminal; its existence is the
+  // resolvable require, its content never a gate) → the loop is over. Continue below goes
+  // structurally OFF at the same instant ($$ledger:finalAnswer). Pure-assert.
+  "require": ["Session", "finalAnswer"]
+}

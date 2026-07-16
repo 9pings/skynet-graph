@@ -1,0 +1,8 @@
+{
+  // The LIVE pending-tool-call signal: a step that declared a typed `actionTool` and has no
+  // `observation` yet. The moment the host writes the observation the ensure FALLS and this
+  // UNCASTS — the set of cast NeedsAction across the graph IS the pending-action worklist,
+  // maintained natively (no queue code). `actionTool` is a typed name, `actionInput` prose-terminal.
+  "require": ["Step", "actionTool"],
+  "ensure": ["$observation == null"]
+}

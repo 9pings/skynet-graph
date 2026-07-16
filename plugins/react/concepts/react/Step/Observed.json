@@ -1,0 +1,7 @@
+{
+  // The observation landed → the step TALLIES into the session trace (kernel Ledger::tally pushes
+  // this node's id, append-only): the trajectory IS the audit trail, in emergent order. Self-flags
+  // `Observed` (cast-marker), so a step enters the trace exactly once.
+  "require": ["Step", "observation"],
+  "provider": ["Ledger::tally", "trace"]
+}
