@@ -10,7 +10,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
 const { nextStable } = require('../../lib/authoring/supervise.js');
-const { trainNet, createNet, netConceptTree } = require('../../lib/authoring/ste');
+const { trainNet, createNet, netConceptTree } = require('../../experiments/probabilistic-concepts/ste');
 const { createLifecycle } = require('../../lib/authoring/lifecycle.js');
 
 console.log = console.info = console.warn = () => {};

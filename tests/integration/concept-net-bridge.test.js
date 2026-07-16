@@ -11,7 +11,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
 const { nextStable } = require('../../lib/authoring/supervise.js');
-const { chainPopulation, bakePopulation } = require('../../lib/authoring/concept-net.js');
+const { chainPopulation, bakePopulation } = require('../../experiments/probabilistic-concepts/concept-net.js');
 
 console.log = console.info = console.warn = () => {};
 function mb( a ) { return function () { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }

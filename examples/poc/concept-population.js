@@ -18,7 +18,7 @@
  * (STE at the cast boundary) — the next rung. Distillation is the horizon: a learned composite that
  * reproduces a target map without human concept-authoring. CPU, offline, ZERO-CORE.
  */
-const { ringPopulation, loss, train } = require('../../lib/authoring/concept-net.js');
+const { ringPopulation, loss, train } = require('../../experiments/probabilistic-concepts/concept-net.js');
 
 function mb( a ) { return function () { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
 const X = [-1, -0.4, 0.2, 0.8];

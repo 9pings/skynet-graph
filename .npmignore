@@ -6,6 +6,7 @@
 # Heavy / non-exec (the big ones — models/ is tens of GB of gguf, NEVER ship)
 /models/
 /artifact/
+/experiments/
 /examples/
 /tests/
 /scripts/

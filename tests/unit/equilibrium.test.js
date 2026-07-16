@@ -17,7 +17,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { solveFixpoint, implicitGrad, spectralRadius } = require('../../lib/authoring/equilibrium.js');
+const { solveFixpoint, implicitGrad, spectralRadius } = require('../../experiments/probabilistic-concepts/equilibrium.js');
 
 const sigmoid = (x) => 1 / (1 + Math.exp(-x));
 const dsig = (a) => a * (1 - a);   // σ'(z) expressed from a=σ(z)

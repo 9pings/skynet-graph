@@ -8,7 +8,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { graphPopulation, graphLoss, graphGrad, trainGraph } = require('../../lib/authoring/graph-net.js');
+const { graphPopulation, graphLoss, graphGrad, trainGraph } = require('../../experiments/probabilistic-concepts/graph-net.js');
 
 function mb( a ) { return function () { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
 

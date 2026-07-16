@@ -1,12 +1,12 @@
 'use strict';
 /**
- * STE training (lib/authoring/ste.js, experiment E5). Train SOFT offline (sigmoid SGD), infer
+ * STE training (experiments/probabilistic-concepts/ste.js, experiment E5). Train SOFT offline (sigmoid SGD), infer
  * HARD (step). The thesis: the TOPOLOGY gates learnability — a hidden layer turns XOR (impossible
  * for one log-linear unit) into the learnable. Deterministic via a seeded RNG.
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { trainNet, predictHard } = require('../../lib/authoring/ste');
+const { trainNet, predictHard } = require('../../experiments/probabilistic-concepts/ste');
 
 function mulberry32(a) { return function () { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
 const X = [[0, 0], [0, 1], [1, 0], [1, 1]];
@@ -36,7 +36,7 @@ test('the SAME single unit DOES learn AND (linearly separable) — 4/4', () => {
 test('predictHard snaps each layer (round of the soft prediction on a separated net)', () => {
 	const r = fit(XOR, [2, 3, 1]);
 	for (const x of X) {
-		const soft = require('../../lib/authoring/ste').forward(r.net, x).pop()[0];
+		const soft = require('../../experiments/probabilistic-concepts/ste').forward(r.net, x).pop()[0];
 		assert.equal(predictHard(r.net, x)[0], soft >= 0.5 ? 1 : 0, 'hard == round(soft)');
 	}
 });

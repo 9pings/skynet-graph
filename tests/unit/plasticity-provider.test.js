@@ -10,7 +10,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { createLLMProvider } = require('../../lib/providers/llm.js');
-const { trainNet, predictHard, predictNoisy, createNet } = require('../../lib/authoring/ste.js');
+const { trainNet, predictHard, predictNoisy, createNet } = require('../../experiments/probabilistic-concepts/ste.js');
 const { createLifecycle } = require('../../lib/authoring/lifecycle.js');
 
 function mulberry32(a) { return function () { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }

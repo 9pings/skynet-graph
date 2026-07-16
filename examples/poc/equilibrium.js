@@ -17,7 +17,7 @@
  * This is the differentiable MIRROR of the engine's stabilization; a trained concept-net is baked
  * back into the real (discrete) engine via ste.js (STE at the cast boundary). CPU, offline.
  */
-const { solveFixpoint, implicitGrad, spectralRadius } = require('../../lib/authoring/equilibrium.js');
+const { solveFixpoint, implicitGrad, spectralRadius } = require('../../experiments/probabilistic-concepts/equilibrium.js');
 
 const sigmoid = (x) => 1 / (1 + Math.exp(-x));
 const dsig = (a) => a * (1 - a);
