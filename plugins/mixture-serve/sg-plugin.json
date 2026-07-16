@@ -1,0 +1,19 @@
+{
+  // mixture-serve (C8) — the mixture-runtime server as a plugin: a cheap local model ORIENTED by a forged
+  // certified stock, escalating the rest to a bigger tier. A self-contained JS combo (no concepts, no
+  // providers of its own — small/big/proposeMenu/predict are INJECTED by the host). Tier-1 (it is JS).
+  // NOTE (erratum, kept): the runtime CROSS-AGREEMENT trust tier is REFUTED at scale (precision 25-42 % at
+  // N=201) — keep fail-closed; what holds is orientation-lift + 0-false at ADMISSION (the forge), not a
+  // runtime badge. deps:[] — like critical-mind's combo, it is pure imperative glue over an injected ask.
+  "name": "mixture-serve",
+  "version": "0.1.0",
+  "tier": 1,
+  "description": "C8 — mixture-runtime server: a cheap local model oriented by a certified stock, escalating the rest to a bigger tier.",
+  "engine": "^1.3.0",
+  "concepts": [],
+  "providerNamespaces": [],
+  "entrypoints": {
+    "combos": { "createMixtureServe": "./combo.js", "makeSurfaceDispatch": "./combo.js" }
+  },
+  "deps": []
+}

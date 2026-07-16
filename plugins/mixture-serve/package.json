@@ -1,0 +1,11 @@
+{
+  "name": "mixture-serve",
+  "version": "0.1.0",
+  "description": "C8 mixture-runtime server as a skynet-graph plugin (a cheap local model oriented by a certified stock).",
+  "main": "index.js",
+  "license": "AGPL-3.0-or-later",
+  "author": "Nathanael Braun <pp9ping@gmail.com>",
+  "keywords": ["skynet-graph", "skynet-graph-plugin", "mixture", "serving"],
+  "peerDependencies": { "skynet-graph": ">=1.3.0" },
+  "files": ["index.js", "combo.js", "sg-plugin.json", "README.md"]
+}

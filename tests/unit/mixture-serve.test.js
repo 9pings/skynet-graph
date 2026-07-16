@@ -7,7 +7,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { createMixtureServe, makeSurfaceDispatch, qualifyMenu } = require('../../lib/combos/mixture-serve.js');
+const { createMixtureServe, makeSurfaceDispatch, qualifyMenu } = require('../../plugins/mixture-serve/combo.js');
 
 const SHAPES = ['aggregate>select', 'join>filter>select', 'filter>select'];
 // a labelled anchor corpus (training queries → their certified shape) for the surface-dispatch signal.
