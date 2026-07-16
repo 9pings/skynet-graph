@@ -1,0 +1,5 @@
+{
+  // require the seed fact isThing2, run the MiniDep::tag2 provider (self-flags Thing2 + writes tagged2).
+  "require": ["isThing2"],
+  "provider": ["MiniDep::tag2"]
+}

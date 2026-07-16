@@ -1,0 +1,8 @@
+{
+  "name": "minibadlint",
+  "version": "1.0.0",
+  "description": "fixture with a plugin dep missing from package.json",
+  "main": "index.js",
+  "license": "AGPL-3.0-or-later",
+  "dependencies": {}
+}

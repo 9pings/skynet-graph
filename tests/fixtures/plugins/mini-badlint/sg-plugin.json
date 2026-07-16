@@ -1,0 +1,10 @@
+{
+  // A fixture whose sg-plugin.deps is NOT a subset of package.json.dependencies — lintPluginDeps must
+  // flag `ghost` as an undeclared npm dependency (a plugin that requires what npm never installed).
+  "name": "minibadlint",
+  "version": "1.0.0",
+  "tier": 0,
+  "description": "fixture with a plugin dep missing from package.json (lint negative)",
+  "concepts": [],
+  "deps": [{ "name": "ghost", "range": "^1.0.0" }]
+}

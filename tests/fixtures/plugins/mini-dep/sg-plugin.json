@@ -1,0 +1,13 @@
+{
+  // A fixture plugin that DEPENDS on `mini` — exercises definePlugin's dep-object carriage and the
+  // resolvePlugins object-graph flatten (the npm distribution shape: one requireable object carrying
+  // its already-required deps). `deps[].name` are npm package names (owner 07-16 quater).
+  "name": "minidep",
+  "version": "1.0.0",
+  "tier": 1,
+  "description": "fixture plugin depending on `mini` (definePlugin carriage + flatten tests)",
+  "concepts": ["minidep"],
+  "providerNamespaces": ["MiniDep"],
+  "entrypoints": { "providers": "./providers.js" },
+  "deps": [{ "name": "mini", "range": "^1.0.0" }]
+}

@@ -1,0 +1,8 @@
+{
+  "name": "minidep",
+  "version": "1.0.0",
+  "description": "fixture plugin depending on `mini`",
+  "main": "index.js",
+  "license": "AGPL-3.0-or-later",
+  "dependencies": { "mini": "^1.0.0" }
+}

@@ -133,4 +133,132 @@ test('the facade exposes the plugin subsystem (Graph.plugins)', () => {
 	assert.equal(typeof Facade.plugins.loadPlugins, 'function');
 	assert.equal(typeof Facade.plugins.resolvePlugins, 'function');
 	assert.equal(typeof Facade.plugins.loadPlugin, 'function');
+	assert.equal(typeof Facade.plugins.definePlugin, 'function');
+	assert.equal(typeof Facade.plugins.lintPluginDeps, 'function');
+	assert.equal(typeof Facade.definePlugin, 'function', 'definePlugin also lives at the top of the facade (plugin authors: require("skynet-graph").definePlugin)');
+});
+
+// ─── The npm-distribution model (owner 07-16 quater): a plugin is a package whose index.js exports its
+// plugin object via definePlugin(__dirname, [require(dep), …]); a dependent CARRIES its already-required
+// deps as OBJECTS; resolvePlugins FLATTENS the object graph (never fetches). ───────────────────────────
+
+const FIX_DEP = path.join(__dirname, '..', 'fixtures', 'plugins', 'mini-dep');
+const FIX_BADLINT = path.join(__dirname, '..', 'fixtures', 'plugins', 'mini-badlint');
+
+test('definePlugin(dir) with no deps ≡ loadPlugin shape + empty pluginDeps', () => {
+	const { definePlugin, loadPlugin } = require('../../lib/plugins');
+	const p = definePlugin(FIX_MINI);
+	const l = loadPlugin(FIX_MINI);
+	assert.equal(p.name, l.name);
+	assert.deepEqual(Object.keys(p.concepts), Object.keys(l.concepts));
+	assert.equal(typeof p.providers.Mini.tag, 'function');
+	assert.deepEqual(p.pluginDeps, [], 'no deps → empty carried-object array');
+});
+
+test('definePlugin(dir, [depObj]) carries the already-required dep as an object', () => {
+	const { definePlugin } = require('../../lib/plugins');
+	const mini = definePlugin(FIX_MINI);
+	const minidep = definePlugin(FIX_DEP, [mini]);
+	assert.equal(minidep.name, 'minidep');
+	assert.deepEqual(minidep.deps, [{ name: 'mini', range: '^1.0.0' }], 'declarations preserved');
+	assert.equal(minidep.pluginDeps.length, 1);
+	assert.equal(minidep.pluginDeps[0], mini, 'the carried object IS the passed one (no fetch)');
+});
+
+test('definePlugin rejects a declared dep with no object passed (the "forgot to require" bug)', () => {
+	const { definePlugin } = require('../../lib/plugins');
+	assert.throws(() => definePlugin(FIX_DEP, []), /mini/i, 'declared dep `mini` was not carried');
+	assert.throws(() => definePlugin(FIX_DEP), /mini/i, 'omitting depObjects entirely also throws when deps are declared');
+});
+
+test('definePlugin rejects an object for a dep NOT declared in sg-plugin.deps', () => {
+	const { definePlugin } = require('../../lib/plugins');
+	const mini = definePlugin(FIX_MINI);                 // FIX_MINI declares deps: []
+	const stray = Object.assign({}, mini, { name: 'stray' });
+	assert.throws(() => definePlugin(FIX_MINI, [stray]), /stray|declared/i, 'an undeclared carried object is refused');
+});
+
+test('resolvePlugins FLATTENS a carried object graph: one top-level plugin, dep carried as object', () => {
+	const kernel = P('reason-kernel', {
+		concepts: { rk: { childConcepts: { Thought: { _name: 'Thought' } } } },
+	});
+	const client = P('critical-mind', {
+		version: '0.1.0',
+		concepts: { dialectic: { childConcepts: { Statement: { _name: 'Statement', require: 'Thought' } } } },
+		providers: { Dialectic: { tally() {}, untally() {} } },
+		providerNamespaces: ['Dialectic'],
+		deps: [{ name: 'reason-kernel', range: '^1.0.0' }],
+		pluginDeps: [kernel],                             // the npm shape: kernel carried, NOT a sibling
+	});
+	const r = resolvePlugins([client]);                   // ONLY the top-level plugin is passed
+	assert.deepEqual(r.order, ['reason-kernel', 'critical-mind'], 'the carried dep is flattened + ordered first');
+	assert.deepEqual(Object.keys(r.conceptMap).sort(), ['dialectic', 'rk'], 'both sets merged after flatten');
+	assert.ok(r.providers.Dialectic && typeof r.providers.Dialectic.tally === 'function');
+});
+
+test('flatten dedups a shared kernel reached from two clients (no "duplicate plugin")', () => {
+	const kernel = P('reason-kernel');
+	const a = P('a', { deps: [{ name: 'reason-kernel', range: '^1.0.0' }], pluginDeps: [kernel] });
+	const b = P('b', { deps: [{ name: 'reason-kernel', range: '^1.0.0' }], pluginDeps: [kernel] });
+	const r = resolvePlugins([a, b]);
+	assert.equal(r.order.filter((n) => n === 'reason-kernel').length, 1, 'kernel appears exactly once');
+	assert.equal(r.order.indexOf('reason-kernel'), 0, 'kernel ordered before both dependents');
+});
+
+test('flatten refuses conflicting VERSIONS of the same carried plugin (no silent clobber)', () => {
+	const k1 = P('reason-kernel', { version: '1.0.0' });
+	const k2 = P('reason-kernel', { version: '2.0.0' });
+	const a = P('a', { deps: [{ name: 'reason-kernel', range: '^1.0.0' }], pluginDeps: [k1] });
+	const b = P('b', { deps: [{ name: 'reason-kernel', range: '^2.0.0' }], pluginDeps: [k2] });
+	assert.throws(() => resolvePlugins([a, b]), /conflict|version|reason-kernel/i, 'two versions of one plugin is a hard error');
+});
+
+test('flatten is a no-op for the dev sibling path (backward-compatible)', () => {
+	// The dev path passes all plugins as siblings with NO pluginDeps — flatten must not change anything.
+	const kernel = P('reason-kernel');
+	const client = P('c', { version: '0.1.0', deps: [{ name: 'reason-kernel', range: '^1.0.0' }] });
+	const r = resolvePlugins([client, kernel]);
+	assert.deepEqual(r.order, ['reason-kernel', 'c'], 'sibling deps still resolve exactly as before');
+});
+
+test('loadPlugins → resolve → boot a plugin that DEPENDS on another (mini-dep on mini)', async () => {
+	const { loadPlugins } = require('../../lib/plugins');
+	const cfg = loadPlugins([FIX_MINI, FIX_DEP]);         // dev sibling path: both dirs
+	assert.deepEqual(cfg.order, ['mini', 'minidep'], 'dependency mini ordered before minidep');
+	Graph._providers = cfg.providers;
+	const g = new Graph(
+		{ lastRev: 0, freeNodes: [], nodes: [{ _id: 't2', isThing2: true }], segments: [] },
+		{ label: 'plug-dep', isMaster: true, autoMount: true, conceptSets: cfg.conceptSets, bagRefManagers: {}, logLevel: 'error' },
+		cfg.conceptMap
+	);
+	await settle(g);
+	assert.equal(cast(g, 't2', 'Thing2'), true, 'the dependent plugin cast');
+	assert.equal(fact(g, 't2', 'tagged2'), true, 'the MiniDep provider ran through the resolved config');
+});
+
+test('the npm path end-to-end: definePlugin carries a REAL file-loaded dep → resolve → BOOTS on the engine', async () => {
+	const { definePlugin } = require('../../lib/plugins');
+	const mini = definePlugin(FIX_MINI);
+	const minidep = definePlugin(FIX_DEP, [mini]);        // the dependent carries its dep as an object
+	const cfg = resolvePlugins([minidep]);                // ONLY the top-level plugin — mini is flattened in
+	assert.deepEqual(cfg.order, ['mini', 'minidep'], 'the carried dep flattens + orders first');
+	Graph._providers = cfg.providers;
+	const g = new Graph(
+		{ lastRev: 0, freeNodes: [], nodes: [{ _id: 't3', isThing2: true }], segments: [] },
+		{ label: 'plug-npm', isMaster: true, autoMount: true, conceptSets: cfg.conceptSets, bagRefManagers: {}, logLevel: 'error' },
+		cfg.conceptMap
+	);
+	await settle(g);
+	assert.equal(cast(g, 't3', 'Thing2'), true, 'the dependent casts — the carried-object path boots identically to siblings');
+	assert.equal(fact(g, 't3', 'tagged2'), true, 'its provider ran; both plugins were merged from ONE requireable object');
+});
+
+test('lintPluginDeps: sg-plugin.deps ⊆ package.json.dependencies passes; a missing dep is reported', () => {
+	const { lintPluginDeps } = require('../../lib/plugins');
+	const ok = lintPluginDeps(FIX_DEP);
+	assert.equal(ok.ok, true, 'mini-dep declares `mini` in both sg-plugin.json and package.json');
+	assert.deepEqual(ok.missing, []);
+	const bad = lintPluginDeps(FIX_BADLINT);
+	assert.equal(bad.ok, false, 'mini-badlint declares `ghost` only in sg-plugin.json');
+	assert.deepEqual(bad.missing, ['ghost'], 'the undeclared npm dependency is named');
 });
