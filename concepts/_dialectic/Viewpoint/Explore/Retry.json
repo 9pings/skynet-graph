@@ -1,0 +1,9 @@
+{
+  // Round 2 for points that stayed OPEN: re-cite on the declared-side SLICE (the measured v1.1
+  // ladder -- a same-prompt retry at temp 0 is a no-op, only the structural narrowing discriminates).
+  // One-shot via null-guard (`$retryDone == null`, the _mission.js idiom) -- the bound is a FACT,
+  // not a K_RETRIES loop in JS. Self-flags `Retry`.
+  "require": ["Explore"],
+  "ensure": ["$witnessMiss", "$retryDone == null"],
+  "provider": ["C9::cite", { "slice": "stance", "cap": 2, "retry": true }]
+}

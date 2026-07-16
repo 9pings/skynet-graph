@@ -1,0 +1,6 @@
+{
+  // A point of view to establish against the pool (declared by the caller or generated).
+  // Pure-assert -> auto-flags `Viewpoint`; the children Explore/Established are tested under it
+  // (directory tree = IS-A). `text` is prose-terminal; `side` is a typed enum.
+  "require": ["isViewpoint", "side"]
+}

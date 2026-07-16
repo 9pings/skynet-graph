@@ -1,0 +1,7 @@
+{
+  // Mirror of ProEntry for the CON side (see ProEntry for the mechanism).
+  "require": ["Established"],
+  "ensure": ["$side == 'CON'"],
+  "provider": ["C9::tally", "con"],
+  "cleaner": ["C9::untally", "con"]
+}

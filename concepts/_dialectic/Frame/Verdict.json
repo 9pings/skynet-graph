@@ -1,0 +1,6 @@
+{
+  // Grouping concept: casts under a live Frame so the mechanical verdict gates below are tested.
+  // A caller extends the decidability policy by dropping a sibling of Pro/Con (e.g. Stock2 at
+  // margin >= 2 for a certified perimeter) -- the extension point, a file, not a JS table entry.
+  "require": ["Frame"]
+}

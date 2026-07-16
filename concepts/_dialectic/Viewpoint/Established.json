@@ -1,0 +1,13 @@
+{
+  // THE witness gate. Cast iff EACH witness is a live Statement of the SAME side. `$w0:inPool`
+  // marches the ref AND posts a watcher ON the witness object (getRef follows each hop) : a
+  // statement that leaves the pool makes the ensure FALL -> uncast -> cascade to the children
+  // (ProEntry retracts itself via its cleaner). critique.js#reconcile (the JS loop that removed
+  // an entry whose witness left the pool) becomes THE DEFAULT ENGINE BEHAVIOUR -- incremental,
+  // permanent, zero code. Pure-assert (auto-flags `Established`). Cap-2 (w0 required, w1 optional).
+  "require": ["Explore", "w0"],
+  "ensure": [
+    "$w0:inPool && $w0:side == $side",
+    "$w1 == null || ($w1:inPool && $w1:side == $side)"
+  ]
+}

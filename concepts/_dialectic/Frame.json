@@ -1,0 +1,5 @@
+{
+  // The debate frame. `topic` is prose-terminal; the gates read only `frameStatus` (enum) and
+  // `threshold` (a fact). Pure-assert -> auto-flags `Frame`; the Verdict gates are tested under it.
+  "require": ["isFrame"]
+}

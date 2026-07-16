@@ -1,0 +1,8 @@
+{
+  // A statement living in the debate perimeter. Cast == "alive in the pool". When inPool
+  // becomes false the ensure falls -> uncast -> every entry that cites it as a witness cascades
+  // (see Viewpoint/Established) : the native JTMS that replaces critique.js#reconcile.
+  // Pure-assert (no provider) -> auto-flags `Statement`. `text` is prose-terminal (never gated).
+  "require": ["isStatement", "side"],
+  "ensure": ["$inPool"]
+}

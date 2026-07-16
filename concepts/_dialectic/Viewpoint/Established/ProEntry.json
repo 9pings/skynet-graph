@@ -1,0 +1,11 @@
+{
+  // The tally, append-only stigmergy. Cast -> push this id into ledger.pro. UNCAST (cleaner) ->
+  // push into ledger.proRetracted + a typed constat + a journal line. The ACTIVE count is
+  // pro.length - proRetracted.length : a retraction is an APPEND, never an array removal (no
+  // __pull needed), and the C9 journal falls out of the same channel -- the ledger IS the
+  // audit-trail, retractions included. Self-flags `ProEntry`.
+  "require": ["Established"],
+  "ensure": ["$side == 'PRO'"],
+  "provider": ["C9::tally", "pro"],
+  "cleaner": ["C9::untally", "pro"]
+}

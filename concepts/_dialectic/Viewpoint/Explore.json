@@ -1,0 +1,12 @@
+{
+  // The witness leaf (round 1, full pool). The model classifies which statements GENUINELY make
+  // this point (cap-2). The provider renders the LIVE pool slice (read on the structure, never
+  // interpolated), validates the cites (in-pool + stance = metadata, never a model output) and
+  // writes ONLY discrete ids w0/w1 -- or witnessMiss:true. Self-flags `Explore` (cast-marker gotcha).
+  "require": ["Viewpoint"],
+  "provider": ["C9::cite", { "slice": "full", "cap": 2 }],
+  "prompt": {
+    "system": "You are a careful analyst. Follow the output format EXACTLY.",
+    "user": "Question: ${frame:topic}\nPoint of view (${side}): ${text}\nWhich statements GENUINELY make this exact point (not merely the same side)? Cite AT MOST 2 by id. Reply ONE line, format: cites: ids_or_NONE"
+  }
+}

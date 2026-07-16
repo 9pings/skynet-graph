@@ -1,0 +1,5 @@
+{
+  // Mirror of Pro: verdict CON iff the CON active margin >= threshold. Pure-assert (auto-flags `Con`).
+  "require": ["Verdict"],
+  "ensure": ["($$ledger:con.length - $$ledger:conRetracted.length) - ($$ledger:pro.length - $$ledger:proRetracted.length) >= $threshold"]
+}

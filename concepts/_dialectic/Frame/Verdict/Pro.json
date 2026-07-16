@@ -1,0 +1,9 @@
+{
+  // Verdict PRO iff the active margin >= the frame threshold. `threshold` is a FACT (seeded, or
+  // set by a Frame/Certified concept for STOCK=2) : the MECHANICAL_MARGIN table becomes editable
+  // data. Watchers follow the ledger .length : a retraction that drops the margin uncasts the
+  // verdict on its own -- the re-root "re-decide on the enriched/impoverished perimeter" is native,
+  // in both directions. Pure-assert (auto-flags `Pro`).
+  "require": ["Verdict"],
+  "ensure": ["($$ledger:pro.length - $$ledger:proRetracted.length) - ($$ledger:con.length - $$ledger:conRetracted.length) >= $threshold"]
+}
