@@ -60,23 +60,26 @@ const g = Graph.fromDirs({
 `fromDirs` is sugar over `new Graph(record, conf, conceptMap)`:
 
 ```js
-const { buildConceptTree } = Graph.authoring.concepts; // barrel; or require('skynet-graph/lib/authoring/concepts')
+const { buildConceptTree } = Graph.authoring.concepts; // barrel; or require('skynet-graph/lib/authoring/core/concepts')
 const conceptMap = { common: buildConceptTree('./concepts/common') };
 Graph.register([{ CommonGeo: Graph.providers.CommonGeo }]); // wire providers
 const g = new Graph(seed, { conceptSets: ['common'], autoMount: true }, conceptMap);
 ```
 
-> **Authoring toolkit.** `Graph.authoring` namespaces the R&D/authoring tools (parity with `Graph.providers`),
-> so you reach them without deep paths — e.g. `Graph.authoring.concepts.buildConceptTree`, `.validate`,
-> `.contract`, `.method`, `.abstract`, `.crystallize`, `.library` / `.combinator` / `.adapt` (the creative loop:
+> **Authoring toolkit & plugin engines.** `Graph.authoring` namespaces the core toolkit (parity with
+> `Graph.providers`), so you reach it without deep paths — e.g. `Graph.authoring.concepts.buildConceptTree`,
+> `.validate`, `.contract`, `.method`, `.abstract`, `.corpusPack` (`lib/authoring/core/`, 27 modules, plus
+> the `lattice/` vocabulary family). The capability-specific engines moved into their **plugins**: the
+> DLL / creative-loop family (`crystallize`, `library` / `combinator` / `adapt` — the creative loop:
 > dispatch → mount → **adapt-or-forge** → **antiUnify content-forge** → **blend** = combinational synthesis of a
-> novel composite method, with a bounded `synthesizeByBlend`). The plan-loop bricks live there too:
-> `dag-decompose` (the typed cutter prompt + archetype router), `context-project` (the bounded projection;
-> `stratComplete` = the stratified CONTEXT/DONE/ROADMAP rendering), `givens` (the typed base-fact front door)
-> and `leaf-io` (typed leaf output or a typed refusal). Each module also stays importable on its own
-> (`require('skynet-graph/lib/authoring/<module>')`); the barrel is a convenience, not a gate. A runnable, offline
-> end-to-end tour of the creative loop is `examples/creative-loop.js` (`node examples/creative-loop.js`); the
-> example map is `examples/README.md`.
+> novel composite method, with a bounded `synthesizeByBlend`) lives in `plugins/learning/lib/`, and the
+> plan-loop bricks — `dag-decompose` (the typed cutter prompt + archetype router), `context-project` (the bounded
+> projection; `stratComplete` = the stratified CONTEXT/DONE/ROADMAP rendering), `givens` (the typed base-fact
+> front door) and `leaf-io` (typed leaf output or a typed refusal) — in `plugins/planner/lib/`. Every module
+> stays importable on its own (`require('skynet-graph/lib/authoring/core/<module>')`,
+> `require('skynet-graph/plugins/learning/lib/<module>')`); the barrels are a convenience, not a gate. A runnable,
+> offline end-to-end tour of the creative loop is `examples/creative-loop.js` (`node examples/creative-loop.js`);
+> the example map is `examples/README.md`.
 
 ## 3. Concept sets
 
@@ -178,6 +181,7 @@ node bin/sg forge --adapter <adapter.js> --data <dir> --model <path.gguf> --out 
 
 sg proxy      # C6 one-shot/batch over the proxy cache        sg methods   # explore a stock's method classes
 sg validate   # author-time grammar pre-flight on a concept dir (structure, not grammar)
+sg plugin     # plugin tooling: list [dir] · validate <dir> · scaffold <name>   (see §10)
 ```
 
 ```bash
@@ -322,7 +326,7 @@ node examples/integrated-demo/run.js --replay   # the 4 capabilities assembled �
 node examples/run-basic.js     # non-LLM stabilization over the real `common` set
 node examples/run-prompt.js    # decompose → synthesize vs a local LLM (set LLM_BASE), writes a trace
 node examples/run-problem.js   # LLM-driven plan decomposition
-node examples/poc/appliance-typed-qa.js              # the typed-QA appliance (combo C1), canned & deterministic
+node examples/poc/appliance-typed-qa.js              # the typed-QA appliance (C1), canned & deterministic
 node examples/poc/appliance-typed-qa.js --local-model <gguf>   # …same, over a real embedded model
 ```
 
@@ -399,10 +403,13 @@ const r = await app.answer('…');   // { status:'answered', answer, confBand } 
 The underlying bricks stay usable "à nu" — the appliance is a thin, optional assembly. `session.answer(text)`
 (the legacy loop) resolves with `{answer, state}` and `Graph.settle(g)` is the promise-returning settle verb.
 
-### Combos (`Graph.combos.*`) — thin, delivered assemblies over the bricks
+### Capability factories (`Graph.combos.*`) — thin, delivered assemblies over the bricks
 
-Each combo composes existing bricks with the product posture ON by default (fail-closed, memo/store ON,
-validator ON, constrained grammar OFF); none is a required path — the bricks stay usable "à nu".
+Each factory composes existing bricks with the product posture ON by default (fail-closed, memo/store ON,
+validator ON, constrained grammar OFF); none is a required path — the bricks stay usable "à nu". Most of
+them ship from a **plugin** (§10): C2 durable, C3 learning, C7 planner, C8 mixture-serve and C9
+critical-mind each export their factory from their plugin's `combo.js`, re-exported on this flat catalog;
+C1 / C4 / C5 / C6 still live in `lib/combos/`.
 
 ```js
 // C1 — typed-QA appliance (above): intake → reason-loop → typed refusal → memo.
@@ -462,10 +469,46 @@ const cm = Graph.combos.createCriticalMind({ ask });
 const r  = await cm.run({ topic, statements, viewpoints });   // frame FREE/MATERIAL/DECLARED, announced
 ```
 
-## 10. Serving surfaces — OpenAI-compatible endpoint & MCP tools
+## 10. Plugins — installable, droppable capabilities
+
+A capability ships as a **plugin**: `{ sg-plugin.json manifest, concepts/<set>/ (grammar in files),
+optional providers.js (Tier-1), optional combo.js (the packaged factory), index.js (the npm
+auto-export) }`. The repo ships nine under `plugins/` — `reason-kernel` · `critical-mind` ·
+`self-consistency` · `refinement` · `planner` · `learning` · `forge` · `durable` · `mixture-serve` —
+and they are the pattern to copy; the full contract is **[plugins.md](plugins.md)**.
+
+```js
+const Graph = require('skynet-graph');
+
+// dev / in-tree: point the loader at plugin dirs — deps resolve as siblings in the same call
+const cfg = Graph.plugins.loadPlugins(['./plugins/reason-kernel', './plugins/self-consistency']);
+
+// npm: a published plugin's index.js exports its object — the host just requires it
+// (inside the plugin: module.exports = Graph.definePlugin(__dirname, [require('reason-kernel')]))
+const criticalMind = require('@scope/critical-mind');
+const cfg2 = Graph.plugins.resolvePlugins([criticalMind]);   // flatten carried deps → dedup/topo/semver/namespace checks
+
+// wire the resolved config exactly as a host does by hand:
+Graph._providers = cfg.providers;
+const g = new Graph(seed, { conceptSets: cfg.conceptSets, autoMount: true }, cfg.conceptMap);
+```
+
+```bash
+sg plugin list [dir]              # enumerate a folder's plugins from their manifests (no code is run)
+sg plugin validate <dir>          # load + lint ONE plugin: deps ⊆ package.json, grammar, derived cross-checks
+sg plugin scaffold <name> [root]  # write a loadable Tier-0 skeleton package
+```
+
+Two trust tiers: **Tier-0** = grammar + `.sgc` only, no JS — safe by construction (the concept DSL is a
+compiled expression evaluator: no I/O, no eval); **Tier-1** = JS providers/factories — trust required.
+The discipline behind the split: **grammar always lives in files** under `concepts/<set>/`, never
+hard-coded in JS, and a dependent keys on the fact names its dependency produces — the alphabet *is*
+the API (freeze and version a kernel's alphabet early).
+
+## 11. Serving surfaces — OpenAI-compatible endpoint & MCP tools
 
 The library serves its main use cases over two ZERO-INTEGRATION surfaces (both thin assemblies over the
-combos; both zero-dep):
+capability factories; both zero-dep):
 
 ```bash
 # 1) sg serve — an OpenAI-COMPATIBLE endpoint over the C6 proxy. Point ANY OpenAI client's baseURL at it:
@@ -497,5 +540,5 @@ claude mcp add sg -- node bin/sg mcp --frontier-model <path.gguf> --store ./stoc
 sg flow run examples/poc/durable-flow.js --store ./flow.sqlite        # --resume = exactly-once recovery
 ```
 
-Runnable, deterministic, GPU-free demos of every combo and both surfaces live in `examples/bootstrap/`
+Runnable, deterministic, GPU-free demos of every capability and both surfaces live in `examples/bootstrap/`
 (one file per use-case class, each printing the guarantee it demonstrates — run them with plain `node`).

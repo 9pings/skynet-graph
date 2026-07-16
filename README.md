@@ -24,16 +24,31 @@
 
 ## What it is
 
-**skynet-graph provide various advanced features, all based on a common, versioned, deterministic, reasoning graph with truth maintenance**
+**A generic, model-agnostic reasoning substrate** — typed facts + declarative concept rules + truth
+maintenance — that turns an LLM's reasoning from throwaway prose into a versioned graph you can **test,
+reuse, replay and reopen**. It runs *your* local model; nothing leaves the machine. *(Demonstrated
+end-to-end below on a 9.5 GB local quant — the starkest, cheapest-to-verify case, not the limit.)*
 
-Depending on the "grammars" and specialized "combos" used, it aims to provide solutions for various use cases like : 
-- **Typed & verifiable** LLM work, 
-- **Piece-by-piece** — works a big task one bounded piece at a time: **×2.5–3.2** on multi-step tasks, and where whole-context prompting collapses (**0/33**) the pieces hold (**10/33**).
-- **Low-quant repair** — certified method shapes steer the output: SQL **8→63 %**, finance **7→62 %**, at zero big-model calls on covered queries.
-- **Task memory that reopens** — a late correction retracts its consequences in cascade; "done" steps reopen with the reason, at 0 model calls.
-- **External think mode** — the model proposes, the graph refutes with the reason: a native think budget scores **13/24 ≈ chance**, the external critical mind **0 wrong verdicts**.
+Your model's reasoning today is trapped in prose: you cannot test one step in isolation, reuse it on the
+next task, replay it deterministically, or reopen it when a fact changes. This is the externalized layer
+that makes it structural. You activate a capability **plugin** for a task type; the substrate mutates — casting typed
+transformations, retracting them when a premise fails — until it stabilizes into a coherent, serializable
+result state. Four things it gives any model, each measured on real runs with negative controls and
+deterministic re-runs:
 
-The "concepts", the activated "combos" and the given prompt/data determine how the substrate mutate until it reach a coherent, stabilized result state that can be manipulated & serialized on purpose.
+- **Piece-by-piece on big tasks** — the task becomes a *typed* DAG; each step sees only a bounded
+  neighbourhood, never the whole dossier. Cross-domain, N=200/domain: GSM8K **16→52 %**, FinQA **20→50 %**.
+  Where whole-context prompting collapses on deep tasks (**0/33**), the pieces hold (**10/33**).
+- **Certified-shape steering** — certified method shapes steer the output on covered queries: SQL
+  **8→63 %**, finance **7→62 %**, at zero big-model calls. (This is what rescues a crippled quant — the
+  most dramatic instance of a generic mechanism, not a low-quant-only trick.)
+- **Task memory that reopens** — task state is a typed fact ledger (a JTMS). A late correction retracts
+  its consequences in cascade and re-derives at 0 model calls; a withdrawn value **reopens** the steps
+  that depended on it, with the reason.
+- **An external think mode** — the model proposes, the graph refutes with the reason and the admissible
+  options, the model revises. Zero false admissions, every campaign. Head-to-head (N=24): the quant's
+  native think budget scores **13/24 ≈ chance** (11 confident-wrong); the external critical mind, same
+  pools, **0 wrong verdicts**.
 
 **See it in 30 seconds — no model, no GPU** (a deterministic replay of a real end-to-end run — the
 9.5 GB quant analyzing an annual report, erratum and crash included):
@@ -42,6 +57,8 @@ The "concepts", the activated "combos" and the given prompt/data determine how t
 git clone https://github.com/9pings/skynet-graph && cd skynet-graph
 npm install && node examples/integrated-demo/run.js --replay      # 7 checks, bit-identical
 ```
+
+▶ **No clone?** Play the same recorded run in your browser — **[the live demo](https://9pings.github.io/skynet-graph/)**.
 
 Every claim on this page follows a standing rule: **a refuted claim is removed the day it falls**
 (several are listed below on purpose). The full feature map — maturity bars, numbers, limits,
@@ -62,9 +79,11 @@ Where it sits in your setup — two zero-integration doors into one local loop:
         [your local GGUF model]    — nothing leaves the machine
 ```
 
-> **Two packages, one loop.** This repo — **`skynet-graph`** — is the **substrate + the combos**: the
-> reasoning engine and the composable bricks (`Graph.combos.*`, C1–C9 + the forge) that each *activate* a
-> capability for a task type. **[mindsmith](https://www.npmjs.com/package/mindsmith)** is the ready-made
+> **Two packages, one loop.** This repo — **`skynet-graph`** — is a **minimal core + the capabilities as
+> plugins**: the reasoning engine, and each capability (C1–C9 + the forge) packaged as an installable
+> plugin that *activates* it for a task type (factories on `Graph.combos.*`; see
+> [Architecture](#architecture--a-minimal-core-capabilities-as-plugins) below).
+> **[mindsmith](https://www.npmjs.com/package/mindsmith)** is the ready-made
 > **app that actually uses them** — the endpoint + MCP tools + local rooms drawn above, assembled and
 > hardened. **To *run* this on your model → `npx mindsmith serve`. Embed skynet-graph to *build* your own.**
 
@@ -79,7 +98,7 @@ is where those capabilities are framed and put in users' hands. Maturity uses a 
 
 | Feature — details per row in [doc/CAPABILITIES.md](doc/CAPABILITIES.md) | Maturity (6-rung honest scale; rung 6 = external replications, empty pre-launch) |
 |---|---|
-| [F1 — Repair low-quants](doc/CAPABILITIES.md#f1-low-quant-repair) | `█████░` 5/6 — product-integrated |
+| [F1 — Certified-shape steering](doc/CAPABILITIES.md#f1-low-quant-repair) | `█████░` 5/6 — product-integrated |
 | [F2 — The piece-by-piece zoom](doc/CAPABILITIES.md#f2-piece-by-piece-zoom-on-big-tasks) | `████░░` 4/6 — measured at scale, not turnkey yet |
 | [F3 — Task memory that reopens](doc/CAPABILITIES.md#f3-task-memory-that-reopens) | `█████░` 5/6 — product-integrated |
 | [F4 — External think mode](doc/CAPABILITIES.md#f4-external-think-mode) | `█████░` 5/6 — product-integrated |
@@ -93,12 +112,31 @@ builds `.sgc` method stocks from any dataset that has an executable oracle, behi
 gate (held across every campaign: 0 false shapes admitted, 3 datasets, 2 forge models) — each stock ships
 with an auditable sha256 validation dossier.
 
-### Where it beats what you'd reach for
+### What this answers
 
-The head-to-head against a bigger model, an agent scratchpad, a decomposition framework, a native think
-mode, LLM-as-judge, a RAG method-index, or a rules engine — each a measured delta or a checked absence —
-is framed for users in **[mindsmith](https://www.npmjs.com/package/mindsmith)**'s "Why not just…?", with
-the per-feature numbers behind each in **[doc/CAPABILITIES.md](doc/CAPABILITIES.md)**.
+Agent frameworks bury reasoning inside prompts, callbacks and framework nodes. Four questions they
+struggle to answer — that a typed graph answers in *executable* form:
+
+- **Where does the reasoning live?** In declarative concept rules + a typed fact ledger, not in prose (`concepts/`, [doc/API.md](doc/API.md)).
+- **Can a step be tested on its own?** Each concept is a pure rule with typed pre/post-conditions; `sg validate` checks them at author time.
+- **Can it be reused across tasks?** A learned sub-graph *is* a method, carried by its typed contract — it composes, and **un-learns** when its premise drifts.
+- **Can a run be traced and replayed?** Bit-for-bit: `--replay` re-derives the whole run at 0 model calls, and every fact carries its provenance.
+
+### Why not just…?
+
+Each row is a measured delta **or** a checked absence — never a vibe. The last column is the part most
+comparisons quietly drop.
+
+| Instead of… | you'd get | skynet-graph gives | …and does **not** claim |
+|---|---|---|---|
+| a bigger / frontier model — or a **closed reasoning layer** (e.g. CoreThink, which wraps Claude 4 / Grok 4) | more raw capability, at API cost, off-machine | typed gates + deterministic replay on **your own local** model; nothing leaves the machine | that it out-raw-reasons a frontier model, or any big-model number we have not measured |
+| a decomposition framework (LLMCompiler, ReWOO) | a task DAG | a **typed** DAG where each step sees only a bounded neighbourhood, behind an admission gate | that the small model is the task *cutter* (a measured limit) |
+| LLM-as-judge | a verdict, always | counts + zero-false coverage + an honest **UNDECIDED** off certified perimeters; a verdict only at margin ≥3 or on a certified frame | a reliable verdict on free, uncertified content |
+| a RAG skill-library | retrieved snippets | typed methods that **un-learn** when their premise drifts — the moat no RAG index has | that novel, free-prose reasoning amortizes |
+| a native "think" mode | a longer in-model CoT | an external critic that refutes with the reason + the admissible options (**0** wrong verdicts vs native **13/24 ≈ chance**) | to interpret the model's internal chain-of-thought |
+| a rules engine | deterministic rules | rules **+** truth maintenance: a falsified premise un-casts itself *and its consequences*, with no rollback code | hand-encoded completeness — the rules are learned and defeasible |
+
+The per-feature numbers behind each row live in **[doc/CAPABILITIES.md](doc/CAPABILITIES.md)**.
 
 **What is honestly NOT claimed** (each of these was tested, and the page follows the results):
 - the guarantee is **at admission, not at execution** — at use time the stock *orients*; a suggestion is not
@@ -169,7 +207,7 @@ think, the graph runs *no-think*, sharing a single gguf), plus local `.sgc` room
 `--gpu-layers`, `--think`, custom llama.cpp build). It's built on these surfaces.
 
 Runnable, deterministic, GPU-free demos of every use-case class live (in the repo) under
-**`examples/bootstrap/`** — one short file per combo and per surface, each printing the guarantee it demonstrates.
+**`examples/bootstrap/`** — one short file per capability and per surface, each printing the guarantee it demonstrates.
 
 > **The app that uses these — [mindsmith](https://www.npmjs.com/package/mindsmith).** The endpoint + rooms
 > above, packaged and hardened: `npx mindsmith serve` (OpenAI-compatible, no-egress by default, proven on
@@ -178,6 +216,46 @@ Runnable, deterministic, GPU-free demos of every use-case class live (in the rep
 >
 > **For AI agents reading this repo**: `CLAUDE.md` at the root is the machine-oriented map (architecture,
 > commands, gotchas); the MCP surface is one command away (`claude mcp add sg -- node bin/sg mcp …`).
+
+## Architecture — a minimal core, capabilities as plugins
+
+The repo is not a monolith. A small **core** — the engine (`lib/graph/`, filesystem-free: typed facts,
+concepts, stabilization, JTMS) plus the authoring & contract toolkit (`lib/authoring/`) — and the
+capabilities packaged as **plugins** under `plugins/`, each a self-contained, droppable bundle
+`{ manifest, concept grammar in files, optional JS providers, optional packaged factory }`:
+
+| Plugin | What it ships |
+|---|---|
+| `reason-kernel` | the shared reasoning foundation: the append-only **Ledger**, the margin decidability gate, the `Score` band, the generic `Thought` concept |
+| `critical-mind` | C9 — the external critical mind: witness gate, anchored 0-fabrication generation, typed ledger, certification-aware margin verdict *(deps: reason-kernel)* |
+| `self-consistency` | Tier-0, pure grammar (zero JS): k reasoning paths → snapped-vote ledger → margin decidability gate *(deps: reason-kernel)* |
+| `refinement` | Tier-0, pure grammar: iterative refinement — accept on a snapped score band, bounded rounds *(deps: reason-kernel)* |
+| `planner` | C7 — the plan loop / piece-by-piece zoom: the decompose grammar + the projection engine + `createPlanLoop` |
+| `learning` | the DLL toolkit (crystallize / mine / adapt / method-pack) + `createLearningLibrary` (C3) |
+| `forge` | dataset + executable oracle → gold-gated `.sgc` method stock + sha256 dossier — what `sg forge` runs *(deps: learning)* |
+| `durable` | C2 — the durable workflow executor: checkpoint store + `compileMethod` + `runFlow` + audit (`createDurableRunner`) |
+| `mixture-serve` | C8 — the mixture-runtime server: a cheap local model oriented by a certified stock, the rest escalated to a bigger tier |
+
+- **A plugin is an npm package.** Its `index.js` exports the plugin object —
+  `Graph.definePlugin(__dirname, [require('reason-kernel')])` — and its dependencies are `require`d and
+  **carried as objects**. `resolvePlugins` flattens that object graph (dedup, topo-sort, semver check,
+  one claimer per provider namespace) and never fetches anything: npm + `require` do all resolution.
+- **Two trust tiers.** Tier-0 = grammar + `.sgc` only, no JS — safe by construction (the concept DSL is
+  a compiled expression evaluator: no I/O, no eval). Tier-1 = JS providers/factories — full power, so
+  trust is required. The discipline: push capability into Tier-0 grammar; keep Tier-1 for genuinely new
+  providers.
+- **Grammar lives in files** (`concepts/<set>/*.json`), never hard-coded in JS — a capability can be
+  read, diffed, validated and versioned like data.
+- **Tooling — `sg plugin`**: `list` (manifests only, no code run) · `validate <dir>` (dependency lint +
+  author-time grammar validation + derived manifest cross-checks) · `scaffold <name>` (a loadable Tier-0
+  skeleton). Every bundled plugin validates at zero errors — enforced by the test suite.
+- **Everything stays usable bare.** Each plugin's factory is re-exported on the flat `Graph.combos.*`
+  catalog, and every underlying module remains importable on its own — the plugin layer is packaging,
+  not a gate. A few assemblies still live in `lib/combos/` (the C1 typed-QA appliance, the C4
+  reactive-KG preset, the C5 self-mod guard, the C6 proxy cache), on the same catalog.
+
+The full contract — manifest schema, the dependency-cycle rule, the *alphabet-is-the-API* invariant —
+is **[doc/plugins.md](doc/plugins.md)**.
 
 ## Two ways to use it — and how it works
 

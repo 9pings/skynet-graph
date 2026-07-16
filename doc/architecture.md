@@ -2,7 +2,7 @@
 
 > **R&D.** This explains the **substrate** (Use 1 — the standalone reactive engine; see the [README](../README.md)
 > for the two uses). The engine is stable and tested; the *concept-organization strategy* is open research (see
-> [§6](#6-status--whats-rd)). The high-level target system built on this substrate (Use 2 — concept-graphs as
+> [§8](#8-status--whats-rd)). The high-level target system built on this substrate (Use 2 — concept-graphs as
 > composable methods, the durable executor, the contract) is **[concept-as-graph.md](concept-as-graph.md)**. The
 > authoritative model + roadmap is [MODELISATION.md](MODELISATION.md); the concept schema is [doc.md](doc.md); the
 > public API is [API.md](API.md).
@@ -153,8 +153,9 @@ ordering/latency, never the truth of a cast** (correctness comes from the determ
 evolution must **preserve the interface** (a new/merged concept may not change which facts cross an ecosystem boundary —
 a treewidth-non-regression check); and a learned/plastic output must be **snapped before any gate reads it** (the single
 quiet failure is a plastic output leaking onto a typed gate, collapsing the incremental memo). The structure-learning
-tooling for all of this lives in [`lib/authoring/`](../lib/authoring/) (`memo-stability`, `abstraction`, `mine`,
-`crystallize`, `lifecycle`), built and tested ZERO-CORE; it is R&D, the deterministic core is the foundation.
+tooling for all of this lives in [`lib/authoring/core/`](../lib/authoring/core/) (`memo-stability`, `abstraction`,
+`lifecycle`) and in the `learning` plugin ([`plugins/learning/lib/`](../plugins/learning/lib/) — `mine`,
+`crystallize`, `adapt`), built and tested ZERO-CORE; it is R&D, the deterministic core is the foundation.
 
 ## 4d. Learned concepts — training the population at the fixpoint
 
@@ -218,13 +219,44 @@ no-build web workbench (graph canvas with retraction flash, a concept↔fact **g
 with polarity + cross-corpus links + the tiling overlay, fork/split + merge-preview, timeline,
 provider trace, live concept editor, and **`.sgc` corpus import/export** with a derived manifest).
 
-Above the bricks sit the delivered **combos** (`Graph.combos.*`, C1–C9 — appliance, durable runner,
-learning library, reactive KG, self-mod, proxy cache, plan loop, mixture serve, and **C9
-`createCriticalMind`**, the external critical mind) and the **serving surfaces**: `sg serve` (an
+Above the bricks sit the delivered **capabilities** (C1–C9 — appliance, durable runner, learning
+library, reactive KG, self-mod, proxy cache, plan loop, mixture serve, and **C9 `createCriticalMind`**,
+the external critical mind), most of them packaged as **plugins** (§5b) whose factories are re-exported
+on the flat `Graph.combos.*` catalog, and the **serving surfaces**: `sg serve` (an
 OpenAI-compatible endpoint) and `sg mcp` (MCP tools, including the SOFT/HARD assistant lanes —
 `hint` / `state_recall` / `state_note` / `plan_sync` vs the gate-tested `propose` — and the `critique` tool).
 Per-capability maturity, the measured numbers (including the critical mind's measured decidability
 bound), and the limits are consolidated in **[CAPABILITIES.md](CAPABILITIES.md)**.
+
+## 5b. The code layout — a minimal core, capabilities as plugins
+
+The 2026-07 decomposition split the former monolith into a small core and droppable capability plugins:
+
+```
+lib/graph/        the engine core (filesystem-free): typed facts · concepts · stabilize · JTMS · revisions
+lib/authoring/    the toolkit that stays in lib — core/ (27 modules: contract, validate, author,
+                  supervise, method, abstract, corpus-pack, …) + lattice/ (5: registry, glossary,
+                  granularity, lattice-pack, lattice-morphism)
+lib/providers/    packaged providers (geo, llm + local host, canonicalize, verify, semiring, …)
+lib/plugins/      the plugin subsystem — resolvePlugins / loadPlugin / loadPlugins / definePlugin /
+                  lintPluginDeps (flatten carried deps → dedup → topo-sort → semver → namespace claims)
+lib/combos/       the flat factory catalog (Graph.combos.*): the assemblies still in lib (C1 appliance,
+                  C4 reactive-KG preset, C5 self-mod, C6 proxy cache) + re-exports of the plugins' factories
+lib/sg/ · lib/studio/ · lib/runtime/    the surfaces: CLI + serve + MCP · the web Studio · distributed workers
+plugins/          the nine shipped capability plugins (reason-kernel · critical-mind · self-consistency ·
+                  refinement · planner · learning · forge · durable · mixture-serve)
+concepts/         the illustrative concept sets (common, _substrate, …) — not a recommended ontology
+```
+
+A **plugin** is a self-contained bundle `{ sg-plugin.json manifest, concepts/<set>/ grammar-in-files,
+optional providers.js, optional packaged factory, index.js auto-export }` — and an npm package: its
+`index.js` exports the plugin object via `Graph.definePlugin(__dirname, [deps carried as objects])`, so
+npm + `require` do all fetching and resolution (the resolver never touches the network). Two trust
+tiers: **Tier-0** (grammar + `.sgc` only, no JS — safe by construction) and **Tier-1** (JS providers —
+trust required). The rule that makes the split real: **grammar lives in files, never hard-coded in JS**,
+and every dependent keys on the fact names its dependency produces — the alphabet *is* the API. The
+practical contract (manifest schema, dependency-cycle rule, `sg plugin list|validate|scaffold`) is
+**[plugins.md](plugins.md)**; every bundled plugin validates at zero errors, enforced by the suite.
 
 ## 6. Distributed execution
 
