@@ -8,7 +8,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../../lib/index.js');
-const { makeSegmentProxy, reconstructStack } = require('../../lib/authoring/segment-proxy.js');
+const { makeSegmentProxy, reconstructStack } = require('../../plugins/planner/lib/segment-proxy.js');
 const { nextStable } = require('../../lib/authoring/supervise.js');
 console.log = console.info = console.warn = () => {};
 

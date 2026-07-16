@@ -1,6 +1,6 @@
 'use strict';
 /**
- * Combos C7 — the HIERARCHICAL PLAN LOOP (lib/combos/plan-loop.js; design WIP/2026-07-07-design-r1-plan-loop.md;
+ * Combos C7 — the HIERARCHICAL PLAN LOOP (plugins/planner/combo.js; design WIP/2026-07-07-design-r1-plan-loop.md;
  * kill-gated R1: KG-R1a the channel + KG-R1b the fixpoint). DETERMINISTIC (no GPU, no network): a GOLD decompose
  * and a GOLD leaf ladder are injected, so the combo's orchestration is exercised end-to-end without a model. It
  * locks the C7 gates, each with a discriminating NEGATIVE control:
@@ -19,7 +19,7 @@
 global.__SERVER__ = true;
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { createPlanLoop, sinkFold } = require('../../lib/combos/plan-loop.js');
+const { createPlanLoop, sinkFold } = require('../../plugins/planner/combo.js');
 
 const GOLD = { A: 1, B: 2, C: 3, D: 4 };
 const CLEAN = 'A=1;B=2;C=3;D=4';

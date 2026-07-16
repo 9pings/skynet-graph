@@ -28,7 +28,7 @@ const { makeMethodServe } = require('./serve-leaf.js');
  */
 function makeForestServe( spec ) {
 	spec = spec || {};
-	const pool = spec.pool || require('../index.js').createInvokePool();
+	const pool = spec.pool || require('../../../lib/index.js').createInvokePool();
 	const forests = spec.forests || {};
 	const keyOf = spec.keyOf || (( leaf ) => leaf.produces || leaf.id);
 	const serveOne = makeMethodServe({ methods: spec.candidates || {}, keyOf: ( l ) => l.__cand, pool });

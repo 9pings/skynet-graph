@@ -41,10 +41,10 @@
  */
 const path = require('path');
 const dmerge = require('deepmerge');
-const { makeDecomposeProviders } = require('./loop.js');
-const { buildConceptTree } = require('./concepts.js');
-const { createSemiring, selectConceptTree } = require('../providers');
-const { rankOf } = require('../providers/semiring.js');
+const { makeDecomposeProviders } = require('../../../lib/authoring/loop.js');
+const { buildConceptTree } = require('../../../lib/authoring/concepts.js');
+const { createSemiring, selectConceptTree } = require('../../../lib/providers');
+const { rankOf } = require('../../../lib/providers/semiring.js');
 
 /**
  * The support-grammar concept set: the decompose scaffold + the per-segment Propose→Select→Adopt
@@ -66,7 +66,7 @@ function supportConceptTree( opts ) {
 	//   alternatives (J2)   = `support` (Propose / Adopt bracketing the SELECT)
 	// `Select` stays PARAMETRIC: built at call time from the host's criteria/lex (selectConceptTree),
 	// the same status as the factory-built providers — a generator is code, not a hard-coded grammar.
-	var SETS = path.join(__dirname, '..', '..', 'plugins', 'planner', 'concepts');
+	var SETS = path.join(__dirname, '..', 'concepts');
 	var tree = dmerge.all([
 		buildConceptTree(path.join(SETS, 'loop'), { exclude: ['Answer'] }),
 		buildConceptTree(path.join(SETS, 'loop-reactive')),

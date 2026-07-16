@@ -1,6 +1,6 @@
 'use strict';
 /**
- * dag-decompose — the model-driven TYPED DAG DECOMPOSE (lib/authoring/dag-decompose.js). Realizes the study
+ * dag-decompose — the model-driven TYPED DAG DECOMPOSE (plugins/planner/lib/dag-decompose.js). Realizes the study
  * WIP/2026-07-08-etude-decoupage-de-tache.md §6.1 (the decompose PROMPT + grammar-constrained decoding → a typed
  * needs/produces DAG) that context-project/plan-loop execute. DETERMINISTIC: a stub grammar-capable `ask` is
  * injected, so the mapping + the K1 canon-snap + the plan-loop wiring are exercised without a model.
@@ -17,8 +17,8 @@
 global.__SERVER__ = true;
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { makeDagDecompose, makeArchetypeRouter, leavesToRoadmap, keyOf, ARCHETYPE_HINTS } = require('../../lib/authoring/dag-decompose.js');
-const { createPlanLoop } = require('../../lib/combos/plan-loop.js');
+const { makeDagDecompose, makeArchetypeRouter, leavesToRoadmap, keyOf, ARCHETYPE_HINTS } = require('../../plugins/planner/lib/dag-decompose.js');
+const { createPlanLoop } = require('../../plugins/planner/combo.js');
 
 const KINDS = ['retrieve', 'compute', 'compare', 'summarize'];
 // a stub grammar-capable ask that returns a FIXED JSON DAG and records the grammar it was handed.

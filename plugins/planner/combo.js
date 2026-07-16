@@ -26,9 +26,9 @@
  *   // ctx.givens = { key: value } (givens.js#seedOf): the task's BASE FACTS, seeded into the projection pool as
  *   // val_<key> — a leaf citing a given key in readsExtra gets the value injected into its bounded inputs (gap i).
  */
-const { rebalancePlan, checkReassembly } = require('../authoring/rebalance.js');
-const { createContextProjection } = require('../authoring/context-project.js');
-const { stableStringify } = require('../providers/cache.js');
+const { rebalancePlan, checkReassembly } = require('./lib/rebalance.js');
+const { createContextProjection } = require('./lib/context-project.js');
+const { stableStringify } = require('../../lib/providers/cache.js');
 
 const tok = ( s ) => Math.ceil(String(s == null ? '' : s).length / 4);
 

@@ -1,13 +1,13 @@
 'use strict';
 /**
- * leaf-io — the typed leaf I/O discipline (lib/authoring/leaf-io.js, tiered-plan gap ii). Deterministic, no model.
+ * leaf-io — the typed leaf I/O discipline (plugins/planner/lib/leaf-io.js, tiered-plan gap ii). Deterministic, no model.
  * Locks: bare number/bool acceptance, the tolerated surface noise (var-name echo, shown-work "=", $, commas, one
  * trailing unit, punctuation), and the FAIL-CLOSED refusals (empty, prose, several distinct numbers, wrong kind) —
  * each refusal is the negative control of the matching acceptance.
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { parseLeafValue, LEAF_ANSWER_SYSTEM, LEAF_ANSWER_SYSTEM_ANY } = require('../../lib/authoring/leaf-io.js');
+const { parseLeafValue, LEAF_ANSWER_SYSTEM, LEAF_ANSWER_SYSTEM_ANY } = require('../../plugins/planner/lib/leaf-io.js');
 
 test('accepts bare typed values', () => {
 	assert.deepEqual(parseLeafValue('24'), { ok: true, kind: 'number', value: 24 });

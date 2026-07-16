@@ -1,22 +1,25 @@
 {
-  // planner (C7) — the plan-loop / graph-native context-projection grammar, extracted from
-  // lib/authoring/context-project.js's inline CONCEPT_MAP (owner: no grammar hard-coded in code). This
-  // tranche ships the GRAMMAR (Task/Step/Decompose) as files; the projection ENGINE (context-project.js +
-  // its cluster serve-leaf/givens/dag-decompose/…) moves into this plugin in the next tranche. The CtxProj
-  // providers are factory-built per run (they close over the injected `serve`), so there is no static
-  // providers.js — createContextProjection supplies them; the namespace is reserved below.
+  // planner (C7) — the plan-loop / graph-native context-projection capability: GRAMMAR (concepts/) +
+  // ENGINE (lib/: context-project, serve-leaf, givens, dag-decompose, rebalance, forest, higher-order,
+  // negotiate, forge-fallback, split-serve, segment-proxy, sound-invoke, slot-aware-serve, support,
+  // leaf-io) + the createPlanLoop combo (combo.js). The CtxProj/AI/Support providers are factory-built
+  // per run (they close over the injected serve/content fns), so there is no static providers.js — the
+  // namespaces CtxProj and Support are reserved below.
   //
-  // Sets `loop` + `loop-reactive` + `support` = the decompose-loop family, extracted from the inline
-  // literals of lib/authoring/loop.js and support.js (same rule). `loop-reactive` and `support` are
-  // EXTENSION sets composed over `loop` by deepmerge (the engine's conceptSets merge). The `AI` namespace
-  // is NOT claimed here: it is ambient/shared in lib (makeDecomposeProviders AND reason-loop.js serve it,
-  // two alternative families); `Support` is this plugin's own (makeSupportProviders, factory-built).
+  // Sets `loop` + `loop-reactive` + `support` = the decompose-loop family (extension sets composed over
+  // `loop` by deepmerge, the engine's conceptSets merge). The `AI` namespace is NOT claimed here: it is
+  // ambient/shared in lib (makeDecomposeProviders AND reason-loop.js serve it, two alternative families).
+  // lib/authoring keeps loop.js + typed-loop.js (shared with the learning family via parametric.js) —
+  // they load the grammar from this plugin's files.
   "name": "planner",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "tier": 1,
-  "description": "C7 — plan-loop / context-projection grammar (Task/Step/Decompose) + the decompose-loop family (loop, loop-reactive, support). Grammar extracted; the engine follows.",
+  "description": "C7 — plan-loop / graph-native context-projection: decompose → project bounded contexts → serve leaves → reassemble. Grammar + engine + combo.",
   "engine": "^1.3.0",
   "concepts": ["planner", "loop", "loop-reactive", "support"],
   "providerNamespaces": ["CtxProj", "Support"],
+  "entrypoints": {
+    "combos": { "createPlanLoop": "./combo.js" }
+  },
   "deps": []
 }

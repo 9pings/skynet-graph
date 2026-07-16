@@ -10,7 +10,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../../lib/index.js');
 const { extractSubgraph } = require('../../lib/authoring/extract.js');
-const { soundInvokeMerge } = require('../../lib/authoring/sound-invoke.js');
+const { soundInvokeMerge } = require('../../plugins/planner/lib/sound-invoke.js');
 const { nextStable } = require('../../lib/authoring/supervise.js');
 console.log = console.info = console.warn = () => {};
 

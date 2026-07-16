@@ -7,8 +7,8 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { createContextProjection } = require('../../lib/authoring/context-project.js');
-const { makeMethodServe } = require('../../lib/authoring/serve-leaf.js');
+const { createContextProjection } = require('../../plugins/planner/lib/context-project.js');
+const { makeMethodServe } = require('../../plugins/planner/lib/serve-leaf.js');
 console.log = console.info = console.warn = () => {};
 
 // method X — produces Xout from a seed constant (no upstream input).

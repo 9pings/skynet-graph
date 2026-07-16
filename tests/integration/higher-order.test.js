@@ -8,8 +8,8 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../../lib/index.js');
-const { makeHigherOrderServe } = require('../../lib/authoring/higher-order.js');
-const { createContextProjection } = require('../../lib/authoring/context-project.js');
+const { makeHigherOrderServe } = require('../../plugins/planner/lib/higher-order.js');
+const { createContextProjection } = require('../../plugins/planner/lib/context-project.js');
 console.log = console.info = console.warn = () => {};
 
 // two candidate SLOT FILLERS (dispatched bodies): isHot (n>=100), isCold (n<100). Each is a full concept-method.

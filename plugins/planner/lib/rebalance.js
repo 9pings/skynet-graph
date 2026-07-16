@@ -37,8 +37,8 @@
  *   const { rebalancePlan } = require('skynet-graph/lib/authoring/rebalance');
  *   const out = rebalancePlan({ order: nodes }, spec);   // → { plan, rounds, converged, monotone, refusal, trace }
  */
-const { checkCompose, footprintCycles } = require('./contract.js');
-const { stableStringify } = require('../providers/cache.js');
+const { checkCompose, footprintCycles } = require('../../../lib/authoring/contract.js');
+const { stableStringify } = require('../../../lib/providers/cache.js');
 
 // ── the spec the caller adapts (all optional bar isLeaf/fusionKey/overBudget/split/writes/reads/refold) ──
 // spec.isLeaf(n)      → is this node a produced leaf (vs a consumer/root)?

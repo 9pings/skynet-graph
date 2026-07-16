@@ -27,8 +27,8 @@
  * On success the summaryFacts are posted as FIRST-CLASS re-evaluable facts (KG-PROXY C): the caller's JTMS carries the
  * ongoing soundness — a LATER premise drift retracts them like any flat fact. ⇒ composé-cross-instance ≡ plat, sainement.
  */
-const { assertPost } = require('./contract.js');
-const { mergeSlice } = require('./extract.js');
+const { assertPost } = require('../../../lib/authoring/contract.js');
+const { mergeSlice } = require('../../../lib/authoring/extract.js');
 
 /**
  * @param parent        the caller graph.

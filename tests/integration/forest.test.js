@@ -8,7 +8,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../../lib/index.js');
-const { makeForestServe } = require('../../lib/authoring/forest.js');
+const { makeForestServe } = require('../../plugins/planner/lib/forest.js');
 console.log = console.info = console.warn = () => {};
 
 const seedN = ( n ) => ({ lastRev: 0, nodes: [{ _id: 'IN', Node: true, n: n }, { _id: 'OUT', Node: true }], segments: [{ _id: 's', Segment: true, originNode: 'IN', targetNode: 'OUT' }] });

@@ -44,10 +44,10 @@
  *   const { order, results, refusal } = await proj.run(roadmap, ctx);
  */
 const path = require('path');
-const Graph = require('../graph/index.js');
-const { nextStable } = require('./supervise.js');
-const { footprintCycles } = require('./contract.js');
-const { buildConceptTree } = require('./concepts.js');
+const Graph = require('../../../lib/graph/index.js');
+const { nextStable } = require('../../../lib/authoring/supervise.js');
+const { footprintCycles } = require('../../../lib/authoring/contract.js');
+const { buildConceptTree } = require('../../../lib/authoring/concepts.js');
 
 // ── guardPlan — the OFFLINE deadlock guard (recursive). A level is coherent iff every `need` has a producer at
 // that level OR is inherited (down-projected from a composite's inputs), and the data-flow is acyclic. The ONLY
@@ -76,7 +76,7 @@ function guardPlan( roadmap, inherited ) {
 // isComposite seed flags), so it mounts as its own set `planner`. The CtxProj providers stay factory-built
 // (makeProviders closes over the injected `serve`) and are supplied at run time. ──
 const PLANNER_SET = 'planner';
-const CONCEPT_MAP = { [PLANNER_SET]: buildConceptTree(path.join(__dirname, '..', '..', 'plugins', 'planner', 'concepts', 'planner')) };
+const CONCEPT_MAP = { [PLANNER_SET]: buildConceptTree(path.join(__dirname, '..', 'concepts', 'planner')) };
 
 // default prompt completion — the bounded neighbourhood: the ancestor statement + the resolved inputs + the goal
 // to produce. An input whose key has a `ctx.labels` entry is rendered WITH its provenance label (the "cells" rule,

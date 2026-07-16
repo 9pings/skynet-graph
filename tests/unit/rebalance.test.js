@@ -8,7 +8,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const R = require('../../lib/authoring/rebalance.js');
+const R = require('../../plugins/planner/lib/rebalance.js');
 const { stableStringify } = require('../../lib/providers/cache.js');
 
 // ── a minimal self-contained plan domain (a leaf produces one figure id → value; the root folds them) ──

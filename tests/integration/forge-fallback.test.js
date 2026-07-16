@@ -8,8 +8,8 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../../lib/index.js');
-const { makeForgeFallback, defaultStackToPrompt, defaultSerializeBlame } = require('../../lib/authoring/forge-fallback.js');
-const { makeSegmentProxy } = require('../../lib/authoring/segment-proxy.js');
+const { makeForgeFallback, defaultStackToPrompt, defaultSerializeBlame } = require('../../plugins/planner/lib/forge-fallback.js');
+const { makeSegmentProxy } = require('../../plugins/planner/lib/segment-proxy.js');
 const { nextStable } = require('../../lib/authoring/supervise.js');
 console.log = console.info = console.warn = () => {};
 

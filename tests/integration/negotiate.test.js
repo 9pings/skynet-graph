@@ -17,7 +17,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { makeNegotiate, gateFromContract, admissibleOptions } = require('../../lib/authoring/negotiate.js');
+const { makeNegotiate, gateFromContract, admissibleOptions } = require('../../plugins/planner/lib/negotiate.js');
 console.log = console.info = console.warn = () => {};
 
 const DOMAIN = ['low', 'mid', 'high'];

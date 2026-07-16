@@ -4,7 +4,17 @@ The plan-loop / graph-native context-projection capability as a [skynet-graph](.
 task too big for one context window is seeded as a graph of segments; each part reads its **bounded**
 neighbourhood from the structure and completes its own prompt, order emerging from the data-flow.
 
-**This tranche ships the GRAMMAR only**, extracted from what used to be hard-coded literals in lib code
+**The plugin now carries the GRAMMAR, the ENGINE and the COMBO.** `lib/` holds the projection engine —
+`context-project` (graph-native bounded-context projection), `dag-decompose` (typed needs/produces DAG),
+`givens` / `leaf-io` (typed front door / leaf parsing), `rebalance` (defeasible rebalancing fixpoint),
+`serve-leaf` / `higher-order` / `forest` / `slot-aware-serve` (dispatch+mount serving), `segment-proxy` /
+`sound-invoke` (gated delegation), `negotiate` / `forge-fallback` / `split-serve` (bounded revision paths),
+`support` (alternative-selection bracket) — moved here from `lib/authoring/` (owner: the specific goes into
+its plugin). `combo.js` is the packaged `createPlanLoop` assembly, reachable as `Graph.combos.createPlanLoop`.
+`lib/authoring` keeps `loop.js` / `typed-loop.js` (shared with the learning family via `parametric.js`);
+they load this plugin's grammar files.
+
+The grammar sets, extracted from what used to be hard-coded literals in lib code
 (owner rule: no grammar declared in code). Four sets:
 
 - `concepts/planner/` — `Task` / `Step` / `Decompose`: the context-projection grammar, ex
@@ -17,10 +27,6 @@ neighbourhood from the structure and completes its own prompt, order emerging fr
   `lib/authoring/support.js`; `supportConceptTree` composes loop (minus `Answer`) + loop-reactive + this,
   and injects the PARAMETRIC `Select` (built from the host's criteria at call time — a generator is code,
   not a hard-coded grammar).
-
-The projection **engine** (`context-project.js` + its cluster `serve-leaf` / `givens` / `dag-decompose` /
-`rebalance` / …) is entangled across group-4 authoring and moves into this plugin in a following tranche;
-until then it loads these grammars from here.
 
 The `CtxProj::*` / `AI::*` / `Support::*` providers are **factory-built per run** (they close over the
 host's injected content functions), so there is no static `providers.js` — the manifest reserves `CtxProj`

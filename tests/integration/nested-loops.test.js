@@ -16,9 +16,9 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { makeHigherOrderServe } = require('../../lib/authoring/higher-order.js');
-const { makeSlotAwareServe } = require('../../lib/authoring/slot-aware-serve.js');
-const { createContextProjection } = require('../../lib/authoring/context-project.js');
+const { makeHigherOrderServe } = require('../../plugins/planner/lib/higher-order.js');
+const { makeSlotAwareServe } = require('../../plugins/planner/lib/slot-aware-serve.js');
+const { createContextProjection } = require('../../plugins/planner/lib/context-project.js');
 console.log = console.info = console.warn = () => {};
 
 // the innermost gated method: isHot (n>=100), a full concept-method mounted+gated per item.

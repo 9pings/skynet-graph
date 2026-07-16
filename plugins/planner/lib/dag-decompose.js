@@ -39,7 +39,7 @@
  * @param opts.hint      an optional one-line orientation appended to the system prompt (the §6.2 per-archetype steer,
  *                       e.g. "The parts are INDEPENDENT — emit no needs." for a fan-out / extraction prompt).
  */
-const { canonValue } = require('../providers/canonicalize.js');
+const { canonValue } = require('../../../lib/providers/canonicalize.js');
 
 // the study §6.1 contract, as the system prompt (imperative, the 5 hard rules that encode invariants 1-3,5,8).
 const DECOMPOSE_SYSTEM =

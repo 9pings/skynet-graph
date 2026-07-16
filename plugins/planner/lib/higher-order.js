@@ -36,7 +36,7 @@ const { makeMethodServe } = require('./serve-leaf.js');
  */
 function makeHigherOrderServe( spec ) {
 	spec = spec || {};
-	const pool = spec.pool || require('../index.js').createInvokePool();
+	const pool = spec.pool || require('../../../lib/index.js').createInvokePool();
 	const loops = spec.loops || {};
 	const keyOf = spec.keyOf || (( leaf ) => leaf.produces || leaf.id);
 	// the SLOT FILLERS are served exactly like any leaf method (P6) — dispatch + mount + gate — keyed by the body key.

@@ -23,7 +23,7 @@
  *   const solve = makeNegotiate({ propose, gate: gateFromContract(contract), optionsOf, maxRounds: 4 });
  *   const { ok, answer, refusal, rounds, trace } = await solve(input, ctx);
  */
-const { assertPost } = require('./contract.js');
+const { assertPost } = require('../../../lib/authoring/contract.js');
 
 /**
  * gateFromContract(contract, opts) → gate(candidate) → { ok, blame, violations }

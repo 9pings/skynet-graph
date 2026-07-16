@@ -39,7 +39,7 @@ function slotOf( leaf ) { return (leaf && (leaf.slot || (leaf.request && leaf.re
 function makeSlotAwareServe( spec ) {
 	spec = spec || {};
 	const bodies = spec.bodies || {};
-	const pool = spec.pool || require('../index.js').createInvokePool();
+	const pool = spec.pool || require('../../../lib/index.js').createInvokePool();
 	const ownPool = !spec.pool;
 	// dispatch key, ROBUST to both leaf shapes: the plan-loop leaf keys on `request.id` (its id is prefixed `n_<key>`),
 	// the à-nu projection leaf keys on `produces`. Without this a plan-loop leaf mis-dispatches → provider error →

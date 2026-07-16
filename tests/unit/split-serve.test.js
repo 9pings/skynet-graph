@@ -7,7 +7,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { makeSplitServe } = require('../../lib/authoring/split-serve.js');
+const { makeSplitServe } = require('../../plugins/planner/lib/split-serve.js');
 
 test('plain routing — split says none → the original query goes to the plain decomposer untouched', async () => {
 	const calls = [];

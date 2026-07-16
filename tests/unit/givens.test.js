@@ -1,13 +1,13 @@
 'use strict';
 /**
- * givens — the typed base-fact front-door (lib/authoring/givens.js, tiered-plan gap i). Deterministic, no model.
+ * givens — the typed base-fact front-door (plugins/planner/lib/givens.js, tiered-plan gap i). Deterministic, no model.
  * Locks: numeric extraction surface (integers, $, decimals, thousand-commas, %), positional+lexical keys, reading
  * order, the fail-closed limitation (spelled-out numbers NOT extracted), the FinQA cell front-door (incl. the
  * accounting-negative), the prompt block, and seedOf. Negative controls: no-number text → [], junk cells skipped.
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { numberGivens, cellGivens, givensBlock, seedOf, labelsOf } = require('../../lib/authoring/givens.js');
+const { numberGivens, cellGivens, givensBlock, seedOf, labelsOf } = require('../../plugins/planner/lib/givens.js');
 
 test('numberGivens — integers with lexical slugs, in reading order', () => {
 	const g = numberGivens('A rectangle is 6 wide and 4 tall.');

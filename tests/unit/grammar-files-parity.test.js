@@ -12,7 +12,7 @@ const assert = require('node:assert');
 const path = require('path');
 
 const { loopConceptTree, reactiveLoopConceptTree } = require('../../lib/authoring/loop.js');
-const { supportConceptTree } = require('../../lib/authoring/support.js');
+const { supportConceptTree } = require('../../plugins/planner/lib/support.js');
 const { typedLoopConceptTree } = require('../../lib/authoring/typed-loop.js');
 const { reactiveSupervisorTree } = require('../../lib/authoring/supervise.js');
 const { selectConceptTree } = require('../../lib/providers/semiring.js');

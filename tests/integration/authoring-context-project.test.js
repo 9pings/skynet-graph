@@ -1,6 +1,6 @@
 'use strict';
 /**
- * context-project — GRAPH-NATIVE CONTEXT PROJECTION (lib/authoring/context-project.js). Promoted from the study
+ * context-project — GRAPH-NATIVE CONTEXT PROJECTION (plugins/planner/lib/context-project.js). Promoted from the study
  * `WIP/experiments/2026-07-08-graph-context-completion/` (reactive-pool.js the reference, recursive.js multi-level).
  * DETERMINISTIC (no GPU, no network): a stub `serve` is injected, so the graph-native mechanism is exercised
  * end-to-end without a model. Locks the projection's gates, each with a discriminating negative control:
@@ -23,7 +23,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../../lib/graph/index.js');
 const { nextStable } = require('../../lib/authoring/supervise.js');
-const cp = require('../../lib/authoring/context-project.js');
+const cp = require('../../plugins/planner/lib/context-project.js');
 const { createContextProjection, guardPlan, makeProviders, defaultComplete, buildSeed, CONCEPT_MAP, allSteps } = cp;
 
 // a deterministic stub serve: the value names WHICH input keys it saw (bounded) → we can assert the neighbourhood.

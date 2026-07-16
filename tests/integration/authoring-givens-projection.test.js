@@ -9,10 +9,10 @@
 global.__SERVER__ = true;
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { createContextProjection, guardPlan, buildSeed } = require('../../lib/authoring/context-project.js');
-const { createPlanLoop } = require('../../lib/combos/plan-loop.js');
-const { makeDagDecompose, leavesToRoadmap, DECOMPOSE_SYSTEM } = require('../../lib/authoring/dag-decompose.js');
-const { numberGivens, seedOf } = require('../../lib/authoring/givens.js');
+const { createContextProjection, guardPlan, buildSeed } = require('../../plugins/planner/lib/context-project.js');
+const { createPlanLoop } = require('../../plugins/planner/combo.js');
+const { makeDagDecompose, leavesToRoadmap, DECOMPOSE_SYSTEM } = require('../../plugins/planner/lib/dag-decompose.js');
+const { numberGivens, seedOf } = require('../../plugins/planner/lib/givens.js');
 
 // deterministic stub: the value names the input KEY=VALUE pairs it saw → we can assert exactly what reached the leaf.
 const serve = async ( leaf ) => leaf.produces + '{' + Object.keys(leaf.inputs).sort().map(( k ) => k + '=' + leaf.inputs[k] ).join(',') + '}';

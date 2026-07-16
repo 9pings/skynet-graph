@@ -23,7 +23,7 @@
  * guards the async host-side flow); P2 reuses P4's assertPost GATE and returns the cast template via `cb` (the engine
  * applies it sequenced). GOTCHA respected: the template sets the proxy's own `<name>:true` cast marker.
  */
-const { assertPost } = require('./contract.js');
+const { assertPost } = require('../../../lib/authoring/contract.js');
 
 /**
  * reconstructStack(graph, scope, opts) — reconstitute the bounded problem STACK by walking UP the `parentSeg` chain
@@ -73,7 +73,7 @@ function makeSegmentProxy( spec ) {
 	const boundedKeys = spec.boundedKeys || contract.write || [];
 	// invoke = the P1 wire. With a P3 pool, key it by libraryKey → N casts reuse ONE warm instance; else one-shot invokeGraph.
 	const libraryKey = spec.libraryKey || name;
-	const invoke = spec.invoke || (spec.pool ? ( iopts ) => spec.pool.invoke(libraryKey, iopts) : require('../index.js').invokeGraph);
+	const invoke = spec.invoke || (spec.pool ? ( iopts ) => spec.pool.invoke(libraryKey, iopts) : require('../../../lib/index.js').invokeGraph);
 
 	const conceptFragment = { [name]: { _id: name, _name: name,
 		require: ['Segment'].concat(spec.castWhen || []), provider: [ ns + '::delegate' ] } };
