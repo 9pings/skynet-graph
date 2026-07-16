@@ -46,7 +46,7 @@
  * @returns { registry, admitted, rejected, stats:{ candidates, admitted, vacuous, countered, confluenceRejected } }
  */
 
-var reg = require('../lattice/registry.js');
+var reg = require('../../../lib/authoring/lattice/registry.js');
 
 function toSet( v ) {
 	if ( v == null ) return new Set();

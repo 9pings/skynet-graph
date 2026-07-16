@@ -24,20 +24,20 @@
  */
 const path = require('path');
 const crypto = require('crypto');
-const Graph = require('../graph');
-const { nextStable } = require('../authoring/core/supervise.js');
-const { methodTrace } = require('../../plugins/learning/lib/mine.js');
-const { createLearningLibrary } = require('../../plugins/learning/combo.js');
-const stockMod = require('../authoring/forge/stock.js');   // goldGate + packStock + consistencyVote + shapeOf
-const packMod = require('../../plugins/learning/lib/method-pack.js');
+const Graph = require('../../lib/graph');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
+const { methodTrace } = require('../learning/lib/mine.js');
+const { createLearningLibrary } = require('../learning/combo.js');
+const stockMod = require('./lib/stock.js');   // goldGate + packStock + consistencyVote + shapeOf
+const packMod = require('../learning/lib/method-pack.js');
 
 // the dataset-agnostic engine scaffold: a Plan concept that decomposes a task segment into a typed-step
 // chain. The GRAMMAR lives in FILES, not code (owner: no grammar hard-coded in JS) — loaded from the
 // `forge` plugin's concept set (plugins/forge/concepts/forge/). The Plan::plan provider stays
 // factory-built per run (makePlanProvider closes over decompose/ask/voters); the grammar only names it.
-const { buildConceptTree } = require('../authoring/core/concepts.js');
+const { buildConceptTree } = require('../../lib/authoring/core/concepts.js');
 const FORGE_SET = 'forge';
-const TREE = buildConceptTree(path.join(__dirname, '..', '..', 'plugins', 'forge', 'concepts', FORGE_SET));
+const TREE = buildConceptTree(path.join(__dirname, 'concepts', FORGE_SET));
 const DECL = { origin: { field: 'originNode' }, target: { field: 'targetNode' } };
 const CFG = { label: 'forge', isMaster: true, autoMount: true, conceptSets: [FORGE_SET], bagRefManagers: {}, logLevel: 'error' };
 

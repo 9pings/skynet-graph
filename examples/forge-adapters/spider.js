@@ -1,7 +1,7 @@
 'use strict';
 /**
  * A `sg forge` ADAPTER for Spider — the 2nd-domain specialization (2026-07-09). Reuses the lib's Spider ORACLE
- * (`lib/authoring/forge/dataset-adapter.js`: `analyzeSpiderSQL` → `spiderGoldShape`, the reliable DEPTH-AWARE SQL scanner
+ * (`plugins/forge/lib/dataset-adapter.js`: `analyzeSpiderSQL` → `spiderGoldShape`, the reliable DEPTH-AWARE SQL scanner
  * that masks subqueries + top-level set-ops) as the gold decomposition, and FEEDS THE SCHEMA
  * (`spider_schema_rows_v2.json`, keyed by db_id) into the decompose prompt — so the model CAN infer `join` steps (the
  * exact confound the schema-less 2026-07-06 live run hit: join-classes were rejected because the model couldn't see
@@ -14,7 +14,7 @@
  *        --room /path/SG-Rooms/lib1 --name spider-stock --version 0.1.0
  */
 const path = require('path');
-const { getAdapter, loadDataset } = require('../../lib/authoring/forge/dataset-adapter.js');
+const { getAdapter, loadDataset } = require('../../plugins/forge/lib/dataset-adapter.js');
 
 const spider = getAdapter('spider');
 const stepEnum = spider.stepEnum;                      // ['join','filter','group','having','aggregate','order','select']

@@ -1,7 +1,7 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert');
-const { shapeOf, consistencyVote, goldGate, packStock } = require('../../lib/authoring/forge/stock');
+const { shapeOf, consistencyVote, goldGate, packStock } = require('../../plugins/forge/lib/stock');
 const { unpackMethods } = require('../../plugins/learning/lib/method-pack');
 
 test('shapeOf — the ordered step kinds joined (the class-method identity)', () => {

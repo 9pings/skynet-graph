@@ -4,7 +4,7 @@
 // abstraction is generic (so "plusieurs datasets" flow the SAME pipeline + SAME comparable metrics).
 const test = require('node:test');
 const assert = require('node:assert');
-const A = require('../../lib/authoring/forge/dataset-adapter.js');
+const A = require('../../plugins/forge/lib/dataset-adapter.js');
 
 test('wikisql adapter — a record maps to {query, context.columns, klass=agg|nConds, goldShape}', () => {
 	const wk = A.getAdapter('wikisql');
@@ -132,8 +132,12 @@ test('getAdapter — unknown name throws with the registered list', () => {
 	assert.throws(() => A.getAdapter('nope'), /no dataset adapter "nope"/);
 });
 
-test('exposed on the facade Graph.authoring.datasetAdapter', () => {
+test('reachable through the forge plugin (moved out of the authoring barrel)', () => {
+	// dataset-adapter moved to plugins/forge/lib/ with the forge engine — the barrel no longer
+	// exposes it (owner: the specific goes into its plugin); the plugin package is the surface.
 	const authoring = require('../../lib/authoring/index.js');
-	assert.equal(typeof authoring.datasetAdapter.loadDataset, 'function');
-	assert.ok(authoring.datasetAdapter.listAdapters().includes('wikisql'));
+	assert.equal(authoring.datasetAdapter, undefined, 'barrel key removed with the move');
+	const viaPlugin = require('../../plugins/forge/lib/dataset-adapter.js');
+	assert.equal(typeof viaPlugin.loadDataset, 'function');
+	assert.ok(viaPlugin.listAdapters().includes('wikisql'));
 });

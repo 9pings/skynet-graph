@@ -21,7 +21,7 @@
 global.__SERVER__ = true;
 const path = require('path');
 const ROOT = path.resolve(__dirname, '../..');
-const { goldGate, packStock } = require(ROOT + '/lib/authoring/forge/stock.js');
+const { goldGate, packStock } = require(ROOT + '/plugins/forge/lib/stock.js');
 const { unpackMethods } = require(ROOT + '/plugins/learning/lib/method-pack.js');
 const { describeLibrary, formatLibrary } = require(ROOT + '/plugins/learning/lib/method-explorer.js');
 const { makeLibrary, indexMethod, dispatch } = require(ROOT + '/plugins/learning/lib/library.js');

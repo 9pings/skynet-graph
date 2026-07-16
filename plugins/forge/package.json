@@ -1,0 +1,12 @@
+{
+  "name": "forge",
+  "version": "0.2.0",
+  "description": "Forge — dataset+oracle → gold-gated .sgc method stock with a validation dossier, as a skynet-graph plugin.",
+  "main": "index.js",
+  "license": "AGPL-3.0-or-later",
+  "author": "Nathanael Braun <pp9ping@gmail.com>",
+  "keywords": ["skynet-graph", "skynet-graph-plugin", "forge", "dataset", "certified-stock"],
+  "peerDependencies": { "skynet-graph": ">=1.3.0" },
+  "dependencies": { "learning": "^0.1.0" },
+  "files": ["index.js", "combo.js", "lib", "concepts", "sg-plugin.json", "README.md"]
+}
