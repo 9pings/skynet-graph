@@ -243,8 +243,9 @@ lib/plugins/      the plugin subsystem — resolvePlugins / loadPlugin / loadPlu
 lib/factories/       the flat factory catalog (Graph.factories.*): the assemblies still in lib (C1 appliance,
                   C4 reactive-KG preset, C5 self-mod, C6 proxy cache) + re-exports of the plugins' factories
 lib/sg/ · lib/studio/ · lib/runtime/    the surfaces: CLI + serve + MCP · the web Studio · distributed workers
-plugins/          the nine shipped capability plugins (reason-kernel · critical-mind · self-consistency ·
-                  refinement · planner · learning · forge · durable · mixture-serve)
+plugins/          the fifteen shipped capability plugins: reason-kernel · critical-mind · the strategy pack
+                  (self-consistency · refinement · socratic · least-to-most · analogical · react-loop ·
+                  tree-of-thoughts · mcts) · planner · learning · forge · durable · mixture-serve
 concepts/         the illustrative concept sets (common, _substrate, …) — not a recommended ontology
 ```
 

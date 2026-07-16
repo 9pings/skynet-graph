@@ -142,12 +142,51 @@ extension sets that share a spine, e.g. `loop`/`loop-reactive`).
 ## The bundled plugins
 
 The repo ships its own capabilities as plugins under `plugins/` — they are the pattern to copy:
-`reason-kernel` (the Ledger/Thought/Score kernel foundation) · `critical-mind` (C9, depends on
-reason-kernel — the first real object-carried dep; the DEFAULT `createCriticalMind` is the full
-concept-set GRAMMAR face — what `sg mcp critique` runs — with the measured imperative reference
-exported one release as `createCriticalMindImperative`; parity is enforced scripted by
-`critique-grammar-parity.test.js` and was re-measured live on GPU) · `self-consistency` and `refinement` (Tier-0 pure
-grammar, kernel clients) · `planner` (C7 — grammar + projection engine + `createPlanLoop`) · `learning`
-(the DLL toolkit + `createLearningLibrary`) · `forge` (dataset→certified stock, depends on learning) ·
-`durable` (C2 — checkpoint executor + `createDurableRunner`) · `mixture-serve` (C8). Every one of them
-passes `sg plugin validate` with zero errors — the suite enforces it (`tests/unit/plugin-cli.test.js`).
+`reason-kernel` (the kernel foundation: the append-only Ledger + the k-ary margin gate, the generic
+`Thought`, the `Score` band, the typed `Relation`, the `Mark` watched-mirror brick) · `critical-mind`
+(C9, depends on reason-kernel — the first real object-carried dep; the DEFAULT `createCriticalMind`
+is the full concept-set GRAMMAR face — what `sg mcp critique` runs — with the measured imperative
+reference exported one release as `createCriticalMindImperative`; parity is enforced scripted by
+`critique-grammar-parity.test.js` and was re-measured live on GPU) · the **strategy pack** (Tier-0
+kernel clients unless noted): `self-consistency` (+ the `sg mcp` `self_consistency` tool) ·
+`refinement` (two accept gates: score band / external binary verdict — the `reflexion` set) ·
+`socratic` · `least-to-most` · `analogical` · `react-loop` · `tree-of-thoughts` and `mcts` (Tier-1:
+state-in-graph + a thin deterministic search driver) · `planner` (C7 — grammar + projection engine +
+`createPlanLoop`) · `learning` (the DLL toolkit + `createLearningLibrary`) · `forge`
+(dataset→certified stock, depends on learning) · `durable` (C2 — checkpoint executor +
+`createDurableRunner`) · `mixture-serve` (C8). Every one of them passes `sg plugin validate` with
+zero errors — the suite enforces it (`tests/unit/plugin-cli.test.js`).
+
+## The strategy catalog — one kernel, deposited sets
+
+Thirteen reasoning strategies commonly shipped as isolated framework classes are covered here by
+**one kernel + deposited concept sets** (a strategy is FILES you drop, not code you fork):
+
+| Strategy | Here | Shape |
+|---|---|---|
+| Chain-of-Thought | a single ask (any factory) | trivial — no grammar needed |
+| Decomposition | `concepts/_substrate` (C1) / `planner` (C7) | grammar + projection engine |
+| Least-to-Most | `least-to-most` | Tier-0: emergent release chain + order guard |
+| Adversarial Debate | `critical-mind` (C9) | the MEASURED one — grammar face default |
+| Reflexion | `refinement` (set `reflexion`) | Tier-0: external binary verdict, bounded rounds |
+| Iterative Refinement | `refinement` (set `refinement`) | Tier-0: K1 score band, bounded rounds |
+| Self-Consistency | `self-consistency` (+ MCP tool) | Tier-0: snapped votes + the margin bound |
+| Socratic | `socratic` | Tier-0: insight tallies + coverage counter-gate |
+| Analogical | `analogical` | Tier-0: defeasible maps-to transfer (JTMS) |
+| Meta-Router | `makeArchetypeRouter` (planner) | classify → dispatch by deposited children |
+| ReAct | `react-loop` | Tier-0: live action worklist + 3 stops; tools = host |
+| Tree-of-Thoughts | `tree-of-thoughts` | Tier-1: native cascade prune + beam driver |
+| MCTS | `mcts` | Tier-1: stats-as-facts + deterministic UCB1 driver |
+
+Honest scope: **the measured guarantees are C9's** (0-fabrication, the decidability bound, GPU-replayed);
+the other sets are *expressible and structurally proven* (0-model tests, negative controls, replay
+determinism), not LLM-benchmarked. Two standing rules: the kernel grows ONLY when a real client
+demands a brick (Thought/decide ← self-consistency · Score ← refinement · Relation ← analogical ·
+Mark ← tree-of-thoughts), and **no strategy ships a self-scoring path** — a score/critique/judgment
+must come from an EXTERNAL source (judge model, oracle, test): the generator judging itself is the
+measured, refuted self-audit.
+
+Two authoring gotchas these plugins paid for (both linted/documented): never name a concept after an
+ENGINE object-type marker (`Node`/`Segment` — pre-set facts; the validator warns `engine-marker-name`),
+and a cross-object gate must watch a FACT, not a concept flag (flags appear through `set()` but vanish
+through a silent delete on uncast — mirror with the kernel's `Mark::set/unset` so retraction cascades).
