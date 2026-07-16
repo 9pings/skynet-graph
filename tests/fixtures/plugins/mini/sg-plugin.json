@@ -1,0 +1,12 @@
+{
+  // A minimal fixture plugin exercising the file-layer loader (loadPlugin): one concept set + one
+  // provider namespace, no deps. Standard layout: sg-plugin.json + concepts/<set>/ + providers.js.
+  "name": "mini",
+  "version": "1.0.0",
+  "tier": 1,
+  "description": "fixture plugin for the loader tests",
+  "concepts": ["mini"],
+  "providerNamespaces": ["Mini"],
+  "entrypoints": { "providers": "./providers.js" },
+  "deps": []
+}

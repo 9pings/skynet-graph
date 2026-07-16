@@ -102,3 +102,35 @@ test('boots the REAL critical-mind plugin through the resolver — bit-identical
 	assert.equal(cast(g, 'V1', 'ProEntry'), true, 'ProEntry casts through the resolver-wired plugin');
 	assert.deepEqual(fact(g, 'ledger', 'pro'), ['V1'], 'ledger.pro tallied — identical to the hand-wired boot');
 });
+
+const FIX_MINI = path.join(__dirname, '..', 'fixtures', 'plugins', 'mini');
+
+test('loadPlugin reads a plugin dir: manifest + concept sets + provider entrypoint', () => {
+	const { loadPlugin } = require('../../lib/plugins');
+	const p = loadPlugin(FIX_MINI);
+	assert.equal(p.name, 'mini');
+	assert.ok(p.concepts.mini && p.concepts.mini.childConcepts.Thing, 'built the `mini` concept set from concepts/mini/');
+	assert.equal(typeof p.providers.Mini.tag, 'function', 'required the providers entrypoint');
+	assert.deepEqual(p.providerNamespaces, ['Mini']);
+});
+
+test('loadPlugins → resolve → boot: a FILE-loaded plugin casts through its provider', async () => {
+	const { loadPlugins } = require('../../lib/plugins');
+	const cfg = loadPlugins([FIX_MINI]);
+	Graph._providers = cfg.providers;
+	const g = new Graph(
+		{ lastRev: 0, freeNodes: [], nodes: [{ _id: 't1', isThing: true }], segments: [] },
+		{ label: 'plug', isMaster: true, autoMount: true, conceptSets: cfg.conceptSets, bagRefManagers: {}, logLevel: 'error' },
+		cfg.conceptMap
+	);
+	await settle(g);
+	assert.equal(cast(g, 't1', 'Thing'), true, 'the concept cast');
+	assert.equal(fact(g, 't1', 'tagged'), true, 'the Mini provider ran via the file-loaded plugin');
+});
+
+test('the facade exposes the plugin subsystem (Graph.plugins)', () => {
+	const Facade = require('../../lib/index.js');
+	assert.equal(typeof Facade.plugins.loadPlugins, 'function');
+	assert.equal(typeof Facade.plugins.resolvePlugins, 'function');
+	assert.equal(typeof Facade.plugins.loadPlugin, 'function');
+});
