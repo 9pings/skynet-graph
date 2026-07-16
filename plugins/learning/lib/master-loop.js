@@ -28,9 +28,9 @@
  *   const r = await loop.solve(problem);   // { result, arm, regime, cost }
  *   loop.drift(problem);                    // a premise changed → invalidate + deopt
  */
-const { digest } = require('../../providers/canonicalize.js');
-const { createRecallIndex, recallAndVerify } = require('../learning/recall.js');
-const { createMountController } = require('../core/mount.js');
+const { digest } = require('../../../lib/providers/canonicalize.js');
+const { createRecallIndex, recallAndVerify } = require('./recall.js');
+const { createMountController } = require('../../../lib/authoring/core/mount.js');
 
 function canon( x ) {
 	if ( x === undefined ) return 'null';

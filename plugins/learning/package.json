@@ -1,0 +1,11 @@
+{
+  "name": "learning",
+  "version": "0.1.0",
+  "description": "DLL — learn/distil/adapt a defeasible method library from traces, as a skynet-graph plugin (C3).",
+  "main": "index.js",
+  "license": "AGPL-3.0-or-later",
+  "author": "Nathanael Braun <pp9ping@gmail.com>",
+  "keywords": ["skynet-graph", "skynet-graph-plugin", "learning", "library-learning", "distillation", "DLL"],
+  "peerDependencies": { "skynet-graph": ">=1.3.0" },
+  "files": ["index.js", "combo.js", "lib", "sg-plugin.json", "README.md"]
+}

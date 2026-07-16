@@ -11,12 +11,12 @@
  * `{ status:'impracticable', hint:[{role,key,stepKind}] }` — le hint typé, JAMAIS un mount partiel ni un
  * provider re-fire (Laurie 5/8a).
  */
-const { crystallizeStructural } = require('../../../../lib/authoring/learning/crystallize.js');
-const { methodContentHoles } = require('../../../../lib/authoring/learning/adapt.js');
+const { crystallizeStructural } = require('../../../../plugins/learning/lib/crystallize.js');
+const { methodContentHoles } = require('../../../../plugins/learning/lib/adapt.js');
 const { typedLoopConceptTree, TYPED_PROSE_KEYS } = require('../../../../lib/authoring/core/typed-loop.js');
-// slotBindings + mountParametric were PROMOTED to the lib (lib/authoring/learning/parametric.js, 2026-07-03 cont.¹⁰,
+// slotBindings + mountParametric were PROMOTED to the lib (plugins/learning/lib/parametric.js, 2026-07-03 cont.¹⁰,
 // after three experiment reuses) — this file keeps the experiment-specific seeding and re-exports the brick.
-const { slotBindings, mountParametric } = require('../../../../lib/authoring/learning/parametric.js');
+const { slotBindings, mountParametric } = require('../../../../plugins/learning/lib/parametric.js');
 
 /** The frame-DECLARED concept tree (Laurie 8: library/human never formed a RUN-8 composite — the frame cannot
  *  be crystallized from their traces; it is declared): Expand also requires the frame's param keys, so the

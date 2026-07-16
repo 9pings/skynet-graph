@@ -10,11 +10,11 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
 const { nextStable } = require('../../lib/authoring/core/supervise.js');
-const { crystallizeStructural } = require('../../lib/authoring/learning/crystallize.js');
-const { blendMethods, segmentSlots, composeContract, synthesizeByBlend, methodDepth } = require('../../lib/authoring/learning/adapt.js');
-const { makeLibrary, indexMethod } = require('../../lib/authoring/learning/library.js');
+const { crystallizeStructural } = require('../../plugins/learning/lib/crystallize.js');
+const { blendMethods, segmentSlots, composeContract, synthesizeByBlend, methodDepth } = require('../../plugins/learning/lib/adapt.js');
+const { makeLibrary, indexMethod } = require('../../plugins/learning/lib/library.js');
 const { blendAtSegment, instantiate, ctxFromScope, BASE, hasHoles } = require('../../lib/authoring/core/abstract.js');
-const { injectMarker, guardKey } = require('../../lib/authoring/learning/combinator.js');
+const { injectMarker, guardKey } = require('../../plugins/learning/lib/combinator.js');
 console.log = console.info = console.warn = () => {};
 
 const ground = ( kind ) => 'plan-' + kind;

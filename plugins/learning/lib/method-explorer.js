@@ -26,7 +26,7 @@
  *   console.log(formatLibrary(report));                          // a text listing + population summary
  */
 
-const { toEntries } = require('../learning/method-pack.js');
+const { toEntries } = require('./method-pack.js');
 
 function canon( x ) {
 	if ( x === undefined ) return 'null';

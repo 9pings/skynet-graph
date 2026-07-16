@@ -14,7 +14,7 @@ const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
 console.log = console.info = console.warn = () => {};
 const { makeMdlGate, composeGates } = require('../../lib/authoring/core/mdl.js');
-const { crystallize } = require('../../lib/authoring/learning/crystallize.js');
+const { crystallize } = require('../../plugins/learning/lib/crystallize.js');
 
 // the N=16 / R=30 corpus (count=8 admits, count=1 rejects — as in the unit test).
 function corpus( N, R ) {

@@ -9,8 +9,8 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
 const { nextStable } = require('../../lib/authoring/core/supervise.js');
-const { libraryKey, crystallizeStructural } = require('../../lib/authoring/learning/crystallize.js');
-const { makeLibrary, indexMethod, bucketOf, dispatch } = require('../../lib/authoring/learning/library.js');
+const { libraryKey, crystallizeStructural } = require('../../plugins/learning/lib/crystallize.js');
+const { makeLibrary, indexMethod, bucketOf, dispatch } = require('../../plugins/learning/lib/library.js');
 console.log = console.info = console.warn = () => {};
 
 // a synthetic crystal candidate (frontier params + signature keys + application conditions), keyed like the real ones.

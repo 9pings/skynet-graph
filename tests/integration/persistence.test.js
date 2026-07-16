@@ -9,9 +9,9 @@ const assert = require('node:assert/strict');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
-const { createMasterLoop } = require('../../lib/authoring/learning/master-loop.js');
+const { createMasterLoop } = require('../../plugins/learning/lib/master-loop.js');
 const { createMountController } = require('../../lib/authoring/core/mount.js');
-const { createRecallIndex } = require('../../lib/authoring/learning/recall.js');
+const { createRecallIndex } = require('../../plugins/learning/lib/recall.js');
 const { createFileStore, saveIndex, loadIndex } = require('../../lib/authoring/core/store.js');
 
 const signature = ( p ) => ({ structure: { oKind: p.oKind, tKind: p.tKind }, content: { variant: p.variant } });

@@ -17,11 +17,11 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
 const { nextStable } = require('../../lib/authoring/core/supervise.js');
-const { crystallizeStructural } = require('../../lib/authoring/learning/crystallize.js');
-const { makeLibrary, indexMethod, dispatch } = require('../../lib/authoring/learning/library.js');
-const { hitTemplate } = require('../../lib/authoring/learning/adapt.js');
+const { crystallizeStructural } = require('../../plugins/learning/lib/crystallize.js');
+const { makeLibrary, indexMethod, dispatch } = require('../../plugins/learning/lib/library.js');
+const { hitTemplate } = require('../../plugins/learning/lib/adapt.js');
 const { ctxFromScope, instantiate } = require('../../lib/authoring/core/abstract.js');
-const { injectMarker, guardKey } = require('../../lib/authoring/learning/combinator.js');
+const { injectMarker, guardKey } = require('../../plugins/learning/lib/combinator.js');
 const { digest } = require('../../lib/providers/canonicalize.js');
 console.log = console.info = console.warn = () => {};
 

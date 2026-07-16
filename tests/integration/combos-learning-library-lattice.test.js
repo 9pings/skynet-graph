@@ -4,7 +4,7 @@
 require('../_boot.js');
 const test = require('node:test');
 const assert = require('node:assert');
-const { createLearningLibrary } = require('../../lib/combos/learning-library.js');
+const { createLearningLibrary } = require('../../plugins/learning/combo.js');
 const Graph = { combos: { createLearningLibrary } };
 
 const forge = async () => ({ result: 42, cost: 1 });

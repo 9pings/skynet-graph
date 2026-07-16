@@ -22,9 +22,9 @@ global.__SERVER__ = true;
 const path = require('path');
 const ROOT = path.resolve(__dirname, '../..');
 const { goldGate, packStock } = require(ROOT + '/lib/authoring/forge/stock.js');
-const { unpackMethods } = require(ROOT + '/lib/authoring/learning/method-pack.js');
-const { describeLibrary, formatLibrary } = require(ROOT + '/lib/authoring/learning/method-explorer.js');
-const { makeLibrary, indexMethod, dispatch } = require(ROOT + '/lib/authoring/learning/library.js');
+const { unpackMethods } = require(ROOT + '/plugins/learning/lib/method-pack.js');
+const { describeLibrary, formatLibrary } = require(ROOT + '/plugins/learning/lib/method-explorer.js');
+const { makeLibrary, indexMethod, dispatch } = require(ROOT + '/plugins/learning/lib/library.js');
 const out = ( ...a ) => process.stdout.write(a.join(' ') + '\n');
 
 // The GOLD shapes: each CD primitive ACT as an ordered typed role sequence (the canonical decomposition).

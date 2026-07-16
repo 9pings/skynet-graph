@@ -21,10 +21,10 @@
  * the app-conditions, refined in dispatch). The gate here is "the forged method comes with a sound post" + an optional
  * host `verify` hook (run it + `assertPost`); a drift that breaks the post is caught by the runtime monitor (the moat).
  */
-const { dispatch, indexMethod, dispatchInterface, appConditionsHold, frontierOf } = require('../learning/library.js');
-const { generalizeContent, fillContentHoles, blendAtSegment, combineAtFork, BASE } = require('../core/abstract.js');
-const { digest } = require('../../providers/canonicalize.js');
-const { checkCompose } = require('../core/contract.js');
+const { dispatch, indexMethod, dispatchInterface, appConditionsHold, frontierOf } = require('./library.js');
+const { generalizeContent, fillContentHoles, blendAtSegment, combineAtFork, BASE } = require('../../../lib/authoring/core/abstract.js');
+const { digest } = require('../../../lib/providers/canonicalize.js');
+const { checkCompose } = require('../../../lib/authoring/core/contract.js');
 
 const idOf = ( o ) => o && (o.$$_id != null ? o.$$_id : (o.$_id != null ? o.$_id : o._id));
 // the child-segment SLOTS of a parameterized method (base-derived segments — the graftable positions, never the

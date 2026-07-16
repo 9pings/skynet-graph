@@ -4,7 +4,7 @@
  *
  * A DETERMINISTIC integration test (no GPU, no network): a canned `signature` + a call-counting `forge`
  * are injected exactly like the proven smoke (scratchpad/smoke-learnlib.js). It locks in
- * `lib/combos/learning-library.js#createLearningLibrary` behavior AND doubles as the combo's product gates:
+ * `plugins/learning/combo.js#createLearningLibrary` behavior AND doubles as the combo's product gates:
  *
  *   1  élision curve  — a recurrent typed stream climbs MATCH→RECALL→FORGE; repeats elide the forge.
  *   2  restart        — a fresh process on the SAME disk-backed store replays a warm method at 0 calls.
@@ -24,7 +24,7 @@ const assert = require('node:assert');
 const os = require('os');
 const path = require('path');
 const fs = require('fs');
-const { createLearningLibrary } = require('../../lib/combos/learning-library.js');
+const { createLearningLibrary } = require('../../plugins/learning/combo.js');
 
 // ── the typed K1 signature: STRUCTURE = method class (mount/deopt key), CONTENT = the derived diff. ──────
 const signature = ( p ) => ({ structure: { oKind: p.oKind, tKind: p.tKind }, content: { variant: p.variant } });

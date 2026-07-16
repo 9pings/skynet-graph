@@ -13,10 +13,10 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
 const { nextStable } = require('../../lib/authoring/core/supervise.js');
-const { crystallizeStructural } = require('../../lib/authoring/learning/crystallize.js');
+const { crystallizeStructural } = require('../../plugins/learning/lib/crystallize.js');
 const { makeTypedDecomposeProviders, typedLoopConceptTree, mountTemplate, TYPED_PROSE_KEYS } = require('../../lib/authoring/core/typed-loop.js');
 const { makeDecomposeProviders, loopConceptTree } = require('../../lib/authoring/core/loop.js');
-const { blendMethods, segmentSlots, hitTemplate } = require('../../lib/authoring/learning/adapt.js');
+const { blendMethods, segmentSlots, hitTemplate } = require('../../plugins/learning/lib/adapt.js');
 console.log = console.info = console.warn = () => {};
 
 const KINDS = { enum: ['retrieve', 'transform', 'validate', 'emit'] };

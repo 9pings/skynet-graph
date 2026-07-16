@@ -30,9 +30,9 @@ const ROOT = path.resolve(__dirname, '../..');
 const { ARMS, auditKey } = require(ROOT + '/artifact/paper-dll/arms.js');
 const E = require(ROOT + '/artifact/paper-dll/workload.js');
 const H = require(ROOT + '/artifact/paper-dll/harness.js');
-const { createLearningLibrary } = require(ROOT + '/lib/combos/learning-library.js');
+const { createLearningLibrary } = require(ROOT + '/plugins/learning/combo.js');
 const { createFileStore, saveSgc, loadSgc } = require(ROOT + '/lib/authoring/core/store.js');
-const { packMethods, loadMethods } = require(ROOT + '/lib/authoring/learning/method-pack.js');
+const { packMethods, loadMethods } = require(ROOT + '/plugins/learning/lib/method-pack.js');
 const C = require(ROOT + '/lib/authoring/core/contract.js');
 
 const classKey = ( r ) => `${r.kind}|${r.region}|${r.score}`;

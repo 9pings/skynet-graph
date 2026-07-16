@@ -33,9 +33,9 @@
  * provenances survive the `$x==1` ≡ `x == 1` surface variance.
  */
 
-const { fillContentHoles } = require('../core/abstract.js');
-const { mountTemplate } = require('../core/typed-loop.js');
-const { canonAtom } = require('../learning/adapt.js');
+const { fillContentHoles } = require('../../../lib/authoring/core/abstract.js');
+const { mountTemplate } = require('../../../lib/authoring/core/typed-loop.js');
+const { canonAtom } = require('./adapt.js');
 
 /** Locate each content hole's OWNING template object and read its typed role: { path, key, stepKind,
  *  stepIndex, role } — role = `<stepKind>#<stepIndex>`. `gen` = adapt.js#methodContentHoles output. */

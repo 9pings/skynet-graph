@@ -25,7 +25,7 @@
  */
 const Graph = require('../../lib/graph/index.js');
 const { nextStable } = require('../../lib/authoring/core/supervise.js');
-const { makeRelearnProviders, relearnTree } = require('../../lib/authoring/learning/relearn.js');
+const { makeRelearnProviders, relearnTree } = require('../../lib/authoring/core/relearn.js');
 const C = require('../../lib/authoring/core/contract.js');
 
 async function settle( g ) {

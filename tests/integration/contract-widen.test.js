@@ -10,7 +10,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
 const { nextStable } = require('../../lib/authoring/core/supervise.js');
-const { makeWidenProviders, widenTree } = require('../../lib/authoring/learning/widen.js');
+const { makeWidenProviders, widenTree } = require('../../plugins/learning/lib/widen.js');
 const { createMountController } = require('../../lib/authoring/core/mount.js');
 const { satisfies } = require('../../lib/authoring/core/contract.js');
 console.log = console.info = console.warn = () => {};

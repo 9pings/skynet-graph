@@ -8,7 +8,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { mineChains, composeProviders } = require('../../lib/authoring/learning/mine.js');
+const { mineChains, composeProviders } = require('../../plugins/learning/lib/mine.js');
 const { evaluate } = require('../../lib/authoring/core/abstraction.js');
 console.log = console.info = console.warn = () => {};
 

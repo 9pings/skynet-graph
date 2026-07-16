@@ -2,7 +2,7 @@
 const test = require('node:test');
 const assert = require('node:assert');
 const { shapeOf, consistencyVote, goldGate, packStock } = require('../../lib/authoring/forge/stock');
-const { unpackMethods } = require('../../lib/authoring/learning/method-pack');
+const { unpackMethods } = require('../../plugins/learning/lib/method-pack');
 
 test('shapeOf — the ordered step kinds joined (the class-method identity)', () => {
 	assert.equal(shapeOf(['filter', 'aggregate', 'select']), 'filter>aggregate>select');

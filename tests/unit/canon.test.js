@@ -7,8 +7,8 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { snapToVocab, foldsFromDigrams, makeStructuralCanon, shapeKey, canonKey } = require('../../lib/authoring/learning/canon.js');
-const { mineDigrams } = require('../../lib/authoring/learning/compress.js');
+const { snapToVocab, foldsFromDigrams, makeStructuralCanon, shapeKey, canonKey } = require('../../plugins/learning/lib/canon.js');
+const { mineDigrams } = require('../../plugins/learning/lib/compress.js');
 
 const VOCAB = ['paid', 'overdue', 'ACME', 'Globex'];
 

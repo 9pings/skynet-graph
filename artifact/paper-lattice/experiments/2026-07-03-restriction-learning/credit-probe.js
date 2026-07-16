@@ -37,7 +37,7 @@ const assert = require('node:assert/strict');
 const path = require('path');
 const ROOT = path.resolve(__dirname, '../../../..');
 const { lattice, slotLearner } = require('./learn-core.js');
-const { slotPostFrom, attributeSlotBlame, attributeSlotCredit } = require(ROOT + '/lib/authoring/learning/parametric.js');
+const { slotPostFrom, attributeSlotBlame, attributeSlotCredit } = require(ROOT + '/plugins/learning/lib/parametric.js');
 
 // ── the frame: 2 slots, one facet (group), target cut = categorical; provenance via the REAL lib brick ──
 const ATOMS = { 0: 'rows.0>0', 1: 'rows.1>0' };

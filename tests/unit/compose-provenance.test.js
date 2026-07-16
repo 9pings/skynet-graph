@@ -11,7 +11,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const C = require('../../lib/authoring/learning/compose-hotspot');
+const C = require('../../plugins/learning/lib/compose-hotspot');
 
 const rowFor = ( rows, leaf ) => rows.find(( r ) => r.composite.join('>') === leaf.join('>'));
 // a firing: { task, rev, concept, target, reads:[key], writes:[key] }

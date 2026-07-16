@@ -23,9 +23,9 @@
  *   const r = dispatch(lib, { frontier, signatureKeys }, scopeFacts);
  *   // r.candidates = ranked methods whose app-conditions hold at this site; r.scanned = bucket size (<< r.total)
  */
-const { libraryKey } = require('../learning/crystallize.js');
-const { holdsAtoms } = require('../core/contract.js');
-const { digest } = require('../../providers/canonicalize.js');
+const { libraryKey } = require('./crystallize.js');
+const { holdsAtoms } = require('../../../lib/authoring/core/contract.js');
+const { digest } = require('../../../lib/providers/canonicalize.js');
 
 const frontierOf = ( c ) => c && (c.frontier || (c.schema && c.schema.frontier)) || { params: [] };
 const keyOf = ( c ) => (c && (c.libraryKey || (c.schema && c.schema.libraryKey))) || libraryKey(frontierOf(c), (c && c.signatureKeys) || []);

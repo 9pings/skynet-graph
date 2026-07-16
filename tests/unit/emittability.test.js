@@ -7,7 +7,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const E = require('../../lib/authoring/learning/emittability');
+const E = require('../../plugins/learning/lib/emittability');
 
 const typed = ( d ) => ({ status: 'typed', digest: d });
 const untyped = () => ({ status: 'untyped', digest: undefined });

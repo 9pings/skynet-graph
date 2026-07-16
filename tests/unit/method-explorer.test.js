@@ -1,7 +1,7 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert');
-const { describeMethod, describeLibrary, formatLibrary, templateCountOf } = require('../../lib/authoring/learning/method-explorer');
+const { describeMethod, describeLibrary, formatLibrary, templateCountOf } = require('../../plugins/learning/lib/method-explorer');
 
 const M = ( sig, templates ) => ({ structure: { taskKind: sig }, content: { colRef: 'x' }, method: { id: 'm_' + sig, templatesBySig: templates } });
 const LIB = { entries: [

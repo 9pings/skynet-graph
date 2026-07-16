@@ -9,7 +9,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
 const { nextStable } = require('../../lib/authoring/core/supervise.js');
-const { crystallize, adopt, consolidate } = require('../../lib/authoring/learning/crystallize.js');
+const { crystallize, adopt, consolidate } = require('../../plugins/learning/lib/crystallize.js');
 console.log = console.info = console.warn = () => {};
 
 const Comp = {

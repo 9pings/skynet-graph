@@ -7,9 +7,9 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { createMasterLoop } = require('../../lib/authoring/learning/master-loop.js');
+const { createMasterLoop } = require('../../plugins/learning/lib/master-loop.js');
 const { createMountController } = require('../../lib/authoring/core/mount.js');
-const { createRecallIndex } = require('../../lib/authoring/learning/recall.js');
+const { createRecallIndex } = require('../../plugins/learning/lib/recall.js');
 
 // a typed problem: { oKind, tKind, variant }. structure = {oKind,tKind} (the method class); content = {variant}.
 const signature = ( p ) => ({ structure: { oKind: p.oKind, tKind: p.tKind }, content: { variant: p.variant } });

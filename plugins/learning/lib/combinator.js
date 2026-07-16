@@ -21,9 +21,9 @@
  * wrong replay), and the splice rides the SEQUENCED cb (determinism). The interface alphabet must align: the
  * combinator's frontier param NAMES must equal the fragment's hole names (the snapped separator).
  */
-const { dispatch } = require('../learning/library.js');
-const { ctxFromScope, instantiate } = require('../core/abstract.js');
-const { digest } = require('../../providers/canonicalize.js');
+const { dispatch } = require('./library.js');
+const { ctxFromScope, instantiate } = require('../../../lib/authoring/core/abstract.js');
+const { digest } = require('../../../lib/providers/canonicalize.js');
 
 // the call-site facts projected onto a fragment's replay signature (mirrors crystallize.js#projectFacts).
 const projectFacts = ( facts, keys ) => { const o = {}; for ( const k of (keys || []) ) if ( facts && k in facts ) o[k] = facts[k]; return o; };

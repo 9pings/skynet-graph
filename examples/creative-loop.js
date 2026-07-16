@@ -7,7 +7,7 @@
  *
  * The supervisor names an ABSTRACT mechanism (a target FrontierSignature); the learned method LIBRARY answers;
  * recombination is the creative step. Five tools, each reachable via the `Graph.authoring` barrel (and each
- * importable on its own, e.g. require('skynet-graph/lib/authoring/learning/library')):
+ * importable on its own, e.g. require('skynet-graph/plugins/learning/lib/library')):
  *
  *   1. crystallize  — distil a recurrent STRUCTURAL cast into a re-mountable, defeasible METHOD (the cold step).
  *   2. library      — index methods by their FrontierSignature; dispatch = O(1) bucket lookup (NOT a corpus search).

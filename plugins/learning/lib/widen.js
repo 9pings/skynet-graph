@@ -21,11 +21,11 @@
  *     strictly after), so the relaxed gate never admits a newly-widened case under a frozen, assertPost-eliding regime.
  *
  * Wiring (symmetric to contract-relearn.js):
- *   const { makeWidenProviders, widenTree } = require('../learning/widen.js');
+ *   const { makeWidenProviders, widenTree } = require('./widen.js');
  *   Graph._providers = Object.assign({ App:{serve} }, makeWidenProviders({ registry, mount }));
  *   // tree: the over-specific method + widenTree(); seed a `lib:<Method>` node with { method, discriminator, positives, widenReady }.
  */
-const { widenOnVerified } = require('../core/contract.js');
+const { widenOnVerified } = require('../../../lib/authoring/core/contract.js');
 
 /**
  * The reactive widen flow as a concept tree. One meta-concept:

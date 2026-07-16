@@ -29,7 +29,7 @@
  *   (3) the promoted post is the EXACT relation `$leaf==$g`, NOT the band → a future divergence is caught at mount.
  * Ambiguity (≥2 survivors) → FORGE (the version-space join ⊤ = a fresh variable = forge IS the Plotkin/Mitchell answer).
  */
-const { REF } = require('../core/abstract.js');
+const { REF } = require('../../../lib/authoring/core/abstract.js');
 
 function canon( x ) {
 	if ( x === undefined ) return 'u';
@@ -172,7 +172,7 @@ const projectFacts = ( facts, keys ) => { const o = {}; for ( const k of (keys |
  */
 function enhanceCandidateWithAncestry( candidate, opts ) {
 	opts = opts || {};
-	const { buildStructuralProvider } = require('../learning/crystallize.js');   // lazy (avoid any load-order coupling)
+	const { buildStructuralProvider } = require('./crystallize.js');   // lazy (avoid any load-order coupling)
 	const ancestorField = opts.ancestorField || (( g ) => g);
 	const cand = JSON.parse(JSON.stringify({ schema: candidate.schema, signatureKeys: candidate.signatureKeys || [], frontierFields: candidate.frontierFields || {}, templatesBySig: candidate.templatesBySig || {} }));
 
@@ -211,6 +211,6 @@ function enhanceCandidateWithAncestry( candidate, opts ) {
 }
 
 // the digest the structural provider keys on (must match buildStructuralProvider's `digest(projectFacts(...))`).
-const digestOf = require('../../providers/canonicalize.js').digest;
+const digestOf = require('../../../lib/providers/canonicalize.js').digest;
 
 module.exports = { decideLeaf, promoteContentVars, rewriteSkeleton, leafKeyOf, enhanceCandidateWithAncestry, setAtPath };

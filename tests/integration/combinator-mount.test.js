@@ -9,9 +9,9 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
 const { nextStable } = require('../../lib/authoring/core/supervise.js');
-const { crystallizeStructural } = require('../../lib/authoring/learning/crystallize.js');
-const { makeLibrary, indexMethod } = require('../../lib/authoring/learning/library.js');
-const { dispatchConcept } = require('../../lib/authoring/learning/combinator.js');
+const { crystallizeStructural } = require('../../plugins/learning/lib/crystallize.js');
+const { makeLibrary, indexMethod } = require('../../plugins/learning/lib/library.js');
+const { dispatchConcept } = require('../../plugins/learning/lib/combinator.js');
 console.log = console.info = console.warn = () => {};
 
 const STATE = { hard: 'split-hard', easy: 'split-easy' };

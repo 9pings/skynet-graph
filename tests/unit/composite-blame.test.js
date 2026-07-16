@@ -24,8 +24,8 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');                                  // sets __SERVER__ then loads the engine
-const { crystallizeStructural } = require('../../lib/authoring/learning/crystallize.js');
-const { blendMethods, composeContract, attributeCompositeBlame } = require('../../lib/authoring/learning/adapt.js');
+const { crystallizeStructural } = require('../../plugins/learning/lib/crystallize.js');
+const { blendMethods, composeContract, attributeCompositeBlame } = require('../../plugins/learning/lib/adapt.js');
 const { BASE } = require('../../lib/authoring/core/abstract.js');
 console.log = console.info = console.warn = () => {};
 

@@ -15,7 +15,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { createProviderCache } = require('../../lib/providers/cache.js');
-const { trackCache, hotspots, anyCandidate } = require('../../lib/authoring/learning/hotspot.js');
+const { trackCache, hotspots, anyCandidate } = require('../../plugins/learning/lib/hotspot.js');
 
 // drive a sequence of keyed casts through the real cache (a pure provider wrapper — no engine).
 function driver() {

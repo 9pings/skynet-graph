@@ -13,8 +13,8 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
 const { nextStable } = require('../../lib/authoring/core/supervise.js');
-const { methodTrace } = require('../../lib/authoring/learning/mine.js');
-const { synthesizeContract } = require('../../lib/authoring/learning/crystallize.js');
+const { methodTrace } = require('../../plugins/learning/lib/mine.js');
+const { synthesizeContract } = require('../../plugins/learning/lib/crystallize.js');
 const { checkCompose, assertPost } = require('../../lib/authoring/core/contract.js');
 console.log = console.info = console.warn = () => {};
 
@@ -203,7 +203,7 @@ test('Gap C NEG — a structured (non-fragment) output → no contract (refuse t
 });
 
 // ─────────────────────────────── Gap A — STRUCTURAL crystallization (re-mountable, 0-call replay) ──────────────
-const { crystallizeStructural, adopt } = require('../../lib/authoring/learning/crystallize.js');
+const { crystallizeStructural, adopt } = require('../../plugins/learning/lib/crystallize.js');
 
 async function bootGrammar( seed, conceptMap ) {
 	const g = new Graph(JSON.parse(JSON.stringify(seed)), {

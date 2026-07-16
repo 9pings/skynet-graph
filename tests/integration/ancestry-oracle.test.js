@@ -10,7 +10,7 @@ const assert = require('node:assert/strict');
 const { instantiate } = require('../../lib/authoring/core/abstract.js');
 const { assertPost } = require('../../lib/authoring/core/contract.js');
 const { bagInterface, separatorGate } = require('../../lib/authoring/core/decompose.js');
-const { promoteContentVars } = require('../../lib/authoring/learning/ancestry.js');
+const { promoteContentVars } = require('../../plugins/learning/lib/ancestry.js');
 console.log = console.info = console.warn = () => {};
 
 // a tree whose thin cross-tile bridge is `kind` (the on-horizon ancestor an oracle may promote to).

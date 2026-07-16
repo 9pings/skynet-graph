@@ -32,19 +32,19 @@
  *   const r = await crystallize({ episodeTree, seed, providers, equivKeys });
  *   if (r.admitted) await adopt(nextGraph, r.candidate);   // adopt into the next episode's grammar
  */
-const Graph = require('../../graph/index.js');
-const { nextStable } = require('../core/supervise.js');
-const { traceMiner, composeProviders, methodTrace, mineMethods } = require('../learning/mine.js');
-const { rankCandidates } = require('../core/mdl.js');
-const { evaluate, bootMeasure, factsEqual } = require('../core/abstraction.js');
-const { assertMemoStable } = require('../core/memo-stability.js');
-const { createLifecycle } = require('../core/lifecycle.js');
-const { normalize } = require('../core/contract.js');
-const { instantiate, ctxFromScope, canon, emitMethodAsSubgraph } = require('../core/abstract.js');
-const { normalizeFrontierParams } = require('../learning/mine.js');
-const { lintMethod } = require('../core/method.js');
-const { memoSurfaceKeys } = require('../core/memo-stability.js');
-const { digest } = require('../../providers/canonicalize.js');
+const Graph = require('../../../lib/graph/index.js');
+const { nextStable } = require('../../../lib/authoring/core/supervise.js');
+const { traceMiner, composeProviders, methodTrace, mineMethods } = require('./mine.js');
+const { rankCandidates } = require('../../../lib/authoring/core/mdl.js');
+const { evaluate, bootMeasure, factsEqual } = require('../../../lib/authoring/core/abstraction.js');
+const { assertMemoStable } = require('../../../lib/authoring/core/memo-stability.js');
+const { createLifecycle } = require('../../../lib/authoring/core/lifecycle.js');
+const { normalize } = require('../../../lib/authoring/core/contract.js');
+const { instantiate, ctxFromScope, canon, emitMethodAsSubgraph } = require('../../../lib/authoring/core/abstract.js');
+const { normalizeFrontierParams } = require('./mine.js');
+const { lintMethod } = require('../../../lib/authoring/core/method.js');
+const { memoSurfaceKeys } = require('../../../lib/authoring/core/memo-stability.js');
+const { digest } = require('../../../lib/providers/canonicalize.js');
 
 const clone = (x) => JSON.parse(JSON.stringify(x));
 

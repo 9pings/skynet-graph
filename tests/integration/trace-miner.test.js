@@ -9,7 +9,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
 const { nextStable } = require('../../lib/authoring/core/supervise.js');
-const { recordsFromTrace, traceMiner } = require('../../lib/authoring/learning/mine.js');
+const { recordsFromTrace, traceMiner } = require('../../plugins/learning/lib/mine.js');
 console.log = console.info = console.warn = () => {};
 
 const Comp = {

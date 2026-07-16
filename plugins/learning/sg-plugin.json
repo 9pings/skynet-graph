@@ -1,0 +1,19 @@
+{
+  // learning — the DLL (Defeasible Library Learning) capability: distil recurrent methods from traces
+  // (crystallize/mine), adapt-or-forge with a verifier gate (adapt/library/recall), package and explore
+  // them (method-pack/method-explorer), plus the distillation detectors (hotspot/compose-hotspot/
+  // cost-probe/emittability) and the parametric slot machinery. combo.js = createLearningLibrary (C3).
+  // No concept sets and no static providers: the machinery is JS assembled per host (Tier-1); grammar
+  // consumed comes from the core `common` set / the planner plugin's files.
+  "name": "learning",
+  "version": "0.1.0",
+  "tier": 1,
+  "description": "DLL — learn/distil/adapt a defeasible method library from traces (C3 learning-library + the distillation toolkit).",
+  "engine": "^1.3.0",
+  "concepts": [],
+  "providerNamespaces": [],
+  "entrypoints": {
+    "combos": { "createLearningLibrary": "./combo.js" }
+  },
+  "deps": []
+}

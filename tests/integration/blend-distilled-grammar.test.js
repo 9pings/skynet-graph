@@ -21,13 +21,13 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
 const { nextStable } = require('../../lib/authoring/core/supervise.js');
-const { methodTrace } = require('../../lib/authoring/learning/mine.js');
-const { createLearningLibrary } = require('../../lib/combos/learning-library.js');
+const { methodTrace } = require('../../plugins/learning/lib/mine.js');
+const { createLearningLibrary } = require('../../plugins/learning/combo.js');
 const { goldGate } = require('../../lib/authoring/forge/stock.js');
 const { getAdapter, loadDataset } = require('../../lib/authoring/forge/dataset-adapter.js');
-const { blendMethods, methodDepth, segmentSlots } = require('../../lib/authoring/learning/adapt.js');
+const { blendMethods, methodDepth, segmentSlots } = require('../../plugins/learning/lib/adapt.js');
 const { instantiate, ctxFromScope, BASE } = require('../../lib/authoring/core/abstract.js');
-const { injectMarker, guardKey } = require('../../lib/authoring/learning/combinator.js');
+const { injectMarker, guardKey } = require('../../plugins/learning/lib/combinator.js');
 console.log = console.info = console.warn = () => {};
 
 // ── the model-driven structural Plan provider (grammar-stock.js's, deterministic gold-forge = a perfectly

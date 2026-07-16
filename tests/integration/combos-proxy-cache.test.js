@@ -5,7 +5,7 @@
 require('../_boot.js');
 const test = require('node:test');
 const assert = require('node:assert');
-const { createLearningLibrary } = require('../../lib/combos/learning-library.js');
+const { createLearningLibrary } = require('../../plugins/learning/combo.js');
 const { createProxyCache, makeLocalCoverage } = require('../../lib/combos/proxy-cache.js');
 
 function stubFrontier() {

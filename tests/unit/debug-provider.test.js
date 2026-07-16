@@ -7,7 +7,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { makeDebugProvider } = require('../../lib/authoring/learning/debug-provider.js');
+const { makeDebugProvider } = require('../../plugins/learning/lib/debug-provider.js');
 
 // deterministic classify table: bugClass determines fixKind (the K1 signature → content function)
 const FIX = { 'off-by-one': 'adjust-bound', 'null-deref': 'guard-null', 'wrong-branch': 'fix-cond' };

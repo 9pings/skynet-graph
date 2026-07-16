@@ -24,13 +24,13 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
 const { nextStable } = require('../../lib/authoring/core/supervise.js');
-const { methodTrace } = require('../../lib/authoring/learning/mine.js');
-const { createLearningLibrary } = require('../../lib/combos/learning-library.js');
+const { methodTrace } = require('../../plugins/learning/lib/mine.js');
+const { createLearningLibrary } = require('../../plugins/learning/combo.js');
 const { createProxyCache, makeTypedIntakeKey } = require('../../lib/combos/proxy-cache.js');
 const { goldGate, packStock } = require('../../lib/authoring/forge/stock.js');
 const { getAdapter, loadDataset } = require('../../lib/authoring/forge/dataset-adapter.js');
 const { instantiate, ctxFromScope } = require('../../lib/authoring/core/abstract.js');
-const { injectMarker, guardKey } = require('../../lib/authoring/learning/combinator.js');
+const { injectMarker, guardKey } = require('../../plugins/learning/lib/combinator.js');
 console.log = console.info = console.warn = () => {};
 
 // ── the declared domain: WikiSQL-shaped classes {agg}|{nConds} (the dataset-adapter class space) ──────────────

@@ -9,8 +9,8 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 require('../_boot.js');
 const { digest } = require('../../lib/providers/canonicalize.js');
-const { buildStructuralProvider } = require('../../lib/authoring/learning/crystallize.js');
-const { enhanceCandidateWithAncestry } = require('../../lib/authoring/learning/ancestry.js');
+const { buildStructuralProvider } = require('../../plugins/learning/lib/crystallize.js');
+const { enhanceCandidateWithAncestry } = require('../../plugins/learning/lib/ancestry.js');
 console.log = console.info = console.warn = () => {};
 
 // a crystallized candidate whose mid-node `state` = the cast object's `kind` (an ancestor-determined leaf); the

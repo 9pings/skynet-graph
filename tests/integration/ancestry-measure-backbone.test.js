@@ -9,7 +9,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { decideLeaf } = require('../../lib/authoring/learning/ancestry.js');
+const { decideLeaf } = require('../../plugins/learning/lib/ancestry.js');
 
 // 12 bugs, 3 classes × 4, each a DISTINCT failingFn — the stub `location` echoes failingFn exactly; `fixApproach` varies.
 const CLASSES = ['off-by-one', 'null-deref', 'wrong-branch'];

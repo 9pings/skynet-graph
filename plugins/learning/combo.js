@@ -71,16 +71,16 @@
  *             library, loop, store, crystallizeFrom, dispatch, blame, credit }}
  */
 
-var defaults = require('./defaults.js');
-var master = require('../authoring/learning/master-loop.js');
-var mountMod = require('../authoring/core/mount.js');
-var libMod = require('../authoring/learning/library.js');
-var storeMod = require('../authoring/core/store.js');
-var packMod = require('../authoring/learning/method-pack.js');
-var latticeMod = require('../authoring/lattice/lattice-pack.js');
-var adaptMod = require('../authoring/learning/adapt.js');
-var crystalMod = require('../authoring/learning/crystallize.js');
-var parametric = require('../authoring/learning/parametric.js');
+var defaults = require('../../lib/combos/defaults.js');
+var master = require('./lib/master-loop.js');
+var mountMod = require('../../lib/authoring/core/mount.js');
+var libMod = require('./lib/library.js');
+var storeMod = require('../../lib/authoring/core/store.js');
+var packMod = require('./lib/method-pack.js');
+var latticeMod = require('../../lib/authoring/lattice/lattice-pack.js');
+var adaptMod = require('./lib/adapt.js');
+var crystalMod = require('./lib/crystallize.js');
+var parametric = require('./lib/parametric.js');
 
 function createLearningLibrary( opts ) {
 	opts = opts || {};

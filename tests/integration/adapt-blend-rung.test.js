@@ -5,9 +5,9 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 require('../_boot.js');
-const { crystallizeStructural } = require('../../lib/authoring/learning/crystallize.js');
-const { adaptOrForge, adaptOrForgeAsync } = require('../../lib/authoring/learning/adapt.js');
-const { makeLibrary, indexMethod } = require('../../lib/authoring/learning/library.js');
+const { crystallizeStructural } = require('../../plugins/learning/lib/crystallize.js');
+const { adaptOrForge, adaptOrForgeAsync } = require('../../plugins/learning/lib/adapt.js');
+const { makeLibrary, indexMethod } = require('../../plugins/learning/lib/library.js');
 console.log = console.info = console.warn = () => {};
 
 const node = ( id ) => ({ _id: id });

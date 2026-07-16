@@ -36,10 +36,10 @@
  * — the same extraction validate.js uses); provider-written facts are not statically known,
  * so the mined edge is the self-flag/template producer->consumer chain (the auditable spine).
  */
-const { eachConcept, refsOf, refKeyOf, templateKeys } = require('../core/validate.js');
-const { relativize, antiUnify, canon, hasHoles, emitMethodAsSubgraph, BASE } = require('../core/abstract.js');
-const { memoSurfaceKeys } = require('../core/memo-stability.js');
-const { digest } = require('../../providers/canonicalize.js');
+const { eachConcept, refsOf, refKeyOf, templateKeys } = require('../../../lib/authoring/core/validate.js');
+const { relativize, antiUnify, canon, hasHoles, emitMethodAsSubgraph, BASE } = require('../../../lib/authoring/core/abstract.js');
+const { memoSurfaceKeys } = require('../../../lib/authoring/core/memo-stability.js');
+const { digest } = require('../../../lib/providers/canonicalize.js');
 
 /**
  * Find frequent producer->consumer concept chains in a trace corpus.

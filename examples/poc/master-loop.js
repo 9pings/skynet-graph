@@ -10,10 +10,10 @@ const path = require('path');
 const os = require('os');
 const fs = require('fs');
 const ROOT = path.resolve(__dirname, '../..');
-const { createMasterLoop } = require(ROOT + '/lib/authoring/learning/master-loop.js');
+const { createMasterLoop } = require(ROOT + '/plugins/learning/lib/master-loop.js');
 const { createMountController } = require(ROOT + '/lib/authoring/core/mount.js');
 const { createFileStore, saveSgc, loadSgc } = require(ROOT + '/lib/authoring/core/store.js');
-const { packMethods, loadMethods } = require(ROOT + '/lib/authoring/learning/method-pack.js');
+const { packMethods, loadMethods } = require(ROOT + '/plugins/learning/lib/method-pack.js');
 const out = ( ...a ) => process.stdout.write(a.join(' ') + '\n');
 
 const signature = ( p ) => ({ structure: { oKind: p.oKind, tKind: p.tKind }, content: { variant: p.variant } });

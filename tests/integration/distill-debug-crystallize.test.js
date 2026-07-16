@@ -11,8 +11,8 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
 const { nextStable } = require('../../lib/authoring/core/supervise.js');
-const { crystallizeStructural, adopt } = require('../../lib/authoring/learning/crystallize.js');
-const { makeDebugProvider } = require('../../lib/authoring/learning/debug-provider.js');
+const { crystallizeStructural, adopt } = require('../../plugins/learning/lib/crystallize.js');
+const { makeDebugProvider } = require('../../plugins/learning/lib/debug-provider.js');
 console.log = console.info = console.warn = () => {};
 
 const FIX = { 'off-by-one': 'adjust-bound', 'null-deref': 'guard-null' };

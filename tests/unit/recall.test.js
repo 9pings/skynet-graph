@@ -7,7 +7,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { createRecallIndex, verify, recallAndVerify } = require('../../lib/authoring/learning/recall.js');
+const { createRecallIndex, verify, recallAndVerify } = require('../../plugins/learning/lib/recall.js');
 
 test('verify: exact structure+content → FULL reuse (0 calls)', () => {
 	const v = verify({ structure: { oKind: 'A', tKind: 'B' }, content: { mid: 'm1' } },

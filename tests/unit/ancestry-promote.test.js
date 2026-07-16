@@ -15,7 +15,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { decideLeaf, promoteContentVars } = require('../../lib/authoring/learning/ancestry.js');
+const { decideLeaf, promoteContentVars } = require('../../plugins/learning/lib/ancestry.js');
 
 // ── pt1 — the LOAD-BEARING control: held-out strict-=== kills a spurious FD the band-only post admits silently ──
 test('held-out strict-=== REFUSES a spurious FD that a band-only post would silently admit (the §6.4 hull hazard)', () => {

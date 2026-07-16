@@ -42,7 +42,7 @@
  * @param opts.factsSchema optional override of the closed enum vocab for { bugClass, fixKind }.
  * @returns { AI: { debugStep } }  a provider-map fragment (concept provider ref `AI::debugStep`).
  */
-var canonicalize = require('../../providers/canonicalize.js');
+var canonicalize = require('../../../lib/providers/canonicalize.js');
 
 var DEFAULT_FACTS = {
 	bugClass: { enum: ['off-by-one', 'null-deref', 'wrong-branch', 'type-mismatch', 'resource-leak'] },

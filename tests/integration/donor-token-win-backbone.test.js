@@ -14,8 +14,8 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { libraryKey } = require('../../lib/authoring/learning/crystallize.js');
-const { makeLibrary, indexMethod, dispatch, dispatchInterface } = require('../../lib/authoring/learning/library.js');
+const { libraryKey } = require('../../plugins/learning/lib/crystallize.js');
+const { makeLibrary, indexMethod, dispatch, dispatchInterface } = require('../../plugins/learning/lib/library.js');
 const { digest } = require('../../lib/providers/canonicalize.js');
 
 const ENDPOINTS = [{ name: 'origin', role: 'endpoint', sort: 'node-ref' }, { name: 'target', role: 'endpoint', sort: 'node-ref' }];
