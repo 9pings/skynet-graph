@@ -1,9 +1,11 @@
 {
   // critical-mind (C9) — the external, auditable critical mind as a skynet-graph plugin. Two faces in one
-  // bundle: the GRAMMAR ledger-core (concepts/dialectic/ + Dialectic::tally/untally providers — witness
-  // gate, append-only ledger, native cascade retraction) and the imperative COMBO (combo.js) that drives
-  // the measured full pipeline (establish → generate anchored theses → typed ledger → certification-aware
-  // verdict at the decidability margin). deps: [] for now — reason-kernel is extracted in a later tranche.
+  // bundle: the GRAMMAR ledger-core (concepts/dialectic/ — witness gate, append-only ledger, native cascade
+  // retraction; its Pro/ConEntry tally into ledger.pro/con via reason-kernel's Ledger primitive) and the
+  // imperative COMBO (combo.js) that drives the measured full pipeline (establish → generate anchored theses
+  // → typed ledger → certification-aware verdict at the decidability margin). The Dialectic namespace is
+  // RESERVED for C9's own LLM providers (cite/propose/synthesize — added in a later tranche); the generic
+  // ledger tally/untally moved DOWN to reason-kernel (deps below).
   "name": "critical-mind",
   "version": "0.1.0",
   "tier": 1,
@@ -12,8 +14,7 @@
   "concepts": ["dialectic"],
   "providerNamespaces": ["Dialectic"],
   "entrypoints": {
-    "providers": "./providers.js",
     "combos": { "createCriticalMind": "./combo.js" }
   },
-  "deps": []
+  "deps": [{ "name": "reason-kernel", "range": "^0.1.0" }]
 }

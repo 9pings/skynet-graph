@@ -38,8 +38,8 @@ const cast = (g, id, k) => !!(g._objById[id] && g._objById[id]._etty._mappedConc
 const fact = (g, id, k) => g._objById[id] && g._objById[id]._etty._[k];
 
 async function boot(seed) {
-	const { Dialectic } = require('../../plugins/critical-mind/providers.js');   // the pure ledger providers (tally/untally)
-	Graph._providers = { Dialectic };
+	const { Ledger } = require('../../plugins/reason-kernel/providers.js');   // the ledger primitive (tally/untally) — now a kernel dep
+	Graph._providers = { Ledger };
 	const g = new Graph(
 		{ lastRev: 0, freeNodes: seed.freeNodes || [], nodes: seed.nodes || [], segments: [] },
 		{ label: 'dialectic-test', isMaster: true, autoMount: true, conceptSets: ['dialectic'], bagRefManagers: {}, logLevel: 'error' },

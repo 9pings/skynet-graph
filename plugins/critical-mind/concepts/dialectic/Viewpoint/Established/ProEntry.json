@@ -6,6 +6,6 @@
   // audit-trail, retractions included. Self-flags `ProEntry`.
   "require": ["Established"],
   "ensure": ["$side == 'PRO'"],
-  "provider": ["Dialectic::tally", "pro"],
-  "cleaner": ["Dialectic::untally", "pro"]
+  "provider": ["Ledger::tally", "pro"],
+  "cleaner": ["Ledger::untally", "pro"]
 }

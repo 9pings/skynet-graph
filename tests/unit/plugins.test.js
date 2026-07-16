@@ -76,15 +76,18 @@ test('throws on an unresolved (missing) dependency', () => {
 });
 
 const CRITICAL_MIND_DIR = path.join(__dirname, '..', '..', 'plugins', 'critical-mind');
+const REASON_KERNEL_DIR = path.join(__dirname, '..', '..', 'plugins', 'reason-kernel');
 
-test('boots the REAL critical-mind plugin (loaded from plugins/critical-mind/) through the resolver', async () => {
-	const { loadPlugin } = require('../../lib/plugins');
-	const criticalMind = loadPlugin(CRITICAL_MIND_DIR);   // the actual shipped plugin dir: manifest + concepts/dialectic + providers.js + combo.js
+test('boots the REAL critical-mind plugin CARRYING its reason-kernel dep (flatten on a real object graph)', async () => {
+	const { loadPlugin, definePlugin } = require('../../lib/plugins');
+	// the npm shape: critical-mind carries its already-loaded reason-kernel dependency as an object
+	const criticalMind = definePlugin(CRITICAL_MIND_DIR, [loadPlugin(REASON_KERNEL_DIR)]);
 	assert.equal(criticalMind.name, 'critical-mind');
-	assert.ok(criticalMind.concepts.dialectic, 'the dialectic set built');
-	assert.equal(typeof criticalMind.combos.createCriticalMind, 'function', 'the combo entrypoint loaded');
-	const cfg = resolvePlugins([criticalMind]);
-	Graph._providers = cfg.providers;                            // the resolver output IS the host wiring
+	assert.equal(criticalMind.pluginDeps[0].name, 'reason-kernel', 'the dep is carried as an object');
+	const cfg = resolvePlugins([criticalMind]);                 // ONLY the top-level plugin — reason-kernel is flattened in
+	assert.deepEqual(cfg.order, ['reason-kernel', 'critical-mind'], 'the carried kernel resolves first');
+	assert.equal(typeof cfg.providers.Ledger.tally, 'function', 'Ledger providers merged FROM the kernel dep');
+	Graph._providers = cfg.providers;                           // the resolver output IS the host wiring
 	const g = new Graph(
 		{
 			lastRev: 0,
@@ -100,16 +103,31 @@ test('boots the REAL critical-mind plugin (loaded from plugins/critical-mind/) t
 		cfg.conceptMap
 	);
 	await settle(g);
-	assert.equal(cast(g, 'V1', 'ProEntry'), true, 'ProEntry casts through the resolver-wired plugin');
-	assert.deepEqual(fact(g, 'ledger', 'pro'), ['V1'], 'ledger.pro tallied — identical to the hand-wired boot');
+	assert.equal(cast(g, 'V1', 'ProEntry'), true, 'ProEntry casts — the client concept found the KERNEL provider');
+	assert.deepEqual(fact(g, 'ledger', 'pro'), ['V1'], "ledger.pro tallied via reason-kernel's Ledger::tally");
 });
 
-test('the critical-mind index.js auto-export (definePlugin) resolves in-repo', () => {
-	const p = require('../../plugins/critical-mind');   // exercises the require(skynet-graph)→relative fallback
+test('the critical-mind index.js auto-export CARRIES reason-kernel (definePlugin + dep, in-repo)', () => {
+	const p = require('../../plugins/critical-mind');   // exercises the require(pkg)→relative fallback for BOTH host and dep
 	assert.equal(p.name, 'critical-mind');
-	assert.deepEqual(p.pluginDeps, [], 'definePlugin attached empty pluginDeps (deps: [])');
-	assert.ok(p.concepts.dialectic && typeof p.providers.Dialectic.tally === 'function');
+	assert.deepEqual(p.deps, [{ name: 'reason-kernel', range: '^0.1.0' }], 'declares the kernel dep');
+	assert.equal(p.pluginDeps.length, 1, 'carries exactly one dep object');
+	assert.equal(p.pluginDeps[0].name, 'reason-kernel', 'the carried object is reason-kernel (relative fallback resolved it)');
+	assert.equal(typeof p.pluginDeps[0].providers.Ledger.tally, 'function', 'the kernel object carries its Ledger providers');
+	assert.ok(p.concepts.dialectic, 'critical-mind still ships its dialectic grammar');
 	assert.equal(typeof p.combos.createCriticalMind, 'function');
+	// end-to-end: the auto-exported object resolves (flattens the carried kernel) with no extra wiring
+	const cfg = resolvePlugins([p]);
+	assert.deepEqual(cfg.order, ['reason-kernel', 'critical-mind']);
+});
+
+test('reason-kernel index.js auto-export resolves in-repo (providers-only foundation plugin)', () => {
+	const k = require('../../plugins/reason-kernel');
+	assert.equal(k.name, 'reason-kernel');
+	assert.deepEqual(k.pluginDeps, [], 'no deps');
+	assert.deepEqual(Object.keys(k.concepts), [], 'providers-only (no concept sets yet)');
+	assert.equal(typeof k.providers.Ledger.tally, 'function');
+	assert.equal(typeof k.providers.Ledger.untally, 'function');
 });
 
 const FIX_MINI = path.join(__dirname, '..', 'fixtures', 'plugins', 'mini');

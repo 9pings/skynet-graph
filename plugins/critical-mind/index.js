@@ -5,16 +5,18 @@
  */
 /**
  * critical-mind — the plugin auto-export. `require('critical-mind')` returns the resolved plugin object
- * (concepts + Dialectic providers + the createCriticalMind combo) via `definePlugin(__dirname)`.
+ * (the dialectic concepts + the createCriticalMind combo) via `definePlugin(__dirname, [reason-kernel])`.
  *
- * `definePlugin` lives in skynet-graph. When this plugin is installed as its own npm package, skynet-graph
- * is a peer dependency and resolves by name; when it ships bundled INSIDE the skynet-graph repo (a
- * foundation plugin), the package name does not self-resolve, so we fall back to skynet-graph's facade by
- * relative path. Either way the exported plugin object is identical. No deps to carry (deps: []).
+ * Both `definePlugin` (from skynet-graph) and the `reason-kernel` dependency resolve by npm name when this
+ * ships as its own package (peer/dependency installed by npm), and by relative path when it ships bundled
+ * INSIDE the skynet-graph repo (a foundation plugin, where sibling packages are not in node_modules).
+ * `resolvePlugins` flattens the carried reason-kernel object — the graph never fetches (owner 07-16 quater).
  */
-function host() {
-	try { return require('skynet-graph'); }
-	catch ( e ) { return require('../../lib/index.js'); }   // bundled in-repo: skynet-graph doesn't self-resolve
+function requireEither( pkgName, relPath ) {                 // npm name (published) → relative sibling (bundled in-repo)
+	try { return require(pkgName); }
+	catch ( e ) { if ( e.code !== 'MODULE_NOT_FOUND' ) throw e; return require(relPath); }
 }
+const host = requireEither('skynet-graph', '../../lib/index.js');
+const reasonKernel = requireEither('reason-kernel', '../reason-kernel');
 
-module.exports = host().definePlugin(__dirname);
+module.exports = host.definePlugin(__dirname, [reasonKernel]);

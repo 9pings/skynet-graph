@@ -2,6 +2,6 @@
   // Mirror of ProEntry for the CON side (see ProEntry for the mechanism).
   "require": ["Established"],
   "ensure": ["$side == 'CON'"],
-  "provider": ["Dialectic::tally", "con"],
-  "cleaner": ["Dialectic::untally", "con"]
+  "provider": ["Ledger::tally", "con"],
+  "cleaner": ["Ledger::untally", "con"]
 }

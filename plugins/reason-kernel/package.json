@@ -1,0 +1,11 @@
+{
+  "name": "reason-kernel",
+  "version": "0.1.0",
+  "description": "Shared reasoning-kernel foundation plugin for skynet-graph (Ledger primitive; Thought/Score/Gate to follow).",
+  "main": "index.js",
+  "license": "AGPL-3.0-or-later",
+  "author": "Nathanael Braun <pp9ping@gmail.com>",
+  "keywords": ["skynet-graph", "skynet-graph-plugin", "reasoning", "kernel", "ledger"],
+  "peerDependencies": { "skynet-graph": ">=1.3.0" },
+  "files": ["index.js", "providers.js", "sg-plugin.json", "README.md"]
+}
