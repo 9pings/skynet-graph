@@ -73,7 +73,7 @@ versioned by the registry — concept-methods compose, so they ship with their d
 A method is parameterized by other sub-graphs (the loop *body*, a predicate, an accumulator). This is
 **higher-order in power, first-order in mechanics**: we never *infer* a body (undecidable — Huet 1975), the engine
 *supplies* it by name → substitution. Four invariants keep it decidable and are **checked** by a lint
-(`lib/authoring/method.js#lintMethod`): every slot is **(a) named (b) K1-typed (c) bound-by-ref, never solved-for
+(`lib/authoring/core/method.js#lintMethod`): every slot is **(a) named (b) K1-typed (c) bound-by-ref, never solved-for
 (d) tentacle-fixed**. The role of a slot — a **param** (typed, part of the contract + memo key) vs a **`coll`**
 (the cases iterated over, *excluded* from the key) — is assigned by the method, not intrinsic to a field. Building
 blocks: `applySubgraphArg` / `mapTemplate` (apply a sub-graph param, fan a body per element with fresh ids),
@@ -159,7 +159,7 @@ drift vs 0/12** (stale), replaying across a process restart at **0 calls**.
 
 ## 5. Soundness under composition — C-contract & the un-learn moat
 
-`lib/authoring/contract.js` is the defeasible separation-triple checker — the "central hole" of the conception,
+`lib/authoring/core/contract.js` is the defeasible separation-triple checker — the "central hole" of the conception,
 built behind a specialist confrontation (theory / engine / adversary):
 
 - **Assume at compose-time.** `checkCompose(M1, M2)` checks `post(M1) ⊨ pre(M2)` over every shared fact, by
@@ -279,7 +279,7 @@ ceiling exhibited, not a defended scalar.
 **Bounded subgraph extraction + embedded inference (2026-07-01, ZERO-CORE).** The fork-perf measure settled the scale
 question: the fork deep-copy is O(working-graph) and **library-independent** (the conceptMap is passed by reference), so
 forks don't dominate from a distilled mass; the real lever is the **multi-process ship** — `extractSubgraph`/`mergeSlice`
-(`lib/authoring/extract.js`) = program slicing at the fork boundary (a k-hop ball + a **frozen frontier** = `contract.js`
+(`lib/authoring/core/extract.js`) = program slicing at the fork boundary (a k-hop ball + a **frozen frontier** = `contract.js`
 G1 + an ATMS environment + a single-writer disjoint merge), ship-able to a worker process (27–245× cheaper than the whole
 graph, cross-process proven). And the library can now run its **small functional model(s) in-process** —
 `makeLocalAsk` (`lib/providers/llm-local.js`, node-llama-cpp/GGUF, proven on an RTX 5090), whose **grammar-constrained
@@ -288,7 +288,7 @@ fact) — the self-contained-appliance endpoint and the signature-stability leve
 
 **Signature-stability screen (2026-07-01, ZERO-CORE) — the roadmap's 2-phase-minimum make-or-break, run + a decisive
 finding.** *Does constrained decoding keep a small model's typed signature paraphrase-stable?* — instrumented live behind
-an adversarial confront (formal + SOTA). Built the tracked paraphrase-stability profiler (`lib/authoring/emittability.js`,
+an adversarial confront (formal + SOTA). Built the tracked paraphrase-stability profiler (`lib/authoring/learning/emittability.js`,
 the roadmap's Grammar-P1 instrument): unbiased-Simpson within-task collision + the pooled **V-measure homogeneity** that
 catches the correctness-fatal COLLISION mode a naive within-task metric misses + a Fleiss-κ **vacuousness alarm** +
 per-field marginals + a format-netting cross-arm compare. Four arms on vibethinker-3b (temp 0, deterministic) **INVERT the
@@ -310,7 +310,7 @@ enabler. The 2-phase minimum: the controller request/response bridge + the compo
 constrained-decoding — because everything downstream is worthless if paraphrases fragment the key.
 
 **STAGE-0 compositional gate (2026-07-01, ZERO-CORE) — the compress.js decision made honest.** The composed roadmap's ONE
-shared front kill-gate (*does the workload COMPOSE?*) now has a cheap instrument: `lib/authoring/compose-hotspot.js`, the
+shared front kill-gate (*does the workload COMPOSE?*) now has a cheap instrument: `lib/authoring/learning/compose-hotspot.js`, the
 depth-≥2 analog of `hotspot.js`. RE-PAIR over dispatch sequences → {compose-candidate · **already-flat-covered** (the
 off-ramp: a composite spanning only ONE whole-task, which whole-task memo already serves) · unstable · too-rare} + a Minton
 call-utility (`savedCalls ≈ distinctTasks−1`). The load-bearing condition (self-confronted): a persisted depth-≥2 method

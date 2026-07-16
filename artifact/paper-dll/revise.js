@@ -38,7 +38,7 @@
  */
 const path = require('path');
 const ROOT = path.resolve(__dirname, '../..');
-const C = require(ROOT + '/lib/authoring/contract.js');     // the REAL defeasible-contract checker (assertPost/reviseOnBlame/satisfies)
+const C = require(ROOT + '/lib/authoring/core/contract.js');     // the REAL defeasible-contract checker (assertPost/reviseOnBlame/satisfies)
 
 const out = ( ...a ) => process.stdout.write(a.join(' ') + '\n');
 const classKey = ( c ) => c.id;                              // a stable typed identity (the memo key)

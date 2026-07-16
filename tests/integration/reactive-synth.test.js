@@ -11,7 +11,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
-const { reactiveLoopConceptTree, makeDecomposeProviders } = require('../../lib/authoring/loop.js');
+const { reactiveLoopConceptTree, makeDecomposeProviders } = require('../../lib/authoring/core/loop.js');
 console.log = console.info = console.warn = () => {};
 
 test('synthesis happens reactively in-stabilization, bottom-up, with no post-pass', async () => {

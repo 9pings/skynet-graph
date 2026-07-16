@@ -19,7 +19,7 @@
 const path = require('path');
 const ROOT = path.resolve(__dirname, '../..');
 const { digest } = require(ROOT + '/lib/providers/canonicalize.js');         // the real K1 typed key
-const C = require(ROOT + '/lib/authoring/contract.js');                       // the real defeasible-contract checker
+const C = require(ROOT + '/lib/authoring/core/contract.js');                       // the real defeasible-contract checker
 const { track, newCounters, finalize } = require('./arms.js');
 
 const typedKey = ( r ) => digest({ kind: r.kind, region: r.region, score: r.score });   // tier EXCLUDED (incidental)

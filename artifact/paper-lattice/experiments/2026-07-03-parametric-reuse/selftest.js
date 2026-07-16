@@ -13,8 +13,8 @@
  */
 const assert = require('node:assert/strict');
 const Graph = require('../../../../tests/_boot.js');
-const { nextStable } = require('../../../../lib/authoring/supervise.js');
-const { makeTypedDecomposeProviders } = require('../../../../lib/authoring/typed-loop.js');
+const { nextStable } = require('../../../../lib/authoring/core/supervise.js');
+const { makeTypedDecomposeProviders } = require('../../../../lib/authoring/core/typed-loop.js');
 const { seedMethod, slotBindings, mountParametric, paramLoopConceptTree } = require('./mechanics.js');
 console.log = console.log.bind(console); console.info = console.warn = () => {};
 

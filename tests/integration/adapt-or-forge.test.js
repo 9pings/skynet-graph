@@ -7,10 +7,10 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
-const { crystallizeStructural } = require('../../lib/authoring/crystallize.js');
-const { makeLibrary, indexMethod } = require('../../lib/authoring/library.js');
-const { adaptOrForge } = require('../../lib/authoring/adapt.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
+const { crystallizeStructural } = require('../../lib/authoring/learning/crystallize.js');
+const { makeLibrary, indexMethod } = require('../../lib/authoring/learning/library.js');
+const { adaptOrForge } = require('../../lib/authoring/learning/adapt.js');
 const { digest } = require('../../lib/providers/canonicalize.js');
 console.log = console.info = console.warn = () => {};
 

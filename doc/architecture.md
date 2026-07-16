@@ -198,16 +198,16 @@ The substrate ships the pieces that make Use 2 possible, each usable **à nu**:
   auto-retract stale facts (cache-poisoning fix).
 - **Declarative AI-authoring.** `addConcept` + an author-time validator (rejects prose on
   dependency edges, missing self-flags, unparseable exprs, unknown refs) + a CEGIS loop
-  (`lib/authoring/author.js`) that proposes → validates → installs → tests → refines.
+  (`lib/authoring/core/author.js`) that proposes → validates → installs → tests → refines.
 - **Safe live self-modification.** A supervised loop can hypothesize a self-mod, evaluate
   it with a better-model judge, and `rollbackTo` cleanly if it's worse — re-entrancy-safe,
   backstopped, and reversible (rules included).
-- **The zoom bricks (F2).** `lib/authoring/dag-decompose.js` (the typed cutter prompt + archetype
+- **The zoom bricks (F2).** `plugins/planner/lib/dag-decompose.js` (the typed cutter prompt + archetype
   router — pieces bind through `needs`/`produces`, never free prose), `context-project.js` (the bounded
   per-piece projection; `stratComplete` is the stratified CONTEXT/DONE/ROADMAP rendering that held on
   the compound "monster" tasks), `givens.js` (the typed base-fact front door + the measured CELLS
   labelling rule), `leaf-io.js` (typed leaf value or a typed refusal — never carried garbage).
-- **The support grammar** (`lib/authoring/support.js`). *Structure and search are reified in the graph, not held
+- **The support grammar** (`plugins/planner/lib/support.js`). *Structure and search are reified in the graph, not held
   in the model's context*: a problem decomposes; each bounded atomic segment **proposes K candidate answers**; a
   `pareto` SELECT keeps the non-dominated front; a `Stuck` segment **escalates** to a better tier; the parent
   synthesizes bottom-up. So a *small* local model need only be locally competent on a bounded sub-problem. This is

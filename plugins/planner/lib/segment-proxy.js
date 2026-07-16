@@ -23,7 +23,7 @@
  * guards the async host-side flow); P2 reuses P4's assertPost GATE and returns the cast template via `cb` (the engine
  * applies it sequenced). GOTCHA respected: the template sets the proxy's own `<name>:true` cast marker.
  */
-const { assertPost } = require('../../../lib/authoring/contract.js');
+const { assertPost } = require('../../../lib/authoring/core/contract.js');
 
 /**
  * reconstructStack(graph, scope, opts) — reconstitute the bounded problem STACK by walking UP the `parentSeg` chain

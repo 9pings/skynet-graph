@@ -6,7 +6,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { bagInterface, separatorGate, isMinimalSplit, primalAdj } = require('../../lib/authoring/decompose.js');
+const { bagInterface, separatorGate, isMinimalSplit, primalAdj } = require('../../lib/authoring/core/decompose.js');
 
 // ── THE KILLER CASE — two triangles sharing a VERTEX vs sharing an EDGE ───────────────────────────────────────
 test('bagInterface — catches a size-1→size-2 interface regression that BOTH treewidth AND articulation miss', () => {

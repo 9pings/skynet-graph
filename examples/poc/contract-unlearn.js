@@ -29,9 +29,9 @@
  * Run: `node examples/poc/contract-unlearn.js`.
  */
 const Graph = require('../../lib/graph/index.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
 const { createConstat } = require('../../lib/providers/constat.js');
-const C = require('../../lib/authoring/contract.js');
+const C = require('../../lib/authoring/core/contract.js');
 
 async function settle( g ) {
 	for ( let i = 0; i < 50; i++ ) {

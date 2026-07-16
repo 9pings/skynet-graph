@@ -9,7 +9,7 @@
  * absolute ids injects the wrong id-space → unsound / crash). The E0 cross-problem-structural-transfer
  * number is therefore 0 today.
  *
- * THIS experiment makes that number NON-ZERO and SOUND, via `authoring/abstract.js#methodTransform`
+ * THIS experiment makes that number NON-ZERO and SOUND, via `authoring/core/abstract.js#methodTransform`
  * (relativize-on-store / bind-on-replay), keyed on the TYPED K1 signature. Three engine runs of the SAME
  * one-level structural decomposition, each in its OWN id-space (so transfer is genuinely cross-problem):
  *
@@ -26,9 +26,9 @@ global.__SERVER__ = true;
 const path = require('path');
 const ROOT = path.resolve(__dirname, '../..');
 const Graph = require(ROOT + '/lib/graph/index.js');
-const { nextStable } = require(ROOT + '/lib/authoring/supervise.js');
+const { nextStable } = require(ROOT + '/lib/authoring/core/supervise.js');
 const { createProviderCache } = require(ROOT + '/lib/providers/cache.js');
-const { methodTransform } = require(ROOT + '/lib/authoring/abstract.js');
+const { methodTransform } = require(ROOT + '/lib/authoring/core/abstract.js');
 const out = ( ...a ) => process.stdout.write(a.join(' ') + '\n');
 
 // the grammar: ONE structural decomposition. Plan fires on a Segment flagged `toPlan`; it inserts an

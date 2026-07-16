@@ -10,8 +10,8 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 require('../_boot.js');
-const { evaluate, interfaceRegression } = require('../../lib/authoring/abstraction.js');
-const { separatorGate } = require('../../lib/authoring/decompose.js');
+const { evaluate, interfaceRegression } = require('../../lib/authoring/core/abstraction.js');
+const { separatorGate } = require('../../lib/authoring/core/decompose.js');
 console.log = console.info = console.warn = () => {};
 
 // a chain joined by ONE bridge fact (size-1 cut); a widening abstraction routes through TWO (size-2 cut).

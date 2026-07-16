@@ -6,8 +6,8 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { mineGroundingRings, ringTouch } = require('../../lib/authoring/ground.js');
-const { retractRingAlias } = require('../../lib/authoring/registry.js');
+const { mineGroundingRings, ringTouch } = require('../../lib/authoring/forge/ground.js');
+const { retractRingAlias } = require('../../lib/authoring/lattice/registry.js');
 
 const EP = ( aliases, gold, base ) => ({ aliases, gold, base });
 

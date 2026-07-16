@@ -8,8 +8,8 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
-const { crystallize, adopt, consolidate } = require('../../lib/authoring/crystallize.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
+const { crystallize, adopt, consolidate } = require('../../lib/authoring/learning/crystallize.js');
 console.log = console.info = console.warn = () => {};
 
 const Comp = {

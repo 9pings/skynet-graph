@@ -17,7 +17,7 @@ const fs = require('fs');
 const os = require('os');
 const { ARMS } = require(ROOT + '/artifact/paper-dll/arms.js');
 const { STRUCT_REAL_ARMS, makeStructReal, unlearnDemo, composedCascadeDemo } = require(ROOT + '/artifact/paper-dll/struct-real.js');
-const { createFileStore } = require(ROOT + '/lib/authoring/store.js');
+const { createFileStore } = require(ROOT + '/lib/authoring/core/store.js');
 const E = require(ROOT + '/artifact/paper-dll/workload.js');
 const H = require(ROOT + '/artifact/paper-dll/harness.js');
 

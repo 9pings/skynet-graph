@@ -9,8 +9,8 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
-const { deriveRegistry, freezeRegistry, registryLoopTree, proposalTemplate, makeRegistryLoopProviders, resolveFactsSchema } = require('../../lib/authoring/registry.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
+const { deriveRegistry, freezeRegistry, registryLoopTree, proposalTemplate, makeRegistryLoopProviders, resolveFactsSchema } = require('../../lib/authoring/lattice/registry.js');
 console.log = console.info = console.warn = () => {};
 
 // a starting registry: severity = {low, high}, NO ring yet (the exogenous vocab the loop will grow).

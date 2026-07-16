@@ -9,8 +9,8 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
-const { widenOnVerified, satisfies } = require('../../lib/authoring/contract.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
+const { widenOnVerified, satisfies } = require('../../lib/authoring/core/contract.js');
 console.log = console.info = console.warn = () => {};
 
 const App = { serve: function ( g, c, scope, argz, cb ) { cb(null, { $_id: '_parent', Serve: true, Served: true }); } };

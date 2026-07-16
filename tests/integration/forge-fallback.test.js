@@ -10,7 +10,7 @@ const assert = require('node:assert/strict');
 const Graph = require('../../lib/index.js');
 const { makeForgeFallback, defaultStackToPrompt, defaultSerializeBlame } = require('../../plugins/planner/lib/forge-fallback.js');
 const { makeSegmentProxy } = require('../../plugins/planner/lib/segment-proxy.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
 console.log = console.info = console.warn = () => {};
 
 const CONTRACT = { read: ['temp'], write: ['Hot'], post: ['$Hot == true'], effect: 'internal' };

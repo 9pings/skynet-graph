@@ -11,10 +11,10 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
-const { declaredCtx, normalizeFrontierParams, inferCtx, methodTrace, emitEquivalence, mineMethods } = require('../../lib/authoring/mine.js');
-const { relativize, instantiate, canon } = require('../../lib/authoring/abstract.js');
-const { crystallizeStructural, adopt, libraryKey } = require('../../lib/authoring/crystallize.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
+const { declaredCtx, normalizeFrontierParams, inferCtx, methodTrace, emitEquivalence, mineMethods } = require('../../lib/authoring/learning/mine.js');
+const { relativize, instantiate, canon } = require('../../lib/authoring/core/abstract.js');
+const { crystallizeStructural, adopt, libraryKey } = require('../../lib/authoring/learning/crystallize.js');
 console.log = console.info = console.warn = () => {};
 
 // the modeled structural provider (mirrors crystallize-miner.test.js): one intermediate between origin & target,

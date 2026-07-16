@@ -1,6 +1,6 @@
 'use strict';
 /**
- * method-pack (lib/authoring/method-pack.js) — the `.sgc` CRYSTALLIZED-METHOD package (M3). Round-trip +
+ * method-pack (lib/authoring/learning/method-pack.js) — the `.sgc` CRYSTALLIZED-METHOD package (M3). Round-trip +
  * derived typed schema; the load-bearing B8 VERSION GATE (a same-version package replays at 0 calls, a
  * cross-version one is REFUSED → the host re-forges); the typed VERIFY still rejects a structurally-foreign
  * packaged method across deployments; and the end-to-end cross-deployment ship (pack → .sgc file → fresh
@@ -11,9 +11,9 @@ const assert = require('node:assert/strict');
 const path = require('node:path');
 const fs = require('node:fs');
 const os = require('node:os');
-const { packMethods, unpackMethods, deriveMethodSchema, loadMethods } = require('../../lib/authoring/method-pack');
-const { createMasterLoop } = require('../../lib/authoring/master-loop');
-const { saveSgc, loadSgc } = require('../../lib/authoring/store');
+const { packMethods, unpackMethods, deriveMethodSchema, loadMethods } = require('../../lib/authoring/learning/method-pack');
+const { createMasterLoop } = require('../../lib/authoring/learning/master-loop');
+const { saveSgc, loadSgc } = require('../../lib/authoring/core/store');
 
 const signature = ( p ) => ({ structure: { oKind: p.oKind, tKind: p.tKind }, content: { variant: p.variant } });
 

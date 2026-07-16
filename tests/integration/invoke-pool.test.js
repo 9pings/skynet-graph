@@ -8,7 +8,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../../lib/index.js');
 const { makeSegmentProxy } = require('../../plugins/planner/lib/segment-proxy.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
 console.log = console.info = console.warn = () => {};
 
 const METHOD_TREE = { common: { childConcepts: {

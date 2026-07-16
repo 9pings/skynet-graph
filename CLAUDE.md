@@ -13,7 +13,7 @@ Skynet-graph is a **library** to embed (and a standalone `sg` CLI), not a ready-
 **Tests:**
 - `npm test` runs the suite via Node's built-in runner (`node --test --test-force-exit tests/unit/*.test.js tests/integration/*.test.js`), 1350 tests (1348 pass, 2 known skips). Unit tests (`tests/unit/`) are pure; integration tests (`tests/integration/`) load the engine via `tests/_boot.js` (which sets `__SERVER__` and requires the engine — **no Babel**; the source is native CommonJS).
 - `--test-force-exit` is required (the engine keeps timers/scheduler handles open). Side effect: the **aggregate** test COUNT can race-undercount across files — tests still all pass; re-run a single file for a deterministic count.
-- `lib/authoring/concepts.js#buildConceptTree(dir)` builds a concept tree from `concepts/<set>/`; or use `Graph.fromDirs({concepts})` / `Graph.loadConceptMap(dir)`. The host passes `{ common: tree }` as `conceptMap` to `new Graph(...)`.
+- `lib/authoring/core/concepts.js#buildConceptTree(dir)` builds a concept tree from `concepts/<set>/`; or use `Graph.fromDirs({concepts})` / `Graph.loadConceptMap(dir)`. The host passes `{ common: tree }` as `conceptMap` to `new Graph(...)`.
 - Standalone: `node bin/sg run --concepts ./concepts --builtins`. Demos: `node examples/run-basic.js` (non-LLM stabilization over the real `common` set) and `node examples/run-problem.js` (LLM-driven plan decomposition; needs an endpoint — see `lib/providers/llm.js`).
 - Ignore `tests/Graph.test.js` — dead legacy (requires modules that don't exist here).
 
@@ -74,7 +74,7 @@ A concept's schema fields (handled in `Concept.js`):
 - `applyMutations` — a mutation template applied when the concept casts.
 - `type: "enum"`, `defaultValue`, `autoCast: false`, `syncAfter` — control casting behavior (`autoCast:false` opts out of automatic casting; `syncAfter` is currently a no-op stub).
 
-**Typed-fact discipline (the canonicalization barrier — never break it).** A `require`/`ensure`/`assert` must key only on **discrete, typed** facts (enums, ids, numbers, booleans), never on free-text **prose** — a prose dependency re-keys every run, so the memo never hits (risk K1). An `LLM::complete` concept that feeds downstream declares a `prompt.facts` schema: the provider writes only those canonicalized (enum-snapped / grain-rounded) keys as *tracked* facts, the reply text on an *untracked* `prose` key, and a stable `<name>FactsDigest`. `lib/authoring/validate.js#validateConceptTree` enforces this at author time (rejects prose-on-dependency-edges, missing `_name`, unparseable exprs; validates **structure, not grammar**). See `doc/API.md` (the `facts`/`prose` contract) and `doc/MODELISATION.md` §4.2.
+**Typed-fact discipline (the canonicalization barrier — never break it).** A `require`/`ensure`/`assert` must key only on **discrete, typed** facts (enums, ids, numbers, booleans), never on free-text **prose** — a prose dependency re-keys every run, so the memo never hits (risk K1). An `LLM::complete` concept that feeds downstream declares a `prompt.facts` schema: the provider writes only those canonicalized (enum-snapped / grain-rounded) keys as *tracked* facts, the reply text on an *untracked* `prose` key, and a stable `<name>FactsDigest`. `lib/authoring/core/validate.js#validateConceptTree` enforces this at author time (rejects prose-on-dependency-edges, missing `_name`, unparseable exprs; validates **structure, not grammar**). See `doc/API.md` (the `facts`/`prose` contract) and `doc/MODELISATION.md` §4.2.
 
 ### Two embedded DSLs
 

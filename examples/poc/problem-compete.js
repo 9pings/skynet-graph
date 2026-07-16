@@ -22,7 +22,7 @@
  */
 global.__SERVER__ = true;
 const Graph = require('../../lib/graph/index.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
 const { providers, conceptTree, pathSteps } = require('./problem-paths.js');
 const { namespaced } = require('./problem-delegate.js');
 

@@ -1,6 +1,6 @@
 'use strict';
 /**
- * BOUNDED SUBGRAPH EXTRACTION (lib/authoring/extract.js) — program slicing at the fork/ship boundary (2026-07-01
+ * BOUNDED SUBGRAPH EXTRACTION (lib/authoring/core/extract.js) — program slicing at the fork/ship boundary (2026-07-01
  * fork-perf measure + Laurie confront, SOUND-WITH-CORRECTION). A ship-able slice = a segment-closed 1-hop ball with the
  * other-endpoint nodes FROZEN as inputs. Soundness = contract.js G1 at the fork boundary (the frozen frontier is
  * frame-complete) + single-writer merge + an assumption-recheck. ZERO-CORE.
@@ -13,7 +13,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
-const { extractSubgraph, mergeSlice } = require('../../lib/authoring/extract.js');
+const { extractSubgraph, mergeSlice } = require('../../lib/authoring/core/extract.js');
 console.log = console.info = console.warn = () => {};
 
 // a concept tree: Edge casts on every segment; SameRegion casts iff the segment's two endpoints share a region — an

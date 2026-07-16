@@ -1,11 +1,11 @@
 'use strict';
 /**
- * Hysteresis dead-band (lib/authoring/hysteresis.js, experiment C / P3). A single fixed margin
+ * Hysteresis dead-band (lib/authoring/core/hysteresis.js, experiment C / P3). A single fixed margin
  * oscillates when the re-eval variance exceeds it; a ≥3σ dead-band converges (0 steady-state flips).
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { makeHysteresis, bandFromSigma } = require('../../lib/authoring/hysteresis');
+const { makeHysteresis, bandFromSigma } = require('../../lib/authoring/core/hysteresis');
 
 test('decision logic: adopt on clear improvement, revert on clear regression, else hold', () => {
 	const h = makeHysteresis({ keepThreshold: 5, mergeThreshold: 5, betterIsLower: true });

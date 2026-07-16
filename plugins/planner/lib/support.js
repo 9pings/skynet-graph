@@ -22,7 +22,7 @@
  * already-shipped pieces so a SMALL model only has to be locally competent on a bounded segment
  * while the GRAPH holds the structure and runs the search:
  *
- *   (structure, J1) the decompose loop (lib/authoring/loop.js): a Task DAG that splits a problem
+ *   (structure, J1) the decompose loop (lib/authoring/core/loop.js): a Task DAG that splits a problem
  *      into segments and synthesizes bottom-up (reactive Rollup) — the whole is NEVER in the
  *      model's context, only `${label}` of one segment;
  *   (alternatives, J2) the per-segment SELECT cluster (lib/providers/semiring.js#selectConceptTree):
@@ -41,8 +41,8 @@
  */
 const path = require('path');
 const dmerge = require('deepmerge');
-const { makeDecomposeProviders } = require('../../../lib/authoring/loop.js');
-const { buildConceptTree } = require('../../../lib/authoring/concepts.js');
+const { makeDecomposeProviders } = require('../../../lib/authoring/core/loop.js');
+const { buildConceptTree } = require('../../../lib/authoring/core/concepts.js');
 const { createSemiring, selectConceptTree } = require('../../../lib/providers');
 const { rankOf } = require('../../../lib/providers/semiring.js');
 
@@ -78,7 +78,7 @@ function supportConceptTree( opts ) {
 
 /**
  * The support-grammar providers. Reuses the decompose providers (AI::evalComplexity/expand/reportUp/
- * rollup, lib/authoring/loop.js) + the pareto reducer (Semiring::reduce) and adds the two tiny
+ * rollup, lib/authoring/core/loop.js) + the pareto reducer (Semiring::reduce) and adds the two tiny
  * Support providers (propose/adopt) that bracket the SELECT.
  * @param opts.proposeFn(scope) -> [{ id, ...criteria, content }]   candidate alternatives for a segment
  * @param opts.escalateFn(scope) -> [{ id, ...criteria, content }]  J3: a BETTER-tier proposer, called

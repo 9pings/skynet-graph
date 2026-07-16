@@ -1,7 +1,7 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert');
-const { createRetentionStore } = require('../../lib/authoring/retention');
+const { createRetentionStore } = require('../../lib/authoring/core/retention');
 
 test('retention — tracks reuse: a served get on a present key counts a use, has() does not', () => {
 	const s = createRetentionStore(new Map());

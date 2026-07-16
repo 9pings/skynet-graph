@@ -10,7 +10,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { createLifecycle } = require('../../lib/authoring/lifecycle.js');
+const { createLifecycle } = require('../../lib/authoring/core/lifecycle.js');
 
 test('a concept is born fully plastic (p=1)', () => {
 	const lc = createLifecycle();

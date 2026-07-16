@@ -9,7 +9,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { makeCompeteProvider } = require('../../lib/authoring/compete.js');
+const { makeCompeteProvider } = require('../../lib/authoring/core/compete.js');
 
 const CRITERIA = { cost: { dir: 'min' } };
 function decompFor( s ) { return ( base, o, t ) => [{ _id: base + '_w', Node: true, strategy: s }, { _id: base + '_c0', Segment: true, originNode: o, targetNode: base + '_w', parentSeg: base }]; }

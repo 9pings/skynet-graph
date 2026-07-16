@@ -11,7 +11,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const C = require('../../lib/authoring/contract.js');
+const C = require('../../lib/authoring/core/contract.js');
 
 const K = ( atoms, k ) => C.normalize(atoms).byKey[k];
 const ek = ( post, pre, k ) => C.entailsKey(K(post, k), K(pre, k));

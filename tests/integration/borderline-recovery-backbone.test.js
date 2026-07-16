@@ -20,7 +20,7 @@ const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
 const { createIntake, makeBorderlineSnap } = require('../../lib/providers');
 const { deriveRegistry, freezeRegistry, resolveFactsSchema, registryLoopTree, makeRegistryLoopProviders,
-	retractRingAlias, mergeRingProposals, specForKey } = require('../../lib/authoring/registry');
+	retractRingAlias, mergeRingProposals, specForKey } = require('../../lib/authoring/lattice/registry');
 const { compileEnumMap, canonValue, normToken } = require('../../lib/providers/canonicalize');
 console.log = console.info = console.warn = () => {};
 

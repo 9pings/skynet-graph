@@ -12,8 +12,8 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 require('../_boot.js');
 const { runClinicalDefeasance, CLINICAL } = require('../../examples/poc/clinical.js');
-const { buildConceptTree } = require('../../lib/authoring/concepts');
-const { validateConceptTree } = require('../../lib/authoring/validate');
+const { buildConceptTree } = require('../../lib/authoring/core/concepts');
+const { validateConceptTree } = require('../../lib/authoring/core/validate');
 console.log = console.info = console.warn = () => {};
 
 test('a refuted lab retracts the diagnosis + cascades the medication, leaving a typed constat', async () => {

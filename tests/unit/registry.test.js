@@ -7,7 +7,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { deriveRegistry, freezeRegistry, specForKey, resolveFactsSchema, mergeRingProposals, retractRingAlias, decideRingAdmission, creditRingAlias, checkTreeAgainstRegistry, validateWithRegistry } = require('../../lib/authoring/registry');
+const { deriveRegistry, freezeRegistry, specForKey, resolveFactsSchema, mergeRingProposals, retractRingAlias, decideRingAdmission, creditRingAlias, checkTreeAgainstRegistry, validateWithRegistry } = require('../../lib/authoring/lattice/registry');
 const { createIntake } = require('../../lib/providers');
 
 const q = ( s ) => "$status=='" + s + "'";

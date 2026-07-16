@@ -8,8 +8,8 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { costProbe, paysToCompress } = require('../../lib/authoring/cost-probe');
-const { composeHotspots, trackCompositions } = require('../../lib/authoring/compose-hotspot');
+const { costProbe, paysToCompress } = require('../../lib/authoring/learning/cost-probe');
+const { composeHotspots, trackCompositions } = require('../../lib/authoring/learning/compose-hotspot');
 
 // a composite [A,B,C] observed over 3 whole-task instances that SHARE a typed envelope 'E'; only the interior key policy varies.
 function occ( envelopeKey, cons ) { return { envelopeKey: envelopeKey, constituents: cons }; }

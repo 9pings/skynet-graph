@@ -13,8 +13,8 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
-const { methodTrace } = require('../../lib/authoring/mine.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
+const { methodTrace } = require('../../lib/authoring/learning/mine.js');
 const { digest } = require('../../lib/providers/canonicalize.js');
 const { createLearningLibrary } = require('../../lib/combos/learning-library.js');
 console.log = console.info = console.warn = () => {};

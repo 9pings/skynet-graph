@@ -8,8 +8,8 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../../lib/graph/index.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
-const { boundedProject, validate } = require('../../lib/authoring/bounded-merge.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
+const { boundedProject, validate } = require('../../lib/authoring/core/bounded-merge.js');
 
 function mkParent() {
 	return new Graph({ lastRev: 0, nodes: [{ _id: 'root', Root: true }], segments: [] },

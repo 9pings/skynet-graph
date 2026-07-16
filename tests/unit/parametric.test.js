@@ -8,7 +8,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { slotBindings, mountParametric, slotPostFrom, attributeSlotBlame, attributeSlotCredit } = require('../../lib/authoring/parametric.js');
+const { slotBindings, mountParametric, slotPostFrom, attributeSlotBlame, attributeSlotCredit } = require('../../lib/authoring/learning/parametric.js');
 
 // a crystallized-then-LGG'd method skeleton (the methodContentHoles output shape): two param-holed
 // aggregate steps + a constant check step — the Probe-#1 compare frame.

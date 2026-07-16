@@ -24,9 +24,9 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');                                  // sets __SERVER__ then loads the engine
-const { crystallizeStructural } = require('../../lib/authoring/crystallize.js');
-const { blendMethods, composeContract, attributeCompositeBlame } = require('../../lib/authoring/adapt.js');
-const { BASE } = require('../../lib/authoring/abstract.js');
+const { crystallizeStructural } = require('../../lib/authoring/learning/crystallize.js');
+const { blendMethods, composeContract, attributeCompositeBlame } = require('../../lib/authoring/learning/adapt.js');
+const { BASE } = require('../../lib/authoring/core/abstract.js');
 console.log = console.info = console.warn = () => {};
 
 // ── fixture builders (mirror blend-methods.test.js) ────────────────────────────────────────────────────────────

@@ -15,10 +15,10 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const path = require('node:path');
-const { buildConceptTree } = require('../../lib/authoring/concepts');
-const { validateConceptTree } = require('../../lib/authoring/validate');
+const { buildConceptTree } = require('../../lib/authoring/core/concepts');
+const { validateConceptTree } = require('../../lib/authoring/core/validate');
 const Graph = require('../../lib/graph/index.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
 
 const DIALECTIC = path.join(__dirname, '..', '..', 'plugins', 'critical-mind', 'concepts', 'dialectic');
 const tree = () => buildConceptTree(DIALECTIC);

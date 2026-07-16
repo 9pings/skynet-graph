@@ -25,8 +25,8 @@ const path = require('path');
 const E2E = path.resolve(__dirname, '../2026-07-02-e2e-fidelity');
 const ROOT = path.resolve(__dirname, '../../../..');
 const Graph = require(ROOT + '/tests/_boot.js');
-const { nextStable } = require(ROOT + '/lib/authoring/supervise.js');
-const { makeTypedDecomposeProviders } = require(ROOT + '/lib/authoring/typed-loop.js');
+const { nextStable } = require(ROOT + '/lib/authoring/core/supervise.js');
+const { makeTypedDecomposeProviders } = require(ROOT + '/lib/authoring/core/typed-loop.js');
 const { seedMethod, slotBindings, mountParametric, paramLoopConceptTree } = require('./mechanics.js');
 const { answerMatches } = require(E2E + '/live.js');
 console.info = console.warn = () => {};
@@ -157,12 +157,12 @@ async function mountAndCompute( gen, slots, task, x ) {
 	// mechanics.mountParametric keys params by slot ROLE — with two holes per role we key by role#key instead
 	const perSlot = {};
 	for ( const s of slots ) { const v = values[s.role + '.' + s.key]; if ( v != null && v !== '' ) perSlot[s.path] = v; }
-	const { fillContentHoles } = require(ROOT + '/lib/authoring/abstract.js');
+	const { fillContentHoles } = require(ROOT + '/lib/authoring/core/abstract.js');
 	const missing = slots.filter(( s ) => !(s.path in perSlot));
 	if ( missing.length ) return { status: 'impracticable', hint: missing.map(( s ) => ({ role: s.role, key: s.key })) };
 	const filled = fillContentHoles(gen.skeleton, perSlot);
 	if ( !filled ) return { status: 'impracticable', hint: [{ role: 'fill', key: '?' }] };
-	const { mountTemplate } = require(ROOT + '/lib/authoring/typed-loop.js');
+	const { mountTemplate } = require(ROOT + '/lib/authoring/core/typed-loop.js');
 	const mutation = mountTemplate(filled, { rootId: 'M_' + task.id, origin: 'X', target: 'Y', create: true,
 		facts: { stepKind: 'compare', aField: x.a.field, aValue: x.a.value, bField: x.b.field, bValue: x.b.value } });
 	if ( !mutation ) return { status: 'impracticable', hint: [{ role: 'frontier', key: '_id' }] };

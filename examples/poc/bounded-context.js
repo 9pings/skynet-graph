@@ -23,7 +23,7 @@
  */
 global.__SERVER__ = true;
 const Graph = require('../../lib/graph/index.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
 const { makeAsk } = require('../../lib/providers/llm.js');
 
 const N        = Number(process.env.N || 12);              // sections (each ~one code)

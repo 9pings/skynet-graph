@@ -7,7 +7,7 @@
  * everything downstream (dispatch, cache, call-elision, method reuse) keys on the intake `FactsDigest`, so
  * if paraphrases of ONE task fragment the digest the memo never hits. This backbone proves the MEASUREMENT
  * PLUMBING — the REAL `Intake::type` provider (lib/providers/intake.js) feeding the real signature-stability
- * profiler (lib/authoring/emittability.js) — deterministically, without the GPU, by driving the provider
+ * profiler (lib/authoring/learning/emittability.js) — deterministically, without the GPU, by driving the provider
  * with stub `ask`s of DESIGNED behavior. The live arm swaps the stub for the model; the numbers there are
  * the empirical finding, but the mechanism is fenced here.
  *
@@ -20,7 +20,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { createIntake } = require('../../lib/providers');
-const E = require('../../lib/authoring/emittability');
+const E = require('../../lib/authoring/learning/emittability');
 
 // ── the signature schema (two closed enums) ─────────────────────────────────────────────────────────
 const FACTS = {

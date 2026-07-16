@@ -19,7 +19,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
 const { createLLMProvider } = require('../../lib/providers');
-const { validateConceptTree } = require('../../lib/authoring/validate');
+const { validateConceptTree } = require('../../lib/authoring/core/validate');
 console.log = console.info = console.warn = () => {};
 
 // Classify emits a discrete `bucket` (tracked) + free `summary` (untracked prose).

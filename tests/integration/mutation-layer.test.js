@@ -12,8 +12,8 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
-const { memoSnapshot, memoDiff } = require('../../lib/authoring/memo-stability.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
+const { memoSnapshot, memoDiff } = require('../../lib/authoring/core/memo-stability.js');
 console.log = console.info = console.warn = () => {};
 
 const conf = (label) => ({ label, isMaster: true, autoMount: true, conceptSets: ['common'], bagRefManagers: {}, logLevel: 'error' });

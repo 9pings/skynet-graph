@@ -9,9 +9,9 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../../lib/graph/index.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
-const { relativize } = require('../../lib/authoring/abstract.js');
-const { selectCluster, mapTemplate } = require('../../lib/authoring/method.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
+const { relativize } = require('../../lib/authoring/core/abstract.js');
+const { selectCluster, mapTemplate } = require('../../lib/authoring/core/method.js');
 
 // the body the Map method mounts (Brick 1): convert(elem) → Place.
 const bodyParam = relativize(

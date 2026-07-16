@@ -23,10 +23,10 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
 const { createSemiring, semiringConceptTree } = require('../../lib/providers');
-const { forkPlan } = require('../../lib/authoring/decompose');
-const { validateMergeProjection } = require('../../lib/authoring/validate');
+const { forkPlan } = require('../../lib/authoring/core/decompose');
+const { validateMergeProjection } = require('../../lib/authoring/core/validate');
 
 console.log = console.info = console.warn = () => {};
 

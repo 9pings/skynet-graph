@@ -14,8 +14,8 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { widenOnVerified, satisfies } = require('../../lib/authoring/contract.js');
-const { createMountController } = require('../../lib/authoring/mount.js');
+const { widenOnVerified, satisfies } = require('../../lib/authoring/core/contract.js');
+const { createMountController } = require('../../lib/authoring/core/mount.js');
 
 const P = ( value, methodId ) => ({ value, methodId });
 

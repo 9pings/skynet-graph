@@ -4,7 +4,7 @@
 // abstraction is generic (so "plusieurs datasets" flow the SAME pipeline + SAME comparable metrics).
 const test = require('node:test');
 const assert = require('node:assert');
-const A = require('../../lib/authoring/dataset-adapter.js');
+const A = require('../../lib/authoring/forge/dataset-adapter.js');
 
 test('wikisql adapter — a record maps to {query, context.columns, klass=agg|nConds, goldShape}', () => {
 	const wk = A.getAdapter('wikisql');

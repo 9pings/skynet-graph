@@ -17,7 +17,7 @@
  */
 const path = require('path');
 const Graph = require('../tests/_boot.js');
-const { buildConceptTree } = require('../lib/authoring/concepts.js');
+const { buildConceptTree } = require('../lib/authoring/core/concepts.js');
 const { register, CommonGeo } = require('../lib/providers');
 
 // ---- quiet the engine's chatter, keep a clean tagged printer + real errors ----

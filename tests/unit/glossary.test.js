@@ -7,7 +7,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { createGlossary, overlapOf } = require('../../lib/authoring/glossary');
+const { createGlossary, overlapOf } = require('../../lib/authoring/lattice/glossary');
 
 test('P2-STRUCT-1 — grounded overlap ≥ θ merges (alias audited), NOT a silent second notion', () => {
 	const g = createGlossary();

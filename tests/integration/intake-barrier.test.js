@@ -14,7 +14,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
 const { createIntake } = require('../../lib/providers');
-const { validateConceptTree } = require('../../lib/authoring/validate');
+const { validateConceptTree } = require('../../lib/authoring/core/validate');
 console.log = console.info = console.warn = () => {};
 
 // Intake snaps a discrete `severity` (tracked) + free `note` (untracked prose). TypedGate keys on

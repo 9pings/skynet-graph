@@ -7,7 +7,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { makeTypedDecomposeProviders, typedLoopConceptTree, mountTemplate, TYPED_PROSE_KEYS } = require('../../lib/authoring/typed-loop.js');
+const { makeTypedDecomposeProviders, typedLoopConceptTree, mountTemplate, TYPED_PROSE_KEYS } = require('../../lib/authoring/core/typed-loop.js');
 
 const scopeOf = ( facts ) => ({ _: facts });
 const call = ( fn, facts ) => new Promise(( res, rej ) => fn(null, null, scopeOf(facts), null, ( e, tpl ) => e ? rej(e) : res(tpl)));

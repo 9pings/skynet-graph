@@ -11,7 +11,7 @@
  *
  * Host policy, NOT core. Roadmap: doc/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md (M2/M3).
  */
-const { validateMergeProjection } = require('../../lib/authoring/validate');
+const { validateMergeProjection } = require('../../lib/authoring/core/validate');
 
 // Wrap a projection so its output template is CHECKED against the frontier alphabet
 // (the keys permitted to cross a sub-graph boundary) before it crosses. Throws on a leak.
@@ -29,7 +29,7 @@ function checkedProjection( projectFn, frontierAlphabet ) {
 
 /**
  * Fork a sub-graph for a tile, stabilize it, and merge back the CHECKED frontier projection.
- * `nextStable` is injected (it lives in lib/authoring/supervise.js) so this stays dependency-light.
+ * `nextStable` is injected (it lives in lib/authoring/core/supervise.js) so this stays dependency-light.
  *
  * @param parent            the parent Graph
  * @param o.childSeed       the sub-problem seed for the fork

@@ -16,7 +16,7 @@
  */
 const path = require('path');
 const ROOT = path.resolve(__dirname, '../..');
-const C = require(ROOT + '/lib/authoring/contract.js');
+const C = require(ROOT + '/lib/authoring/core/contract.js');
 const P = require(ROOT + '/examples/poc/contract-compose.js');   // METHODS, soundRun, unsoundRun, frameRun
 const out = ( ...a ) => process.stdout.write(a.join(' ') + '\n');
 

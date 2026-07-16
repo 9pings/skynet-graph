@@ -24,9 +24,9 @@
  * Run: `node examples/poc/contract-relearn.js`  (also: `node … off` for the loop-OFF control).
  */
 const Graph = require('../../lib/graph/index.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
-const { makeRelearnProviders, relearnTree } = require('../../lib/authoring/relearn.js');
-const C = require('../../lib/authoring/contract.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
+const { makeRelearnProviders, relearnTree } = require('../../lib/authoring/learning/relearn.js');
+const C = require('../../lib/authoring/core/contract.js');
 
 async function settle( g ) {
 	for ( let i = 0; i < 50; i++ ) {

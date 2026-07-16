@@ -1,6 +1,6 @@
 'use strict';
 /**
- * Corpus exchange (lib/authoring/corpus-pack.js + lib/load.js export/validate) — the portable
+ * Corpus exchange (lib/authoring/core/corpus-pack.js + lib/load.js export/validate) — the portable
  * `.sgc` bundle and its derived manifest (the produces/consumes alphabet, the required providers),
  * the disk round-trip (export -> reload), and validate-on-import. Pure + fs round-trip on the
  * real `common` corpus.
@@ -10,8 +10,8 @@ const assert = require('node:assert/strict');
 const path = require('node:path');
 const fs = require('node:fs');
 const os = require('node:os');
-const { deriveManifest, packCorpus, unpackCorpus } = require('../../lib/authoring/corpus-pack');
-const { buildConceptTree } = require('../../lib/authoring/concepts');
+const { deriveManifest, packCorpus, unpackCorpus } = require('../../lib/authoring/core/corpus-pack');
+const { buildConceptTree } = require('../../lib/authoring/core/concepts');
 const { loadConceptMap, exportConceptsToDir } = require('../../lib/load');
 
 const common = () => buildConceptTree(path.join(__dirname, '../../concepts/common'));

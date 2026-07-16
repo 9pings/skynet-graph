@@ -9,12 +9,12 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
-const { crystallizeStructural } = require('../../lib/authoring/crystallize.js');
-const { blendMethods, segmentSlots, composeContract, synthesizeByBlend, methodDepth } = require('../../lib/authoring/adapt.js');
-const { makeLibrary, indexMethod } = require('../../lib/authoring/library.js');
-const { blendAtSegment, instantiate, ctxFromScope, BASE, hasHoles } = require('../../lib/authoring/abstract.js');
-const { injectMarker, guardKey } = require('../../lib/authoring/combinator.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
+const { crystallizeStructural } = require('../../lib/authoring/learning/crystallize.js');
+const { blendMethods, segmentSlots, composeContract, synthesizeByBlend, methodDepth } = require('../../lib/authoring/learning/adapt.js');
+const { makeLibrary, indexMethod } = require('../../lib/authoring/learning/library.js');
+const { blendAtSegment, instantiate, ctxFromScope, BASE, hasHoles } = require('../../lib/authoring/core/abstract.js');
+const { injectMarker, guardKey } = require('../../lib/authoring/learning/combinator.js');
 console.log = console.info = console.warn = () => {};
 
 const ground = ( kind ) => 'plan-' + kind;

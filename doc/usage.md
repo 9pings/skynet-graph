@@ -100,7 +100,7 @@ set. See [original-2016-doc.md](original-2016-doc.md) for every schema field.
 > **Typed-fact discipline (do not break it).** A `require`/`assert`/`ensure` must key only
 > on **discrete, typed** facts (enums, ids, numbers, booleans) — never on free-text prose,
 > or the memo never hits. An `LLM::complete` concept writes canonicalized keys as tracked
-> facts and the reply text on an *untracked* `prose` key. `lib/authoring/validate.js`
+> facts and the reply text on an *untracked* `prose` key. `lib/authoring/core/validate.js`
 > enforces this at author time.
 
 ## 4. Providers
@@ -263,7 +263,7 @@ both write — the `leadTime` trap). This is the view for perfecting *grammars a
   add/patchConcept edits) into a portable single-file bundle `{ manifest, conceptMap, seed? }`;
   *import .sgc* validates it on load (hard errors block, warnings surface) and runs it. The on-disk
   JSONC tree stays canonical for editing; `Graph.exportConcepts()` + `lib/load.js#exportConceptsToDir`
-  / `lib/authoring/corpus-pack.js` are the programmatic equivalents.
+  / `lib/authoring/core/corpus-pack.js` are the programmatic equivalents.
 - **Provider trace** — the apply-correlated log records (`graph.logger.tail(n, { applyId })`) for the
   active session, joining each apply's provider calls to its trace.
 - **Retraction flash** — when a concept is *retracted* (JTMS defeasance / cascade), the affected
@@ -445,7 +445,7 @@ const { answer, source } = await px.answer('What is the capital of France?');   
 // decompose + serveLeaf are INJECTED (typed-loop + createProxyCache.solve in production) — usable "à nu".
 const loop = Graph.combos.createPlanLoop({ decompose, serveLeaf });
 const { answer: a7, refused } = await loop.run(task, { givens, labels: labelsOf(givens) });
-// givens: lib/authoring/givens.js#seedOf · labelsOf = the measured CELLS rule (label an input iff its
+// givens: plugins/planner/lib/givens.js#seedOf · labelsOf = the measured CELLS rule (label an input iff its
 // provenance is a structured table cell — never prose, never producers)
 
 // C8 — the MIXTURE-RUNTIME server: a cheap local model ORIENTED by a forged certified stock, escalating the

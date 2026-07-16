@@ -45,9 +45,9 @@
  */
 const path = require('path');
 const Graph = require('../../../lib/graph/index.js');
-const { nextStable } = require('../../../lib/authoring/supervise.js');
-const { footprintCycles } = require('../../../lib/authoring/contract.js');
-const { buildConceptTree } = require('../../../lib/authoring/concepts.js');
+const { nextStable } = require('../../../lib/authoring/core/supervise.js');
+const { footprintCycles } = require('../../../lib/authoring/core/contract.js');
+const { buildConceptTree } = require('../../../lib/authoring/core/concepts.js');
 
 // ── guardPlan — the OFFLINE deadlock guard (recursive). A level is coherent iff every `need` has a producer at
 // that level OR is inherited (down-projected from a composite's inputs), and the data-flow is acyclic. The ONLY

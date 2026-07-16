@@ -18,10 +18,10 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { libraryKey } = require('../../lib/authoring/crystallize.js');
-const { makeLibrary, indexMethod, dispatch, dispatchInterface, appConditionsHold } = require('../../lib/authoring/library.js');
-const { adaptOrForge } = require('../../lib/authoring/adapt.js');
-const { satisfies } = require('../../lib/authoring/contract.js');
+const { libraryKey } = require('../../lib/authoring/learning/crystallize.js');
+const { makeLibrary, indexMethod, dispatch, dispatchInterface, appConditionsHold } = require('../../lib/authoring/learning/library.js');
+const { adaptOrForge } = require('../../lib/authoring/learning/adapt.js');
+const { satisfies } = require('../../lib/authoring/core/contract.js');
 const { digest } = require('../../lib/providers/canonicalize.js');
 console.log = console.info = console.warn = () => {};
 

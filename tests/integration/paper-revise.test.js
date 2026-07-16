@@ -13,7 +13,7 @@ const assert = require('node:assert/strict');
 const path = require('path');
 const ROOT = path.resolve(__dirname, '../..');
 const E8 = require(ROOT + '/artifact/paper-dll/revise.js');
-const C = require(ROOT + '/lib/authoring/contract.js');
+const C = require(ROOT + '/lib/authoring/core/contract.js');
 
 const K = 5;
 const workloads = () => [['CATEGORICAL', E8.categoricalWorkload()], ['NUMERIC', E8.numericWorkload()]];

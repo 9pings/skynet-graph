@@ -24,7 +24,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
-const { supervise } = require('../../lib/authoring/supervise.js');
+const { supervise } = require('../../lib/authoring/core/supervise.js');
 console.log = console.info = console.warn = () => {};
 
 const seg = (g) => g._objById['seg']._etty;

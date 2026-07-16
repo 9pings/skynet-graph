@@ -11,8 +11,8 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../../lib/graph/index.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
-const { emitMethodAsSubgraph, instantiate } = require('../../lib/authoring/abstract.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
+const { emitMethodAsSubgraph, instantiate } = require('../../lib/authoring/core/abstract.js');
 
 const tree = { common: { childConcepts: {
 	Split: { _id: 'Split', _name: 'Split', require: ['Segment', 'toPlan'], provider: ['P::plan'] }

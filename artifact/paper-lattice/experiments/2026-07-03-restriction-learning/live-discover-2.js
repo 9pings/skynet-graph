@@ -38,9 +38,9 @@ const path = require('path');
 const E2E = path.resolve(__dirname, '../2026-07-02-e2e-fidelity');
 const PR = path.resolve(__dirname, '../2026-07-03-parametric-reuse');
 const ROOT = path.resolve(__dirname, '../../../..');
-const { makeTypedDecomposeProviders } = require(ROOT + '/lib/authoring/typed-loop.js');
-const { foldSubpaths } = require(ROOT + '/lib/authoring/compress.js');
-const { makeStructuralCanon, snapToVocab, shapeKey } = require(ROOT + '/lib/authoring/canon.js');
+const { makeTypedDecomposeProviders } = require(ROOT + '/lib/authoring/core/typed-loop.js');
+const { foldSubpaths } = require(ROOT + '/lib/authoring/learning/compress.js');
+const { makeStructuralCanon, snapToVocab, shapeKey } = require(ROOT + '/lib/authoring/learning/canon.js');
 const { seedMethod, slotBindings } = require(PR + '/mechanics.js');
 console.info = console.warn = () => {};
 

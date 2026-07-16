@@ -9,7 +9,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { relativize, instantiate, antiUnify, hasHoles, methodTransform } = require('../../lib/authoring/abstract.js');
+const { relativize, instantiate, antiUnify, hasHoles, methodTransform } = require('../../lib/authoring/core/abstract.js');
 const { createProviderCache } = require('../../lib/providers/cache.js');
 
 // a ground structural template, exactly the problem-paths `plan` shape: parent update + created

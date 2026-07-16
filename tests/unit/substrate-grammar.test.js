@@ -2,7 +2,7 @@
 /**
  * M0 — the universal reasoning layer (`concepts/_substrate/`) is AUTHORABLE and VALIDATES
  * CLEAN. The thin epistemic/control spine — Task→Complexity→Answer/Rollup (the answer-loop,
- * generalizing lib/authoring/loop.js) ; Claim→Verification→Refuted (the defeasance chain) ;
+ * generalizing lib/authoring/core/loop.js) ; Claim→Verification→Refuted (the defeasance chain) ;
  * Frontier→InBeam/Stuck (budget control) — is the foundation the first DOMAIN grammars
  * (clinical, supply-chain) plug under via childConcepts (directory tree = IS-A).
  *
@@ -16,8 +16,8 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const path = require('node:path');
-const { buildConceptTree } = require('../../lib/authoring/concepts');
-const { validateConceptTree } = require('../../lib/authoring/validate');
+const { buildConceptTree } = require('../../lib/authoring/core/concepts');
+const { validateConceptTree } = require('../../lib/authoring/core/validate');
 
 const SUBSTRATE = path.join(__dirname, '..', '..', 'concepts', '_substrate');
 const tree = () => buildConceptTree(SUBSTRATE);

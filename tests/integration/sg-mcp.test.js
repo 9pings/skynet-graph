@@ -12,7 +12,7 @@ const path = require('path');
 const { PassThrough } = require('stream');
 const { createMcpServer, defaultTools, startMcpStdio } = require('../../lib/sg/mcp.js');
 const { createProxyCache, makeFrontierAsk } = require('../../lib/combos/proxy-cache.js');
-const { packLattice } = require('../../lib/authoring/lattice-pack.js');
+const { packLattice } = require('../../lib/authoring/lattice/lattice-pack.js');
 const { createLogger } = require('../../lib/graph/log.js');
 
 function stubChat() {

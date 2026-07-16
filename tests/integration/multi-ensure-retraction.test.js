@@ -15,7 +15,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
 console.log = console.info = console.warn = () => {};
 
 // Wait for TRUE quiescence: a cascade (A -> AChild) settles across >1 round and `stabilize` is a

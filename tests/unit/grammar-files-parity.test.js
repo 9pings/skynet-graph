@@ -11,15 +11,15 @@ const { test } = require('node:test');
 const assert = require('node:assert');
 const path = require('path');
 
-const { loopConceptTree, reactiveLoopConceptTree } = require('../../lib/authoring/loop.js');
+const { loopConceptTree, reactiveLoopConceptTree } = require('../../lib/authoring/core/loop.js');
 const { supportConceptTree } = require('../../plugins/planner/lib/support.js');
-const { typedLoopConceptTree } = require('../../lib/authoring/typed-loop.js');
-const { reactiveSupervisorTree } = require('../../lib/authoring/supervise.js');
+const { typedLoopConceptTree } = require('../../lib/authoring/core/typed-loop.js');
+const { reactiveSupervisorTree } = require('../../lib/authoring/core/supervise.js');
 const { selectConceptTree } = require('../../lib/providers/semiring.js');
-const { buildConceptTree } = require('../../lib/authoring/concepts.js');
+const { buildConceptTree } = require('../../lib/authoring/core/concepts.js');
 const { loadPlugin } = require('../../lib/plugins/load.js');
 
-// ── the decompose-loop literal as shipped in lib/authoring/loop.js pre-extraction ──
+// ── the decompose-loop literal as shipped in lib/authoring/core/loop.js pre-extraction ──
 const EXP_LOOP = {
 	childConcepts: {
 		Task: {

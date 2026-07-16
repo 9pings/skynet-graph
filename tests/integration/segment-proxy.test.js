@@ -9,7 +9,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../../lib/index.js');
 const { makeSegmentProxy, reconstructStack } = require('../../plugins/planner/lib/segment-proxy.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
 console.log = console.info = console.warn = () => {};
 
 // the DELEGATE (runs on the shared instance): compute Hot from the frozen input temp.

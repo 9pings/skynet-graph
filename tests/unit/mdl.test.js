@@ -11,7 +11,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { mdlGain, rankCandidates, schemaBits, symbolsOf, conceptCountOf } = require('../../lib/authoring/mdl.js');
+const { mdlGain, rankCandidates, schemaBits, symbolsOf, conceptCountOf } = require('../../lib/authoring/core/mdl.js');
 
 // a fixed corpus: N=16 single-fact provider concepts, R=30 firings, an alphabet Σ.
 function corpus( N, R ) {

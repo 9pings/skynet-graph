@@ -11,7 +11,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
 const { supportConceptTree, makeSupportProviders } = require('../../plugins/planner/lib/support.js');
 
 console.log = console.info = console.warn = () => {};

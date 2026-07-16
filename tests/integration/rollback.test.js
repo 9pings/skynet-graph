@@ -9,7 +9,7 @@ const assert = require('node:assert/strict');
 const path = require('path');
 
 const Graph = require('../_boot.js');
-const { buildConceptTree } = require('../../lib/authoring/concepts.js');
+const { buildConceptTree } = require('../../lib/authoring/core/concepts.js');
 console.log = console.info = console.warn = () => {};
 
 function haversineKm(a, b) {

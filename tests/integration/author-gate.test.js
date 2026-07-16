@@ -3,14 +3,14 @@
  * authorConcept admission gate (study 2026-06-26, pass 2): the CEGIS loop gains an
  * optional `spec.gate` step between author-time validation and install. A proposal that
  * VALIDATES but the gate REJECTS is not installed — the rejection is a counterexample.
- * This is how the MDL/utility abstraction gate (lib/authoring/abstraction.js) plugs into
+ * This is how the MDL/utility abstraction gate (lib/authoring/core/abstraction.js) plugs into
  * the authoring loop so it self-admits abstractions.
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
-const { authorConcept } = require('../../lib/authoring/author.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
+const { authorConcept } = require('../../lib/authoring/core/author.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
 console.log = console.info = console.warn = () => {};
 
 function boot(label) {

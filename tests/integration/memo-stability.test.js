@@ -13,8 +13,8 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
-const { memoSnapshot, memoDiff, assertMemoStable } = require('../../lib/authoring/memo-stability.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
+const { memoSnapshot, memoDiff, assertMemoStable } = require('../../lib/authoring/core/memo-stability.js');
 const canon = require('../../lib/providers/canonicalize.js');
 console.log = console.info = console.warn = () => {};
 

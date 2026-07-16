@@ -22,7 +22,7 @@ global.__SERVER__ = true;
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../../lib/graph/index.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
 const cp = require('../../plugins/planner/lib/context-project.js');
 const { createContextProjection, guardPlan, makeProviders, defaultComplete, buildSeed, CONCEPT_MAP, allSteps } = cp;
 

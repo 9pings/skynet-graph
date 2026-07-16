@@ -6,7 +6,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { evaluate, interfaceRegression } = require('../../lib/authoring/abstraction.js');
+const { evaluate, interfaceRegression } = require('../../lib/authoring/core/abstraction.js');
 console.log = console.info = console.warn = () => {};
 
 const SEED = { lastRev: 0, nodes: [{ _id: 'D1', raw: 100 }, { _id: 'D2', raw: 200 }, { _id: 'D3', raw: 300 }], segments: [] };

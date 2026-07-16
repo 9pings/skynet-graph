@@ -35,7 +35,7 @@ const graph = new Graph(record, conf, conceptMap);
   | `onStabilize(graph, tokens)` | called once the graph settles (the main hook) |
   | `bagRefManagers` | external-data ref managers (default `caipi` matches `/^db:(.+)$/`) |
 - **`conceptMap`** — host-supplied, keyed by concept-set name (`{ common: <tree> }`). The tree is a
-  nested `childConcepts` hierarchy. `lib/authoring/concepts.js#buildConceptTree(dir)` assembles one
+  nested `childConcepts` hierarchy. `lib/authoring/core/concepts.js#buildConceptTree(dir)` assembles one
   from the `concepts/<set>/` directory.
 
 ---
@@ -341,7 +341,7 @@ Pure helpers: `paretoFront` / `paretoSelect` / `makePareto` / `dominates` / `red
   providers), `packCorpus` / `unpackCorpus` (a portable bundle of the *authored grammar*). Disk round-trip:
   `Graph.loadConceptMap(dir, { validate })` ↔ `exportConceptsToDir(tree, dir)` (`lib/load.js`).
 
-### The support grammar (`lib/authoring/support.js`)
+### The support grammar (`plugins/planner/lib/support.js`)
 
 `supportConceptTree({ criteria, lex })` + `makeSupportProviders({ evalFn, expandFn, proposeFn,
 escalateFn, escalateBar, rollupFn })` compose the decompose loop with the per-segment
@@ -374,7 +374,7 @@ two preprints measure; their replay artifacts ship under `artifact/`.
   `lintMethod(def)` (the decidability invariants + the footprint/frame check), `selectCluster` (case-parameterized
   selection by mutually-exclusive typed gates).
 
-### C-contract — composition soundness & the un-learn loop (`lib/authoring/contract.js`)
+### C-contract — composition soundness & the un-learn loop (`lib/authoring/core/contract.js`)
 
 The defeasible separation-triple checker (Use 2's soundness). Exposed on the facade as deep-path; ZERO-CORE.
 

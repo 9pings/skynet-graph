@@ -7,7 +7,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../../lib/graph/index.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
 const { library, runPath } = require('../../examples/poc/master-graph.js');
 const { conceptTree } = require('../../examples/poc/master-graph.js');
 

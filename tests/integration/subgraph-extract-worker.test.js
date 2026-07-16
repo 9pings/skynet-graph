@@ -10,7 +10,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../../lib/index.js');                 // the facade — carries spawnGraph
-const { extractSubgraph, mergeSlice } = require('../../lib/authoring/extract.js');
+const { extractSubgraph, mergeSlice } = require('../../lib/authoring/core/extract.js');
 console.log = console.info = console.warn = () => {};
 
 const TREE = { common: { childConcepts: {

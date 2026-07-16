@@ -17,7 +17,7 @@ const { test } = require('node:test');
 const assert = require('node:assert');
 const path = require('path');
 const Graph = require('../_boot.js');                                    // sets __SERVER__, returns Graph
-const { buildConceptTree } = require('../../lib/authoring/concepts');
+const { buildConceptTree } = require('../../lib/authoring/core/concepts');
 const { createReasonLoop } = require('../../lib/providers/reason-loop.js');
 const { createIntake } = require('../../lib/providers/intake.js');
 

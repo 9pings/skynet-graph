@@ -27,7 +27,7 @@
  */
 global.__SERVER__ = true;
 const Graph = require('../../lib/graph/index.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
 const { createNogood, recordNogood, guardTrial, nogoodGuardConcept } = require('../../lib/providers/nogood');
 
 // ── the domain oracle: each kind's TRUE facet (the gate verifies against it). A kind absent here has no

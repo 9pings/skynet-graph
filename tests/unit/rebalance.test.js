@@ -118,7 +118,7 @@ test('checkReassembly — sound on real pairs; uncovered read → refused; contr
 	assert.equal(ghost.sound, false);
 	assert.deepEqual(ghost.uncovered, ['ghost']);
 	// teeth: a producer whose post CONTRADICTS the consumer pre → checkCompose 'unsound'
-	const contra = { verdict: require('../../lib/authoring/contract.js').checkCompose(
+	const contra = { verdict: require('../../lib/authoring/core/contract.js').checkCompose(
 		{ name: 'p', contract: { read: [], write: ['A'], pre: [], post: ['A==0'], effect: 'pure' } },
 		{ name: 'c', contract: { read: ['A'], write: ['s'], pre: ['A==5'], post: ['s'], effect: 'pure' } }).verdict };
 	assert.equal(contra.verdict, 'unsound', 'checkCompose catches a contradictory contract (not vacuous)');

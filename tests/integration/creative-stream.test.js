@@ -16,12 +16,12 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
-const { crystallizeStructural } = require('../../lib/authoring/crystallize.js');
-const { makeLibrary, indexMethod, dispatch } = require('../../lib/authoring/library.js');
-const { hitTemplate } = require('../../lib/authoring/adapt.js');
-const { ctxFromScope, instantiate } = require('../../lib/authoring/abstract.js');
-const { injectMarker, guardKey } = require('../../lib/authoring/combinator.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
+const { crystallizeStructural } = require('../../lib/authoring/learning/crystallize.js');
+const { makeLibrary, indexMethod, dispatch } = require('../../lib/authoring/learning/library.js');
+const { hitTemplate } = require('../../lib/authoring/learning/adapt.js');
+const { ctxFromScope, instantiate } = require('../../lib/authoring/core/abstract.js');
+const { injectMarker, guardKey } = require('../../lib/authoring/learning/combinator.js');
 const { digest } = require('../../lib/providers/canonicalize.js');
 console.log = console.info = console.warn = () => {};
 

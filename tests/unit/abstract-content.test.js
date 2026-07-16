@@ -7,7 +7,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { generalizeContent, fillContentHoles } = require('../../lib/authoring/abstract.js');
+const { generalizeContent, fillContentHoles } = require('../../lib/authoring/core/abstract.js');
 
 // two parameterized templates of ONE method: same structural skeleton (holes ⟦@base⟧/⟦@ref:o⟧ + the literal X),
 // content differs at `label` ONLY (a field that is NOT `state` → proves discovery is field-agnostic).

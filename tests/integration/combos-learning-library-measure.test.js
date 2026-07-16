@@ -31,9 +31,9 @@ const { ARMS, auditKey } = require(ROOT + '/artifact/paper-dll/arms.js');
 const E = require(ROOT + '/artifact/paper-dll/workload.js');
 const H = require(ROOT + '/artifact/paper-dll/harness.js');
 const { createLearningLibrary } = require(ROOT + '/lib/combos/learning-library.js');
-const { createFileStore, saveSgc, loadSgc } = require(ROOT + '/lib/authoring/store.js');
-const { packMethods, loadMethods } = require(ROOT + '/lib/authoring/method-pack.js');
-const C = require(ROOT + '/lib/authoring/contract.js');
+const { createFileStore, saveSgc, loadSgc } = require(ROOT + '/lib/authoring/core/store.js');
+const { packMethods, loadMethods } = require(ROOT + '/lib/authoring/learning/method-pack.js');
+const C = require(ROOT + '/lib/authoring/core/contract.js');
 
 const classKey = ( r ) => `${r.kind}|${r.region}|${r.score}`;
 const SIGNATURE = ( r ) => ({ structure: { kind: r.kind, region: r.region, score: r.score }, content: {} });

@@ -15,8 +15,8 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { relativize } = require('../../lib/authoring/abstract.js');
-const { lintMethod } = require('../../lib/authoring/method.js');
+const { relativize } = require('../../lib/authoring/core/abstract.js');
+const { lintMethod } = require('../../lib/authoring/core/method.js');
 
 // the body the `body` slot declares — a typed convert(elem)→Place sub-graph, parameterized on frontier `elem`.
 const bodyParam = relativize(

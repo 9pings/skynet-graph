@@ -1,8 +1,8 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert');
-const { packLattice, unpackLattice, loadLattice, deriveLatticeSchema, ringsOf } = require('../../lib/authoring/lattice-pack');
-const { deriveRegistry, freezeRegistry, mergeRingProposals } = require('../../lib/authoring/registry');
+const { packLattice, unpackLattice, loadLattice, deriveLatticeSchema, ringsOf } = require('../../lib/authoring/lattice/lattice-pack');
+const { deriveRegistry, freezeRegistry, mergeRingProposals } = require('../../lib/authoring/lattice/registry');
 
 // a small tree with a typed enum interface key + a curated ring (the registry LIVES here).
 function shipTree() {

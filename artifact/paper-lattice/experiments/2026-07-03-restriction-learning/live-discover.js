@@ -17,7 +17,7 @@ const path = require('path');
 const E2E = path.resolve(__dirname, '../2026-07-02-e2e-fidelity');
 const PR = path.resolve(__dirname, '../2026-07-03-parametric-reuse');
 const ROOT = path.resolve(__dirname, '../../../..');
-const { makeTypedDecomposeProviders } = require(ROOT + '/lib/authoring/typed-loop.js');
+const { makeTypedDecomposeProviders } = require(ROOT + '/lib/authoring/core/typed-loop.js');
 const { seedMethod, slotBindings } = require(PR + '/mechanics.js');
 console.info = console.warn = () => {};
 

@@ -1,6 +1,6 @@
 'use strict';
 /**
- * Grammar graph (lib/authoring/grammar-graph.js) — the concept↔fact bipartite view that
+ * Grammar graph (lib/authoring/core/grammar-graph.js) — the concept↔fact bipartite view that
  * powers the Studio GrammarGraph: per-concept produced/consumed facts WITH polarity, the
  * cross-corpus links, the silent writer-collisions, the external entry points, and the
  * forkPlan tiling overlay. Pure; tested on the real corpora + synthetic polarity/links.
@@ -8,8 +8,8 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const path = require('node:path');
-const { conceptFactGraph } = require('../../lib/authoring/grammar-graph');
-const { buildConceptTree } = require('../../lib/authoring/concepts');
+const { conceptFactGraph } = require('../../lib/authoring/core/grammar-graph');
+const { buildConceptTree } = require('../../lib/authoring/core/concepts');
 
 const corpus = (set) => buildConceptTree(path.join(__dirname, '../../concepts', set));
 const factOf = (g, key) => g.facts.find((f) => f.key === key);

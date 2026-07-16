@@ -21,7 +21,7 @@
  * (the slot bindings); (3) GATE — assertPost (P4) admits the bounded summary or refuses (blame → the §5 forge fallback);
  * the leaf's VALUE is the method's bounded output, which flows to downstream leaves through the projection's pool.
  */
-const { assertPost } = require('../../../lib/authoring/contract.js');
+const { assertPost } = require('../../../lib/authoring/core/contract.js');
 
 /**
  * makeMethodServe(spec) — a projection `serve(leaf, ctx)` that dispatches+mounts a concept-method per leaf.

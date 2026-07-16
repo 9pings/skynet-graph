@@ -8,7 +8,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
-const { loopConceptTree, makeDecomposeProviders, synthesize } = require('../../lib/authoring/loop.js');
+const { loopConceptTree, makeDecomposeProviders, synthesize } = require('../../lib/authoring/core/loop.js');
 console.log = console.info = console.warn = () => {};
 
 test('decompose into a binary tree, then synthesize answers bottom-up to the root', async () => {

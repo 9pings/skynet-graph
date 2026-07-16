@@ -15,7 +15,7 @@
 global.__SERVER__ = true;
 const path = require('path');
 const Graph = require('../../lib/graph/index.js');
-const { buildConceptTree } = require('../../lib/authoring/concepts');
+const { buildConceptTree } = require('../../lib/authoring/core/concepts');
 
 const SUBSTRATE = path.join(__dirname, '..', '..', 'concepts', '_substrate');
 

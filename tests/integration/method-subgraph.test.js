@@ -12,9 +12,9 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../../lib/graph/index.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
-const { relativize } = require('../../lib/authoring/abstract.js');
-const { applySubgraphArg, mapSubgraph, mapTemplate } = require('../../lib/authoring/method.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
+const { relativize } = require('../../lib/authoring/core/abstract.js');
+const { applySubgraphArg, mapSubgraph, mapTemplate } = require('../../lib/authoring/core/method.js');
 
 const noConcepts = { common: { childConcepts: {} } };
 

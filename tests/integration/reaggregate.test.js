@@ -8,8 +8,8 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../../lib/graph/index.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
-const { defeasibleAggregate } = require('../../lib/authoring/reaggregate.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
+const { defeasibleAggregate } = require('../../lib/authoring/core/reaggregate.js');
 
 const agg = defeasibleAggregate({ anchor: ( s ) => s._.partOf, valueKey: 'val', fold: ( xs ) => xs.reduce(( a, x ) => a + x.val, 0) });
 const tree = { common: { childConcepts: {

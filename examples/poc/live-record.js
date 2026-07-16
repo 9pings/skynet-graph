@@ -23,8 +23,8 @@
  */
 global.__SERVER__ = true;
 const Graph = require('../../lib/graph/index.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
-const { clockSeed, advanceClock } = require('../../lib/authoring/clock.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
+const { clockSeed, advanceClock } = require('../../lib/authoring/core/clock.js');
 
 const out = ( ...a ) => process.stdout.write(a.join(' ') + '\n');
 async function settle( g ) {

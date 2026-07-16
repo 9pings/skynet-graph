@@ -144,10 +144,10 @@ underfit → it grows → then a utility gate stops it; a 1-unit-sufficient task
 
 | File | Role |
 |---|---|
-| `lib/authoring/equilibrium.js` | DEQ: `solveFixpoint`, `implicitGrad`, `spectralRadius`, `numJac` |
-| `lib/authoring/concept-net.js` | the population: `make/ring/chain/wide/unrollPopulation`, `train`, `grad`, `loss`, `evolve`, `bakePopulation` |
-| `lib/authoring/lifecycle.js` | the plasticity ledger `p∈[0,1]` (CLS annealing) |
-| `lib/providers/llm.js`, `lib/authoring/ste.js` | plasticity wired into a real provider (temperature / noise) |
+| `experiments/probabilistic-concepts/equilibrium.js` | DEQ: `solveFixpoint`, `implicitGrad`, `spectralRadius`, `numJac` |
+| `experiments/probabilistic-concepts/concept-net.js` | the population: `make/ring/chain/wide/unrollPopulation`, `train`, `grad`, `loss`, `evolve`, `bakePopulation` |
+| `lib/authoring/core/lifecycle.js` | the plasticity ledger `p∈[0,1]` (CLS annealing) |
+| `lib/providers/llm.js`, `experiments/probabilistic-concepts/ste.js` | plasticity wired into a real provider (temperature / noise) |
 | `examples/poc/equilibrium.js` | DEQ convergence + the ρ→1 regime + STE, narrated |
 | `examples/poc/concept-population.js` | a population: train → scale 2→6 → evolve form → distil |
 | `examples/poc/concept-bridge.js` | a frozen population served in the real engine |

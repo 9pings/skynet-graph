@@ -12,8 +12,8 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 require('../_boot.js');
 const { supplyTiling, runSupplyScenario, SUPPLY } = require('../../examples/poc/supply.js');
-const { buildConceptTree } = require('../../lib/authoring/concepts');
-const { validateConceptTree } = require('../../lib/authoring/validate');
+const { buildConceptTree } = require('../../lib/authoring/core/concepts');
+const { validateConceptTree } = require('../../lib/authoring/core/validate');
 console.log = console.info = console.warn = () => {};
 
 test('the supply grammar tiles into 3 sub-domains with a narrow separator interface (pavage)', () => {

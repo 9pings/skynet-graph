@@ -12,11 +12,11 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
-const { crystallizeStructural } = require('../../lib/authoring/crystallize.js');
-const { makeTypedDecomposeProviders, typedLoopConceptTree, mountTemplate, TYPED_PROSE_KEYS } = require('../../lib/authoring/typed-loop.js');
-const { makeDecomposeProviders, loopConceptTree } = require('../../lib/authoring/loop.js');
-const { blendMethods, segmentSlots, hitTemplate } = require('../../lib/authoring/adapt.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
+const { crystallizeStructural } = require('../../lib/authoring/learning/crystallize.js');
+const { makeTypedDecomposeProviders, typedLoopConceptTree, mountTemplate, TYPED_PROSE_KEYS } = require('../../lib/authoring/core/typed-loop.js');
+const { makeDecomposeProviders, loopConceptTree } = require('../../lib/authoring/core/loop.js');
+const { blendMethods, segmentSlots, hitTemplate } = require('../../lib/authoring/learning/adapt.js');
 console.log = console.info = console.warn = () => {};
 
 const KINDS = { enum: ['retrieve', 'transform', 'validate', 'emit'] };

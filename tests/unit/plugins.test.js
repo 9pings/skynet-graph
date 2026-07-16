@@ -15,8 +15,8 @@ const assert = require('node:assert/strict');
 const path = require('node:path');
 const { resolvePlugins } = require('../../lib/plugins/resolve.js');
 const Graph = require('../../lib/graph/index.js');
-const { buildConceptTree } = require('../../lib/authoring/concepts');
-const { nextStable } = require('../../lib/authoring/supervise.js');
+const { buildConceptTree } = require('../../lib/authoring/core/concepts');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
 
 const P = (name, over) => Object.assign(
 	{ name, version: '1.0.0', concepts: {}, providers: {}, providerNamespaces: [], deps: [] }, over);

@@ -15,7 +15,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { classifyValue, memberMorphism } = require('../../lib/authoring/lattice-morphism.js');
+const { classifyValue, memberMorphism } = require('../../lib/authoring/lattice/lattice-morphism.js');
 
 const A = [{ member: 'low', lo: 0, hi: 33 }, { member: 'mid', lo: 33, hi: 66 }, { member: 'high', lo: 66, hi: 100 }];
 const B = [{ member: 'cold', lo: 0, hi: 25 }, { member: 'cool', lo: 25, hi: 50 }, { member: 'warm', lo: 50, hi: 75 }, { member: 'hot', lo: 75, hi: 100 }];

@@ -12,7 +12,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
 const { tree, seed } = require('../../../WIP/experiments/2026-06-27-decisive-experiment/E4-defeasance.js');
 console.log = console.info = console.warn = () => {};
 

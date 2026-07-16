@@ -9,9 +9,9 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../../lib/index.js');
-const { extractSubgraph } = require('../../lib/authoring/extract.js');
+const { extractSubgraph } = require('../../lib/authoring/core/extract.js');
 const { soundInvokeMerge } = require('../../plugins/planner/lib/sound-invoke.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
 console.log = console.info = console.warn = () => {};
 
 const METHOD_TREE = { common: { childConcepts: {                     // the method body — runs on the worker

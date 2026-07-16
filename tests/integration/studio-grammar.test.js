@@ -11,7 +11,7 @@ const Graph = require('../../lib/index.js');
 const Session = require('../../lib/studio/session.js');
 const Studio = require('../../lib/studio/studio.js');
 const { OPS, EVENTS } = require('../../lib/studio/protocol.js');
-const { unpackCorpus } = require('../../lib/authoring/corpus-pack.js');
+const { unpackCorpus } = require('../../lib/authoring/core/corpus-pack.js');
 console.log = console.info = console.warn = () => {};
 
 const CONCEPTS = path.join(__dirname, '..', '..', 'concepts');

@@ -23,8 +23,8 @@
  * Run: `node examples/poc/contract-compose.js`.
  */
 const Graph = require('../../lib/graph/index.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
-const C = require('../../lib/authoring/contract.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
+const C = require('../../lib/authoring/core/contract.js');
 
 async function settle( g ) {
 	for ( let i = 0; i < 50; i++ ) {

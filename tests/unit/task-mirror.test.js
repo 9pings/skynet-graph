@@ -8,7 +8,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { diffPlanToTaskOps } = require('../../lib/authoring/task-mirror.js');
+const { diffPlanToTaskOps } = require('../../lib/authoring/core/task-mirror.js');
 const { defaultTools } = require('../../lib/sg/mcp.js');
 
 const P = ( steps ) => ({ steps });

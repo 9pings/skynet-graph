@@ -13,14 +13,14 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
-const { methodTrace } = require('../../lib/authoring/mine.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
+const { methodTrace } = require('../../lib/authoring/learning/mine.js');
 const { createLearningLibrary } = require('../../lib/combos/learning-library.js');
-const { goldGate } = require('../../lib/authoring/stock.js');
-const { getAdapter, loadDataset } = require('../../lib/authoring/dataset-adapter.js');
-const { combineMethods, blendMethods, composeContract, methodDepth } = require('../../lib/authoring/adapt.js');
-const { instantiate, ctxFromScope } = require('../../lib/authoring/abstract.js');
-const { injectMarker, guardKey } = require('../../lib/authoring/combinator.js');
+const { goldGate } = require('../../lib/authoring/forge/stock.js');
+const { getAdapter, loadDataset } = require('../../lib/authoring/forge/dataset-adapter.js');
+const { combineMethods, blendMethods, composeContract, methodDepth } = require('../../lib/authoring/learning/adapt.js');
+const { instantiate, ctxFromScope } = require('../../lib/authoring/core/abstract.js');
+const { injectMarker, guardKey } = require('../../lib/authoring/learning/combinator.js');
 console.log = console.info = console.warn = () => {};
 
 const TREE = { childConcepts: { Plan: { _id: 'Plan', _name: 'Plan', require: ['Segment', 'taskKind'], ensure: ['!$Planned'], provider: ['Plan::plan'] } } };

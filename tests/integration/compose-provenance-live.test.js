@@ -22,11 +22,11 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const path = require('path');
 const Graph = require('../_boot.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
-const { methodTrace } = require('../../lib/authoring/mine.js');
-const { buildConceptTree } = require('../../lib/authoring/concepts.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
+const { methodTrace } = require('../../lib/authoring/learning/mine.js');
+const { buildConceptTree } = require('../../lib/authoring/core/concepts.js');
 const { register, CommonGeo } = require('../../lib/providers');
-const C = require('../../lib/authoring/compose-hotspot');
+const C = require('../../lib/authoring/learning/compose-hotspot');
 console.log = console.info = console.warn = () => {};
 
 // ── the grammar: two HETEROGENEOUS chains a whole-task runs CONCURRENTLY.

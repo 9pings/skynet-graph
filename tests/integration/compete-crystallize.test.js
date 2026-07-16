@@ -19,9 +19,9 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
-const { crystallizeStructural, adopt } = require('../../lib/authoring/crystallize.js');
-const { makeCompeteProvider } = require('../../lib/authoring/compete.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
+const { crystallizeStructural, adopt } = require('../../lib/authoring/learning/crystallize.js');
+const { makeCompeteProvider } = require('../../lib/authoring/core/compete.js');
 console.log = console.info = console.warn = () => {};
 
 // the winner's STRUCTURAL decomposition (a bounded multi-object sub-graph, base-derived ids so relativize holes it).

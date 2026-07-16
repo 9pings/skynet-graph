@@ -17,7 +17,7 @@
 const path = require('path');
 const ROOT = path.resolve(__dirname, '../..');
 const { digest } = require(ROOT + '/lib/providers/canonicalize.js');
-const C = require(ROOT + '/lib/authoring/contract.js');
+const C = require(ROOT + '/lib/authoring/core/contract.js');
 const { makeWorkload } = require('./workload.js');
 const out = ( ...a ) => process.stdout.write(a.join(' ') + '\n');
 

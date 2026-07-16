@@ -14,7 +14,7 @@
  */
 const NRG = require('path').join(__dirname, '..', '..');    // le repo lui-même (fusion NRG→skynet-graph faite)
 const Graph = require(NRG + '/lib/graph/index.js');
-const { nextStable } = require(NRG + '/lib/authoring/supervise.js');
+const { nextStable } = require(NRG + '/lib/authoring/core/supervise.js');
 const { recordConstat } = require(NRG + '/lib/providers/constat.js');
 const A = require(NRG + '/examples/forge-adapters/finqa.js');
 

@@ -22,7 +22,7 @@
 const path = require('path');
 const ROOT = path.resolve(__dirname, '../..');
 const { digest } = require(ROOT + '/lib/providers/canonicalize.js');
-const C = require(ROOT + '/lib/authoring/contract.js');
+const C = require(ROOT + '/lib/authoring/core/contract.js');
 
 const KINDS = ['loan', 'refund', 'wire'], REGIONS = ['EU', 'US', 'APAC'], SCORES = ['high', 'low'], TIERS = ['small', 'large'];
 const auditKey = ( r ) => `${r.region}|${r.kind}`;

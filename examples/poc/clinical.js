@@ -12,7 +12,7 @@
 global.__SERVER__ = true;
 const path = require('path');
 const Graph = require('../../lib/graph/index.js');
-const { buildConceptTree } = require('../../lib/authoring/concepts');
+const { buildConceptTree } = require('../../lib/authoring/core/concepts');
 const { createConstat } = require('../../lib/providers/constat');
 
 const CLINICAL = path.join(__dirname, '..', '..', 'concepts', 'clinical');

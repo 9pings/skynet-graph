@@ -13,8 +13,8 @@
 global.__SERVER__ = true;
 const path = require('path');
 const Graph = require('../../lib/graph/index.js');
-const { buildConceptTree } = require('../../lib/authoring/concepts');
-const { treeDecomposition, forkPlan } = require('../../lib/authoring/decompose');
+const { buildConceptTree } = require('../../lib/authoring/core/concepts');
+const { treeDecomposition, forkPlan } = require('../../lib/authoring/core/decompose');
 
 const SUPPLY = path.join(__dirname, '..', '..', 'concepts', 'supply');
 

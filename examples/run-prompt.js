@@ -24,7 +24,7 @@
 //   node lib/sg/cli.js trace /tmp/run-prompt.trace.json
 const path = require('path');
 const Graph = require('../tests/_boot.js');
-const { loopConceptTree, makeDecomposeProviders, synthesize } = require('../lib/authoring/loop.js');
+const { loopConceptTree, makeDecomposeProviders, synthesize } = require('../lib/authoring/core/loop.js');
 const { ask, parseJSON, BASE, MODEL } = require('./llm.js');
 const { createTrace } = require('../lib/sg/trace.js');
 

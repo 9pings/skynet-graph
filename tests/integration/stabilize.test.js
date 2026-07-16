@@ -11,7 +11,7 @@ const assert = require('node:assert/strict');
 const path = require('path');
 
 const Graph = require('../_boot.js');            // @babel/register loads App/index.js
-const { buildConceptTree } = require('../../lib/authoring/concepts.js');
+const { buildConceptTree } = require('../../lib/authoring/core/concepts.js');
 
 // The engine logs verbosely on the global console; silence it for clean test output.
 console.log = console.info = console.warn = () => {};

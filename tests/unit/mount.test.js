@@ -7,7 +7,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { createMountController, classify } = require('../../lib/authoring/mount.js');
+const { createMountController, classify } = require('../../lib/authoring/core/mount.js');
 
 test('regime selection by (reliability, depth, frontier)', () => {
 	assert.equal(classify({ reliability: 0.9, hitRate: 0.95, depth: 1, readOnlyFrontier: true }, 'instance'), 'frozen', 'proven+dry+read-only → frozen');

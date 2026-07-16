@@ -21,7 +21,7 @@
 const path = require('path');
 const ROOT = path.resolve(__dirname, '../..');
 const { digest } = require(ROOT + '/lib/providers/canonicalize.js');     // the real K1 typed key
-const C = require(ROOT + '/lib/authoring/contract.js');                   // the real defeasible-contract checker
+const C = require(ROOT + '/lib/authoring/core/contract.js');                   // the real defeasible-contract checker
 
 const typedKey = ( r ) => digest({ kind: r.kind, region: r.region, score: r.score });   // tier EXCLUDED (incidental)
 const surfaceKey = ( r ) => `${r.kind}|${r.region}|${r.tier}|${r.score}`;                // tier INCLUDED (surface)

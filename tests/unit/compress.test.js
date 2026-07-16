@@ -8,8 +8,8 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { mineDigrams, subExpansionIndex, foldSubpaths, toExpandPatch, mineForest } = require('../../lib/authoring/compress.js');
-const { makeTypedDecomposeProviders } = require('../../lib/authoring/typed-loop.js');
+const { mineDigrams, subExpansionIndex, foldSubpaths, toExpandPatch, mineForest } = require('../../lib/authoring/learning/compress.js');
+const { makeTypedDecomposeProviders } = require('../../lib/authoring/core/typed-loop.js');
 
 // shape-tree helper: n('filter', n('filter')) = a filter step whose expansion is one atomic filter
 const n = ( k, ...c ) => ({ k, c });

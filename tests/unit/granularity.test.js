@@ -6,7 +6,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { clusterByGrounding, arbitrate } = require('../../lib/authoring/granularity');
+const { clusterByGrounding, arbitrate } = require('../../lib/authoring/lattice/granularity');
 
 test('P2-GRAN-1 — connected components on shared-witness graph (transitive)', () => {
 	const r = clusterByGrounding([

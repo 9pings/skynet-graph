@@ -13,7 +13,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const path = require('node:path');
 const Graph = require('../../lib/graph/index.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
 const { loadPlugin, definePlugin, resolvePlugins } = require('../../lib/plugins');
 
 const SC_DIR = path.join(__dirname, '..', '..', 'plugins', 'self-consistency');

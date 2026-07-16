@@ -21,7 +21,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
 const { createIntake, makeBorderlineSnap } = require('../../lib/providers');
-const { deriveRegistry, freezeRegistry, resolveFactsSchema, registryLoopTree, makeRegistryLoopProviders, retractRingAlias } = require('../../lib/authoring/registry');
+const { deriveRegistry, freezeRegistry, resolveFactsSchema, registryLoopTree, makeRegistryLoopProviders, retractRingAlias } = require('../../lib/authoring/lattice/registry');
 console.log = console.info = console.warn = () => {};
 
 // severity = {low, high}, NO ring yet — the exogenous vocabulary the circuit will grow from intake misses.

@@ -17,7 +17,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
-const { authorConcept } = require('../../lib/authoring/author.js');
+const { authorConcept } = require('../../lib/authoring/core/author.js');
 console.log = console.info = console.warn = () => {};
 
 // Build a graph with one segment (Distance 400) and wait for the first stabilize.

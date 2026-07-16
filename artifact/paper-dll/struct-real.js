@@ -20,7 +20,7 @@
 const path = require('path');
 const ROOT = path.resolve(__dirname, '../..');
 const Graph = require(ROOT + '/lib/graph/index.js');
-const { nextStable } = require(ROOT + '/lib/authoring/supervise.js');
+const { nextStable } = require(ROOT + '/lib/authoring/core/supervise.js');
 const { createProviderCache } = require(ROOT + '/lib/providers/cache.js');
 const { buildPrompt } = require('./harness.js');
 

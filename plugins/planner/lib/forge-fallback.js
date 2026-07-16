@@ -34,7 +34,7 @@
  * CONTENT adds a thin-but-robust +1 (a stubborn case resampling can't reach). `maxRounds` DEFAULTS to 1 → the one-shot
  * behavior is byte-identical (fully backward-compatible).
  */
-const { assertPost } = require('../../../lib/authoring/contract.js');
+const { assertPost } = require('../../../lib/authoring/core/contract.js');
 
 /**
  * defaultStackToPrompt — the tunable serialization. Reconstitutes each level's TYPED interface (statement + produces

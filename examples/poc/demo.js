@@ -17,8 +17,8 @@
  */
 global.__SERVER__ = true;
 const Graph = require('../../lib/graph/index.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
-const { forkPlan } = require('../../lib/authoring/decompose');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
+const { forkPlan } = require('../../lib/authoring/core/decompose');
 const { createSolver, snappedFrontier, solverConceptTree } = require('../../lib/providers');
 const { runTripDecompose } = require('./trip-decompose.js');
 const { forkSolveAndMerge } = require('./fork-driver.js');

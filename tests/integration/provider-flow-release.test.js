@@ -8,7 +8,7 @@
 const test = require('node:test');
 const assert = require('node:assert');
 const Graph = require('../_boot.js');
-const { nextStable } = require('../../lib/authoring/supervise.js');
+const { nextStable } = require('../../lib/authoring/core/supervise.js');
 
 function settleOrTimeout(g, ms) {
   return Promise.race([

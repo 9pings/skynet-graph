@@ -1,6 +1,6 @@
 'use strict';
 /**
- * Tree-decomposition pass (lib/authoring/decompose.js) — DERIVES the interface alphabet
+ * Tree-decomposition pass (lib/authoring/core/decompose.js) — DERIVES the interface alphabet
  * (separator facts) + the tiling (forks) from the concept-dependency graph, with treewidth
  * as the cost bound. Promotes experiment E7; the headline numbers are re-asserted here.
  */
@@ -9,9 +9,9 @@ const assert = require('node:assert/strict');
 const path = require('node:path');
 const {
 	treeDecomposition, decomposeCliques, conceptCliques, articulationPoints, primalAdj, forkPlan
-} = require('../../lib/authoring/decompose');
-const { buildConceptTree } = require('../../lib/authoring/concepts');
-const { validateMergeProjection } = require('../../lib/authoring/validate');
+} = require('../../lib/authoring/core/decompose');
+const { buildConceptTree } = require('../../lib/authoring/core/concepts');
+const { validateMergeProjection } = require('../../lib/authoring/core/validate');
 
 // --- E7a: synthetic corpus, KNOWN structure. 3 biconnected domains (triangles) joined
 // by 2 shared bridge facts {cost, risk}. Ground truth: separators={cost,risk}, 3 tiles. ---

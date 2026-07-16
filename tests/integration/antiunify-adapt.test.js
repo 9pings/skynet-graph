@@ -9,10 +9,10 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Graph = require('../_boot.js');
-const { crystallizeStructural } = require('../../lib/authoring/crystallize.js');
-const { makeLibrary, indexMethod } = require('../../lib/authoring/library.js');
-const { adaptOrForge, antiUnifyAdapt, methodContentHoles } = require('../../lib/authoring/adapt.js');
-const { instantiate, hasHoles } = require('../../lib/authoring/abstract.js');
+const { crystallizeStructural } = require('../../lib/authoring/learning/crystallize.js');
+const { makeLibrary, indexMethod } = require('../../lib/authoring/learning/library.js');
+const { adaptOrForge, antiUnifyAdapt, methodContentHoles } = require('../../lib/authoring/learning/adapt.js');
+const { instantiate, hasHoles } = require('../../lib/authoring/core/abstract.js');
 const { digest } = require('../../lib/providers/canonicalize.js');
 console.log = console.info = console.warn = () => {};
 
