@@ -11,8 +11,13 @@ const path = require('path');
 const { execFile } = require('child_process');
 
 const DIR = path.resolve(__dirname, '../../examples/bootstrap');
+// One entry per capability factory (C1-C9) + the forge + the two README features whose demo is the engine
+// itself (F3 memory, F7 substrate) + the two integration surfaces. If you add a bootstrap, add it here —
+// the file is the vitrine, this list is what keeps it honest.
 const BOOTSTRAPS = [
 	'c1-appliance', 'c2-durable', 'c3-learning-library', 'c4-reactive-kg', 'c5-self-mod', 'c6-proxy',
+	'c7-plan-loop', 'c8-mixture-serve', 'c9-critical-mind',
+	'forge-stock', 'f3-task-memory', 'f7-substrate',
 	'openai-client', 'mcp-tools'
 ];
 

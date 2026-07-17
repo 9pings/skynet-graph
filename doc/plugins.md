@@ -159,6 +159,10 @@ zero errors — the suite enforces it (`tests/unit/plugin-cli.test.js`).
 
 ## The strategy catalog — one kernel, deposited sets
 
+> **The full presentation, the recipes and the runnable examples live in [strategies.md](strategies.md).**
+> This section is the plugin-contract view: which plugin ships what, and at which tier. Read
+> `strategies.md` to *use* them; read on here to see how they sit in the plugin system.
+
 Thirteen reasoning strategies commonly shipped as isolated framework classes are covered here by
 **one kernel + deposited concept sets** (a strategy is FILES you drop, not code you fork):
 
@@ -185,6 +189,10 @@ demands a brick (Thought/decide ← self-consistency · Score ← refinement · 
 Mark ← tree-of-thoughts), and **no strategy ships a self-scoring path** — a score/critique/judgment
 must come from an EXTERNAL source (judge model, oracle, test): the generator judging itself is the
 measured, refuted self-audit.
+
+Every row above has a runnable, model-free example under `examples/strategies/` (or
+`examples/bootstrap/` for the two that are capabilities), each printing the guarantee it demonstrates
+and executed by the suite (`strategies-smoke.test.js`) — the table cannot drift from the code.
 
 Two authoring gotchas these plugins paid for (both linted/documented). (1) `Node`/`Segment` are the
 pre-set ROOT FACTS of the concept system — concept trees ANCHOR on them via `require` (the

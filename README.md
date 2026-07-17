@@ -24,17 +24,16 @@
 
 ## What it is
 
-**A generic, model-agnostic reasoning substrate** — typed facts + declarative concept rules + truth
-maintenance — that turns an LLM's reasoning from throwaway prose into a versioned graph you can **test,
-reuse, replay and reopen**. It runs *your* local model; nothing leaves the machine. *(Demonstrated
+**A generic, model-agnostic reasoning substrate**, using typed facts + declarative concept rules + truth
+maintenance, that turns an LLM's reasoning from throwaway prose into a versioned graph you can **test,
+reuse, replay and reopen**. Made for local models; nothing leaves the machine. *(Demonstrated
 end-to-end below on a 9.5 GB local quant — the starkest, cheapest-to-verify case, not the limit.)*
 
 Your model's reasoning today is trapped in prose: you cannot test one step in isolation, reuse it on the
-next task, replay it deterministically, or reopen it when a fact changes. This is the externalized layer
-that makes it structural. You activate a capability **plugin** for a task type; the substrate mutates — casting typed
-transformations, retracting them when a premise fails — until it stabilizes into a coherent, serializable
-result state. Four things it gives any model, each measured on real runs with negative controls and
-deterministic re-runs:
+next task, replay it deterministically, or reopen it when a fact changes. Skynet-graph act as an externalized reasoning layer doing that by structure. 
+Basing the chosen **plugin(s)** and the prompt; the substrate mutates; it cast typed
+transformations, retract them when a premise fails, until it stabilizes into a stable, coherent, serializable result state. 
+Here four things it gives to any model, each measured on real runs with negative controls and deterministic re-runs:
 
 - **Piece-by-piece on big tasks** — the task becomes a *typed* DAG; each step sees only a bounded
   neighbourhood, never the whole dossier. Cross-domain, N=200/domain: GSM8K **16→52 %**, FinQA **20→50 %**.
@@ -96,16 +95,20 @@ The measured detail — numbers, negative controls, limits and snippets per feat
 is where those capabilities are framed and put in users' hands. Maturity uses a 6-rung honest scale
 (rung 6 = external replications, empty pre-launch):
 
-| Feature — details per row in [doc/CAPABILITIES.md](doc/CAPABILITIES.md) | Maturity (6-rung honest scale; rung 6 = external replications, empty pre-launch) |
-|---|---|
-| [F1 — Certified-shape steering](doc/CAPABILITIES.md#f1-low-quant-repair) | `█████░` 5/6 — product-integrated |
-| [F2 — The piece-by-piece zoom](doc/CAPABILITIES.md#f2-piece-by-piece-zoom-on-big-tasks) | `████░░` 4/6 — measured at scale, not turnkey yet |
-| [F3 — Task memory that reopens](doc/CAPABILITIES.md#f3-task-memory-that-reopens) | `█████░` 5/6 — product-integrated |
-| [F4 — External think mode](doc/CAPABILITIES.md#f4-external-think-mode) | `█████░` 5/6 — product-integrated |
-| [F5 — External critical mind](doc/CAPABILITIES.md#f5-external-critical-mind) | `█████░` 5/6 — product-integrated |
-| [F6 — Local `.sgc` rooms](doc/CAPABILITIES.md#f6-local-sgc-rooms) | `█████░` 5/6 — product-integrated |
-| [F7 — The versionable reasoning substrate](doc/CAPABILITIES.md#f7-the-versionable-reasoning-substrate) | `█████░` 5/6 — product-integrated |
-| [The integrated demo](doc/CAPABILITIES.md#the-integrated-demo) | `█████░` 5/6 — ships in this repo |
+| Feature — details per row in [doc/CAPABILITIES.md](doc/CAPABILITIES.md) | Maturity (6-rung honest scale; rung 6 = external replications, empty pre-launch) | Run it (deterministic, no GPU) |
+|---|---|---|
+| [F1 — Certified-shape steering](doc/CAPABILITIES.md#f1-low-quant-repair) | `█████░` 5/6 — product-integrated | [`c6-proxy.js`](examples/bootstrap/c6-proxy.js) · [`forge-stock.js`](examples/bootstrap/forge-stock.js) |
+| [F2 — The piece-by-piece zoom](doc/CAPABILITIES.md#f2-piece-by-piece-zoom-on-big-tasks) | `████░░` 4/6 — measured at scale, not turnkey yet | [`c7-plan-loop.js`](examples/bootstrap/c7-plan-loop.js) |
+| [F3 — Task memory that reopens](doc/CAPABILITIES.md#f3-task-memory-that-reopens) | `█████░` 5/6 — product-integrated | [`f3-task-memory.js`](examples/bootstrap/f3-task-memory.js) |
+| [F4 — External think mode](doc/CAPABILITIES.md#f4-external-think-mode) | `█████░` 5/6 — product-integrated | [`mcp-tools.js`](examples/bootstrap/mcp-tools.js) |
+| [F5 — External critical mind](doc/CAPABILITIES.md#f5-external-critical-mind) | `█████░` 5/6 — product-integrated | [`c9-critical-mind.js`](examples/bootstrap/c9-critical-mind.js) |
+| [F6 — Local `.sgc` rooms](doc/CAPABILITIES.md#f6-local-sgc-rooms) | `█████░` 5/6 — product-integrated | [`c3-learning-library.js`](examples/bootstrap/c3-learning-library.js) |
+| [F7 — The versionable reasoning substrate](doc/CAPABILITIES.md#f7-the-versionable-reasoning-substrate) | `█████░` 5/6 — product-integrated | [`f7-substrate.js`](examples/bootstrap/f7-substrate.js) |
+| [The integrated demo](doc/CAPABILITIES.md#the-integrated-demo) | `█████░` 5/6 — ships in this repo | [`integrated-demo/run.js --replay`](examples/integrated-demo/) |
+
+Every file in that last column is **deterministic, model-free and GPU-free**, prints the guarantee it
+demonstrates, and is executed by the test suite — so a claim on this page that stopped being true would
+break the build. The map of all of them is [`examples/README.md`](examples/README.md).
 
 The certified vocabulary these capabilities lean on is **fuel, not the headline**: a *forge* (`sg forge`)
 builds `.sgc` method stocks from any dataset that has an executable oracle, behind a **zero-false-admission**
@@ -226,15 +229,18 @@ capabilities packaged as **plugins** under `plugins/`, each a self-contained, dr
 
 | Plugin | What it ships |
 |---|---|
-| `reason-kernel` | the shared reasoning foundation: the append-only **Ledger**, the margin decidability gate, the `Score` band, the generic `Thought` concept |
+| `reason-kernel` | the shared reasoning foundation: the append-only **Ledger**, the margin decidability gate, the `Score` band, the generic `Thought` + typed `Relation` concepts, the `Mark` watched-mirror brick |
 | `critical-mind` | C9 — the external critical mind: witness gate, anchored 0-fabrication generation, typed ledger, certification-aware margin verdict *(deps: reason-kernel)* |
-| `self-consistency` | Tier-0, pure grammar (zero JS): k reasoning paths → snapped-vote ledger → margin decidability gate *(deps: reason-kernel)* |
-| `refinement` | Tier-0, pure grammar: iterative refinement — accept on a snapped score band, bounded rounds *(deps: reason-kernel)* |
+| **the strategy pack** — `self-consistency` · `refinement` (+ `reflexion`) · `socratic` · `least-to-most` · `analogical` · `react-loop` | **Tier-0, pure grammar (zero JS)**: the reasoning strategies as deposited concept sets — see [Reasoning strategies](#reasoning-strategies--one-kernel-deposited-sets) below *(deps: reason-kernel)* |
+| `tree-of-thoughts` · `mcts` | Tier-1: state-in-graph + a thin deterministic search driver (beam / UCB1) — the selection policy is an argmax across siblings, which the per-object rule DSL cannot express *(deps: reason-kernel)* |
 | `planner` | C7 — the plan loop / piece-by-piece zoom: the decompose grammar + the projection engine + `createPlanLoop` |
 | `learning` | the DLL toolkit (crystallize / mine / adapt / method-pack) + `createLearningLibrary` (C3) |
 | `forge` | dataset + executable oracle → gold-gated `.sgc` method stock + sha256 dossier — what `sg forge` runs *(deps: learning)* |
 | `durable` | C2 — the durable workflow executor: checkpoint store + `compileMethod` + `runFlow` + audit (`createDurableRunner`) |
 | `mixture-serve` | C8 — the mixture-runtime server: a cheap local model oriented by a certified stock, the rest escalated to a bigger tier |
+
+*(Fifteen plugins in total — the six strategy sets are grouped in the two rows above to keep the table
+readable; `sg plugin list plugins/` enumerates them all from their manifests without running any code.)*
 
 - **A plugin is an npm package.** Its `index.js` exports the plugin object —
   `Graph.definePlugin(__dirname, [require('reason-kernel')])` — and its dependencies are `require`d and
@@ -256,6 +262,54 @@ capabilities packaged as **plugins** under `plugins/`, each a self-contained, dr
 
 The full contract — manifest schema, the dependency-cycle rule, the *alphabet-is-the-API* invariant —
 is **[doc/plugins.md](doc/plugins.md)**.
+
+## Reasoning strategies — one kernel, deposited sets
+
+Chain-of-Thought, ReAct, Tree-of-Thoughts, Reflexion, MCTS… the usual way to get these is a framework that
+ships each as its own class, with its own loop, its own state and its own bugs: thirteen strategies means
+thirteen implementations that share nothing.
+
+Here **a strategy is a concept set you deposit on one shared kernel** — files, not a fork. There is no
+`Strategy` class to subclass because there is no strategy *object*: it is a grammar over typed facts, and
+the engine runs it like everything else. Eleven of the thirteen are **Tier-0 — pure grammar, zero JS**:
+nothing of ours executes, so there is no code of ours to trust.
+
+The contract never changes: **the host writes typed facts, the graph decides, the host reads which gates
+are open.** No `run()`, no callbacks, no loop of yours to get wrong.
+
+```js
+const s = bootStrategy('least-to-most', { nodes: [ /* ranked sub-problems */ ] });
+await s.settle();
+s.cast('s1', 'Ready');                       // ← is this rung released? (the dataflow decided, not a scheduler)
+await s.ingest({ s0: { answer: 'a0' } });    // ← the host answers; the next rung arms ITSELF
+```
+
+| Strategy | Shape here | Runnable |
+|---|---|---|
+| Self-Consistency | k paths → snapped votes → **the margin bound**: a tie is an honest `UNDECIDED`, never a coin flip | [`self-consistency.js`](examples/strategies/self-consistency.js) |
+| Iterative Refinement | accept on a snapped **band** (never a raw float); the round budget bounds the loop structurally | [`refinement.js`](examples/strategies/refinement.js) |
+| Reflexion | accept on an **external** binary verdict — an unjudged attempt fires nothing | [`reflexion.js`](examples/strategies/reflexion.js) |
+| Socratic | insight tallies + a **coverage counter-gate**: you cannot conclude over a probe you skipped | [`socratic.js`](examples/strategies/socratic.js) |
+| Least-to-Most | the release order **emerges from the dataflow**; an out-of-order answer is structurally refused | [`least-to-most.js`](examples/strategies/least-to-most.js) |
+| Analogical | a **defeasible** transfer: retract the source case and the license uncasts in cascade, reason appended | [`analogical.js`](examples/strategies/analogical.js) |
+| ReAct | the pending tool-call list is a **live cast set** that retires itself on the observation; 3 stops | [`react.js`](examples/strategies/react.js) |
+| Meta-Router | classify → dispatch the matching decomposition; an off-enum label **fails closed** | [`meta-router.js`](examples/strategies/meta-router.js) |
+| Tree-of-Thoughts | prune one node → the **subtree cascades out natively** (0 traversal code); a pruned branch costs 0 calls | [`tree-of-thoughts.js`](examples/strategies/tree-of-thoughts.js) |
+| MCTS | UCB1 with **no `Math.random`** — the tree is the audit and two runs are byte-identical | [`mcts.js`](examples/strategies/mcts.js) |
+| Adversarial Debate | **the measured one** (C9): witness gate, 0-fabrication, honest `UNDECIDED` below the margin bound | [`c9-critical-mind.js`](examples/bootstrap/c9-critical-mind.js) |
+| Decomposition | C7: a typed DAG where each leaf sees only its declared upstreams | [`c7-plan-loop.js`](examples/bootstrap/c7-plan-loop.js) |
+| Chain-of-Thought | a single ask — trivial, no grammar needed | — |
+
+Every row is **deterministic and model-free**: `node examples/strategies/<file>.js` prints the guarantee it
+just demonstrated, and the suite executes all of them, so the table cannot drift from the code.
+
+**Two rules worth knowing before you build on this.** (1) **Nothing self-scores** — every score, critique or
+verdict must come from an EXTERNAL source (a judge model, an oracle, a test run). That is not a gap to fill:
+the generator judging itself was measured and refuted three times, so the plugins ship no such path, and
+there is deliberately no `reflect`/`refine` MCP tool. (2) **Honest scope** — only the debate (C9) is
+LLM-measured; the other sets are *expressible and structurally proven* (0-model tests, negative controls,
+deterministic replay), not LLM-benchmarked. Both rules, the recipes, and the kernel's brick-by-brick
+rationale: **[doc/strategies.md](doc/strategies.md)**.
 
 ## Two ways to use it — and how it works
 

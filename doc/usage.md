@@ -478,6 +478,12 @@ auto-export) }`. The repo ships fifteen under `plugins/` — `reason-kernel` · 
 `tree-of-thoughts` · `mcts`) · `planner` · `learning` · `forge` · `durable` · `mixture-serve` —
 and they are the pattern to copy; the full contract is **[plugins.md](plugins.md)**.
 
+The strategy pack is worth its own page: a reasoning strategy here is a **concept set you deposit** on
+`reason-kernel` (eleven of the thirteen are Tier-0 — pure grammar, zero JS), so there is no strategy API to
+call — the host writes typed facts, the graph decides, the host reads which gates opened. The framing, the
+recipes (seed shape → the facts you write → the gates you read) and the honest scope are
+**[strategies.md](strategies.md)**; one runnable, model-free file each lives in `examples/strategies/`.
+
 ```js
 const Graph = require('skynet-graph');
 
@@ -542,4 +548,6 @@ sg flow run examples/poc/durable-flow.js --store ./flow.sqlite        # --resume
 ```
 
 Runnable, deterministic, GPU-free demos of every capability and both surfaces live in `examples/bootstrap/`
-(one file per use-case class, each printing the guarantee it demonstrates — run them with plain `node`).
+(one file per use-case class, each printing the guarantee it demonstrates — run them with plain `node`), and
+one per reasoning strategy in `examples/strategies/`. Both directories are executed by the test suite, and
+every feature F1-F7 on the README maps to a file — the map is `examples/README.md`.
