@@ -22,26 +22,39 @@
  */
 const assert = require('node:assert');
 const { bootStrategy } = require('./_boot.js');
+const { title, say, gap, step: beat, note, good, bad, val, done: finish } = require('../_say.js');
 
 const session = ( extra ) => Object.assign({ _id: 'ledger', isReactSession: true, maxRounds: 3, trace: [] }, extra || {});
 const step = ( id, round, o ) => Object.assign({ _id: id, isThought: true, round, text: 'think' }, o);
 
 async function main() {
+	title('THE TO-DO LIST OF PENDING TOOL CALLS — THAT NOBODY MAINTAINS');
+	say('When a model uses tools, something has to remember which calls are still waiting for an');
+	say('answer. Normally you write that bookkeeping yourself, and it drifts out of sync.');
+	say('Here nobody writes it. Watch the list keep itself.');
+	gap();
+
 	// ── 1. THE LIVE WORKLIST: a pending action is a cast; the observation retires it ───────────────
 	const g = bootStrategy('react', { nodes: [session(), step('t0', 0, { actionTool: 'search', actionInput: 'q' })] });
 	await g.settle();
-	console.log('pending →', JSON.stringify({ needsAction: g.cast('t0', 'NeedsAction'), observed: g.cast('t0', 'Observed'), trace: g.fact('ledger', 'trace') }));
+	beat(1, 'The model says: "search for q".');
+	note('that call is now marked PENDING — it put itself on the list');
 	assert.equal(g.cast('t0', 'NeedsAction'), true, 'a typed pending tool call IS the signal');
 
 	await g.ingest({ t0: { observation: 'found it' } });                       // the host ran the tool, writes what it saw
 	await g.settle();
-	console.log('observed→', JSON.stringify({ needsAction: g.cast('t0', 'NeedsAction'), observed: g.cast('t0', 'Observed'), trace: g.fact('ledger', 'trace') }));
+	beat(2, 'We run the search and write down what we found.');
+	good('the PENDING mark removed itself. We never crossed it off');
+	good('the step joined the trail of what actually happened');
 	assert.equal(g.cast('t0', 'NeedsAction'), false, 'the signal RETIRED ITSELF when the observation landed');
 	assert.equal(g.cast('t0', 'Observed'), true, 'the step entered the trajectory');
 	assert.deepEqual(g.fact('ledger', 'trace'), ['t0'], 'the trajectory IS the audit');
 	g.close();
+	gap();
 
 	// ── 2. THE THREE STOPS ────────────────────────────────────────────────────────────────────────
+	say('A tool loop that never stops is the classic way to burn a budget. Three separate things');
+	say('stop this one, and any of them is enough:');
 	const s = bootStrategy('react', {
 		nodes: [
 			session(),
@@ -51,30 +64,38 @@ async function main() {
 		],
 	});
 	await s.settle();
-	for ( const id of ['t0', 't1', 't2'] ) console.log(id, '→ Continue:', s.cast(id, 'Continue'));
+	const rule = ( when, then ) => when.padEnd(40) + '→ ' + then;
+	good(rule('a step with budget left, and work to do', 'keeps going'));
+	bad(rule('a step that has spent its round budget', 'stops. No runaway loop'));
+	bad(rule('a step that already has a follow-up', 'stops. It cannot fork the trail'));
 	assert.equal(s.cast('t0', 'Continue'), true, 'observed + budget + no successor → keep going');
 	assert.equal(s.cast('t1', 'Continue'), false, 'stop 1 — the round budget: no runaway loop');
 	assert.equal(s.cast('t2', 'Continue'), false, 'stop 2 — the null-guard: a step continues once, never forks');
 	s.close();
 
-	const done = bootStrategy('react', { nodes: [session({ finalAnswer: '42' }), step('t0', 0, { actionTool: 'x', observation: 'o' })] });
-	await done.settle();
-	console.log('final   →', JSON.stringify({ done: done.cast('ledger', 'Done'), continue: done.cast('t0', 'Continue') }));
-	assert.equal(done.cast('ledger', 'Done'), true, 'the session is terminal');
-	assert.equal(done.cast('t0', 'Continue'), false, 'stop 3 — a final answer halts the loop STRUCTURALLY');
-	done.close();
+	const d = bootStrategy('react', { nodes: [session({ finalAnswer: '42' }), step('t0', 0, { actionTool: 'x', observation: 'o' })] });
+	await d.settle();
+	bad(rule('a session that has its final answer', 'stops. The loop is over'));
+	assert.equal(d.cast('ledger', 'Done'), true, 'the session is terminal');
+	assert.equal(d.cast('t0', 'Continue'), false, 'stop 3 — a final answer halts the loop STRUCTURALLY');
+	d.close();
+	gap();
 
 	// ── 3. NEGATIVE CONTROL: no forced tool calls, no phantom trace entries ────────────────────────
+	say('Two things it refuses to do, which is how you know the list means something:');
 	const n = bootStrategy('react', { nodes: [session(), step('t0', 0), step('t1', 1, { actionTool: 'x' })] });
 	await n.settle();
-	console.log('neg     →', JSON.stringify({ pureThoughtActs: n.cast('t0', 'NeedsAction'), trace: n.fact('ledger', 'trace'), done: n.cast('ledger', 'Done') }));
+	bad('a step that is just thinking is never pushed into calling a tool');
+	bad('a call with no answer yet never counts as something that happened');
 	assert.equal(n.cast('t0', 'NeedsAction'), false, 'a pure reasoning step is legitimate — nothing forces a tool call');
 	assert.deepEqual(n.fact('ledger', 'trace'), [], 'an unobserved step never enters the trace');
 	n.close();
+	gap();
 
 	// ── 4. the loop, driven for real ───────────────────────────────────────────────────────────────
 	// The production shape: read the worklist off the graph, run those tools, write the observations,
 	// continue while the graph says to. The host never tracks "what's pending" — it asks.
+	say('Now the whole loop, for real. We never track what is pending — we ask, and we answer:');
 	const TOOLS = { search: ( q ) => 'results for ' + q, calc: ( q ) => 'the answer is ' + q.length };
 	const L = bootStrategy('react', { nodes: [session(), step('r0', 0, { actionTool: 'search', actionInput: 'skynet' })] });
 	await L.settle();
@@ -84,6 +105,7 @@ async function main() {
 		if ( !pending.length ) break;
 		for ( const id of pending ) {                                            // run the host's real tools
 			const tool = TOOLS[L.fact(id, 'actionTool')];
+			note('waiting on: ' + L.fact(id, 'actionTool') + '("' + L.fact(id, 'actionInput') + '")  → we run it, and write the answer down');
 			await L.ingest({ [id]: { observation: tool(L.fact(id, 'actionInput')) } });
 		}
 		await L.settle();
@@ -98,12 +120,15 @@ async function main() {
 	}
 	await L.ingest({ ledger: { finalAnswer: 'done' } });                        // the host concludes
 	await L.settle();
-	console.log('driven  →', JSON.stringify({ trace: L.fact('ledger', 'trace'), done: L.cast('ledger', 'Done'), stillPending: ids.filter(( id ) => L.cast(id, 'NeedsAction') ) }));
+	gap();
+	val('steps taken', L.fact('ledger', 'trace').length + ' — in order, kept as the trail of what happened');
+	val('still pending', ids.filter(( id ) => L.cast(id, 'NeedsAction') ).length + ' — the list emptied itself');
+	val('stopped because', 'the round budget ran out (stop #1 of 3)');
 	assert.deepEqual(L.fact('ledger', 'trace'), ids, 'every acted step is on the trajectory, in order');
 	assert.deepEqual(ids.filter(( id ) => L.cast(id, 'NeedsAction') ), [], 'the worklist drained itself — nothing left pending');
 	assert.equal(L.cast('ledger', 'Done'), true);
 	L.close();
 
-	console.log('STRATEGY OK — the pending tool-call list is a live cast set (it retires itself on the observation); three independent stops bound the loop');
+	finish('you never keep the list of pending calls — you ask, and it is always right.', 'STRATEGY OK');
 }
 main().catch(( e ) => { console.error(e); process.exit(1); });

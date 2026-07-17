@@ -24,6 +24,7 @@
  */
 const assert = require('node:assert');
 const { makeArchetypeRouter, ARCHETYPES } = require('../../plugins/planner/lib/dag-decompose.js');
+const { title, say, gap, step: beat, note, good, bad, val, done: finish } = require('../_say.js');
 
 // A scripted model: it classifies, then emits a decomposition. In production both calls go to your model
 // (grammar-constrained). The router's two asks are distinguishable by their system prompt.
@@ -41,37 +42,53 @@ const CHAIN = [
 ];
 
 async function main() {
+	title('WORK OUT WHAT KIND OF JOB THIS IS — THEN SPLIT IT THE RIGHT WAY');
+	say('Not every task should be broken up the same way. "Do A, then B, then C" is a chain.');
+	say('"Pull every field out of this form" is a hundred independent little jobs. Getting that');
+	say('wrong makes everything downstream worse, so it is decided first, and it is decided safely.');
+	gap();
+
 	// ── 1. classify → route: the archetype picks the orientation the decomposition is steered by ───
 	const r = makeArchetypeRouter({ ask: scriptedAsk('sequential', CHAIN) });
 	const routed = await r.route('First sum the items, then tax it, then total it.');
-	console.log('archetype →', routed.archetype);
-	console.log('hint      →', routed.hint.slice(0, 60) + '…');
-	console.log('leaves    →', routed.leaves.map(( l ) => l.request.id + (l.readsExtra.length ? '(needs:' + l.readsExtra.join(',') + ')' : '') ).join(' → '));
+	beat(1, '"First sum the items, then tax it, then total it."');
+	val('recognised as', 'a CHAIN — each step feeds the next');
+	val('so it is split into', routed.leaves.map(( l ) => l.request.id ).join('  →  '));
+	good('each part says which earlier part it needs — by name, not by hoping');
 	assert.equal(routed.archetype, 'sequential', 'the task was classified');
 	assert.match(routed.hint, /CHAIN/, 'the sequential orientation steers toward a chain — that is the dispatch');
 	assert.equal(routed.leaves.length, 3, 'the DAG came back typed');
 	assert.deepEqual(routed.leaves[2].readsExtra, ['subtotal', 'tax'], 'the needs edges are typed keys, not prose');
+	gap();
 
 	// ── 2. a DIFFERENT archetype dispatches a DIFFERENT orientation, from the same machinery ───────
 	const fan = await makeArchetypeRouter({ ask: scriptedAsk('extraction', [
 		{ stepKind: 'extract', produces: 'name', needs: [], instruction: 'pull the name' },
 		{ stepKind: 'extract', produces: 'date', needs: [], instruction: 'pull the date' },
 	]) }).route('Pull every field out of each row.');
-	console.log('archetype →', fan.archetype, '| hint:', fan.hint.slice(0, 48) + '…');
+	beat(2, '"Pull every field out of each row."');
+	val('recognised as', 'INDEPENDENT little jobs — not a chain at all');
+	val('so it is split into', fan.leaves.map(( l ) => l.request.id ).join('  ·  ') + '  (nothing waits on anything)');
+	good('same machinery, different shape — because it is a different kind of job');
 	assert.equal(fan.archetype, 'extraction');
 	assert.match(fan.hint, /fan-out/, 'extraction steers toward independent parts — a different shape, same router');
 	assert.deepEqual(fan.leaves.map(( l ) => l.readsExtra ), [[], []], 'a pure fan-out: no needs between the parts');
+	gap();
 
 	// ── 3. FAIL-CLOSED (the negative control): a bogus label never becomes a bogus route ───────────
 	// The model answers with an archetype that does not exist. It does not get honoured, and it does not
 	// throw either — it snaps to the general DAG, which is always a safe decomposition.
 	const bogus = await makeArchetypeRouter({ ask: scriptedAsk('quantum-vibes', CHAIN) }).route('anything');
-	console.log('bogus     →', bogus.archetype, '(the model said "quantum-vibes")');
+	beat(3, 'Now the model answers with a category that does not exist: "quantum-vibes".');
+	bad('the made-up answer is not honoured — and nothing crashes');
+	good('it falls back to the general-purpose split, which is always safe');
+	say('       (guessing the job wrong costs you a less tidy split. It never costs you a broken one.)');
 	assert.equal(bogus.archetype, 'planning', 'off-enum → the safe default, never the hallucinated label');
 	assert.ok(ARCHETYPES.includes(bogus.archetype), 'whatever comes back is always in the closed vocabulary');
 
 	const empty = await makeArchetypeRouter({ ask: scriptedAsk('', CHAIN) }).route('anything');
 	assert.equal(empty.archetype, 'planning', 'an empty classification also fails closed');
+	gap();
 
 	// ── 4. the vocabulary is YOURS — the router is usable à nu ─────────────────────────────────────
 	const custom = makeArchetypeRouter({
@@ -81,10 +98,14 @@ async function main() {
 		fallback  : 'triage',
 	});
 	const c = await custom.route('a ticket');
-	console.log('custom    →', c.archetype, '|', c.hint);
+	beat(4, 'And the categories are yours: here, "triage" or "deep-dive" for support tickets.');
+	good('recognised as: ' + c.archetype + ' — your own vocabulary, same machinery');
 	assert.equal(c.archetype, 'triage', 'your own archetype vocabulary routes the same way');
 	assert.equal(await custom.detect('x'), 'triage');
+	gap();
+	say('HONEST NOTE: which split suits which kind of job is a well-argued hunch, not a proven law');
+	say('— the evidence behind it is thin. What is built here is the DECIDING, done safely.');
 
-	console.log('STRATEGY OK — classify → dispatch the matching decomposition; an off-enum label fails closed to the safe general DAG');
+	finish('the kind of job decides the split; an invented category never routes anything.', 'STRATEGY OK');
 }
 main().catch(( e ) => { console.error(e); process.exit(1); });

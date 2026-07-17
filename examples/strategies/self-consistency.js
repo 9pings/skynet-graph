@@ -18,12 +18,19 @@
  */
 const assert = require('node:assert');
 const { bootStrategy } = require('./_boot.js');
+const { title, say, gap, step: beat, note, good, bad, val, done: finish } = require('../_say.js');
 
 // The host's job: run the model k times, snap each reply to a vote class. Here the k replies are scripted
 // so the run is deterministic — in production these come from k sampled completions (temp > 0).
 const paths = ( classes ) => classes.map(( c, i ) => ({ _id: 'path' + i, isThought: true, answerClass: c }));
 
 async function main() {
+	title('ASK THE MODEL 5 TIMES — AND ONLY BELIEVE A CLEAR WINNER');
+	say('Running a model several times and taking the majority answer is a well-known trick.');
+	say('The catch nobody handles: what if the majority is 2 votes against 2? Most code picks one');
+	say('anyway. This one refuses — and saying "I do not know" is the whole point.');
+	gap();
+
 	// ── 1. a clear majority DECIDES ────────────────────────────────────────────────────────────────
 	// the ledger node declares the vote: k paths expected, a verdict needs a margin of ≥ 2 over the runner-up
 	const a = bootStrategy('self-consistency', {
@@ -33,11 +40,14 @@ async function main() {
 		],
 	});
 	await a.settle();
-	console.log('votes   →', JSON.stringify(a.fact('ledger', 'votes')));
-	console.log('decided →', JSON.stringify({ consensus: a.fact('ledger', 'consensus'), margin: a.fact('ledger', 'margin'), verdict: a.fact('ledger', 'verdict') }));
+	beat(1, 'Five runs come back:  A · A · A · B · C');
+	val('winner', 'A, with 3 votes');
+	val('lead over runner-up', a.fact('ledger', 'margin') + ' votes — we asked for at least 2');
+	good('answer: A. It won by enough, so it is believed');
 	assert.equal(a.fact('ledger', 'verdict'), 'A', 'margin 2 ≥ threshold 2 → the majority is admitted');
 	assert.equal(a.cast('path0', 'Vote'), true, 'each path cast Vote — it rode the kernel Thought concept');
 	a.close();
+	gap();
 
 	// ── 2. THE BOUND (the negative control): a tie is UNDECIDED, never coin-flipped ────────────────
 	const b = bootStrategy('self-consistency', {
@@ -47,9 +57,12 @@ async function main() {
 		],
 	});
 	await b.settle();
-	console.log('tie     →', JSON.stringify({ margin: b.fact('ledger', 'margin'), verdict: b.fact('ledger', 'verdict') }));
+	beat(2, 'Four runs come back:  A · A · B · B');
+	val('lead over runner-up', b.fact('ledger', 'margin') + ' votes — a dead heat');
+	bad('answer: I DO NOT KNOW. No coin is flipped, no winner is invented');
 	assert.equal(b.fact('ledger', 'verdict'), 'UNDECIDED', 'below the margin bound → no fabricated verdict');
 	b.close();
+	gap();
 
 	// ── 3. ABSTENTION: a path that produced no class never votes — and never gets invented ─────────
 	// This is a MEASURED failure mode, not a hypothetical: on a live GPU run, paths whose reply carried no
@@ -65,13 +78,18 @@ async function main() {
 		],
 	});
 	await c.settle();
-	console.log('abstain →', JSON.stringify({ votes: c.fact('ledger', 'votes'), decided: c.cast('ledger', 'Decide'), verdict: c.fact('ledger', 'verdict') }));
+	beat(3, 'Five runs — but one of them rambled and gave no usable answer at all.');
+	val('usable votes', c.fact('ledger', 'votes').length + ' out of the 5 we asked for');
+	bad('the rambling run does NOT get counted as a vote for anything');
+	bad('and with an incomplete set, no answer is announced at all');
+	say('       (this is not hypothetical: on a real GPU run, a model whose reply had no');
+	say('        readable answer line had to be counted as an abstention.)');
 	assert.equal(c.cast('path4', 'Vote'), false, 'no answerClass → no Vote: an abstention is never a class');
 	assert.equal(c.fact('ledger', 'votes').length, 4, 'only the 4 parsable paths tallied');
 	assert.equal(c.cast('ledger', 'Decide'), false, '4/5 of the declared pool → the gate stays shut');
 	assert.equal(c.fact('ledger', 'verdict'), undefined, 'no verdict invented from an incomplete pool');
 	c.close();
 
-	console.log('STRATEGY OK — a majority decides at margin ≥ threshold; a tie is UNDECIDED; an abstention never becomes a vote');
+	finish('a clear winner is believed; a tie says "I do not know"; a junk answer is never a vote.', 'STRATEGY OK');
 }
 main().catch(( e ) => { console.error(e); process.exit(1); });

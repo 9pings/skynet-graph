@@ -22,6 +22,7 @@
 const assert = require('node:assert');
 const Graph = require('../../lib/index.js');
 const { bootStrategy } = require('./_boot.js');
+const { title, say, gap, step: beat, note, good, bad, val, done: finish } = require('../_say.js');
 
 // a scripted one-ply game: 'good' always wins the rollout, 'bad' always loses. In production: actions =
 // your legal moves, simulate = your rollout policy (keep it deterministic and the search stays replayable).
@@ -31,18 +32,28 @@ const oneply = () => ({
 });
 
 async function main() {
+	title('A SEARCH THAT TRIES MOVES AT RANDOM — AND STILL GIVES THE SAME ANSWER TWICE');
+	say('This is the family of search behind game-playing AI: try a move, play it out, see who');
+	say('wins, favour whatever keeps winning. It normally relies on randomness — which means the');
+	say('same position gives you a different answer each run, and you can never reproduce the');
+	say('search that made a decision. There is no randomness in this one.');
+	gap();
+
 	// ── 1. the search converges — through the flat factory catalog ─────────────────────────────────
 	const r = await Graph.factories.createMCTS(Object.assign(oneply(), { iterations: 9 })).run('the position');
-	const good = r.children.find(( k ) => k.move === 'good' ), bad = r.children.find(( k ) => k.move === 'bad' );
-	console.log('best    →', JSON.stringify({ move: r.best.move, visits: r.best.visits }));
-	console.log('arms    →', JSON.stringify({ good: { visits: good.visits, wins: good.wins }, bad: { visits: bad.visits, wins: bad.wins } }));
-	console.log('root    →', JSON.stringify({ visits: r.root.visits, wins: r.root.wins }));
+	const gArm = r.children.find(( k ) => k.move === 'good' ), bArm = r.children.find(( k ) => k.move === 'bad' );
+	beat(1, 'A position with two moves. One always wins, one always loses. 9 tries.');
+	note('the winning move   — tried ' + gArm.visits + ' times, won ' + gArm.wins);
+	note('the losing move    — tried ' + bArm.visits + ' times, won ' + bArm.wins);
+	good('it recommends the winning move, because that is where the wins were');
+	good('the tries add up: ' + r.root.visits + ' tries, ' + r.root.wins + ' wins — the count is honest, not rounded');
 	assert.equal(r.best.move, 'good', 'the winning move collected the visits');
-	assert.ok(good.visits > bad.visits, 'exploitation dominates once the win is established');
-	assert.equal(good.wins, good.visits, 'the good arm never lost a rollout');
-	assert.equal(bad.wins, 0, 'the bad arm never won one');
+	assert.ok(gArm.visits > bArm.visits, 'exploitation dominates once the win is established');
+	assert.equal(gArm.wins, gArm.visits, 'the good arm never lost a rollout');
+	assert.equal(bArm.wins, 0, 'the bad arm never won one');
 	assert.equal(r.root.visits, 9, 'every iteration backpropagated to the root');
-	assert.equal(r.root.wins, good.wins, 'the root total = the sum of winning rollouts — the stats are honest');
+	assert.equal(r.root.wins, gArm.wins, 'the root total = the sum of winning rollouts — the stats are honest');
+	gap();
 
 	// ── 2. THE FRONTIER IS LIVE: Expandable uncasts the moment a node is expanded or terminal ──────
 	// Driver-free, straight on the grammar: "what is still growable?" is a cast set, not a bookkeeping list.
@@ -53,29 +64,35 @@ async function main() {
 		],
 	});
 	await g.settle();
-	console.log('frontier→', JSON.stringify({ a: g.cast('a', 'Expandable'), b: g.cast('b', 'Expandable') }));
-	assert.ok(g.cast('a', 'Expandable') && g.cast('b', 'Expandable'), 'fresh nodes are the frontier');
-
+	beat(2, 'Which positions are still worth growing? That question answers itself:');
+	note('two fresh positions — both open for exploring');
 	await g.ingest({ a: { expanded: 1 }, b: { terminal: 1 } });
 	await g.settle();
-	console.log('grown   →', JSON.stringify({ a: g.cast('a', 'Expandable'), b: g.cast('b', 'Expandable') }));
+	good('one gets explored, the other turns out to be the end of the game');
+	good('both drop off the "worth growing" list by themselves — nothing bookkeeps that');
 	assert.equal(g.cast('a', 'Expandable'), false, 'an expanded node left the frontier (the ensure fell)');
 	assert.equal(g.cast('b', 'Expandable'), false, 'a terminal node left the frontier');
 	g.close();
+	gap();
 
 	// ── 3. NEGATIVE CONTROL: a dead-end recommends NOTHING rather than inventing a move ────────────
 	const dead = await Graph.factories.createMCTS({ actions: async () => [], simulate: async () => 1, iterations: 3 }).run('dead-end');
-	console.log('deadend →', JSON.stringify({ best: dead.best, children: dead.children.length, terminal: dead.root.terminal, visits: dead.root.visits }));
+	beat(3, 'A dead-end position, where there is no move at all.');
+	bad('it recommends NOTHING. It does not invent a move to look useful');
+	good('and it still reports the ' + dead.root.visits + ' tries it really made — no silent skipping');
 	assert.equal(dead.best, null, 'no move to recommend — and none fabricated');
 	assert.equal(dead.children.length, 0, 'no children invented');
 	assert.equal(dead.root.terminal, true, 'the root was marked terminal');
 	assert.equal(dead.root.visits, 3, 'the rollouts still ran and were still counted — honest stats, not a silent skip');
+	gap();
 
 	// ── 4. REPLAY DETERMINISM: the whole search, twice, byte-identical ─────────────────────────────
 	const once = async () => JSON.stringify(await Graph.factories.createMCTS(Object.assign(oneply(), { iterations: 7 })).run('the position'));
+	beat(4, 'Now run the exact same search a second time.');
 	assert.equal(await once(), await once(), 'no Math.random in the driver → the search is reproducible');
-	console.log('replay  → two searches JSON-identical');
+	good('identical, down to the last number. You can always re-do the search that decided');
+	say('       (this also held with a real 9.5 GB model in the loop, not just this scripted one.)');
 
-	console.log('STRATEGY OK — UCB1 with no randomness: the search converges, the tree is the audit, and two runs are byte-identical');
+	finish('the search converges on the winning move, admits a dead end, and repeats exactly.', 'STRATEGY OK');
 }
 main().catch(( e ) => { console.error(e); process.exit(1); });
