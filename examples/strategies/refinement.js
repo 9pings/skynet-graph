@@ -19,6 +19,7 @@
 const assert = require('node:assert');
 const { bootStrategy } = require('./_boot.js');
 const { title, say, gap, step: beat, note, good, bad, val, done: finish } = require('../_say.js');
+const { exchange, of, liveBanner } = require('./_live.js');
 
 // an attempt = a kernel Thought carrying a raw score (from the EXTERNAL judge) + its round counter
 const attempt = ( id, score, round, maxRounds ) => ({ _id: id, isThought: true, score, round, maxRounds: maxRounds == null ? 3 : maxRounds });
@@ -33,6 +34,14 @@ async function main() {
 	say('This never lets a model mark its own homework. That was tried, and it scored about as');
 	say('well as guessing, so the door is closed rather than left ajar.');
 	gap();
+	liveBanner();
+	gap();
+	beat(0, 'A real brief, a real draft, and a real EXTERNAL judge marking it:');
+	exchange('refinement', 0, 'the model writes a draft');
+	exchange('refinement', 1, 'a separate call — not the drafter — marks it against the brief');
+	good('the mark comes from somewhere else. That is the whole rule');
+	gap();
+	say('  The graph turns that mark into accept-or-try-again:');
 
 	// ── 1. the band snap + the two signals ────────────────────────────────────────────────────────
 	const s = bootStrategy('refinement', {

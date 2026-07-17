@@ -26,6 +26,7 @@
 const assert = require('node:assert');
 const { bootStrategy } = require('./_boot.js');
 const { title, say, gap, step: beat, note, good, bad, val, done: finish } = require('../_say.js');
+const { exchange, of, liveBanner } = require('./_live.js');
 
 // a source case: a kernel Thought that is `live` (still believed) and `resolved` (actually solved)
 const source = ( o ) => Object.assign({ _id: 'src', isThought: true, live: true, resolved: true, text: 'the solved case' }, o);
@@ -39,6 +40,12 @@ async function main() {
 	say('is obvious once you say it out loud: what if the case you borrowed from turns out to be');
 	say('wrong? Everywhere else, the borrowed conclusion just quietly stays. Not here.');
 	gap();
+	liveBanner();
+	gap();
+	beat(0, 'A real solved case, a real new one, and a real model asked if they truly match:');
+	exchange('analogical', 0, 'it spotted the shared shape — that is the claim the graph will hold, and police');
+	gap();
+	say('  Because the interesting part is what happens when the old case turns out to be wrong:');
 
 	// ── 1. a live + resolved source LICENSES the transfer ──────────────────────────────────────────
 	const g = bootStrategy('analogical', {

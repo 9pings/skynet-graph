@@ -72,3 +72,17 @@ test('every demo ends on a plain-language sentence a reader can repeat', () => {
 		assert.ok(last.length < 160, '"' + it.id + '" closing line is too long to land (' + last.length + ' chars)');
 	}
 });
+
+test('the demos SHOW the model exchange — prompts and replies, not just the machinery', () => {
+	// owner, 2026-07-17: "there are no prompts/responses in the demos — it's the most important thing".
+	// A page that pitches a reasoning layer for LLMs and never shows a prompt is not showing the product.
+	// These are real recorded exchanges (examples/strategies/_record.js on a real Q2); this pins them there.
+	const PROMPTLESS = ['f3-task-memory', 'f7-substrate', 'forge-stock', 'integrated'];   // no model by nature
+	for ( const g of loadDemos() ) for ( const it of g.items ) {
+		if ( PROMPTLESS.includes(it.id) ) continue;
+		assert.match(it.out, /WE SENT|the "[a-z]+" step was sent/i,
+			'"' + it.id + '" never shows what was sent to the model');
+		assert.match(it.out, /IT REPLIED|PRODUCE L/i,
+			'"' + it.id + '" never shows what the model replied');
+	}
+});

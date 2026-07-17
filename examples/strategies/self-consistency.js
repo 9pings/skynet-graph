@@ -19,6 +19,7 @@
 const assert = require('node:assert');
 const { bootStrategy } = require('./_boot.js');
 const { title, say, gap, step: beat, note, good, bad, val, done: finish } = require('../_say.js');
+const { exchange, of, liveBanner } = require('./_live.js');
 
 // The host's job: run the model k times, snap each reply to a vote class. Here the k replies are scripted
 // so the run is deterministic — in production these come from k sampled completions (temp > 0).
@@ -30,6 +31,22 @@ async function main() {
 	say('The catch nobody handles: what if the majority is 2 votes against 2? Most code picks one');
 	say('anyway. This one refuses — and saying "I do not know" is the whole point.');
 	gap();
+	liveBanner();
+
+	// ── the REAL thing: 5 real runs of a real question on a real model ────────────────────────────
+	gap();
+	beat(0, 'We ask a real model "what is 17 x 23?" five separate times. Here is run 1 of 5:');
+	exchange('self-consistency', 0, 'note the salt — "attempt 1 of 5". Without it a local model pins its');
+	say('         random seed and returns FIVE IDENTICAL answers: a vote that means nothing.');
+	say('         (that one was found by running it on a real GPU, not by thinking about it.)');
+	const live = of('self-consistency').map(( e ) => (String(e.reply).match(/ANSWER:\s*([\d.]+)/) || [])[1] );
+	gap();
+	val('the 5 real answers', live.join(' · '));
+	val('the graph says', live.filter(( v ) => v === live[0] ).length + ' of 5 agree → answer ' + live[0]
+		+ (live[0] === '391' ? ' (correct)' : ''));
+	good('unanimous, so it answers. Below is what happens when they are NOT');
+	gap();
+	say('  The rest of this run is scripted, to show the cases a single real question cannot:');
 
 	// ── 1. a clear majority DECIDES ────────────────────────────────────────────────────────────────
 	// the ledger node declares the vote: k paths expected, a verdict needs a margin of ≥ 2 over the runner-up

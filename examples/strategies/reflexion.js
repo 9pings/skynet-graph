@@ -20,6 +20,7 @@
 const assert = require('node:assert');
 const { bootStrategy } = require('./_boot.js');
 const { title, say, gap, step: beat, note, good, bad, val, done: finish } = require('../_say.js');
+const { exchange, of, liveBanner } = require('./_live.js');
 
 // an attempt + the verdict an EXTERNAL critic returned about it
 const judged = ( id, verdict, round, maxRounds ) => ({ _id: id, isThought: true, critiqueVerdict: verdict, round, maxRounds: maxRounds == null ? 3 : maxRounds });
@@ -34,6 +35,13 @@ async function main() {
 	say('grade it. That is not an oversight to fix later — letting a model judge its own work was');
 	say('tried three times and landed at about coin-flip accuracy. So the path does not exist.');
 	gap();
+	liveBanner();
+	gap();
+	beat(0, 'A real draft, put to a real reviewer that answers pass or fail:');
+	exchange('reflexion', 0, 'a separate call from the one that wrote it — always');
+	good('pass/fail from outside. The drafter never gets a vote on its own work');
+	gap();
+	say('  The graph turns that verdict into accept-or-rewrite:');
 
 	// ── 1. the binary gate ────────────────────────────────────────────────────────────────────────
 	const s = bootStrategy('refinement', {                                   // the reflexion set ships in the refinement plugin

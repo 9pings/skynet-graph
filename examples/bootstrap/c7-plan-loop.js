@@ -38,7 +38,8 @@ function ladder() {
 	const seen = [];
 	const serveLeaf = async ( lf ) => {
 		const id = lf.request.id;
-		seen.push({ id, inputs: Object.keys(lf.inputs || {}) });          // ← what this leaf could see. Nothing else.
+		// lf.prompt is built by the ENGINE, not by us: it is exactly what a model would receive here.
+		seen.push({ id, inputs: Object.keys(lf.inputs || {}), prompt: lf.prompt });
 		if ( id === 'margin' ) return lf.inputs.revenue - lf.inputs.costs;  // computed FROM its bounded inputs
 		if ( id === 'marginPct' ) return Math.round(lf.inputs.margin / lf.inputs.revenue * 100);
 		return GOLD[id];
@@ -63,10 +64,16 @@ async function main() {
 	say('into steps — and each step is shown ONLY what it actually asked for. Not the dossier.');
 	say('Not its neighbours. Just its own inputs.');
 	gap();
-	beat(1, 'Four figures to work out from a report. Here is what each step was allowed to see:');
-	for ( const s of l.seen )
-		note(s.id.padEnd(11) + 'saw ' + (s.inputs.length ? 'only: ' + s.inputs.join(' + ') : 'nothing at all — it starts from the report'));
-	good('nobody ever saw the whole dossier. That is the entire trick');
+	beat(1, 'Four figures to work out from a report. THIS is the entire prompt each step received —');
+	say('       not a summary of it, the actual string the engine handed over:');
+	gap();
+	for ( const s of l.seen ) {
+		say('   ┌─ the "' + s.id + '" step was sent ' + '─'.repeat(Math.max(0, 60 - s.id.length)));
+		say('   │ ' + s.prompt);
+		say('   └' + '─'.repeat(78));
+	}
+	good('each one is one line long. Nobody ever saw the whole dossier — that is the entire trick');
+	say('       (USE = the values it asked for, already worked out. PRODUCE = the one thing it owes.)');
 	val('the answer', r.answer);
 	assert.equal(r.converged, true);
 	assert.equal(r.refusal, null);

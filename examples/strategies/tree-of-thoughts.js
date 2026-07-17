@@ -26,6 +26,7 @@ const assert = require('node:assert');
 const Graph = require('../../lib/index.js');
 const { bootStrategy } = require('./_boot.js');
 const { title, say, gap, step: beat, note, good, bad, val, done: finish } = require('../_say.js');
+const { exchange, of, liveBanner } = require('./_live.js');
 
 // a scripted problem: branches labelled a/b/c, an EXTERNAL judge that likes 'a' best. Deterministic, so the
 // whole search replays bit-identically. In production: propose = your model, score = your judge/oracle/test.
@@ -44,6 +45,14 @@ async function main() {
 	say('down everything that followed from it. Here you abandon one step and the rest goes dark');
 	say('on its own — and the abandoned branches never cost another thought.');
 	gap();
+	liveBanner();
+	gap();
+	beat(0, 'A real problem, real lines of attack proposed by a real model:');
+	exchange('tree-of-thoughts', 0, 'three different first moves — these become the branches');
+	exchange('tree-of-thoughts', 1, 'and a SEPARATE call rates one of them. The proposer never rates itself');
+	good('real branches, rated from outside — that rating is what the beam keeps or drops');
+	gap();
+	say('  What follows is the search over branches like those:');
 
 	// ── 1. the beam search, through the flat factory catalog (same door as every capability) ───────
 	const host = scriptedHost();

@@ -23,6 +23,7 @@ const assert = require('node:assert');
 const Graph = require('../../lib/index.js');
 const { bootStrategy } = require('./_boot.js');
 const { title, say, gap, step: beat, note, good, bad, val, done: finish } = require('../_say.js');
+const { exchange, of, liveBanner } = require('./_live.js');
 
 // a scripted one-ply game: 'good' always wins the rollout, 'bad' always loses. In production: actions =
 // your legal moves, simulate = your rollout policy (keep it deterministic and the search stays replayable).
@@ -38,6 +39,12 @@ async function main() {
 	say('same position gives you a different answer each run, and you can never reproduce the');
 	say('search that made a decision. There is no randomness in this one.');
 	gap();
+	liveBanner();
+	gap();
+	beat(0, 'A real model, asked what moves are even available in a position:');
+	exchange('mcts', 0, 'the legal moves — the model supplies these; the search decides between them');
+	gap();
+	say('  And the deciding, which has no randomness in it at all:');
 
 	// ── 1. the search converges — through the flat factory catalog ─────────────────────────────────
 	const r = await Graph.factories.createMCTS(Object.assign(oneply(), { iterations: 9 })).run('the position');

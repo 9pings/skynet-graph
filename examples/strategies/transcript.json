@@ -1,0 +1,175 @@
+{
+ "recordedWith": "Qwen3.6-27B-IQ2_XXS (9.5 GB, a low-quant on one ordinary GPU)",
+ "exchanges": {
+  "self-consistency": [
+   {
+    "label": "path 1 of 5",
+    "system": "You are a careful assistant. Follow the output format EXACTLY.",
+    "user": "What is 17 multiplied by 23?\n(independent attempt 1 of 5 — work it out your own way)\nEnd with a final line exactly: ANSWER: <number>",
+    "reply": "To calculate 17 multiplied by 23, we can break it down into simpler parts:\n\n1.  **Split 17 into 10 and 7:**\n    *   $10 \\times 23 = 230$\n    *   $7 \\times 23 = 161$\n\n2.  **Add the results together:**\n    *   $230 + 161 = 391$\n\nAlternatively, using long multiplication:\n   17\n x 23\n -----\n   51  (17 * 3)\n 340   (17 * 20)\n -----\n 391\n\nANSWER: 391"
+   },
+   {
+    "label": "path 2 of 5",
+    "system": "You are a careful assistant. Follow the output format EXACTLY.",
+    "user": "What is 17 multiplied by 23?\n(independent attempt 2 of 5 — work it out your own way)\nEnd with a final line exactly: ANSWER: <number>",
+    "reply": "To calculate 17 multiplied by 23, we can break down the numbers to simplify the multiplication.\n\n**Method 1: Using the distributive property**\nWe can split 17 into $10 + 7$ and multiply each part by 23:\n1. $10 \\times 23 = 230$\n2. $7 \\times 23$:\n   - $7 \\times 20 = 140$\n   - $7 \\times 3 = 21$\n   - $140 + 21 = 162$\n3. Add the results together:\n   $230 + 162 = 392$\n\n**Method 2: Standard vertical multiplication**\n  17\n× 23\n-----\n   (7 × 7) = 49  (Write 9, carry 4)\n  (7 × 1) + 4 = 7\n  -> 119\n\n  (3 × 7) = 21  (Write 1, carry 2)\n  (3 × 1) + 2 = 5\n  -> 390 (shifted one position to the left)\n\n  119\n+ 390\n-----\n  392\n\nANS"
+   },
+   {
+    "label": "path 3 of 5",
+    "system": "You are a careful assistant. Follow the output format EXACTLY.",
+    "user": "What is 17 multiplied by 23?\n(independent attempt 3 of 5 — work it out your own way)\nEnd with a final line exactly: ANSWER: <number>",
+    "reply": "To calculate 17 multiplied by 23, we can break down the numbers to simplify the multiplication.\n\n**Method 1: Using the distributive property**\nWe can split 17 into $10 + 7$ and multiply each part by 23:\n1. $10 \\times 23 = 230$\n2. $7 \\times 23$:\n   - $7 \\times 20 = 140$\n   - $7 \\times 3 = 21$\n   - $140 + 21 = 167$\n3. Add the results together:\n   $230 + 167 = 397$\n\n**Method 2: Standard vertical multiplication**\n  17\n× 23\n-----\n   (7 × 7) = 49  (Write 9, carry 4)\n  (7 × 1) + 4 = 49  (Write 49) -> 49\n\n  (3 × 7) = 21  (Write 1, carry 2)\n  (3 × 1) + 2 = 5   -> 510 (shifted one position to the left)\n\nAdd the two rows:\n  49\n+510\n----"
+   },
+   {
+    "label": "path 4 of 5",
+    "system": "You are a careful assistant. Follow the output format EXACTLY.",
+    "user": "What is 17 multiplied by 23?\n(independent attempt 4 of 5 — work it out your own way)\nEnd with a final line exactly: ANSWER: <number>",
+    "reply": "To calculate 17 multiplied by 23, we can break down the numbers to simplify the multiplication.\n\n**Method 1: Using the distributive property**\nWe can split 17 into $10 + 7$ and multiply each part by 23:\n1. $10 \\times 23 = 230$\n2. $7 \\times 23$:\n   - $7 \\times 20 = 140$\n   - $7 \\times 3 = 21$\n   - $140 + 21 = 167$\n3. Add the results together:\n   $230 + 167 = 397$\n\n**Method 2: Standard vertical multiplication**\n  17\n× 23\n-----\n   (7 × 3) = 21  (Write down 1, carry over 2)\n   (7 × 2) + 2   = 21  (Write down 1, carry over 2)\n   (1 × 3) = 3  (plus carry 2) = 5? No, let's do column by column properly.\n\n   Step 1: Multiply 17 by 3\n   $7 \\times 3 = 21$\n   $1 \\times"
+   },
+   {
+    "label": "path 5 of 5",
+    "system": "You are a careful assistant. Follow the output format EXACTLY.",
+    "user": "What is 17 multiplied by 23?\n(independent attempt 5 of 5 — work it out your own way)\nEnd with a final line exactly: ANSWER: <number>",
+    "reply": "To calculate 17 multiplied by 23, we can break down the numbers to simplify the multiplication process.\n\n**Method: Splitting the factors**\nWe can split 23 into $20 + 3$. Then, we multiply 17 by each part separately and add the results.\n\n1.  **Multiply 17 by 20:**\n    $$17 \\times 20 = 17 \\times 2 \\times 10$$\n    $$17 \\times 2 = 34$$\n    $$34 \\times 10 = 340$$\n\n2.  **Multiply 17 by 3:**\n    $$17 \\times 3 = 51$$\n    *(Calculation: $10 \\times 3 = 30$, $7 \\times 3 = 21$, and $30 + 21 = 51$)*\n\n3.  **Add the two results together:**\n    $$340 + 51 = 391$$\n\n**Verification using the standard algorithm:**\n  17\nx 23\n----\n   51  (17 * 3)\n 340   (17 * 20)\n----\n 391\n\nANSWER: 391"
+   }
+  ],
+  "react": [
+   {
+    "label": "step 1 — what should we do first?",
+    "system": "You are a careful assistant. Follow the output format EXACTLY.",
+    "user": "Question: What is the combined population of France and Japan?\nTools: lookup_population(country) · calculate(expression)\nSteps so far: (none)\nReply exactly 2 lines:\nTHOUGHT: <one sentence>\nACTION: <tool>(<input>)",
+    "reply": "THOUGHT: I need to find the population of France and Japan separately to calculate their combined total.\nACTION: lookup_population(France)"
+   },
+   {
+    "label": "step 2 — after we ran it and told it the result",
+    "system": "You are a careful assistant. Follow the output format EXACTLY.",
+    "user": "Question: What is the combined population of France and Japan?\nTools: lookup_population(country) · calculate(expression)\nSteps so far:\n1. lookup_population(France) -> 68000000\nReply exactly 2 lines:\nTHOUGHT: <one sentence>\nACTION: <tool>(<input>)",
+    "reply": "THOUGHT: I have the population of France, so now I need to look up the population of Japan.\nACTION: lookup_population(Japan)"
+   },
+   {
+    "label": "step 3 — both populations known",
+    "system": "You are a careful assistant. Follow the output format EXACTLY.",
+    "user": "Question: What is the combined population of France and Japan?\nTools: lookup_population(country) · calculate(expression)\nSteps so far:\n1. lookup_population(France) -> 68000000\n2. lookup_population(Japan) -> 125000000\nReply exactly 2 lines:\nTHOUGHT: <one sentence>\nACTION: <tool>(<input>)",
+    "reply": "THOUGHT: To find the combined population, I need to add the population of France and the population of Japan.\nACTION: calculate(68000000 + 125000000)"
+   }
+  ],
+  "least-to-most": [
+   {
+    "label": "rung 1 (nothing before it)",
+    "system": "You are a careful assistant. Follow the output format EXACTLY.",
+    "user": "A train leaves at 9:15 and the journey takes 2 hours and 40 minutes.\nStep 1 of 3: how many MINUTES is the journey? Answer with just the number.",
+    "reply": "160"
+   },
+   {
+    "label": "rung 2 (given rung 1's answer)",
+    "system": "You are a careful assistant. Follow the output format EXACTLY.",
+    "user": "A train leaves at 9:15. The journey is 160 minutes.\nStep 2 of 3: 9:15 plus 160 minutes is what time? Answer as HH:MM only.",
+    "reply": "11:55"
+   },
+   {
+    "label": "rung 3 (given rung 2's answer)",
+    "system": "You are a careful assistant. Follow the output format EXACTLY.",
+    "user": "A train arrives at 11:55.\nStep 3 of 3: is that before or after midday? Answer with one word: before or after.",
+    "reply": "before"
+   }
+  ],
+  "socratic": [
+   {
+    "label": "ask it to probe the claim",
+    "system": "You are a careful assistant. Follow the output format EXACTLY.",
+    "user": "Claim: \"We should rewrite our app in Rust because it would be faster.\"\nName the 2 most important questions someone should answer before acting on this claim.\nReply 2 lines, each: Q: <question>",
+    "reply": "Q: Is the current application's performance bottleneck actually in CPU-bound logic rather than I/O or external dependencies?\nQ: Does the team have the necessary Rust expertise to maintain the codebase without introducing new bugs or slowing down development velocity?"
+   },
+   {
+    "label": "answer probe 1, then distil it",
+    "system": "You are a careful assistant. Follow the output format EXACTLY.",
+    "user": "Claim: \"We should rewrite our app in Rust because it would be faster.\"\nQuestion: Is the app actually slow because of the language?\nAnswer it in one sentence, then give the one-line lesson.\nReply exactly 2 lines:\nA: <answer>\nINSIGHT: <one line>",
+    "reply": "A: No, the app's slowness is likely due to algorithmic inefficiencies, poor architecture, or I/O bottlenecks rather than the programming language itself.\nINSIGHT: Always profile and identify the actual performance bottleneck before rewriting an application in a new language."
+   }
+  ],
+  "refinement": [
+   {
+    "label": "draft 1",
+    "system": "You are a careful assistant. Follow the output format EXACTLY.",
+    "user": "Write a one-sentence description of a bicycle lock for an online shop.",
+    "reply": "Secure your ride with our heavy-duty, anti-theft bicycle lock, designed to provide reliable protection against theft while offering quick and easy installation."
+   },
+   {
+    "label": "an EXTERNAL judge marks draft 1",
+    "system": "You are a careful assistant. Follow the output format EXACTLY.",
+    "user": "Brief: Write a one-sentence description of a bicycle lock for an online shop.\nDraft: \"Secure your ride with our heavy-duty, anti-theft bicycle lock, designed to provide reliable protection against theft while offering quick and easy installation.\"\nDoes the draft mention BOTH security AND ease of use? Reply one line exactly: SCORE: <0-10>",
+    "reply": "SCORE: 10"
+   },
+   {
+    "label": "draft 2, after the mark",
+    "system": "You are a careful assistant. Follow the output format EXACTLY.",
+    "user": "Write a one-sentence description of a bicycle lock for an online shop.\nThe previous draft was marked down for not mentioning both security and ease of use. Write a better one.",
+    "reply": "Secure your ride with our heavy-duty bicycle lock, designed to provide robust protection against theft while offering a quick and hassle-free locking mechanism for your daily commute."
+   },
+   {
+    "label": "the judge marks draft 2",
+    "system": "You are a careful assistant. Follow the output format EXACTLY.",
+    "user": "Brief: Write a one-sentence description of a bicycle lock for an online shop.\nDraft: \"Secure your ride with our heavy-duty bicycle lock, designed to provide robust protection against theft while offering a quick and hassle-free locking mechanism for your daily commute.\"\nDoes the draft mention BOTH security AND ease of use? Reply one line exactly: SCORE: <0-10>",
+    "reply": "SCORE: 10"
+   }
+  ],
+  "reflexion": [
+   {
+    "label": "an EXTERNAL reviewer, pass/fail",
+    "system": "You are a careful assistant. Follow the output format EXACTLY.",
+    "user": "Brief: Write a one-sentence description of a bicycle lock for an online shop.\nDraft: \"Secure your ride with our heavy-duty, anti-theft bicycle lock, designed to provide reliable protection against theft while offering quick and easy installation.\"\nIs this draft acceptable for the shop? Reply one word exactly: CORRECT or FLAWED",
+    "reply": "CORRECT"
+   },
+   {
+    "label": "the reviewer looks at the rewrite",
+    "system": "You are a careful assistant. Follow the output format EXACTLY.",
+    "user": "Brief: Write a one-sentence description of a bicycle lock for an online shop.\nDraft: \"Secure your ride with our heavy-duty bicycle lock, designed to provide robust protection against theft while offering a quick and hassle-free locking mechanism for your daily commute.\"\nIs this draft acceptable for the shop? Reply one word exactly: CORRECT or FLAWED",
+    "reply": "CORRECT"
+   }
+  ],
+  "tree-of-thoughts": [
+   {
+    "label": "propose 3 lines of attack",
+    "system": "You are a careful assistant. Follow the output format EXACTLY.",
+    "user": "Problem: our cloud bill is $40,000 a month and we must cut it by half.\nPropose 3 DIFFERENT first moves, one line each, format: MOVE: <move>",
+    "reply": "MOVE: Audit all cloud resources to identify and terminate idle, unused, or orphaned instances and storage volumes.\nMOVE: Implement automated right-sizing policies to dynamically adjust instance sizes based on actual historical usage patterns.\nMOVE: Migrate workloads to reserved instances or savings plans for predictable workloads to leverage significant upfront pricing discounts."
+   },
+   {
+    "label": "an EXTERNAL judge rates one line",
+    "system": "You are a careful assistant. Follow the output format EXACTLY.",
+    "user": "Goal: halve a $40,000/month cloud bill.\nProposed move: \"Move workloads to cheaper reserved instances.\"\nHow likely is this to reach the goal on its own? Reply one line exactly: SCORE: <0-10>",
+    "reply": "SCORE: 8"
+   }
+  ],
+  "analogical": [
+   {
+    "label": "does the solved case map onto the new one?",
+    "system": "You are a careful assistant. Follow the output format EXACTLY.",
+    "user": "Solved case: \"Our checkout was slow because we queried the database once per item in the basket.\"\nNew case: \"Our search page is slow and makes one API call per result shown.\"\nDo these two have the SAME underlying shape? Reply exactly 2 lines:\nSAME: yes or no\nWHY: <one line>",
+    "reply": "SAME: yes\nWHY: Both cases exhibit the same N+1 query pattern where a loop performs a separate database or API call for each item instead of batching the requests."
+   }
+  ],
+  "meta-router": [
+   {
+    "label": "classify the job",
+    "system": "You are a careful assistant. Follow the output format EXACTLY.",
+    "user": "Task: \"Go through this spreadsheet of 300 invoices and pull out the date and total from each.\"\nWhich shape is this? Reply with exactly one word from: sequential, extraction, multihop, aggregate, planning",
+    "reply": "extraction"
+   },
+   {
+    "label": "classify a different job",
+    "system": "You are a careful assistant. Follow the output format EXACTLY.",
+    "user": "Task: \"Work out our runway: take the cash balance, subtract this month's burn, then divide by the average burn.\"\nWhich shape is this? Reply with exactly one word from: sequential, extraction, multihop, aggregate, planning",
+    "reply": "sequential"
+   }
+  ],
+  "mcts": [
+   {
+    "label": "what are the legal moves here?",
+    "system": "You are a careful assistant. Follow the output format EXACTLY.",
+    "user": "A counter starts at 0. Each move adds 3 or 5. You must land on EXACTLY 11 within 3 moves.\nThe counter is at 0 and no moves have been made. List the legal moves, comma separated, from: +3, +5",
+    "reply": "+3, +5"
+   }
+  ]
+ }
+}

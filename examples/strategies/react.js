@@ -23,6 +23,7 @@
 const assert = require('node:assert');
 const { bootStrategy } = require('./_boot.js');
 const { title, say, gap, step: beat, note, good, bad, val, done: finish } = require('../_say.js');
+const { exchange, of, liveBanner } = require('./_live.js');
 
 const session = ( extra ) => Object.assign({ _id: 'ledger', isReactSession: true, maxRounds: 3, trace: [] }, extra || {});
 const step = ( id, round, o ) => Object.assign({ _id: id, isThought: true, round, text: 'think' }, o);
@@ -33,6 +34,15 @@ async function main() {
 	say('answer. Normally you write that bookkeeping yourself, and it drifts out of sync.');
 	say('Here nobody writes it. Watch the list keep itself.');
 	gap();
+	liveBanner();
+	gap();
+	beat(0, 'A real question, put to a real model that has two tools available:');
+	exchange('react', 0, 'it asked for a tool and an input — THAT is what goes on the list');
+	exchange('react', 1, 'we ran the tool, wrote down the answer, and it moved on by itself');
+	exchange('react', 2, 'both numbers in hand, it reaches for the calculator');
+	good('three real calls, three usable tool requests, no hand-holding');
+	gap();
+	say('  Now the graph side of the same loop:');
 
 	// ── 1. THE LIVE WORKLIST: a pending action is a cast; the observation retires it ───────────────
 	const g = bootStrategy('react', { nodes: [session(), step('t0', 0, { actionTool: 'search', actionInput: 'q' })] });

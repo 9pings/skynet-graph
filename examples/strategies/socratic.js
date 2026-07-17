@@ -19,6 +19,7 @@
 const assert = require('node:assert');
 const { bootStrategy } = require('./_boot.js');
 const { title, say, gap, step: beat, note, good, bad, val, done: finish } = require('../_say.js');
+const { exchange, of, liveBanner } = require('./_live.js');
 
 // a probe = a kernel Thought carrying the question; the host later writes `answer` + the distilled `insight`
 const probe = ( id, o ) => Object.assign({ _id: id, isThought: true, question: 'q?', depth: 0, maxDepth: 2 }, o);
@@ -29,6 +30,14 @@ async function main() {
 	say('you ask three questions, get bored after two, and write the conclusion anyway. Here the');
 	say('conclusion is simply not available until every question you declared has an answer.');
 	gap();
+	liveBanner();
+	gap();
+	beat(0, 'A real claim, and a real model asked to interrogate it:');
+	exchange('socratic', 0, 'it named the questions that actually need answering first');
+	exchange('socratic', 1, 'and answering one of them turned into a usable lesson');
+	good('real probes, real answers — the graph\'s job is making sure none get skipped');
+	gap();
+	say('  Which is what the rest of this shows:');
 
 	// ── 1. full coverage → the synthesis gate opens ────────────────────────────────────────────────
 	const s = bootStrategy('socratic', {

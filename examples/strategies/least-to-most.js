@@ -20,6 +20,7 @@
 const assert = require('node:assert');
 const { bootStrategy } = require('./_boot.js');
 const { title, say, gap, step: beat, note, good, bad, val, done: finish } = require('../_say.js');
+const { exchange, of, liveBanner } = require('./_live.js');
 
 const plan = ( k ) => ({ _id: 'ledger', isPlan: true, k, solved: [] });          // the ladder declares its k rungs
 const step = ( id, rank, prev, o ) => Object.assign({ _id: id, isThought: true, rank, text: 't' }, prev ? { prev } : {}, o);
@@ -30,6 +31,15 @@ async function main() {
 	say('below it. The usual way needs a scheduler telling each step when to run. There is no');
 	say('scheduler here, and skipping ahead is not merely discouraged — it is impossible.');
 	gap();
+	liveBanner();
+	gap();
+	beat(0, 'A real chained question, one rung at a time, on a real model:');
+	exchange('least-to-most', 0, 'rung 1 needs nothing before it');
+	exchange('least-to-most', 1, 'rung 2 is handed rung 1\'s answer — and nothing else');
+	exchange('least-to-most', 2, 'rung 3 is handed rung 2\'s answer — and nothing else');
+	good('every rung answered correctly, because each one only had its own small job to do');
+	gap();
+	say('  What follows is the graph that made that order happen:');
 
 	// ── 1. the chain releases itself, one rung at a time ──────────────────────────────────────────
 	const s = bootStrategy('least-to-most', { nodes: [plan(3), step('s0', 0), step('s1', 1, 's0'), step('s2', 2, 's1')] });

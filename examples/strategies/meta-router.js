@@ -25,6 +25,7 @@
 const assert = require('node:assert');
 const { makeArchetypeRouter, ARCHETYPES } = require('../../plugins/planner/lib/dag-decompose.js');
 const { title, say, gap, step: beat, note, good, bad, val, done: finish } = require('../_say.js');
+const { exchange, of, liveBanner } = require('./_live.js');
 
 // A scripted model: it classifies, then emits a decomposition. In production both calls go to your model
 // (grammar-constrained). The router's two asks are distinguishable by their system prompt.
@@ -47,6 +48,14 @@ async function main() {
 	say('"Pull every field out of this form" is a hundred independent little jobs. Getting that');
 	say('wrong makes everything downstream worse, so it is decided first, and it is decided safely.');
 	gap();
+	liveBanner();
+	gap();
+	beat(0, 'Two real jobs, put to a real model: what KIND of job is each?');
+	exchange('meta-router', 0, 'three hundred invoices → it says "extraction": lots of little independent jobs');
+	exchange('meta-router', 1, 'the runway calculation → it says "sequential": a chain, each step feeding the next');
+	good('two real answers, both right, both inside the closed list of allowed kinds');
+	gap();
+	say('  And here is what that decision then does:');
 
 	// ── 1. classify → route: the archetype picks the orientation the decomposition is steered by ───
 	const r = makeArchetypeRouter({ ask: scriptedAsk('sequential', CHAIN) });
