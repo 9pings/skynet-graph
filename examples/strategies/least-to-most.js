@@ -33,13 +33,18 @@ async function main() {
 	gap();
 	liveBanner();
 	gap();
-	beat(0, 'A real chained question, one rung at a time, on a real model:');
-	exchange('least-to-most', 0, 'rung 1 needs nothing before it');
-	exchange('least-to-most', 1, 'rung 2 is handed rung 1\'s answer — and nothing else');
-	exchange('least-to-most', 2, 'rung 3 is handed rung 2\'s answer — and nothing else');
-	good('every rung answered correctly, because each one only had its own small job to do');
+	beat(0, 'THE classic for this one: the widget trap. Most people say 100 minutes. It is 5.');
+	exchange('least-to-most', 0, 'asked whole — and this model is not fooled: it says 5, which is right');
+	say('         (worth saying plainly: no win for us here. It did not need the ladder.)');
 	gap();
-	say('  What follows is the graph that made that order happen:');
+	beat(1, 'The ladder anyway — easiest rung first, and each rung only gets its own small job:');
+	exchange('least-to-most', 1, 'rung 1: one machine, one widget. Nothing before it');
+	exchange('least-to-most', 2, 'rung 2: handed rung 1\'s answer, and nothing else');
+	good('same answer, 5 — but now every step is one you can check on its own');
+	say('         That is the trade: not a smarter answer, an inspectable one. On the long');
+	say('         chained problems it IS the difference (see the head-to-head demo: 336 vs 354).');
+	gap();
+	say('  And here is the part that has no model in it at all — the order running itself:');
 
 	// ── 1. the chain releases itself, one rung at a time ──────────────────────────────────────────
 	const s = bootStrategy('least-to-most', { nodes: [plan(3), step('s0', 0), step('s1', 1, 's0'), step('s2', 2, 's1')] });

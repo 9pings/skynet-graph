@@ -32,34 +32,32 @@ const SYS = 'You are a careful assistant. Follow the output format EXACTLY.';
 	//    gotcha: a local backend pins its seed, so identical prompts give identical paths = a vacuous vote)
 	for ( let i = 1; i <= 5; i++ )
 		await rec('self-consistency', 'path ' + i + ' of 5', { system: SYS,
-			user: 'What is 17 multiplied by 23?\n(independent attempt ' + i + ' of 5 — work it out your own way)\nEnd with a final line exactly: ANSWER: <number>',
+			user: 'A farmer has 3 fields. Each field has 4 rows of corn, with 7 stalks per row. How many corn stalks are there in total?\n(independent attempt ' + i + ' of 5 — work it out your own way)\nEnd with a final line exactly: ANSWER: <number>',
 			maxTokens: 300, temperature: 0.7 });
 
 	// ── react: a question needing two tool calls then arithmetic
-	const TOOLS = 'lookup_population(country) · calculate(expression)';
+	const TOOLS = 'lookup_capital(country) · lookup_population(city)';
+	const RQ = 'Question: What is the population of the capital of France?';
 	await rec('react', 'step 1 — what should we do first?', { system: SYS,
-		user: 'Question: What is the combined population of France and Japan?\nTools: ' + TOOLS
-			+ '\nSteps so far: (none)\nReply exactly 2 lines:\nTHOUGHT: <one sentence>\nACTION: <tool>(<input>)',
+		user: RQ + '\nTools: ' + TOOLS + '\nSteps so far: (none)\nReply exactly 2 lines:\nTHOUGHT: <one sentence>\nACTION: <tool>(<input>)',
 		maxTokens: 120, temperature: 0 });
-	await rec('react', 'step 2 — after we ran it and told it the result', { system: SYS,
-		user: 'Question: What is the combined population of France and Japan?\nTools: ' + TOOLS
-			+ '\nSteps so far:\n1. lookup_population(France) -> 68000000\nReply exactly 2 lines:\nTHOUGHT: <one sentence>\nACTION: <tool>(<input>)',
+	await rec('react', 'step 2 — we ran it and told it the answer', { system: SYS,
+		user: RQ + '\nTools: ' + TOOLS + '\nSteps so far:\n1. lookup_capital(France) -> Paris\nReply exactly 2 lines:\nTHOUGHT: <one sentence>\nACTION: <tool>(<input>)',
 		maxTokens: 120, temperature: 0 });
-	await rec('react', 'step 3 — both populations known', { system: SYS,
-		user: 'Question: What is the combined population of France and Japan?\nTools: ' + TOOLS
-			+ '\nSteps so far:\n1. lookup_population(France) -> 68000000\n2. lookup_population(Japan) -> 125000000\nReply exactly 2 lines:\nTHOUGHT: <one sentence>\nACTION: <tool>(<input>)',
+	await rec('react', 'step 3 — it has the number', { system: SYS,
+		user: RQ + '\nTools: ' + TOOLS + '\nSteps so far:\n1. lookup_capital(France) -> Paris\n2. lookup_population(Paris) -> 2100000\nReply exactly 2 lines:\nTHOUGHT: <one sentence>\nACTION: FINISH(<the answer>)',
 		maxTokens: 120, temperature: 0 });
 
-	// ── least-to-most: a real chained question, one rung at a time
-	await rec('least-to-most', 'rung 1 (nothing before it)', { system: SYS,
-		user: 'A train leaves at 9:15 and the journey takes 2 hours and 40 minutes.\nStep 1 of 3: how many MINUTES is the journey? Answer with just the number.',
+	// ── least-to-most: THE classic trap. Asked whole, the reflex answer is 100 minutes. It is 5.
+	const WIDGET = 'If it takes 5 machines 5 minutes to make 5 widgets, how long would it take 100 machines to make 100 widgets?';
+	await rec('least-to-most', 'asked whole — the trap', { system: SYS,
+		user: WIDGET + '\nAnswer with just the number of minutes.', maxTokens: 300, temperature: 0 });
+	await rec('least-to-most', 'rung 1 — the easiest thing first', { system: SYS,
+		user: '5 machines take 5 minutes to make 5 widgets.\nEasiest step first: how long does ONE machine take to make ONE widget? Answer with just the number of minutes.',
 		maxTokens: 24, temperature: 0 });
-	await rec('least-to-most', 'rung 2 (given rung 1\'s answer)', { system: SYS,
-		user: 'A train leaves at 9:15. The journey is 160 minutes.\nStep 2 of 3: 9:15 plus 160 minutes is what time? Answer as HH:MM only.',
+	await rec('least-to-most', 'rung 2 — given rung 1\'s answer', { system: SYS,
+		user: 'One machine takes 5 minutes to make one widget.\nNow: 100 machines each make one widget, all at the same time. How long for all 100 widgets? Answer with just the number of minutes.',
 		maxTokens: 24, temperature: 0 });
-	await rec('least-to-most', 'rung 3 (given rung 2\'s answer)', { system: SYS,
-		user: 'A train arrives at 11:55.\nStep 3 of 3: is that before or after midday? Answer with one word: before or after.',
-		maxTokens: 12, temperature: 0 });
 
 	// ── socratic: probing a claim, then distilling
 	const CLAIM = 'We should rewrite our app in Rust because it would be faster.';
@@ -90,18 +88,20 @@ const SYS = 'You are a careful assistant. Follow the output format EXACTLY.';
 		maxTokens: 12, temperature: 0 });
 
 	// ── tree-of-thoughts: propose lines of attack, an EXTERNAL judge scores one
-	await rec('tree-of-thoughts', 'propose 3 lines of attack', { system: SYS,
-		user: 'Problem: our cloud bill is $40,000 a month and we must cut it by half.\nPropose 3 DIFFERENT first moves, one line each, format: MOVE: <move>',
-		maxTokens: 180, temperature: 0 });
-	await rec('tree-of-thoughts', 'an EXTERNAL judge rates one line', { system: SYS,
-		user: 'Goal: halve a $40,000/month cloud bill.\nProposed move: "Move workloads to cheaper reserved instances."\nHow likely is this to reach the goal on its own? Reply one line exactly: SCORE: <0-10>',
+	await rec('tree-of-thoughts', 'propose 3 different first moves', { system: SYS,
+		user: 'Puzzle: arrange the numbers 1 to 9 in a 3x3 grid so every row, column and diagonal adds up to 15.\n'
+			+ 'Propose 3 DIFFERENT opening moves (what to place where, and why), one line each, format: MOVE: <move>',
+		maxTokens: 200, temperature: 0 });
+	await rec('tree-of-thoughts', 'an EXTERNAL judge rates one of them', { system: SYS,
+		user: 'Puzzle: 1-9 in a 3x3 grid, every row, column and diagonal summing to 15.\n'
+			+ 'Proposed opening move: "Place 5 in the centre."\nHow promising is this move? Reply one line exactly: SCORE: <0-10>',
 		maxTokens: 20, temperature: 0 });
 
 	// ── analogical: does the old case really map onto the new one?
 	await rec('analogical', 'does the solved case map onto the new one?', { system: SYS,
-		user: 'Solved case: "Our checkout was slow because we queried the database once per item in the basket."\n'
-			+ 'New case: "Our search page is slow and makes one API call per result shown."\n'
-			+ 'Do these two have the SAME underlying shape? Reply exactly 2 lines:\nSAME: yes or no\nWHY: <one line>',
+		user: 'Solved case: "Blood vessels deliver to every cell in the body: a few big arteries, branching down to tiny capillaries."\n'
+			+ 'New problem: "Design a more efficient package delivery network for a city."\n'
+			+ 'Does the solved case map onto the new problem? Reply exactly 2 lines:\nSAME: yes or no\nWHY: <one line>',
 		maxTokens: 120, temperature: 0 });
 
 	// ── meta-router: what KIND of job is this?

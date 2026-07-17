@@ -36,11 +36,12 @@ async function main() {
 	gap();
 	liveBanner();
 	gap();
-	beat(0, 'A real question, put to a real model that has two tools available:');
-	exchange('react', 0, 'it asked for a tool and an input — THAT is what goes on the list');
-	exchange('react', 1, 'we ran the tool, wrote down the answer, and it moved on by itself');
-	exchange('react', 2, 'both numbers in hand, it reaches for the calculator');
-	good('three real calls, three usable tool requests, no hand-holding');
+	beat(0, '"What is the population of the capital of France?" — it cannot answer that in one');
+	say('       step: it has to work out the capital FIRST, then go and look the number up.');
+	exchange('react', 0, 'it works out that it needs the capital first, and asks for that tool');
+	exchange('react', 1, 'we ran it, said "Paris" — and it goes for the population, unprompted');
+	exchange('react', 2, 'it has the number, so it stops asking for tools and answers');
+	good('three real calls: it found its own way there, one hop at a time');
 	gap();
 	say('  Now the graph side of the same loop:');
 
