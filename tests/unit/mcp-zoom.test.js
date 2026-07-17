@@ -92,6 +92,33 @@ test('MCP zoom — givens: a base fact of the task is injected into the leaves t
 	assert.match(String(s.calls[0].user), /20/, 'the given VALUE reached the leaf prompt');
 });
 
+test('MCP zoom — P5 wiring: with the C6 proxy wired, leaves ride the COST LADDER (stock-first, escalation load-bearing) and the economy is in the payload', async () => {
+	// the scripted ladder: base figures are COVERED by the stock (served local, 0 frontier calls),
+	// the derivation is a miss and ESCALATES — exactly the amortization regime P5 sells.
+	const proxyCalls = [];
+	const proxy = { answer: async ( q ) => {
+		proxyCalls.push(String(q));
+		const p = String(q);
+		const num = ( key ) => { const m = p.match(new RegExp(key + ' = (-?\\d+)')); return m ? Number(m[1]) : null; };
+		if ( /the revenue figure/.test(p) ) return { answer: '913', source: 'local', cached: true, arm: 'match', cost: 0 };
+		if ( /the costs figure/.test(p) ) return { answer: '400', source: 'local', cached: true, arm: 'match', cost: 0 };
+		return { answer: String(num('revenue') - num('costs')), source: 'frontier', cached: false, arm: 'escalate', cost: 1 };
+	} };
+	const tool = zoomTool({ proxy });                              // NO critiqueAsk — the ladder alone serves
+	assert.ok(tool, 'zoom is available on the proxy wiring alone (sg mcp --store)');
+	const r = await tool.call({ task: 'Analyze the annual report', leaves: [
+		{ id: 'revenue', ask: 'the revenue figure' }, { id: 'costs', ask: 'the costs figure' },
+		{ id: 'margin', ask: 'revenue minus costs', needs: ['revenue', 'costs'] },
+	] });
+	assert.equal(r.converged, true);
+	assert.match(r.answer, /margin=513/, 'the upstream values flowed through the bounded projection into the ladder query');
+	assert.deepEqual(r.economy, { local: 2, frontier: 1, cost: 1 }, 'THE AMORTIZATION READOUT: covered leaves cost 0 frontier calls');
+	const srcOf = Object.fromEntries(r.leaves.map(( l ) => [l.id, l.source] ));
+	assert.equal(srcOf.revenue, 'local');
+	assert.equal(srcOf.margin, 'frontier', 'each leaf NAMES where it was served from — provenance, not vibes');
+	assert.ok(!/annual report/.test(proxyCalls.find(( q ) => /revenue figure/.test(q) )), 'the ladder query stays bounded too');
+});
+
 test('MCP zoom — reason-first parse: the LAST ANSWER line wins; an unparseable leaf is flagged, never a silent empty', async () => {
 	let n = 0;
 	const replies = ['I first thought ANSWER: 1 but no.\nANSWER: 7', 'no final line at all'];

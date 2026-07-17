@@ -553,7 +553,10 @@ claude mcp add sg -- node bin/sg mcp --frontier-model <path.gguf> --store ./stoc
 #           never the task text, never a sibling's question. A leaf whose needs nobody produces
 #           refuses the plan TYPED + NAMED before any model call; duplicates are dropped, order is
 #           derived, reassembly is checked. `givens` injects the task's base facts into the leaves
-#           that cite them.)
+#           that cite them. With the proxy wired (--store), each leaf rides the COST LADDER —
+#           covered → served from the verified local stock (0 frontier calls), miss → escalated —
+#           and the payload carries the amortization readout: `economy` {local, frontier, cost}
+#           + per-leaf `source`.)
 #   INSTANCES — graph_invoke / graph_instances.
 
 # 2b) sg try — one-shot LIVE probe of an MCP tool feature (the SAME tool surface as sg mcp, no

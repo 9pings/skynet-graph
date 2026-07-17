@@ -43,7 +43,8 @@ test('mcp — tools/list: proxy wiring exposes ask/drift/metrics/lattice_load + 
 	const srv = server({ proxy: px, logger: createLogger({ console: false }) });
 	const r = await srv.handle({ jsonrpc: '2.0', id: 1, method: 'tools/list' });
 	const names = r.result.tools.map(( t ) => t.name);
-	assert.deepEqual(names.sort(), ['ask', 'drift', 'lattice_load', 'lattice_rings', 'methods_describe', 'metrics', 'trace_tail']);
+	// `zoom` rides the proxy wiring since the P5 hookup: the ladder alone can serve a declared plan.
+	assert.deepEqual(names.sort(), ['ask', 'drift', 'lattice_load', 'lattice_rings', 'methods_describe', 'metrics', 'trace_tail', 'zoom']);
 	r.result.tools.forEach(( t ) => { assert.ok(t.description.length > 20); assert.equal(t.inputSchema.type, 'object'); });
 	// the learn-through-the-gate NEGATIVE: no tool writes the stock or the registry directly.
 	assert.ok(!names.some(( n ) => /set|write|put|insert|add_(entry|answer)/.test(n)), 'no direct-write tool on the surface');
