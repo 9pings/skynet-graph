@@ -271,8 +271,9 @@ thirteen implementations that share nothing.
 
 Here **a strategy is a concept set you deposit on one shared kernel** — files, not a fork. There is no
 `Strategy` class to subclass because there is no strategy *object*: it is a grammar over typed facts, and
-the engine runs it like everything else. Eleven of the thirteen are **Tier-0 — pure grammar, zero JS**:
-nothing of ours executes, so there is no code of ours to trust.
+the engine runs it like everything else. Seven of the thirteen are **Tier-0 — pure grammar, zero JS**:
+nothing of ours executes, so there is no code of ours to trust. The rest ride Tier-1 plugins — readable
+JS (the debate's LLM leaves, the planner's projection engine, two ~60-line search drivers), never a framework.
 
 The contract never changes: **the host writes typed facts, the graph decides, the host reads which gates
 are open.** No `run()`, no callbacks, no loop of yours to get wrong.

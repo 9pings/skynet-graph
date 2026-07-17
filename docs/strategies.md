@@ -35,9 +35,10 @@ Then, forever after:
 That is the whole API. There is no `strategy.run()` to call, no callbacks to register, no loop to write.
 `examples/strategies/_boot.js` wraps those lines with comments; read it once and every example is legible.
 
-**Two classes of strategy.** Eleven are **Tier-0** — pure grammar, *zero JS*: nothing of ours executes, so
-there is no code of ours to trust. Two (Tree-of-Thoughts, MCTS) are **Tier-1**: they keep state in the graph
-but need a thin imperative driver, because their selection policy is an **argmax across siblings** (a beam,
+**Two classes of strategy.** Seven are **Tier-0** — pure grammar, *zero JS*: nothing of ours executes, so
+there is no code of ours to trust. The rest ride **Tier-1** plugins — readable JS, never a framework: the
+debate's LLM leaves and the planner's projection engine are plain provider code, and two (Tree-of-Thoughts,
+MCTS) need a thin imperative driver, because their selection policy is an **argmax across siblings** (a beam,
 a UCB1 pick) and the per-object rule DSL cannot express a cross-sibling view — nor should it be tortured
 into one. Those drivers are ~60 lines each, and everything they decide is written back as facts.
 
