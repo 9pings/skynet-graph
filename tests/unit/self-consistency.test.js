@@ -158,6 +158,39 @@ test('MCP self_consistency — NEG: all paths abstain → typed refusal, never a
 	assert.match(r.advice, /maxTokens/, 'the advice names the measured cause (thinking eats the budget)');
 });
 
+test('MCP self_consistency — the k paths FAN OUT concurrently (the measured 3.6-7x lever), order-preserving', async () => {
+	const { defaultTools } = require('../../lib/sg/mcp.js');
+	// each ask parks on a macrotask before replying: a SERIAL loop would show peak concurrency 1,
+	// the fan-out shows peak k — measured on the actual in-flight counter, not on timing.
+	let active = 0, peak = 0;
+	const replies = ['ANSWER: a', 'ANSWER: b', 'ANSWER: a'];
+	let i = 0;
+	const ask = async () => {
+		active++; peak = Math.max(peak, active);
+		const mine = replies[i++];
+		await new Promise(( res ) => setImmediate(res));
+		active--;
+		return mine;
+	};
+	const tool = defaultTools({ critiqueAsk: ask }).find(( t ) => t.name === 'self_consistency' );
+	const r = await tool.call({ question: 'q?', k: 3 });
+	assert.equal(peak, 3, 'all k paths were IN FLIGHT together — the backend can batch their decode steps');
+	assert.deepEqual(r.votes, ['a', 'b', 'a'], 'votes stay in PATH order — the fan-out changes wall-time, never the result');
+	assert.equal(r.verdict, 'a');
+});
+
+test('MCP self_consistency — a path that REJECTS abstains (named), never wedges or kills the vote', async () => {
+	const { defaultTools } = require('../../lib/sg/mcp.js');
+	const replies = ['ANSWER: 9', () => { throw new Error('backend hiccup'); }, 'ANSWER: 9'];
+	let i = 0;
+	const ask = async () => { const r = replies[i++]; if ( typeof r === 'function' ) r(); return r; };
+	const tool = defaultTools({ critiqueAsk: ask }).find(( t ) => t.name === 'self_consistency' );
+	const r = await tool.call({ question: 'q?', k: 3 });
+	assert.equal(r.verdict, '9', 'the surviving paths still decide');
+	assert.equal(r.abstained, 1, 'the failed path ABSTAINED — it is not a vote class');
+	assert.equal(r.failed, 1, 'and the failure is COUNTED apart from parse-abstentions');
+});
+
 test('MCP self_consistency — temperature 0 is announced as vacuous (k identical paths)', async () => {
 	const { defaultTools } = require('../../lib/sg/mcp.js');
 	const tool = defaultTools({ critiqueAsk: async () => 'ANSWER: same' }).find(( t ) => t.name === 'self_consistency' );
