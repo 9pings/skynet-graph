@@ -34,24 +34,30 @@ function box( label, lines, mark ) {
 function verdictLine( c ) {
 	const a = c.aloneRight, w = c.withRight;
 	if ( !a && w ) return { sym: good, txt: 'THE MODEL ALONE GOT IT WRONG. THROUGH THE GRAPH IT GOT IT RIGHT.' };
-	if ( a && w ) return { sym: note, txt: 'both got it right — this model does not fall for this one. No difference to show.' };
+	if ( a && w ) return { sym: note, txt: 'both got it right — read the note: what matters is HOW, and whether the win was luck.' };
 	if ( a && !w ) return { sym: bad, txt: 'THE MODEL ALONE GOT IT RIGHT — AND THE GRAPH MADE IT WORSE.' };
 	return { sym: bad, txt: 'both got it wrong.' };
 }
 
 function main() {
 	title('CLASSIC PROBLEMS — THE SAME MODEL, ASKED TWICE');
-	say('Three problems language models are known to trip on. Each is put to the SAME 9.5 GB model that');
-	say('runs on one ordinary graphics card: once by just asking it, and once through this project.');
+	say('Three problems language models are famous for tripping on. Each is put to the SAME 9.5 GB model');
+	say('that runs on one ordinary graphics card: once by just asking it, and once through this project.');
 	say('Every prompt and every reply below is exactly what was sent and exactly what came back.');
 	gap();
+	say('The thread running through all three: whatever the question is really ABOUT has to exist as');
+	say('something the model can look at. Give it the whole story and it fumbles the chain; give each');
+	say('step its own numbers and it does not. Give it a word and it cannot find the letters; give it');
+	say('one letter and it is never wrong. The work is in the cut, not in the model.');
+	gap();
 	val('the model', T.recordedWith);
-	val('the score', T.cases.filter(( c ) => !c.aloneRight && c.withRight ).length + ' won · '
-		+ T.cases.filter(( c ) => c.aloneRight && c.withRight ).length + ' no difference · '
+	val('the score', T.cases.filter(( c ) => !c.aloneRight && c.withRight ).length + ' the model could not do alone · '
+		+ T.cases.filter(( c ) => c.aloneRight && c.withRight ).length + ' it could already do · '
 		+ T.cases.filter(( c ) => c.aloneRight && !c.withRight ).length + ' made worse');
 	say('');
-	say('  Yes — one of these three goes AGAINST us, and it is printed in full below, with the reason.');
-	say('  A demo that only records its wins is an advert.');
+	say('  Two of these three, the model gets right on its own — and that is printed here too, because a');
+	say('  demo that only records its wins is an advert. Read the notes: on one of them the answer is right');
+	say('  for a reason that does not generalise.');
 
 	for ( const c of T.cases ) {
 		gap();

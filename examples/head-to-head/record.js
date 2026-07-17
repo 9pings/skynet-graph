@@ -66,9 +66,11 @@ async function classicDecimal() {
 // ─────────────────────────────────────────────────────────────────────────────────────────────────
 // CLASSIC 2 — "how many r's in strawberry?" A tokenizer problem: the model never sees the letters.
 //   alone       : ask it.
-//   with graph  : the graph cuts the word into letters (the CUTTING is not the model's job — that is a
-//                 measured limit of this project, stated), the model judges ONE letter per call, and the
-//                 graph counts. Each piece is something the model can actually do.
+//   with graph  : the graph SPLITS the word and holds each letter as its own fact — then hands the model
+//                 the CHARACTER, not a position. "Is 'w' the letter r?" is a question it can answer;
+//                 "is letter number 5 an r?" is the impossible task all over again. (Owner, 07-17 — the
+//                 first cut asked by POSITION and made things worse: the piece has to be one the model
+//                 can actually do, and making the letters VISIBLE is the graph's job, not the model's.)
 // ─────────────────────────────────────────────────────────────────────────────────────────────────
 async function classicCount() {
 	const word = 'strawberry';
@@ -78,14 +80,15 @@ async function classicCount() {
 	const aloneReply = await ask({ system: 'You are a helpful assistant. Answer concisely.', user: question, maxTokens: 200, temperature: 0 });
 	const alone = { calls: take(), answer: num(aloneReply) };
 
-	// the host cuts (deterministic), the model judges each piece, the graph folds the count.
+	// the graph splits the word (deterministic — a string op is not a reasoning task), and each letter
+	// becomes a fact the model is shown DIRECTLY. The model only ever judges one visible character.
 	const letters = word.split('');
 	const loop = createPlanLoop({
-		decompose: async () => letters.map(( ch, i ) => ({ id: 'n_' + i, request: { id: 'pos' + i }, nl: 'letter ' + (i + 1), readsExtra: [] }) ),
+		decompose: async () => letters.map(( ch, i ) => ({ id: 'n_' + i, request: { id: 'c' + i, ch }, nl: 'the character ' + ch, readsExtra: [] }) ),
 		serveLeaf: async ( lf ) => {
-			const i = Number(String(lf.request.id).replace('pos', ''));
+			const ch = lf.request.ch;                       // ← the LETTER itself, held by the graph
 			const out = await ask({ system: 'Answer with exactly one word: yes or no.',
-				user: 'In the word "' + word + '", is letter number ' + (i + 1) + ' (counting from 1) the letter "r"? Answer yes or no.',
+				user: 'Is the character "' + ch + '" the letter "r"? Answer yes or no.',
 				maxTokens: 8, temperature: 0 });
 			return /yes/i.test(String(out)) ? 1 : 0;
 		},
@@ -96,8 +99,8 @@ async function classicCount() {
 
 	return { id: 'count', truth, question,
 		title: 'How many r\'s in "strawberry"?',
-		why: 'The other famous one. A model does not see letters — it sees chunks ("straw" + "berry"), so it is guessing at a question about spelling. Nothing about a bigger model fixes the fact that the letters were never there.',
-		how: 'Through the graph: cut the word into single letters, ask the model about ONE letter at a time (a question it can actually answer), and let the graph do the counting. The cutting is deliberately not the model\'s job — that is a measured limit of this project.',
+		why: 'The other famous one. A model does not see letters — it sees chunks ("straw" + "berry"), so a question about spelling is a question about something it was never shown. No amount of extra model fixes that: the letters were never there to look at.',
+		how: 'Through the graph: split the word and hold each letter as its own fact, then show the model the CHARACTER — "is \'w\' the letter r?" — which it can answer. The splitting is deliberately not the model\'s job; making the letters visible is exactly what the graph is for.',
 		alone, withg };
 }
 
