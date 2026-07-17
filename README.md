@@ -212,21 +212,10 @@ sg ask "your question" --concepts ./concepts --local-model <path.gguf>
 sg studio            # (or: sg serve --studio — live request lines in its trace panel)
 ```
 
-For the ready-made **appliance** — a full local LLM server on **one VRAM load** (the model answers *with*
-think, the graph runs *no-think*, sharing a single gguf), plus local `.sgc` rooms — use
-**[mindsmith](https://www.npmjs.com/package/mindsmith)** `serve --model <gguf>` (`--ctx`, `--gpu`,
-`--gpu-layers`, `--think`, custom llama.cpp build). It's built on these surfaces.
 
 Runnable, deterministic, GPU-free demos of every use-case class live (in the repo) under
 **`examples/bootstrap/`** — one short file per capability and per surface, each printing the guarantee it demonstrates.
 
-> **The app that uses these — [mindsmith](https://www.npmjs.com/package/mindsmith).** The endpoint + rooms
-> above, packaged and hardened: `npx mindsmith serve` (OpenAI-compatible, no-egress by default, proven on
-> real sockets) · `mindsmith rooms list|import|export|freeze` (your own shareable stock mini-repos — no
-> catalog, no subscription, sha256 dossiers). Embed *this* library instead when you are building your own.
->
-> **For AI agents reading this repo**: `CLAUDE.md` at the root is the machine-oriented map (architecture,
-> commands, gotchas); the MCP surface is one command away (`claude mcp add sg -- node bin/sg mcp …`).
 
 ## Architecture — a minimal core, capabilities as plugins
 

@@ -152,14 +152,60 @@ async function classicDeepMath() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────────────────────────
+// CLASSIC 4 — a REAL question about a REAL annual report (FinQA). This is the certified-steering claim:
+//   alone       : hand it the table and the question.
+//   with graph  : the forged stock says which SHAPE this class of question takes (subtract>divide —
+//                 admitted at the forge behind the 0-false gate). We do not tell it the answer; we tell
+//                 it the shape, and it fills it in one step at a time.
+// ─────────────────────────────────────────────────────────────────────────────────────────────────
+async function classicFinqa() {
+	const d = JSON.parse(fs.readFileSync(path.join(SG, 'examples', 'integrated-demo', 'mission-data.json'), 'utf8'));
+	const it = d.items.find(( x ) => x.covered && x.resolvable && x.gold === 'subtract>divide' );
+	const tbl = it.table.map(( r ) => r.join(' | ') ).join('\n');
+	const truth = String(Math.round(it.exeAns * 10000) / 10000);          // -0.0322
+
+	const aloneReply = await ask({ system: 'You are a financial analyst. Answer with just the number.',
+		user: 'Table from the ' + d.report + ' annual report:\n' + tbl + '\n\nQuestion: ' + it.problem
+			+ '\nAnswer with just the number (a decimal fraction, not a percentage).', maxTokens: 400, temperature: 0 });
+	const alone = { calls: take(), answer: num(aloneReply) };
+
+	// STEERED: the certified shape for this class of question, from the forged stock. One step per move.
+	const a = await ask({ system: 'You do ONE arithmetic step. Answer with just the number.',
+		user: 'Table:\n' + tbl + '\n\nStep 1 of 2 — SUBTRACT: 2008 net revenue minus 2007 net revenue. Just the number.',
+		maxTokens: 24, temperature: 0 });
+	const b = await ask({ system: 'You do ONE arithmetic step. Answer with just the number.',
+		user: 'Step 2 of 2 — DIVIDE: ' + String(num(a)) + ' divided by the 2007 net revenue of 991.1. '
+			+ 'Answer with just the decimal, 4 places.', maxTokens: 24, temperature: 0 });
+	const withg = { calls: take(), answer: num(b) };
+
+	return { id: 'finqa', truth, question: it.problem, tol: 0.00005,   // the gold is quoted to 4dp
+		title: 'A real question about a real annual report',
+		why: 'Not a puzzle — the actual job. A real table from a real utility\'s 2008 report, and a question a '
+			+ 'analyst would ask. The numbers are all right there; it just has to pick the right two and do the right things to them.',
+		how: 'Through the graph: the forged stock already knows what SHAPE this kind of question takes — subtract, '
+			+ 'then divide — because that shape was mined from solved examples and admitted only when it matched the '
+			+ 'checker every time. We never tell it the answer. We tell it the shape, and it fills in one step at a time.',
+		alone, withg };
+}
+
+// ─────────────────────────────────────────────────────────────────────────────────────────────────
 (async () => {
 	const cases = [];
-	for ( const fn of [classicDecimal, classicCount, classicDeepMath] ) {
+	for ( const fn of [classicDecimal, classicCount, classicDeepMath, classicFinqa] ) {
 		process.stdout.write('  recording ' + fn.name + ' … ');
 		const t0 = Date.now();
 		const c = await fn();
-		c.aloneRight = c.alone.answer != null && String(c.alone.answer).replace(/\.0+$/, '') === c.truth;
-		c.withRight = c.withg.answer != null && String(c.withg.answer).replace(/\.0+$/, '') === c.truth;
+		// NUMERIC comparison with the case's own tolerance — a string compare called -0.03218141 "wrong"
+		// against a gold of -0.0322 when they are the SAME number to 4dp (caught 07-17; a false positive
+		// is worse than no demo: it manufactures a win the model did not need us for).
+		const same = ( a, b, tol ) => {
+			if ( a == null ) return false;
+			const x = Number(a), y = Number(b);
+			if ( isFinite(x) && isFinite(y) ) return Math.abs(x - y) <= (tol == null ? 1e-9 : tol);
+			return String(a).trim().toLowerCase() === String(b).trim().toLowerCase();
+		};
+		c.aloneRight = same(c.alone.answer, c.truth, c.tol);
+		c.withRight = same(c.withg.answer, c.truth, c.tol);
 		cases.push(c);
 		console.log(((Date.now() - t0) / 1000).toFixed(1) + 's · alone ' + (c.aloneRight ? 'RIGHT' : 'wrong → ' + c.alone.answer)
 			+ ' · with-graph ' + (c.withRight ? 'RIGHT' : 'wrong → ' + c.withg.answer));

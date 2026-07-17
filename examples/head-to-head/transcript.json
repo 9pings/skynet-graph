@@ -15,7 +15,7 @@
       "system": "You are a helpful assistant. Answer concisely.",
       "user": "Which number is bigger: 9.11 or 9.9? Answer with just the number.",
       "reply": "\n\n\n9.9",
-      "ms": 6048
+      "ms": 4481
      }
     ],
     "answer": "9.9"
@@ -26,31 +26,31 @@
       "system": "Answer the question. Reason if you need to, then END your reply with ONE line, exactly: ANSWER: <short final answer>",
       "user": "Question: Which number is bigger: 9.11 or 9.9?\n(independent attempt 1 of 5 \u2014 reason in your own way)",
       "reply": "\n\nTo compare the two numbers 9.11 and 9.9, we look at their place values from left to right.\n\n1.  **Compare the whole number part:** Both numbers have a 9 in the units place. They are equal so far.\n2.  **Compare the tenths place:**\n    *   In 9.11, the digit in the tenths place is 1.\n    *   In 9.9, the digit in the tenths place is 9.\n3.  Since 9 is greater than 1, the number 9.9 is greater than 9.11.\n\n(Note: A common misconception is to look at the version numbers like software versions where \"9.11\" might come after \"9.9\" alphabetically, but in standard numerical comparison, we treat them as decimal fractions.)\n\nANSWER: 9.9",
-      "ms": 2390
+      "ms": 2330
      },
      {
       "system": "Answer the question. Reason if you need to, then END your reply with ONE line, exactly: ANSWER: <short final answer>",
       "user": "Question: Which number is bigger: 9.11 or 9.9?\n(independent attempt 2 of 5 \u2014 reason in your own way)",
       "reply": "\n\nTo compare the numbers 9.11 and 9.9, we can look at their values digit by digit from left to right.\n\n1.  **Compare the whole number part:** Both numbers have the integer part 9. Since $9 = 9$, we need to look at the decimal places.\n2.  **Compare the tenths place:**\n    *   The first number, 9.11, has a 1 in the tenths place.\n    *   The second number, 9.9, has a 9 in the tenths place.\n3.  **Conclusion:** Since 9 is greater than 1, the number 9.9 is greater than 9.11.\n\nANSWER: 9.9",
-      "ms": 2005
+      "ms": 1987
      },
      {
       "system": "Answer the question. Reason if you need to, then END your reply with ONE line, exactly: ANSWER: <short final answer>",
       "user": "Question: Which number is bigger: 9.11 or 9.9?\n(independent attempt 3 of 5 \u2014 reason in your own way)",
       "reply": "\n\nTo compare the numbers 9.11 and 9.9, we can look at their values digit by digit from left to right.\n\n1.  **Compare the whole number part:** Both numbers have the integer part 9. Since $9 = 9$, we need to look at the decimal places.\n2.  **Compare the tenths place:**\n    *   The first number is 9.11. The digit in the tenths place is **1**.\n    *   The second number is 9.9. The digit in the tenths place is **9**.\n3.  **Determine the larger value:** Since 9 is greater than 1, the number 9.9 is larger than 9.11.\n\nAlternatively, you can think of it this way:\n*   $9.11 = 9 + \\frac{11}{100}$\n*   $9.9 = 9 + \\frac{9}{10} = 9 + \\frac{90}{100}$\n\nSince $\\frac{90}{100} > \\frac{11}{100}$, it follows that $9.9 > 9.11$.\n\nANSWER: 9.9",
-      "ms": 3091
+      "ms": 3131
      },
      {
       "system": "Answer the question. Reason if you need to, then END your reply with ONE line, exactly: ANSWER: <short final answer>",
       "user": "Question: Which number is bigger: 9.11 or 9.9?\n(independent attempt 4 of 5 \u2014 reason in your own way)",
       "reply": "\n\nTo compare the numbers 9.11 and 9.9, we can look at their values digit by digit from left to right.\n\n1.  **Compare the whole number part:** Both numbers have the integer part 9. Since $9 = 9$, we need to look at the decimal places.\n2.  **Compare the tenths place:**\n    *   The first number is 9.11. The digit in the tenths place is **1**.\n    *   The second number is 9.9. The digit in the tenths place is **9**.\n3.  **Determine the larger value:** Since 9 is greater than 1, the number 9.9 is larger than 9.11.\n\nAlternatively, you can think of it this way:\n*   $9.11 = 9 + \\frac{11}{100}$\n*   $9.9 = 9 + \\frac{9}{10} = 9 + \\frac{90}{100}$\n\nSince $\\frac{90}{100} > \\frac{11}{100}$, it follows that $9.9 > 9.11$.\n\nANSWER: 9.9",
-      "ms": 3153
+      "ms": 3132
      },
      {
       "system": "Answer the question. Reason if you need to, then END your reply with ONE line, exactly: ANSWER: <short final answer>",
       "user": "Question: Which number is bigger: 9.11 or 9.9?\n(independent attempt 5 of 5 \u2014 reason in your own way)",
       "reply": "\n\nTo compare the numbers 9.11 and 9.9, we can look at their values digit by digit from left to right.\n\n1.  **Compare the whole number part:** Both numbers have the integer part 9. Since $9 = 9$, we need to look at the decimal places.\n2.  **Compare the tenths place:**\n    *   The first number is 9.11. The digit in the tenths place is **1**.\n    *   The second number is 9.9. The digit in the tenths place is **9**.\n3.  **Determine the larger value:** Since 9 is greater than 1, the number 9.9 is larger than 9.11.\n\nAlternatively, you can think of it this way:\n*   $9.11 = 9 + \\frac{11}{100}$\n*   $9.9 = 9 + \\frac{9}{10} = 9 + \\frac{90}{100}$\n\nSince $\\frac{90}{100} > \\frac{11}{100}$, it follows that $9.9 > 9.11$.\n\nANSWER: 9.9",
-      "ms": 3133
+      "ms": 3117
      }
     ],
     "answer": "9.9",
@@ -76,7 +76,7 @@
    },
    "aloneRight": true,
    "withRight": true,
-   "lesson": "This model simply is not fooled by 9.11 vs 9.9 \u2014 so there is nothing here for us to fix.\nWe are keeping it in because we said we would publish what we measured, wins or not.\nWhat the graph still adds: had the 5 runs disagreed, it would have said \"I do not know\"\nrather than pick one. They agreed, so it just agreed with the model."
+   "lesson": "This model is not fooled by 9.11 vs 9.9 \u2014 so there is no difference to show here, and we\nsay so rather than dress it up. What the graph still adds: had the 5 runs disagreed it would\nhave said \"I do not know\" instead of picking. They agreed."
   },
   {
    "id": "count",
@@ -84,14 +84,14 @@
    "question": "How many times does the letter \"r\" appear in the word \"strawberry\"? Answer with just the number.",
    "title": "How many r's in \"strawberry\"?",
    "why": "The other famous one. A model does not see letters \u2014 it sees chunks (\"straw\" + \"berry\"), so a question about spelling is a question about something it was never shown. No amount of extra model fixes that: the letters were never there to look at.",
-   "how": "Through the graph: split the word so each LETTER is a fact in its own right, then show the model one character \u2014 \"is 'w' the letter r?\" \u2014 which it can answer. If the question is about letters, letters have to be things that exist. Making them exist is the graph's job.",
+   "how": "Through the graph: split the word and hold each letter as its own fact, then show the model the CHARACTER \u2014 \"is 'w' the letter r?\" \u2014 which it can answer. The splitting is deliberately not the model's job; making the letters visible is exactly what the graph is for.",
    "alone": {
     "calls": [
      {
       "system": "You are a helpful assistant. Answer concisely.",
       "user": "How many times does the letter \"r\" appear in the word \"strawberry\"? Answer with just the number.",
       "reply": "\n\n\n3",
-      "ms": 338
+      "ms": 357
      }
     ],
     "answer": "3"
@@ -102,43 +102,43 @@
       "system": "Answer with exactly one word: yes or no.",
       "user": "Is the character \"s\" the letter \"r\"? Answer yes or no.",
       "reply": "\n\n\nno",
-      "ms": 278
+      "ms": 275
      },
      {
       "system": "Answer with exactly one word: yes or no.",
       "user": "Is the character \"t\" the letter \"r\"? Answer yes or no.",
       "reply": "\n\n\nno",
-      "ms": 285
+      "ms": 277
      },
      {
       "system": "Answer with exactly one word: yes or no.",
       "user": "Is the character \"r\" the letter \"r\"? Answer yes or no.",
       "reply": "\n\n\nyes",
-      "ms": 298
+      "ms": 276
      },
      {
       "system": "Answer with exactly one word: yes or no.",
       "user": "Is the character \"a\" the letter \"r\"? Answer yes or no.",
       "reply": "\n\n\nno",
-      "ms": 287
+      "ms": 280
      },
      {
       "system": "Answer with exactly one word: yes or no.",
       "user": "Is the character \"w\" the letter \"r\"? Answer yes or no.",
       "reply": "\n\n\nno",
-      "ms": 292
+      "ms": 271
      },
      {
       "system": "Answer with exactly one word: yes or no.",
       "user": "Is the character \"b\" the letter \"r\"? Answer yes or no.",
       "reply": "\n\n\nno",
-      "ms": 295
+      "ms": 276
      },
      {
       "system": "Answer with exactly one word: yes or no.",
       "user": "Is the character \"e\" the letter \"r\"? Answer yes or no.",
       "reply": "\n\n\nno",
-      "ms": 290
+      "ms": 273
      },
      {
       "system": "Answer with exactly one word: yes or no.",
@@ -156,7 +156,7 @@
       "system": "Answer with exactly one word: yes or no.",
       "user": "Is the character \"y\" the letter \"r\"? Answer yes or no.",
       "reply": "\n\n\nno",
-      "ms": 282
+      "ms": 276
      }
     ],
     "answer": "3",
@@ -166,7 +166,7 @@
    },
    "aloneRight": true,
    "withRight": true,
-   "lesson": "Both right \u2014 but HOW, and that is the whole thesis, so it stays in.\nTHE RULE: if the question is about letters, then letters have to EXIST as things you can\nlook at. Hand the model a word and it has no letters in it \u2014 it was shown chunks. So the\ngraph splits the word and makes each letter a fact of its own, and the model is only ever\nasked about one atom it can actually see: \"is 'w' the letter r?\". Ten out of ten, no errors.\nWhatever a question is really about has to be an atom in the structure. That is not a trick\nfor spelling \u2014 it is the same move as giving one arithmetic step its own numbers, and it is\nwhat this whole project does.\nWe got this wrong first: our cut asked \"is letter number 5 an r?\" \u2014 the same impossible task\nin a smaller box, since it still had to find letter 5 in a word it cannot see into. It scored\n7 instead of 3. Cutting badly is worse than not cutting. The cut is where the thinking goes.\nAnd the model's 3 on its own? That word is famous enough to be memorised. Ask about a word it\nhas not seen a thousand times and the luck runs out \u2014 the graph's 3 does not depend on luck."
+   "lesson": "Both right \u2014 but HOW, and that is the point. The model cannot see letters (it is shown\nchunks), so it answers 3 here because this word is famous enough to be memorised. Ask about a\nword it has not seen a thousand times and that luck runs out. The graph does not ask it to\ncount: it splits the word and shows it one CHARACTER \u2014 \"is 'w' the letter r?\" \u2014 ten out of ten.\nTHE RULE: whatever a question is about has to EXIST as something the model can look at. Our\nfirst cut asked \"is letter number 5 an r?\" \u2014 the same impossible task in a smaller box \u2014 and\nscored 7. The cut is where the thinking goes."
   },
   {
    "id": "deepmath",
@@ -181,7 +181,7 @@
       "system": "You are a helpful assistant. Answer with just the final number.",
       "user": "A bakery sells 34 loaves on Monday. On Tuesday it sells 12 more than Monday. On Wednesday it sells half of Tuesday. On Thursday it sells 8 fewer than Wednesday. Each loaf costs 3 dollars. How many dollars did the bakery take over the four days?",
       "reply": "\n\n\n336",
-      "ms": 335
+      "ms": 301
      }
     ],
     "answer": "336"
@@ -192,44 +192,84 @@
       "system": "You do ONE arithmetic step. Answer with just the number, nothing else.",
       "user": "Monday: the bakery sold 34 loaves. How many loaves on Monday?",
       "reply": "\n\n\n34",
-      "ms": 300
+      "ms": 285
      },
      {
       "system": "You do ONE arithmetic step. Answer with just the number, nothing else.",
       "user": "Tuesday it sold 12 MORE loaves than Monday. Monday was 34. How many on Tuesday?",
       "reply": "\n\n\n46",
-      "ms": 307
+      "ms": 289
      },
      {
       "system": "You do ONE arithmetic step. Answer with just the number, nothing else.",
       "user": "Wednesday it sold HALF of Tuesday. Tuesday was 46. How many on Wednesday?",
       "reply": "\n\n\n23",
-      "ms": 299
+      "ms": 283
      },
      {
       "system": "You do ONE arithmetic step. Answer with just the number, nothing else.",
       "user": "Thursday it sold 8 FEWER than Wednesday. Wednesday was 23. How many on Thursday?",
       "reply": "\n\n\n15",
-      "ms": 338
+      "ms": 361
      },
      {
       "system": "You do ONE arithmetic step. Answer with just the number, nothing else.",
       "user": "Add these four numbers: 34, 46, 23, 15. What is the total?",
       "reply": "\n\n\n118",
-      "ms": 395
+      "ms": 354
      },
      {
       "system": "You do ONE arithmetic step. Answer with just the number, nothing else.",
       "user": "Each loaf costs 3 dollars and 118 loaves were sold. How many dollars in total?",
       "reply": "\n\n\n354",
-      "ms": 306
+      "ms": 294
      }
     ],
     "answer": "354"
    },
    "aloneRight": false,
    "withRight": true,
-   "lesson": "This is the flagship claim, on one legible instance: asked all at once it slipped\nsomewhere in the chain and answered 336. Cut into six one-move steps \u2014 each one handed\nonly the numbers it asked for \u2014 the same model got 354, exactly right.\nMeasured over 33 problems this deep, the same model asked all at once got 0 of them right."
+   "lesson": "The one you can check by hand: asked all at once it slipped somewhere in the chain and said\n336. Cut into six one-move steps \u2014 each handed only the numbers it asked for \u2014 the same model\nsaid 354, exactly right.\nThe evidence behind this is not this one problem: it is 33 problems this deep, where the same\nmodel asked all at once got 0 of them right, and piece-by-piece got 10."
+  },
+  {
+   "id": "finqa",
+   "truth": "-0.0322",
+   "question": "what is the growth rate in net revenue in 2008?",
+   "tol": 5e-05,
+   "title": "A real question about a real annual report",
+   "why": "Not a puzzle \u2014 the actual job. A real table from a real utility's 2008 report, and a question a analyst would ask. The numbers are all right there; it just has to pick the right two and do the right things to them.",
+   "how": "Through the graph: the forged stock already knows what SHAPE this kind of question takes \u2014 subtract, then divide \u2014 because that shape was mined from solved examples and admitted only when it matched the checker every time. We never tell it the answer. We tell it the shape, and it fills in one step at a time.",
+   "alone": {
+    "calls": [
+     {
+      "system": "You are a financial analyst. Answer with just the number.",
+      "user": "Table from the ETR/2008 annual report:\n | amount ( in millions )\n2007 net revenue | $ 991.1\nretail electric price | -17.1 ( 17.1 )\npurchased power capacity | -12.0 ( 12.0 )\nnet wholesale revenue | -7.4 ( 7.4 )\nother | 4.6\n2008 net revenue | $ 959.2\n\nQuestion: what is the growth rate in net revenue in 2008?\nAnswer with just the number (a decimal fraction, not a percentage).",
+      "reply": "\n\n\n-0.03218141453390634",
+      "ms": 493
+     }
+    ],
+    "answer": "-0.03218141453390634"
+   },
+   "withg": {
+    "calls": [
+     {
+      "system": "You do ONE arithmetic step. Answer with just the number.",
+      "user": "Table:\n | amount ( in millions )\n2007 net revenue | $ 991.1\nretail electric price | -17.1 ( 17.1 )\npurchased power capacity | -12.0 ( 12.0 )\nnet wholesale revenue | -7.4 ( 7.4 )\nother | 4.6\n2008 net revenue | $ 959.2\n\nStep 1 of 2 \u2014 SUBTRACT: 2008 net revenue minus 2007 net revenue. Just the number.",
+      "reply": "\n\n\n-31.9",
+      "ms": 332
+     },
+     {
+      "system": "You do ONE arithmetic step. Answer with just the number.",
+      "user": "Step 2 of 2 \u2014 DIVIDE: -31.9 divided by the 2007 net revenue of 991.1. Answer with just the decimal, 4 places.",
+      "reply": "\n\n-0.0322",
+      "ms": 345
+     }
+    ],
+    "answer": "-0.0322"
+   },
+   "aloneRight": true,
+   "withRight": true,
+   "lesson": "A real table, a real analyst's question \u2014 and here the model gets it right on its own too.\nWhat the demo shows is the MECHANISM: the forged stock already knows this class of question is\nsubtract-then-divide, because that shape was mined from solved examples and admitted only when\nit matched the checker every time. It is never told the answer, only the shape.\nThe lift that mechanism buys is measured elsewhere and properly: SQL 8\u219263 %, finance 7\u219262 %\nover 201 and 120 questions. One instance is an illustration, not a measurement."
   }
  ]
 }

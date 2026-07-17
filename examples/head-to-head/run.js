@@ -51,13 +51,17 @@ function main() {
 	say('one letter and it is never wrong. The work is in the cut, not in the model.');
 	gap();
 	val('the model', T.recordedWith);
-	val('the score', T.cases.filter(( c ) => !c.aloneRight && c.withRight ).length + ' the model could not do alone · '
-		+ T.cases.filter(( c ) => c.aloneRight && c.withRight ).length + ' it could already do · '
-		+ T.cases.filter(( c ) => c.aloneRight && !c.withRight ).length + ' made worse');
+	gap();
+	say('  WHAT THIS IS, AND IS NOT. These are single problems you can check by hand, to SHOW you the');
+	say('  mechanism. They are not the evidence — one famous puzzle proves nothing either way, and a');
+	say('  model may well have the answer memorised. The evidence is the campaigns, run properly:');
+	val('piece-by-piece', 'N=200/domain — maths 16→52 % · finance 20→50 % · on the deep ones 0/33 → 10/33');
+	val('certified steering', 'N=201 SQL 8→63 % · N=120 finance 7→62 %, at zero big-model calls');
+	val('the critical mind', 'N=24 — asked directly 13/24 with 11 confident-WRONG · this 24/24, zero wrong');
 	say('');
-	say('  Two of these three, the model gets right on its own — and that is printed here too, because a');
-	say('  demo that only records its wins is an advert. Read the notes: on one of them the answer is right');
-	say('  for a reason that does not generalise.');
+	say('  Those ran with bars fixed in advance, negative controls, and bit-identical re-runs —');
+	say('  see docs/CAPABILITIES.md, and artifact/ replays every table in the papers with no GPU.');
+	say('  What follows is one legible instance of each, so you can see what it looks like.');
 
 	for ( const c of T.cases ) {
 		gap();
