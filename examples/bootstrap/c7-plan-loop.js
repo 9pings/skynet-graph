@@ -27,6 +27,7 @@ global.__SERVER__ = true;
 process.env.SG_LOG_LEVEL = process.env.SG_LOG_LEVEL || 'error';
 const assert = require('node:assert');
 const { createPlanLoop } = require('../../lib/index.js').factories;
+const { title, say, gap, step: beat, note, good, bad, val, done: finish } = require('../_say.js');
 
 // a small "annual report" task: four figures, one of which depends on two others.
 const GOLD = { revenue: 913, costs: 400, margin: 513, marginPct: 56 };
@@ -57,10 +58,19 @@ async function main() {
 		serveLeaf: l.serveLeaf,
 	});
 	const r = await loop.run('Analyze the annual report');
-	console.log('answer  →', r.answer);
-	console.log('served  →', l.seen.map(( s ) => s.id + '(saw:' + (s.inputs.join(',') || '∅') + ')' ).join('  '));
+	title('A BIG TASK, DONE ONE SMALL PIECE AT A TIME');
+	say('Give a model a whole dossier and ask a deep question, and it drowns. So the task is cut');
+	say('into steps — and each step is shown ONLY what it actually asked for. Not the dossier.');
+	say('Not its neighbours. Just its own inputs.');
+	gap();
+	beat(1, 'Four figures to work out from a report. Here is what each step was allowed to see:');
+	for ( const s of l.seen )
+		note(s.id.padEnd(11) + 'saw ' + (s.inputs.length ? 'only: ' + s.inputs.join(' + ') : 'nothing at all — it starts from the report'));
+	good('nobody ever saw the whole dossier. That is the entire trick');
+	val('the answer', r.answer);
 	assert.equal(r.converged, true);
 	assert.equal(r.refusal, null);
+	gap();
 
 	const byId = Object.fromEntries(l.seen.map(( s ) => [s.id, s.inputs] ));
 	assert.deepEqual(byId.revenue, [], 'a root leaf sees NOTHING — not the task, not its siblings');
@@ -79,10 +89,15 @@ async function main() {
 		isComplete: ( req ) => req.id !== 'marginPct' || false,      // the pre-contract: this request is incomplete
 	});
 	const rs = await severed.run('Analyze the annual report');
-	console.log('severed →', JSON.stringify({ answer: rs.answer, refused: rs.refused }));
+	beat(2, 'Now we take away a figure that one of the steps needs. What does it do?');
+	bad('it REFUSES that step, by name — it does not guess a plausible number');
+	good('and the answer carries a visible hole where the figure should be');
+	good('the model was never even asked. It was stopped before it could invent');
+	say('       (a framework would run the step anyway and let the model make something up.)');
 	assert.ok(rs.refused.length > 0, 'the severed leaf is NAMED in refused — the hole is visible');
 	assert.match(rs.answer, /REFUSED/, 'and it reads REFUSED in the answer — never a silent wrong value');
 	assert.ok(!l2.seen.some(( s ) => s.id === 'marginPct' ), 'it was refused AT PROJECTION — the model was never even asked to guess');
+	gap();
 
 	// ── 3. THE FIXPOINT: a degenerate plan (duplicated + disordered) converges to the clean answer ──
 	const l3 = ladder();
@@ -93,12 +108,14 @@ async function main() {
 		serveLeaf: l3.serveLeaf,
 	});
 	const rm = await messy.run('Analyze the annual report');
-	console.log('messy   →', JSON.stringify({ answer: rm.answer, leaves: rm.leaves, converged: rm.converged, monotone: rm.monotone }));
+	beat(3, 'Last one: hand it a sloppy plan — steps in the wrong order, one asked for twice.');
+	good('the duplicate is noticed and dropped — the work is not done twice');
+	good('the order sorts itself out, and the right answer comes back anyway');
 	assert.equal(rm.leaves, 3, 'the duplicate leaf was deduped by the rebalance (E1)');
 	assert.equal(rm.converged, true, 'and it reached a fixpoint');
 	assert.equal(rm.monotone, true, 'monotonically — the measure never went backwards');
 	assert.match(rm.answer, /margin=513/, 'the out-of-order plan still produced the right derived figure');
 
-	console.log('BOOTSTRAP OK — each leaf sees only its declared upstreams; a severed leaf is REFUSED at projection, never guessed; a degenerate plan converges');
+	finish('every step sees only what it asked for — and a step missing a fact refuses instead of inventing one.', 'BOOTSTRAP OK');
 }
 main().catch(( e ) => { console.error(e); process.exit(1); });

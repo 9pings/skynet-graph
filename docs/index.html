@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>skynet-graph — an externalized reasoning layer &amp; toolbox for LLMs</title>
-<meta name="description" content="A generic, model-agnostic reasoning substrate: typed facts, declarative rules, truth maintenance. Deterministic, auditable, AGPL. Watch a 9.5 GB local quant work an annual report piece by piece.">
+<title>skynet-graph — an externalized reasoning layer for LLMs</title>
+<meta name="description" content="A reasoning layer that lives outside the model: typed facts, declarative rules, truth maintenance. Reasoning you can test, replay and reopen. Runs on your own local model — nothing leaves the machine. AGPL-3.0.">
 <link rel="canonical" href="https://9pings.github.io/skynet-graph/">
 
 <!-- favicon: inline SVG (a 3-node graph in the signal colour) — no extra request, no 404. -->
@@ -28,216 +28,220 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
 <style>
+/* ── tokens ───────────────────────────────────────────────────────────────────────────────────────
+   DARK ONLY (owner, 2026-07-17). The old `prefers-color-scheme:light` palette is gone: this page is a
+   terminal transcript with a signal/amber/refuse colour code, and it reads as itself in the dark.
+   `color-scheme:dark` also makes scrollbars + form controls follow, whatever the OS says. */
 :root{
-  color-scheme:dark;                     /* dark form controls + scrollbars, whatever the OS is set to */
-  --bg:#0a0d0e; --panel:#0f1518; --panel-2:#0c1113; --edge:rgba(120,205,192,.10);
-  --grid:rgba(120,205,192,.045);
+  color-scheme:dark;
+  --bg:#0a0d0e; --panel:#0f1518; --panel-2:#0c1113; --panel-3:#090e10;
+  --edge:rgba(120,205,192,.10); --edge-2:rgba(120,205,192,.20); --grid:rgba(120,205,192,.045);
   --ink:#e9ede9; --dim:#8b978f; --faint:#5b655e;
   --signal:#37d7c2; --signal-2:#1e8d81; --amber:#e7b24e; --ok:#6fe08c; --no:#ef8a5a; --refuse:#f07a3f;
   --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
   --serif:'Newsreader',Georgia,serif;
-  --maxw:1080px;
+  --maxw:1120px;
 }
-/* DARK ONLY (owner, 2026-07-17). The light `prefers-color-scheme` palette that used to live here is gone:
-   the page is a terminal transcript with a signal/amber/refuse colour code, and it reads as itself in dark.
-   `color-scheme:dark` below also tells the browser to render form controls + scrollbars dark. */
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
-  margin:0; background:var(--bg); color:var(--ink);
-  font-family:var(--serif); font-size:18px; line-height:1.65; -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
+  margin:0; background:var(--bg); color:var(--ink); font-family:var(--serif); font-size:18px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
   background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
-  background-size:44px 44px; background-position:center top;
+  background-size:52px 52px;
 }
-body::before{ /* grain + top glow */
-  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
-  background:radial-gradient(1100px 520px at 50% -8%, rgba(55,215,194,.10), transparent 70%);
-}
-.wrap{max-width:var(--maxw); margin:0 auto; padding:0 22px; position:relative; z-index:1}
-.mono{font-family:var(--mono)}
-a{color:var(--signal); text-decoration:none; border-bottom:1px solid transparent; transition:border-color .15s}
-a:hover{border-color:var(--signal)}
-h1,h2,h3{font-family:var(--mono); font-weight:800; letter-spacing:-.01em; line-height:1.1}
-.eyebrow{font-family:var(--mono); font-size:12.5px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:var(--signal-2)}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
+section{padding:60px 0; border-top:1px solid var(--edge); position:relative}
+.sec-tag{font-family:var(--mono); font-size:12.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--signal-2); margin-bottom:12px}
+h2{font-size:34px; line-height:1.15; font-weight:400; letter-spacing:-.02em; margin:0 0 14px}
+h3{font-size:19px; margin:8px 0; font-weight:500}
+.lede{font-size:19px; color:var(--dim); max-width:70ch; margin:0 0 30px}
+a{color:var(--signal)}
+b{font-weight:700}
 
-/* ── hero ── */
-header.hero{padding:78px 0 46px; position:relative}
-.hero .badges{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:26px}
-.badge{font-family:var(--mono); font-size:12px; letter-spacing:.08em; color:var(--dim); border:1px solid var(--edge); border-radius:999px; padding:4px 11px; background:var(--panel-2)}
-h1.title{font-size:clamp(30px,5.4vw,58px); margin:0 0 18px; max-width:15ch}
-h1.title .amp{color:var(--signal)}
-.subline{font-size:clamp(18px,2.3vw,23px); color:var(--ink); max-width:60ch; margin:0 0 10px; font-weight:400}
-.subline .q{color:var(--signal); font-weight:500}
-.demoted{font-size:16px; color:var(--dim); max-width:64ch; margin:0 0 30px; font-style:italic}
-.cta{display:flex; gap:14px; flex-wrap:wrap; align-items:center}
-.btn{font-family:var(--mono); font-weight:700; font-size:15px; letter-spacing:.01em; padding:13px 20px; border-radius:10px; cursor:pointer; border:1px solid var(--edge); display:inline-flex; align-items:center; gap:9px; transition:transform .12s, box-shadow .2s, background .2s}
+/* ── hero ─────────────────────────────────────────────────────────────────────────────────────────
+   The NAME is the headline. (It used to be the tagline, with floating chips scattered top-right that
+   read as random noise — both gone.) */
+header.hero{padding:76px 0 52px; position:relative; overflow:hidden}
+header.hero::after{content:''; position:absolute; top:-280px; right:-180px; width:760px; height:760px; pointer-events:none;
+  background:radial-gradient(circle,rgba(55,215,194,.10),transparent 62%)}
+.wordmark{
+  font-family:var(--mono); font-weight:800; letter-spacing:-.045em; line-height:.94; margin:0 0 18px;
+  font-size:clamp(46px,9vw,104px); color:var(--ink);
+}
+.wordmark .dash{color:var(--signal-2)}
+.wordmark .graph{color:var(--signal)}
+.tagline{font-size:clamp(22px,2.7vw,32px); line-height:1.25; font-weight:400; margin:0 0 22px; max-width:24ch; letter-spacing:-.01em}
+.hero-lede{font-size:19.5px; color:var(--dim); max-width:62ch; margin:0 0 30px}
+.hero-lede b{color:var(--ink); font-weight:500}
+.badges{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:26px}
+.badge{font-family:var(--mono); font-size:12px; letter-spacing:.08em; color:var(--dim); border:1px solid var(--edge); border-radius:999px; padding:4px 11px; background:var(--panel-2); text-decoration:none}
+.badge b{color:var(--ink)}
+.cta{display:flex; gap:13px; flex-wrap:wrap; align-items:center}
+.btn{font-family:var(--mono); font-weight:700; font-size:15px; padding:13px 20px; border-radius:10px; cursor:pointer;
+  border:1px solid var(--edge); display:inline-flex; align-items:center; gap:9px; text-decoration:none; color:var(--ink);
+  transition:transform .12s, box-shadow .2s, background .2s, border-color .2s}
 .btn.primary{background:var(--signal); color:#04110f; border-color:var(--signal)}
 .btn.primary:hover{transform:translateY(-2px); box-shadow:0 10px 30px -10px var(--signal)}
-.btn.ghost{background:transparent; color:var(--ink)}
 .btn.ghost:hover{border-color:var(--signal); color:var(--signal)}
-.chips{position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0}
-.chip{position:absolute; font-family:var(--mono); font-size:12.5px; color:var(--dim); border:1px solid var(--edge); background:var(--panel-2); border-radius:7px; padding:5px 9px; opacity:0; animation:floatIn .9s ease forwards; white-space:nowrap}
-.chip .ok{color:var(--ok)} .chip .am{color:var(--amber)} .chip .sg{color:var(--signal)}
-@keyframes floatIn{from{opacity:0; transform:translateY(10px)} to{opacity:.9; transform:translateY(0)}}
 
-/* ── sections ── */
-section{padding:56px 0; border-top:1px solid var(--edge); position:relative}
-.sec-tag{font-family:var(--mono); font-size:12.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--signal-2); margin-bottom:12px}
-h2{font-size:clamp(23px,3.4vw,33px); margin:0 0 10px}
-.lede{font-size:19px; color:var(--dim); max-width:66ch; margin:0 0 30px}
+/* ── code: it WRAPS. (it used to run off the side of the box.) ────────────────────────────────── */
+.codeblock{
+  font-family:var(--mono); font-size:13.5px; line-height:1.75; background:var(--panel-3);
+  border:1px solid var(--edge); border-radius:11px; padding:16px 18px; color:var(--ink);
+  white-space:pre-wrap; word-break:break-word; overflow-wrap:anywhere;   /* ← wraps, never a side-scroll */
+}
+.codeblock .cm{color:var(--faint)}
+.codeblock .k{color:var(--signal)}
+.codeblock .s{color:var(--amber)}
 
-/* ── replay terminal ── */
-.term-shell{border:1px solid var(--edge); border-radius:13px; overflow:hidden; background:var(--panel-2); box-shadow:0 30px 80px -40px rgba(0,0,0,.7)}
-.term-bar{display:flex; align-items:center; gap:14px; padding:11px 16px; background:var(--panel); border-bottom:1px solid var(--edge); flex-wrap:wrap}
-.dots{display:flex; gap:7px} .dots i{width:11px; height:11px; border-radius:50%; background:var(--edge); display:block}
-.dots i:nth-child(1){background:var(--refuse)} .dots i:nth-child(2){background:var(--amber)} .dots i:nth-child(3){background:var(--ok)}
-.term-title{font-family:var(--mono); font-size:12.5px; color:var(--dim)}
-.term-title b{color:var(--ink); font-weight:700}
-.progress{margin-left:auto; display:flex; align-items:center; gap:12px}
-.step-readout{font-family:var(--mono); font-size:12.5px; color:var(--signal)}
-.dotrow{display:flex; gap:6px}
-.dotrow b{width:9px; height:9px; border-radius:50%; background:var(--edge); display:block; transition:background .2s, transform .2s}
-.dotrow b.on{background:var(--signal); transform:scale(1.15)}
-.term-body{font-family:var(--mono); font-size:13px; line-height:1.62; padding:20px 20px 8px; max-height:60vh; overflow:auto; background:
-  repeating-linear-gradient(0deg, transparent, transparent 25px, rgba(120,205,192,.018) 25px, rgba(120,205,192,.018) 26px)}
-.act{margin-bottom:20px; animation:reveal .45s ease both}
-@keyframes reveal{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:translateY(0)}}
-.act-head{display:flex; align-items:baseline; gap:12px; margin:2px 0 10px; padding-bottom:8px; border-bottom:1px dashed var(--edge)}
-.act-head .tag{color:#04110f; background:var(--signal); font-weight:800; font-size:11.5px; padding:2px 8px; border-radius:5px; letter-spacing:.06em}
-.act-head .nm{color:var(--ink); font-weight:700; font-size:14px; letter-spacing:.02em}
-.act-head .ds{color:var(--dim); font-size:12.5px}
-.ln{white-space:pre-wrap; word-break:break-word; color:#cdd6d0}
-.box{white-space:pre; overflow-x:auto; color:var(--dim); font-size:12px; line-height:1.5; margin:6px 0; padding-bottom:4px}
-.ln .lbl{color:var(--signal-2); font-weight:700}
-.ln .dim,.box .dim{color:var(--faint)}
-.ok{color:var(--ok); font-weight:700} .no{color:var(--no); font-weight:700}
-.warn{color:var(--refuse); font-weight:700} .am{color:var(--amber); font-weight:700}
-.term-foot{display:flex; gap:12px; align-items:center; padding:13px 16px; background:var(--panel); border-top:1px solid var(--edge); flex-wrap:wrap}
-.term-foot .cap{font-family:var(--mono); font-size:12px; color:var(--dim); margin-right:auto}
-.tbtn{font-family:var(--mono); font-weight:700; font-size:13px; padding:8px 14px; border-radius:8px; border:1px solid var(--edge); background:var(--panel-2); color:var(--ink); cursor:pointer; transition:.15s}
-.tbtn:hover:not(:disabled){border-color:var(--signal); color:var(--signal)}
-.tbtn.key{background:var(--signal); color:#04110f; border-color:var(--signal)}
-.tbtn:disabled{opacity:.35; cursor:not-allowed}
-.tbtn.pulse{animation:pulse 1.6s ease-in-out infinite}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(55,215,194,.0)} 50%{box-shadow:0 0 0 5px rgba(55,215,194,.18)}}
+/* ── the demo console ─────────────────────────────────────────────────────────────────────────── */
+.console{border:1px solid var(--edge-2); border-radius:14px; background:var(--panel-2); overflow:hidden}
+.tabgroups{border-bottom:1px solid var(--edge); background:var(--panel-3)}
+.tabrow{display:flex; align-items:center; gap:8px; padding:9px 12px; flex-wrap:wrap}
+.tabrow + .tabrow{border-top:1px dashed var(--edge)}
+.tabrow-label{font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--faint); white-space:nowrap; padding-right:4px}
+.tab{
+  font-family:var(--mono); font-size:12.5px; padding:6px 11px; border-radius:7px; cursor:pointer;
+  border:1px solid transparent; background:transparent; color:var(--dim); white-space:nowrap;
+  transition:background .14s, color .14s, border-color .14s;
+}
+.tab:hover{color:var(--ink); background:rgba(120,205,192,.06)}
+.tab[aria-selected="true"]{background:rgba(55,215,194,.13); color:var(--signal); border-color:var(--edge-2)}
+.tab:focus-visible{outline:2px solid var(--signal); outline-offset:2px}
+.demo-head{padding:20px 22px 0}
+.demo-head h3{font-size:21px; margin:0 0 6px; font-weight:500}
+.demo-head p{margin:0 0 14px; color:var(--dim); font-size:16.5px; max-width:78ch}
+.demo-cmd{
+  font-family:var(--mono); font-size:12.5px; color:var(--dim); background:var(--panel-3);
+  border:1px solid var(--edge); border-radius:8px; padding:8px 12px; display:inline-block; margin-bottom:2px;
+  white-space:pre-wrap; word-break:break-all;
+}
+.demo-cmd .p{color:var(--signal-2)}
+.demo-cmd b{color:var(--ink); font-weight:500}
+.term{
+  margin:14px 0 0; padding:18px 22px 22px; background:var(--panel-3); border-top:1px solid var(--edge);
+  font-family:var(--mono); font-size:12.9px; line-height:1.72; color:var(--dim);
+  white-space:pre-wrap; word-break:break-word; overflow-wrap:anywhere;   /* ← wraps too */
+  max-height:520px; overflow-y:auto;
+}
+.term .t{color:var(--ink); font-weight:700}                 /* the demo's own headline */
+.term .rule{color:var(--faint)}
+.term .n{color:var(--signal-2); font-weight:700}            /* 1. 2. 3. */
+.term .ok{color:var(--ok)}                                  /* ✓ */
+.term .no{color:var(--refuse)}                              /* ✗ */
+.term .arrow{color:var(--signal-2)}                         /* → */
+.term .lbl{color:var(--faint)}
+.term .fin{color:var(--signal); font-weight:700}            /* the closing line */
+.term .act{color:var(--signal); font-weight:700}            /* ACT n · … */
+.demo-foot{display:flex; justify-content:space-between; gap:14px; align-items:center; padding:12px 22px; border-top:1px solid var(--edge); background:var(--panel-2); flex-wrap:wrap}
+.demo-foot span{font-family:var(--mono); font-size:11.5px; color:var(--faint); letter-spacing:.04em}
+.demo-foot a{font-family:var(--mono); font-size:11.5px; text-decoration:none}
 
-/* ── capability cards ── */
+/* ── cards / grids ────────────────────────────────────────────────────────────────────────────── */
 .grid4{display:grid; grid-template-columns:repeat(2,1fr); gap:16px}
-.card{border:1px solid var(--edge); border-radius:12px; padding:22px; background:var(--panel-2); position:relative; overflow:hidden; transition:transform .16s, border-color .16s}
+.card{border:1px solid var(--edge); border-radius:12px; padding:22px; background:var(--panel-2); position:relative; transition:transform .16s, border-color .16s}
 .card:hover{transform:translateY(-3px); border-color:var(--signal-2)}
 .card .k{font-family:var(--mono); font-size:12px; color:var(--signal-2); letter-spacing:.14em}
-.card h3{font-size:19px; margin:8px 0 8px}
 .card p{margin:0 0 14px; font-size:16.5px; color:var(--dim)}
-/* the docs grid: the same card, made clickable. 4 columns on wide screens (8 cards), 2 then 1 as it narrows. */
+.card .stat{font-family:var(--mono); font-size:12.5px; color:var(--dim); border-top:1px solid var(--edge); padding-top:12px}
+.card .stat b{color:var(--signal)}
 #docs .grid4{grid-template-columns:repeat(4,1fr)}
 .doc-card{text-decoration:none; color:inherit; display:block}
 .doc-card h3{font-family:var(--mono); font-size:16px; color:var(--ink); letter-spacing:-.01em}
 .doc-card p{font-size:14.5px; margin-bottom:0; line-height:1.55}
-.doc-card .sg{color:var(--signal-2); font-family:var(--mono); font-size:13px}   /* `.sg` is scoped per-block on this page */
-.doc-card:hover{border-color:var(--signal); transform:translateY(-3px)}
-.doc-card:hover h3{color:var(--signal)}
+.doc-card .sg{color:var(--signal-2); font-family:var(--mono); font-size:13px}
+.doc-card:hover{border-color:var(--signal)} .doc-card:hover h3{color:var(--signal)}
 .doc-card:focus-visible{outline:2px solid var(--signal); outline-offset:3px}
-@media(max-width:1000px){#docs .grid4{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:720px){#docs .grid4{grid-template-columns:1fr}}   /* the page's own mobile breakpoint */
-.card .stat{font-family:var(--mono); font-size:14px; color:var(--ink); border-top:1px solid var(--edge); padding-top:12px}
-.card .stat b{color:var(--signal)}
 
-/* ── numbers / bars ── */
-.bars{display:grid; grid-template-columns:repeat(2,1fr); gap:14px 34px}
-.metric{display:grid; grid-template-columns:1fr; gap:6px}
-.metric .lab{font-family:var(--mono); font-size:13px; color:var(--dim)}
-.metric .track{height:22px; border-radius:6px; background:var(--panel); border:1px solid var(--edge); position:relative; overflow:hidden}
-.metric .before{position:absolute; left:0; top:0; bottom:0; background:repeating-linear-gradient(45deg,var(--faint),var(--faint) 2px,transparent 2px,transparent 6px); opacity:.5}
-.metric .after{position:absolute; left:0; top:0; bottom:0; background:linear-gradient(90deg,var(--signal-2),var(--signal)); border-right:2px solid var(--signal)}
-.metric .val{font-family:var(--mono); font-size:12.5px; color:var(--ink)}
-.metric .val b{color:var(--signal)}
-.metric .val s{color:var(--faint); text-decoration:none}
+/* ── numbers ──────────────────────────────────────────────────────────────────────────────────── */
+.bars{display:grid; gap:11px}
+.metric{display:grid; grid-template-columns:minmax(190px,2fr) 3fr minmax(120px,auto); gap:14px; align-items:center}
+.metric .lab{font-family:var(--mono); font-size:12.5px; color:var(--dim)}
+.metric .track{height:9px; background:var(--panel-3); border:1px solid var(--edge); border-radius:99px; position:relative; overflow:hidden}
+.metric .after{position:absolute; inset:0 auto 0 0; background:linear-gradient(90deg,var(--signal-2),var(--signal)); border-radius:99px}
+.metric .val{font-family:var(--mono); font-size:12.5px; color:var(--dim); text-align:right}
+.metric .val b{color:var(--ink)}
+.metric .val s{color:var(--faint)}
 
-/* ── comparison table ── */
+/* ── table ────────────────────────────────────────────────────────────────────────────────────── */
 .tblwrap{overflow-x:auto; border:1px solid var(--edge); border-radius:12px}
 table.cmp{border-collapse:collapse; width:100%; min-width:720px; font-size:15px}
-table.cmp th,table.cmp td{text-align:left; padding:13px 15px; border-bottom:1px solid var(--edge); vertical-align:top}
-table.cmp thead th{font-family:var(--mono); font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--signal-2); background:var(--panel)}
-table.cmp tbody tr:hover{background:var(--panel-2)}
-table.cmp td.a{color:var(--dim)}
-table.cmp td.b{color:var(--ink)}
-table.cmp td.c{color:var(--amber); font-family:var(--serif)}
-table.cmp td.c::before{content:"✗ "; color:var(--refuse); font-family:var(--mono)}
-.cmp .inst{font-family:var(--mono); font-size:13.5px; color:var(--ink)}
+table.cmp th,table.cmp td{padding:13px 15px; text-align:left; vertical-align:top; border-bottom:1px solid var(--edge)}
+table.cmp th{font-family:var(--mono); font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--signal-2); background:var(--panel-3)}
+table.cmp tr:last-child td{border-bottom:none}
+table.cmp td.inst{color:var(--ink)} table.cmp td.a{color:var(--faint)} table.cmp td.b{color:var(--dim)} table.cmp td.c{color:var(--faint); font-style:italic}
+table.cmp td.b b{color:var(--signal)}
 
-/* ── code / drop-in ── */
-.codeblock{font-family:var(--mono); font-size:13.5px; line-height:1.7; background:var(--panel-2); border:1px solid var(--edge); border-radius:11px; padding:18px 20px; overflow-x:auto; color:#cdd6d0}
-.codeblock .cm{color:var(--faint)} .codeblock .k{color:var(--signal)} .codeblock .s{color:var(--amber)}
-.two{display:grid; grid-template-columns:1fr 1fr; gap:18px}
-
-/* ── footer ── */
+/* ── footer ───────────────────────────────────────────────────────────────────────────────────── */
 footer{border-top:1px solid var(--edge); padding:44px 0 60px}
-.flinks{display:flex; gap:22px; flex-wrap:wrap; font-family:var(--mono); font-size:14px; margin-bottom:18px}
-.foot-note{color:var(--dim); font-size:15.5px; max-width:70ch}
+.flinks{display:flex; gap:20px; flex-wrap:wrap; margin-bottom:16px}
+.flinks a{font-family:var(--mono); font-size:13px; text-decoration:none; color:var(--dim)}
+.flinks a:hover{color:var(--signal)}
+.foot-note{color:var(--faint); font-size:15.5px; max-width:74ch; margin:0 0 14px}
 .foot-note .sg{color:var(--signal)}
-.rule-tag{display:inline-block; font-family:var(--mono); font-size:12px; color:var(--amber); border:1px solid var(--edge); border-radius:6px; padding:3px 9px; margin-top:14px}
+.rule-tag{font-family:var(--mono); font-size:11.5px; color:var(--signal-2); border:1px solid var(--edge); border-radius:999px; padding:5px 12px; display:inline-block}
 
-@media (max-width:720px){
+@media (max-width:900px){
+  #docs .grid4{grid-template-columns:repeat(2,1fr)}
+  .metric{grid-template-columns:1fr; gap:5px}
+  .metric .val{text-align:left}
+}
+@media (max-width:680px){
   body{font-size:17px}
-  .grid4,.bars,.two{grid-template-columns:1fr}
-  header.hero{padding:54px 0 34px}
-  .chips{display:none}
+  .grid4,#docs .grid4{grid-template-columns:1fr}
+  header.hero{padding:52px 0 34px}
+  .term{font-size:12px; padding:14px 14px 18px}
+  .demo-head{padding:16px 14px 0}
+  .tabrow{padding:8px 10px}
 }
 </style>
 </head>
 <body>
 
 <header class="hero">
-  <div class="chips" aria-hidden="true">
-    <span class="chip" style="top:12%; right:4%; animation-delay:.5s">s1 <span class="sg">subtract&gt;divide</span> <span class="ok">✓</span></span>
-    <span class="chip" style="top:34%; right:9%; animation-delay:.8s">status: <span class="am">retracted/open</span></span>
-    <span class="chip" style="top:58%; right:2%; animation-delay:1.1s">provenance <span class="sg">[6,1]</span></span>
-    <span class="chip" style="top:78%; right:12%; animation-delay:1.4s"><span class="sg">0</span> big-model calls</span>
-    <span class="chip" style="top:20%; right:26%; animation-delay:1.7s">rev <span class="sg">12</span></span>
-  </div>
   <div class="wrap">
+    <h1 class="wordmark">skynet<span class="dash">-</span><span class="graph">graph</span></h1>
+    <p class="tagline">An externalized reasoning layer for LLMs.</p>
+    <p class="hero-lede">Your model's reasoning is trapped in prose: you cannot test one step on its own,
+      reuse it tomorrow, replay it, or reopen it when a fact turns out to be wrong. This puts the reasoning
+      <b>outside the model</b> — as typed facts and rules a machine can check — so it becomes something you
+      can <b>test, replay and reopen</b>. It runs on your own local model. Nothing leaves the machine.</p>
     <div class="badges">
-      <span class="badge">NEUROSYMBOLIC</span>
-      <span class="badge">AGPL-3.0</span>
-      <span class="badge">NO BUILD STEP · Node 18+</span>
-      <span class="badge">2 Zenodo DOIs</span>
+      <a class="badge" href="https://www.npmjs.com/package/skynet-graph">npm <b>skynet-graph</b></a>
+      <span class="badge">Node <b>18+</b></span>
+      <span class="badge">no build step</span>
+      <span class="badge"><b>AGPL-3.0</b></span>
+      <a class="badge" href="https://doi.org/10.5281/zenodo.21201723">DOI <b>two papers</b></a>
     </div>
-    <h1 class="title">An externalized reasoning layer <span class="amp">&amp;</span> toolbox for LLMs</h1>
-    <p class="subline">A generic, model-agnostic reasoning substrate — typed facts, declarative rules, truth
-      maintenance — that makes an LLM's reasoning something you can <span class="q">test, reuse, replay and reopen</span>.</p>
-    <p class="demoted">Demonstrated end-to-end below on a 9.5&nbsp;GB local quant — the starkest, cheapest-to-verify case, not the limit. Nothing leaves the machine.</p>
     <div class="cta">
-      <a class="btn primary" href="#replay">▶ Watch the replay</a>
-      <a class="btn ghost" href="https://github.com/9pings/skynet-graph">Read the README</a>
-      <a class="btn ghost" href="https://www.npmjs.com/package/mindsmith">npx mindsmith serve</a>
+      <a class="btn primary" href="#demos">▶ Watch it work</a>
+      <a class="btn ghost" href="https://github.com/9pings/skynet-graph">GitHub</a>
+      <a class="btn ghost" href="https://github.com/9pings/skynet-graph/blob/master/docs/usage.md">Docs</a>
     </div>
   </div>
 </header>
 
-<section id="replay">
+<!-- ══ THE DEMOS — the centre of the page. 16 real runs, pick one. ══ -->
+<section id="demos">
   <div class="wrap">
-    <div class="sec-tag">The proof, not a pitch</div>
-    <h2>A real recorded run — step through it</h2>
-    <p class="lede">A 9.5&nbsp;GB Qwen quant analyzes a real FinQA annual report end-to-end: four capabilities
-      assembled, an erratum, a crash. <b>0&nbsp;GPU, deterministic, bit-for-bit</b> — this is the actual transcript, replayed.</p>
+    <div class="sec-tag">Sixteen real runs · pick one</div>
+    <h2>Watch it work</h2>
+    <p class="lede">Every tab below is a <b>real run</b>, captured from the code as it stands — not a mock-up
+      and not prose written about it. They are deterministic: no model, no GPU, no network. Clone the repo,
+      type the command shown, and you get the same thing back, word for word.</p>
 
-    <div class="term-shell">
-      <div class="term-bar">
-        <span class="dots"><i></i><i></i><i></i></span>
-        <span class="term-title"><b>integrated-demo</b> · node examples/integrated-demo/run.js --replay</span>
-        <span class="progress">
-          <span class="step-readout" id="readout">ACT 1 / 6</span>
-          <span class="dotrow" id="dotrow"></span>
-        </span>
+    <div class="console">
+      <div class="tabgroups" id="tabs"></div>
+      <div class="demo-head">
+        <h3 id="d-title"></h3>
+        <p id="d-blurb"></p>
+        <div class="demo-cmd" id="d-cmd"></div>
       </div>
-      <div class="term-body" id="termBody"></div>
-      <div class="term-foot">
-        <span class="cap" id="cap">0 GPU · deterministic · every number gated by shape + provenance</span>
-        <button class="tbtn" id="btnReset" title="Reset">⟲ Reset</button>
-        <button class="tbtn" id="btnPrev" title="Previous act">◀ Prev</button>
-        <button class="tbtn" id="btnAuto" title="Auto-play">▶ Auto</button>
-        <button class="tbtn key pulse" id="btnNext" title="Next act">Next ▶</button>
+      <div class="term" id="d-out" tabindex="0" role="region" aria-label="demo output"></div>
+      <div class="demo-foot">
+        <span id="d-note">deterministic · no model · no GPU — it prints this every time</span>
+        <a href="https://github.com/9pings/skynet-graph/tree/master/examples" id="d-src">the source of every demo →</a>
       </div>
     </div>
   </div>
@@ -246,32 +250,33 @@ footer{border-top:1px solid var(--edge); padding:44px 0 60px}
 <section id="capabilities">
   <div class="wrap">
     <div class="sec-tag">Four things it gives any model</div>
-    <h2>Capabilities</h2>
-    <p class="lede">Each measured on real runs with negative controls and deterministic re-runs. The low-quant is the showcase, not the ceiling.</p>
+    <h2>What it is actually for</h2>
+    <p class="lede">Each measured on real runs, with negative controls and deterministic re-runs. The
+      crippled 9.5 GB model is the showcase because it is the starkest case — not the ceiling.</p>
     <div class="grid4">
       <div class="card">
         <div class="k">01 · ZOOM</div>
         <h3>Piece-by-piece on big tasks</h3>
-        <p>The task becomes a <i>typed</i> DAG; each step sees only a bounded neighbourhood, never the whole dossier.</p>
-        <div class="stat">N=200/domain: GSM8K <b>16→52%</b> · FinQA <b>20→50%</b>. Deep tasks where whole-context collapses <b>0/33</b> → pieces hold <b>10/33</b>.</div>
+        <p>The task is cut into steps, and each step sees only what it asked for — never the whole dossier.</p>
+        <div class="stat">N=200/domain: GSM8K <b>16→52%</b> · FinQA <b>20→50%</b>. On deep tasks where whole-context prompting collapses <b>0/33</b>, the pieces hold <b>10/33</b>.</div>
       </div>
       <div class="card">
         <div class="k">02 · STEER</div>
-        <h3>Certified-shape steering</h3>
-        <p>Certified method shapes steer the output on covered queries — a generic mechanism, most dramatic on a crippled quant.</p>
+        <h3>Certified know-how steers the answer</h3>
+        <p>Method shapes mined from a checker steer the output on covered questions — a generic mechanism, most dramatic on a weak model.</p>
         <div class="stat">SQL <b>8→63%</b> · finance <b>7→62%</b>, at <b>zero</b> big-model calls.</div>
       </div>
       <div class="card">
         <div class="k">03 · REOPEN</div>
-        <h3>Task memory that reopens</h3>
-        <p>Task state is a typed fact ledger (a JTMS). A late correction retracts its consequences in cascade — and a withdrawn value <i>reopens</i> its dependents, with the reason.</p>
-        <div class="stat">Re-derivation at <b>0</b> model calls. No agent tool on the market reopens a task whose premise drifted.</div>
+        <h3>Task memory that un-ticks itself</h3>
+        <p>A late correction retracts what depended on it — and a withdrawn value <i>reopens</i> the finished task, with the reason.</p>
+        <div class="stat">Re-derivation at <b>0</b> model calls. Checked twice: no agent tool on the market reopens a task whose premise drifted.</div>
       </div>
       <div class="card">
         <div class="k">04 · CRITIQUE</div>
         <h3>An external think mode</h3>
         <p>The model proposes; the graph refutes with the reason and the admissible options; the model revises.</p>
-        <div class="stat">N=24 head-to-head: native think <b>13/24 ≈ chance</b> (11 confident-wrong) · external critic <b>0 wrong verdicts</b>.</div>
+        <div class="stat">N=24 head-to-head: the model's own think mode <b>13/24 ≈ chance</b> (11 confidently wrong) · the external critic <b>0 wrong verdicts</b>.</div>
       </div>
     </div>
   </div>
@@ -280,16 +285,17 @@ footer{border-top:1px solid var(--edge); padding:44px 0 60px}
 <section id="numbers">
   <div class="wrap">
     <div class="sec-tag">The numbers, plain</div>
-    <h2>Where the lone quant collapses, the pieces hold</h2>
-    <p class="lede">Deep tasks (many operations) are exactly where whole-context prompting floors — and where bounded, typed pieces keep working.</p>
+    <h2>Where the lone model collapses, the pieces hold</h2>
+    <p class="lede">Deep tasks — the ones needing many steps — are exactly where feeding everything to the
+      model at once floors, and where bounded, typed pieces keep working.</p>
     <div class="bars">
-      <div class="metric"><span class="lab">GSM8K · deep (ops ≥ 6) · whole-context</span><div class="track"><span class="before" style="width:100%"></span><span class="after" style="width:0%"></span></div><span class="val"><s>whole</s> <b>0 / 33</b></span></div>
-      <div class="metric"><span class="lab">GSM8K · deep (ops ≥ 6) · piece-by-piece</span><div class="track"><span class="after" style="width:30%"></span></div><span class="val">pieces <b>10 / 33</b></span></div>
-      <div class="metric"><span class="lab">FinQA · deep (ops ≥ 4) · whole-context</span><div class="track"><span class="before" style="width:100%"></span><span class="after" style="width:16%"></span></div><span class="val"><s>whole</s> <b>8 / 50</b></span></div>
-      <div class="metric"><span class="lab">FinQA · deep (ops ≥ 4) · piece-by-piece</span><div class="track"><span class="after" style="width:44%"></span></div><span class="val">pieces <b>22 / 50</b></span></div>
+      <div class="metric"><span class="lab">GSM8K · deep · everything at once</span><div class="track"></div><span class="val"><b>0 / 33</b></span></div>
+      <div class="metric"><span class="lab">GSM8K · deep · piece-by-piece</span><div class="track"><span class="after" style="width:30%"></span></div><span class="val"><b>10 / 33</b></span></div>
+      <div class="metric"><span class="lab">FinQA · deep · everything at once</span><div class="track"><span class="after" style="width:16%"></span></div><span class="val"><b>8 / 50</b></span></div>
+      <div class="metric"><span class="lab">FinQA · deep · piece-by-piece</span><div class="track"><span class="after" style="width:44%"></span></div><span class="val"><b>22 / 50</b></span></div>
     </div>
-    <div style="height:26px"></div>
-    <h2 style="font-size:22px">Lift at scale &amp; certified-shape steering</h2>
+    <div style="height:30px"></div>
+    <h2 style="font-size:22px">Lift at scale, and certified steering</h2>
     <div class="bars" style="margin-top:18px">
       <div class="metric"><span class="lab">Piece-by-piece · GSM8K · N=200</span><div class="track"><span class="after" style="width:52%"></span></div><span class="val"><s>16</s> → <b>52 %</b></span></div>
       <div class="metric"><span class="lab">Piece-by-piece · FinQA · N=200</span><div class="track"><span class="after" style="width:50%"></span></div><span class="val"><s>20</s> → <b>50 %</b></span></div>
@@ -303,68 +309,50 @@ footer{border-top:1px solid var(--edge); padding:44px 0 60px}
   <div class="wrap">
     <div class="sec-tag">Positioning</div>
     <h2>Why not just…?</h2>
-    <p class="lede">Each row is a measured delta <b>or</b> a checked absence — never a vibe. The last column is the part most comparisons quietly drop.</p>
+    <p class="lede">Each row is a measured delta <b>or</b> a checked absence — never a vibe. The last column
+      is the part most comparisons quietly drop.</p>
     <div class="tblwrap">
       <table class="cmp">
         <thead><tr><th>Instead of…</th><th>you'd get</th><th>skynet-graph gives</th><th>…and does <b>not</b> claim</th></tr></thead>
         <tbody>
-          <tr><td class="inst">a bigger / frontier model — or a <b>closed reasoning layer</b> (e.g. CoreThink, which wraps Claude 4 / Grok 4)</td><td class="a">more raw capability, at API cost, off-machine</td><td class="b">typed gates + deterministic replay on <b>your own local</b> model; nothing leaves the machine</td><td class="c">that it out-raw-reasons a frontier model, or any big-model number we have not measured</td></tr>
-          <tr><td class="inst">a decomposition framework (LLMCompiler, ReWOO)</td><td class="a">a task DAG</td><td class="b">a <b>typed</b> DAG where each step sees only a bounded neighbourhood, behind an admission gate</td><td class="c">that the small model is the task <i>cutter</i> (a measured limit)</td></tr>
-          <tr><td class="inst">LLM-as-judge</td><td class="a">a verdict, always</td><td class="b">counts + zero-false coverage + an honest <b>UNDECIDED</b> off certified perimeters; a verdict only at margin ≥3 or on a certified frame</td><td class="c">a reliable verdict on free, uncertified content</td></tr>
-          <tr><td class="inst">a RAG skill-library</td><td class="a">retrieved snippets</td><td class="b">typed methods that <b>un-learn</b> when their premise drifts — the moat no RAG index has</td><td class="c">that novel, free-prose reasoning amortizes</td></tr>
-          <tr><td class="inst">a native "think" mode</td><td class="a">a longer in-model CoT</td><td class="b">an external critic that refutes with the reason + the admissible options (<b>0</b> wrong verdicts vs native <b>13/24 ≈ chance</b>)</td><td class="c">to interpret the model's internal chain-of-thought</td></tr>
-          <tr><td class="inst">a rules engine</td><td class="a">deterministic rules</td><td class="b">rules <b>+</b> truth maintenance: a falsified premise un-casts itself <i>and its consequences</i>, no rollback code</td><td class="c">hand-encoded completeness — the rules are learned and defeasible</td></tr>
+          <tr><td class="inst">a bigger / frontier model — or a closed reasoning layer that wraps one</td><td class="a">more raw capability, at API cost, off your machine</td><td class="b">typed gates + deterministic replay on <b>your own local</b> model; nothing leaves the machine</td><td class="c">that it out-reasons a frontier model, or any big-model number we have not measured</td></tr>
+          <tr><td class="inst">a decomposition framework (LLMCompiler, ReWOO)</td><td class="a">a task DAG</td><td class="b">a <b>typed</b> DAG where each step sees only what it asked for, behind a gate that refuses instead of guessing</td><td class="c">that a small model is any good at CUTTING the task up (a measured limit)</td></tr>
+          <tr><td class="inst">LLM-as-judge</td><td class="a">a verdict, always</td><td class="b">counts, coverage, and an honest <b>"too close to call"</b> — a verdict only when the margin earns it</td><td class="c">a reliable verdict on free, uncertified content</td></tr>
+          <tr><td class="inst">a RAG skill-library</td><td class="a">retrieved snippets</td><td class="b">methods that <b>un-learn</b> when their premise drifts — the moat no index has</td><td class="c">that novel, free-prose reasoning gets cheaper</td></tr>
+          <tr><td class="inst">the model's own "think" mode</td><td class="a">a longer internal monologue</td><td class="b">an outside critic that refutes with the reason and the options (<b>0</b> wrong verdicts vs <b>13/24 ≈ chance</b>)</td><td class="c">to interpret what the model is "really" thinking</td></tr>
+          <tr><td class="inst">a rules engine</td><td class="a">deterministic rules</td><td class="b">rules <b>+</b> truth maintenance: a falsified premise un-casts itself <i>and everything built on it</i>, with no rollback code</td><td class="c">hand-encoded completeness — the rules are learned, and defeasible</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 </section>
 
-<section id="dropin">
-  <div class="wrap">
-    <div class="sec-tag">Zero integration</div>
-    <h2>Point one line at it</h2>
-    <p class="lede">Two zero-integration doors into one local loop. Covered queries are served from the verified local stock at 0 frontier calls, with provenance headers on every completion.</p>
-    <div class="two">
-      <div>
-        <p class="mono" style="font-size:13px;color:var(--dim);margin:0 0 8px">OpenAI-compatible endpoint</p>
-        <div class="codeblock"><span class="cm"># any OpenAI client — just change the base URL</span>
-baseURL: <span class="s">"http://127.0.0.1:4747/v1"</span>  <span class="cm">// ← sg serve</span>
-
-<span class="cm"># start it (points at your local gguf):</span>
-<span class="k">sg serve</span> --frontier-model &lt;path.gguf&gt; --store ./stock.json</div>
-      </div>
-      <div>
-        <p class="mono" style="font-size:13px;color:var(--dim);margin:0 0 8px">MCP tools for an agent host</p>
-        <div class="codeblock"><span class="cm"># typed refusals arrive STRUCTURED</span>
-<span class="k">claude mcp add</span> sg -- node bin/sg mcp \
-  --frontier-model &lt;path.gguf&gt; --store ./stock.json
-
-<span class="cm"># lanes: ask · hint · propose · state_recall</span>
-<span class="cm">#        · plan_sync · critique</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section id="start">
   <div class="wrap">
-    <div class="sec-tag">Quick start</div>
-    <h2>Run it in 30 seconds — no model, no GPU</h2>
-    <div class="codeblock"><span class="cm"># the four capabilities assembled, deterministic replay</span>
-<span class="k">git clone</span> https://github.com/9pings/skynet-graph &amp;&amp; <span class="k">cd</span> skynet-graph
-<span class="k">npm install</span> &amp;&amp; node examples/integrated-demo/run.js --replay   <span class="cm"># 7 checks, bit-identical</span>
+    <div class="sec-tag">Try it</div>
+    <h2>Thirty seconds, no model, no GPU</h2>
+    <div class="codeblock"><span class="k">git clone</span> https://github.com/9pings/skynet-graph &amp;&amp; <span class="k">cd</span> skynet-graph
+<span class="k">npm install</span>          <span class="cm"># no build step — pure CommonJS, Node 18+</span>
 
-<span class="cm"># run the full suite (1499 tests · 0 failures · 2 known skips)</span>
-<span class="k">npm test</span>
+<span class="cm"># the headline: a real annual report, worked end to end, replayed exactly</span>
+<span class="k">node</span> examples/integrated-demo/run.js --replay
 
-<span class="cm"># every claim above, as a runnable file — deterministic, no model, no GPU</span>
-<span class="k">node</span> examples/bootstrap/c7-plan-loop.js      <span class="cm"># the zoom: each leaf sees only its upstreams</span>
-<span class="k">node</span> examples/bootstrap/c9-critical-mind.js  <span class="cm"># the critic: refuses its own under-witnessed thesis</span>
-<span class="k">node</span> examples/strategies/mcts.js             <span class="cm"># UCB1, no randomness — two runs byte-identical</span>
+<span class="cm"># any demo above — this is literally what the tabs are showing you</span>
+<span class="k">node</span> examples/strategies/react.js
+<span class="k">node</span> examples/bootstrap/f3-task-memory.js
 
-<span class="cm"># the ready-made local server (one VRAM load, no-egress by default)</span>
-<span class="k">npx mindsmith</span> serve --model &lt;path.gguf&gt;</div>
+<span class="cm"># the full suite: 1499 tests, 0 failures, 2 known skips</span>
+<span class="k">npm test</span></div>
+    <div style="height:22px"></div>
+    <p class="lede" style="margin-bottom:14px">Or embed it — <span style="font-family:var(--mono);font-size:15px;color:var(--signal)">npm install skynet-graph</span> — and boot a graph from plain folders of rules:</p>
+    <div class="codeblock"><span class="k">const</span> Graph = <span class="k">require</span>(<span class="s">'skynet-graph'</span>);
+
+<span class="cm">// rules live in files, not in code — so they can be read, diffed and versioned like data</span>
+<span class="k">const</span> g = Graph.fromDirs({ concepts: <span class="s">'./concepts'</span>, builtins: <span class="k">true</span>, seed });
+
+<span class="cm">// serve it to ANY OpenAI client, or to an agent as MCP tools:</span>
+<span class="k">sg serve</span> --frontier-model &lt;path.gguf&gt;   <span class="cm"># → http://127.0.0.1:4747/v1</span>
+<span class="k">sg mcp</span>   --frontier-model &lt;path.gguf&gt;   <span class="cm"># → ask · hint · propose · critique · …</span></div>
   </div>
 </section>
 
@@ -372,48 +360,40 @@ baseURL: <span class="s">"http://127.0.0.1:4747/v1"</span>  <span class="cm">// 
   <div class="wrap">
     <div class="sec-tag">Read the thing</div>
     <h2>Documentation</h2>
-    <p class="lede">All of it is markdown in the repo — it ships in the npm tarball and renders on GitHub, so
+    <p class="lede">All of it is markdown in the repo — it ships in the npm package and renders on GitHub, so
       what you read is what the code carries. Start wherever your question is.</p>
     <div class="grid4">
       <a class="card doc-card" href="https://github.com/9pings/skynet-graph/blob/master/docs/usage.md">
-        <div class="k">START HERE</div>
-        <h3>usage.md</h3>
+        <div class="k">START HERE</div><h3>usage.md</h3>
         <p>The practical guide: <span class="sg">fromDirs</span>, concept sets, providers, the <span class="sg">sg</span> CLI, plugins, distributed execution.</p>
       </a>
       <a class="card doc-card" href="https://github.com/9pings/skynet-graph/blob/master/docs/strategies.md">
-        <div class="k">STRATEGIES</div>
-        <h3>strategies.md</h3>
-        <p>The 13 reasoning strategies as <i>deposited concept sets</i> on one kernel — with a recipe each, and the honest scope.</p>
+        <div class="k">STRATEGIES</div><h3>strategies.md</h3>
+        <p>The 13 reasoning strategies as <i>deposited concept sets</i> on one kernel — a recipe each, and the honest scope.</p>
       </a>
       <a class="card doc-card" href="https://github.com/9pings/skynet-graph/blob/master/docs/CAPABILITIES.md">
-        <div class="k">THE NUMBERS</div>
-        <h3>CAPABILITIES.md</h3>
+        <div class="k">THE NUMBERS</div><h3>CAPABILITIES.md</h3>
         <p>Every feature with its maturity bar, its measured numbers, its negative controls — and its limits.</p>
       </a>
       <a class="card doc-card" href="https://github.com/9pings/skynet-graph/blob/master/docs/architecture.md">
-        <div class="k">HOW IT WORKS</div>
-        <h3>architecture.md</h3>
-        <p>The engine, the core-vs-plugins line, the vision — and the honest limits, in the same page.</p>
+        <div class="k">HOW IT WORKS</div><h3>architecture.md</h3>
+        <p>The engine, the core-vs-plugins line, the vision — and the honest limits, on the same page.</p>
       </a>
       <a class="card doc-card" href="https://github.com/9pings/skynet-graph/blob/master/docs/API.md">
-        <div class="k">REFERENCE</div>
-        <h3>API.md</h3>
+        <div class="k">REFERENCE</div><h3>API.md</h3>
         <p>The public API: revisions, rollback, diff, fork/merge, the facts/prose contract.</p>
       </a>
       <a class="card doc-card" href="https://github.com/9pings/skynet-graph/blob/master/docs/plugins.md">
-        <div class="k">EXTEND IT</div>
-        <h3>plugins.md</h3>
+        <div class="k">EXTEND IT</div><h3>plugins.md</h3>
         <p>The plugin contract: manifest, the two trust tiers, dependency rules, <span class="sg">sg plugin</span>.</p>
       </a>
       <a class="card doc-card" href="https://github.com/9pings/skynet-graph/tree/master/examples">
-        <div class="k">RUNNABLE</div>
-        <h3>examples/</h3>
-        <p>One deterministic file per capability and per strategy. Each prints the guarantee it demonstrates; the suite runs them all.</p>
+        <div class="k">RUNNABLE</div><h3>examples/</h3>
+        <p>The source of every demo on this page. Each prints the guarantee it demonstrates; the test suite runs them all.</p>
       </a>
       <a class="card doc-card" href="https://github.com/9pings/skynet-graph/blob/master/docs/MODELISATION.md">
-        <div class="k">THE MODEL</div>
-        <h3>MODELISATION.md</h3>
-        <p>The full model + roadmap, and <span class="sg">concept-as-graph.md</span> for the target system.</p>
+        <div class="k">THE MODEL</div><h3>MODELISATION.md</h3>
+        <p>The full model + roadmap, and <span class="sg">concept-as-graph.md</span> for where it is going.</p>
       </a>
     </div>
   </div>
@@ -423,157 +403,80 @@ baseURL: <span class="s">"http://127.0.0.1:4747/v1"</span>  <span class="cm">// 
   <div class="wrap">
     <div class="flinks">
       <a href="https://github.com/9pings/skynet-graph">GitHub</a>
+      <a href="https://www.npmjs.com/package/skynet-graph">npm</a>
       <a href="https://github.com/9pings/skynet-graph/blob/master/docs/usage.md">Docs</a>
       <a href="https://github.com/9pings/skynet-graph/blob/master/docs/strategies.md">Strategies</a>
-      <a href="https://www.npmjs.com/package/skynet-graph">npm · skynet-graph</a>
-      <a href="https://www.npmjs.com/package/mindsmith">npm · mindsmith</a>
-      <a href="https://doi.org/10.5281/zenodo.21201723">DOI · DLL paper</a>
+      <a href="https://doi.org/10.5281/zenodo.21201723">DOI · library-learning paper</a>
       <a href="https://doi.org/10.5281/zenodo.21201877">DOI · lattice paper</a>
     </div>
-    <p class="foot-note">Solo dev, ~3 months of measured R&amp;D on one GPU. AGPL-3.0, pure CommonJS, no build step,
-      nothing leaves your machine. The <span class="sg">integrated demo replays bit-for-bit</span> — try to break it.</p>
+    <p class="foot-note">Solo dev, ~3 months of measured R&amp;D on one GPU. AGPL-3.0, pure CommonJS, no build
+      step, nothing leaves your machine. The <span class="sg">demos above replay bit-for-bit</span> — try to
+      break them.</p>
     <span class="rule-tag">standing rule: a refuted claim is deleted from this page the day it falls</span>
   </div>
 </footer>
 
+<script src="demos.js"></script>
 <script>
-const DEMO = String.raw`@@@ACT|ACT 0|THE BASE|certified stock · real report · local low-quant · nothing leaves the machine
-Forged stock  : finqa-stock-q6.sgc · sha256 e21906b1579ea614… · 8 certified shapes (0 false admissions at the forge, negative control rejected — validation dossier ships with the stock)
-Referential   : [add · add>add · divide · greater · multiply · subtract · subtract>divide · table_average]
-Report        : ETR/2008 (real FinQA) — MECHANICAL pre-registered selection: ≥4 covered table-resolvable · ≥3 shapes · ≥1 table-resolvable trap
-Available     : 60 covered+table-resolvable questions · 1 out-of-referential trap · 17 boundary questions (text-dependent / uncovered) — shown, never silently resolved
-Model         : Qwen3.6-27B-IQ2_XXS (9.5 GB — THE low-quant) · temp 0 · seed 0 · NO big model at runtime
-No-egress     : no remote backend wired in this process (the socket guarantee is proven appliance-side, M2)
-REPLAY MODE   : the film replays the recorded transcript — 0 GPU, deterministic.
-Mission       : 8 metrics (rule: first 2 per shape — 60 available, the cap is ANNOUNCED, not silent) + 1 built comparison + 1 synthesis + the trap
-@@@ACT|ACT 1|THE TYPED PLAN|each step sees ONLY its table (bounded projection), never the dossier
-Bounded ctx   : ≤ 607 chars/call (one truncated table), CONSTANT — the full dossier is 18041 chars. [the split-DISCOVERY result (0→55 % strict) and full-context-beaten (0.93 vs 0.73 at ½ peak) are separate campaigns, cited — not replayed here]
-plan_sync     → 10 create (the plan mirrored at the agent host — TaskCreate/TodoWrite, ITS choice, SOFT lane)
-@@@ACT|ACT 2|REPAIR + THINK-MODE|hint → Q2 emission → gate (shape+provenance) → bounded revision
-· s1 [subtract>divide] ADMITTED — subtract(959.2, 991.1), divide(#0, 991.1) = -0.032186 · provenance: "2008 net revenue"[6,1] "2007 net revenue"[1,1] "2007 net revenue"[1,1]
-· s2 [subtract>divide] ADMITTED — subtract(440.9, 442.3), divide(#0, 442.3) = -0.003165 · provenance: "2008 net revenue"[7,1] "2007 net revenue"[1,1] "2007 net revenue"[1,1]
-· s3 [subtract] ADMITTED — subtract(440.9, 442.3) = -1.4 · provenance: "2008 net revenue"[7,1] "2007 net revenue"[1,1]
-· s4 [add>add] ADMITTED — add(516019, 763036), add(#0, 897367) = 2176422 · provenance: "2009"[1,1] "2010"[2,1] "2011"[3,1]
-· s5 [divide] ADMITTED — divide(73512, 321237) = 0.22884 · provenance: "less : amount representing interest"[8,1] "total"[7,1]
-· s6 [divide] ADMITTED — divide(5854, 22078) = 0.265151 · provenance: "entergy louisiana"[3,1] "total"[8,1]
-· s7 [subtract] ADMITTED — subtract(486.9, 466.1) = 20.8 · provenance: "2007 net revenue"[9,1] "2006 net revenue"[1,1]
-· s8 [subtract] ADMITTED — subtract(66044, 20997) = 45047 · provenance: "( $ 66044 )"[2,0] "( $ 66044 )"[2,1]
+(function () {
+  var GROUPS = window.SG_DEMOS || [];
+  var flat = [];
+  GROUPS.forEach(function ( g ) { g.items.forEach(function ( it ) { flat.push(it); }); });
 
-[illustrative — not a benchmark] the first 2 questions WITHOUT the certified menu (the bare low-quant):
-· s1 bare: subtract(959.2, 991.1), divide(#0, 991.1) = -0.032186 (correct) — steered above: correct.
-· s2 bare: subtract(440.9, 442.3), divide(#0, 442.3) = -0.003165 (correct) — steered above: correct.
+  var esc = function ( s ) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
 
-THE TRAP — "…the sum of the annual long-term debt maturities due in five years" (real shape: add>add>add>add, out of referential):
-· propose(free) → REFUSED: program not executable (invalid op/args) · 8 gate-tested options offered
-· revision → FINAL REFUSAL (shape "add>add>add>add" ∉ frozen referential (8 certified shapes))
-· force=true → status recorded-untrusted (certified=false) — journal-traced (1 entry), the certified layer INTACT
-
-Materialized  : 9 typed facts derived (cell provenance) · plan_sync → 10 complete (= GATE-ADMITTED, not "claimed")
-Demo ARBITER  : 8/9 correct against the FinQA reference. [the arbiter belongs to the DEMO — the runtime has no gold; the gate guarantees certified shape + provenance + deterministic compute, NOT picking the right cell]
-@@@ACT|ACT 3|MEMORY THAT REOPENS|two real errata ingested — native JTMS retraction
-DRIFT-A (recomputable): synthetic erratum — "2008 net revenue" $ 959.2 → 978.4 (restatement +2 %)
-· the engine RETRACTS and re-derives: s1 -0.03219 → -0.01281 · cascade s1+cmp re-derived · 7 steps UNTOUCHED (selectivity)
-· model calls during the drift: 0 (the admitted method is cell-PARAMETERIZED — only the deterministic compute replays)
-· plan_sync → 0 op (re-derived BEFORE the sync: the mirror has nothing to reopen, values already followed)
-
-DRIFT-B (non-recomputable): the value "2008 net revenue" = $ 440.9 is WITHDRAWN from the report (invalidating restatement)
-· plan_sync → 3 REOPEN mirrored at the host, with the REASON:
-    reopen cmp — premise drifted: in_s1,in_s2 (rev 17)
-    reopen s2 — premise drifted: c_7_1,c_1_1 (rev 16)
-    reopen synth — premise drifted (JTMS retraction)
-· the "done" task REOPENED itself; the synthesis prefers A HOLE to a stale number.
-· state_recall → {"status":"retracted/open"} (the retracted fact does not ROT: it is withdrawn, reason in the ledger)
-@@@ACT|ACT 4|CRASH / REPLAY|the full state re-derives from the durable checkpoint, at 0 model calls
-· simulated "crashed" process → rebuild from {tables, admitted methods}: state bit-IDENTICAL · model calls: 0 (the checkpoint NEVER stores results — only premises+methods; everything re-derives)
-  (real resume: Ctrl-C during act 2 then relaunch — admitted steps replay from the checkpoint at 0 calls)
-· negative control: CORRUPTED checkpoint (falsified op) → re-gate at load: 1 method REJECTED (shape ∉ referential) — fail-closed, the step stays open rather than wrong
-@@@ACT|SYNTHESIS|THE CERTIFIED SYNTHESIS|every number: shape · provenance · status · arbiter
-┌─────────┬───────┬──────────────────────────────────────────────────┬───────────────────┬────────────────────────────┬───────────────────┬─────────┐
-│ (index) │ step  │ q                                                │ shape             │ value                      │ status            │ arbiter │
-├─────────┼───────┼──────────────────────────────────────────────────┼───────────────────┼────────────────────────────┼───────────────────┼─────────┤
-│ 0       │ 's1'  │ 'growth rate in net revenue in 2008'             │ 'subtract>divide' │ -0.012814                  │ 'certified-shape' │ '✓'     │
-│ 1       │ 's2'  │ 'percent change in net revenue 2007→2008'        │ 'subtract>divide' │ 'OPEN (retracted/refused)' │ 'open'            │ '—'     │
-│ 2       │ 's3'  │ 'net change in net revenue during 2008'          │ 'subtract'        │ -1.4                       │ 'certified-shape' │ '✓'     │
-│ 3       │ 's4'  │ 'debt maturing between 2009 and 2011 (thousands)'│ 'add>add'         │ 2176422                    │ 'certified-shape' │ '✓'     │
-│ 4       │ 's5'  │ 'portion of future minimum lease payments'       │ 'divide'          │ 0.22884                    │ 'certified-shape' │ '✓'     │
-│ 5       │ 's6'  │ 'percent of total capability owned'              │ 'divide'          │ 0.265151                   │ 'certified-shape' │ '✓'     │
-│ 6       │ 's7'  │ 'net change in net revenue 2006→2007'            │ 'subtract'        │ 20.8                       │ 'certified-shape' │ '✓'     │
-│ 7       │ 's8'  │ 'cash flow of entergy mississippi'               │ 'subtract'        │ 45047                      │ 'certified-shape' │ '✗'     │
-│ 8       │ 'cmp' │ 'growth comparison (built)'                      │ 'greater'         │ 'OPEN (premise retracted)' │ 'open'            │ '—'     │
-└─────────┴───────┴──────────────────────────────────────────────────┴───────────────────┴────────────────────────────┴───────────────────┴─────────┘
-Out-of-referential trap: final-refusal · forced writes traced untrusted: 1 · text-dependent boundary owned: 17 questions NOT resolved
-Economy: 12 low-quant calls total, 0 big-model calls.
-✓ 4 acts in one run
-✓ 0 ungated results in the synthesis (shape+provenance gate on everything)
-✓ trap never silently admitted
-✓ drift-A: 0-call re-derivation + selectivity
-✓ drift-B: REOPEN emitted with the reason
-✓ bit-identical replay at 0 calls
-✓ corrupted checkpoint rejected fail-closed
-DEMO VERDICT: ✓ GO — the four capabilities hold assembled, e2e, on a local low-quant · 0s`;
-
-// parse into acts
-const ACTS = [];
-for (const chunk of DEMO.split('@@@ACT|').slice(1)) {
-  const nl = chunk.indexOf('\n');
-  const [tag, nm, ds] = chunk.slice(0, nl).split('|');
-  ACTS.push({ tag, nm, ds, lines: chunk.slice(nl + 1).replace(/\n$/, '').split('\n') });
-}
-
-const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-function hl(s){
-  s = esc(s);
-  s = s.replace(/\[[^\]]*\]/g, m => `<span class="dim">${m}</span>`);
-  s = s.replace(/^([A-Za-z][\w \/+-]{1,13})(\s{2,}:)/, (m,a,b) => `<span class="lbl">${a}</span>${b}`);
-  s = s.replace(/(✓|\bADMITTED\b|\bGATE-ADMITTED\b|\bINTACT\b|\bGO\b)/g, '<span class="ok">$1</span>');
-  s = s.replace(/(✗)/g, '<span class="no">$1</span>');
-  s = s.replace(/(\bREFUSED\b|\bFINAL REFUSAL\b|\bREJECTED\b|\bWITHDRAWN\b|recorded-untrusted|fail-closed|\bNO-GO\b)/g, '<span class="warn">$1</span>');
-  s = s.replace(/(\bREOPEN\b|\breopen\b|\bRETRACTS\b|retracted|\bOPEN\b|drifted)/g, '<span class="am">$1</span>');
-  return s;
-}
-function renderAct(a){
-  const isBox = l => /[│┌└├┼┬┴─┐┘]/.test(l);
-  let html = `<div class="act"><div class="act-head"><span class="tag">${esc(a.tag)}</span><span class="nm">${esc(a.nm)}</span><span class="ds">${esc(a.ds)}</span></div>`;
-  let buf = [];
-  const flushBox = () => { if(buf.length){ html += `<pre class="box">${buf.map(esc).join('\n')}</pre>`; buf=[]; } };
-  for (const l of a.lines){
-    if (isBox(l)) { buf.push(l); }
-    else { flushBox(); html += `<div class="ln">${hl(l)}</div>`; }
+  // Colour the captured output. The examples narrate themselves in plain words (examples/_say.js), so
+  // this only has to find the few shapes that narration uses — never parse meaning out of prose.
+  function paint( out ) {
+    return esc(out).split('\n').map(function ( line ) {
+      if ( /^═+$/.test(line.trim()) || /^\s+─+$/.test(line) ) return '<span class="rule">' + line + '</span>';
+      if ( /^\s+(ACT \d|.*·\s*THE )/.test(line) && line === line.toUpperCase() ) return '<span class="act">' + line + '</span>';
+      if ( /^\s{2}(STRATEGY|BOOTSTRAP|DEMO VERDICT|OK) /.test(line) ) return '<span class="fin">' + line + '</span>';
+      line = line.replace(/^(\s{2})([A-Z][A-Z0-9 ,'"()—·+%\/–-]{8,})$/, '$1<span class="t">$2</span>');
+      line = line.replace(/^(\s+)(\d+\.)(\s)/, '$1<span class="n">$2</span>$3');
+      line = line.replace(/✓/g, '<span class="ok">✓</span>');
+      line = line.replace(/[✗✘]/g, '<span class="no">✗</span>');
+      line = line.replace(/(→|⟵|▸)/g, '<span class="arrow">$1</span>');
+      return line;
+    }).join('\n');
   }
-  flushBox();
-  return html + '</div>';
-}
 
-const body = document.getElementById('termBody');
-const readout = document.getElementById('readout');
-const dotrow = document.getElementById('dotrow');
-const btnNext = document.getElementById('btnNext');
-const btnPrev = document.getElementById('btnPrev');
-const btnReset = document.getElementById('btnReset');
-const btnAuto = document.getElementById('btnAuto');
-dotrow.innerHTML = ACTS.map(()=>'<b></b>').join('');
-let cur = 0, timer = null;
+  var elTitle = document.getElementById('d-title'), elBlurb = document.getElementById('d-blurb');
+  var elCmd = document.getElementById('d-cmd'), elOut = document.getElementById('d-out');
+  var tabsHost = document.getElementById('tabs');
 
-function draw(){
-  body.innerHTML = ACTS.slice(0, cur+1).map(renderAct).join('');
-  readout.textContent = `ACT ${cur+1} / ${ACTS.length}`;
-  [...dotrow.children].forEach((d,i)=>d.classList.toggle('on', i<=cur));
-  btnPrev.disabled = cur===0;
-  btnNext.disabled = cur===ACTS.length-1;
-  if(cur>0) btnNext.classList.remove('pulse');
-  body.scrollTop = body.scrollHeight;   // scroll the terminal only, never the page
-}
-function stopAuto(){ if(timer){ clearInterval(timer); timer=null; btnAuto.textContent='▶ Auto'; btnAuto.classList.remove('key'); } }
-btnNext.onclick = ()=>{ stopAuto(); if(cur<ACTS.length-1){ cur++; draw(); } };
-btnPrev.onclick = ()=>{ stopAuto(); if(cur>0){ cur--; draw(); } };
-btnReset.onclick = ()=>{ stopAuto(); cur=0; draw(); };
-btnAuto.onclick = ()=>{
-  if(timer){ stopAuto(); return; }
-  if(cur===ACTS.length-1){ cur=0; draw(); }
-  btnAuto.textContent='❚❚ Pause'; btnAuto.classList.add('key'); btnNext.classList.remove('pulse');
-  timer = setInterval(()=>{ if(cur<ACTS.length-1){ cur++; draw(); } else { stopAuto(); } }, 1500);
-};
-draw();
+  GROUPS.forEach(function ( g ) {
+    var row = document.createElement('div'); row.className = 'tabrow';
+    var lab = document.createElement('span'); lab.className = 'tabrow-label'; lab.textContent = g.group;
+    row.appendChild(lab);
+    g.items.forEach(function ( it ) {
+      var b = document.createElement('button');
+      b.className = 'tab'; b.type = 'button'; b.setAttribute('role', 'tab');
+      b.setAttribute('aria-selected', 'false'); b.dataset.id = it.id; b.textContent = it.id;
+      b.addEventListener('click', function () { select(it.id); });
+      row.appendChild(b);
+    });
+    tabsHost.appendChild(row);
+  });
+
+  function select( id ) {
+    var it = flat.filter(function ( x ) { return x.id === id; })[0];
+    if ( !it ) return;
+    Array.prototype.forEach.call(tabsHost.querySelectorAll('.tab'), function ( t ) {
+      t.setAttribute('aria-selected', t.dataset.id === id ? 'true' : 'false');
+    });
+    elTitle.textContent = it.title;
+    elBlurb.textContent = it.blurb;
+    elCmd.innerHTML = '<span class="p">$</span> <b>' + esc(it.cmd) + '</b>';
+    elOut.innerHTML = paint(it.out);
+    elOut.scrollTop = 0;
+    if ( history.replaceState ) history.replaceState(null, '', '#demo=' + id);
+  }
+
+  // deep-link support: #demo=mcts opens that tab
+  var want = (location.hash.match(/demo=([\w-]+)/) || [])[1];
+  select(want && flat.some(function ( x ) { return x.id === want; }) ? want : flat[0].id);
+})();
 </script>
 </body>
 </html>

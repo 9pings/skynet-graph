@@ -35,6 +35,7 @@ const Graph = require('../../lib/graph/index.js');
 const { nextStable } = require('../../lib/authoring/core/supervise.js');
 const { recordConstat } = require('../../lib/providers/constat.js');
 const { diffPlanToTaskOps } = require('../../lib/authoring/core/task-mirror.js');
+const { title, say, gap, step: beat, note, good, bad, val, done: finish } = require('../_say.js');
 
 const cast = ( g, id, k ) => !!(g._objById[id] && g._objById[id]._etty._mappedConcepts[k]);
 const fact = ( g, id, k ) => g._objById[id] && g._objById[id]._etty._[k];
@@ -112,52 +113,69 @@ async function main() {
 	const g = boot();
 	await settle(g);
 
+	title('A FINISHED TASK THAT UN-FINISHES ITSELF');
+	say('Every to-do list in the world only ever ticks boxes. But what happens when the number a');
+	say('finished task was built on turns out to be wrong? The box stays ticked, and the answer');
+	say('quietly rots. Watch this one un-tick itself instead.');
+	gap();
+
 	// ── the task list, first sync: both steps derived and done ─────────────────────────────────────
 	let sync = diffPlanToTaskOps(snapshotPlan(g), null);
-	console.log('derived →', JSON.stringify({ margin: fact(g, 'report', 'r_margin'), pct: fact(g, 'report', 'r_pct') }), '| fires:', JSON.stringify(fires));
-	console.log('sync 1  →', sync.ops.map(( o ) => o.op + ':' + o.id ).join(', '));
+	beat(1, 'A report says revenue 913, costs 400. Two tasks compute the margin, then the margin %.');
+	val('margin', fact(g, 'report', 'r_margin') + '  (913 − 400)');
+	val('margin %', fact(g, 'report', 'r_pct') + ' %');
+	good('both tasks are ticked off on your own to-do list');
 	assert.equal(fact(g, 'report', 'r_margin'), 513, '913 − 400');
 	assert.equal(fact(g, 'report', 'r_pct'), 56, 'and the composition on top of it');
 	assert.equal(sync.ops.filter(( o ) => o.op === 'complete' ).length, 2, 'both tasks reported done to the host');
+	gap();
 
 	// ── DRIFT-A — a CORRECTED premise: everything downstream re-derives, at 0 model calls ──────────
 	const before = { margin: fires.margin, pct: fires.pct };
 	await new Promise(( res ) => g.ingest({ report: { revenue: 1000 } }, res) );   // an erratum lands: 913 → 1000
 	await settle(g);
-	console.log('drift-A →', JSON.stringify({ margin: fact(g, 'report', 'r_margin'), pct: fact(g, 'report', 'r_pct') }),
-		'| re-derivations:', JSON.stringify({ margin: fires.margin - before.margin, pct: fires.pct - before.pct }));
+	beat(2, 'An erratum arrives: revenue was not 913, it was 1000. We change that one number.');
+	val('margin', fact(g, 'report', 'r_margin') + '  — updated itself');
+	val('margin %', fact(g, 'report', 'r_pct') + ' %  — and so did the one built on top of it');
+	good('both re-did themselves. No model was called. Nobody was told to recompute');
+	good('nothing to un-tick: the answers simply followed the correction');
 	assert.equal(fact(g, 'report', 'r_margin'), 600, 'the margin followed the corrected premise — nobody recomputed it by hand');
 	assert.equal(fact(g, 'report', 'r_pct'), 60, 'and the COMPOSITION followed too: the cascade went through r_margin');
 	assert.ok(fires.margin > before.margin && fires.pct > before.pct, 're-derived — and the count proves it ran');
 
 	sync = diffPlanToTaskOps(snapshotPlan(g), sync.mirror);
-	console.log('sync 2  →', JSON.stringify(sync.ops), '← nothing to reopen: the values simply followed');
 	assert.deepEqual(sync.ops, [], 'a recomputable drift needs NO host action: the tasks stayed done, correctly');
+	gap();
 
 	// ── DRIFT-B — a WITHDRAWN premise: nothing to recompute → the tasks REOPEN, with the reason ────
 	await new Promise(( res ) => g.ingest({ report: { costs: null } }, res) );     // the figure is withdrawn entirely
 	await settle(g);
-	console.log('drift-B →', JSON.stringify({ marginCast: cast(g, 'report', 'Step_margin'), margin: fact(g, 'report', 'r_margin'), pctCast: cast(g, 'report', 'Step_pct') }));
+	beat(3, 'Worse news: the costs figure is withdrawn entirely. Nothing can be recomputed now.');
+	bad('the margin is now a HOLE — not the stale 600 it used to say');
+	bad('and the margin %, which was built on it, went with it');
 	assert.equal(cast(g, 'report', 'Step_margin'), false, 'the step retracted — its premise is gone');
 	assert.equal(fact(g, 'report', 'r_margin'), null, 'THE POINT: a HOLE, not the stale 600');
 	assert.equal(cast(g, 'report', 'Step_pct'), false, 'and the composition retracted in cascade — no orphan derived value');
 
 	const constats = fact(g, 'mem', 'lessons');
-	console.log('constat →', JSON.stringify(constats.map(( l ) => ({ what: l.kind, why: l.retractedBecause, rev: l.atRev }) )));
 	assert.ok(constats.length >= 2, 'each retraction deposited a TYPED record: what fell, why, at which revision');
 
 	sync = diffPlanToTaskOps(snapshotPlan(g), sync.mirror);
 	const reopens = sync.ops.filter(( o ) => o.op === 'reopen' );
-	console.log('sync 3  →', reopens.map(( o ) => 'reopen:' + o.id + ' — ' + o.reason ).join('\n           '));
+	gap();
+	beat(4, 'And here is what lands on YOUR to-do list, unprompted:');
+	for ( const o of reopens ) note('re-open "' + o.id + '" — ' + o.reason);
+	good('both tasks un-ticked themselves — including the one that only depended on it indirectly');
+	good('and each says WHY, and as of when. Not just a status flip');
 	assert.equal(reopens.length, 2, 'BOTH done tasks reopened at the host — including the one that only depended INDIRECTLY');
 	assert.match(reopens[0].reason, /premise drifted/, 'and each reopen carries the reason, not just a status flip');
 
 	// ── idempotence: syncing the same state again says nothing (a delta, not a resend) ─────────────
 	const again = diffPlanToTaskOps(snapshotPlan(g), sync.mirror);
 	assert.deepEqual(again.ops, [], 'same state twice → empty delta');
-	console.log('sync 4  → [] (idempotent — the mirror only ever speaks about CHANGES)');
+	good('ask again and it says nothing new — it only ever tells you what CHANGED');
 	g.destroy && g.destroy();
 
-	console.log('BOOTSTRAP OK — a corrected premise re-derives at 0 model calls; a withdrawn one leaves a HOLE and REOPENS the dependent tasks, with the reason');
+	finish('correct a number and the work redoes itself for free; withdraw one and the finished task un-finishes itself, with the reason.', 'BOOTSTRAP OK');
 }
 main().catch(( e ) => { console.error(e); process.exit(1); });

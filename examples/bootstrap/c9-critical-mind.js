@@ -28,6 +28,7 @@ global.__SERVER__ = true;
 process.env.SG_LOG_LEVEL = process.env.SG_LOG_LEVEL || 'error';
 const assert = require('node:assert');
 const { createCriticalMind } = require('../../lib/index.js').factories;
+const { title, say, gap, step: beat, note, good, bad, val, done: finish } = require('../_say.js');
 
 // The caller's MATERIAL: real statements to reason over. The frame is announced MATERIAL (vs FREE when you
 // give none, vs DECLARED when you name the viewpoints yourself) — you always know which perimeter you are on.
@@ -73,24 +74,41 @@ async function main() {
 
 	const established = r.ledger.filter(( e ) => e.status !== 'open' );
 	const open = r.ledger.filter(( e ) => e.status === 'open' );
-	console.log('frame   →', r.frameStatus, '| threshold:', r.threshold);
-	console.log('ledger  →', established.map(( e ) => e.side + ':"' + e.text + '" ⟵ ' + e.witnesses.join('+') ).join('  '));
-	console.log('open    →', open.map(( e ) => '"' + e.text + '"' ).join(', '), '← nothing witnessed these, so they stay UNPROVEN');
-	console.log('counts  →', JSON.stringify(r.counts), '| verdict:', r.verdict);
+	const generated = r.ledger.filter(( e ) => e.kind === 'generated' );
+
+	title('A CRITIC THAT WILL NOT TAKE ANYONE\'S WORD FOR IT — INCLUDING ITS OWN');
+	say('Ask a model to weigh both sides of a question and it will happily produce a confident,');
+	say('well-written answer built on points it made up. This one only lets a point into the');
+	say('argument if real evidence in front of it actually says so.');
+	gap();
+	beat(1, '"Should we go fully remote?" — with 6 real arguments handed to it, 4 for and 2 against.');
+	for ( const e of established.filter(( x ) => x.kind !== 'generated' ) )
+		note('[' + e.side.padEnd(3) + '] "' + e.text + '"' + '  — backed by ' + e.witnesses.length + ' of the arguments given');
+	good('every point in the argument points at the evidence that carries it');
+	gap();
+	beat(2, 'Two points it thought of, but could NOT back up:');
+	for ( const e of open ) note('"' + e.text + '" — nothing in the evidence actually said this');
+	good('they stay visibly unproven. They are not quietly dropped, and not quietly asserted');
+	gap();
+	beat(3, 'Then the model proposes two new ideas of its own. Here it judges itself:');
+	for ( const e of generated ) note('"' + e.text + '" — accepted: ' + e.witnesses.length + ' unused arguments back it');
+	bad('its second idea was REFUSED — only 1 argument was left to back it, and 1 is not enough');
+	good('the model does not get special treatment. Its own ideas face the same bar');
+	gap();
+	beat(4, 'So which side wins?');
+	const pts = ( n ) => n + (n === 1 ? ' point' : ' points') + ' that survived';
+	val('for', pts(r.counts.PRO));
+	val('against', pts(r.counts.CON));
+	bad('it refuses to call it. One point apart is too close, so it says so plainly');
+	say('       (a model asked to pick a winner here picks one, confidently, about half the time.)');
 
 	assert.equal(r.frameStatus, 'MATERIAL', 'the perimeter is announced, always');
 	const v1 = r.ledger.find(( e ) => e.text === 'pro efficiency' );
 	assert.deepEqual(v1.witnesses, ['p1', 'p2'], 'an established point NAMES the statements that witness it');
 	assert.equal(open.length, 2, 'the two unwitnessed points stayed open — an unproven point is never faked');
-
-	// the generation gate: the model proposed TWO theses; only the one with 2 unused witnesses got in.
-	const generated = r.ledger.filter(( e ) => e.kind === 'generated' );
-	console.log('gen     →', generated.map(( e ) => e.side + ':"' + e.text + '" ⟵ ' + e.witnesses.join('+') ).join('  '), '← the CON thesis the model also proposed was REFUSED (c1 was already used → only 1 witness left)');
 	assert.equal(generated.length, 1, 'exactly one generated thesis survived the gate');
 	assert.equal(generated[0].side, 'PRO');
 	assert.deepEqual(generated[0].witnesses, ['p3', 'p4'], 'admitted on 2 UNUSED same-side witnesses — 0-fabrication is structural');
-
-	// the bound: PRO 2 vs CON 1 → margin 1 < 3 → no verdict, and the report says so.
 	assert.deepEqual(r.counts, { PRO: 2, CON: 1 });
 	assert.equal(r.verdict, 'UNDECIDED', 'margin 1 < threshold 3 → counts + an honest UNDECIDED, not a coin flip');
 	assert.equal(r.norm.status, 'CONTESTED');
@@ -98,16 +116,19 @@ async function main() {
 	assert.match(r.prose, /pro argument one about cost/, 'and quotes its witnesses verbatim — auditable');
 	assert.match(r.prose, /could not be established/, 'and says out loud what it could not prove');
 	assert.match(r.prose, /no verdict is rendered/, 'and refuses the verdict in plain language');
+	gap();
 
 	// ── 2. THE REFUSAL BEFORE ANY MODEL CALL: an inadequate pool is refused at 0 asks ──────────────
 	let asks = 0;
 	const counted = createCriticalMind({ ask: async ( q ) => { asks++; return scriptedAsk()(q); } });
 	const thin = await counted.run({ topic: 'Should we adopt X?', statements: ['PRO: only one', 'CON: only one too'] });
-	console.log('thin    →', JSON.stringify({ error: thin.error, verdict: thin.verdict, asks }));
+	beat(5, 'And if you hand it almost no evidence at all — two lonely arguments?');
+	bad('it refuses to even start, and says why: there is not enough here to reason about');
+	val('model calls spent', asks + ' — it refused BEFORE costing you anything');
 	assert.match(thin.error, /pool too small/, 'an inadequate pool is refused, with the reason');
 	assert.equal(thin.verdict, 'UNDECIDED');
 	assert.equal(asks, 0, 'and refused WITHOUT spending a single model call — the gate is upstream of the cost');
 
-	console.log('BOOTSTRAP OK — points enter only with witnesses (unproven stays open); the generation gate refuses the model\'s own under-witnessed thesis; below the margin bound the verdict is an honest UNDECIDED');
+	finish('nothing gets in without evidence — not even the model\'s own ideas — and too close to call says so.', 'BOOTSTRAP OK');
 }
 main().catch(( e ) => { console.error(e); process.exit(1); });
