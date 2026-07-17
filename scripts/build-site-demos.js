@@ -22,7 +22,10 @@ const OUT = path.join(ROOT, 'docs', 'demos.js');
 
 // id · file · the human title · the one line a visitor should leave with
 const CATALOG = [
-	{ group: 'The whole thing at once', items: [
+	{ group: 'Does it actually work?', items: [
+		{ id: 'head-to-head', file: 'examples/head-to-head/run.js',
+			title: 'Classic problems — the same model, asked twice',
+			blurb: 'Three problems models are known to trip on, put to the same 9.5 GB model twice: once by just asking it, once through this. Every prompt and every reply is verbatim from a real run — including the one where this project LOSES, printed in full with the reason.' },
 		{ id: 'integrated', file: 'examples/integrated-demo/run.js', args: ['--replay'],
 			title: 'A real annual report, start to finish',
 			blurb: 'A 9.5 GB model on a laptop-class GPU works a real financial report: it plans, it repairs its own weak answers, it refuses what it cannot back up, an erratum lands and the consequences retract themselves, the process crashes and the whole run replays identically. No big model anywhere.' },

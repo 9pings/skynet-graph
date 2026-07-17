@@ -1,0 +1,235 @@
+{
+ "recordedWith": "Qwen3.6-27B-IQ2_XXS (9.5 GB, the crippled quant)",
+ "note": "Real prompts and real replies from a real local model. Whatever it answered is what is here.",
+ "cases": [
+  {
+   "id": "decimal",
+   "truth": "9.9",
+   "question": "Which number is bigger: 9.11 or 9.9? Answer with just the number.",
+   "title": "Which is bigger: 9.11 or 9.9?",
+   "why": "The famous one. Models read \"9.11 > 9.9\" because 11 > 9 \u2014 the version-number reflex. It is one line, everyone can check it, and a model that gets THIS wrong is telling you something about every other number it hands you.",
+   "how": "Through the graph: ask the same model 5 independent times, snap each reply to a plain class, and let it answer only if one class wins by a clear margin.",
+   "alone": {
+    "calls": [
+     {
+      "system": "You are a helpful assistant. Answer concisely.",
+      "user": "Which number is bigger: 9.11 or 9.9? Answer with just the number.",
+      "reply": "\n\n\n9.9",
+      "ms": 14164
+     }
+    ],
+    "answer": "9.9"
+   },
+   "withg": {
+    "calls": [
+     {
+      "system": "Answer the question. Reason if you need to, then END your reply with ONE line, exactly: ANSWER: <short final answer>",
+      "user": "Question: Which number is bigger: 9.11 or 9.9?\n(independent attempt 1 of 5 \u2014 reason in your own way)",
+      "reply": "\n\nTo compare the two numbers 9.11 and 9.9, we look at their place values from left to right.\n\n1.  **Compare the whole number part:** Both numbers have a 9 in the units place. They are equal so far.\n2.  **Compare the tenths place:**\n    *   In 9.11, the digit in the tenths place is 1.\n    *   In 9.9, the digit in the tenths place is 9.\n3.  Since 9 is greater than 1, the number 9.9 is greater than 9.11.\n\n(Note: A common misconception is to look at the version numbers like software versions where \"9.11\" might come after \"9.9\" alphabetically, but in standard numerical comparison, we treat them as decimal fractions.)\n\nANSWER: 9.9",
+      "ms": 2360
+     },
+     {
+      "system": "Answer the question. Reason if you need to, then END your reply with ONE line, exactly: ANSWER: <short final answer>",
+      "user": "Question: Which number is bigger: 9.11 or 9.9?\n(independent attempt 2 of 5 \u2014 reason in your own way)",
+      "reply": "\n\nTo compare the numbers 9.11 and 9.9, we can look at their values digit by digit from left to right.\n\n1.  **Compare the whole number part:** Both numbers have the integer part 9. Since $9 = 9$, we need to look at the decimal places.\n2.  **Compare the tenths place:**\n    *   The first number, 9.11, has a 1 in the tenths place.\n    *   The second number, 9.9, has a 9 in the tenths place.\n3.  **Conclusion:** Since 9 is greater than 1, the number 9.9 is greater than 9.11.\n\nANSWER: 9.9",
+      "ms": 2000
+     },
+     {
+      "system": "Answer the question. Reason if you need to, then END your reply with ONE line, exactly: ANSWER: <short final answer>",
+      "user": "Question: Which number is bigger: 9.11 or 9.9?\n(independent attempt 3 of 5 \u2014 reason in your own way)",
+      "reply": "\n\nTo compare the numbers 9.11 and 9.9, we can look at their values digit by digit from left to right.\n\n1.  **Compare the whole number part:** Both numbers have the integer part 9. Since $9 = 9$, we need to look at the decimal places.\n2.  **Compare the tenths place:**\n    *   The first number is 9.11. The digit in the tenths place is **1**.\n    *   The second number is 9.9. The digit in the tenths place is **9**.\n3.  **Determine the larger value:** Since 9 is greater than 1, the number 9.9 is larger than 9.11.\n\nAlternatively, you can think of it this way:\n*   $9.11 = 9 + \\frac{11}{100}$\n*   $9.9 = 9 + \\frac{9}{10} = 9 + \\frac{90}{100}$\n\nSince $\\frac{90}{100} > \\frac{11}{100}$, it follows that $9.9 > 9.11$.\n\nANSWER: 9.9",
+      "ms": 3119
+     },
+     {
+      "system": "Answer the question. Reason if you need to, then END your reply with ONE line, exactly: ANSWER: <short final answer>",
+      "user": "Question: Which number is bigger: 9.11 or 9.9?\n(independent attempt 4 of 5 \u2014 reason in your own way)",
+      "reply": "\n\nTo compare the numbers 9.11 and 9.9, we can look at their values digit by digit from left to right.\n\n1.  **Compare the whole number part:** Both numbers have the integer part 9. Since $9 = 9$, we need to look at the decimal places.\n2.  **Compare the tenths place:**\n    *   The first number is 9.11. The digit in the tenths place is **1**.\n    *   The second number is 9.9. The digit in the tenths place is **9**.\n3.  **Determine the larger value:** Since 9 is greater than 1, the number 9.9 is larger than 9.11.\n\nAlternatively, you can think of it this way:\n*   $9.11 = 9 + \\frac{11}{100}$\n*   $9.9 = 9 + \\frac{9}{10} = 9 + \\frac{90}{100}$\n\nSince $\\frac{90}{100} > \\frac{11}{100}$, it follows that $9.9 > 9.11$.\n\nANSWER: 9.9",
+      "ms": 3110
+     },
+     {
+      "system": "Answer the question. Reason if you need to, then END your reply with ONE line, exactly: ANSWER: <short final answer>",
+      "user": "Question: Which number is bigger: 9.11 or 9.9?\n(independent attempt 5 of 5 \u2014 reason in your own way)",
+      "reply": "\n\nTo compare the numbers 9.11 and 9.9, we can look at their values digit by digit from left to right.\n\n1.  **Compare the whole number part:** Both numbers have the integer part 9. Since $9 = 9$, we need to look at the decimal places.\n2.  **Compare the tenths place:**\n    *   The first number is 9.11. The digit in the tenths place is **1**.\n    *   The second number is 9.9. The digit in the tenths place is **9**.\n3.  **Determine the larger value:** Since 9 is greater than 1, the number 9.9 is larger than 9.11.\n\nAlternatively, you can think of it this way:\n*   $9.11 = 9 + \\frac{11}{100}$\n*   $9.9 = 9 + \\frac{9}{10} = 9 + \\frac{90}{100}$\n\nSince $\\frac{90}{100} > \\frac{11}{100}$, it follows that $9.9 > 9.11$.\n\nANSWER: 9.9",
+      "ms": 3125
+     }
+    ],
+    "answer": "9.9",
+    "detail": {
+     "verdict": "9.9",
+     "consensus": "9.9",
+     "agree": 5,
+     "margin": 5,
+     "total": 5,
+     "votes": [
+      "9.9",
+      "9.9",
+      "9.9",
+      "9.9",
+      "9.9"
+     ],
+     "abstained": 0,
+     "k": 5,
+     "threshold": 1,
+     "temperature": 0.7,
+     "advice": null
+    }
+   },
+   "aloneRight": true,
+   "withRight": true,
+   "lesson": "This model simply is not fooled by 9.11 vs 9.9 \u2014 so there is nothing here for us to fix.\nWe are keeping it in because we said we would publish what we measured, wins or not.\nWhat the graph still adds: it would have said \"I do not know\" rather than guess if the\n5 runs had disagreed. Here they did not, so it just agreed with the model."
+  },
+  {
+   "id": "count",
+   "truth": "3",
+   "question": "How many times does the letter \"r\" appear in the word \"strawberry\"? Answer with just the number.",
+   "title": "How many r's in \"strawberry\"?",
+   "why": "The other famous one. A model does not see letters \u2014 it sees chunks (\"straw\" + \"berry\"), so it is guessing at a question about spelling. Nothing about a bigger model fixes the fact that the letters were never there.",
+   "how": "Through the graph: cut the word into single letters, ask the model about ONE letter at a time (a question it can actually answer), and let the graph do the counting. The cutting is deliberately not the model's job \u2014 that is a measured limit of this project.",
+   "alone": {
+    "calls": [
+     {
+      "system": "You are a helpful assistant. Answer concisely.",
+      "user": "How many times does the letter \"r\" appear in the word \"strawberry\"? Answer with just the number.",
+      "reply": "\n\n\n3",
+      "ms": 335
+     }
+    ],
+    "answer": "3"
+   },
+   "withg": {
+    "calls": [
+     {
+      "system": "Answer with exactly one word: yes or no.",
+      "user": "In the word \"strawberry\", is letter number 1 (counting from 1) the letter \"r\"? Answer yes or no.",
+      "reply": "\n\nno",
+      "ms": 282
+     },
+     {
+      "system": "Answer with exactly one word: yes or no.",
+      "user": "In the word \"strawberry\", is letter number 2 (counting from 1) the letter \"r\"? Answer yes or no.",
+      "reply": "\n\nno",
+      "ms": 277
+     },
+     {
+      "system": "Answer with exactly one word: yes or no.",
+      "user": "In the word \"strawberry\", is letter number 3 (counting from 1) the letter \"r\"? Answer yes or no.",
+      "reply": "\n\n\nno",
+      "ms": 282
+     },
+     {
+      "system": "Answer with exactly one word: yes or no.",
+      "user": "In the word \"strawberry\", is letter number 4 (counting from 1) the letter \"r\"? Answer yes or no.",
+      "reply": "\n\n\nyes",
+      "ms": 283
+     },
+     {
+      "system": "Answer with exactly one word: yes or no.",
+      "user": "In the word \"strawberry\", is letter number 5 (counting from 1) the letter \"r\"? Answer yes or no.",
+      "reply": "\n\n\nyes",
+      "ms": 280
+     },
+     {
+      "system": "Answer with exactly one word: yes or no.",
+      "user": "In the word \"strawberry\", is letter number 6 (counting from 1) the letter \"r\"? Answer yes or no.",
+      "reply": "\n\n\nyes",
+      "ms": 281
+     },
+     {
+      "system": "Answer with exactly one word: yes or no.",
+      "user": "In the word \"strawberry\", is letter number 7 (counting from 1) the letter \"r\"? Answer yes or no.",
+      "reply": "\n\n\nyes",
+      "ms": 382
+     },
+     {
+      "system": "Answer with exactly one word: yes or no.",
+      "user": "In the word \"strawberry\", is letter number 8 (counting from 1) the letter \"r\"? Answer yes or no.",
+      "reply": "\n\n\nyes",
+      "ms": 345
+     },
+     {
+      "system": "Answer with exactly one word: yes or no.",
+      "user": "In the word \"strawberry\", is letter number 9 (counting from 1) the letter \"r\"? Answer yes or no.",
+      "reply": "\n\n\nyes",
+      "ms": 280
+     },
+     {
+      "system": "Answer with exactly one word: yes or no.",
+      "user": "In the word \"strawberry\", is letter number 10 (counting from 1) the letter \"r\"? Answer yes or no.",
+      "reply": "\n\n\nyes",
+      "ms": 287
+     }
+    ],
+    "answer": "7",
+    "detail": {
+     "leaves": 10
+    }
+   },
+   "aloneRight": true,
+   "withRight": false,
+   "lesson": "This one goes AGAINST us, and it is worth more than the wins.\nThe model got it right ALONE (that example is famous enough to be memorised), and our\ncut made it WORSE: asked letter by letter it said 'yes' to a, w, b, e and y, and 'no'\nto the r at position 3. Cutting a task up only helps if each piece is something the\nmodel can actually DO \u2014 and this model cannot see letters at all, so every piece was\nstill impossible. The honest fix here is not reasoning, it is a string operation, and\nthat is not what this project is for. Counting letters is not on our list of claims,\nand after this run it will not be going on it."
+  },
+  {
+   "id": "deepmath",
+   "truth": "354",
+   "question": "A bakery sells 34 loaves on Monday. On Tuesday it sells 12 more than Monday. On Wednesday it sells half of Tuesday. On Thursday it sells 8 fewer than Wednesday. Each loaf costs 3 dollars. How many dollars did the bakery take over the four days?",
+   "title": "A word problem with six chained steps",
+   "why": "Not a trick \u2014 just long. Each step feeds the next, so one slip anywhere poisons the answer. This is exactly where a small model asked all at once falls apart: measured over 33 problems this deep, it got 0 of them right.",
+   "how": "Through the graph: one arithmetic move per call. Each step is handed only the numbers it asked for \u2014 never the story, never the other steps \u2014 and the graph carries the values between them.",
+   "alone": {
+    "calls": [
+     {
+      "system": "You are a helpful assistant. Answer with just the final number.",
+      "user": "A bakery sells 34 loaves on Monday. On Tuesday it sells 12 more than Monday. On Wednesday it sells half of Tuesday. On Thursday it sells 8 fewer than Wednesday. Each loaf costs 3 dollars. How many dollars did the bakery take over the four days?",
+      "reply": "\n\n\n336",
+      "ms": 313
+     }
+    ],
+    "answer": "336"
+   },
+   "withg": {
+    "calls": [
+     {
+      "system": "You do ONE arithmetic step. Answer with just the number, nothing else.",
+      "user": "Monday: the bakery sold 34 loaves. How many loaves on Monday?",
+      "reply": "\n\n\n34",
+      "ms": 284
+     },
+     {
+      "system": "You do ONE arithmetic step. Answer with just the number, nothing else.",
+      "user": "Tuesday it sold 12 MORE loaves than Monday. Monday was 34. How many on Tuesday?",
+      "reply": "\n\n\n46",
+      "ms": 299
+     },
+     {
+      "system": "You do ONE arithmetic step. Answer with just the number, nothing else.",
+      "user": "Wednesday it sold HALF of Tuesday. Tuesday was 46. How many on Wednesday?",
+      "reply": "\n\n\n23",
+      "ms": 349
+     },
+     {
+      "system": "You do ONE arithmetic step. Answer with just the number, nothing else.",
+      "user": "Thursday it sold 8 FEWER than Wednesday. Wednesday was 23. How many on Thursday?",
+      "reply": "\n\n\n15",
+      "ms": 295
+     },
+     {
+      "system": "You do ONE arithmetic step. Answer with just the number, nothing else.",
+      "user": "Add these four numbers: 34, 46, 23, 15. What is the total?",
+      "reply": "\n\n\n118",
+      "ms": 302
+     },
+     {
+      "system": "You do ONE arithmetic step. Answer with just the number, nothing else.",
+      "user": "Each loaf costs 3 dollars and 118 loaves were sold. How many dollars in total?",
+      "reply": "\n\n\n354",
+      "ms": 299
+     }
+    ],
+    "answer": "354"
+   },
+   "aloneRight": false,
+   "withRight": true,
+   "lesson": "This is the flagship claim, on one legible instance: asked all at once it slipped\nsomewhere in the chain and answered 336. Cut into six one-move steps \u2014 each one handed\nonly the numbers it asked for \u2014 the same model got 354, exactly right.\nMeasured over 33 problems this deep, the same model asked all at once got 0 of them right."
+  }
+ ]
+}

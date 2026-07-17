@@ -29,7 +29,7 @@ function loadDemos() {
 	return win.SG_DEMOS;
 }
 
-test('docs/demos.js exists and covers the three groups the page renders', () => {
+test('docs/demos.js exists and covers the groups the page renders', () => {
 	assert.ok(fs.existsSync(DEMOS), 'docs/demos.js missing — run: node scripts/build-site-demos.js');
 	const groups = loadDemos();
 	assert.equal(groups.length, 3, 'the page renders three tab rows');
@@ -57,7 +57,7 @@ test('the demos speak PLAIN LANGUAGE — no internal names, no JSON dumps shown 
 	// JSON belong in the CODE (with the comments around them), never in what a visitor is shown.
 	const JARGON = /\b(NeedsAction|isThought|answerClass|scoreBand|critiqueVerdict|conceptSets|_etty|Ledger::|isDecision|isInquiry|readsExtra|frameStatus|cast\()/;
 	for ( const g of loadDemos() ) for ( const it of g.items ) {
-		if ( it.id === 'integrated' ) continue;               // the film is a technical transcript by design
+		if ( it.id === 'integrated' || it.id === 'head-to-head' ) continue;   // recorded transcripts: real model output, shown verbatim
 		const m = it.out.match(JARGON);
 		assert.equal(m, null, '"' + it.id + '" shows the internal name "' + (m && m[0]) + '" to a visitor — say it in plain words');
 		assert.ok(!/^\s*\S+\s*→\s*\{"/m.test(it.out), '"' + it.id + '" dumps raw JSON at a visitor — narrate it instead');
