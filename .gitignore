@@ -44,3 +44,5 @@ node_modules
 # the R&D trail moved to the multi-project root: ../WIP (2026-07-07 reorg)
 /docs/WIP/
 # the two experiment-lock tests now live HERE (tracked) and import ../WIP harnesses
+# run artifact: the integrated demo writes its auto-resume checkpoint here on every run
+/examples/integrated-demo/demo-checkpoint.json
