@@ -18,7 +18,7 @@ const BOOTSTRAPS = [
 	'c1-appliance', 'c2-durable', 'c3-learning-library', 'c4-reactive-kg', 'c5-self-mod', 'c6-proxy',
 	'c7-plan-loop', 'c8-mixture-serve', 'c9-critical-mind',
 	'forge-stock', 'f3-task-memory', 'f7-substrate',
-	'openai-client', 'mcp-tools'
+	'openai-client', 'mcp-tools', 'zoom-tool'
 ];
 
 const run = ( file ) => new Promise(( res ) => {
