@@ -11,7 +11,8 @@
  * hand and quietly left stale. Edit CARD below, re-run, commit the png.
  *
  * Deliberately system-font-only (no webfont fetch): the renderer must work offline and produce the same
- * bytes on any machine. Palette = docs/index.html's tokens, dark-only.
+ * bytes on any machine. Palette + sans stack = docs/index.html's tokens, dark-only (no serif: the page
+ * dropped it in the 07-17 legibility pass, and the card must not drift from the page).
  */
 const path = require('path');
 const puppeteer = require('puppeteer');
@@ -23,13 +24,13 @@ const CARD = /* html */ `
   *{margin:0; padding:0; box-sizing:border-box}
   :root{
     --bg:#0a0d0e; --panel-2:#0c1113; --edge:rgba(120,205,192,.14);
-    --ink:#e9ede9; --dim:#8b978f; --signal:#37d7c2; --signal-2:#1e8d81; --amber:#e7b24e; --ok:#6fe08c;
+    --ink:#eef2ee; --dim:#a8b4ac; --signal:#37d7c2; --signal-2:#28a596; --amber:#e7b24e; --ok:#6fe08c;
     --mono:ui-monospace,'DejaVu Sans Mono','Liberation Mono',Menlo,monospace;
-    --serif:Georgia,'Times New Roman',serif;
+    --sans:'Inter','DejaVu Sans','Liberation Sans',Helvetica,Arial,sans-serif;
   }
   body{
     width:1200px; height:630px; background:var(--bg); color:var(--ink);
-    font-family:var(--serif); position:relative; overflow:hidden;
+    font-family:var(--sans); position:relative; overflow:hidden;
     display:flex; flex-direction:column; justify-content:center; padding:0 76px;
   }
   /* the faint grid + a signal glow, echoing the site */
@@ -42,8 +43,8 @@ const CARD = /* html */ `
   .in{position:relative; z-index:1}
   .tag{font-family:var(--mono); font-size:19px; letter-spacing:.24em; text-transform:uppercase;
     color:var(--signal-2); margin-bottom:22px}
-  h1{font-size:67px; line-height:1.06; font-weight:400; letter-spacing:-.02em; margin-bottom:22px}
-  h1 b{font-weight:500; color:var(--signal)}
+  h1{font-size:64px; line-height:1.07; font-weight:600; letter-spacing:-.02em; margin-bottom:22px}
+  h1 b{font-weight:700; color:var(--signal)}
   p{font-size:26px; line-height:1.42; color:var(--dim); max-width:34ch; margin-bottom:36px}
   .stats{display:flex; gap:12px}
   .s{font-family:var(--mono); font-size:17.5px; border:1px solid var(--edge); background:var(--panel-2);

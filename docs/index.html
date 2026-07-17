@@ -26,36 +26,50 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ── tokens ───────────────────────────────────────────────────────────────────────────────────────
    DARK ONLY (owner, 2026-07-17). The old `prefers-color-scheme:light` palette is gone: this page is a
    terminal transcript with a signal/amber/refuse colour code, and it reads as itself in the dark.
-   `color-scheme:dark` also makes scrollbars + form controls follow, whatever the OS says. */
+   `color-scheme:dark` also makes scrollbars + form controls follow, whatever the OS says.
+
+   LEGIBILITY PASS (owner, 2026-07-17): "text is hard to read; dark gray on dark background; serif
+   fonts; size a little too small." All three were real, and two were measurable:
+     · --faint was #5b655e = 3.22:1 on the background — it FAILED WCAG AA (4.5:1) while being used for
+       actual prose (the footer, the terminal labels, the demo caption). Now 5.30:1.
+     · --dim (the main body colour) was 6.43:1 — passing, but thin. Now 9.09:1.
+     · the body was a light SERIF at 18px, which reads washed on a dark ground. Body is now Inter;
+       the serif is gone entirely. Mono stays for code, the terminal and labels.
+     · sizes up across the board (body 18→19.5, terminal 12.9→14, cards 16.5→17).
+   Every value below is verified — see the contrast table in scripts/check-contrast.js. */
 :root{
   color-scheme:dark;
   --bg:#0a0d0e; --panel:#0f1518; --panel-2:#0c1113; --panel-3:#090e10;
-  --edge:rgba(120,205,192,.10); --edge-2:rgba(120,205,192,.20); --grid:rgba(120,205,192,.045);
-  --ink:#e9ede9; --dim:#8b978f; --faint:#5b655e;
-  --signal:#37d7c2; --signal-2:#1e8d81; --amber:#e7b24e; --ok:#6fe08c; --no:#ef8a5a; --refuse:#f07a3f;
+  --edge:rgba(120,205,192,.12); --edge-2:rgba(120,205,192,.22); --grid:rgba(120,205,192,.045);
+  --ink:#eef2ee;                /* 17.0:1 — headings, emphasis */
+  --dim:#a8b4ac;                /*  9.1:1 — body copy (was 6.4:1) */
+  --faint:#7d8880;              /*  5.3:1 — secondary; PASSES AA now (was 3.2:1, failing) */
+  --signal:#37d7c2;             /* 10.8:1 */
+  --signal-2:#28a596;           /*  6.4:1 — labels (was 4.8:1) */
+  --amber:#e7b24e; --ok:#6fe08c; --no:#ef8a5a; --refuse:#f07a3f;
   --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
-  --serif:'Newsreader',Georgia,serif;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
   --maxw:1120px;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth; font-family:var(--sans)}
 body{
-  margin:0; background:var(--bg); color:var(--ink); font-family:var(--serif); font-size:18px; line-height:1.6;
-  -webkit-font-smoothing:antialiased;
+  margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans); font-size:19.5px; line-height:1.65;
+  -webkit-font-smoothing:antialiased; letter-spacing:-.002em;
   background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
   background-size:52px 52px;
 }
 .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
 section{padding:60px 0; border-top:1px solid var(--edge); position:relative}
-.sec-tag{font-family:var(--mono); font-size:12.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--signal-2); margin-bottom:12px}
-h2{font-size:34px; line-height:1.15; font-weight:400; letter-spacing:-.02em; margin:0 0 14px}
-h3{font-size:19px; margin:8px 0; font-weight:500}
-.lede{font-size:19px; color:var(--dim); max-width:70ch; margin:0 0 30px}
+.sec-tag{font-family:var(--mono); font-size:13px; letter-spacing:.2em; text-transform:uppercase; color:var(--signal-2); margin-bottom:12px}
+h2{font-size:36px; line-height:1.15; font-weight:600; letter-spacing:-.025em; margin:0 0 14px}
+h3{font-size:20px; margin:8px 0; font-weight:600; letter-spacing:-.015em}
+.lede{font-size:20px; color:var(--dim); max-width:68ch; margin:0 0 30px; line-height:1.6}
 a{color:var(--signal)}
 b{font-weight:700}
 
@@ -71,9 +85,9 @@ header.hero::after{content:''; position:absolute; top:-280px; right:-180px; widt
 }
 .wordmark .dash{color:var(--signal-2)}
 .wordmark .graph{color:var(--signal)}
-.tagline{font-size:clamp(22px,2.7vw,32px); line-height:1.25; font-weight:400; margin:0 0 22px; max-width:24ch; letter-spacing:-.01em}
-.hero-lede{font-size:19.5px; color:var(--dim); max-width:62ch; margin:0 0 30px}
-.hero-lede b{color:var(--ink); font-weight:500}
+.tagline{font-size:clamp(23px,2.8vw,33px); line-height:1.25; font-weight:500; margin:0 0 22px; max-width:26ch; letter-spacing:-.02em; color:var(--ink)}
+.hero-lede{font-size:20.5px; color:var(--dim); max-width:64ch; margin:0 0 30px; line-height:1.62}
+.hero-lede b{color:var(--ink); font-weight:600}
 .badges{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:26px}
 .badge{font-family:var(--mono); font-size:12px; letter-spacing:.08em; color:var(--dim); border:1px solid var(--edge); border-radius:999px; padding:4px 11px; background:var(--panel-2); text-decoration:none}
 .badge b{color:var(--ink)}
@@ -87,8 +101,8 @@ header.hero::after{content:''; position:absolute; top:-280px; right:-180px; widt
 
 /* ── code: it WRAPS. (it used to run off the side of the box.) ────────────────────────────────── */
 .codeblock{
-  font-family:var(--mono); font-size:13.5px; line-height:1.75; background:var(--panel-3);
-  border:1px solid var(--edge); border-radius:11px; padding:16px 18px; color:var(--ink);
+  font-family:var(--mono); font-size:14.5px; line-height:1.8; background:var(--panel-3);
+  border:1px solid var(--edge); border-radius:11px; padding:18px 20px; color:var(--ink);
   white-space:pre-wrap; word-break:break-word; overflow-wrap:anywhere;   /* ← wraps, never a side-scroll */
 }
 .codeblock .cm{color:var(--faint)}
@@ -100,30 +114,31 @@ header.hero::after{content:''; position:absolute; top:-280px; right:-180px; widt
 .tabgroups{border-bottom:1px solid var(--edge); background:var(--panel-3)}
 .tabrow{display:flex; align-items:center; gap:8px; padding:9px 12px; flex-wrap:wrap}
 .tabrow + .tabrow{border-top:1px dashed var(--edge)}
-.tabrow-label{font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--faint); white-space:nowrap; padding-right:4px}
+.tabrow-label{font-family:var(--mono); font-size:11.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--signal-2); white-space:nowrap; padding-right:4px}
 .tab{
-  font-family:var(--mono); font-size:12.5px; padding:6px 11px; border-radius:7px; cursor:pointer;
+  font-family:var(--mono); font-size:13.5px; padding:7px 12px; border-radius:7px; cursor:pointer;
   border:1px solid transparent; background:transparent; color:var(--dim); white-space:nowrap;
   transition:background .14s, color .14s, border-color .14s;
 }
 .tab:hover{color:var(--ink); background:rgba(120,205,192,.06)}
 .tab[aria-selected="true"]{background:rgba(55,215,194,.13); color:var(--signal); border-color:var(--edge-2)}
 .tab:focus-visible{outline:2px solid var(--signal); outline-offset:2px}
-.demo-head{padding:20px 22px 0}
-.demo-head h3{font-size:21px; margin:0 0 6px; font-weight:500}
-.demo-head p{margin:0 0 14px; color:var(--dim); font-size:16.5px; max-width:78ch}
+.demo-head{padding:22px 24px 0}
+.demo-head h3{font-size:23px; margin:0 0 8px; font-weight:600; letter-spacing:-.02em}
+.demo-head p{margin:0 0 16px; color:var(--dim); font-size:17.5px; max-width:76ch; line-height:1.6}
 .demo-cmd{
-  font-family:var(--mono); font-size:12.5px; color:var(--dim); background:var(--panel-3);
-  border:1px solid var(--edge); border-radius:8px; padding:8px 12px; display:inline-block; margin-bottom:2px;
+  font-family:var(--mono); font-size:13.5px; color:var(--dim); background:var(--panel-3);
+  border:1px solid var(--edge); border-radius:8px; padding:9px 13px; display:inline-block; margin-bottom:2px;
   white-space:pre-wrap; word-break:break-all;
 }
 .demo-cmd .p{color:var(--signal-2)}
 .demo-cmd b{color:var(--ink); font-weight:500}
+/* THE most-read text on the page: the captured runs. Bigger and lighter than everything else. */
 .term{
-  margin:14px 0 0; padding:18px 22px 22px; background:var(--panel-3); border-top:1px solid var(--edge);
-  font-family:var(--mono); font-size:12.9px; line-height:1.72; color:var(--dim);
+  margin:14px 0 0; padding:20px 24px 24px; background:var(--panel-3); border-top:1px solid var(--edge);
+  font-family:var(--mono); font-size:14px; line-height:1.78; color:var(--dim);
   white-space:pre-wrap; word-break:break-word; overflow-wrap:anywhere;   /* ← wraps too */
-  max-height:520px; overflow-y:auto;
+  max-height:560px; overflow-y:auto;
 }
 .term .t{color:var(--ink); font-weight:700}                 /* the demo's own headline */
 .term .rule{color:var(--faint)}
@@ -134,41 +149,57 @@ header.hero::after{content:''; position:absolute; top:-280px; right:-180px; widt
 .term .lbl{color:var(--faint)}
 .term .fin{color:var(--signal); font-weight:700}            /* the closing line */
 .term .act{color:var(--signal); font-weight:700}            /* ACT n · … */
-.demo-foot{display:flex; justify-content:space-between; gap:14px; align-items:center; padding:12px 22px; border-top:1px solid var(--edge); background:var(--panel-2); flex-wrap:wrap}
-.demo-foot span{font-family:var(--mono); font-size:11.5px; color:var(--faint); letter-spacing:.04em}
-.demo-foot a{font-family:var(--mono); font-size:11.5px; text-decoration:none}
+.demo-foot{display:flex; justify-content:space-between; gap:14px; align-items:center; padding:13px 24px; border-top:1px solid var(--edge); background:var(--panel-2); flex-wrap:wrap}
+.demo-foot span{font-family:var(--mono); font-size:12.5px; color:var(--faint); letter-spacing:.04em}
+.demo-foot a{font-family:var(--mono); font-size:12.5px; text-decoration:none}
 
 /* ── cards / grids ────────────────────────────────────────────────────────────────────────────── */
 .grid4{display:grid; grid-template-columns:repeat(2,1fr); gap:16px}
 .card{border:1px solid var(--edge); border-radius:12px; padding:22px; background:var(--panel-2); position:relative; transition:transform .16s, border-color .16s}
 .card:hover{transform:translateY(-3px); border-color:var(--signal-2)}
-.card .k{font-family:var(--mono); font-size:12px; color:var(--signal-2); letter-spacing:.14em}
-.card p{margin:0 0 14px; font-size:16.5px; color:var(--dim)}
-.card .stat{font-family:var(--mono); font-size:12.5px; color:var(--dim); border-top:1px solid var(--edge); padding-top:12px}
+.card .k{font-family:var(--mono); font-size:12.5px; color:var(--signal-2); letter-spacing:.14em}
+.card p{margin:0 0 14px; font-size:17px; color:var(--dim); line-height:1.58}
+.card .stat{font-family:var(--mono); font-size:13.5px; color:var(--dim); border-top:1px solid var(--edge); padding-top:12px; line-height:1.65}
 .card .stat b{color:var(--signal)}
 #docs .grid4{grid-template-columns:repeat(4,1fr)}
 .doc-card{text-decoration:none; color:inherit; display:block}
-.doc-card h3{font-family:var(--mono); font-size:16px; color:var(--ink); letter-spacing:-.01em}
-.doc-card p{font-size:14.5px; margin-bottom:0; line-height:1.55}
-.doc-card .sg{color:var(--signal-2); font-family:var(--mono); font-size:13px}
+.doc-card h3{font-family:var(--mono); font-size:16.5px; color:var(--ink); letter-spacing:-.01em}
+.doc-card p{font-size:15.5px; margin-bottom:0; line-height:1.58}
+.doc-card .sg{color:var(--signal-2); font-family:var(--mono); font-size:14px}
 .doc-card:hover{border-color:var(--signal)} .doc-card:hover h3{color:var(--signal)}
 .doc-card:focus-visible{outline:2px solid var(--signal); outline-offset:3px}
 
-/* ── numbers ──────────────────────────────────────────────────────────────────────────────────── */
+/* ── numbers ──────────────────────────────────────────────────────────────────────────────────────
+   A bar chart with no units is a decoration. Every row here says what was counted, out of how many,
+   and which direction is good — because "0 / 33" tells a reader nothing on its own. */
+.up{color:var(--signal)}
+.legend{display:grid; gap:10px; margin:0 0 30px; padding:18px 20px; border:1px solid var(--edge); border-left:2px solid var(--signal-2); border-radius:10px; background:var(--panel-2)}
+.legend span{font-size:16.5px; color:var(--dim); line-height:1.55}
+.legend b{color:var(--ink); font-weight:600}
+.legend i{color:var(--signal); font-style:normal; font-family:var(--mono); font-size:14.5px}
+.bars-title{font-family:var(--mono); font-size:13.5px; letter-spacing:.06em; color:var(--ink); margin:0 0 14px; font-weight:500}
 .bars{display:grid; gap:11px}
-.metric{display:grid; grid-template-columns:minmax(190px,2fr) 3fr minmax(120px,auto); gap:14px; align-items:center}
-.metric .lab{font-family:var(--mono); font-size:12.5px; color:var(--dim)}
-.metric .track{height:9px; background:var(--panel-3); border:1px solid var(--edge); border-radius:99px; position:relative; overflow:hidden}
+.bars-note{font-size:16px; color:var(--faint); max-width:74ch; margin:14px 0 34px; line-height:1.55}
+.bars-note b{color:var(--dim)} .bars-note s{color:var(--faint)}
+.bars-note.limit{border-top:1px solid var(--edge); padding-top:16px; margin-bottom:0}
+.bars-note.limit b{color:var(--amber)}
+.metric{display:grid; grid-template-columns:minmax(230px,2fr) 3fr minmax(168px,auto); gap:14px; align-items:center}
+.metric .lab{font-family:var(--mono); font-size:13.5px; color:var(--dim)}
+.metric .track{height:12px; background:var(--panel-3); border:1px solid var(--edge); border-radius:99px; position:relative; overflow:hidden}
 .metric .after{position:absolute; inset:0 auto 0 0; background:linear-gradient(90deg,var(--signal-2),var(--signal)); border-radius:99px}
-.metric .val{font-family:var(--mono); font-size:12.5px; color:var(--dim); text-align:right}
-.metric .val b{color:var(--ink)}
+/* where it started, before this — so the bar shows the MOVE, not just the endpoint. It sits INSIDE the
+   teal fill, so it has to be a dark notch to read at all (a faint grey one vanished). */
+.metric .before-tick{position:absolute; top:-1px; bottom:-1px; width:3px; background:var(--bg); opacity:.85; border-radius:1px}
+.metric .val{font-family:var(--mono); font-size:13.5px; color:var(--dim); text-align:right}
+.metric .val b{color:var(--ink); font-size:15px}
 .metric .val s{color:var(--faint)}
+.metric .val .of{color:var(--faint)}
 
 /* ── table ────────────────────────────────────────────────────────────────────────────────────── */
 .tblwrap{overflow-x:auto; border:1px solid var(--edge); border-radius:12px}
-table.cmp{border-collapse:collapse; width:100%; min-width:720px; font-size:15px}
-table.cmp th,table.cmp td{padding:13px 15px; text-align:left; vertical-align:top; border-bottom:1px solid var(--edge)}
-table.cmp th{font-family:var(--mono); font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--signal-2); background:var(--panel-3)}
+table.cmp{border-collapse:collapse; width:100%; min-width:760px; font-size:16px; line-height:1.55}
+table.cmp th,table.cmp td{padding:14px 16px; text-align:left; vertical-align:top; border-bottom:1px solid var(--edge)}
+table.cmp th{font-family:var(--mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--signal-2); background:var(--panel-3)}
 table.cmp tr:last-child td{border-bottom:none}
 table.cmp td.inst{color:var(--ink)} table.cmp td.a{color:var(--faint)} table.cmp td.b{color:var(--dim)} table.cmp td.c{color:var(--faint); font-style:italic}
 table.cmp td.b b{color:var(--signal)}
@@ -176,11 +207,11 @@ table.cmp td.b b{color:var(--signal)}
 /* ── footer ───────────────────────────────────────────────────────────────────────────────────── */
 footer{border-top:1px solid var(--edge); padding:44px 0 60px}
 .flinks{display:flex; gap:20px; flex-wrap:wrap; margin-bottom:16px}
-.flinks a{font-family:var(--mono); font-size:13px; text-decoration:none; color:var(--dim)}
+.flinks a{font-family:var(--mono); font-size:13.5px; text-decoration:none; color:var(--dim)}
 .flinks a:hover{color:var(--signal)}
-.foot-note{color:var(--faint); font-size:15.5px; max-width:74ch; margin:0 0 14px}
+.foot-note{color:var(--faint); font-size:16.5px; max-width:74ch; margin:0 0 14px; line-height:1.6}
 .foot-note .sg{color:var(--signal)}
-.rule-tag{font-family:var(--mono); font-size:11.5px; color:var(--signal-2); border:1px solid var(--edge); border-radius:999px; padding:5px 12px; display:inline-block}
+.rule-tag{font-family:var(--mono); font-size:12.5px; color:var(--signal-2); border:1px solid var(--edge); border-radius:999px; padding:6px 13px; display:inline-block}
 
 @media (max-width:900px){
   #docs .grid4{grid-template-columns:repeat(2,1fr)}
@@ -188,12 +219,13 @@ footer{border-top:1px solid var(--edge); padding:44px 0 60px}
   .metric .val{text-align:left}
 }
 @media (max-width:680px){
-  body{font-size:17px}
+  body{font-size:18px}
   .grid4,#docs .grid4{grid-template-columns:1fr}
   header.hero{padding:52px 0 34px}
-  .term{font-size:12px; padding:14px 14px 18px}
-  .demo-head{padding:16px 14px 0}
+  .term{font-size:13px; padding:16px 14px 18px}   /* still comfortably readable on a phone */
+  .demo-head{padding:18px 16px 0}
   .tabrow{padding:8px 10px}
+  h2{font-size:29px}
 }
 </style>
 </head>
@@ -286,22 +318,44 @@ footer{border-top:1px solid var(--edge); padding:44px 0 60px}
   <div class="wrap">
     <div class="sec-tag">The numbers, plain</div>
     <h2>Where the lone model collapses, the pieces hold</h2>
-    <p class="lede">Deep tasks — the ones needing many steps — are exactly where feeding everything to the
-      model at once floors, and where bounded, typed pieces keep working.</p>
+    <p class="lede">How to read this: we take questions that <b>have a known right answer</b>, ask the same
+      9.5 GB model the same question two ways, and count how many it gets right.
+      <b class="up">Higher is better — every bar is "how often it was right".</b></p>
+
+    <div class="legend">
+      <span><b>The two question sets.</b> <i>Maths word problems</i> — the school-style "if a train leaves
+      at…" kind (the public GSM8K set). <i>Financial questions</i> — real questions about real annual
+      reports, with tables (the public FinQA set).</span>
+      <span><b>"Deep" means many steps.</b> A question you cannot answer in one move — it needs six or more
+      little calculations, each feeding the next. That is where a small model falls apart.</span>
+      <span><b>The two ways of asking.</b> <i>All at once</i> — hand the model the whole thing and ask
+      (what everyone does). <i>Piece by piece</i> — cut it into steps, and show each step only what it needs.</span>
+    </div>
+
+    <h3 class="bars-title">The hard ones: questions needing 6+ steps</h3>
     <div class="bars">
-      <div class="metric"><span class="lab">GSM8K · deep · everything at once</span><div class="track"></div><span class="val"><b>0 / 33</b></span></div>
-      <div class="metric"><span class="lab">GSM8K · deep · piece-by-piece</span><div class="track"><span class="after" style="width:30%"></span></div><span class="val"><b>10 / 33</b></span></div>
-      <div class="metric"><span class="lab">FinQA · deep · everything at once</span><div class="track"><span class="after" style="width:16%"></span></div><span class="val"><b>8 / 50</b></span></div>
-      <div class="metric"><span class="lab">FinQA · deep · piece-by-piece</span><div class="track"><span class="after" style="width:44%"></span></div><span class="val"><b>22 / 50</b></span></div>
+      <div class="metric"><span class="lab">Maths · asked all at once</span><div class="track"></div><span class="val"><b>0</b> right <span class="of">out of 33</span></span></div>
+      <div class="metric"><span class="lab">Maths · asked piece by piece</span><div class="track"><span class="after" style="width:30.3%"></span></div><span class="val"><b>10</b> right <span class="of">out of 33</span></span></div>
+      <div class="metric"><span class="lab">Financial · asked all at once</span><div class="track"><span class="after" style="width:16%"></span></div><span class="val"><b>8</b> right <span class="of">out of 50</span></span></div>
+      <div class="metric"><span class="lab">Financial · asked piece by piece</span><div class="track"><span class="after" style="width:44%"></span></div><span class="val"><b>22</b> right <span class="of">out of 50</span></span></div>
     </div>
-    <div style="height:30px"></div>
-    <h2 style="font-size:22px">Lift at scale, and certified steering</h2>
-    <div class="bars" style="margin-top:18px">
-      <div class="metric"><span class="lab">Piece-by-piece · GSM8K · N=200</span><div class="track"><span class="after" style="width:52%"></span></div><span class="val"><s>16</s> → <b>52 %</b></span></div>
-      <div class="metric"><span class="lab">Piece-by-piece · FinQA · N=200</span><div class="track"><span class="after" style="width:50%"></span></div><span class="val"><s>20</s> → <b>50 %</b></span></div>
-      <div class="metric"><span class="lab">Steering · SQL (Spider, N=201)</span><div class="track"><span class="after" style="width:63%"></span></div><span class="val"><s>8</s> → <b>63 %</b></span></div>
-      <div class="metric"><span class="lab">Steering · finance (FinQA, N=120)</span><div class="track"><span class="after" style="width:62%"></span></div><span class="val"><s>7</s> → <b>62 %</b></span></div>
+    <p class="bars-note">Read the first row again: asked the usual way, this model got <b>none</b> of the 33
+      hard maths questions right. Not "fewer" — zero. Cutting the same questions into steps got 10 of them.</p>
+
+    <h3 class="bars-title">At scale: 200 questions per set, all difficulties mixed</h3>
+    <div class="bars">
+      <div class="metric"><span class="lab">Maths · piece by piece</span><div class="track"><span class="after" style="width:52%"></span><span class="before-tick" style="left:16%"></span></div><span class="val"><s>16 %</s> → <b>52 %</b> <span class="of">right</span></span></div>
+      <div class="metric"><span class="lab">Financial · piece by piece</span><div class="track"><span class="after" style="width:50%"></span><span class="before-tick" style="left:20%"></span></div><span class="val"><s>20 %</s> → <b>50 %</b> <span class="of">right</span></span></div>
+      <div class="metric"><span class="lab">Writing SQL · steered by certified know-how</span><div class="track"><span class="after" style="width:63%"></span><span class="before-tick" style="left:8%"></span></div><span class="val"><s>8 %</s> → <b>63 %</b> <span class="of">right</span></span></div>
+      <div class="metric"><span class="lab">Financial · steered by certified know-how</span><div class="track"><span class="after" style="width:62%"></span><span class="before-tick" style="left:7%"></span></div><span class="val"><s>7 %</s> → <b>62 %</b> <span class="of">right</span></span></div>
     </div>
+    <p class="bars-note"><s>Struck-through</s> = the same model, asked the ordinary way. <b>Bold</b> = the same
+      model, same questions, with this in front of it. The faint mark on each bar is where it started.</p>
+
+    <p class="bars-note limit"><b>The honest limit, since a graph never shows one:</b> this only pays off when
+      the question is <i>too big for the model to hold at once</i>. On easy questions it changes nothing — we
+      measured that too. And the small model is bad at deciding <i>how</i> to cut a task up; something else has
+      to do the cutting.</p>
   </div>
 </section>
 
