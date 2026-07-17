@@ -549,6 +549,16 @@ claude mcp add sg -- node bin/sg mcp --frontier-model <path.gguf> --store ./stoc
 #           `brief.carry.statements` so the same evidence re-gates under the new frame.
 #   INSTANCES — graph_invoke / graph_instances.
 
+# 2b) sg try — one-shot LIVE probe of an MCP tool feature (the SAME tool surface as sg mcp, no
+#     JSON-RPC piping). Human summary → stderr, THE ARTIFACT → stdout (pipe-friendly); --json = full payload.
+sg try critique --model ./models/model.gguf --prompt "Should we migrate to ESM?"
+#     → stderr: frame/verdict/counts/margin + the typed advice · stdout: the judgePrompt — paste it
+#       into YOUR model (the judge is the host). [--statements <file>] one "PRO: ..."/"CON: ..." line
+#       per line (frame MATERIAL) · [--viewpoints "v1 | v2"] (DECLARED) · [--polish]
+sg try sc --model ./models/model.gguf --prompt "17 x 23?" --k 5
+#     → the self-consistency vote (verdict/consensus/votes/abstained). [--threshold N] [--temperature X]
+#       [--max-tokens N]. Backends: --model <gguf>, or env FRONTIER_MODEL / LOCAL_MODEL / LLM_BASE.
+
 # 3) sg flow run — a durable C2 workflow from a JS module (spec + tasks are code):
 sg flow run examples/poc/durable-flow.js --store ./flow.sqlite        # --resume = exactly-once recovery
 ```
