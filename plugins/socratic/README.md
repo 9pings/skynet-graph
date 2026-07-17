@@ -22,4 +22,4 @@ control flow + audit. Seed shape:
 ```
 
 Proven by `tests/unit/socratic.test.js` (0-model structural: tally, counter-gate, bounded follow-up,
-negative controls). See [`doc/plugins.md`](../../doc/plugins.md).
+negative controls). See [`docs/plugins.md`](../../docs/plugins.md).

@@ -34,4 +34,4 @@ The pre-refactor self-consistency test gated acceptance on a **raw float** (`$co
 plugin snaps the score to a discrete band first (`Score::band`) and gates on `$scoreBand == 'high'` — the
 K1-clean form the engine's typed-fact discipline wants. Same intent, a barrier-safe expression.
 
-See [`doc/plugins.md`](../../doc/plugins.md).
+See [`docs/plugins.md`](../../docs/plugins.md).

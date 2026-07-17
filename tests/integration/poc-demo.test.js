@@ -4,7 +4,7 @@
  * narrative composes the tested rungs and runs on the real engine. Guards the COMPOSITION
  * (each rung has its own focused test; this asserts they still wire together).
  *
- * Roadmap: doc/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md (M9-lite cut-line).
+ * Roadmap: docs/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md (M9-lite cut-line).
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');

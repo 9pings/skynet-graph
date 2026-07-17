@@ -394,7 +394,7 @@ inchangée).
 tout caché). ⇒ « pas utilisable à cette durée » vise le baseline LLM-par-épisode, **précisément ce que le chemin
 typé élide** (amortit à 0 appel). À mettre explicitement dans le papier.
 
-Détails + synthèse des 4 agents critiques → `doc/WIP/reviews/2026-07-04-lattice-growth-paper-review.md`.
+Détails + synthèse des 4 agents critiques → `docs/WIP/reviews/2026-07-04-lattice-growth-paper-review.md`.
 Follow-on MoE en cours (gemma-26B-A4B-Q6 : gemma-*famille* à Q6 casse-t-il aussi shapes/V3 ? ; Qwen3.6-35B-A3B :
 l'avantage Qwen tient-il en MoE + bras raisonnement RÉEL).
 

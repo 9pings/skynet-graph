@@ -3,7 +3,7 @@
  * PoC M6 (reusable) — cross-EPISODE nogood learning. Episode 1 (cold) tries every route
  * and learns the dead-ends; episode 2 (warm — the learned store carried in) sound-skips
  * them, doing strictly less expensive work for the IDENTICAL useful fixpoint. Used by the
- * M6 test and the M9 demo. Roadmap: doc/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md.
+ * M6 test and the M9 demo. Roadmap: docs/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md.
  */
 global.__SERVER__ = true;
 const Graph = require('../../lib/graph/index.js');

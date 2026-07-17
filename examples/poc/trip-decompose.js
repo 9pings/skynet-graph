@@ -9,7 +9,7 @@
  * The grammar is domain-agnostic; only the four content functions (eval/expand/answer/
  * rollup) carry the trip. Swap them (or an LLM) and the same grammar runs.
  *
- * Roadmap: doc/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md (M1).
+ * Roadmap: docs/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md (M1).
  *   node examples/poc/trip-decompose.js
  */
 global.__SERVER__ = true;

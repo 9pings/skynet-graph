@@ -3,8 +3,8 @@
 Each sub-directory is a **concept set**: a hand-authored grammar of declarative rules (JSONC) that cast
 typed facts + child segments as the graph stabilizes. They are loaded with
 `Graph.fromDirs({ concepts: './concepts' })` or `Graph.loadConceptMap(dir)`; `conf.conceptSets` selects
-which are active. See [../doc/usage.md](../doc/usage.md) §3 (concept sets) and
-[../doc/doc.md](../doc/doc.md) (the full schema reference).
+which are active. See [../docs/usage.md](../docs/usage.md) §3 (concept sets) and
+[../docs/original-2016-doc.md](../docs/original-2016-doc.md) (the full schema reference).
 
 > These are **examples of hand-authored grammars** — the base, standalone use of the engine (no LLM
 > required). They are *illustrative*, not a recommended ontology (concept-organization strategy is WIP).

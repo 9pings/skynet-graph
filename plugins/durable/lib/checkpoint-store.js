@@ -7,7 +7,7 @@
 'use strict';
 /**
  * checkpoint-store — LAYER A of the durable executor (the conception's "execute" half). A THIN durable
- * substrate behind the `CheckpointStore` interface (study `doc/WIP/studies/2026-06-28-rocinante-convergence.md`
+ * substrate behind the `CheckpointStore` interface (study `docs/WIP/studies/2026-06-28-rocinante-convergence.md`
  * §5). It holds three things and NOTHING domain-specific:
  *
  *   · the durable MARKING   — tokens(runId, recordId, placeId, status, payload, attempts, leaseUntil): each

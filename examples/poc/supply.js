@@ -7,7 +7,7 @@
  * not modularity). A TTL defeasance then re-plans: when the clock passes the ETA, Transport
  * flips shipStatus to 'delayed' and the Fulfillment commitment retracts.
  *
- * Roadmap: doc/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md §3.2.
+ * Roadmap: docs/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md §3.2.
  *   node examples/poc/supply.js
  */
 global.__SERVER__ = true;

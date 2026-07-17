@@ -63,7 +63,7 @@ embedded gguf instead of the stub.
 
 The 13-strategy catalog as **deposited concept sets on one kernel** (Tier-0 = pure grammar, zero JS). The
 host writes facts, the graph decides, the host reads the gates — there is no strategy API to call.
-See **[strategies/README.md](strategies/README.md)** for the table, and **[../doc/strategies.md](../doc/strategies.md)**
+See **[strategies/README.md](strategies/README.md)** for the table, and **[../docs/strategies.md](../docs/strategies.md)**
 for the recipes and the honest scope (only the debate, C9, is LLM-measured).
 
 `self-consistency` · `refinement` · `reflexion` · `socratic` · `least-to-most` · `analogical` · `react` ·
@@ -109,8 +109,8 @@ capabilities (Debate = `c9-critical-mind.js`, Decomposition = `c7-plan-loop.js`)
 
 ## More
 
-Library + CLI guide: **[../doc/usage.md](../doc/usage.md)** · Reasoning strategies:
-**[../doc/strategies.md](../doc/strategies.md)** · Architecture + honest limits:
-**[../doc/architecture.md](../doc/architecture.md)** · Public API: **[../doc/API.md](../doc/API.md)** ·
-Plugin contract: **[../doc/plugins.md](../doc/plugins.md)**. The standalone CLI:
+Library + CLI guide: **[../docs/usage.md](../docs/usage.md)** · Reasoning strategies:
+**[../docs/strategies.md](../docs/strategies.md)** · Architecture + honest limits:
+**[../docs/architecture.md](../docs/architecture.md)** · Public API: **[../docs/API.md](../docs/API.md)** ·
+Plugin contract: **[../docs/plugins.md](../docs/plugins.md)**. The standalone CLI:
 `node ../bin/sg run --concepts ../concepts --builtins`.

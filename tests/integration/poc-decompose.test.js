@@ -5,7 +5,7 @@
  * Claim / Verification / Trusted defeasance chain. This proves the authored grammar
  * RUNS on the engine, a step beyond M0 (which only proved it validates).
  *
- * Roadmap: doc/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md (M1).
+ * Roadmap: docs/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md (M1).
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');

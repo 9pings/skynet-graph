@@ -18,7 +18,7 @@
 'use strict';
 /**
  * The SUPPORT GRAMMAR (host-side authoring brick) — the support-grammar study made runnable
- * (doc/WIP/studies/2026-06-25-grammaire-de-support-resolution-probleme.md). It composes two
+ * (docs/WIP/studies/2026-06-25-grammaire-de-support-resolution-probleme.md). It composes two
  * already-shipped pieces so a SMALL model only has to be locally competent on a bounded segment
  * while the GRAPH holds the structure and runs the search:
  *

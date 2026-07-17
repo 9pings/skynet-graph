@@ -7,7 +7,7 @@
  * the second episode" of the PoC cut-line — distinct from nogood-policy's within-run 24->12
  * (it shows the learning PERSISTS and pays across episodes). Setup in examples/poc/learn-nogood.js.
  *
- * Roadmap: doc/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md (M6).
+ * Roadmap: docs/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md (M6).
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');

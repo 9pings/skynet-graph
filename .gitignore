@@ -36,9 +36,11 @@ node_modules
 # local inference: GGUF model files (never committed; see scripts/setup-local-inference.sh)
 /models/
 *.gguf
-/docs/
 /.claude/
+# NOTE: `/docs/` was ignored here until 2026-07-17 — which silently made GitHub Pages
+# (source: main → /docs) IMPOSSIBLE: the site could never be committed, so the published
+# URL 404'd. docs/ is the Pages root AND the doc tree; it is TRACKED on purpose.
 # R&D working trail + offline papers — kept local, not published
 # the R&D trail moved to the multi-project root: ../WIP (2026-07-07 reorg)
-/doc/WIP/
+/docs/WIP/
 # the two experiment-lock tests now live HERE (tracked) and import ../WIP harnesses

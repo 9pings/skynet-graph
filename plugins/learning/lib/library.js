@@ -7,7 +7,7 @@
 'use strict';
 /**
  * library — the method-library INDEX + dispatch: the JUNCTURE of the two grammars (host-side, ZERO-CORE; study
- * doc/WIP/studies/2026-06-30-creative-loop-two-level-grammar.md).
+ * docs/WIP/studies/2026-06-30-creative-loop-two-level-grammar.md).
  *
  * The STRUCTURING grammar describes an abstract mechanism as a target FrontierSignature (params `role:sort` + the
  * signature keys); the CONCEPT-DLL grammar is the learned library of crystallized methods. Dispatch = an **O(1)

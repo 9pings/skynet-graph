@@ -21,4 +21,4 @@ const { best, root, children } = await mcts.run('the seed state');   // best = m
 ```
 
 Proven by `tests/unit/mcts.test.js` (0-model scripted: convergence on the winning move, the live
-frontier gate, terminal handling, replay determinism). See [`doc/plugins.md`](../../doc/plugins.md).
+frontier gate, terminal handling, replay determinism). See [`docs/plugins.md`](../../docs/plugins.md).

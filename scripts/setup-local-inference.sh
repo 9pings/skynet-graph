@@ -2,7 +2,7 @@
 # ─────────────────────────────────────────────────────────────────────────────
 # setup-local-inference.sh — install the OPTIONAL in-process inference engine so
 # the library can run its small functional model(s) itself (a self-contained
-# reasoning appliance; see doc/usage.md "Embedded inference"). NOTHING here is
+# reasoning appliance; see docs/usage.md "Embedded inference"). NOTHING here is
 # committed: node-llama-cpp's native build lands in the gitignored node_modules,
 # and GGUF models live in the gitignored models/ dir. Run this only if you want
 # local models — the base library never needs it.

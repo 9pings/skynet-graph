@@ -4,7 +4,7 @@
 > for the two uses). The engine is stable and tested; the *concept-organization strategy* is open research (see
 > [§8](#8-status--whats-rd)). The high-level target system built on this substrate (Use 2 — concept-graphs as
 > composable methods, the durable executor, the contract) is **[concept-as-graph.md](concept-as-graph.md)**. The
-> authoritative model + roadmap is [MODELISATION.md](MODELISATION.md); the concept schema is [doc.md](doc.md); the
+> authoritative model + roadmap is [MODELISATION.md](MODELISATION.md); the concept schema is [original-2016-doc.md](original-2016-doc.md); the
 > public API is [API.md](API.md).
 
 ## 1. The substrate in one paragraph

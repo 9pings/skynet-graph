@@ -4,7 +4,7 @@
  *
  * P2-mesure (roadmap Phase 2) — the SHIPPED combo `Graph.factories.createLearningLibrary` is a COST-IDENTICAL
  * drop-in for the DLL-E2 paper's hand-coded STRUCT arm, on the real engine's productized API. This is the
- * deterministic regression that locks the measured finding (the GPU run lives in doc/WIP; the numbers there
+ * deterministic regression that locks the measured finding (the GPU run lives in docs/WIP; the numbers there
  * match these). It reuses the DEPOSITED paper harness (artifact/paper-dll/*, frozen) unchanged and adds ONE
  * arm — STRUCT-COMBO — built from the shipped combo, then asserts, HONESTLY SCOPED (confront 2026-07-05):
  *

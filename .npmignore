@@ -17,10 +17,10 @@
 /.nyc_output
 
 # doc: ship only the top-level *.md (via "files"); drop the heavy subdirs/images
-/doc/*/
-/doc/**/*.png
-/doc/**/*.pdf
-/doc/**/*.gif
+/docs/*/
+/docs/**/*.png
+/docs/**/*.pdf
+/docs/**/*.gif
 
 # dev / local
 node_modules/

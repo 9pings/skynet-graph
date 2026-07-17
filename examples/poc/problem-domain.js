@@ -9,7 +9,7 @@
  * FLAGSHIP — a TYPED-DOMAIN concept corpus that GROUNDS the problem-paths search. The generic grammar
  * (Plan→Select→Resolve→Reselect→Summarize, with the `reached` adjacency spine + backtracking) is
  * domain-agnostic SEARCH; a domain corpus supplies the STRUCTURE so a small local model only fills
- * genuine gaps. Faithful to `doc/WIP/orientations-corpus-concepts.md` (the R2 guard: rules ORCHESTRATE /
+ * genuine gaps. Faithful to `docs/WIP/orientations-corpus-concepts.md` (the R2 guard: rules ORCHESTRATE /
  * the LLM JUDGES) and the canonicalization barrier (states are typed by a discrete `kind` ENUM, never
  * prose): each move is keyed on `originNode:kind → targetNode:kind`.
  *

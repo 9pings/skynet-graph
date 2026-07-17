@@ -18,7 +18,7 @@
 'use strict';
 /**
  * debug-provider.js — a STRUCTURAL debugging provider for the distillation kill-gate (B-thin;
- * `doc/WIP/specs/2026-06-30-distill-killgate-construct-method-design.md`).
+ * `docs/WIP/specs/2026-06-30-distill-killgate-construct-method-design.md`).
  *
  * It snaps a bug to typed facts (the canonicalization barrier, `canonicalize.canonFacts`) and emits a
  * MULTI-OBJECT decomposition sub-graph `Bug → Hypothesis → Localize → Fix(target)` whose typed content

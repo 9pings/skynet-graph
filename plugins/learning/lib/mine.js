@@ -18,7 +18,7 @@
 'use strict';
 /**
  * mine — sub-forest mining for crystallization (host-side, ZERO-CORE; study
- * doc/WIP/studies/2026-06-26-…, the #13 loop core).
+ * docs/WIP/studies/2026-06-26-…, the #13 loop core).
  *
  * Inventing a nonterminal for a recurring sub-derivation = SUBDUE/SEQUITUR on the engine's
  * derivation forest. `mineChains` reads a corpus of apply-records (the `onConceptApply`

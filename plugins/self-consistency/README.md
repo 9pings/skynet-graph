@@ -33,7 +33,7 @@ win the plurality. (With a thinking model, budget the tokens so the hidden reaso
 whole reply — otherwise paths abstain silently.)
 
 The verdict is mechanical only at margin ≥ threshold — below the bound the honest output is `UNDECIDED`.
-See [`doc/plugins.md`](../../doc/plugins.md). A runnable live demonstrator (k real 2-bit paths → snap → this
+See [`docs/plugins.md`](../../docs/plugins.md). A runnable live demonstrator (k real 2-bit paths → snap → this
 plugin decides) lives in the R&D trail; the plugin's own logic is GPU-free and proven by
 `tests/unit/self-consistency.test.js`.
 

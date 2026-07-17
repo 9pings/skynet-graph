@@ -33,5 +33,5 @@ host's injected content functions), so there is no static `providers.js` — the
 and `Support`. `AI` is NOT claimed: it is an ambient lib namespace shared by two alternative provider
 families (`makeDecomposeProviders` here, `createReasonLoop` driving `concepts/_substrate`).
 
-See [`doc/plugins.md`](../../doc/plugins.md) and the decomposition map
+See [`docs/plugins.md`](../../docs/plugins.md) and the decomposition map
 `WIP/2026-07-16-authoring-decomposition-map.md`.

@@ -16,4 +16,4 @@ The host facade consumes it lazily: `Graph.durable` (the full namespace) and
 No concept sets and no static providers (Tier-1 JS machinery). MEASURE GATE (2026-06-29): STRUCT 6 vs
 RAG 24 — the structural checkpoint replays cheaper than a transcript replay.
 
-See [`doc/plugins.md`](../../doc/plugins.md).
+See [`docs/plugins.md`](../../docs/plugins.md).

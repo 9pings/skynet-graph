@@ -1,7 +1,7 @@
 'use strict';
 /**
  * SIGNATURE-STABILITY backbone (deterministic fence; the gitignored live arm is
- * doc/WIP/experiments/2026-07-01-signature-stability/live.js — real makeLocalAsk on vibethinker-3b).
+ * docs/WIP/experiments/2026-07-01-signature-stability/live.js — real makeLocalAsk on vibethinker-3b).
  *
  * The decisive gate for the composed roadmap's 2-phase minimum (studies/2026-07-01-composed-roadmap.md):
  * everything downstream (dispatch, cache, call-elision, method reuse) keys on the intake `FactsDigest`, so

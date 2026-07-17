@@ -2,7 +2,7 @@
 /**
  * creative-loop on a STREAM — the real-engine adapt-or-forge loop (brick C) driving a real graph over a stream,
  * with the model called only on a method MISS (study 2026-06-30-creative-loop-two-level-grammar.md). The
- * deterministic backbone of the live measurement (doc/WIP/experiments/2026-06-30-creative-loop-stream/, gitignored).
+ * deterministic backbone of the live measurement (docs/WIP/experiments/2026-06-30-creative-loop-stream/, gitignored).
  *
  * TWO ORTHOGONAL claims, each with a discriminating NEG control. ZERO-CORE.
  *  - CALLS (structure-mapping): a method LEARNED under concept `Refine` is dispatched + mounted under a DIFFERENT

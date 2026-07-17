@@ -14,7 +14,7 @@
  *   settle(g)                            run stabilization to fixpoint — the strategy IS the fixpoint
  *
  * After that there is no strategy API to call. The HOST writes facts (`ingest`) and READS which gates
- * cast (`cast`) — that is the whole contract. See doc/strategies.md.
+ * cast (`cast`) — that is the whole contract. See docs/strategies.md.
  *
  * Not a public API: these helpers are the examples' plumbing, deliberately explicit rather than clever.
  * A real host does exactly this (`plugins.resolvePlugins` is on the facade: `Graph.plugins`).

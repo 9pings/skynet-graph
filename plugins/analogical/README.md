@@ -24,4 +24,4 @@ Seed shape:
 
 The host finds the analogues and writes the transferred content; this plugin is the deposited
 admission + maintenance. Proven by `tests/unit/analogical.test.js` (0-model: grounding, THE
-retraction cascade, negative controls). See [`doc/plugins.md`](../../doc/plugins.md).
+retraction cascade, negative controls). See [`docs/plugins.md`](../../docs/plugins.md).

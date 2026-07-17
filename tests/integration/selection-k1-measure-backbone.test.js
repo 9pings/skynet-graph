@@ -1,7 +1,7 @@
 'use strict';
 /**
  * §6.1 SELECTION-K1 live-measure BACKBONE (deterministic fence; the gitignored live arm is
- * doc/WIP/experiments/2026-07-01-flex-live-measures/measure-selection-k1.js). The live measure on qwen3-8b (temp 0)
+ * docs/WIP/experiments/2026-07-01-flex-live-measures/measure-selection-k1.js). The live measure on qwen3-8b (temp 0)
  * measured the SELECTION-K1 fraction — is the pareto-competition WINNER a function of the typed signature Σ={taskClass}
  * (crystallizable, elides the N-way rollout) or of the untyped surface (refuse)? Result, hardened by the Laurie confront
  * (two axes, C3 disambiguation):

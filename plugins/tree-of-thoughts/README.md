@@ -24,4 +24,4 @@ const { best, path, expanded, pruned } = await tot.run('the seed problem');
 Scores are snapped by the kernel's `Scored`/`Score::band` (gates key on the K1 band, never the raw
 float). Deterministic by construction (sorted frontiers/rankings, positional ids, serial awaits).
 Proven by `tests/unit/tree-of-thoughts.test.js` (0-model scripted: beam keeps top-k, the prune
-cascade, the expansion budget, replay determinism). See [`doc/plugins.md`](../../doc/plugins.md).
+cascade, the expansion budget, replay determinism). See [`docs/plugins.md`](../../docs/plugins.md).

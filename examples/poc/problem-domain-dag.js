@@ -25,7 +25,7 @@
  * resolves deterministically (0 LLM); an UNKNOWN move (untyped endpoint / missing operator) escalates to
  * the injected LLM on that one segment only.
  *
- * Faithful to `doc/WIP/orientations-corpus-concepts.md`: the R2 guard (rules ORCHESTRATE the search /
+ * Faithful to `docs/WIP/orientations-corpus-concepts.md`: the R2 guard (rules ORCHESTRATE the search /
  * the LLM only fills genuine gaps) and the K1 barrier (states typed by a discrete `kind` ENUM, never
  * prose — every move keys on `originKind → targetKind`).
  *

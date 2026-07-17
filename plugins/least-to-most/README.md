@@ -24,4 +24,4 @@ Seed shape:
 ```
 
 Proven by `tests/unit/least-to-most.test.js` (0-model: emergent release cascade, the order guard
-refusing an early answer, completion gate, negative controls). See [`doc/plugins.md`](../../doc/plugins.md).
+refusing an early answer, completion gate, negative controls). See [`docs/plugins.md`](../../docs/plugins.md).

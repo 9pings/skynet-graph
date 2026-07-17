@@ -7,7 +7,7 @@
  * the keyed facts) amortizes (replays at 0 calls after a short warm-up); a LOSSY key (the canonicalization drops a
  * decision-relevant fact, so the same key maps to DIFFERENT true answers) drops below the fidelity threshold and
  * ESCALATES — re-deriving instead of serving a stale entry. The negative control is the binary cache, which
- * serves the lossy key stale (wrong). Study: doc/WIP/studies/2026-06-28-proxy-kd-distillation-lessons.md.
+ * serves the lossy key stale (wrong). Study: docs/WIP/studies/2026-06-28-proxy-kd-distillation-lessons.md.
  */
 const test = require('node:test');
 const assert = require('node:assert');

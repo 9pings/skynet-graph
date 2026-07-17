@@ -11,7 +11,7 @@
  *
  * WHO SCORES: the host — an EXTERNAL judge (a judge model, an oracle, a test suite). This plugin ships no
  * self-scoring path on purpose: the generator judging itself is the REFUTED self-audit (measured; see
- * doc/CAPABILITIES.md F5). Pass in a score from something that is not the drafter.
+ * docs/CAPABILITIES.md F5). Pass in a score from something that is not the drafter.
  *
  * Its sibling gate is `reflexion.js` — same family, binary verdict instead of a band.
  * Deterministic, no model:  node examples/strategies/refinement.js

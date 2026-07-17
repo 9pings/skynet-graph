@@ -1,7 +1,7 @@
 'use strict';
 /**
  * §6.2 DONOR-SKELETON TOKEN-WIN live-measure BACKBONE (deterministic fence; the gitignored live arm is
- * doc/WIP/experiments/2026-07-01-flex-live-measures/measure-donor-token-win.js). The §6.2 interface-only dispatch
+ * docs/WIP/experiments/2026-07-01-flex-live-measures/measure-donor-token-win.js). The §6.2 interface-only dispatch
  * surfaces a NAC-failing in-bucket donor as an ADAPT SKELETON; the controller re-forges ONLY the differing CONTENT,
  * reusing the donor's STRUCTURE. The flex-layers LOG deferred the token win as "measurable only with a real-model
  * structural forge that reuses a donor skeleton" — the live measure (qwen3-8b, temp 0) found FRESH=125 completion

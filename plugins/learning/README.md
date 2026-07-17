@@ -18,4 +18,4 @@ self-mod factory (C5) and belongs to the supervision family (it follows `reactiv
 No concept sets and no static providers (Tier-1 JS machinery, assembled per host). The forge plugin
 depends on this one (`mine` / `method-pack` / the factory).
 
-See [`doc/plugins.md`](../../doc/plugins.md) and `doc/concept-learning.md`.
+See [`docs/plugins.md`](../../docs/plugins.md) and `docs/concept-learning.md`.

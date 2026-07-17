@@ -13,7 +13,7 @@
  * NOTHING**. The gate requires a `critiqueVerdict` that came from outside; the plugin ships no path where
  * the drafting model grades its own draft. That is not an oversight, it is the measured result: the
  * self-audit was tested three times and refuted (a low-quant judge scoring itself lands at chance —
- * doc/CAPABILITIES.md F5). The refusal is enforced by the grammar, so it cannot be forgotten.
+ * docs/CAPABILITIES.md F5). The refusal is enforced by the grammar, so it cannot be forgotten.
  *
  * Deterministic, no model:  node examples/strategies/reflexion.js
  */

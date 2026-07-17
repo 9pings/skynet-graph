@@ -7,7 +7,7 @@
 'use strict';
 /**
  * adapt — the adapt-or-forge CONTROLLER: the creative loop's drive (host-side, ZERO-CORE; study
- * doc/WIP/studies/2026-06-30-creative-loop-two-level-grammar.md, brick C).
+ * docs/WIP/studies/2026-06-30-creative-loop-two-level-grammar.md, brick C).
  *
  * The structuring grammar names a target mechanism; this drives retrieve-or-forge over the concept-DLL library:
  *   RETRIEVE  dispatch (library.js) → a candidate with a template for THIS signature (K1-sound by construction) → HIT, 0 model calls.

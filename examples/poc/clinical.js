@@ -6,7 +6,7 @@
  * JTMS retraction IS the differentiator (the Zep foil made runnable, R2-safe).
  *
  * The diagnosis enum is written by a provider (stubbing the LLM, R2: the rule only gates +
- * retracts, never decides). Roadmap: doc/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md §3.1.
+ * retracts, never decides). Roadmap: docs/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md §3.1.
  *   node examples/poc/clinical.js
  */
 global.__SERVER__ = true;

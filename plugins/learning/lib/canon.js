@@ -22,7 +22,7 @@
  *      fail-closed, so emission STABILITY (and every downstream memo/LGG key) is claimed MODULO a learned
  *      equivalence, never modulo an ad-hoc regex.
  *
- * Both are K1 instruments: they keep dependency edges on DISCRETE, canonical keys (doc/API.md facts/prose
+ * Both are K1 instruments: they keep dependency edges on DISCRETE, canonical keys (docs/API.md facts/prose
  * contract). Fail-closed throughout — a fact that cannot be certified is DROPPED, never guessed:
  *   - facts live only on declared `factKinds` steps;
  *   - if the gating fact (default `value`) is absent or out of the data vocabulary, ALL facts drop for

@@ -12,7 +12,7 @@
  *   4. LEARN — cross-episode nogood learning makes the warm episode strictly cheaper for the
  *      same useful fixpoint (M6).
  *
- * Roadmap: doc/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md (M9-lite cut-line).
+ * Roadmap: docs/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md (M9-lite cut-line).
  *   node examples/poc/demo.js
  */
 global.__SERVER__ = true;

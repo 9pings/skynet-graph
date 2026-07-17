@@ -4,7 +4,7 @@
  * (owner asks, 2026-07-05: a dictionary of common abstractions to seed base concept-methods "for humans" +
  * an explorer to judge the created population's quality / openness / coverage). Deterministic, 0 model calls.
  *
- * The study `doc/WIP/studies/2026-07-05-abstractions-dictionary-seed.md` recommends Conceptual-Dependency
+ * The study `docs/WIP/studies/2026-07-05-abstractions-dictionary-seed.md` recommends Conceptual-Dependency
  * primitive ACTs (Schank) as the cleanest hand-seedable map "typed signature → typed decomposition": each ACT
  * is a case-frame over a CLOSED role set. Here we author FIVE ACTs as typed decomposition schemas (the role
  * sequence IS the method shape), gold-gate them (a correct schema admits; a corrupted one is rejected — the

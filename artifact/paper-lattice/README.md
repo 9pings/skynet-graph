@@ -26,7 +26,7 @@ Each campaign carries its **LOG.md** (protocol + journal), the **probe scripts**
   **bit-for-bit** without any model; the §5 laboratory and the control experiments are pure code.
 - **Live re-runs** (optional) load local GGUF models through embedded `node-llama-cpp` — the exact
   models are named in each LOG.md (paper control: Qwen3.6-27B Q2_K_XL, MTP). Models not included.
-- **Figures:** `doc/papers/2026-07-03 - sound-online-lattice-growth/figures/generate-figures.js`
+- **Figures:** `docs/papers/2026-07-03 - sound-online-lattice-growth/figures/generate-figures.js`
   regenerates the paper's eight figures ×2 languages from these artifacts (provenance embedded in
   each SVG).
 

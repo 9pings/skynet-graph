@@ -23,7 +23,7 @@
  * A quantized equilibrium GNN — the substrate generalised from concept-net's fixed structures to an
  * actual graph, so it (a) handles real graph problems where recurrence is essential and (b)
  * GENERALISES to new graphs (one rule everywhere = the distillation payoff). Host-side, ZERO-CORE.
- * Study 2026-06-26 (see doc/concept-learning.md); the rung after the population substrate.
+ * Study 2026-06-26 (see docs/concept-learning.md); the rung after the population substrate.
  *
  * Unit: z'[i] = gate_i · cand_i, both σ over ctx_i = [ mean(neighbour states), own state ]; weights
  * SHARED across nodes (θ = 6 numbers, any graph size). Seed-initialised: settle starts from z0.

@@ -49,4 +49,4 @@ const criticalMind = require('critical-mind');            // the plugin object (
 const cfg = require('skynet-graph').plugins.resolvePlugins([criticalMind]);
 ```
 
-See [`doc/plugins.md`](../../doc/plugins.md) for the plugin contract and the two load paths.
+See [`docs/plugins.md`](../../docs/plugins.md) for the plugin contract and the two load paths.

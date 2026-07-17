@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-<img src="./doc/img/headImg.png">
+<img src="./docs/img/headImg.png">
 </p>
 
 <p align="center"><i>Active R&D · a CommonJS library to embed + an <code>sg</code> CLI · Node 18+, no build step · AGPL-3.0</i></p>
@@ -61,7 +61,7 @@ npm install && node examples/integrated-demo/run.js --replay      # 7 checks, bi
 
 Every claim on this page follows a standing rule: **a refuted claim is removed the day it falls**
 (several are listed below on purpose). The full feature map — maturity bars, numbers, limits,
-snippets — is **[doc/CAPABILITIES.md](doc/CAPABILITIES.md)**.
+snippets — is **[docs/CAPABILITIES.md](docs/CAPABILITIES.md)**.
 
 Where it sits in your setup — two zero-integration doors into one local loop:
 
@@ -91,20 +91,20 @@ Where it sits in your setup — two zero-integration doors into one local loop:
 ## Capabilities & maturity
 
 The measured detail — numbers, negative controls, limits and snippets per feature — lives in
-**[doc/CAPABILITIES.md](doc/CAPABILITIES.md)**; **[mindsmith](https://www.npmjs.com/package/mindsmith)**
+**[docs/CAPABILITIES.md](docs/CAPABILITIES.md)**; **[mindsmith](https://www.npmjs.com/package/mindsmith)**
 is where those capabilities are framed and put in users' hands. Maturity uses a 6-rung honest scale
 (rung 6 = external replications, empty pre-launch):
 
-| Feature — details per row in [doc/CAPABILITIES.md](doc/CAPABILITIES.md) | Maturity (6-rung honest scale; rung 6 = external replications, empty pre-launch) | Run it (deterministic, no GPU) |
+| Feature — details per row in [docs/CAPABILITIES.md](docs/CAPABILITIES.md) | Maturity (6-rung honest scale; rung 6 = external replications, empty pre-launch) | Run it (deterministic, no GPU) |
 |---|---|---|
-| [F1 — Certified-shape steering](doc/CAPABILITIES.md#f1-low-quant-repair) | `█████░` 5/6 — product-integrated | [`c6-proxy.js`](examples/bootstrap/c6-proxy.js) · [`forge-stock.js`](examples/bootstrap/forge-stock.js) |
-| [F2 — The piece-by-piece zoom](doc/CAPABILITIES.md#f2-piece-by-piece-zoom-on-big-tasks) | `████░░` 4/6 — measured at scale, not turnkey yet | [`c7-plan-loop.js`](examples/bootstrap/c7-plan-loop.js) |
-| [F3 — Task memory that reopens](doc/CAPABILITIES.md#f3-task-memory-that-reopens) | `█████░` 5/6 — product-integrated | [`f3-task-memory.js`](examples/bootstrap/f3-task-memory.js) |
-| [F4 — External think mode](doc/CAPABILITIES.md#f4-external-think-mode) | `█████░` 5/6 — product-integrated | [`mcp-tools.js`](examples/bootstrap/mcp-tools.js) |
-| [F5 — External critical mind](doc/CAPABILITIES.md#f5-external-critical-mind) | `█████░` 5/6 — product-integrated | [`c9-critical-mind.js`](examples/bootstrap/c9-critical-mind.js) |
-| [F6 — Local `.sgc` rooms](doc/CAPABILITIES.md#f6-local-sgc-rooms) | `█████░` 5/6 — product-integrated | [`c3-learning-library.js`](examples/bootstrap/c3-learning-library.js) |
-| [F7 — The versionable reasoning substrate](doc/CAPABILITIES.md#f7-the-versionable-reasoning-substrate) | `█████░` 5/6 — product-integrated | [`f7-substrate.js`](examples/bootstrap/f7-substrate.js) |
-| [The integrated demo](doc/CAPABILITIES.md#the-integrated-demo) | `█████░` 5/6 — ships in this repo | [`integrated-demo/run.js --replay`](examples/integrated-demo/) |
+| [F1 — Certified-shape steering](docs/CAPABILITIES.md#f1-low-quant-repair) | `█████░` 5/6 — product-integrated | [`c6-proxy.js`](examples/bootstrap/c6-proxy.js) · [`forge-stock.js`](examples/bootstrap/forge-stock.js) |
+| [F2 — The piece-by-piece zoom](docs/CAPABILITIES.md#f2-piece-by-piece-zoom-on-big-tasks) | `████░░` 4/6 — measured at scale, not turnkey yet | [`c7-plan-loop.js`](examples/bootstrap/c7-plan-loop.js) |
+| [F3 — Task memory that reopens](docs/CAPABILITIES.md#f3-task-memory-that-reopens) | `█████░` 5/6 — product-integrated | [`f3-task-memory.js`](examples/bootstrap/f3-task-memory.js) |
+| [F4 — External think mode](docs/CAPABILITIES.md#f4-external-think-mode) | `█████░` 5/6 — product-integrated | [`mcp-tools.js`](examples/bootstrap/mcp-tools.js) |
+| [F5 — External critical mind](docs/CAPABILITIES.md#f5-external-critical-mind) | `█████░` 5/6 — product-integrated | [`c9-critical-mind.js`](examples/bootstrap/c9-critical-mind.js) |
+| [F6 — Local `.sgc` rooms](docs/CAPABILITIES.md#f6-local-sgc-rooms) | `█████░` 5/6 — product-integrated | [`c3-learning-library.js`](examples/bootstrap/c3-learning-library.js) |
+| [F7 — The versionable reasoning substrate](docs/CAPABILITIES.md#f7-the-versionable-reasoning-substrate) | `█████░` 5/6 — product-integrated | [`f7-substrate.js`](examples/bootstrap/f7-substrate.js) |
+| [The integrated demo](docs/CAPABILITIES.md#the-integrated-demo) | `█████░` 5/6 — ships in this repo | [`integrated-demo/run.js --replay`](examples/integrated-demo/) |
 
 Every file in that last column is **deterministic, model-free and GPU-free**, prints the guarantee it
 demonstrates, and is executed by the test suite — so a claim on this page that stopped being true would
@@ -120,7 +120,7 @@ with an auditable sha256 validation dossier.
 Agent frameworks bury reasoning inside prompts, callbacks and framework nodes. Four questions they
 struggle to answer — that a typed graph answers in *executable* form:
 
-- **Where does the reasoning live?** In declarative concept rules + a typed fact ledger, not in prose (`concepts/`, [doc/API.md](doc/API.md)).
+- **Where does the reasoning live?** In declarative concept rules + a typed fact ledger, not in prose (`concepts/`, [docs/API.md](docs/API.md)).
 - **Can a step be tested on its own?** Each concept is a pure rule with typed pre/post-conditions; `sg validate` checks them at author time.
 - **Can it be reused across tasks?** A learned sub-graph *is* a method, carried by its typed contract — it composes, and **un-learns** when its premise drifts.
 - **Can a run be traced and replayed?** Bit-for-bit: `--replay` re-derives the whole run at 0 model calls, and every fact carries its provenance.
@@ -139,7 +139,7 @@ comparisons quietly drop.
 | a native "think" mode | a longer in-model CoT | an external critic that refutes with the reason + the admissible options (**0** wrong verdicts vs native **13/24 ≈ chance**) | to interpret the model's internal chain-of-thought |
 | a rules engine | deterministic rules | rules **+** truth maintenance: a falsified premise un-casts itself *and its consequences*, with no rollback code | hand-encoded completeness — the rules are learned and defeasible |
 
-The per-feature numbers behind each row live in **[doc/CAPABILITIES.md](doc/CAPABILITIES.md)**.
+The per-feature numbers behind each row live in **[docs/CAPABILITIES.md](docs/CAPABILITIES.md)**.
 
 **What is honestly NOT claimed** (each of these was tested, and the page follows the results):
 - the guarantee is **at admission, not at execution** — at use time the stock *orients*; a suggestion is not
@@ -261,7 +261,7 @@ readable; `sg plugin list plugins/` enumerates them all from their manifests wit
   reactive-KG preset, the C5 self-mod guard, the C6 proxy cache), on the same catalog.
 
 The full contract — manifest schema, the dependency-cycle rule, the *alphabet-is-the-API* invariant —
-is **[doc/plugins.md](doc/plugins.md)**.
+is **[docs/plugins.md](docs/plugins.md)**.
 
 ## Reasoning strategies — one kernel, deposited sets
 
@@ -309,33 +309,16 @@ the generator judging itself was measured and refuted three times, so the plugin
 there is deliberately no `reflect`/`refine` MCP tool. (2) **Honest scope** — only the debate (C9) is
 LLM-measured; the other sets are *expressible and structurally proven* (0-model tests, negative controls,
 deterministic replay), not LLM-benchmarked. Both rules, the recipes, and the kernel's brick-by-brick
-rationale: **[doc/strategies.md](doc/strategies.md)**.
+rationale: **[docs/strategies.md](docs/strategies.md)**.
 
-## Two ways to use it — and how it works
+## About the substrate
 
-The library is **one engine with two front doors**; they share the same core, and you can stop at the first.
-
-![the two uses](doc/img/two-uses.svg)
-
-**Use 1 — the substrate**: a *versionable, git-like reasoning orchestrator*, standalone, **no LLM
+A *versionable, git-like reasoning orchestrator*, standalone, **no LLM
 required**. Model a domain in declarative concept rules (JSONC), wire deterministic providers, and let
 stabilization keep the belief state coherent as data changes: `rollbackTo(rev)` (rules included),
 `diffRevisions(a, b)`, `fork`/`merge` sub-worlds, and native cascading retraction — a falsified premise
 un-casts itself *and its consequences*, with no rollback code. A complete, tested capability on its own.
-→ **[doc/usage.md](doc/usage.md)** · **[doc/architecture.md](doc/architecture.md)** · **[doc/API.md](doc/API.md)** · schema **[doc/original-2016-doc.md](doc/original-2016-doc.md)** (FR, EN pointer inside)
-
-**Use 2 — the target system**, built on Use 1: a learned **concept-graph is a method** — a reusable
-sub-graph carried by its **typed contract, not its body**, so each step sees only a bounded
-neighbourhood. The supervisor forges methods, crystallizes the recurrent ones into reusable tools,
-composes tools into bigger tools — and **un-learns** a method when its premise drifts (the moat no
-RAG / skill-library has). Everything keys on **discrete, typed facts** — never free prose — which is
-both what makes the memoization hit and the honest ceiling: only recurrent, typed, canonicalizable
-structure amortizes; genuinely novel reasoning stays in the model.
-→ **[doc/concept-as-graph.md](doc/concept-as-graph.md)** · full model + roadmap **[doc/MODELISATION.md](doc/MODELISATION.md)**
-
-> **Heads-up.** Active R&D. Use 1 is solid and tested; Use 2 is an advancing conception with measured
-> PoCs (not a product). How best to organize concepts is still open — treat the shipped `concepts/`
-> sets as illustrative, not a recommended ontology.
+→ **[docs/usage.md](docs/usage.md)** · **[docs/architecture.md](docs/architecture.md)** · **[docs/API.md](docs/API.md)** · schema **[docs/original-2016-doc.md](docs/original-2016-doc.md)** (FR, EN pointer inside)
 
 ## Papers
 

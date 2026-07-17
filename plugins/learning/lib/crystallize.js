@@ -18,7 +18,7 @@
 'use strict';
 /**
  * crystallize — the live crystallization loop (host-side, ZERO-CORE; study
- * doc/WIP/studies/2026-06-26-…, pass 3). Composes the pass-1/2 bricks end-to-end:
+ * docs/WIP/studies/2026-06-26-…, pass 3). Composes the pass-1/2 bricks end-to-end:
  *
  *   run an episode with a trace miner  →  mine the dominant producer→consumer chain
  *     →  compose the constituents' providers into ONE cast  →  gate by MDL/utility

@@ -1,5 +1,5 @@
 {
-  // Intake→Task BRIDGE (roadmap P1.a / GAP B of doc/WIP/2026-07-05-combos-design.md §11).
+  // Intake→Task BRIDGE (roadmap P1.a / GAP B of docs/WIP/2026-07-05-combos-design.md §11).
   //
   // A TYPED intake is the prose→typed front door — but on its own it is a DEAD END: the answer
   // loop (Task → Complexity → Answer / Rollup) runs on a Task *Segment*, and nothing converts a

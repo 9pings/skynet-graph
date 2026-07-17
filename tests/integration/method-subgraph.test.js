@@ -1,7 +1,7 @@
 'use strict';
 /**
  * BRICK 1 — a METHOD receives a SUB-GRAPH as a parameter and applies it (higher-order via typed named slots).
- * Design doc: doc/WIP/studies/2026-06-28-concept-as-graph-conception-assembled.md (§3 / C2).
+ * Design doc: docs/WIP/studies/2026-06-28-concept-as-graph-conception-assembled.md (§3 / C2).
  *
  *   applySubgraphArg(graph, paramBody, ctx, targetId, cb) — bind a PARAMETERIZED body sub-graph into a
  *       call-site SLOT (fresh id-base + rebound frontier refs) and splice it SEQUENCED under the slot,

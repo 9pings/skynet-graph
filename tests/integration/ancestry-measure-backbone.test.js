@@ -1,7 +1,7 @@
 'use strict';
 /**
  * §6.3(b) live-measure BACKBONE (deterministic fence; the gitignored live arm is
- * doc/WIP/experiments/2026-06-30-ancestry-measure/measure.js). The live measure on qwen3-8b found: a content leaf that
+ * docs/WIP/experiments/2026-06-30-ancestry-measure/measure.js). The live measure on qwen3-8b found: a content leaf that
  * EXACT-ECHOES a typed ancestor fact (`location` = the bug's `failingFn`, 12/12) PROMOTES to `N(s).failingFn` with an
  * EXACT post; a NOVEL leaf (`fixApproach`) FORGES. This fence reproduces those counts deterministically — the stub
  * echoes the ancestor exactly (as the live model did under a structured-echo prompt at temp 0), so the operator's

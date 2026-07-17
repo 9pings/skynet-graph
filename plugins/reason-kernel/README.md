@@ -20,4 +20,4 @@ never speculated: each brick appears here only when a real client needs it.
 
 Reason-kernel is a dependency of other plugins, not something a host wires directly. A dependent declares it
 in `sg-plugin.json` `deps` and `require`s it (carrying it as an object); `resolvePlugins` flattens the graph.
-See [`doc/plugins.md`](../../doc/plugins.md).
+See [`docs/plugins.md`](../../docs/plugins.md).

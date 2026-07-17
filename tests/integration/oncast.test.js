@@ -7,7 +7,7 @@
  * falls, and that an uncast -> recast RE-fires onCast (re-subscribe). Core change (Concept.js
  * applyTo); the full suite stays green (default-off when no concept declares onCast).
  *
- * Roadmap: doc/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md §7 (live regime).
+ * Roadmap: docs/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md §7 (live regime).
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');

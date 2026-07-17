@@ -17,4 +17,4 @@ The `Plan::plan` provider is **factory-built per run** (`makePlanProvider` close
 `decompose` / `ask` / `voters`), so there is no static `providers.js` — the manifest only reserves the
 `Plan` namespace.
 
-See [`doc/plugins.md`](../../doc/plugins.md).
+See [`docs/plugins.md`](../../docs/plugins.md).

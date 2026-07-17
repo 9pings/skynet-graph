@@ -6,7 +6,7 @@
  * tiling from the concept-dependency graph (the pavage = minimize separators). A TTL
  * defeasance re-plans: when the clock passes the ETA the Fulfillment commitment retracts
  * (the engine-faithful N1 polarity — committed WHILE valid, retract WHEN stale). Setup:
- * examples/poc/supply.js. Roadmap: doc/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md §3.2.
+ * examples/poc/supply.js. Roadmap: docs/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md §3.2.
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');

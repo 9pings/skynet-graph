@@ -7,7 +7,7 @@
 'use strict';
 /**
  * combinator — the dispatch→MOUNT bridge (P2.5; host-side, ZERO-CORE; study
- * doc/WIP/studies/2026-06-30-creative-loop-two-level-grammar.md, brick B).
+ * docs/WIP/studies/2026-06-30-creative-loop-two-level-grammar.md, brick B).
  *
  * Brick A (`library.js`) SELECTS a learned method for an abstract mechanism (an O(1) `libraryKey` lookup refined by
  * application-conditions = structure-mapping). Brick B MOUNTS it: a higher-order method = a CONCEPT whose `require`

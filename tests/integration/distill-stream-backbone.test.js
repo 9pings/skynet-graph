@@ -5,7 +5,7 @@
  * only on a class's first sites (forge), then every later same-class bug replays a crystallized `Method`
  * at 0 calls. Counts are deterministic and MUST mirror the live arm (the model fires only on a miss).
  *
- * The harness + corpus live in the gitignored R&D trail (doc/WIP/experiments/…) — this tracked test SKIPS
+ * The harness + corpus live in the gitignored R&D trail (docs/WIP/experiments/…) — this tracked test SKIPS
  * cleanly when they are absent (a fresh clone without the trail still passes the suite).
  */
 const { test } = require('node:test');
@@ -14,8 +14,8 @@ console.log = console.info = console.warn = () => {};
 
 let runStream, stream;
 try {
-	( { runStream } = require('../../doc/WIP/experiments/2026-06-30-distill-killgate/harness.js') );
-	( { stream } = require('../../doc/WIP/experiments/2026-06-30-distill-killgate/corpus.js') );
+	( { runStream } = require('../../docs/WIP/experiments/2026-06-30-distill-killgate/harness.js') );
+	( { stream } = require('../../docs/WIP/experiments/2026-06-30-distill-killgate/corpus.js') );
 } catch ( e ) { /* the gitignored harness is not present — skip */ }
 
 const FIX = { 'off-by-one': 'adjust-bound', 'null-deref': 'guard-null', 'wrong-branch': 'fix-cond' };

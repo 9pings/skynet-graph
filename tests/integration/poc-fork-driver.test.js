@@ -5,7 +5,7 @@
  * CHECKED contract at runtime (validateMergeProjection). Reproduces E8 THROUGH the driver,
  * and the negative control proves a `steps` leak is CAUGHT (not just derivable).
  *
- * Roadmap: doc/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md (M2/M3).
+ * Roadmap: docs/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md (M2/M3).
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');

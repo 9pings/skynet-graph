@@ -1,6 +1,6 @@
 'use strict';
 /**
- * DECLARED-FRONTIER crystallizer (Phase 1, study doc/WIP/studies/2026-06-30-segment-as-subgraph-hrg.md).
+ * DECLARED-FRONTIER crystallizer (Phase 1, study docs/WIP/studies/2026-06-30-segment-as-subgraph-hrg.md).
  *
  * The §4.1 crystallizer inferred its method frontier from the literal-id surface (`inferCtx` + a `knownIds`
  * gate). That breaks the moment an endpoint is wired by a `$`-ref token, and blocks k-ary / reified signatures.

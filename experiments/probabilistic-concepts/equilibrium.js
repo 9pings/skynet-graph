@@ -19,7 +19,7 @@
 /**
  * equilibrium — implicit differentiation through a forward-chaining FIXPOINT (the DEQ method),
  * for learning across the COMPOSITE concept topology. Host-side, ZERO-CORE. Study
- * doc/WIP/studies/2026-06-26-concepts-dynamiques-grammaire-induction.md; theory brief = Laurie.
+ * docs/WIP/studies/2026-06-26-concepts-dynamiques-grammaire-induction.md; theory brief = Laurie.
  *
  * The engine's stabilization is a Picard iteration z_{t+1}=F(z_t,θ) driven to a fixpoint
  * z*=F(z*,θ). To train params θ that live inside concept-nets, we want dL(z*)/dθ WITHOUT

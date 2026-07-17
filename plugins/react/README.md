@@ -24,4 +24,4 @@ Seed shape (the session is BY CONVENTION the `ledger` node):
 ```
 
 Proven by `tests/unit/react.test.js` (0-model: live signal + ensure-fall, trace audit, the three
-stops, negative controls). See [`doc/plugins.md`](../../doc/plugins.md).
+stops, negative controls). See [`docs/plugins.md`](../../docs/plugins.md).

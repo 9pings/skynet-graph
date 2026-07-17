@@ -11,7 +11,7 @@
  * runs it. The `type:"enum"` discriminant was deliberately avoided (Concept.js:239 — "enum
  * are not used for now"): the verdict rides a distinct `complexityClass` fact instead.
  *
- * Roadmap: doc/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md §3.0 / §7 (M0).
+ * Roadmap: docs/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md §3.0 / §7 (M0).
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');

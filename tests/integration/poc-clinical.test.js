@@ -6,7 +6,7 @@
  * retraction IS the differentiator (the Zep foil made runnable, R2-safe — the rule gates +
  * retracts; the LLM-written `diagnosis` enum is the only judgment). Setup: examples/poc/clinical.js.
  *
- * Roadmap: doc/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md §3.1.
+ * Roadmap: docs/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md §3.1.
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');

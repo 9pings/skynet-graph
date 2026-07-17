@@ -17,7 +17,7 @@
  */
 'use strict';
 /**
- * Straight-Through Estimator (STE) training for concept-networks (doc/WIP/HANDOFF.md §7 Tier 4;
+ * Straight-Through Estimator (STE) training for concept-networks (docs/WIP/HANDOFF.md §7 Tier 4;
  * experiment E5). Zero core change — an OFFLINE trainer (run between revisions, not in the cast
  * loop) plus a provider that bakes the learned weights into a concept doing HARD forward
  * inference. Train SOFT (sigmoid + SGD), infer HARD (step/threshold cast) with the same weights:

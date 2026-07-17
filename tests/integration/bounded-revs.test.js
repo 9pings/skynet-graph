@@ -7,7 +7,7 @@
  * standing regime needs before it runs long. Core change (Graph._captureSnapshot); the full
  * suite stays green.
  *
- * Roadmap: doc/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md §7 (live regime).
+ * Roadmap: docs/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md §7 (live regime).
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');

@@ -7,7 +7,7 @@
  * the reproducible search); this runner executes them for real — a child process each, the exact
  * `node examples/strategies/<f>.js` a reader would type.
  *
- * Why a smoke runner at all: doc/strategies.md tells the reader these files demonstrate the guarantees. If
+ * Why a smoke runner at all: docs/strategies.md tells the reader these files demonstrate the guarantees. If
  * one rots, the doc becomes a lie. This is the pin that keeps the page true.
  */
 require('../_boot.js');
@@ -38,7 +38,7 @@ for ( const f of STRATEGIES ) {
 
 test('the strategy example set COVERS the plugins that ship a strategy (no silent gap)', () => {
 	// derive the expectation from the repo, not from this list: a new strategy plugin without an example is
-	// a doc gap by construction (doc/strategies.md promises one runnable file per strategy).
+	// a doc gap by construction (docs/strategies.md promises one runnable file per strategy).
 	const PLUGINS = path.resolve(__dirname, '../../plugins');
 	const STRATEGY_PLUGINS = ['self-consistency', 'refinement', 'socratic', 'least-to-most', 'analogical', 'react', 'tree-of-thoughts', 'mcts'];
 	for ( const p of STRATEGY_PLUGINS ) {

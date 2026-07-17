@@ -3,7 +3,7 @@
 Every file here is **deterministic, GPU-free and model-free**: `node examples/strategies/<file>.js` exits 0
 and prints the guarantee it just demonstrated (`STRATEGY OK — …`). The suite executes all of them
 (`tests/integration/strategies-smoke.test.js`), so they cannot rot. The concepts are explained in
-**[../../doc/strategies.md](../../doc/strategies.md)** — read that for the *why*, run these for the *how*.
+**[../../docs/strategies.md](../../docs/strategies.md)** — read that for the *why*, run these for the *how*.
 
 ## The one idea to take away
 
@@ -51,4 +51,4 @@ Chain-of-Thought is a single ask (no grammar needed — nothing to demo), **Deco
   replay), which is what these files show. That is a real claim, and a smaller one than a benchmark.
   The **host** side of the ReAct / ToT / MCTS recipes has additionally been **smoked live on a 9.5 GB quant**
   (it works: typed tool calls round after round, the worklist retiring itself, and two byte-identical MCTS
-  searches with real inference in the loop) — a smoke, still not a benchmark. See [../../doc/strategies.md](../../doc/strategies.md).
+  searches with real inference in the loop) — a smoke, still not a benchmark. See [../../docs/strategies.md](../../docs/strategies.md).

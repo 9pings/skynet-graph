@@ -9,7 +9,7 @@
  * validated by `validateMergeProjection`, so an internal fact (the solver's search `steps`)
  * cannot leak across the boundary. The barrier is enforced, not merely derivable.
  *
- * Host policy, NOT core. Roadmap: doc/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md (M2/M3).
+ * Host policy, NOT core. Roadmap: docs/WIP/plans/2026-06-24-poc-roadmap-learning-tiling.md (M2/M3).
  */
 const { validateMergeProjection } = require('../../lib/authoring/core/validate');
 
