@@ -125,8 +125,11 @@ break the build. The map of all of them is [`examples/README.md`](examples/READM
 
 The certified vocabulary these capabilities lean on is **fuel, not the headline**: a *forge* (`sg forge`)
 builds `.sgc` method stocks from any dataset that has an executable oracle, behind a **zero-false-admission**
-gate (held across every campaign: 0 false shapes admitted, 3 datasets, 2 forge models) — each stock ships
-with an auditable sha256 validation dossier.
+gate (held across every campaign: 0 false shapes admitted, 4 datasets, 2 forge models — a sample dossier
+ships in [`examples/forge-adapters/`](examples/forge-adapters/gsm8k-stock.dossier.md)) — each stock ships
+with an auditable sha256 validation dossier. **The cookbook for forging your own domain is
+[docs/forging.md](docs/forging.md)** (oracle rules, the fail-closed adapter contract, the honest
+per-domain yield reading).
 
 ### What this answers
 
