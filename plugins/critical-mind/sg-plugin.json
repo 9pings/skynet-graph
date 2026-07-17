@@ -24,7 +24,9 @@
   "entrypoints": {
     "factories": {
       "createCriticalMind": "./factory-grammar.js",
-      "createCriticalMindImperative": "./factory.js"
+      "createCriticalMindImperative": "./factory.js",
+      "buildCritiqueBrief": "./brief.js",
+      "renderJudgePrompt": "./brief.js"
     }
   },
   "deps": [{ "name": "reason-kernel", "range": "^0.1.0" }]

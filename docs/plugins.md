@@ -145,7 +145,9 @@ The repo ships its own capabilities as plugins under `plugins/` — they are the
 `reason-kernel` (the kernel foundation: the append-only Ledger + the k-ary margin gate, the generic
 `Thought`, the `Score` band, the typed `Relation`, the `Mark` watched-mirror brick) · `critical-mind`
 (C9, depends on reason-kernel — the first real object-carried dep; the DEFAULT `createCriticalMind`
-is the full concept-set GRAMMAR face — what `sg mcp critique` runs — with the measured imperative
+is the full concept-set GRAMMAR face — what `sg mcp critique` runs, plus the `brief.js` judgment layer
+(the bounded judgment dossier + the self-contained judge prompt the HOST model runs: the graph guarantees
+the arguments, weighing them is the LLM's job) — with the measured imperative
 reference exported one release as `createCriticalMindImperative`; parity is enforced scripted by
 `critique-grammar-parity.test.js` and was re-measured live on GPU) · the **strategy pack** (Tier-0
 kernel clients unless noted): `self-consistency` (+ the `sg mcp` `self_consistency` tool) ·

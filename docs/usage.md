@@ -539,8 +539,14 @@ claude mcp add sg -- node bin/sg mcp --frontier-model <path.gguf> --store ./stoc
 #           force → recorded-untrusted, NEVER admission — the gate does not cede)
 #   C9    — critique (the external critical mind: viewpoints + witness gate + anchored generation +
 #           typed ledger + a verdict that is mechanical only at the measured margin, else UNDECIDED).
+#           The result carries `brief` (the judgment dossier: theses + verbatim witnesses + attacks/
+#           standing + open points + structural facts) and a self-contained `judgePrompt` the HOST runs
+#           itself to render a justified decision with a certainty note — the engine guarantees the
+#           arguments, weighing them is the judge's job, and the judge is the host model.
 #           Iteration contract: OPEN points + UNDECIDED = a typed DATA REQUEST — the host gathers real
-#           statements (web/docs) and re-calls critique with `statements` (the frame becomes MATERIAL).
+#           statements (web/docs) and re-calls critique with `statements` (the frame becomes MATERIAL);
+#           to SPLIT a mixed question, re-call with per-dimension `viewpoints`, forwarding
+#           `brief.carry.statements` so the same evidence re-gates under the new frame.
 #   INSTANCES — graph_invoke / graph_instances.
 
 # 3) sg flow run — a durable C2 workflow from a JS module (spec + tasks are code):

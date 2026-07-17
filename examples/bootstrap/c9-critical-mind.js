@@ -154,8 +154,26 @@ function main() {
 	}
 	assert.match(R.prose, /Frame status: \*\*FREE\*\*/, 'the report states its own perimeter, always');
 
+	// ── 6. the judgment layer: the brief this run hands to the judge — and the judge is YOUR model ─
+	gap();
+	beat(6, 'And "the model weighs" is not a shrug — it ships as a contract. The run projects into a');
+	say('  JUDGMENT BRIEF (every thesis with its verbatim witnesses, its attackers, its standing) plus');
+	say('  a ready-to-run judge prompt. With `sg mcp`, the judge is the model calling the tool.');
+	const { buildCritiqueBrief, renderJudgePrompt } = require('../../plugins/critical-mind/brief.js');
+	const brief = buildCritiqueBrief(Object.assign({ topic: T.topic }, R));
+	const prompt = renderJudgePrompt(brief);
+	gap();
+	say('   ┌─ FROM THE JUDGE PROMPT (built from this exact run) ' + '─'.repeat(W - 54));
+	for ( const l of prompt.split('\n').filter(( l ) => /STOP signal|^QUESTION|^DECISION|^CERTAINTY/.test(l) ) ) wrap(l, 6);
+	say('   └' + '─'.repeat(W - 1));
+	note('the misfiled row rides in WITH its verbatim witnesses — a judge that reads them can catch what the count could not');
+	assert.equal(brief.sides.PRO.length + brief.sides.CON.length, 6, 'every surviving thesis is in the brief');
+	assert.match(prompt, /STOP signal/, 'the margin-is-a-stop rule is stated to the judge');
+	assert.match(prompt, /CERTAINTY: high \| moderate \| low — grounded in/, 'the certainty note must cite structural facts');
+	assert.equal(brief.carry.statements.length, R.pool.length, 'the whole pool is re-callable (the forward contract)');
+
 	gap();
 	finish('every argument names its evidence — the model\'s own included. Weighing them stays '
-		+ 'the model\'s job.', 'BOOTSTRAP OK');
+		+ 'the model\'s job, and the brief + judge prompt hand it over.', 'BOOTSTRAP OK');
 }
 main();

@@ -355,4 +355,8 @@ test('C9 critique — MCP tool exposure: present iff critiqueAsk is wired, typed
 	assert.equal(out.verdict, 'UNDECIDED');
 	assert.ok(Array.isArray(out.ledger) && out.ledger.length >= 4);
 	assert.match(out.prose, /Bottom line/);
+	// the judgment layer: the brief (dossier) + the self-contained judge prompt the HOST runs itself
+	assert.ok(out.brief && out.brief.sides && out.brief.carry.statements.length === 6);
+	assert.match(out.judgePrompt, /DECISION: PRO \| CON \| CONDITIONAL \| UNDECIDABLE/);
+	assert.match(out.advice, /judgePrompt/, 'the advice routes the UNDECIDED to the judge');
 });

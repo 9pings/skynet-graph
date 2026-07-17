@@ -52,7 +52,9 @@ Here four things it gives to any model, each measured on real runs with negative
   and a ledger that says which points were admitted, which were refused, and why.
   **Weighing those arguments is the model's job, not the graph's** — a count of how many points each side
   scored is not a judgment, and we do not dress one up as a proof. The graph guarantees the inputs to the
-  judgment, not the judgment. [See it run](examples/bootstrap/c9-critical-mind.js).
+  judgment, not the judgment — and ships them as one: the `critique` tool returns a **judgment brief**
+  (theses, verbatim witnesses, attacks and standing, structural facts) plus a self-contained `judgePrompt`
+  your model runs to render a justified decision with a stated certainty. [See it run](examples/bootstrap/c9-critical-mind.js).
 
 **See it in 30 seconds — no model, no GPU** (a deterministic replay of a real end-to-end run — the
 9.5 GB quant analyzing an annual report, erratum and crash included):

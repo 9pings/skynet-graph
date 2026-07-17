@@ -26,7 +26,8 @@ prompt sets on every scripted scenario):
 | `providers.js` | `createDialecticProviders({ ask, onStage })` — the `Dialectic::` LLM leaves (cite / brainstorm / split / propose / normProbe / attack), factory-built per run (they close over the host `ask`); prompts are the measured p0 forms, byte-identical to the imperative reference. The pure ledger tally lives in the `reason-kernel` dep (`Ledger::tally/untally`). |
 | `factory-grammar.js` | `createCriticalMind({ ask })`, grammar face — seed (frame + ledger + pool + viewpoints) → settle → project the result off the structure |
 | `factory.js` | `createCriticalMind({ ask })`, imperative reference (establish → anchored generation → ledger → margin verdict; re-root, dialectic cross-refutation) |
-| `sg-plugin.json` | the plugin manifest (concepts, provider namespace `Dialectic`, both factory entrypoints) |
+| `brief.js` | the **judgment layer**: `buildCritiqueBrief(result)` → the bounded judgment dossier · `renderJudgePrompt(brief)` → the self-contained prompt the HOST model runs to judge (pure projection of the result — the debate machinery and its parity are untouched) |
+| `sg-plugin.json` | the plugin manifest (concepts, provider namespace `Dialectic`, both factory entrypoints + the brief/judge projections) |
 
 ## Use
 
@@ -41,6 +42,31 @@ const r  = await cm.run({ topic: 'is X a good idea?', viewpoints: ['X helps A', 
 The `sg mcp` `critique` tool runs the grammar face. The default flipped to the grammar face after the
 GPU parity re-measure (live Q2: results, ask budgets and prompt sets byte-identical to the imperative
 reference across FREE/dialectic/FR topics; grammar replay bit-identical).
+
+## The judgment layer — the graph guarantees the arguments, the LLM weighs
+
+Counting how many points each side scored is trivial, and a margin below the measured bound is a **stop
+signal, not a proof** — weighing arguments is inherently the LLM's job. So the result projects into a
+**judgment brief** for a final judge (the host's own model — with `sg mcp`, the model calling the tool):
+
+```js
+const { buildCritiqueBrief, renderJudgePrompt } = require('skynet-graph').factories;
+const brief = buildCritiqueBrief(r);      // theses + verbatim witnesses + attacks/standing (KP-history)
+                                          // + open/withdrawn + unused evidence + structural facts. Bounded,
+                                          // deterministic, quote-faithful (nothing not verbatim in the pool).
+const prompt = renderJudgePrompt(brief);  // self-contained: trust rules + the brief + a typed output format —
+                                          // DECISION (incl. CONDITIONAL per dimension) · WHY citing ids ·
+                                          // CERTAINTY grounded in the brief's cited structural facts · NEXT
+```
+
+Nothing here self-scores (the low-quant self-audit is refuted): the brief carries **structural facts
+only**, and the certainty note is *stated by the judge, grounded in facts it must cite*. Two typed exits
+keep the loop honest: `brief.iteration.addEvidence` (gather real statements for the OPEN points, re-call
+with `statements`) and `brief.iteration.splitDimensions` (a **plan change**: re-call with per-dimension
+`viewpoints`, forwarding `brief.carry.statements` so the same evidence **re-gates under the new frame** —
+what does not survive the new perimeter is dropped by the witness gate, the cross-call analog of the
+JTMS retraction). Tests: `tests/unit/critique-brief.test.js` (projection, quote fidelity, forward
+round-trip, bounded output, negative controls).
 
 As a standalone package (once published), it is a normal requireable plugin object:
 
