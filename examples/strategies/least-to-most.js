@@ -43,6 +43,8 @@ async function main() {
 	exchange('least-to-most', 2, 'rung 2 is handed that 2 — and nothing else — and now it sees the catch');
 	good('1. CORRECT. Same model, same question, ten seconds earlier it said 2');
 	say('         Nothing was explained to it. The question was just cut where it could be answered.');
+	say('         (one recorded instance on a classic puzzle — it shows the CUT, it is not a measured');
+	say('          gain; only the debate (C9) is LLM-measured. See docs/strategies.md, honest scope.)');
 	gap();
 	say('  And the part with no model in it at all — the order running itself:');
 

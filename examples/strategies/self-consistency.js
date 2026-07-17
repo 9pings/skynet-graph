@@ -35,15 +35,21 @@ async function main() {
 
 	// ── the REAL thing: 5 real runs of a real question on a real model ────────────────────────────
 	gap();
-	beat(0, 'We ask a real model "what is 17 x 23?" five separate times. Here is run 1 of 5:');
+	beat(0, 'We ask a real model the corn-stalk word problem below, five separate times. Run 1 of 5:');
 	exchange('self-consistency', 0, 'note the salt — "attempt 1 of 5". Without it a local model pins its');
 	say('         random seed and returns FIVE IDENTICAL answers: a vote that means nothing.');
 	say('         (that one was found by running it on a real GPU, not by thinking about it.)');
 	const live = of('self-consistency').map(( e ) => (String(e.reply).match(/ANSWER:\s*([\d.]+)/) || [])[1] );
 	gap();
+	// the five recorded answers go to the REAL plugin: the kernel ledger tallies, the margin gate decides
+	const lv = bootStrategy('self-consistency', {
+		nodes: [ { _id: 'ledger', isDecision: true, threshold: 2, k: live.length, votes: [] }, ...paths(live) ],
+	});
+	await lv.settle();
 	val('the 5 real answers', live.join(' · '));
-	val('the graph says', live.filter(( v ) => v === live[0] ).length + ' of 5 agree → answer ' + live[0]
-		+ (live[0] === '391' ? ' (correct)' : ''));
+	val('the graph says', lv.fact('ledger', 'verdict') + ' — margin ' + lv.fact('ledger', 'margin') + ' over the runner-up');
+	assert.equal(lv.fact('ledger', 'verdict'), '84', 'the recorded runs agree on 84 (3 fields × 4 rows × 7 stalks)');
+	lv.close();
 	good('unanimous, so it answers. Below is what happens when they are NOT');
 	gap();
 	say('  The rest of this run is scripted, to show the cases a single real question cannot:');

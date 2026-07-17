@@ -47,10 +47,10 @@ async function main() {
 	gap();
 	liveBanner();
 	gap();
-	beat(0, 'A real problem, real lines of attack proposed by a real model:');
-	exchange('tree-of-thoughts', 0, 'three different first moves — these become the branches');
-	exchange('tree-of-thoughts', 1, 'and a SEPARATE call rates one of them. The proposer never rates itself');
-	good('real branches, rated from outside — that rating is what the beam keeps or drops');
+	beat(0, 'A real problem, a real line of attack proposed by a real model:');
+	exchange('tree-of-thoughts', 0, 'asked for three openings, it volunteered one (dense) move — replies like this become the branches');
+	exchange('tree-of-thoughts', 1, 'and a SEPARATE call rates a candidate opening (the classic centre move). The proposer never rates itself');
+	good('a real proposal, rated from outside — the proposer/judge split is what the beam consumes');
 	gap();
 	say('  What follows is the search over branches like those:');
 

@@ -27,7 +27,8 @@ const CKPT = __dirname + '/demo-checkpoint.json', TRANSCRIPT = __dirname + '/dem
 const Q2 = process.env.DEMO_MODEL || (NRG + '/models/Qwen3.6-27B-UD-IQ2_XXS.gguf');   // live only; --replay needs NO model
 const digest = ( s ) => crypto.createHash('sha256').update(s).digest('hex').slice(0, 12);
 const say = ( ...a ) => console.log(...a);
-const banner = ( t ) => say('\n' + '═'.repeat(100) + '\n  ' + t + '\n' + '═'.repeat(100));
+const actsSeen = [];                                    // les actes RÉELLEMENT annoncés (le check 1 en dérive)
+const banner = ( t ) => { if ( /^ACT [1-4]/.test(t) ) actsSeen.push(t.slice(0, 5)); say('\n' + '═'.repeat(100) + '\n  ' + t + '\n' + '═'.repeat(100)); };
 const round = ( v, d ) => Math.round(v * Math.pow(10, d)) / Math.pow(10, d);
 
 // ── l'ask instrumenté : LIVE (enregistre le transcript) ou REPLAY (le rejoue, 0 GPU) ─────────────────────
@@ -172,7 +173,7 @@ function makeAsk() {
 	say('\nTHE TRAP — "' + trap.problem.slice(0, 90) + '" (real shape: ' + trap.gold + ', out of referential):');
 	const freeSteps = await S.emitProgram(ask, trap, null);
 	let tv = await call('propose', { proposal: { stepId: 'trap', steps: freeSteps } });
-	let trapOutcome;
+	let trapOutcome, trapForce = null;
 	if ( tv.status === 'admitted' ) {
 		trapOutcome = { kind: 'shape-admitted-out-of-coverage', analyze: S.analyze(freeSteps, trap.table, certified) };
 		say('· free emission ALREADY lands in a certified shape: ' + trapOutcome.analyze.program + ' — the gate admits the SHAPE; the demo arbiter will judge (the "at admission, not at execution" boundary, owned).');
@@ -190,8 +191,8 @@ function makeAsk() {
 			say('· revision → ' + (tv.status === 'admitted' ? 'SHAPE admitted (' + trapOutcome.analyze.program + ') — out of coverage: the arbiter will judge, the synthesis will show it as a boundary' : 'FINAL REFUSAL (' + tv.blame + ')'));
 		}
 		// forcing: never an admission — a degraded provenance, traced
-		const fv = await call('propose', { proposal: { stepId: 'trap', steps: freeSteps }, force: true });
-		say('· force=true → status ' + fv.status + ' (certified=' + fv.certified + ') — journal-traced (' + forcedLog.length + ' entry), the certified layer INTACT');
+		trapForce = await call('propose', { proposal: { stepId: 'trap', steps: freeSteps }, force: true });
+		say('· force=true → status ' + trapForce.status + ' (certified=' + trapForce.certified + ') — journal-traced (' + forcedLog.length + ' entry), the certified layer INTACT');
 	}
 
 	// ═══ matérialisation : le graphe de croyance (faits typés + provenance) + l'arbitre démo ═══
@@ -229,7 +230,8 @@ function makeAsk() {
 	say('· the engine RETRACTS and re-derives: ' + mA.stepId + ' ' + round(beforeA.s, 5) + ' → ' + round(factsA[mA.stepId].value, 5)
 		+ ' · cascade ' + refired.join('+') + ' re-derived · ' + (Object.keys(M.fires).length - refired.length) + ' steps UNTOUCHED (selectivity)');
 	say('· typed findings: ' + JSON.stringify(M.constats().slice(-2).map(( l ) => ({ what: l.kind, why: l.retractedBecause, rev: l.atRev }))));
-	say('· model calls during the drift: ' + (askCount - beforeA.ask) + ' (the admitted method is cell-PARAMETERIZED — only the deterministic compute replays)');
+	const driftACalls = askCount - beforeA.ask;
+	say('· model calls during the drift: ' + driftACalls + ' (the admitted method is cell-PARAMETERIZED — only the deterministic compute replays)');
 	const syncA = await call('plan_sync', {});
 	say('· plan_sync → ' + syncA.taskOps.length + ' op (re-derived BEFORE the sync: the mirror has nothing to reopen, values already followed)');
 
@@ -281,16 +283,17 @@ function makeAsk() {
 		+ ' · text-dependent boundary owned: ' + textBound.length + ' questions NOT resolved');
 	say('Economy: ' + askCount + ' low-quant calls total, 0 big-model calls. [the proven trade: steered-Q2 alone = 62 % traffic at ~42 % of the cost, FinQA N=120]');
 
-	// pre-registered GO/NO-GO verdict (DESIGN.md)
-	const checks = [
-		['4 acts in one run', true],
-		['0 ungated results in the synthesis (shape+provenance gate on everything)', rows.every(( r ) => r.status !== 'ungated' )],
-		['trap never silently admitted', trapOutcome.kind !== 'silent'],
-		['drift-A: 0-call re-derivation + selectivity', askCount - beforeA.ask === 0 && refired.length < Object.keys(M.fires).length],
-		['drift-B: REOPEN emitted with the reason', reopens.length >= 1 && reopens.every(( o ) => !!o.reason )],
-		['bit-identical replay at 0 calls', same && askCount === askBefore],
-		['corrupted checkpoint rejected fail-closed', M3.rejected.length === 1],
-	];
+	// pre-registered GO/NO-GO verdict (DESIGN.md) — every bar DERIVED from a run signal that can fail
+	// (negative controls per bar: tests/unit/integrated-demo-checks.test.js)
+	const checks = S.buildVerdictChecks({
+		actsSeen, rows,
+		admitted, methods, certifiedPlus: certified.concat(['greater']),
+		trapFact: factsF.trap, trapForce, forcedLog,
+		driftA: { calls: driftACalls, refired: refired.length, total: Object.keys(M.fires).length },
+		reopens,
+		replay: { same, calls: askCount - askBefore },
+		corrupted: { rejected: M3.rejected.length },
+	});
 	say('');
 	checks.forEach(( [n, ok] ) => say((ok ? '✓' : '✗') + ' ' + n));
 	const go = checks.every(( c ) => c[1] );

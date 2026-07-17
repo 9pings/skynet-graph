@@ -114,4 +114,32 @@ async function emitProgram( ask, rec, menu, feedback ) {
 
 const sha256 = ( file ) => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
 
-module.exports = { analyze, createWiring, emitProgram, progOf, sha256 };
+/**
+ * buildVerdictChecks(sig) → the 7 pre-registered GO/NO-GO bars (DESIGN), each DERIVED from a run signal
+ * that can actually take the failing value — no bar is a constant of the script. The negative controls
+ * (each bar shown red on its failure shape) are pinned by tests/unit/integrated-demo-checks.test.js.
+ */
+function buildVerdictChecks( sig ) {
+	const admittedIds = new Set((sig.admitted || []).map(( m ) => m.stepId ));
+	const methodOf = ( id ) => (sig.methods || []).find(( m ) => m.stepId === id );
+	// the SAME gate discipline, re-run on what the synthesis displays: shape ∈ frozen referential + every
+	// operand a table cell / a step ref / a composition input / an ambiguous-FLAGGED table literal — a bare
+	// unflagged literal is exactly the "invented number" the gate exists to keep out.
+	const regate = ( m ) => !!m && sig.certifiedPlus.indexOf(m.steps.map(( s ) => s.op ).join('>')) >= 0
+		&& m.steps.every(( s ) => (s.args || []).every(( a ) => a.cell || a.input || a.k != null || (a.v != null && a.ambiguous) ));
+	return [
+		['4 acts in one run', ['ACT 1', 'ACT 2', 'ACT 3', 'ACT 4'].every(( a ) => (sig.actsSeen || []).indexOf(a) >= 0 )],
+		['0 ungated results in the synthesis (every shown value re-passes shape+provenance NOW, backed by an MCP admission)',
+			(sig.rows || []).every(( r ) => r.status !== 'certified-shape'
+				|| ((r.step === 'cmp' || admittedIds.has(r.step)) && regate(methodOf(r.step))) )],
+		['trap never silently admitted (no certified trap fact, no trap admission; force = recorded-untrusted + journal-traced)',
+			!(sig.trapFact && sig.trapFact.cast) && !admittedIds.has('trap')
+			&& (!sig.trapForce || (sig.trapForce.status === 'recorded-untrusted' && sig.trapForce.certified === false && (sig.forcedLog || []).length >= 1))],
+		['drift-A: 0-call re-derivation + selectivity', sig.driftA.calls === 0 && sig.driftA.refired > 0 && sig.driftA.refired < sig.driftA.total],
+		['drift-B: REOPEN emitted with the reason', (sig.reopens || []).length >= 1 && sig.reopens.every(( o ) => !!o.reason )],
+		['bit-identical replay at 0 calls', sig.replay.same === true && sig.replay.calls === 0],
+		['corrupted checkpoint rejected fail-closed', sig.corrupted.rejected === 1],
+	];
+}
+
+module.exports = { analyze, createWiring, emitProgram, progOf, sha256, buildVerdictChecks };

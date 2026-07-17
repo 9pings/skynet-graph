@@ -28,7 +28,10 @@ node examples/integrated-demo/run.js            # add --quick for 4 steps instea
 
 The replay verifies **7 checks** (4 acts · zero ungated results in the synthesis · trap never
 admitted · 0-call selective re-derivation · REOPEN with reason · bit-identical replay · corrupted
-checkpoint rejected) and prints the verdict table with per-step provenance.
+checkpoint rejected) and prints the verdict table with per-step provenance. Every check is
+**derived from a run signal that can actually fail** — none is a constant of the script — and
+`tests/unit/integrated-demo-checks.test.js` pins a negative control per check (each bar shown red
+on its failure shape).
 
 `mission-data.json` is the serialized mechanical selection, so the 75 MB FinQA dataset is NOT
 needed; to regenerate it from source, set `FINQA_DATA=<dir containing train.json>`.

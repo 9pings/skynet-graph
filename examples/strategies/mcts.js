@@ -56,7 +56,7 @@ const ticTacToe = () => ({
 });
 
 async function main() {
-	title('THE MODEL PICKS THE MOVE THAT LOSES. THE SEARCH FINDS THE ONE THAT SAVES IT.');
+	title('THE MODEL LISTS THE MOVES. THE SEARCH PICKS — AND REPLAYS ITSELF BYTE-FOR-BYTE.');
 	say('This is the search behind game-playing AI: try a move, play it to the end, see who won,');
 	say('favour what keeps winning. Normally it leans on randomness, so the same position gives a');
 	say('different answer each run and you can never reproduce the search that decided. Not here.');
