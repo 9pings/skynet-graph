@@ -48,16 +48,18 @@ const SYS = 'You are a careful assistant. Follow the output format EXACTLY.';
 		user: RQ + '\nTools: ' + TOOLS + '\nSteps so far:\n1. lookup_capital(France) -> Paris\n2. lookup_population(Paris) -> 2100000\nReply exactly 2 lines:\nTHOUGHT: <one sentence>\nACTION: FINISH(<the answer>)',
 		maxTokens: 120, temperature: 0 });
 
-	// ── least-to-most: THE classic trap. Asked whole, the reflex answer is 100 minutes. It is 5.
-	const WIDGET = 'If it takes 5 machines 5 minutes to make 5 widgets, how long would it take 100 machines to make 100 widgets?';
-	await rec('least-to-most', 'asked whole — the trap', { system: SYS,
-		user: WIDGET + '\nAnswer with just the number of minutes.', maxTokens: 300, temperature: 0 });
-	await rec('least-to-most', 'rung 1 — the easiest thing first', { system: SYS,
-		user: '5 machines take 5 minutes to make 5 widgets.\nEasiest step first: how long does ONE machine take to make ONE widget? Answer with just the number of minutes.',
-		maxTokens: 24, temperature: 0 });
-	await rec('least-to-most', 'rung 2 — given rung 1\'s answer', { system: SYS,
-		user: 'One machine takes 5 minutes to make one widget.\nNow: 100 machines each make one widget, all at the same time. How long for all 100 widgets? Answer with just the number of minutes.',
-		maxTokens: 24, temperature: 0 });
+	// ── least-to-most: THE classic sibling trap. Asked whole this model says 2. The answer is 1.
+	//    Cut into two rungs — easiest first — the same model gets it right. A real win, not a refusal.
+	const ONE = 'You do ONE small step. Answer with just the number, nothing else.';
+	await rec('least-to-most', 'asked whole — the trap', { system: 'Answer concisely.',
+		user: 'Sally has 3 brothers. Each brother has 2 sisters. How many sisters does Sally have? Just the number.',
+		maxTokens: 250, temperature: 0 });
+	await rec('least-to-most', 'rung 1 — the easiest thing first', { system: ONE,
+		user: 'In a family, each brother has 2 sisters. How many sisters are there in the family in total? Just the number.',
+		maxTokens: 20, temperature: 0 });
+	await rec('least-to-most', 'rung 2 — given rung 1\'s answer', { system: ONE,
+		user: 'A family has 2 sisters in total. Sally is one of them. How many sisters does Sally have (not counting herself)? Just the number.',
+		maxTokens: 20, temperature: 0 });
 
 	// ── socratic: probing a claim, then distilling
 	const CLAIM = 'We should rewrite our app in Rust because it would be faster.';

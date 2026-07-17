@@ -39,6 +39,8 @@ const STATEMENTS = [
 	'PRO: we would not renew the office lease, which is our second largest fixed cost',
 	'PRO: we could hire from anywhere instead of within an hour of this building',
 	'PRO: the last internal survey came back strongly in favour of staying remote',
+	'PRO: the two biggest deals last year were both closed by people we hired remotely',
+	'PRO: sick days are down a third since the office closed',
 	'CON: the two juniors who joined last year took visibly longer to get up to speed',
 	'CON: decisions that used to take a corridor conversation now take three days of messages',
 ];

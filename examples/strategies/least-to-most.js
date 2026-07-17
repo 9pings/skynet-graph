@@ -33,18 +33,18 @@ async function main() {
 	gap();
 	liveBanner();
 	gap();
-	beat(0, 'THE classic for this one: the widget trap. Most people say 100 minutes. It is 5.');
-	exchange('least-to-most', 0, 'asked whole — and this model is not fooled: it says 5, which is right');
-	say('         (worth saying plainly: no win for us here. It did not need the ladder.)');
+	beat(0, 'The classic sibling puzzle. Ask the model straight out:');
+	exchange('least-to-most', 0, null);
+	bad('it says 2. THE ANSWER IS 1 — Sally is herself one of the two sisters');
+	say('         (a real answer from a real model, and confidently wrong.)');
 	gap();
-	beat(1, 'The ladder anyway — easiest rung first, and each rung only gets its own small job:');
-	exchange('least-to-most', 1, 'rung 1: one machine, one widget. Nothing before it');
-	exchange('least-to-most', 2, 'rung 2: handed rung 1\'s answer, and nothing else');
-	good('same answer, 5 — but now every step is one you can check on its own');
-	say('         That is the trade: not a smarter answer, an inspectable one. On the long');
-	say('         chained problems it IS the difference (see the head-to-head demo: 336 vs 354).');
+	beat(1, 'Same model, same puzzle — but the easy part first, and each rung gets ONLY its own job:');
+	exchange('least-to-most', 1, 'rung 1 is easy and it gets it right: there are 2 sisters in the family');
+	exchange('least-to-most', 2, 'rung 2 is handed that 2 — and nothing else — and now it sees the catch');
+	good('1. CORRECT. Same model, same question, ten seconds earlier it said 2');
+	say('         Nothing was explained to it. The question was just cut where it could be answered.');
 	gap();
-	say('  And here is the part that has no model in it at all — the order running itself:');
+	say('  And the part with no model in it at all — the order running itself:');
 
 	// ── 1. the chain releases itself, one rung at a time ──────────────────────────────────────────
 	const s = bootStrategy('least-to-most', { nodes: [plan(3), step('s0', 0), step('s1', 1, 's0'), step('s2', 2, 's1')] });
