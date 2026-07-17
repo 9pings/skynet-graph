@@ -60,9 +60,9 @@ const CARD = /* html */ `
     <h1>An externalized<br><b>reasoning layer</b> for LLMs</h1>
     <p>Typed facts, declarative rules, truth maintenance — reasoning you can test, replay and reopen.</p>
     <div class="stats">
-      <div class="s">external critic <b class="g">0 wrong</b></div>
-      <div class="s">native think <b class="a">13/24</b> ≈ chance</div>
       <div class="s">piece-by-piece <b>16→52%</b></div>
+      <div class="s">certified steering <b>8→63%</b></div>
+      <div class="s">on a <b class="g">9.5 GB</b> local quant</div>
     </div>
   </div>
   <div class="foot">runs on your local model · <b class="g">bit-identical replay</b> · AGPL-3.0 · <b>github.com/9pings/skynet-graph</b></div>

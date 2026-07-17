@@ -1,0 +1,445 @@
+{
+ "recordedWith": "Qwen3.6-27B-IQ2_XXS (9.5 GB, the crippled quant)",
+ "topic": "Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?",
+ "note": "Real prompts and real replies from a real local model. Nothing was supplied but the topic.",
+ "stages": [
+  {
+   "stage": "POOL",
+   "msg": "5 brainstormed statements dropped by the forced-choice label (OFF-TOPIC or unparseable)"
+  },
+  {
+   "stage": "EXPLORE",
+   "msg": "V1 → established (p2+p8)"
+  },
+  {
+   "stage": "EXPLORE",
+   "msg": "V2 → established (p4+p9)"
+  },
+  {
+   "stage": "EXPLORE",
+   "msg": "V3 → established (c1+c2)"
+  },
+  {
+   "stage": "EXPLORE",
+   "msg": "V4 → established (c2)"
+  },
+  {
+   "stage": "GEN",
+   "msg": "PRO: NEW G1 (p5+p7)"
+  },
+  {
+   "stage": "GEN",
+   "msg": "PRO: gate refusal (needs ≥2 unused in-pool witnesses)"
+  },
+  {
+   "stage": "GEN",
+   "msg": "PRO: NEW G2 (p6+p12)"
+  },
+  {
+   "stage": "POOL",
+   "msg": "15 statements · status FREE"
+  },
+  {
+   "stage": "SPLIT",
+   "msg": "4 declared viewpoints · frame FREE"
+  }
+ ],
+ "calls": [
+  {
+   "d": "862b4bcc3df42c7e",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nList the strongest DISTINCT statements informed people ACTUALLY make about this question, whichever side (one concrete argument each, up to 20 lines).\nIf one side has far fewer serious statements, reflect that honestly — do NOT balance the sides artificially.\nReply one per line, each: S: <one sentence>",
+   "reply": "\n\nS: Open-source projects often fail to generate direct revenue because users expect free access and competitors can easily replicate the technology without paying.\nS: Monetizing proprietary R&D allows the developer to capture the full value of their innovation through licensing fees or direct sales, ensuring a return on investment.\nS: A solo developer lacks the resources to maintain a large open-source project, leading to burnout or abandonment, whereas a commercial product can fund its own maintenance.\nS: Open-sourcing the project can establish the developer as an industry expert, leading to high-value consulting contracts, speaking engagements, or job offers that outweigh direct product sales.\nS: Proprietary software faces higher barriers to adoption due to trust issues and vendor lock-in, whereas open-source code builds trust and encourages widespread adoption.\nS: A solo developer cannot compete with established corporations on price or support in a commercial market, making open-source a more viable strategy for gaining market share.\nS: Open-source projects attract contributions from the community, reducing the maintenance burden on the solo developer while accelerating innovation.\nS: Proprietary R&D allows for tighter control over the roadmap and quality standards, preventing fragmentation and ensuring a consistent user experience.\nS: Open-source projects often suffer from \"feature creep\" and lack of clear direction because community contributions are driven by individual interests rather than a cohesive product vision.\nS: A solo developer can leverage open-source code to build a proprietary enterprise edition with advanced features and support, creating a dual-licensing revenue model.\nS: Proprietary software enables the developer to build a defensible moat around their technology, preventing competitors from using their R&D as a foundation for their own products.\nS: Open-source projects can lead to patent protection in some jurisdictions, as public disclosure can prevent others from patenting the same technology.\nS: A solo developer may struggle to find investors for a proprietary project without a proven track record, whereas an open-source project can demonstrate technical competence and attract funding.\nS: Proprietary R&D allows for faster iteration and decision-making without the need for community consensus or open-source governance processes.\nS: Open-source projects can attract malicious actors who exploit vulnerabilities for their own gain, posing security risks to the developer and users.\nS: A solo developer can build a community around an open-source project, creating a loyal user base that is more likely to adopt complementary products or services.\nS: Proprietary software can be more easily integrated into existing enterprise ecosystems, as companies often prefer vendor-supported solutions with SLAs.\nS: Open-source projects can lead to a \"free rider\" problem, where competitors benefit from the developer's work without contributing to its maintenance or improvement.\nS: A solo developer can use open-source code as a portfolio piece to demonstrate their skills to potential employers or clients, leading to indirect monetization.\nS: Proprietary R&D allows for more aggressive marketing and sales strategies, as the developer can control the narrative and target specific customer segments."
+  },
+  {
+   "d": "733df8c56685fdf1",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nStatement: Open-source projects often fail to generate direct revenue because users expect free access and competitors can easily replicate the technology without paying.\nIn the context of the question, does this statement support answering YES (PRO), support answering NO (CON), or is it OFF-TOPIC?\nReply ONLY one of: PRO | CON | OFF-TOPIC",
+   "reply": "\n\n\nPRO"
+  },
+  {
+   "d": "a3c4078065d7985b",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nStatement: Monetizing proprietary R&D allows the developer to capture the full value of their innovation through licensing fees or direct sales, ensuring a return on investment.\nIn the context of the question, does this statement support answering YES (PRO), support answering NO (CON), or is it OFF-TOPIC?\nReply ONLY one of: PRO | CON | OFF-TOPIC",
+   "reply": "\n\nPRO"
+  },
+  {
+   "d": "bddb1996f199a323",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nStatement: A solo developer lacks the resources to maintain a large open-source project, leading to burnout or abandonment, whereas a commercial product can fund its own maintenance.\nIn the context of the question, does this statement support answering YES (PRO), support answering NO (CON), or is it OFF-TOPIC?\nReply ONLY one of: PRO | CON | OFF-TOPIC",
+   "reply": "\n\n\nPRO"
+  },
+  {
+   "d": "6f37060d3dcf7115",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nStatement: Open-sourcing the project can establish the developer as an industry expert, leading to high-value consulting contracts, speaking engagements, or job offers that outweigh direct product sales.\nIn the context of the question, does this statement support answering YES (PRO), support answering NO (CON), or is it OFF-TOPIC?\nReply ONLY one of: PRO | CON | OFF-TOPIC",
+   "reply": "\n\nPRO"
+  },
+  {
+   "d": "8e26dc861ff78ed9",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nStatement: Proprietary software faces higher barriers to adoption due to trust issues and vendor lock-in, whereas open-source code builds trust and encourages widespread adoption.\nIn the context of the question, does this statement support answering YES (PRO), support answering NO (CON), or is it OFF-TOPIC?\nReply ONLY one of: PRO | CON | OFF-TOPIC",
+   "reply": "\n\n\nPRO"
+  },
+  {
+   "d": "57e340c2b69e6606",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nStatement: A solo developer cannot compete with established corporations on price or support in a commercial market, making open-source a more viable strategy for gaining market share.\nIn the context of the question, does this statement support answering YES (PRO), support answering NO (CON), or is it OFF-TOPIC?\nReply ONLY one of: PRO | CON | OFF-TOPIC",
+   "reply": "\n\n\nPRO"
+  },
+  {
+   "d": "62fff78bb793931e",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nStatement: Open-source projects attract contributions from the community, reducing the maintenance burden on the solo developer while accelerating innovation.\nIn the context of the question, does this statement support answering YES (PRO), support answering NO (CON), or is it OFF-TOPIC?\nReply ONLY one of: PRO | CON | OFF-TOPIC",
+   "reply": "\n\n\nPRO"
+  },
+  {
+   "d": "b750391eeb197fbb",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nStatement: Proprietary R&D allows for tighter control over the roadmap and quality standards, preventing fragmentation and ensuring a consistent user experience.\nIn the context of the question, does this statement support answering YES (PRO), support answering NO (CON), or is it OFF-TOPIC?\nReply ONLY one of: PRO | CON | OFF-TOPIC",
+   "reply": "\n\nPRO"
+  },
+  {
+   "d": "53462a455a1c07c3",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nStatement: Open-source projects often suffer from \"feature creep\" and lack of clear direction because community contributions are driven by individual interests rather than a cohesive product vision.\nIn the context of the question, does this statement support answering YES (PRO), support answering NO (CON), or is it OFF-TOPIC?\nReply ONLY one of: PRO | CON | OFF-TOPIC",
+   "reply": "\n\n\nCON"
+  },
+  {
+   "d": "ec8c548a90ae75c3",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nStatement: A solo developer can leverage open-source code to build a proprietary enterprise edition with advanced features and support, creating a dual-licensing revenue model.\nIn the context of the question, does this statement support answering YES (PRO), support answering NO (CON), or is it OFF-TOPIC?\nReply ONLY one of: PRO | CON | OFF-TOPIC",
+   "reply": "\n\n\nPRO"
+  },
+  {
+   "d": "b57dea495766d6a1",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nStatement: Proprietary software enables the developer to build a defensible moat around their technology, preventing competitors from using their R&D as a foundation for their own products.\nIn the context of the question, does this statement support answering YES (PRO), support answering NO (CON), or is it OFF-TOPIC?\nReply ONLY one of: PRO | CON | OFF-TOPIC",
+   "reply": "\n\nCON"
+  },
+  {
+   "d": "57869a295bcada52",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nStatement: Open-source projects can lead to patent protection in some jurisdictions, as public disclosure can prevent others from patenting the same technology.\nIn the context of the question, does this statement support answering YES (PRO), support answering NO (CON), or is it OFF-TOPIC?\nReply ONLY one of: PRO | CON | OFF-TOPIC",
+   "reply": "\n\n\nPRO"
+  },
+  {
+   "d": "e2ab09a5266d2fa6",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nStatement: A solo developer may struggle to find investors for a proprietary project without a proven track record, whereas an open-source project can demonstrate technical competence and attract funding.\nIn the context of the question, does this statement support answering YES (PRO), support answering NO (CON), or is it OFF-TOPIC?\nReply ONLY one of: PRO | CON | OFF-TOPIC",
+   "reply": "\n\n\nPRO"
+  },
+  {
+   "d": "4ae6b67eede5625a",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nStatement: Proprietary R&D allows for faster iteration and decision-making without the need for community consensus or open-source governance processes.\nIn the context of the question, does this statement support answering YES (PRO), support answering NO (CON), or is it OFF-TOPIC?\nReply ONLY one of: PRO | CON | OFF-TOPIC",
+   "reply": "\n\nPRO"
+  },
+  {
+   "d": "6f6ffa9b184ee581",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nStatement: Open-source projects can attract malicious actors who exploit vulnerabilities for their own gain, posing security risks to the developer and users.\nIn the context of the question, does this statement support answering YES (PRO), support answering NO (CON), or is it OFF-TOPIC?\nReply ONLY one of: PRO | CON | OFF-TOPIC",
+   "reply": "\n\n\nPRO"
+  },
+  {
+   "d": "a141728828de7b4b",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nStatement: A solo developer can build a community around an open-source project, creating a loyal user base that is more likely to adopt complementary products or services.\nIn the context of the question, does this statement support answering YES (PRO), support answering NO (CON), or is it OFF-TOPIC?\nReply ONLY one of: PRO | CON | OFF-TOPIC",
+   "reply": "\n\nPRO"
+  },
+  {
+   "d": "36e553083967f567",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nStatement: Proprietary software can be more easily integrated into existing enterprise ecosystems, as companies often prefer vendor-supported solutions with SLAs.\nIn the context of the question, does this statement support answering YES (PRO), support answering NO (CON), or is it OFF-TOPIC?\nReply ONLY one of: PRO | CON | OFF-TOPIC",
+   "reply": "\n\n\nPRO"
+  },
+  {
+   "d": "c644d2d12e314184",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nStatement: Open-source projects can lead to a \"free rider\" problem, where competitors benefit from the developer's work without contributing to its maintenance or improvement.\nIn the context of the question, does this statement support answering YES (PRO), support answering NO (CON), or is it OFF-TOPIC?\nReply ONLY one of: PRO | CON | OFF-TOPIC",
+   "reply": "\n\n\nCON"
+  },
+  {
+   "d": "2e92bf0068f9a41b",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nStatement: A solo developer can use open-source code as a portfolio piece to demonstrate their skills to potential employers or clients, leading to indirect monetization.\nIn the context of the question, does this statement support answering YES (PRO), support answering NO (CON), or is it OFF-TOPIC?\nReply ONLY one of: PRO | CON | OFF-TOPIC",
+   "reply": "\n\n\nPRO"
+  },
+  {
+   "d": "19b8322e75a22db4",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nStatement: Proprietary R&D allows for more aggressive marketing and sales strategies, as the developer can control the narrative and target specific customer segments.\nIn the context of the question, does this statement support answering YES (PRO), support answering NO (CON), or is it OFF-TOPIC?\nReply ONLY one of: PRO | CON | OFF-TOPIC",
+   "reply": "\n\nPRO"
+  },
+  {
+   "d": "642b3515fc100cfa",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nPRO statements:\np1: Open-source projects often fail to generate direct revenue because users expect free access and competitors can easily replicate the technology without paying.\np2: Monetizing proprietary R&D allows the developer to capture the full value of their innovation through licensing fees or direct sales, ensuring a return on investment.\np3: A solo developer lacks the resources to maintain a large open-source project, leading to burnout or abandonment, whereas a commercial product can fund its own maintenance.\np4: Open-sourcing the project can establish the developer as an industry expert, leading to high-value consulting contracts, speaking engagements, or job offers that outweigh direct product sales.\np5: Proprietary software faces higher barriers to adoption due to trust issues and vendor lock-in, whereas open-source code builds trust and encourages widespread adoption.\np6: A solo developer cannot compete with established corporations on price or support in a commercial market, making open-source a more viable strategy for gaining market share.\np7: Open-source projects attract contributions from the community, reducing the maintenance burden on the solo developer while accelerating innovation.\np8: Proprietary R&D allows for tighter control over the roadmap and quality standards, preventing fragmentation and ensuring a consistent user experience.\np9: A solo developer can leverage open-source code to build a proprietary enterprise edition with advanced features and support, creating a dual-licensing revenue model.\np10: Open-source projects can lead to patent protection in some jurisdictions, as public disclosure can prevent others from patenting the same technology.\np11: A solo developer may struggle to find investors for a proprietary project without a proven track record, whereas an open-source project can demonstrate technical competence and attract funding.\np12: Proprietary R&D allows for faster iteration and decision-making without the need for community consensus or open-source governance processes.\nName the 2 main DISTINCT points of view these statements support. Reply 2 lines, each: V: <short name of the viewpoint>",
+   "reply": "\n\nV: Monetizing proprietary R&D for direct financial return and control\nV: Open-sourcing the project for community growth, reputation, and indirect monetization"
+  },
+  {
+   "d": "8e1522abcc8cde2c",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nCON statements:\nc1: Open-source projects often suffer from \"feature creep\" and lack of clear direction because community contributions are driven by individual interests rather than a cohesive product vision.\nc2: Proprietary software enables the developer to build a defensible moat around their technology, preventing competitors from using their R&D as a foundation for their own products.\nc3: Open-source projects can lead to a \"free rider\" problem, where competitors benefit from the developer's work without contributing to its maintenance or improvement.\nName the 2 main DISTINCT points of view these statements support. Reply 2 lines, each: V: <short name of the viewpoint>",
+   "reply": "\n\nV: Open-source leads to fragmented direction and loss of competitive advantage\nV: Proprietary software protects intellectual property and prevents exploitation"
+  },
+  {
+   "d": "42298424d9f386b1",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nPoint of view (PRO): Monetizing proprietary R&D for direct financial return and control\nStatements:\np1: Open-source projects often fail to generate direct revenue because users expect free access and competitors can easily replicate the technology without paying.\np2: Monetizing proprietary R&D allows the developer to capture the full value of their innovation through licensing fees or direct sales, ensuring a return on investment.\np3: A solo developer lacks the resources to maintain a large open-source project, leading to burnout or abandonment, whereas a commercial product can fund its own maintenance.\np4: Open-sourcing the project can establish the developer as an industry expert, leading to high-value consulting contracts, speaking engagements, or job offers that outweigh direct product sales.\np5: Proprietary software faces higher barriers to adoption due to trust issues and vendor lock-in, whereas open-source code builds trust and encourages widespread adoption.\np6: A solo developer cannot compete with established corporations on price or support in a commercial market, making open-source a more viable strategy for gaining market share.\np7: Open-source projects attract contributions from the community, reducing the maintenance burden on the solo developer while accelerating innovation.\np8: Proprietary R&D allows for tighter control over the roadmap and quality standards, preventing fragmentation and ensuring a consistent user experience.\nc1: Open-source projects often suffer from \"feature creep\" and lack of clear direction because community contributions are driven by individual interests rather than a cohesive product vision.\np9: A solo developer can leverage open-source code to build a proprietary enterprise edition with advanced features and support, creating a dual-licensing revenue model.\nc2: Proprietary software enables the developer to build a defensible moat around their technology, preventing competitors from using their R&D as a foundation for their own products.\np10: Open-source projects can lead to patent protection in some jurisdictions, as public disclosure can prevent others from patenting the same technology.\np11: A solo developer may struggle to find investors for a proprietary project without a proven track record, whereas an open-source project can demonstrate technical competence and attract funding.\np12: Proprietary R&D allows for faster iteration and decision-making without the need for community consensus or open-source governance processes.\nc3: Open-source projects can lead to a \"free rider\" problem, where competitors benefit from the developer's work without contributing to its maintenance or improvement.\nWhich statements GENUINELY make this exact point (not merely the same side)? Cite AT MOST 2. Reply ONE line, format: cites: ids_or_NONE",
+   "reply": "\n\ncites: p2, p8"
+  },
+  {
+   "d": "18b78125c10045cd",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nPoint of view (PRO): Open-sourcing the project for community growth, reputation, and indirect monetization\nStatements:\np1: Open-source projects often fail to generate direct revenue because users expect free access and competitors can easily replicate the technology without paying.\np2: Monetizing proprietary R&D allows the developer to capture the full value of their innovation through licensing fees or direct sales, ensuring a return on investment.\np3: A solo developer lacks the resources to maintain a large open-source project, leading to burnout or abandonment, whereas a commercial product can fund its own maintenance.\np4: Open-sourcing the project can establish the developer as an industry expert, leading to high-value consulting contracts, speaking engagements, or job offers that outweigh direct product sales.\np5: Proprietary software faces higher barriers to adoption due to trust issues and vendor lock-in, whereas open-source code builds trust and encourages widespread adoption.\np6: A solo developer cannot compete with established corporations on price or support in a commercial market, making open-source a more viable strategy for gaining market share.\np7: Open-source projects attract contributions from the community, reducing the maintenance burden on the solo developer while accelerating innovation.\np8: Proprietary R&D allows for tighter control over the roadmap and quality standards, preventing fragmentation and ensuring a consistent user experience.\nc1: Open-source projects often suffer from \"feature creep\" and lack of clear direction because community contributions are driven by individual interests rather than a cohesive product vision.\np9: A solo developer can leverage open-source code to build a proprietary enterprise edition with advanced features and support, creating a dual-licensing revenue model.\nc2: Proprietary software enables the developer to build a defensible moat around their technology, preventing competitors from using their R&D as a foundation for their own products.\np10: Open-source projects can lead to patent protection in some jurisdictions, as public disclosure can prevent others from patenting the same technology.\np11: A solo developer may struggle to find investors for a proprietary project without a proven track record, whereas an open-source project can demonstrate technical competence and attract funding.\np12: Proprietary R&D allows for faster iteration and decision-making without the need for community consensus or open-source governance processes.\nc3: Open-source projects can lead to a \"free rider\" problem, where competitors benefit from the developer's work without contributing to its maintenance or improvement.\nWhich statements GENUINELY make this exact point (not merely the same side)? Cite AT MOST 2. Reply ONE line, format: cites: ids_or_NONE",
+   "reply": "\n\ncites: p4, p9"
+  },
+  {
+   "d": "e17058ce07b8c85f",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nPoint of view (CON): Open-source leads to fragmented direction and loss of competitive advantage\nStatements:\np1: Open-source projects often fail to generate direct revenue because users expect free access and competitors can easily replicate the technology without paying.\np2: Monetizing proprietary R&D allows the developer to capture the full value of their innovation through licensing fees or direct sales, ensuring a return on investment.\np3: A solo developer lacks the resources to maintain a large open-source project, leading to burnout or abandonment, whereas a commercial product can fund its own maintenance.\np4: Open-sourcing the project can establish the developer as an industry expert, leading to high-value consulting contracts, speaking engagements, or job offers that outweigh direct product sales.\np5: Proprietary software faces higher barriers to adoption due to trust issues and vendor lock-in, whereas open-source code builds trust and encourages widespread adoption.\np6: A solo developer cannot compete with established corporations on price or support in a commercial market, making open-source a more viable strategy for gaining market share.\np7: Open-source projects attract contributions from the community, reducing the maintenance burden on the solo developer while accelerating innovation.\np8: Proprietary R&D allows for tighter control over the roadmap and quality standards, preventing fragmentation and ensuring a consistent user experience.\nc1: Open-source projects often suffer from \"feature creep\" and lack of clear direction because community contributions are driven by individual interests rather than a cohesive product vision.\np9: A solo developer can leverage open-source code to build a proprietary enterprise edition with advanced features and support, creating a dual-licensing revenue model.\nc2: Proprietary software enables the developer to build a defensible moat around their technology, preventing competitors from using their R&D as a foundation for their own products.\np10: Open-source projects can lead to patent protection in some jurisdictions, as public disclosure can prevent others from patenting the same technology.\np11: A solo developer may struggle to find investors for a proprietary project without a proven track record, whereas an open-source project can demonstrate technical competence and attract funding.\np12: Proprietary R&D allows for faster iteration and decision-making without the need for community consensus or open-source governance processes.\nc3: Open-source projects can lead to a \"free rider\" problem, where competitors benefit from the developer's work without contributing to its maintenance or improvement.\nWhich statements GENUINELY make this exact point (not merely the same side)? Cite AT MOST 2. Reply ONE line, format: cites: ids_or_NONE",
+   "reply": "\n\ncites: c1, c2"
+  },
+  {
+   "d": "9b9e2067d89b27af",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nPoint of view (CON): Proprietary software protects intellectual property and prevents exploitation\nStatements:\np1: Open-source projects often fail to generate direct revenue because users expect free access and competitors can easily replicate the technology without paying.\np2: Monetizing proprietary R&D allows the developer to capture the full value of their innovation through licensing fees or direct sales, ensuring a return on investment.\np3: A solo developer lacks the resources to maintain a large open-source project, leading to burnout or abandonment, whereas a commercial product can fund its own maintenance.\np4: Open-sourcing the project can establish the developer as an industry expert, leading to high-value consulting contracts, speaking engagements, or job offers that outweigh direct product sales.\np5: Proprietary software faces higher barriers to adoption due to trust issues and vendor lock-in, whereas open-source code builds trust and encourages widespread adoption.\np6: A solo developer cannot compete with established corporations on price or support in a commercial market, making open-source a more viable strategy for gaining market share.\np7: Open-source projects attract contributions from the community, reducing the maintenance burden on the solo developer while accelerating innovation.\np8: Proprietary R&D allows for tighter control over the roadmap and quality standards, preventing fragmentation and ensuring a consistent user experience.\nc1: Open-source projects often suffer from \"feature creep\" and lack of clear direction because community contributions are driven by individual interests rather than a cohesive product vision.\np9: A solo developer can leverage open-source code to build a proprietary enterprise edition with advanced features and support, creating a dual-licensing revenue model.\nc2: Proprietary software enables the developer to build a defensible moat around their technology, preventing competitors from using their R&D as a foundation for their own products.\np10: Open-source projects can lead to patent protection in some jurisdictions, as public disclosure can prevent others from patenting the same technology.\np11: A solo developer may struggle to find investors for a proprietary project without a proven track record, whereas an open-source project can demonstrate technical competence and attract funding.\np12: Proprietary R&D allows for faster iteration and decision-making without the need for community consensus or open-source governance processes.\nc3: Open-source projects can lead to a \"free rider\" problem, where competitors benefit from the developer's work without contributing to its maintenance or improvement.\nWhich statements GENUINELY make this exact point (not merely the same side)? Cite AT MOST 2. Reply ONE line, format: cites: ids_or_NONE",
+   "reply": "\n\ncites: p2, c2"
+  },
+  {
+   "d": "e603776a8124ef47",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nCandidate point (PRO): Open-source projects often fail to generate direct revenue because users expect free access and competitors can easily replicate the technology without paying.\nStatements:\np3: A solo developer lacks the resources to maintain a large open-source project, leading to burnout or abandonment, whereas a commercial product can fund its own maintenance.\np5: Proprietary software faces higher barriers to adoption due to trust issues and vendor lock-in, whereas open-source code builds trust and encourages widespread adoption.\np6: A solo developer cannot compete with established corporations on price or support in a commercial market, making open-source a more viable strategy for gaining market share.\np7: Open-source projects attract contributions from the community, reducing the maintenance burden on the solo developer while accelerating innovation.\np10: Open-source projects can lead to patent protection in some jurisdictions, as public disclosure can prevent others from patenting the same technology.\np11: A solo developer may struggle to find investors for a proprietary project without a proven track record, whereas an open-source project can demonstrate technical competence and attract funding.\np12: Proprietary R&D allows for faster iteration and decision-making without the need for community consensus or open-source governance processes.\nWhich statements GENUINELY make this exact point (not merely the same side)? Cite AT MOST 2. Reply ONE line, format: cites: ids_or_NONE",
+   "reply": "\n\ncites: p5, p7"
+  },
+  {
+   "d": "362c826b6a09d8ed",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nKnown PRO points (already on the table):\n- Monetizing proprietary R&D for direct financial return and control\n- Open-sourcing the project for community growth, reputation, and indirect monetization\nUNUSED statements:\np1: Open-source projects often fail to generate direct revenue because users expect free access and competitors can easily replicate the technology without paying.\np5: Proprietary software faces higher barriers to adoption due to trust issues and vendor lock-in, whereas open-source code builds trust and encourages widespread adoption.\np7: Open-source projects attract contributions from the community, reducing the maintenance burden on the solo developer while accelerating innovation.\nPropose ONE NEW PRO point of view, DIFFERENT from the known points, that at least TWO of these unused statements genuinely make. \nReply ONE line, format: THESIS: <one short sentence> | cites: id, id   (or exactly: NONE)",
+   "reply": "\n\nTHESIS: Open-sourcing the project leverages community contributions to reduce maintenance burdens and builds trust for widespread adoption | cites: p5, p7"
+  },
+  {
+   "d": "4345bfea2cc54184",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Known points:\n1. Monetizing proprietary R&D for direct financial return and control\n2. Open-sourcing the project for community growth, reputation, and indirect monetization\n3. Open-source leads to fragmented direction and loss of competitive advantage\n4. Proprietary software protects intellectual property and prevents exploitation\nCandidate thesis: Open-sourcing the project leverages community contributions to reduce maintenance burdens and builds trust for widespread adoption\nIs the candidate just a restatement of one known point?\nReply with ONLY: SAME <number> or NEW.",
+   "reply": "\n"
+  },
+  {
+   "d": "2a819df4bff1792e",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nCandidate point (PRO): A solo developer lacks the resources to maintain a large open-source project, leading to burnout or abandonment, whereas a commercial product can fund its own maintenance.\nStatements:\np6: A solo developer cannot compete with established corporations on price or support in a commercial market, making open-source a more viable strategy for gaining market share.\np10: Open-source projects can lead to patent protection in some jurisdictions, as public disclosure can prevent others from patenting the same technology.\np11: A solo developer may struggle to find investors for a proprietary project without a proven track record, whereas an open-source project can demonstrate technical competence and attract funding.\np12: Proprietary R&D allows for faster iteration and decision-making without the need for community consensus or open-source governance processes.\nWhich statements GENUINELY make this exact point (not merely the same side)? Cite AT MOST 2. Reply ONE line, format: cites: ids_or_NONE",
+   "reply": "\n\ncites: None"
+  },
+  {
+   "d": "55259149aa7eac35",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nKnown PRO points (already on the table):\n- Monetizing proprietary R&D for direct financial return and control\n- Open-sourcing the project for community growth, reputation, and indirect monetization\n- Open-sourcing the project leverages community contributions to reduce maintenance burdens \nUNUSED statements:\np3: A solo developer lacks the resources to maintain a large open-source project, leading to burnout or abandonment, whereas a commercial product can fund its own maintenance.\np6: A solo developer cannot compete with established corporations on price or support in a commercial market, making open-source a more viable strategy for gaining market share.\np10: Open-source projects can lead to patent protection in some jurisdictions, as public disclosure can prevent others from patenting the same technology.\np11: A solo developer may struggle to find investors for a proprietary project without a proven track record, whereas an open-source project can demonstrate technical competence and attract funding.\np12: Proprietary R&D allows for faster iteration and decision-making without the need for community consensus or open-source governance processes.\nPropose ONE NEW PRO point of view, DIFFERENT from the known points, that at least TWO of these unused statements genuinely make. \nReply ONE line, format: THESIS: <one short sentence> | cites: id, id   (or exactly: NONE)",
+   "reply": "\n\nTHESIS: Open-sourcing the project serves as a verifiable proof of competence that attracts investors and prevents patent infringement, whereas proprietary development isolates the developer from capital and legal protection. | cites: p11, p10"
+  },
+  {
+   "d": "cb24523f3e28fcc9",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nCandidate point (PRO): A solo developer cannot compete with established corporations on price or support in a commercial market, making open-source a more viable strategy for gaining market share.\nStatements:\np12: Proprietary R&D allows for faster iteration and decision-making without the need for community consensus or open-source governance processes.\nWhich statements GENUINELY make this exact point (not merely the same side)? Cite AT MOST 2. Reply ONE line, format: cites: ids_or_NONE",
+   "reply": "\n\ncites: NONE"
+  },
+  {
+   "d": "7c6dd1b69b0ef166",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nKnown PRO points (already on the table):\n- Monetizing proprietary R&D for direct financial return and control\n- Open-sourcing the project for community growth, reputation, and indirect monetization\n- Open-sourcing the project leverages community contributions to reduce maintenance burdens \nUNUSED statements:\np6: A solo developer cannot compete with established corporations on price or support in a commercial market, making open-source a more viable strategy for gaining market share.\np12: Proprietary R&D allows for faster iteration and decision-making without the need for community consensus or open-source governance processes.\nPropose ONE NEW PRO point of view, DIFFERENT from the known points, that at least TWO of these unused statements genuinely make. \nReply ONE line, format: THESIS: <one short sentence> | cites: id, id   (or exactly: NONE)",
+   "reply": "\n\nTHESIS: Open-sourcing the project allows a solo developer to overcome market barriers by leveraging community contributions to offset the inability to compete with corporations on price and support. | cites: p6, p12"
+  },
+  {
+   "d": "d01305643fd299f9",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Known points:\n1. Monetizing proprietary R&D for direct financial return and control\n2. Open-sourcing the project for community growth, reputation, and indirect monetization\n3. Open-source leads to fragmented direction and loss of competitive advantage\n4. Proprietary software protects intellectual property and prevents exploitation\nCandidate thesis: Open-sourcing the project allows a solo developer to overcome market barriers by leveraging community contributions to offset the inability to compete with corporations on price and support.\nIs the candidate just a restatement of one known point?\nReply with ONLY: SAME <number> or NEW.",
+   "reply": "\n\n\nNEW"
+  },
+  {
+   "d": "1e993a23b6d5c2c7",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nAmong informed people, is this question genuinely CONTESTED, or is there a SETTLED answer (law, widely shared ethics, broad consensus)?\nReply ONLY one of: SETTLED PRO | SETTLED CON | CONTESTED",
+   "reply": "\n\n\nCONTESTED"
+  },
+  {
+   "d": "7088fbc86b164a46",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nEstablished PRO points:\n- Monetizing proprietary R&D for direct financial return and control\n- Open-sourcing the project for community growth, reputation, and indirect monetization\n- Open-sourcing the project leverages community contributions to reduce maintenance burdens \n- Open-sourcing the project allows a solo developer to overcome market barriers by leveragin\nSummarize the PRO case in ONE line (no ids).",
+   "reply": "\n\n\nOpen-sourcing a 3-year R&D project enables a solo developer to leverage community contributions, build reputation, and overcome market barriers for indirect monetization."
+  },
+  {
+   "d": "5a9b0ebf07d1432b",
+   "system": "You are a careful analyst. Follow the output format EXACTLY.",
+   "user": "Question: Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\nEstablished CON points:\n- Open-source leads to fragmented direction and loss of competitive advantage\n- Proprietary software protects intellectual property and prevents exploitation\nSummarize the CON case in ONE line (no ids).",
+   "reply": "\n\n\nOpen-sourcing sacrifices competitive advantage and intellectual property protection, leading to fragmented direction and potential exploitation."
+  }
+ ],
+ "result": {
+  "frameStatus": "FREE",
+  "counts": {
+   "PRO": 4,
+   "CON": 2
+  },
+  "margin": 2,
+  "threshold": 3,
+  "verdict": "UNDECIDED",
+  "basis": null,
+  "ledger": [
+   {
+    "key": "V1",
+    "kind": "declared",
+    "side": "PRO",
+    "text": "Monetizing proprietary R&D for direct financial return and control",
+    "witnesses": [
+     "p2",
+     "p8"
+    ],
+    "status": "active",
+    "round": 0,
+    "provenance": "declared"
+   },
+   {
+    "key": "V2",
+    "kind": "declared",
+    "side": "PRO",
+    "text": "Open-sourcing the project for community growth, reputation, and indirect monetization",
+    "witnesses": [
+     "p4",
+     "p9"
+    ],
+    "status": "active",
+    "round": 0,
+    "provenance": "declared"
+   },
+   {
+    "key": "V3",
+    "kind": "declared",
+    "side": "CON",
+    "text": "Open-source leads to fragmented direction and loss of competitive advantage",
+    "witnesses": [
+     "c1",
+     "c2"
+    ],
+    "status": "active",
+    "round": 0,
+    "provenance": "declared"
+   },
+   {
+    "key": "V4",
+    "kind": "declared",
+    "side": "CON",
+    "text": "Proprietary software protects intellectual property and prevents exploitation",
+    "witnesses": [
+     "c2"
+    ],
+    "status": "active",
+    "round": 0,
+    "provenance": "declared"
+   },
+   {
+    "key": "G1",
+    "kind": "generated",
+    "side": "PRO",
+    "text": "Open-sourcing the project leverages community contributions to reduce maintenance burdens and builds trust for widespread adoption",
+    "witnesses": [
+     "p5",
+     "p7"
+    ],
+    "status": "active",
+    "round": 1,
+    "provenance": "generated+witnesses"
+   },
+   {
+    "key": "G2",
+    "kind": "generated",
+    "side": "PRO",
+    "text": "Open-sourcing the project allows a solo developer to overcome market barriers by leveraging community contributions to offset the inability to compete with corporations on price and support.",
+    "witnesses": [
+     "p6",
+     "p12"
+    ],
+    "status": "active",
+    "round": 1,
+    "provenance": "generated+witnesses"
+   }
+  ],
+  "pool": [
+   {
+    "id": "p1",
+    "side": "PRO",
+    "text": "Open-source projects often fail to generate direct revenue because users expect free access and competitors can easily replicate the technology without paying."
+   },
+   {
+    "id": "p2",
+    "side": "PRO",
+    "text": "Monetizing proprietary R&D allows the developer to capture the full value of their innovation through licensing fees or direct sales, ensuring a return on investment."
+   },
+   {
+    "id": "p3",
+    "side": "PRO",
+    "text": "A solo developer lacks the resources to maintain a large open-source project, leading to burnout or abandonment, whereas a commercial product can fund its own maintenance."
+   },
+   {
+    "id": "p4",
+    "side": "PRO",
+    "text": "Open-sourcing the project can establish the developer as an industry expert, leading to high-value consulting contracts, speaking engagements, or job offers that outweigh direct product sales."
+   },
+   {
+    "id": "p5",
+    "side": "PRO",
+    "text": "Proprietary software faces higher barriers to adoption due to trust issues and vendor lock-in, whereas open-source code builds trust and encourages widespread adoption."
+   },
+   {
+    "id": "p6",
+    "side": "PRO",
+    "text": "A solo developer cannot compete with established corporations on price or support in a commercial market, making open-source a more viable strategy for gaining market share."
+   },
+   {
+    "id": "p7",
+    "side": "PRO",
+    "text": "Open-source projects attract contributions from the community, reducing the maintenance burden on the solo developer while accelerating innovation."
+   },
+   {
+    "id": "p8",
+    "side": "PRO",
+    "text": "Proprietary R&D allows for tighter control over the roadmap and quality standards, preventing fragmentation and ensuring a consistent user experience."
+   },
+   {
+    "id": "c1",
+    "side": "CON",
+    "text": "Open-source projects often suffer from \"feature creep\" and lack of clear direction because community contributions are driven by individual interests rather than a cohesive product vision."
+   },
+   {
+    "id": "p9",
+    "side": "PRO",
+    "text": "A solo developer can leverage open-source code to build a proprietary enterprise edition with advanced features and support, creating a dual-licensing revenue model."
+   },
+   {
+    "id": "c2",
+    "side": "CON",
+    "text": "Proprietary software enables the developer to build a defensible moat around their technology, preventing competitors from using their R&D as a foundation for their own products."
+   },
+   {
+    "id": "p10",
+    "side": "PRO",
+    "text": "Open-source projects can lead to patent protection in some jurisdictions, as public disclosure can prevent others from patenting the same technology."
+   },
+   {
+    "id": "p11",
+    "side": "PRO",
+    "text": "A solo developer may struggle to find investors for a proprietary project without a proven track record, whereas an open-source project can demonstrate technical competence and attract funding."
+   },
+   {
+    "id": "p12",
+    "side": "PRO",
+    "text": "Proprietary R&D allows for faster iteration and decision-making without the need for community consensus or open-source governance processes."
+   },
+   {
+    "id": "c3",
+    "side": "CON",
+    "text": "Open-source projects can lead to a \"free rider\" problem, where competitors benefit from the developer's work without contributing to its maintenance or improvement."
+   }
+  ],
+  "prose": "# Should a solo developer open-source a 3-year R&D project instead of trying to monetize it?\n\n*Frame status: **FREE** — the statement pool is model-generated; coverage is relative to this pool, not the world.*\n\n## The case for\n\nOpen-sourcing a 3-year R&D project enables a solo developer to leverage community contributions, build reputation, and overcome market barriers for indirect monetization.\n\n- **Monetizing proprietary R&D for direct financial return and control**\n  “Monetizing proprietary R&D allows the developer to capture the full value of their innovation through licensing fees or direct sales, ensuring a return on investment.” · “Proprietary R&D allows for tighter control over the roadmap and quality standards, preventing fragmentation and ensuring a consistent user experience.”\n\n- **Open-sourcing the project for community growth, reputation, and indirect monetization**\n  “Open-sourcing the project can establish the developer as an industry expert, leading to high-value consulting contracts, speaking engagements, or job offers that outweigh direct product sales.” · “A solo developer can leverage open-source code to build a proprietary enterprise edition with advanced features and support, creating a dual-licensing revenue model.”\n\n- **Open-sourcing the project leverages community contributions to reduce maintenance burdens and builds trust for widespread adoption** *(new angle found while reading)*\n  “Proprietary software faces higher barriers to adoption due to trust issues and vendor lock-in, whereas open-source code builds trust and encourages widespread adoption.” · “Open-source projects attract contributions from the community, reducing the maintenance burden on the solo developer while accelerating innovation.”\n\n- **Open-sourcing the project allows a solo developer to overcome market barriers by leveraging community contributions to offset the inability to compete with corporations on price and support.** *(new angle found while reading)*\n  “A solo developer cannot compete with established corporations on price or support in a commercial market, making open-source a more viable strategy for gaining market share.” · “Proprietary R&D allows for faster iteration and decision-making without the need for community consensus or open-source governance processes.”\n\n## The case against\n\nOpen-sourcing sacrifices competitive advantage and intellectual property protection, leading to fragmented direction and potential exploitation.\n\n- **Open-source leads to fragmented direction and loss of competitive advantage**\n  “Open-source projects often suffer from \"feature creep\" and lack of clear direction because community contributions are driven by individual interests rather than a cohesive product vision.” · “Proprietary software enables the developer to build a defensible moat around their technology, preventing competitors from using their R&D as a foundation for their own products.”\n\n- **Proprietary software protects intellectual property and prevents exploitation**\n  “Proprietary software enables the developer to build a defensible moat around their technology, preventing competitors from using their R&D as a foundation for their own products.”\n\n## Bottom line\n\nAnchored points: PRO 4 vs CON 2 (margin 2), and the contestedness probe confirms the question is GENUINELY contested. On a FREE frame this margin is below the measured decidability bound (3), so no verdict is rendered — the honest deliverable is the anchored coverage above. A certified perimeter (.sgc stock) is what buys a verdict at margin ≥ 2.\n"
+ }
+}

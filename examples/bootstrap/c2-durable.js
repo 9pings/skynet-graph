@@ -12,7 +12,7 @@
 global.__SERVER__ = true;
 process.env.SG_LOG_LEVEL = process.env.SG_LOG_LEVEL || 'error';
 const assert = require('node:assert');
-const { createDurableRunner } = require('../../lib/index.js').combos;
+const { createDurableRunner } = require('../../lib/index.js').factories;
 // the POC's plain micro-tasks: outputs are pure functions of the keyed facts → memoization is exact.
 const { spec, keyOf, makeRunTask, STREAM } = require('../poc/durable-flow.js');
 

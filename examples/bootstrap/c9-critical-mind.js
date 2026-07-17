@@ -3,176 +3,159 @@
  */
 'use strict';
 /**
- * BOOTSTRAP C9 — the EXTERNAL CRITICAL MIND (`createCriticalMind`): README feature **F5**, and the one
- * strategy in the catalog that is LLM-MEASURED (GPU, bit-identical re-runs, published numbers).
+ * BOOTSTRAP C9 — the EXTERNAL CRITICAL MIND (`createCriticalMind`): README feature **F5**.
  *
- * THE MEASURED RESULT THIS DEMOES — N=24 composed debates, gold hidden, every arm re-run bit-identical
- * (WIP/experiments/2026-07-13-bench-think-vs-c9 · docs/CAPABILITIES.md F5):
+ * WHAT THIS RUN IS. A topic string goes in. Nothing else — no statements, no viewpoints, no sides, no
+ * answer. The model brainstorms the pool itself, labels each statement itself, and the split into
+ * viewpoints is its own. What the GRAPH adds is one thing: **no point gets onto the table without naming
+ * the statements that actually carry it** — and the points the model invents mid-debate face that same gate,
+ * which is why you will watch one of them get refused below.
  *
- *   the same model, asked directly ............ 13/24 ≈ chance · 11 CONFIDENT WRONG verdicts · 0 refusals
- *   the same model, own 1024-tok think mode ... 13/24 ≈ chance · 11 CONFIDENT WRONG verdicts · 0 refusals
- *   this, with the frame DECLARED ............. 24/24 · ZERO wrong · every one by mechanical count
- *   this, with NO frame declared .............. 1/24 decided · ZERO wrong · 23 honest UNDECIDED
+ * WHAT IT DOES NOT CLAIM, and this is deliberate (owner, 2026-07-17): **the graph does not weigh the
+ * arguments.** It counts what survived, and a count is not a judgment — "four points to two" tells you which
+ * side listed more things, not which side is right. There is a limit to what should be decidable by a rule
+ * engine at all; weighing a debate and synthesizing a position goes through a model, necessarily. So the
+ * graph guarantees the INPUTS to the judgment — real arguments, traceable to their evidence — and leaves the
+ * judgment where it belongs. This run shows exactly that, including the moment the count goes wrong.
  *
- * THE PRODUCT POINT, and it is the whole file: **declaring the frame buys a provable verdict.** Name the
- * points to weigh and it decides — correctly, every time, showing the count. Name nothing and it refuses
- * rather than flip a coin: that is the BOUND, not the product. This demo therefore runs the DECLARED
- * frame, which is where the 24/24 was measured; §4 shows the refusal zone for contrast.
- * (Earlier this demo ran the MATERIAL frame and concluded "it refuses" — demoing the bound and calling it
- * the feature. The measured win was sitting in the bench, unshipped.)
+ * HISTORY, because it is the reason this file looks like it does. Until 2026-07-17 this demo handed C9 a
+ * hand-written pool AND a hand-written frame, scripted the model's replies so it could not be wrong, and
+ * quoted "24/24 vs 13/24" as though the run had produced it. That benchmark was confounded — a three-line
+ * counter with no model scores 24/24 on it (docs/CAPABILITIES.md, "the head-to-head that used to sit here is
+ * WITHDRAWN"). And the scripted `'NONE'` reply meant the generation gate this file advertised was never even
+ * called: dead code behind a claim. This version is the harness from
+ * WIP/experiments/2026-07-13-critical-live — which was honest all along — made shippable.
  *
- * `ask` is INJECTED and scripted here, so this runs with no model and no GPU. The prompts printed below
- * are the PLUGIN's own — byte-identical to what the real 9.5 GB model receives (proven by the GPU parity
- * re-measure). In production this same factory is what the `sg mcp` `critique` tool runs.
+ * Replays `c9-transcript.json` (recorded by `c9-record.js` on a real 9.5 GB local model, 38 calls). Every
+ * prompt and reply below is verbatim from that run; the ledger is what the engine actually produced.
  *
  * Deterministic, no GPU:  node examples/bootstrap/c9-critical-mind.js
  */
-global.__SERVER__ = true;
-process.env.SG_LOG_LEVEL = process.env.SG_LOG_LEVEL || 'error';
 const assert = require('node:assert');
-const { createCriticalMind } = require('../../lib/index.js').factories;
+const fs = require('node:fs');
+const path = require('node:path');
 const { title, say, gap, step: beat, note, good, bad, val, done: finish } = require('../_say.js');
 
-// The MATERIAL: the real arguments, written the way a person would write them.
-const STATEMENTS = [
-	'PRO: nobody commutes any more — that is an hour a day back for most of the team',
-	'PRO: we would not renew the office lease, which is our second largest fixed cost',
-	'PRO: we could hire from anywhere instead of within an hour of this building',
-	'PRO: the last internal survey came back strongly in favour of staying remote',
-	'PRO: the two biggest deals last year were both closed by people we hired remotely',
-	'PRO: sick days are down a third since the office closed',
-	'CON: the two juniors who joined last year took visibly longer to get up to speed',
-	'CON: decisions that used to take a corridor conversation now take three days of messages',
-];
+const T = JSON.parse(fs.readFileSync(path.join(__dirname, 'c9-transcript.json'), 'utf8'));
+const R = T.result;
+const W = 88;
 
-// The DECLARED frame: the points to weigh, named up front. This is the input the naive arms do not have,
-// and it is exactly what buys a provable verdict (24/24 measured, vs 13/24 asked directly).
-const VIEWPOINTS = [
-	{ side: 'PRO', text: 'it saves real money' },
-	{ side: 'PRO', text: 'it is working commercially' },
-	{ side: 'PRO', text: 'the people who work here prefer it' },
-	{ side: 'PRO', text: 'we can hire from a wider pool' },
-	{ side: 'CON', text: 'juniors ramp up slower' },
-];
-
-const calls = [];
-function scriptedAsk() {
-	return async ( q ) => {
-		const u = String(q.user);
-		const reply = ( r ) => { calls.push({ system: q.system, user: u, reply: r }); return r; };
-		if ( /Which statements GENUINELY make this exact point/.test(u) ) {
-			// each declared point must find REAL witnesses in the pool, or it does not get in
-			if ( /saves real money/.test(u) ) return reply('cites: p1, p2');
-			if ( /working commercially/.test(u) ) return reply('cites: p5, p6');
-			if ( /people who work here prefer/.test(u) ) return reply('cites: p4');
-			if ( /wider pool/.test(u) ) return reply('cites: p3');
-			if ( /juniors ramp up slower/.test(u) ) return reply('cites: c1');
-			return reply('cites: NONE');
-		}
-		if ( /Propose ONE NEW/.test(u) ) return reply('NONE');
-		if ( /restatement of one known point/.test(u) ) return reply('NEW');
-		if ( /genuinely CONTESTED/.test(u) ) return reply('CONTESTED');
-		if ( /Summarize the (PRO|CON) case/.test(u) ) return reply('one-line synthesis.');
-		if ( /Rewrite the report/.test(u) ) return reply('polished text.');
-		return reply('NONE');
-	};
-}
+/** print one real exchange, verbatim */
 function exchange( match, why ) {
-	const c = calls.find(( x ) => match.test(x.user) );
-	if ( !c ) return;
+	const c = T.calls.find(( x ) => match.test(x.user) );
+	if ( !c ) return null;
 	gap();
-	say('   ┌─ WE SENT THE MODEL ' + '─'.repeat(58));
-	c.user.split('\n').forEach(( l ) => say('   │ ' + l) );
-	say('   ├─ IT REPLIED ' + '─'.repeat(65));
-	String(c.reply).split('\n').forEach(( l ) => say('   │ ' + l) );
-	say('   └' + '─'.repeat(78));
+	say('   ┌─ WE SENT THE MODEL ' + '─'.repeat(W - 22));
+	wrap(c.user, 14);
+	say('   ├─ IT REPLIED ' + '─'.repeat(W - 15));
+	wrap(c.reply, 10);
+	say('   └' + '─'.repeat(W - 1));
 	if ( why ) note(why);
+	return c;
 }
-
-async function main() {
-	const r = await createCriticalMind({ ask: scriptedAsk() })
-		.run({ topic: 'Should we go fully remote?', statements: STATEMENTS, viewpoints: VIEWPOINTS });
-
-	title('ASK A MODEL WHICH SIDE WINS AND IT GUESSES. THIS ONE PROVES IT.');
-	say('Give a model a pile of arguments and ask which side has the better case: it answers');
-	say('confidently, and it is right about as often as a coin toss. That is measured, not a');
-	say('figure of speech. This one does not guess — it makes every point earn its place, then counts.');
-	gap();
-	say('  Over 24 real debates. Same model. Answers hidden. Every run reproducible:');
-	val('asked straight out', '13 of 24 right — 11 CONFIDENTLY WRONG, and it never once refused');
-	val('with its own think mode', '13 of 24 right — 11 CONFIDENTLY WRONG, and it never once refused');
-	val('through this', '24 of 24 right — ZERO wrong, every one shown by a count');
-	say('');
-	say('  Here is one of those debates, run for real.');
-
-	// ── 1. the frame is DECLARED — the thing that buys a provable verdict ──────────────────────────
-	gap();
-	beat(1, '"Should we go fully remote?" — 8 real arguments, and we NAME the points to weigh.');
-	say('       That naming is the one thing the model asked directly never gets. It is what pays.');
-	exchange(/saves real money/, 'for each named point, the model must show WHICH arguments actually make it');
-	gap();
-	for ( const e of r.ledger )
-		note('[' + e.side.padEnd(3) + '] "' + e.text + '"  ⟵ earned by ' + e.witnesses.length
-			+ ' real argument' + (e.witnesses.length === 1 ? '' : 's') + ': ' + e.witnesses.join(', '));
-	good('every point names the evidence carrying it. No citation, no entry — that is the gate');
-	assert.equal(r.frameStatus, 'DECLARED', 'the perimeter is announced, always');
-	assert.ok(r.ledger.every(( e ) => (e.witnesses || []).length > 0 ), 'nothing got in unwitnessed');
-
-	// ── 2. IT DECIDES — and shows the count ───────────────────────────────────────────────────────
-	gap();
-	beat(2, 'So which side wins? It does not weigh, ponder, or have a view. It counts what survived:');
-	val('for', r.counts.PRO + ' points that earned their place');
-	val('against', r.counts.CON + ' point that earned its place');
-	val('the lead', r.margin + ' — and the bar is ' + r.threshold + ', so this clears it');
-	good('VERDICT: ' + r.verdict + ' — and it is not an opinion, it is a count you can redo by hand');
-	good('the basis is on the record too: "' + r.basis + '"');
-	assert.equal(r.verdict, 'PRO', 'the declared frame decides — the measured 24/24 zone');
-	assert.equal(r.basis, 'mechanical-count', 'decided by COUNTING, never by the model weighing');
-	assert.ok(r.margin >= r.threshold, 'and only because the lead cleared the bar');
-
-	// ── 3. the deliverable quotes its evidence ────────────────────────────────────────────────────
-	gap();
-	beat(3, 'And the write-up quotes the arguments themselves, word for word:');
-	assert.match(r.prose, /Frame status: \*\*DECLARED\*\*/, 'it states its own perimeter');
-	assert.match(r.prose, /nobody commutes any more/, 'and quotes its witnesses — auditable line by line');
-	good('every claim in it can be checked against the arguments you handed over');
-
-	// ── 4. THE BOUND: no declared frame → it refuses instead of guessing ───────────────────────────
-	gap();
-	beat(4, 'Now the same 8 arguments, but we name NOTHING — it has to find the points itself:');
-	const bare = await createCriticalMind({ ask: async ( q ) => {
-		const u = String(q.user);
-		if ( /Name the 2 main DISTINCT points of view/.test(u) )
-			return /PRO statements/.test(u) ? 'V: saves money\nV: people prefer it' : 'V: juniors ramp slower\nV: decisions slower';
-		if ( /Which statements GENUINELY make this exact point/.test(u) )
-			return /saves money/.test(u) ? 'cites: p1, p2' : /juniors ramp slower/.test(u) ? 'cites: c1' : 'cites: NONE';
-		if ( /Propose ONE NEW/.test(u) ) return 'NONE';
-		if ( /restatement of one known point/.test(u) ) return 'NEW';
-		if ( /genuinely CONTESTED/.test(u) ) return 'CONTESTED';
-		if ( /Summarize the (PRO|CON) case/.test(u) ) return 'one-line synthesis.';
-		if ( /Rewrite the report/.test(u) ) return 'polished text.';
-		return 'NONE';
-	} }).run({ topic: 'Should we go fully remote?', statements: STATEMENTS });
-	val('for / against', bare.counts.PRO + ' / ' + bare.counts.CON + ' — a lead of only ' + bare.margin);
-	bad('VERDICT: ' + bare.verdict + '. Too close to call, so it says exactly that');
-	say('       This is the bound, not a failure. Over those same 24 debates, with nothing named it');
-	say('       refused 23 times rather than guess — and got ZERO wrong. The two arms that never');
-	say('       refused were each wrong 11 times, confidently. Refusing is what buys the zero.');
-	assert.equal(bare.verdict, 'UNDECIDED', 'below the bar → an honest refusal, never a coin flip');
-	assert.equal(bare.frameStatus, 'MATERIAL', 'and it announces it was working without a frame');
-
-	// ── 5. it refuses before it costs you anything ────────────────────────────────────────────────
-	gap();
-	let asks = 0;
-	const thin = await createCriticalMind({ ask: async ( q ) => { asks++; return scriptedAsk()(q); } })
-		.run({ topic: 'Should we go fully remote?', statements: ['PRO: only one', 'CON: only one too'] });
-	beat(5, 'And handed almost nothing — two lonely arguments?');
-	bad('it refuses to even start, and says why: there is not enough here to reason about');
-	val('model calls spent', asks + ' — it refused BEFORE costing you anything');
-	assert.match(thin.error, /pool too small/, 'an inadequate pool is refused, with the reason');
-	assert.equal(asks, 0, 'and refused WITHOUT spending a single model call');
-
-	finish('name the points and it decides: 24/24, zero wrong, by a count you can redo. '
-		+ 'The same model guessing gets 11 confidently wrong.', 'BOOTSTRAP OK');
+function wrap( text, maxLines ) {
+	const lines = String(text).split('\n');
+	const shown = maxLines && lines.length > maxLines ? lines.slice(0, maxLines) : lines;
+	for ( const l of shown ) {
+		let s = l;
+		if ( !s.length ) { say('   │'); continue; }
+		while ( s.length > W - 4 ) { say('   │ ' + s.slice(0, W - 4)); s = '   ' + s.slice(W - 4); }
+		say('   │ ' + s);
+	}
+	if ( shown.length < lines.length ) say('   │ … (' + (lines.length - shown.length) + ' more lines)');
 }
-main().catch(( e ) => { console.error(e); process.exit(1); });
+const stageMsg = ( re ) => (T.stages.find(( s ) => re.test(s.msg) ) || {}).msg;
+
+function main() {
+	title('A DEBATE WHERE EVERY ARGUMENT HAS TO NAME ITS EVIDENCE');
+	say('We give it a question. That is all it gets: no arguments, no sides, no answer. It has to');
+	say('find the arguments itself, and then earn the right to put each one on the table.');
+	gap();
+	val('the question', '"' + T.topic + '"');
+	val('the model', T.recordedWith);
+	val('what we supplied', 'the sentence above, and nothing else');
+	gap();
+	say('  Every prompt and every reply below is real — recorded from that model, replayed here so it');
+	say('  runs without a GPU. The graph around them ran for real.');
+
+	// ── 1. the model finds the arguments ──────────────────────────────────────────────────────────
+	gap();
+	beat(1, 'First it has to come up with the arguments people actually make:');
+	exchange(/List the strongest DISTINCT statements/, 'we asked for arguments on BOTH sides, and told it NOT to balance them artificially');
+	gap();
+	beat(2, 'Then every single statement gets sorted — one forced choice at a time:');
+	exchange(/does this statement support answering YES/, null);
+	const dropped = stageMsg(/dropped by the forced-choice label/);
+	val('kept in the pool', R.pool.length + ' statements');
+	if ( dropped ) bad(dropped.replace(/^(\d+) brainstormed statements dropped/, 'it threw $1 of its own out'));
+	assert.ok(R.pool.length >= 8, 'the model produced a real pool');
+	assert.equal(R.frameStatus, 'FREE', 'FREE = the pool is the model\'s own; coverage is relative to it, not the world');
+
+	// ── 2. THE GATE: no evidence, no entry ────────────────────────────────────────────────────────
+	gap();
+	say('  Now the part the graph is for. Each point of view has to name the statements that GENUINELY');
+	say('  make it — not just agree with its side. No citation, no entry:');
+	exchange(/Which statements GENUINELY make this exact point/, 'it must cite specific statements, by id, from the pool');
+	gap();
+	for ( const e of R.ledger )
+		note('[' + String(e.side).padEnd(3) + '] ' + e.key.padEnd(3) + ' "' + e.text.slice(0, 58)
+			+ (e.text.length > 58 ? '…' : '') + '"  ⟵ ' + (e.witnesses || []).join(' + '));
+	good('every point on that list names the evidence carrying it — that is the gate');
+	assert.ok(R.ledger.length > 0, 'the debate produced a table');
+	assert.ok(R.ledger.every(( e ) => (e.witnesses || []).length > 0 ), 'NOTHING got on the table unwitnessed');
+
+	// ── 3. the model's OWN ideas face the same gate — including a refusal ──────────────────────────
+	gap();
+	beat(3, 'Mid-debate it goes looking for angles nobody listed. Its own ideas — and they get NO discount:');
+	const gen = R.ledger.filter(( e ) => e.provenance === 'generated+witnesses' );
+	const refusal = stageMsg(/gate refusal/);
+	for ( const e of gen )
+		good('it proposed "' + e.text.slice(0, 52) + '…" and PAID for it: ' + (e.witnesses || []).join(' + '));
+	if ( refusal ) {
+		bad('and one of its own ideas was REFUSED: ' + refusal.replace(/^PRO:\s*/, ''));
+		say('       It had a thesis. It could not name two unused statements that made it. It does not');
+		say('       get in. The model gets no benefit of the doubt for an idea being its own.');
+	}
+	assert.ok(gen.length > 0, 'the generative pass ran for real (the old demo scripted it away and never called it)');
+	assert.ok(gen.every(( e ) => (e.witnesses || []).length >= 2 ), 'a generated thesis needs >= 2 real witnesses');
+	assert.ok(refusal, 'THE BEAT: at least one of the model\'s own theses was refused by the gate');
+
+	// ── 4. the count — and why it is NOT the answer ───────────────────────────────────────────────
+	gap();
+	beat(4, 'So who wins? Here is where we stop, and it is on purpose:');
+	val('for', R.counts.PRO + ' points survived');
+	val('against', R.counts.CON + ' points survived');
+	val('the graph says', R.verdict);
+	gap();
+	say('  Look at the first row of that table. It is filed under FOR — and it says "Monetizing');
+	say('  proprietary R&D for direct financial return". That is an argument AGAINST the question we');
+	say('  asked. Its two witnesses are real and they genuinely make that point, so the gate was right');
+	say('  to admit it: the evidence chain is sound. The model just put it on the wrong side.');
+	gap();
+	bad('so "' + R.counts.PRO + ' to ' + R.counts.CON + '" is not a verdict. It is an arithmetic over one model\'s filing.');
+	say('       The graph refuses to call it, which is the right reflex — but refusing is a STOP, not');
+	say('       wisdom. Counting how many points each side listed was never a way to weigh a debate.');
+	assert.equal(R.verdict, 'UNDECIDED', 'the margin did not clear the bar, so no verdict is invented');
+	const v1 = R.ledger[0];
+	assert.equal(v1.side, 'PRO', 'the mislabelled row is real and on the record — we do not tidy it away');
+	assert.ok((v1.witnesses || []).length >= 2, 'and its witnesses ARE genuine: the gate did its job');
+
+	// ── 5. what you actually take away: an audited pool, and a model that reads it ─────────────────
+	gap();
+	beat(5, 'What the model then writes, over a pool where everything is traceable:');
+	const forCase = String(R.prose).split(/## The case for/)[1];
+	if ( forCase ) {
+		const line = forCase.split('\n').map(( l ) => l.trim() ).filter(Boolean)[0];
+		gap();
+		say('   ┌─ ITS SYNTHESIS OF THE CASE FOR ' + '─'.repeat(W - 34));
+		wrap(line, 6);
+		say('   └' + '─'.repeat(W - 1));
+		note('it read past the misfiled row and summarised the real case — the model weighing, which is its job');
+	}
+	assert.match(R.prose, /Frame status: \*\*FREE\*\*/, 'the report states its own perimeter, always');
+
+	gap();
+	finish('every argument names its evidence — the model\'s own included. Weighing them stays '
+		+ 'the model\'s job.', 'BOOTSTRAP OK');
+}
+main();

@@ -12,7 +12,7 @@
  * runs the same flow on an embedded gguf (the CLI equivalent is `sg proxy` / `sg serve`).
  */
 const assert = require('node:assert');
-const { createProxyCache, makeFrontierAsk } = require('../../lib/index.js').combos;
+const { createProxyCache, makeFrontierAsk } = require('../../lib/index.js').factories;
 
 async function main() {
 	// 1. the FRONTIER = the ground truth (stub here; --live wires the embedded model in one line).

@@ -25,7 +25,7 @@ const CATALOG = [
 	{ group: 'Does it actually work?', items: [
 		{ id: 'head-to-head', file: 'examples/head-to-head/run.js',
 			title: 'Classic problems — the same model, asked twice',
-			blurb: 'Three problems models are known to trip on, put to the same 9.5 GB model twice: once by just asking it, once through this. Every prompt and every reply is verbatim from a real run — including the one where this project LOSES, printed in full with the reason.' },
+			blurb: 'Four problems — three a model is known to trip on, one a real question about a real annual report — put to the same 9.5 GB model twice: once by just asking it, once through this. Every prompt and every reply is verbatim from a real run. The run prints its own score first: on three of the four the model already coped alone, and they are shown in full anyway. These four are an illustration; the evidence is the campaigns.' },
 		{ id: 'integrated', file: 'examples/integrated-demo/run.js', args: ['--replay'],
 			title: 'A real annual report, start to finish',
 			blurb: 'A 9.5 GB model on a laptop-class GPU works a real financial report: it plans, it repairs its own weak answers, it refuses what it cannot back up, an erratum lands and the consequences retract themselves, the process crashes and the whole run replays identically. No big model anywhere.' },
@@ -55,8 +55,8 @@ const CATALOG = [
 	{ group: 'What it does for a model', items: [
 		{ id: 'c7-plan-loop', file: 'examples/bootstrap/c7-plan-loop.js', title: 'Big task, one small piece at a time',
 			blurb: 'Each step sees only what it asked for, never the whole dossier. Cut a fact a step needed, and it refuses instead of guessing.' },
-		{ id: 'c9-critical-mind', file: 'examples/bootstrap/c9-critical-mind.js', title: 'A critic that will not take your word',
-			blurb: 'Nothing enters the argument without real evidence behind it — including the model\'s own ideas. Too close to call says so.' },
+		{ id: 'c9-critical-mind', file: 'examples/bootstrap/c9-critical-mind.js', title: 'A debate where every argument names its evidence',
+			blurb: 'It gets a question and nothing else — it finds the arguments itself. No point gets on the table without naming the statements that carry it, and the angles the model invents mid-debate face the same gate: watch one of its own ideas get refused. Then it stops, because weighing a debate is the model\'s job and a count is not a proof.' },
 		{ id: 'f3-task-memory', file: 'examples/bootstrap/f3-task-memory.js', title: 'A finished task that un-finishes itself',
 			blurb: 'A number turns out to be wrong. The work that used it re-does itself for free — or, if nothing can be recomputed, un-ticks itself and tells you why.' },
 		{ id: 'f7-substrate', file: 'examples/bootstrap/f7-substrate.js', title: 'Undo, for reasoning',

@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://9pings.github.io/skynet-graph/img/og-card.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="skynet-graph: an externalized reasoning layer for LLMs. External critic 0 wrong verdicts vs native think 13/24 near chance; piece-by-piece 16 to 52 percent; bit-identical replay.">
+<meta property="og:image:alt" content="skynet-graph: an externalized reasoning layer for LLMs. Piece-by-piece 16 to 52 percent; certified steering 8 to 63 percent; bit-identical replay.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0a0d0e">
 
@@ -257,8 +257,7 @@ footer{border-top:1px solid var(--edge); padding:44px 0 60px}
     </div>
 
     <p class="rnd"><b>Active R&amp;D.</b> Some of this is measured and replayable, some is proven only
-      structurally, and the demos publish the losses too. A strategy here is <b>a concept grammar in files</b>
-      — so improving a cut, a prompt or a gate is a file you edit and re-run, not a framework you fork.</p>
+      structurally, and the demos publish the losses too. We believe the substrate is ideal for higher-level reasoning strategies, so the strategy here is to improve concept grammars, the providers and the prompts they generate to get what we want.</p>
   </div>
   </div>
 </header>
@@ -266,7 +265,9 @@ footer{border-top:1px solid var(--edge); padding:44px 0 60px}
 <!-- ══ THE DEMOS — the centre of the page. 16 real runs, pick one. ══ -->
 <section id="demos">
   <div class="wrap">
-    <div class="sec-tag">Sixteen real runs · pick one</div>
+    <!-- The count is written by the JS below, from docs/demos.js — NEVER type a number here. It said
+         "Sixteen" while the page shipped 17 demos, because a hand-typed count has nothing keeping it true. -->
+    <div class="sec-tag" id="demo-count">Real runs · pick one</div>
     <h2>Watch it work</h2>
     <p class="lede">Every tab below is a <b>real run</b>, captured from the code as it stands — not a mock-up
       and not prose written about it. They are deterministic: no model, no GPU, no network. Clone the repo,
@@ -317,7 +318,7 @@ footer{border-top:1px solid var(--edge); padding:44px 0 60px}
         <div class="k">04 · CRITIQUE</div>
         <h3>An external think mode</h3>
         <p>The model proposes; the graph refutes with the reason and the admissible options; the model revises.</p>
-        <div class="stat">N=24 head-to-head: the model's own think mode <b>13/24 ≈ chance</b> (11 confidently wrong) · the external critic <b>0 wrong verdicts</b>.</div>
+        <div class="stat">Every point on the table names the statements carrying it — <b>the model's own new angles included</b>, refused by name when they cite nothing. Weighing them stays the model's job.</div>
       </div>
     </div>
   </div>
@@ -382,7 +383,7 @@ footer{border-top:1px solid var(--edge); padding:44px 0 60px}
           <tr><td class="inst">a decomposition framework (LLMCompiler, ReWOO)</td><td class="a">a task DAG</td><td class="b">a <b>typed</b> DAG where each step sees only what it asked for, behind a gate that refuses instead of guessing</td><td class="c">that a small model is any good at CUTTING the task up (a measured limit)</td></tr>
           <tr><td class="inst">LLM-as-judge</td><td class="a">a verdict, always</td><td class="b">counts, coverage, and an honest <b>"too close to call"</b> — a verdict only when the margin earns it</td><td class="c">a reliable verdict on free, uncertified content</td></tr>
           <tr><td class="inst">a RAG skill-library</td><td class="a">retrieved snippets</td><td class="b">methods that <b>un-learn</b> when their premise drifts — the moat no index has</td><td class="c">that novel, free-prose reasoning gets cheaper</td></tr>
-          <tr><td class="inst">the model's own "think" mode</td><td class="a">a longer internal monologue</td><td class="b">an outside critic that refutes with the reason and the options (<b>0</b> wrong verdicts vs <b>13/24 ≈ chance</b>)</td><td class="c">to interpret what the model is "really" thinking</td></tr>
+          <tr><td class="inst">the model's own "think" mode</td><td class="a">a longer internal monologue</td><td class="b">an outside critic that refutes with the reason and the options, and puts <b>every argument on the record with the evidence under it</b></td><td class="c">to weigh the arguments for you — that stays the model's job</td></tr>
           <tr><td class="inst">a rules engine</td><td class="a">deterministic rules</td><td class="b">rules <b>+</b> truth maintenance: a falsified premise un-casts itself <i>and everything built on it</i>, with no rollback code</td><td class="c">hand-encoded completeness — the rules are learned, and defeasible</td></tr>
         </tbody>
       </table>
@@ -404,7 +405,7 @@ footer{border-top:1px solid var(--edge); padding:44px 0 60px}
 <span class="k">node</span> examples/strategies/react.js
 <span class="k">node</span> examples/bootstrap/f3-task-memory.js
 
-<span class="cm"># the full suite: 1499 tests, 0 failures, 2 known skips</span>
+<span class="cm"># the full suite — 0 failures, 2 known skips</span>
 <span class="k">npm test</span></div>
     <div style="height:22px"></div>
     <p class="lede" style="margin-bottom:14px">Or embed it — <span style="font-family:var(--mono);font-size:15px;color:var(--signal)">npm install skynet-graph</span> — and boot a graph from plain folders of rules:</p>
@@ -485,6 +486,13 @@ footer{border-top:1px solid var(--edge); padding:44px 0 60px}
   var GROUPS = window.SG_DEMOS || [];
   var flat = [];
   GROUPS.forEach(function ( g ) { g.items.forEach(function ( it ) { flat.push(it); }); });
+
+  // The section label counts what is actually here. Hand-typed, it rots: this page shipped "Sixteen real
+  // runs" over 17 demos for several commits, and the drift test could not see it (it only checked >= 15).
+  var WORDS = ['zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten',
+    'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen', 'Twenty'];
+  var tag = document.getElementById('demo-count');
+  if ( tag ) tag.textContent = (WORDS[flat.length] || flat.length) + ' real runs · pick one';
 
   var esc = function ( s ) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
 

@@ -14,7 +14,7 @@
 global.__SERVER__ = true;
 process.env.SG_LOG_LEVEL = process.env.SG_LOG_LEVEL || 'error';
 const assert = require('node:assert');
-const { createAppliance } = require('../../lib/index.js').combos;
+const { createAppliance } = require('../../lib/index.js').factories;
 
 // a scripted model: typed intake → decompose → synthesize (the same dispatch shape a real gguf answers).
 const typedAsk = async ( { system } ) => {

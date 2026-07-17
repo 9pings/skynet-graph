@@ -123,8 +123,8 @@ not assumed (the small model is *not* the task cutter).
 **How to use it, simply:**
 
 ```js
-const { createPlanLoop } = require('skynet-graph').combos;
-const { numberGivens, seedOf } = require('skynet-graph/lib/authoring/givens');
+const { createPlanLoop } = require('skynet-graph').factories;
+const { numberGivens, seedOf } = require('skynet-graph/plugins/planner/lib/givens');
 const loop = createPlanLoop({ decompose, serveLeaf });   // both injected — see lib/authoring/
 const { answer, refused } = await loop.run(task, { givens: seedOf(numberGivens(task)) });
 ```
@@ -239,27 +239,58 @@ can be.
 ```
 
 **Measured.** Disciplined piece-by-piece argument coverage **77 % vs 58 %** whole-context (48
-arguments) · with a **certified perimeter**, weighing decisions go 12/24 → **24/24** (self-believed
-coverage measured at ~106 % — the perimeter is what closes the illusion) · anchored generation of
-missing theses: **0 fabrication across all negative controls** · anti-injection ledger: **8/8
-retracted**, with JTMS cascade · **the measured decidability bound**: a verdict is mechanical at
-count margin **≥ 3** (free/declared frames) or **≥ 2 on a certified perimeter** (24/24); below the
-bound the output is counts + coverage + an honest **UNDECIDED** — never a fake weighing.
+arguments) · anchored generation of missing theses: **0 fabrication across all negative controls** ·
+anti-injection ledger: **8/8 retracted**, with JTMS cascade.
+
+**On the count, and the "decidability bound" that used to be claimed here** (revised 2026-07-17): the
+engine does gate a verdict on a top-2 count margin, and below it says UNDECIDED rather than inventing
+a weighing — that behaviour is real and it is what stops a fake verdict. But **the margin is not
+evidence of anything**: whether one side listed three more points than the other is not a measure of
+which side is right, and the figures once quoted for it (12/24 → 24/24) came from frames built around
+the answer — see the withdrawn head-to-head below. The count is a **stop**, not a judgment. Weighing
+the arguments is the model's job; what the graph certifies is that each argument on the table names
+the evidence carrying it.
 
 **Refuted and kept on the page** (tested, failed, removed from the claims): graded/prevalence
 weighting under the precision cap; goal-criteria weighting for a low-quant judge (2 forms);
 low-quant self-audit (3 forms).
 
-**Benchmarked head-to-head against the model's own think mode** (N=24 composed perimeters, gold
-hidden, every arm re-run bit-identical): on side-judgment over *unlabeled* statement pools, the
-naive single call scores **13/24 (≈ chance)** and the same model with a native 1024-token think
-budget **also scores 13/24** — each renders 11 confident wrong verdicts, zero refusals. The C9
-combo on the same pools renders **0 wrong verdicts anywhere**: with a *declared* perimeter it
-decides **24/24, all by mechanical count** (margins 3–6, witnesses 100 % in-pool); without one it
-returns an honest UNDECIDED instead of a coin flip. (When the pool is pre-labeled, counting is
-trivial for every arm — the critical mind's value is judgment + audit, not label-counting. The
-declared perimeter is input the naive arms don't have: that is the product point — declare the
-frame and a verdict becomes provable.) Cost: ~19 short calls ≈ 6 s per debate on the test GPU.
+**The head-to-head that used to sit here is WITHDRAWN — it was confounded, and the repo's own data
+says so** (found 2026-07-17, before publication; the paper it fed was never deposited).
+
+It read: naive **13/24 ≈ chance** vs C9 **24/24 by mechanical count**. Three things were wrong, each
+verified against `artifact/paper-critical-mind/`:
+
+1. **The arms were not equal.** `LABELS=0` strips the `PRO:`/`CON:` prefix from the statements — and
+   `bench-think-vs-c9.js:114` applies that only to the `direct`/`think` arms. The C9 arm (`:126`) is
+   handed `side: sideOfArg(a)` unconditionally, and `sideOfArg` reads `stance` — **the ArgKP gold
+   annotation**. The naive arms were compared *without* an input C9 always had, and that input was the
+   oracle. With labels, the same files say: `direct` **23/24**, `think` **24/24**, `c9d` **24/24**.
+2. **The stated rationale inverts.** Labels were stripped to test "judgment, not label-counting"
+   (`:20`) — against a system whose 24 verdicts all carry `basis: mechanical-count`.
+3. **The declared frame contained the answer.** `declaredVps` (`:65`) = up to 6 key points from the
+   gold side + 1–2 from the other, with a perimeter margin ≥ 3 enforced at selection. **A three-line
+   counter — no model, no graph, no C9 — scores 24/24 on that frame.** The witness gate does reject
+   points (8 declared → 5 established on d3t3), but never enough to overturn a supermajority built in
+   advance.
+
+**What survives, and it is measured**: with *no* declared frame (`bench-c9.json`), the same 24 pools
+give **1 decided · 23 honest UNDECIDED · 0 wrong**, witnesses 100 % in-pool, margins collapsing to
+5:3, 3:2, 2:2. Without a frame it refuses instead of guessing. That result is about the mechanism —
+there is no frame there for a trivial counter to read.
+
+**And the claim it was making was the wrong one anyway** (owner, 2026-07-17): a count of how many
+points each side scored is **not** a weighing, and there is a limit to what should be decidable by
+the graph at all. The debate's job is to make the real arguments surface and carry their evidence;
+**weighing them and synthesizing a position goes through the model, necessarily.** The graph
+guarantees the inputs to a judgment, not the judgment. What is genuinely demonstrable — and is what
+`examples/bootstrap/c9-critical-mind.js` now runs, live and unscripted — is: the model brainstorms
+the pool, every point must name the statements that carry it, the points the *model itself* invents
+face the same gate and are refused by name when they cannot pay it, and the whole thing replays
+bit-identically. Cost: ~19 short calls ≈ 6 s per debate on the test GPU.
+
+Re-establishing a head-to-head would need a new bench, not a re-run: a frame drawn without consulting
+the gold, and sides the model determines itself. That is open work, not a published result.
 
 **Against the existing landscape.** What you would reach for today: LLM-as-judge (known to be
 miscalibrated and gameable — the essay-scoring literature documents verbatim-anchoring as the

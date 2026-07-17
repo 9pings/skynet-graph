@@ -14,7 +14,7 @@
  *   sg serve --frontier-model <path.gguf> --store ./stock.json     (then point any client at :4747/v1)
  */
 const assert = require('node:assert');
-const { createProxyCache, makeFrontierAsk } = require('../../lib/index.js').combos;
+const { createProxyCache, makeFrontierAsk } = require('../../lib/index.js').factories;
 const { createServeHandler, startServeServer } = require('../../lib/sg/serve.js');
 
 async function main() {

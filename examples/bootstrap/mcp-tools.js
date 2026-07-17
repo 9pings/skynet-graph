@@ -15,7 +15,7 @@
  */
 const assert = require('node:assert');
 const { createMcpServer, defaultTools } = require('../../lib/sg/mcp.js');
-const { createProxyCache, makeFrontierAsk } = require('../../lib/index.js').combos;
+const { createProxyCache, makeFrontierAsk } = require('../../lib/index.js').factories;
 
 async function main() {
 	// ── proxy mode: ask/drift/metrics over the local-first cache ────────────────────────────────────────

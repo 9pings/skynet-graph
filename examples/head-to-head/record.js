@@ -20,8 +20,46 @@ const path = require('path');
 
 const SG = path.join(__dirname, '..', '..');
 const { makeLocalAsk } = require(path.join(SG, 'lib', 'providers', 'llm-local.js'));
-const { defaultTools } = require(path.join(SG, 'lib', 'sg', 'mcp.js'));
+const { createMcpServer, defaultTools } = require(path.join(SG, 'lib', 'sg', 'mcp.js'));
 const { createPlanLoop } = require(path.join(SG, 'lib', 'index.js')).factories;
+const D = require('../integrated-demo/_data.js');        // the real FinQA report + the forged stock
+const S = require('../integrated-demo/_surface.js');     // the SAME steering surface the integrated demo runs
+const Graph = require(path.join(SG, 'lib', 'index.js'));
+const { nextStable } = require(path.join(SG, 'lib', 'authoring', 'core', 'supervise.js'));
+const { loadPlugin, resolvePlugins } = require(path.join(SG, 'lib', 'plugins'));
+const { buildConceptTree } = require(path.join(SG, 'lib', 'authoring', 'core', 'concepts.js'));
+
+/**
+ * Boot the letters graph: reason-kernel + this demo's own four-line concept set (concepts/letters/Hit.json).
+ * A host deposits a grammar and the engine does the counting — that is the shape the product actually has.
+ */
+function bootLetters( word ) {
+	const cfg = resolvePlugins([loadPlugin(path.join(SG, 'plugins', 'reason-kernel'))]);
+	Graph._providers = cfg.providers;                                    // the kernel's Ledger bricks
+	const letters = buildConceptTree(path.join(__dirname, 'concepts', 'letters'));
+	const nodes = [{ _id: 'ledger', isLedger: true, hits: [] }]
+		.concat(word.split('').map(( ch, i ) => ({ _id: 'l' + i, isThought: true, ch }) ));
+	const g = new Graph({ lastRev: 0, segments: [], freeNodes: [], nodes },
+		{ label: 'head-to-head-letters', isMaster: true, autoMount: true,
+			conceptSets: cfg.conceptSets.concat(['letters']), bagRefManagers: {}, logLevel: 'error' },
+		Object.assign({}, cfg.conceptMap, { letters }));
+	const settle = async () => {
+		for ( let i = 0; i < 60; i++ ) {
+			await nextStable(g);
+			if ( !g._unstable.length && !g._triggeredCastCount ) {
+				await new Promise(( r ) => setImmediate(r) );
+				if ( !g._unstable.length && !g._triggeredCastCount ) return;
+			}
+		}
+		throw new Error('the letters graph did not settle');
+	};
+	const fact = ( id, k ) => g._objById[id] && g._objById[id]._etty._[k];
+	return { g, settle, fact,
+		ingest: ( p ) => new Promise(( r ) => g.ingest(p, r) ),
+		// the ACTIVE count, read off the ledger: appends only, retractions included (the C9 convention).
+		count: () => (fact('ledger', 'hits') || []).length - (fact('ledger', 'hitsRetracted') || []).length,
+		close: () => { if ( g.destroy ) g.destroy(); } };
+}
 
 const MODEL = process.env.DEMO_MODEL || path.join(SG, 'models', 'Qwen3.6-27B-UD-IQ2_XXS.gguf');
 const MODEL_NAME = 'Qwen3.6-27B-IQ2_XXS (9.5 GB, the crippled quant)';
@@ -80,27 +118,42 @@ async function classicCount() {
 	const aloneReply = await ask({ system: 'You are a helpful assistant. Answer concisely.', user: question, maxTokens: 200, temperature: 0 });
 	const alone = { calls: take(), answer: num(aloneReply) };
 
-	// the graph splits the word (deterministic — a string op is not a reasoning task), and each letter
-	// becomes a fact the model is shown DIRECTLY. The model only ever judges one visible character.
-	const letters = word.split('');
-	const loop = createPlanLoop({
-		decompose: async () => letters.map(( ch, i ) => ({ id: 'n_' + i, request: { id: 'c' + i, ch }, nl: 'the character ' + ch, readsExtra: [] }) ),
-		serveLeaf: async ( lf ) => {
-			const ch = lf.request.ch;                       // ← the LETTER itself, held by the graph
-			const out = await ask({ system: 'Answer with exactly one word: yes or no.',
-				user: 'Is the character "' + ch + '" the letter "r"? Answer yes or no.',
-				maxTokens: 8, temperature: 0 });
-			return /yes/i.test(String(out)) ? 1 : 0;
-		},
-		fold: ( leaves ) => String(leaves.reduce(( n, l ) => n + (Number(l.value) || 0), 0)),
-	});
-	const r = await loop.run(question);
-	const withg = { calls: take(), answer: String(r.answer), detail: { leaves: r.leaves } };
+	// THE HOST splits the word into facts — a string op is not a reasoning task, and pretending the engine
+	// does it would be a lie (the previous comment here claimed exactly that). What the host does NOT do is
+	// the counting: each letter is a node carrying its character, the model judges ONE visible character at
+	// a time, and every "yes" casts Hit → the kernel's Ledger::tally appends it to `ledger.hits`. The answer
+	// is read OFF the graph. (It used to be `leaves.reduce(...)` right here: the JS computed the result and
+	// the model was decoration. Owner, 07-17 — the graph must orchestrate, not hard-coded js.)
+	const L = bootLetters(word);
+	await L.settle();
+	const patch = {};
+	for ( let i = 0; i < word.length; i++ ) {
+		const out = await ask({ system: 'Answer with exactly one word: yes or no.',
+			user: 'Is the character "' + word[i] + '" the letter "r"? Answer yes or no.',
+			maxTokens: 8, temperature: 0 });
+		patch['l' + i] = { verdict: /yes/i.test(String(out)) ? 'yes' : 'no' };   // the host writes what it SAID
+	}
+	await L.ingest(patch);
+	await L.settle();
+	const counted = L.count();
+	// the live half, and the reason this is a ledger and not a sum: retract one judgment and the count
+	// re-derives itself — the entry untallies, the retraction is appended, nothing is spliced out.
+	await L.ingest({ l2: { verdict: 'no' } });
+	await L.settle();
+	const afterRetraction = L.count();
+	const withg = { calls: take(), answer: String(counted),
+		detail: { hits: L.fact('ledger', 'hits') || [], countedOnGraph: counted, afterRetraction } };
+	L.close();
 
 	return { id: 'count', truth, question,
 		title: 'How many r\'s in "strawberry"?',
 		why: 'The other famous one. A model does not see letters — it sees chunks ("straw" + "berry"), so a question about spelling is a question about something it was never shown. No amount of extra model fixes that: the letters were never there to look at.',
-		how: 'Through the graph: split the word and hold each letter as its own fact, then show the model the CHARACTER — "is \'w\' the letter r?" — which it can answer. The splitting is deliberately not the model\'s job; making the letters visible is exactly what the graph is for.',
+		how: 'Through the graph: the word is split into facts — one node per letter, carrying the character. That '
+			+ 'split is a plain string op done by the host, and it is deliberately not the model\'s job. The model is '
+			+ 'then shown one CHARACTER at a time — "is \'w\' the letter r?" — which is a question it can actually '
+			+ 'answer. Each "yes" tallies onto the ledger through the kernel, so the count is a fact the ENGINE '
+			+ 'derives from the model\'s own judgments, not a sum in the demo script. And it stays live: retract one '
+			+ 'judgment and the count re-derives itself, with the retraction kept on the record.',
 		alone, withg };
 }
 
@@ -119,7 +172,14 @@ async function classicDeepMath() {
 	const aloneReply = await ask({ system: 'You are a helpful assistant. Answer with just the final number.', user: question, maxTokens: 400, temperature: 0 });
 	const alone = { calls: take(), answer: num(aloneReply) };
 
-	// the typed plan: each step is ONE arithmetic move and sees only the values it declared it needs.
+	// The typed plan: each step is ONE arithmetic move and sees only the values it declared it needs.
+	//
+	// THE CUT IS SUPPLIED, and that is not a shortcut being hidden — it is the measured finding. "The small
+	// model as the task CUTTER" is REFUTED (R1a, measured; docs/CAPABILITIES.md: "the cutter/executor split is
+	// measured, not assumed — the small model is *not* the task cutter"). Handing this quant the job of
+	// decomposing would demo a claim the project has already retracted. What IS measured, and what this shows,
+	// is the EXECUTOR half: given the cut, running it in bounded pieces holds (10/33) where the same model on
+	// the whole prompt collapses (0/33).
 	const STEPS = [
 		{ id: 'mon', nl: 'Monday: the bakery sold 34 loaves. How many loaves on Monday?', needs: [] },
 		{ id: 'tue', nl: 'Tuesday it sold 12 MORE loaves than Monday. Monday was {mon}. How many on Tuesday?', needs: ['mon'] },
@@ -147,7 +207,11 @@ async function classicDeepMath() {
 	return { id: 'deepmath', truth, question,
 		title: 'A word problem with six chained steps',
 		why: 'Not a trick — just long. Each step feeds the next, so one slip anywhere poisons the answer. This is exactly where a small model asked all at once falls apart: measured over 33 problems this deep, it got 0 of them right.',
-		how: 'Through the graph: one arithmetic move per call. Each step is handed only the numbers it asked for — never the story, never the other steps — and the graph carries the values between them.',
+		how: 'Through the graph: one arithmetic move per call. Each step is handed only the numbers it asked for — '
+			+ 'never the story, never the other steps — and the graph carries the values between them. The cut itself '
+			+ 'is supplied, not invented by this model: that this quant makes a poor task-cutter is a measured, '
+			+ 'published negative. What is being shown is the other half — that executing the pieces holds where '
+			+ 'the whole prompt collapses.',
 		alone, withg };
 }
 
@@ -159,32 +223,65 @@ async function classicDeepMath() {
 //                 it the shape, and it fills it in one step at a time.
 // ─────────────────────────────────────────────────────────────────────────────────────────────────
 async function classicFinqa() {
-	const d = JSON.parse(fs.readFileSync(path.join(SG, 'examples', 'integrated-demo', 'mission-data.json'), 'utf8'));
-	const it = d.items.find(( x ) => x.covered && x.resolvable && x.gold === 'subtract>divide' );
+	// MECHANICAL selection, announced: the FIRST covered+table-resolvable question in file order. The old
+	// version picked the item whose GOLD shape matched a procedure it then hard-coded — that is choosing the
+	// question to fit the answer, and it is how a demo manufactures a result. The gold is used for ONE thing
+	// here: scoring, after the fact.
+	const { report, certified, items } = D.pickReport();
+	const it = items[0];
 	const tbl = it.table.map(( r ) => r.join(' | ') ).join('\n');
-	const truth = String(Math.round(it.exeAns * 10000) / 10000);          // -0.0322
+	const truth = String(Math.round(it.exeAns * 10000) / 10000);          // the gold, quoted to 4dp
 
 	const aloneReply = await ask({ system: 'You are a financial analyst. Answer with just the number.',
-		user: 'Table from the ' + d.report + ' annual report:\n' + tbl + '\n\nQuestion: ' + it.problem
+		user: 'Table from the ' + report + ' annual report:\n' + tbl + '\n\nQuestion: ' + it.problem
 			+ '\nAnswer with just the number (a decimal fraction, not a percentage).', maxTokens: 400, temperature: 0 });
 	const alone = { calls: take(), answer: num(aloneReply) };
 
-	// STEERED: the certified shape for this class of question, from the forged stock. One step per move.
-	const a = await ask({ system: 'You do ONE arithmetic step. Answer with just the number.',
-		user: 'Table:\n' + tbl + '\n\nStep 1 of 2 — SUBTRACT: 2008 net revenue minus 2007 net revenue. Just the number.',
-		maxTokens: 24, temperature: 0 });
-	const b = await ask({ system: 'You do ONE arithmetic step. Answer with just the number.',
-		user: 'Step 2 of 2 — DIVIDE: ' + String(num(a)) + ' divided by the 2007 net revenue of 991.1. '
-			+ 'Answer with just the decimal, 4 places.', maxTokens: 24, temperature: 0 });
-	const withg = { calls: take(), answer: num(b) };
+	// STEERED — the REAL surface, the same one the integrated demo runs (`sg mcp` + the forged stock):
+	//   1. the model is handed the table and the MENU of certified shapes from the stock — never the gold,
+	//      never the operands. IT emits the ordered program (which op, which numbers).
+	//   2. the HARD `propose` lane gates that emission: the shape must be in the frozen referential AND every
+	//      literal must trace back to a cell of THIS table (the provenance check — an invented number is
+	//      refused, by name).
+	//   3. a refusal comes back with the blame and the admissible options ENUMERATED THROUGH the gate; the
+	//      model gets exactly one bounded revision.
+	// (The old version did none of this: two hand-written prompts, the shape copied off the gold, and the
+	//  divisor 991.1 fed to the model in the prompt — which walks straight past the provenance gate that is
+	//  the actual mechanism. It could not fail, and it proved nothing.)
+	const forcedLog = [];
+	const wiring = S.createWiring({ certified, tableOf: () => it.table, forcedLog });
+	const srv = createMcpServer({ tools: defaultTools(wiring), serverInfo: { name: 'head-to-head', version: '1' } });
+	let rpcId = 0;
+	const call = async ( name, args ) => {
+		const res = await srv.handle({ jsonrpc: '2.0', id: ++rpcId, method: 'tools/call', params: { name, arguments: args || {} } });
+		if ( res.error || res.result.isError ) throw new Error(name + ': ' + JSON.stringify(res.error || res.result.content[0].text));
+		return JSON.parse(res.result.content[0].text);
+	};
 
-	return { id: 'finqa', truth, question: it.problem, tol: 0.00005,   // the gold is quoted to 4dp
+	let steps = await S.emitProgram(ask, it, certified);
+	let v = await call('propose', { proposal: { stepId: 'q', steps } });
+	const refusals = [];
+	if ( v.status !== 'admitted' ) {                       // ONE bounded revision, steered by the gate's own blame
+		refusals.push({ blame: v.blame, options: (v.options || []).map(( o ) => o.shape ) });
+		steps = await S.emitProgram(ask, it, (v.options || []).map(( o ) => o.shape ), v.blame);
+		v = await call('propose', { proposal: { stepId: 'q', steps } });
+		if ( v.status !== 'admitted' ) refusals.push({ blame: v.blame, options: (v.options || []).map(( o ) => o.shape ) });
+	}
+	const a = S.analyze(steps, it.table, certified);
+	// admitted → the value the model's own program computes. Refused → NO answer: the gate does not yield,
+	// and a refusal is a legitimate outcome that must show up in the score as one.
+	const withg = { calls: take(), answer: v.status === 'admitted' && a.ok ? String(a.value) : null,
+		detail: { status: v.status, shape: a.shape || null, program: a.program || null, refusals } };
+
+	return { id: 'finqa', truth, question: it.problem, tol: 0.00005,
 		title: 'A real question about a real annual report',
-		why: 'Not a puzzle — the actual job. A real table from a real utility\'s 2008 report, and a question a '
+		why: 'Not a puzzle — the actual job. A real table from a real utility\'s 2008 report, and a question an '
 			+ 'analyst would ask. The numbers are all right there; it just has to pick the right two and do the right things to them.',
-		how: 'Through the graph: the forged stock already knows what SHAPE this kind of question takes — subtract, '
-			+ 'then divide — because that shape was mined from solved examples and admitted only when it matched the '
-			+ 'checker every time. We never tell it the answer. We tell it the shape, and it fills in one step at a time.',
+		how: 'Through the graph: the forged stock carries the op-sequences certified for this domain — mined from '
+			+ 'solved examples and admitted only when they matched the checker every time. We hand the model that '
+			+ 'MENU of shapes and the table, and it emits the program itself. The gate then refuses any shape outside '
+			+ 'the referential, and any number it cannot trace to a cell of this table. We never tell it the answer, '
+			+ 'the operands, or which shape to use.',
 		alone, withg };
 }
 

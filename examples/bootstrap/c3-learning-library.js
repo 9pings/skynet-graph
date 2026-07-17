@@ -15,7 +15,7 @@ const assert = require('node:assert');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
-const { createLearningLibrary } = require('../../lib/index.js').combos;
+const { createLearningLibrary } = require('../../lib/index.js').factories;
 
 // the typed K1 signature: STRUCTURE = the method class (what amortizes), CONTENT = the per-instance holes.
 const signature = ( p ) => ({ structure: { task: p.task }, content: { variant: p.variant } });

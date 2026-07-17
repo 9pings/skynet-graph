@@ -9,8 +9,14 @@
  *
  *   node examples/head-to-head/run.js
  *
- * THE DEAL: whatever the model answered is what is printed — including the two cases where this project
- * does NOT come out ahead. A demo that only shows its wins is an advert. This one publishes the score.
+ * THE DEAL: whatever the model answered is what is printed — including every case where this project does
+ * NOT come out ahead. A demo that only shows its wins is an advert.
+ *
+ * READ THIS BEFORE EDITING THE PROSE. Every count and every verdict below is DERIVED from the transcript
+ * at print time — no sentence here hard-codes how many cases there are or how they went. That is deliberate,
+ * and it is a scar: this file once said "including the one where this project LOSES" for three commits after
+ * the loss had been engineered away (`7151748` fixed the strawberry cut, `count` stopped losing, the boast
+ * stayed). Hand-written prose about data drifts the moment the data moves. Derive it, or it will lie for you.
  */
 const assert = require('node:assert');
 const path = require('node:path');
@@ -19,6 +25,17 @@ const { title, say, gap, step: beat, note, good, bad, val, done: finish } = requ
 
 const T = JSON.parse(fs.readFileSync(path.join(__dirname, 'transcript.json'), 'utf8'));
 const W = 86;
+
+// The score, READ OFF the transcript — never asserted by hand. If a case starts or stops losing, every
+// sentence in this file follows automatically.
+const WON  = T.cases.filter(( c ) => !c.aloneRight && c.withRight );   // the graph turned wrong into right
+const TIED = T.cases.filter(( c ) => c.aloneRight && c.withRight );    // the model already coped alone
+const LOST = T.cases.filter(( c ) => c.aloneRight && !c.withRight );   // the graph made it WORSE
+const BOTH = T.cases.filter(( c ) => !c.aloneRight && !c.withRight );  // neither got there
+const WORD = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+const say_n = ( n ) => WORD[n] || String(n);
+const cap = ( s ) => s.charAt(0).toUpperCase() + s.slice(1);
+const plural = ( n, one, many ) => n === 1 ? one : many;
 
 function box( label, lines, mark ) {
 	say('   ┌─ ' + label + ' ' + '─'.repeat(Math.max(0, W - label.length - 4)));
@@ -41,11 +58,11 @@ function verdictLine( c ) {
 
 function main() {
 	title('CLASSIC PROBLEMS — THE SAME MODEL, ASKED TWICE');
-	say('Three problems language models are famous for tripping on. Each is put to the SAME 9.5 GB model');
-	say('that runs on one ordinary graphics card: once by just asking it, and once through this project.');
+	say(cap(say_n(T.cases.length)) + ' problems. Each is put to the SAME 9.5 GB model that runs on one');
+	say('ordinary graphics card: once by just asking it, and once through this project.');
 	say('Every prompt and every reply below is exactly what was sent and exactly what came back.');
 	gap();
-	say('The thread running through all three: whatever the question is really ABOUT has to exist as');
+	say('The thread running through all ' + say_n(T.cases.length) + ': whatever the question is really ABOUT has to exist as');
 	say('something the model can look at. Give it the whole story and it fumbles the chain; give each');
 	say('step its own numbers and it does not. Give it a word and it cannot find the letters; give it');
 	say('one letter and it is never wrong. The work is in the cut, not in the model.');
@@ -57,11 +74,27 @@ function main() {
 	say('  model may well have the answer memorised. The evidence is the campaigns, run properly:');
 	val('piece-by-piece', 'N=200/domain — maths 16→52 % · finance 20→50 % · on the deep ones 0/33 → 10/33');
 	val('certified steering', 'N=201 SQL 8→63 % · N=120 finance 7→62 %, at zero big-model calls');
-	val('the critical mind', 'N=24 — asked directly 13/24 with 11 confident-WRONG · this 24/24, zero wrong');
+	val('the critical mind', 'a debate where every point names its evidence — see the critic demo');
 	say('');
 	say('  Those ran with bars fixed in advance, negative controls, and bit-identical re-runs —');
 	say('  see docs/CAPABILITIES.md, and artifact/ replays every table in the papers with no GPU.');
 	say('  What follows is one legible instance of each, so you can see what it looks like.');
+	gap();
+	// The tally, read off the data. Printed BEFORE the cases so nobody has to take the closing line on faith.
+	// `val` aligns only while the label fits its 22-char column — keep these short or the table skews.
+	say('  HOW THESE ' + say_n(T.cases.length).toUpperCase() + ' WENT, before you read them:');
+	val('graph turned it around', say_n(WON.length) + ' of ' + say_n(T.cases.length));
+	val('model coped alone', say_n(TIED.length) + ' of ' + say_n(T.cases.length) + ' — shown in full anyway');
+	val('graph made it worse', say_n(LOST.length) + ' of ' + say_n(T.cases.length));
+	if ( BOTH.length ) val('neither got there', say_n(BOTH.length) + ' of ' + say_n(T.cases.length));
+	gap();
+	if ( LOST.length ) {
+		say('  We lose ' + say_n(LOST.length) + ' of these, and ' + plural(LOST.length, 'it is', 'they are')
+			+ ' printed below with the reason.');
+	} else {
+		say('  We do not lose any of these ' + say_n(T.cases.length) + ' — which is a fact about ' + say_n(T.cases.length));
+		say('  hand-picked problems, and not a result. A demo that only shows its wins is an advert.');
+	}
 
 	for ( const c of T.cases ) {
 		gap();
@@ -98,17 +131,19 @@ function main() {
 		if ( c.lesson ) for ( const l of c.lesson.split('\n') ) say('       ' + l);
 	}
 
-	// the asserts: the transcript must stay a real record, and the score must stay honest
-	assert.ok(T.cases.length >= 3, 'three classics');
+	// the asserts: the transcript must stay a real record, and every case must be scored, both ways.
 	for ( const c of T.cases ) {
 		assert.ok(c.alone.calls.length >= 1 && c.withg.calls.length >= 1, c.id + ': real calls recorded');
 		assert.ok(c.alone.calls[0].user && c.alone.calls[0].reply, c.id + ': the prompt AND the reply are on the record');
+		assert.equal(typeof c.aloneRight, 'boolean', c.id + ': scored alone');
+		assert.equal(typeof c.withRight, 'boolean', c.id + ': scored through the graph');
 	}
-	const won = T.cases.filter(( c ) => !c.aloneRight && c.withRight ).length;
-	assert.ok(won >= 1, 'at least one classic where the graph turns a wrong answer into a right one');
+	// The tally is a PARTITION of the cases — no case can be quietly dropped from the score.
+	assert.equal(WON.length + TIED.length + LOST.length + BOTH.length, T.cases.length, 'every case is counted');
+	assert.ok(WON.length >= 1, 'at least one classic where the graph turns a wrong answer into a right one');
 
 	gap();
-	finish('on a real model: the long chained problem it could not do alone, it does through the graph — '
-		+ 'and where we lose, the transcript says so.', 'BOOTSTRAP OK');
+	finish('the long chained problem it could not do alone, it does through the graph — and the '
+		+ say_n(TIED.length) + ' where it needed no help say so too.', 'BOOTSTRAP OK');
 }
 main();

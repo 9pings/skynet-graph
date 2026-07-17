@@ -1,0 +1,26 @@
+{
+  // Hit — a letter the model judged to BE an "r".
+  //
+  // THE POINT OF THIS FILE, and it is the whole reason the strawberry arm exists: the COUNT is not something
+  // the host computes. Each letter of the word is a node carrying its character (`ch`) as a fact; the host
+  // shows the model that ONE visible character and writes back what it said (`verdict`). Every letter whose
+  // verdict is "yes" casts Hit, and the kernel's Ledger::tally appends its character to `ledger.hits`.
+  //
+  // So the answer — how many r's — is `ledger.hits`, a fact ON THE GRAPH, derived by the engine from the
+  // model's own judgments. It is NOT `letters.reduce((n,l) => n + l.value, 0)` in the demo file. That
+  // distinction is not pedantry: the earlier version of this demo did the splitting AND the summing in
+  // plain JS and let the model answer "is 'w' the letter r?" — a question it cannot get wrong. The JS
+  // produced the answer and the model was decoration. (Owner, 2026-07-17: "c'est le graph qui doit
+  // orchestrer pas du js hardcodé".)
+  //
+  // `cleaner` is the other half, and it is what a `reduce` can never give you: retract a letter's verdict and
+  // the entry UNTALLIES — appended to `ledger.hitsRetracted`, never spliced out. The active count is
+  // hits.length - hitsRetracted.length, so the count is LIVE and the retraction stays on the record. That is
+  // the ProEntry pattern from C9, verbatim; this file is a host writing four lines against the same kernel.
+  //
+  // require Thought = the crossCorpus anchor onto reason-kernel (any node seeded `isThought` casts Thought).
+  "require": ["Thought", "verdict"],
+  "ensure": ["$verdict == 'yes'"],
+  "provider": ["Ledger::tally", "hits", "ch"],
+  "cleaner": ["Ledger::untally", "hits"]
+}

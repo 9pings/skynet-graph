@@ -299,7 +299,7 @@ A host-side validator enforces the typed-fact discipline **before** a concept tr
 the safety gate for hand- or AI-authored concepts. It validates *structure*, never the expression grammar.
 
 ```js
-const { validateConceptTree, validateOrThrow } = require('skynet-graph/lib/authoring/validate');
+const { validateConceptTree, validateOrThrow } = require('skynet-graph/lib/authoring/core/validate');
 const { errors, warnings } = validateConceptTree(tree, { palette: ['LLM::complete', 'CommonGeo::Distance'] });
 ```
 

@@ -45,12 +45,14 @@ Here four things it gives to any model, each measured on real runs with negative
   its consequences in cascade and re-derives at 0 model calls; a withdrawn value **reopens** the steps
   that depended on it, with the reason.
 - **An external think mode** — the model proposes, the graph refutes with the reason and the admissible
-  options, the model revises. Zero false admissions, every campaign. Head-to-head (N=24, same pools, gold
-  hidden, every arm re-run bit-identical): asked directly the quant scores **13/24 ≈ chance** and its own
-  native think budget also **13/24** — each rendering **11 confident wrong verdicts, never once refusing**.
-  The external critical mind renders **0 wrong verdicts anywhere**: **declare the frame and it decides
-  24/24, all by mechanical count**; without one it returns an honest UNDECIDED rather than a coin flip.
-  *Declaring the frame is what buys a provable verdict* — [see it run](examples/bootstrap/c9-critical-mind.js).
+  options, the model revises. Zero false admissions, every campaign. On a debate, the job the graph does is
+  **making the arguments real**: every point on the table has to name the statements that actually carry it,
+  and a point that cites nothing does not get in — *including the ones the model invents itself*, which face
+  the same gate. What you get back is a pool where each side's case is traceable to the evidence under it,
+  and a ledger that says which points were admitted, which were refused, and why.
+  **Weighing those arguments is the model's job, not the graph's** — a count of how many points each side
+  scored is not a judgment, and we do not dress one up as a proof. The graph guarantees the inputs to the
+  judgment, not the judgment. [See it run](examples/bootstrap/c9-critical-mind.js).
 
 **See it in 30 seconds — no model, no GPU** (a deterministic replay of a real end-to-end run — the
 9.5 GB quant analyzing an annual report, erratum and crash included):
@@ -64,8 +66,9 @@ npm install && node examples/integrated-demo/run.js --replay      # 7 checks, bi
 
 > **Active R&D.** Some of this is measured and replayable, some is proven only structurally, and plenty
 > still needs work — [CAPABILITIES.md](docs/CAPABILITIES.md) carries a maturity bar per feature, and the
-> demos publish the losses too. A strategy here is **a concept grammar in files**: improving a cut, a
-> prompt or a gate is a file you edit and re-run, not a framework you fork.
+> demos publish the losses too. 
+> We believe the substrate is ideal for higher-level reasoning strategies, so the strategy here is to improve concept grammars, the providers and the prompts they generate to get what we want.
+> 
 
 Every claim on this page follows a standing rule: **a refuted claim is removed the day it falls**
 (several are listed below on purpose). The full feature map — maturity bars, numbers, limits,
@@ -142,9 +145,9 @@ comparisons quietly drop.
 |---|---|---|---|
 | a bigger / frontier model — or a **closed reasoning layer** (e.g. CoreThink, which wraps Claude 4 / Grok 4) | more raw capability, at API cost, off-machine | typed gates + deterministic replay on **your own local** model; nothing leaves the machine | that it out-raw-reasons a frontier model, or any big-model number we have not measured |
 | a decomposition framework (LLMCompiler, ReWOO) | a task DAG | a **typed** DAG where each step sees only a bounded neighbourhood, behind an admission gate | that the small model is the task *cutter* (a measured limit) |
-| LLM-as-judge | a verdict, always | counts + zero-false coverage + an honest **UNDECIDED** off certified perimeters; a verdict only at margin ≥3 or on a certified frame | a reliable verdict on free, uncertified content |
+| LLM-as-judge | a verdict, always | every argument on the record with the evidence under it, unsupported points refused by name, and zero-false coverage off certified perimeters | a verdict: weighing the arguments is the model's job — the graph makes them auditable, not decidable |
 | a RAG skill-library | retrieved snippets | typed methods that **un-learn** when their premise drifts — the moat no RAG index has | that novel, free-prose reasoning amortizes |
-| a native "think" mode | a longer in-model CoT | an external critic that refutes with the reason + the admissible options — **24/24 with the frame declared, 0 wrong verdicts**, vs native think **13/24 ≈ chance** (11 confident-wrong) | to interpret the model's internal chain-of-thought, or a verdict on a frame you did not declare |
+| a native "think" mode | a longer in-model CoT | an external critic that refutes with the reason + the admissible options, and puts every argument on the record with the evidence carrying it — the model's own new angles included, gated the same way | to weigh the arguments for you: the pool is auditable, the judgment over it is still the model's |
 | a rules engine | deterministic rules | rules **+** truth maintenance: a falsified premise un-casts itself *and its consequences*, with no rollback code | hand-encoded completeness — the rules are learned and defeasible |
 
 The per-feature numbers behind each row live in **[docs/CAPABILITIES.md](docs/CAPABILITIES.md)**.
