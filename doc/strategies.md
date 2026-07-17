@@ -82,9 +82,23 @@ alphabet early; `deriveManifest` makes it inspectable and diffable so this stays
 **Only the debate (C9) is LLM-measured**: GPU-replayed, published numbers, negative controls
 (see [CAPABILITIES.md F5](CAPABILITIES.md#f5-external-critical-mind)). The other sets are **expressible and
 structurally proven** — 0-model tests, negative controls, deterministic replay — and *not* LLM-benchmarked.
-That is a real claim and a smaller one than a benchmark; re-measuring them against an LLM would need real
-hosts (an external judge, real tools) and has not been done. The distinction is kept deliberately: a page
-that blurs "we proved the machinery" into "we proved it helps" is the kind of claim this project removes.
+That is a real claim and a smaller one than a benchmark. The distinction is kept deliberately: a page that
+blurs "we proved the machinery" into "we proved it helps" is the kind of claim this project removes.
+
+One narrower thing *has* been checked live, because the recipes below teach the **host** side and a recipe
+whose host side never met a model is a guess. On a 9.5 GB local quant (Q2), with bars registered in advance:
+the **ReAct** loop ran end-to-end unaided (the model emitted a typed `actionTool` every round, the worklist
+retired itself on each observation, the loop stopped on its own `FINISH`); **C9** reproduced the shape this
+page describes (every witness real, 0 open points, margin 0 → honest `UNDECIDED`); and the **MCTS** driver
+returned **two byte-identical searches with a real model in the loop** — the replay claim holding with live
+inference, not just scripted stubs. That is a *smoke*, not a benchmark: it says the host side works, and says
+nothing about whether any of these make a model better at anything.
+
+Worth knowing from the same run: mid-search, Q2 stopped answering in the required form and emitted garbage
+candidates. The **external oracle scored them 0 and the beam pruned them**, and the search still returned the
+right answer. Re-run with Q2 scoring *its own* proposals — the refuted self-audit config — the garbage won.
+One run, an illustration rather than a measurement (the refutation has its own campaigns), but a concrete
+picture of why the rule below has no exceptions.
 
 ### The rule with no exceptions: nothing self-scores
 

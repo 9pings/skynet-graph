@@ -31,8 +31,8 @@ end-to-end below on a 9.5 GB local quant — the starkest, cheapest-to-verify ca
 
 Your model's reasoning today is trapped in prose: you cannot test one step in isolation, reuse it on the
 next task, replay it deterministically, or reopen it when a fact changes. Skynet-graph act as an externalized reasoning layer doing that by structure. 
-Basing the chosen **plugin(s)** and the prompt; the substrate mutates; it cast typed
-transformations, retract them when a premise fails, until it stabilizes into a stable, coherent, serializable result state. 
+Basing the chosen **plugin(s)** and the prompt; the substrate mutates, cast typed
+transformations, retract them when a premise fails, until it stabilizes into a stable, coherent result state serializable on purpose. 
 Here four things it gives to any model, each measured on real runs with negative controls and deterministic re-runs:
 
 - **Piece-by-piece on big tasks** — the task becomes a *typed* DAG; each step sees only a bounded

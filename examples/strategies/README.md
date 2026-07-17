@@ -49,3 +49,6 @@ Chain-of-Thought is a single ask (no grammar needed — nothing to demo), **Deco
 - **Honest scope.** Only the debate (C9) is **LLM-measured** — GPU-replayed, with published numbers. The sets
   demoed here are *expressible and structurally proven* (0-model tests, negative controls, deterministic
   replay), which is what these files show. That is a real claim, and a smaller one than a benchmark.
+  The **host** side of the ReAct / ToT / MCTS recipes has additionally been **smoked live on a 9.5 GB quant**
+  (it works: typed tool calls round after round, the worklist retiring itself, and two byte-identical MCTS
+  searches with real inference in the loop) — a smoke, still not a benchmark. See [../../doc/strategies.md](../../doc/strategies.md).
