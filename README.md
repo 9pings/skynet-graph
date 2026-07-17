@@ -82,7 +82,7 @@ Where it sits in your setup — two zero-integration doors into one local loop:
  [your agent / app / any OpenAI client]
         │
         ├─► OpenAI-compatible endpoint    sg serve  →  http://127.0.0.1:4747/v1
-        └─► MCP tools                     sg mcp    →  ask · hint · propose · state_recall · plan_sync · critique
+        └─► MCP tools                     sg mcp    →  ask · zoom · hint · propose · state_recall · plan_sync · critique
                       │
                       ▼
         [typed reasoning graph]    plan · admission gates · typed ledger · JTMS memory

@@ -547,6 +547,13 @@ claude mcp add sg -- node bin/sg mcp --frontier-model <path.gguf> --store ./stoc
 #           statements (web/docs) and re-calls critique with `statements` (the frame becomes MATERIAL);
 #           to SPLIT a mixed question, re-call with per-dimension `viewpoints`, forwarding
 #           `brief.carry.statements` so the same evidence re-gates under the new frame.
+#   C7    — zoom (the plan loop as a tool: YOU declare the plan — leaves with `needs` between them,
+#           the small model as decomposer is a published negative (R1a) — and the engine serves each
+#           leaf in a BOUNDED context: its own self-contained ask + the upstream VALUES it declared,
+#           never the task text, never a sibling's question. A leaf whose needs nobody produces
+#           refuses the plan TYPED + NAMED before any model call; duplicates are dropped, order is
+#           derived, reassembly is checked. `givens` injects the task's base facts into the leaves
+#           that cite them.)
 #   INSTANCES — graph_invoke / graph_instances.
 
 # 2b) sg try — one-shot LIVE probe of an MCP tool feature (the SAME tool surface as sg mcp, no
