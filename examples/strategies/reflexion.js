@@ -37,11 +37,20 @@ async function main() {
 	gap();
 	liveBanner();
 	gap();
-	beat(0, 'A real draft, put to a real reviewer that answers pass or fail:');
-	exchange('reflexion', 0, 'a separate call from the one that wrote it — always');
-	good('pass/fail from outside. The drafter never gets a vote on its own work');
+	beat(0, 'The brief asks for EXACTLY 10 words — something a machine can check and a model cannot.');
+	exchange('reflexion', 0, null);
+	bad('count them: NINE. It was asked for ten. It did not notice, and it never would');
 	gap();
-	say('  The graph turns that verdict into accept-or-rewrite:');
+	beat(1, 'So we do not ask it. A separate call is shown the COUNT and judges:');
+	exchange('reflexion', 1, 'FLAWED — not an opinion about the writing, a fact about the number');
+	gap();
+	beat(2, 'Told what was actually wrong, it tries again:');
+	exchange('reflexion', 2, null);
+	exchange('reflexion', 3, 'CORRECT. Ten words this time');
+	good('a real failure, caught by something that is not the writer, and fixed in one pass');
+	say('         The writer never marked its own work. That is the rule, and it is why this worked.');
+	gap();
+	say('  The graph is what turns that verdict into accept-or-rewrite:');
 
 	// ── 1. the binary gate ────────────────────────────────────────────────────────────────────────
 	const s = bootStrategy('refinement', {                                   // the reflexion set ships in the refinement plugin

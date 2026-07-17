@@ -35,22 +35,28 @@
   ],
   "react": [
    {
+    "label": "asked cold, no tools — it just answers",
+    "system": "Answer concisely.",
+    "user": "What is the population of the capital of Australia? Give the city and the number.",
+    "reply": "Canberra, 537,474"
+   },
+   {
     "label": "step 1 — what should we do first?",
     "system": "You are a careful assistant. Follow the output format EXACTLY.",
-    "user": "Question: What is the population of the capital of France?\nTools: lookup_capital(country) · lookup_population(city)\nSteps so far: (none)\nReply exactly 2 lines:\nTHOUGHT: <one sentence>\nACTION: <tool>(<input>)",
-    "reply": "THOUGHT: To find the population of the capital of France, I first need to identify the capital city.\nACTION: lookup_capital(France)"
+    "user": "Question: What is the population of the capital of Australia?\nTools: lookup_capital(country) · lookup_population(city)\nSteps so far: (none)\nReply exactly 2 lines:\nTHOUGHT: <one sentence>\nACTION: <tool>(<input>)",
+    "reply": "THOUGHT: To find the population of the capital of Australia, I first need to identify the capital city.\nACTION: lookup_capital(Australia)"
    },
    {
     "label": "step 2 — we ran it and told it the answer",
     "system": "You are a careful assistant. Follow the output format EXACTLY.",
-    "user": "Question: What is the population of the capital of France?\nTools: lookup_capital(country) · lookup_population(city)\nSteps so far:\n1. lookup_capital(France) -> Paris\nReply exactly 2 lines:\nTHOUGHT: <one sentence>\nACTION: <tool>(<input>)",
-    "reply": "THOUGHT: I have identified the capital of France as Paris, so I will now look up its population.\nACTION: lookup_population(Paris)"
+    "user": "Question: What is the population of the capital of Australia?\nTools: lookup_capital(country) · lookup_population(city)\nSteps so far:\n1. lookup_capital(Australia) -> Canberra\nReply exactly 2 lines:\nTHOUGHT: <one sentence>\nACTION: <tool>(<input>)",
+    "reply": "THOUGHT: I have identified the capital of Australia as Canberra, so now I need to find its population.\nACTION: lookup_population(Canberra)"
    },
    {
-    "label": "step 3 — it has the number",
+    "label": "step 3 — the TOOL gives the real number, not its memory",
     "system": "You are a careful assistant. Follow the output format EXACTLY.",
-    "user": "Question: What is the population of the capital of France?\nTools: lookup_capital(country) · lookup_population(city)\nSteps so far:\n1. lookup_capital(France) -> Paris\n2. lookup_population(Paris) -> 2100000\nReply exactly 2 lines:\nTHOUGHT: <one sentence>\nACTION: FINISH(<the answer>)",
-    "reply": "THOUGHT: The population of Paris, the capital of France, is 2,100,000.\nACTION: FINISH(2100000)"
+    "user": "Question: What is the population of the capital of Australia?\nTools: lookup_capital(country) · lookup_population(city)\nSteps so far:\n1. lookup_capital(Australia) -> Canberra\n2. lookup_population(Canberra) -> 456692\nReply exactly 2 lines:\nTHOUGHT: <one sentence>\nACTION: FINISH(<the answer>)",
+    "reply": "THOUGHT: The capital of Australia is Canberra, and its population is 456692.\nACTION: FINISH(456692)"
    }
   ],
   "least-to-most": [
@@ -115,15 +121,27 @@
   ],
   "reflexion": [
    {
-    "label": "an EXTERNAL reviewer, pass/fail",
-    "system": "You are a careful assistant. Follow the output format EXACTLY.",
-    "user": "Brief: Write a one-sentence description of a bicycle lock for an online shop.\nDraft: \"Secure your ride with our heavy-duty, anti-theft bicycle lock, designed to provide reliable protection against theft while offering quick and easy installation.\"\nIs this draft acceptable for the shop? Reply one word exactly: CORRECT or FLAWED",
-    "reply": "CORRECT"
+    "label": "draft 1 — asked for exactly 10 words",
+    "system": "Answer concisely.",
+    "user": "Write a product description for a bicycle lock in EXACTLY 10 words. Reply with the sentence only.",
+    "reply": "Secure your bike with our heavy-duty, rust-resistant chain lock."
    },
    {
-    "label": "the reviewer looks at the rewrite",
+    "label": "the reviewer COUNTS — it does not have an opinion",
     "system": "You are a careful assistant. Follow the output format EXACTLY.",
-    "user": "Brief: Write a one-sentence description of a bicycle lock for an online shop.\nDraft: \"Secure your ride with our heavy-duty bicycle lock, designed to provide robust protection against theft while offering a quick and hassle-free locking mechanism for your daily commute.\"\nIs this draft acceptable for the shop? Reply one word exactly: CORRECT or FLAWED",
+    "user": "The brief said EXACTLY 10 words. This draft has 9 words: \"Secure your bike with our heavy-duty, rust-resistant chain lock.\"\nReply one word exactly: CORRECT or FLAWED",
+    "reply": "FLAWED"
+   },
+   {
+    "label": "draft 2 — told what was wrong",
+    "system": "Answer concisely.",
+    "user": "Write a product description for a bicycle lock in EXACTLY 10 words. Reply with the sentence only.\nYour previous attempt had 9 words, which is wrong. It must be EXACTLY 10 words.",
+    "reply": "Secure your bike with this heavy-duty, rust-resistant, anti-theft locking device."
+   },
+   {
+    "label": "the reviewer counts again",
+    "system": "You are a careful assistant. Follow the output format EXACTLY.",
+    "user": "The brief said EXACTLY 10 words. This draft has 10 words: \"Secure your bike with this heavy-duty, rust-resistant, anti-theft locking device.\"\nReply one word exactly: CORRECT or FLAWED",
     "reply": "CORRECT"
    }
   ],
@@ -165,10 +183,16 @@
   ],
   "mcts": [
    {
-    "label": "what are the legal moves here?",
+    "label": "asked cold — which square should O take?",
+    "system": "Answer concisely.",
+    "user": "Tic-tac-toe.\nX has: top-left and centre.\nO has: top-right and bottom-left.\nIt is O to move.\nWhich square must O play to avoid losing? Answer with just the square name.",
+    "reply": "centre-right"
+   },
+   {
+    "label": "the search asks only: what moves exist?",
     "system": "You are a careful assistant. Follow the output format EXACTLY.",
-    "user": "A counter starts at 0. Each move adds 3 or 5. You must land on EXACTLY 11 within 3 moves.\nThe counter is at 0 and no moves have been made. List the legal moves, comma separated, from: +3, +5",
-    "reply": "+3, +5"
+    "user": "Tic-tac-toe.\nX has: top-left and centre.\nO has: top-right and bottom-left.\nIt is O to move.\nList the EMPTY squares, comma separated, from: top-middle, middle-left, middle-right, bottom-middle, bottom-right",
+    "reply": "top-middle, middle-left, middle-right, bottom-middle, bottom-right"
    }
   ]
  }

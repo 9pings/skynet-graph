@@ -98,6 +98,10 @@ header.hero::after{content:''; position:absolute; top:-280px; right:-180px; widt
 .btn.primary{background:var(--signal); color:#04110f; border-color:var(--signal)}
 .btn.primary:hover{transform:translateY(-2px); box-shadow:0 10px 30px -10px var(--signal)}
 .btn.ghost:hover{border-color:var(--signal); color:var(--signal)}
+/* the R&D note — a NOTE: three lines, up front, next to the claims. Not a panel, not an essay. */
+.rnd{margin:30px 0 0; padding:12px 0 0; border-top:1px solid var(--edge); max-width:74ch;
+  font-size:15.5px; line-height:1.55; color:var(--faint)}
+.rnd b{color:var(--dim); font-weight:600}
 
 /* ── code: it WRAPS. (it used to run off the side of the box.) ────────────────────────────────── */
 .codeblock{
@@ -251,6 +255,11 @@ footer{border-top:1px solid var(--edge); padding:44px 0 60px}
       <a class="btn ghost" href="https://github.com/9pings/skynet-graph">GitHub</a>
       <a class="btn ghost" href="https://github.com/9pings/skynet-graph/blob/master/docs/usage.md">Docs</a>
     </div>
+
+    <p class="rnd"><b>Active R&amp;D.</b> Some of this is measured and replayable, some is proven only
+      structurally, and the demos publish the losses too. A strategy here is <b>a concept grammar in files</b>
+      — so improving a cut, a prompt or a gate is a file you edit and re-run, not a framework you fork.</p>
+  </div>
   </div>
 </header>
 

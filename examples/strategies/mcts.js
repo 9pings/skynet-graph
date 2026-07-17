@@ -25,41 +25,64 @@ const { bootStrategy } = require('./_boot.js');
 const { title, say, gap, step: beat, note, good, bad, val, done: finish } = require('../_say.js');
 const { exchange, of, liveBanner } = require('./_live.js');
 
-// a scripted one-ply game: 'good' always wins the rollout, 'bad' always loses. In production: actions =
-// your legal moves, simulate = your rollout policy (keep it deterministic and the search stays replayable).
-const oneply = () => ({
-	actions : async ( node ) => node.parent == null ? ['good', 'bad'] : [],
-	simulate: async ( node ) => node.move === 'good' ? 1 : 0,
+// A REAL position. Squares 0-8, X = top-left(0) + centre(4) — so X threatens the 0-4-8 diagonal.
+// O = top-right(2) + bottom-left(6), and it is O to move. The ONLY square that does not lose is 8.
+const NAME = ['top-left', 'top-middle', 'top-right', 'middle-left', 'centre', 'middle-right', 'bottom-left', 'bottom-middle', 'bottom-right'];
+const LINES = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+const START = { X: [0, 4], O: [2, 6] };
+const winner = ( b ) => { for ( const L of LINES ) { const [a, c, d] = L;
+	if ( b[a] && b[a] === b[c] && b[a] === b[d] ) return b[a]; } return null; };
+const boardOf = ( moves ) => { const b = Array(9).fill(null);
+	START.X.forEach(( i ) => b[i] = 'X' ); START.O.forEach(( i ) => b[i] = 'O' );
+	moves.forEach(( m, k ) => b[m] = k % 2 === 0 ? 'O' : 'X' ); return b; };
+const movesOf = ( node ) => (String(node.text || '').match(/\d/g) || []).map(Number);
+const empties = ( b ) => b.map(( v, i ) => v ? null : i ).filter(( i ) => i != null );
+
+// THE REAL GAME: legal moves, and a rollout that plays it out properly (each side takes a win if it
+// has one, else blocks, else the first free square — deterministic, so the whole search replays).
+const ticTacToe = () => ({
+	actions : async ( node ) => { const b = boardOf(movesOf(node));
+		return winner(b) ? [] : empties(b).map(String); },
+	simulate: async ( node ) => {
+		let b = boardOf(movesOf(node)), turn = movesOf(node).length % 2 === 0 ? 'O' : 'X';
+		while ( !winner(b) && empties(b).length ) {
+			const me = turn, you = me === 'X' ? 'O' : 'X';
+			const pick = ( who ) => empties(b).find(( i ) => { const t = b.slice(); t[i] = who; return winner(t) === who; });
+			const mv = pick(me) != null ? pick(me) : pick(you) != null ? pick(you) : empties(b)[0];
+			b[mv] = me; turn = you;
+		}
+		return winner(b) === 'X' ? 0 : 1;                 // O not losing = a win for O
+	},
 });
 
 async function main() {
-	title('A SEARCH THAT TRIES MOVES AT RANDOM — AND STILL GIVES THE SAME ANSWER TWICE');
-	say('This is the family of search behind game-playing AI: try a move, play it out, see who');
-	say('wins, favour whatever keeps winning. It normally relies on randomness — which means the');
-	say('same position gives you a different answer each run, and you can never reproduce the');
-	say('search that made a decision. There is no randomness in this one.');
+	title('THE MODEL PICKS THE MOVE THAT LOSES. THE SEARCH FINDS THE ONE THAT SAVES IT.');
+	say('This is the search behind game-playing AI: try a move, play it to the end, see who won,');
+	say('favour what keeps winning. Normally it leans on randomness, so the same position gives a');
+	say('different answer each run and you can never reproduce the search that decided. Not here.');
 	gap();
 	liveBanner();
 	gap();
-	beat(0, 'A real model, asked what moves are even available in a position:');
-	exchange('mcts', 0, 'the legal moves — the model supplies these; the search decides between them');
+	say('  A real position:   X has top-left and centre — so X is one square from the diagonal.');
+	say('                     O has top-right and bottom-left. O to move. One square saves it.');
 	gap();
-	say('  And the deciding, which has no randomness in it at all:');
+	beat(0, 'Just ask the model which square:');
+	exchange('mcts', 0, null);
+	bad('"centre-right" LOSES. X takes bottom-right next move and wins on the diagonal');
+	gap();
+	beat(1, 'Now the search. The model is only asked what it is good at — what moves EXIST:');
+	exchange('mcts', 1, 'that is all it contributes. It never picks; it lists');
+	gap();
 
-	// ── 1. the search converges — through the flat factory catalog ─────────────────────────────────
-	const r = await Graph.factories.createMCTS(Object.assign(oneply(), { iterations: 9 })).run('the position');
-	const gArm = r.children.find(( k ) => k.move === 'good' ), bArm = r.children.find(( k ) => k.move === 'bad' );
-	beat(1, 'A position with two moves. One always wins, one always loses. 9 tries.');
-	note('the winning move   — tried ' + gArm.visits + ' times, won ' + gArm.wins);
-	note('the losing move    — tried ' + bArm.visits + ' times, won ' + bArm.wins);
-	good('it recommends the winning move, because that is where the wins were');
-	good('the tries add up: ' + r.root.visits + ' tries, ' + r.root.wins + ' wins — the count is honest, not rounded');
-	assert.equal(r.best.move, 'good', 'the winning move collected the visits');
-	assert.ok(gArm.visits > bArm.visits, 'exploitation dominates once the win is established');
-	assert.equal(gArm.wins, gArm.visits, 'the good arm never lost a rollout');
-	assert.equal(bArm.wins, 0, 'the bad arm never won one');
-	assert.equal(r.root.visits, 9, 'every iteration backpropagated to the root');
-	assert.equal(r.root.wins, gArm.wins, 'the root total = the sum of winning rollouts — the stats are honest');
+	// ── 1. the search plays the position out, for real ────────────────────────────────────────────
+	const r = await Graph.factories.createMCTS(Object.assign(ticTacToe(), { iterations: 40 })).run('');
+	beat(2, 'It plays each square out to the end of the game, 40 times over, and counts:');
+	for ( const k of r.children.slice().sort(( a, b ) => b.visits - a.visits ) )
+		note(NAME[Number(k.move)].padEnd(14) + 'played out ' + String(k.visits).padStart(2) + ' times · survived '
+			+ String(k.wins).padStart(2) + (Number(k.move) === 8 ? '   ← the only square that saves it' : ''));
+	good('it recommends ' + NAME[Number(r.best.move)].toUpperCase() + ' — the block. The model said centre-right');
+	assert.equal(r.best.move, '8', 'the search finds the only non-losing square');
+	assert.equal(r.root.visits, 40, 'every play-out counted back to the root');
 	gap();
 
 	// ── 2. THE FRONTIER IS LIVE: Expandable uncasts the moment a node is expanded or terminal ──────
@@ -71,7 +94,7 @@ async function main() {
 		],
 	});
 	await g.settle();
-	beat(2, 'Which positions are still worth growing? That question answers itself:');
+	beat(3, 'Which positions are still worth growing? That question answers itself:');
 	note('two fresh positions — both open for exploring');
 	await g.ingest({ a: { expanded: 1 }, b: { terminal: 1 } });
 	await g.settle();
@@ -84,7 +107,7 @@ async function main() {
 
 	// ── 3. NEGATIVE CONTROL: a dead-end recommends NOTHING rather than inventing a move ────────────
 	const dead = await Graph.factories.createMCTS({ actions: async () => [], simulate: async () => 1, iterations: 3 }).run('dead-end');
-	beat(3, 'A dead-end position, where there is no move at all.');
+	beat(4, 'A dead-end position, where there is no move at all.');
 	bad('it recommends NOTHING. It does not invent a move to look useful');
 	good('and it still reports the ' + dead.root.visits + ' tries it really made — no silent skipping');
 	assert.equal(dead.best, null, 'no move to recommend — and none fabricated');
@@ -94,12 +117,13 @@ async function main() {
 	gap();
 
 	// ── 4. REPLAY DETERMINISM: the whole search, twice, byte-identical ─────────────────────────────
-	const once = async () => JSON.stringify(await Graph.factories.createMCTS(Object.assign(oneply(), { iterations: 7 })).run('the position'));
-	beat(4, 'Now run the exact same search a second time.');
+	const once = async () => JSON.stringify(await Graph.factories.createMCTS(Object.assign(ticTacToe(), { iterations: 12 })).run(''));
+	beat(5, 'Now run the exact same search a second time.');
 	assert.equal(await once(), await once(), 'no Math.random in the driver → the search is reproducible');
 	good('identical, down to the last number. You can always re-do the search that decided');
 	say('       (this also held with a real 9.5 GB model in the loop, not just this scripted one.)');
 
-	finish('the search converges on the winning move, admits a dead end, and repeats exactly.', 'STRATEGY OK');
+	finish('the model picked the square that loses; the search played it out and found the block — '
+		+ 'and gives the same answer every single time.', 'STRATEGY OK');
 }
 main().catch(( e ) => { console.error(e); process.exit(1); });

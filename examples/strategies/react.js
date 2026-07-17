@@ -36,12 +36,17 @@ async function main() {
 	gap();
 	liveBanner();
 	gap();
-	beat(0, '"What is the population of the capital of France?" — it cannot answer that in one');
-	say('       step: it has to work out the capital FIRST, then go and look the number up.');
-	exchange('react', 0, 'it works out that it needs the capital first, and asks for that tool');
-	exchange('react', 1, 'we ran it, said "Paris" — and it goes for the population, unprompted');
-	exchange('react', 2, 'it has the number, so it stops asking for tools and answers');
-	good('three real calls: it found its own way there, one hop at a time');
+	beat(0, 'First, just ask it. No tools, nothing to look anything up with:');
+	exchange('react', 0, null);
+	bad('"Canberra, 537,474" — the city is right, THE NUMBER IS INVENTED (it is about 460,000)');
+	say('         It did not know, and it did not say so. It produced a number with a comma in it.');
+	gap();
+	beat(1, 'Now the same question, with two tools it can ask for instead of guessing:');
+	exchange('react', 1, 'it works out it needs the capital FIRST — one hop at a time');
+	exchange('react', 2, 'we ran that, told it "Canberra" — and it reaches for the population, unprompted');
+	exchange('react', 3, 'the TOOL hands it 456,692 — a real number, not a memory');
+	good('same model, same question: 537,474 invented → 456,692 looked up');
+	say('         Nothing made it smarter. It was given a way to not have to guess.');
 	gap();
 	say('  Now the graph side of the same loop:');
 

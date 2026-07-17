@@ -35,17 +35,21 @@ const SYS = 'You are a careful assistant. Follow the output format EXACTLY.';
 			user: 'A farmer has 3 fields. Each field has 4 rows of corn, with 7 stalks per row. How many corn stalks are there in total?\n(independent attempt ' + i + ' of 5 — work it out your own way)\nEnd with a final line exactly: ANSWER: <number>',
 			maxTokens: 300, temperature: 0.7 });
 
-	// ── react: a question needing two tool calls then arithmetic
+	// ── react: a fact it INVENTS when asked cold (measured: "Canberra, 537,474" — it is ~460,000),
+	//    and a multi-hop it must walk: the capital first, THEN the number.
+	await rec('react', 'asked cold, no tools — it just answers', { system: 'Answer concisely.',
+		user: 'What is the population of the capital of Australia? Give the city and the number.',
+		maxTokens: 120, temperature: 0 });
 	const TOOLS = 'lookup_capital(country) · lookup_population(city)';
-	const RQ = 'Question: What is the population of the capital of France?';
+	const RQ = 'Question: What is the population of the capital of Australia?';
 	await rec('react', 'step 1 — what should we do first?', { system: SYS,
 		user: RQ + '\nTools: ' + TOOLS + '\nSteps so far: (none)\nReply exactly 2 lines:\nTHOUGHT: <one sentence>\nACTION: <tool>(<input>)',
 		maxTokens: 120, temperature: 0 });
 	await rec('react', 'step 2 — we ran it and told it the answer', { system: SYS,
-		user: RQ + '\nTools: ' + TOOLS + '\nSteps so far:\n1. lookup_capital(France) -> Paris\nReply exactly 2 lines:\nTHOUGHT: <one sentence>\nACTION: <tool>(<input>)',
+		user: RQ + '\nTools: ' + TOOLS + '\nSteps so far:\n1. lookup_capital(Australia) -> Canberra\nReply exactly 2 lines:\nTHOUGHT: <one sentence>\nACTION: <tool>(<input>)',
 		maxTokens: 120, temperature: 0 });
-	await rec('react', 'step 3 — it has the number', { system: SYS,
-		user: RQ + '\nTools: ' + TOOLS + '\nSteps so far:\n1. lookup_capital(France) -> Paris\n2. lookup_population(Paris) -> 2100000\nReply exactly 2 lines:\nTHOUGHT: <one sentence>\nACTION: FINISH(<the answer>)',
+	await rec('react', 'step 3 — the TOOL gives the real number, not its memory', { system: SYS,
+		user: RQ + '\nTools: ' + TOOLS + '\nSteps so far:\n1. lookup_capital(Australia) -> Canberra\n2. lookup_population(Canberra) -> 456692\nReply exactly 2 lines:\nTHOUGHT: <one sentence>\nACTION: FINISH(<the answer>)',
 		maxTokens: 120, temperature: 0 });
 
 	// ── least-to-most: THE classic sibling trap. Asked whole this model says 2. The answer is 1.
@@ -82,12 +86,21 @@ const SYS = 'You are a careful assistant. Follow the output format EXACTLY.';
 	await rec('refinement', 'the judge marks draft 2', { system: SYS,
 		user: 'Brief: ' + BRIEF + '\nDraft: "' + d2 + '"\nDoes the draft mention BOTH security AND ease of use? Reply one line exactly: SCORE: <0-10>',
 		maxTokens: 20, temperature: 0 });
-	await rec('reflexion', 'an EXTERNAL reviewer, pass/fail', { system: SYS,
-		user: 'Brief: ' + BRIEF + '\nDraft: "' + d1 + '"\nIs this draft acceptable for the shop? Reply one word exactly: CORRECT or FLAWED',
-		maxTokens: 12, temperature: 0 });
-	await rec('reflexion', 'the reviewer looks at the rewrite', { system: SYS,
-		user: 'Brief: ' + BRIEF + '\nDraft: "' + d2 + '"\nIs this draft acceptable for the shop? Reply one word exactly: CORRECT or FLAWED',
-		maxTokens: 12, temperature: 0 });
+	// reflexion: a brief with a constraint a MACHINE can check exactly — and that the model gets wrong.
+	const RB = 'Write a product description for a bicycle lock in EXACTLY 10 words. Reply with the sentence only.';
+	const r1 = await rec('reflexion', 'draft 1 — asked for exactly 10 words', { system: 'Answer concisely.',
+		user: RB, maxTokens: 60, temperature: 0 });
+	const n1 = r1.split(/\s+/).filter(Boolean).length;
+	await rec('reflexion', 'the reviewer COUNTS — it does not have an opinion', { system: SYS,
+		user: 'The brief said EXACTLY 10 words. This draft has ' + n1 + ' words: "' + r1 + '"\n'
+			+ 'Reply one word exactly: CORRECT or FLAWED', maxTokens: 12, temperature: 0 });
+	const r2 = await rec('reflexion', 'draft 2 — told what was wrong', { system: 'Answer concisely.',
+		user: RB + '\nYour previous attempt had ' + n1 + ' words, which is wrong. It must be EXACTLY 10 words.',
+		maxTokens: 60, temperature: 0 });
+	const n2 = r2.split(/\s+/).filter(Boolean).length;
+	await rec('reflexion', 'the reviewer counts again', { system: SYS,
+		user: 'The brief said EXACTLY 10 words. This draft has ' + n2 + ' words: "' + r2 + '"\n'
+			+ 'Reply one word exactly: CORRECT or FLAWED', maxTokens: 12, temperature: 0 });
 
 	// ── tree-of-thoughts: propose lines of attack, an EXTERNAL judge scores one
 	await rec('tree-of-thoughts', 'propose 3 different first moves', { system: SYS,
@@ -116,11 +129,16 @@ const SYS = 'You are a careful assistant. Follow the output format EXACTLY.';
 			+ 'Which shape is this? Reply with exactly one word from: sequential, extraction, multihop, aggregate, planning',
 		maxTokens: 12, temperature: 0 });
 
-	// ── mcts: what moves are even available?
-	await rec('mcts', 'what are the legal moves here?', { system: SYS,
-		user: 'A counter starts at 0. Each move adds 3 or 5. You must land on EXACTLY 11 within 3 moves.\n'
-			+ 'The counter is at 0 and no moves have been made. List the legal moves, comma separated, from: +3, +5',
-		maxTokens: 24, temperature: 0 });
+	// ── mcts: a real tic-tac-toe position. X holds centre+top-left and threatens the diagonal;
+	//    O MUST take bottom-right. Measured: asked cold this model says "middle-right" and loses.
+	const BOARD = 'Tic-tac-toe.\nX has: top-left and centre.\nO has: top-right and bottom-left.\n'
+		+ 'It is O to move.';
+	await rec('mcts', 'asked cold — which square should O take?', { system: 'Answer concisely.',
+		user: BOARD + '\nWhich square must O play to avoid losing? Answer with just the square name.',
+		maxTokens: 150, temperature: 0 });
+	await rec('mcts', 'the search asks only: what moves exist?', { system: SYS,
+		user: BOARD + '\nList the EMPTY squares, comma separated, from: top-middle, middle-left, middle-right, bottom-middle, bottom-right',
+		maxTokens: 40, temperature: 0 });
 
 	fs.writeFileSync(path.join(__dirname, 'transcript.json'), JSON.stringify({
 		recordedWith: 'Qwen3.6-27B-IQ2_XXS (9.5 GB, a low-quant on one ordinary GPU)', exchanges: OUT }, null, 1));
