@@ -158,8 +158,11 @@ state-in-graph + a thin deterministic search driver) · `planner` (C7 — gramma
 (dataset→certified stock, depends on learning) · `durable` (C2 — checkpoint executor +
 `createDurableRunner`) · `mixture-serve` (C8) · `notepad` (the first **instance-type descriptor** —
 `entrypoints.descriptor`, the typed-action contract the instance service dispatches on; see
-`lib/plugins/descriptor.js`). Every one of them passes `sg plugin validate` with
-zero errors — the suite enforces it (`tests/unit/plugin-cli.test.js`).
+`lib/plugins/descriptor.js`). Three plugins ship instance-type descriptors today: `notepad`
+(state-memory), `critical-mind` (`dialectic` — the living debate) and `planner` (`plan` — the
+persistent roadmap; `sync` = plan_sync as an action over the reused task-mirror). Every one of
+them passes `sg plugin validate` with zero errors — the suite enforces it
+(`tests/unit/plugin-cli.test.js`).
 
 ## The strategy catalog — one kernel, deposited sets
 

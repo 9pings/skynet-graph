@@ -19,7 +19,10 @@
   "concepts": ["planner", "loop", "loop-reactive", "support"],
   "providerNamespaces": ["CtxProj", "Support"],
   "entrypoints": {
-    "factories": { "createPlanLoop": "./factory.js" }
+    "factories": { "createPlanLoop": "./factory.js" },
+    // `plan` — the roadmap instance-type (R9): a named persistent plan with the C7 needs invariant
+    // at the door; `sync` = plan_sync as an action (task-mirror reused verbatim). Zero grammar.
+    "descriptor": "./descriptor.js"
   },
   "deps": []
 }

@@ -109,6 +109,25 @@ test('an ASYNC apply is part of the contract: awaited, stamped, settled like a s
 	inst.graph.destroy();
 });
 
+test('an apply may return a NAMED refusal {refused, reason} — passed through verbatim, never stamped, never pushed', async () => {
+	const d = {
+		type: 'guard-t', version: '1.0.0', conceptSets: [],
+		create: () => [{ $$_id: 'root', Root: true }],
+		actions: {
+			put: { write: true, input: {}, apply: ( g, args ) => args.bad
+				? { refused: true, reason: 'the gate names WHY: "' + args.bad + '" is not admissible' }
+				: [{ $$_id: 'x', val: 1 }] },
+			get: { write: false, project: ( g ) => ({ there: !!g.getEtty('x') }) }
+		}
+	};
+	const inst = await createInstance(d, { conceptMap: {} });
+	const r = await runAction(inst.graph, d, 'put', { bad: 'ghost' }, { agent: 'A' });
+	assert.equal(r.refused, true);
+	assert.match(r.reason, /names WHY: "ghost"/, 'the descriptor cause crosses the runner verbatim');
+	assert.deepEqual(await runAction(inst.graph, d, 'get', {}, {}), { there: false }, 'a refusal writes NOTHING');
+	inst.graph.destroy();
+});
+
 test('determinism: the GO scenario re-run yields byte-identical recall', async () => {
 	async function scenario() {
 		const pad = await bootPad({ title: 't' });
