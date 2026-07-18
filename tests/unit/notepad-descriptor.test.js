@@ -93,6 +93,22 @@ test('validateDescriptor is fail-closed: a write action without apply / a read a
 	assert.throws(() => validateDescriptor({ type: 'x', actions: {} }), /version/i, 'version is required');
 });
 
+test('an ASYNC apply is part of the contract: awaited, stamped, settled like a sync one', async () => {
+	const d = {
+		type: 'async-t', version: '1.0.0', conceptSets: [],
+		create: () => [{ $$_id: 'root', Root: true }],
+		actions: {
+			put: { write: true, input: {}, apply: async ( g, args ) => { await new Promise(( r ) => setTimeout(r, 5)); return [{ $$_id: 'x', val: args.v }]; } },
+			get: { write: false, project: ( g ) => ({ val: g.getEtty('x') && g.getEtty('x').get('val'), by: g.getEtty('x') && g.getEtty('x').get('by') }) }
+		}
+	};
+	const inst = await createInstance(d, { conceptMap: {} });
+	const r = await runAction(inst.graph, d, 'put', { v: 7 }, { agent: 'Z' });
+	assert.equal(r.ok, true);
+	assert.deepEqual(await runAction(inst.graph, d, 'get', {}, {}), { val: 7, by: 'Z' }, 'async apply landed, runner-stamped');
+	inst.graph.destroy();
+});
+
 test('determinism: the GO scenario re-run yields byte-identical recall', async () => {
 	async function scenario() {
 		const pad = await bootPad({ title: 't' });
