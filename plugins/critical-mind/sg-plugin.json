@@ -27,7 +27,10 @@
       "createCriticalMindImperative": "./factory.js",
       "buildCritiqueBrief": "./brief.js",
       "renderJudgePrompt": "./brief.js"
-    }
+    },
+    // the LIVING-DEBATE instance type (R3 of the instance service): the same grammar/providers/
+    // projection as the one-shot factory, as a persistent typed-action instance.
+    "descriptor": "./descriptor.js"
   },
   "deps": [{ "name": "reason-kernel", "range": "^0.1.0" }]
 }

@@ -42,6 +42,7 @@ const Graph = requireEither('skynet-graph', '../../lib/index.js');
 const { buildConceptTree } = requireEither('skynet-graph/lib/authoring/core/concepts.js', '../../lib/authoring/core/concepts.js');
 const kernelProviders = requireEither('reason-kernel/providers.js', '../reason-kernel/providers.js');
 const { createDialecticProviders, SYSTEM } = require('./providers.js');
+const { projectDebate } = require('./project.js');
 const { createCriticalMind: createImperative } = require('./factory.js');
 
 const MECHANICAL_MARGIN = { FREE: 3, MATERIAL: 3, DECLARED: 3, STOCK: 2 };    // the measured bound (mirrors factory.js)
@@ -135,81 +136,21 @@ function createCriticalMind( opts ) {
 		} finally { Graph._providers = saved; }
 
 		try {
-			// ── projection: read the result OFF the structure (casts + facts), stable order ──
-			const etty = ( id ) => g.getEtty(id);
-			const fx = ( id ) => { const e = etty(id); return (e && e._) || {}; };
-			const cast = ( id, k ) => { const e = etty(id); return !!(e && e._mappedConcepts[k]); };
-			const fr = fx('frame'), led = fx('ledger');
-			// a provider-recorded ask failure re-throws here (parity: the imperative run() rejects)
-			const failed = ['frame'].concat(led.declared || []).map(( id ) => fx(id).dialecticError ).find(Boolean);
-			if ( failed ) throw new Error(failed);
-
-			if ( !material ) pool = (led.poolIds || []).map(( id ) => { const f = fx(id); return { id, side: f.side, text: f.text }; });
-			if ( tooSmall(pool) )
-				return { topic, frameStatus: poolStatus, error: 'pool too small (need ≥4 statements with ≥2 on at least one side)', pool, ledger: [], verdict: 'UNDECIDED' };
-			const nPro = pool.filter(( a ) => a.side === 'PRO' ).length, nCon = pool.filter(( a ) => a.side === 'CON' ).length;
-			if ( Math.min(nPro, nCon) < 2 ) onStage('POOL', 'one-sided pool (' + nPro + ' PRO / ' + nCon + ' CON) — announced, and itself a signal');
-			onStage('POOL', pool.length + ' statements · status ' + poolStatus);
-
-			const declaredKeys = led.declared || [];
-			const vps = givenVps || declaredKeys.map(( k ) => { const f = fx(k); return { key: k, side: f.side || null, text: f.text }; });
-			onStage('SPLIT', vps.length + ' declared viewpoints · frame ' + frameStatus);
-
-			const genKeys = Object.keys(g._objById || {}).filter(( id ) => /^G\d+$/.test(id) && fx(id).isViewpoint )
-				.sort(( a, b ) => Number(a.slice(1)) - Number(b.slice(1)) );
-			const retractedSet = new Set([].concat(led.proRetracted || [], led.conRetracted || []));
-			const entryOf = ( key, kind ) => {
-				const f = fx(key);
-				const witnesses = f.w0 ? [f.w0].concat(f.w1 ? [f.w1] : []).concat(f.w2 ? [f.w2] : []) : null;
-				const e = { key, kind, side: f.side || null, text: f.text, witnesses,
-					status: cast(key, 'Established') ? 'active' : (retractedSet.has(key) ? 'retracted' : 'open'),
-					round: kind === 'generated' ? 1 : 0, provenance: kind === 'generated' ? 'generated+witnesses' : 'declared' };
-				// key INSERTION order mirrors the imperative crossRefute (attackers, then contested) so even a
-				// strict JSON.stringify comparison of the two faces is byte-identical (GPU parity bar GP1)
-				if ( f.contested ) { e.attackers = f.attackers; e.contested = true; }
-				return e;
-			};
-			const ledger = declaredKeys.map(( k ) => entryOf(k, 'declared') ).concat(genKeys.map(( k ) => entryOf(k, 'generated') ));
-
-			// journal: the R0 lines are a pure projection of the leaf facts (established-at-round-1 in
-			// declared order, then retry hits by (retry#, declared order), then the retry-exhausted opens
-			// — exactly the imperative emission order), followed by the generation pass's own journal.
-			const journal = [];
-			const dIdx = ( k ) => declaredKeys.indexOf(k);
-			const dEntries = ledger.filter(( e ) => e.kind === 'declared' );
-			const wit = ( k ) => { const f = fx(k); return [f.w0].concat(f.w1 ? [f.w1] : []).filter(Boolean); };
-			for ( const e of dEntries ) if ( fx(e.key).w0 && !fx(e.key).retryHit && !fx(e.key).fusedRound )
-				journal.push('R0 established ' + e.key + ' (' + e.side + ', ' + wit(e.key).join('+') + ')');
-			dEntries.filter(( e ) => fx(e.key).retryHit )
-				.sort(( a, b ) => (fx(a.key).retryHit - fx(b.key).retryHit) || (dIdx(a.key) - dIdx(b.key)) )
-				.forEach(( e ) => journal.push('R0 established ' + e.key + ' (' + e.side + ', ' + wit(e.key).join('+') + ', retry ' + fx(e.key).retryHit + ')') );
-			for ( const e of dEntries ) if ( fx(e.key).retryDone && !fx(e.key).retryHit )
-				journal.push('R0 open ' + e.key + ' (' + (e.side || '?') + ', no valid witnesses)');
-			journal.push(...(led.genJournal || []));
-
-			const counts = { PRO: (led.pro || []).length - (led.proRetracted || []).length,
-				CON: (led.con || []).length - (led.conRetracted || []).length };
-			const margin = Math.abs(counts.PRO - counts.CON);
-			const norm = fr.normStatus
-				? (/^SETTLED_/.test(fr.normStatus) ? { status: 'SETTLED', side: fr.normStatus.slice(8) } : { status: 'CONTESTED' })
-				: null;
-			let verdict, basis;
-			if ( cast('frame', 'Pro') ) { verdict = 'PRO'; basis = 'mechanical-count'; }
-			else if ( cast('frame', 'Con') ) { verdict = 'CON'; basis = 'mechanical-count'; }
-			else if ( cast('frame', 'SettledNorm') ) { verdict = norm.side; basis = 'settled-norm'; }
-			else { verdict = 'UNDECIDED'; basis = norm && norm.status === 'SETTLED' ? 'norm-vs-counts-tension' : null; }
+			// ── projection: read the result OFF the structure (extracted VERBATIM to project.js so the
+			// instance descriptor shares it — the parity suite is the net over the extraction) ──
+			const structural = projectDebate(g, onStage);
+			if ( structural.error ) return structural;
 
 			// per-side synthesis (presentation, post-verdict — the imperative prompt, verbatim)
 			const synthesis = {};
 			for ( const side of ['PRO', 'CON'] ) {
-				const items = ledger.filter(( e ) => e.status === 'active' && e.witnesses && e.side === side );
+				const items = structural.ledger.filter(( e ) => e.status === 'active' && e.witnesses && e.side === side );
 				if ( !items.length ) continue;
 				synthesis[side] = String(await serialAsk({ system: SYSTEM, user: 'Question: ' + topic + '\nEstablished ' + side + ' points:\n'
 					+ items.map(( c ) => '- ' + c.text.slice(0, 90) ).join('\n') + '\nSummarize the ' + side + ' case in ONE line (no ids).', maxTokens: 60, temperature: 0 })).trim();
 			}
 
-			const result = { topic, frameStatus, rounds: fr.genRound ? 1 : 0, journal, pool, viewpoints: vps,
-				ledger, counts, margin, threshold, verdict, basis, norm, synthesis };
+			const result = { ...structural, synthesis };
 			result.prose = RENDER.renderProse(result);
 			if ( input.polish ) {                                                  // presentation-only rewrite, content-locked (verbatim)
 				const polished = String(await serialAsk({ system: 'You are an editor. Rewrite the report below into flowing prose. Use ONLY the content provided. Do NOT add facts, numbers, or claims. Keep the frame-status caveat and the bottom line verbatim in meaning.',
