@@ -558,7 +558,9 @@ claude mcp add sg -- node bin/sg mcp --frontier-model <path.gguf> --store ./stoc
 #           covered → served from the verified local stock (0 frontier calls), miss → escalated —
 #           and the payload carries the amortization readout: `economy` {local, frontier, cost}
 #           + per-leaf `source`.)
-#   INSTANCES — graph_invoke / graph_instances.
+#   (named persistent instances are served by the mindsmith instance service — typed tools
+#    generated from the plugin type descriptors; the former graph_invoke/graph_instances pool
+#    lane was removed: the pool is method-dispatch infra, lib/runtime/worker-pool.js.)
 
 # 2b) sg try — one-shot LIVE probe of an MCP tool feature (the SAME tool surface as sg mcp, no
 #     JSON-RPC piping). Human summary → stderr, THE ARTIFACT → stdout (pipe-friendly); --json = full payload.

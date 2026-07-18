@@ -3,7 +3,9 @@
  * The ASSISTANT-lane MCP tools (design WIP/2026-07-10-design-mcp-assistant-llm.md, owner-approved): the lib
  * presents itself as the LLM's assistant over TWO EXPLICIT LANES — SOFT (hint / state_recall: advisory, no
  * guarantee, says so) and HARD (propose: gated, typed verdict, non-bypassable — "the LLM forces" downgrades
- * PROVENANCE, never the admission) — plus the INSTANCES lane (graph_invoke / graph_instances on the P3 pool).
+ * PROVENANCE, never the admission). The former INSTANCES lane (graph_invoke / graph_instances on the P3
+ * pool) was REMOVED 07-18 — the pool is method-dispatch infra (lib/runtime/worker-pool.js), and instances
+ * are the mindsmith instance service's typed tools; the removal is pinned by a negative below.
  * Pure stubs (the wirings are injected); the live end-to-end is the KG-MCP gate.
  */
 const { test } = require('node:test');
@@ -82,26 +84,14 @@ test('state_recall (SOFT) + state_note — recall returns the synthesized state;
 	assert.deepEqual(noted, [{ key: 'UserGoal', value: 'refactor auth' }], 'the note is the TYPED fact, passed to the sequenced ingest wiring');
 });
 
-test('graph_instances + graph_invoke — the P3 pool lifecycle: list, invoke by libraryKey, release', async () => {
-	const invoked = [];
-	let evicted = null;
+test('REMOVED lane stays removed: wiring a pool exposes NO graph_invoke/graph_instances tool (07-18 — instances belong to the instance service)', () => {
 	const pool = {
-		keys: () => ['k1', 'k2'],
-		stats: () => ({ instances: 1, keys: ['k1', 'k2'], uses: 7 }),
-		evict: ( k ) => { evicted = k; return true; },
-		invoke: async ( key, iopts ) => { invoked.push({ key, iopts }); return { summaryFacts: [{ k: 'Out', v: 3 }], writeFootprint: ['Out'] }; }
+		keys: () => ['k1'], stats: () => ({ instances: 1, uses: 1 }),
+		evict: () => true, invoke: async () => ({})
 	};
 	const tools = defaultTools({ pool });
-	const list = await by(tools, 'graph_instances').call({});
-	assert.deepEqual(list.keys, ['k1', 'k2']);
-	assert.equal(list.uses, 7);
-	const inv = await by(tools, 'graph_invoke').call({ libraryKey: 'k1', seed: { a: 1 } });
-	assert.equal(invoked[0].key, 'k1');
-	assert.deepEqual(invoked[0].iopts.seed, { a: 1 });
-	assert.deepEqual(inv.summaryFacts, [{ k: 'Out', v: 3 }], 'the bounded projection comes back, not a full snapshot');
-	const rel = await by(tools, 'graph_instances').call({ release: 'k2' });
-	assert.equal(evicted, 'k2');
-	assert.equal(rel.released, 'k2');
+	assert.equal(by(tools, 'graph_invoke'), undefined, 'graph_invoke must not resurface');
+	assert.equal(by(tools, 'graph_instances'), undefined, 'graph_instances must not resurface');
 });
 
 // --- stockWiring: a .sgc methods bundle → the hint/gate wirings (the cli.js `--stock` bridge) ---

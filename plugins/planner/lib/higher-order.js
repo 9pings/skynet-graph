@@ -31,12 +31,12 @@ const { makeMethodServe } = require('./serve-leaf.js');
  * @param spec.loops   { <libraryKey>: { bodyKeyOf(leaf)->libraryKey, items(leaf)->[..], combinator?, fold?, init? } }
  *                     the higher-order "loop" methods. combinator: 'map'(default) | 'all' | 'any' | 'fold'.
  * @param spec.keyOf   (leaf) => loop libraryKey (default: leaf.produces || leaf.id).
- * @param spec.pool    a shared P3 invoke-pool (default: own).
+ * @param spec.pool    a shared P3 worker-pool (default: own).
  * @returns serve      async (leaf, ctx) => value  (+ serve.pool, serve.close()).
  */
 function makeHigherOrderServe( spec ) {
 	spec = spec || {};
-	const pool = spec.pool || require('../../../lib/index.js').createInvokePool();
+	const pool = spec.pool || require('../../../lib/index.js').createWorkerPool();
 	const loops = spec.loops || {};
 	const keyOf = spec.keyOf || (( leaf ) => leaf.produces || leaf.id);
 	// the SLOT FILLERS are served exactly like any leaf method (P6) — dispatch + mount + gate — keyed by the body key.

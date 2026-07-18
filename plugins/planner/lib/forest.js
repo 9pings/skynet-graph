@@ -22,13 +22,13 @@ const { makeMethodServe } = require('./serve-leaf.js');
  * @param spec.candidates { <candidateKey>: <makeMethodServe method spec> }  the alternative sub-paths (each a method).
  * @param spec.forests    { <leafKey>: [candidateKey, ...] }  the forest per leaf, in PREFERENCE order.
  * @param spec.keyOf      (leaf) => leafKey   (default: leaf.produces || leaf.id).
- * @param spec.pool       a shared P3 invoke-pool (default: own).
+ * @param spec.pool       a shared P3 worker-pool (default: own).
  * @param spec.forge      async (args) => value   the §5(b) fallback when the forest is EXHAUSTED (optional).
  * @returns serve         async (leaf, ctx) => { value, selected, tried }  (+ serve.pool, serve.close()).
  */
 function makeForestServe( spec ) {
 	spec = spec || {};
-	const pool = spec.pool || require('../../../lib/index.js').createInvokePool();
+	const pool = spec.pool || require('../../../lib/index.js').createWorkerPool();
 	const forests = spec.forests || {};
 	const keyOf = spec.keyOf || (( leaf ) => leaf.produces || leaf.id);
 	const serveOne = makeMethodServe({ methods: spec.candidates || {}, keyOf: ( l ) => l.__cand, pool });

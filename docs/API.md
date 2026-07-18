@@ -531,9 +531,10 @@ Two zero-dep, zero-integration fronts over the combos (full guide: `doc/usage.md
   `drift`, `metrics`, `lattice_load` (growth through `loadLattice` — the only registry write path),
   `methods_describe`, `lattice_rings`, `trace_tail` — plus the ASSISTANT lanes: SOFT `hint` /
   `state_recall` / `state_note` / `plan_sync` (the typed task delta, JTMS `reopen` included), HARD
-  `propose` (gate-tested; `force` → recorded-untrusted, never admission), INSTANCES `graph_invoke` /
-  `graph_instances`, and the C9 `critique` tool (typed ledger + verdict or honest UNDECIDED; OPEN
-  points + UNDECIDED = a typed data request — re-call with `statements`). `stockWiring(sgc)` /
+  `propose` (gate-tested; `force` → recorded-untrusted, never admission), and the C9 `critique`
+  tool (typed ledger + verdict or honest UNDECIDED; OPEN points + UNDECIDED = a typed data
+  request — re-call with `statements`). Named persistent graph instances are the mindsmith
+  instance service's typed tools (generated from the plugin type descriptors). `stockWiring(sgc)` /
   `--stock <f.sgc>` wires `hint`/`propose` from a forged stock; `startMcpStdio` is the line-framed
   transport.
 - **`sg flow run <module.js>`** — the C2 durable runner as a CLI; the module exports

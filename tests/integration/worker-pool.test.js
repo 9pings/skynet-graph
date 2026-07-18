@@ -1,8 +1,8 @@
 'use strict';
 /**
- * invoke-pool (roadmap P3) — the SHARED INSTANCE keyed by contract. A warm-worker pool: N invokes of the same key
- * reuse ONE warm instance (never one sub-graph per case), STATELESS-PER-INVOKE (each invoke stabilizes a fresh graph
- * from its seed → no cross-invoke state). ZERO-CORE host orchestration over createGraphWorker.
+ * worker-pool (roadmap P3, ex invoke-pool) — the warm method-dispatch pool keyed by contract: N invokes of the
+ * same key reuse ONE warm worker (never one sub-graph per case), STATELESS-PER-INVOKE (each invoke stabilizes a
+ * fresh graph from its seed → no cross-invoke state). ZERO-CORE host orchestration over createGraphWorker.
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -22,7 +22,7 @@ const seed = ( temp ) => ({ lastRev: 0,
 	segments: [ { _id: 's', Segment: true, originNode: 'IN', targetNode: 'OUT' } ] });
 
 test('N invokes of the same key → ONE warm instance, reused, correct each time', async () => {
-	const pool = Graph.createInvokePool();
+	const pool = Graph.createWorkerPool();
 	try {
 		const a = await pool.invoke('hot', { conceptMap: METHOD_TREE, seed: seed(120), boundedFrom: 's', boundedKeys: ['Hot'] });
 		const b = await pool.invoke('hot', { conceptMap: METHOD_TREE, seed: seed(130), boundedFrom: 's', boundedKeys: ['Hot'] });
@@ -34,7 +34,7 @@ test('N invokes of the same key → ONE warm instance, reused, correct each time
 });
 
 test('STATELESS-PER-INVOKE — a reused warm worker carries NO cross-invoke graph state', async () => {
-	const pool = Graph.createInvokePool();
+	const pool = Graph.createWorkerPool();
 	try {
 		const hot = await pool.invoke('hot', { conceptMap: METHOD_TREE, seed: seed(120), boundedFrom: 's', boundedKeys: ['Hot'] });
 		const cold = await pool.invoke('hot', { conceptMap: METHOD_TREE, seed: seed(50), boundedFrom: 's', boundedKeys: ['Hot'] });
@@ -45,7 +45,7 @@ test('STATELESS-PER-INVOKE — a reused warm worker carries NO cross-invoke grap
 });
 
 test('distinct keys → distinct instances; close() tears them all down', async () => {
-	const pool = Graph.createInvokePool();
+	const pool = Graph.createWorkerPool();
 	const h = await pool.invoke('hot',  { conceptMap: METHOD_TREE, seed: seed(120), boundedFrom: 's', boundedKeys: ['Hot'] });
 	const c = await pool.invoke('cold', { conceptMap: OTHER_TREE,  seed: seed(50),  boundedFrom: 's', boundedKeys: ['Cold'] });
 	assert.deepEqual(h.summary, { Hot: true }); assert.deepEqual(c.summary, { Cold: true });
@@ -55,7 +55,7 @@ test('distinct keys → distinct instances; close() tears them all down', async 
 });
 
 test('LRU cap — max evicts the least-recently-used instance', async () => {
-	const pool = Graph.createInvokePool({ max: 1 });
+	const pool = Graph.createWorkerPool({ max: 1 });
 	try {
 		await pool.invoke('hot',  { conceptMap: METHOD_TREE, seed: seed(120), boundedFrom: 's', boundedKeys: ['Hot'] });
 		assert.deepEqual(pool.keys(), ['hot']);
@@ -65,7 +65,7 @@ test('LRU cap — max evicts the least-recently-used instance', async () => {
 });
 
 test('P2 × P3 — a segment-proxy backed by the pool: N casts reuse ONE instance', async () => {
-	const pool = Graph.createInvokePool();
+	const pool = Graph.createWorkerPool();
 	const proxy = makeSegmentProxy({ name: 'HotProxy', libraryKey: 'hot', pool, castWhen: ['Task'],
 		contract: { write: ['Hot'], post: ['$Hot == true'] }, methodMap: METHOD_TREE,
 		buildSeed: ( scope ) => seed(scope._.temp), boundedFrom: 's', boundedKeys: ['Hot'] });

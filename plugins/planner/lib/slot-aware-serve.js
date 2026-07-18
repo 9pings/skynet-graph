@@ -12,7 +12,7 @@
  *   • NO slot        → `makeMethodServe` (P6): dispatch → mount → gate a concept-method (a leaf IS a mounted method).
  *   • a typed slot   → `makeHigherOrderServe` (§5a): the slot's `body` is DISPATCHED over the items resolved under
  *                      `over`, reduced by `combinator` (map|all|any) — a leaf IS a mounted loop-of-methods.
- * Both forks SHARE one P3 invoke-pool (N cases → 1 instance). The items come from the projection's RESOLVED bounded
+ * Both forks SHARE one P3 worker-pool (N cases → 1 instance). The items come from the projection's RESOLVED bounded
  * context (`leaf.inputs[over]`, because `over` was auto-added as a need) — so the loop is never vacuous: an UNRESOLVED
  * `over` (or a non-array value) is a typed refusal (→ fallback), NEVER `[].every(Boolean)===true` (the confront break).
  *
@@ -32,14 +32,14 @@ function slotOf( leaf ) { return (leaf && (leaf.slot || (leaf.request && leaf.re
  * @param spec.methods   { <libraryKey>: <makeMethodServe method spec> }  the PLAIN library (dispatched per leaf).
  * @param spec.bodies    { <bodyKey>:    <makeMethodServe method spec> }  the SLOT FILLERS (dispatched per item).
  * @param spec.keyOf     (leaf) => libraryKey   the plain dispatch (default: leaf.produces || leaf.id).
- * @param spec.pool      a shared P3 invoke-pool (default: a fresh own pool — close via serve.close()).
+ * @param spec.pool      a shared P3 worker-pool (default: a fresh own pool — close via serve.close()).
  * @param spec.fallback  (leaf, ctx, info) => value  the §5 last-resort on a dispatch miss / an unresolved slot.
  * @returns serve        async (leaf, ctx) => value  (+ serve.pool, serve.close()).
  */
 function makeSlotAwareServe( spec ) {
 	spec = spec || {};
 	const bodies = spec.bodies || {};
-	const pool = spec.pool || require('../../../lib/index.js').createInvokePool();
+	const pool = spec.pool || require('../../../lib/index.js').createWorkerPool();
 	const ownPool = !spec.pool;
 	// dispatch key, ROBUST to both leaf shapes: the plan-loop leaf keys on `request.id` (its id is prefixed `n_<key>`),
 	// the à-nu projection leaf keys on `produces`. Without this a plan-loop leaf mis-dispatches → provider error →

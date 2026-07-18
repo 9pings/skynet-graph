@@ -12,7 +12,7 @@
  * folds projection + runtime (P1 invoke) + library (dispatch) + method (the contract gate) into ONE structure — "le
  * reste s'adapte à la structure centrale", by the constat.
  *
- *   const serve = makeMethodServe({ methods, pool });          // pool = a P3 invoke-pool (N cases → 1 instance)
+ *   const serve = makeMethodServe({ methods, pool });          // pool = a P3 worker-pool (N cases → 1 instance)
  *   const proj  = createContextProjection({ serve });          // a leaf IS a dispatched, mounted, gated method
  *   const { order, results } = await proj.run(roadmap, ctx);
  *
@@ -27,7 +27,7 @@ const { assertPost } = require('../../../lib/authoring/core/contract.js');
  * makeMethodServe(spec) — a projection `serve(leaf, ctx)` that dispatches+mounts a concept-method per leaf.
  * @param spec.methods  { <libraryKey>: { conceptMap, providers?, contract, boundedFrom, boundedKeys?, buildSeed(leaf,ctx), value?(summary), oracle? } }
  * @param spec.keyOf    (leaf) => libraryKey        the dispatch (default: leaf.produces || leaf.id).
- * @param spec.pool     a P3 invoke-pool (default: a fresh own pool — close via serve.close()).
+ * @param spec.pool     a P3 worker-pool (default: a fresh own pool — close via serve.close()).
  * @param spec.fallback (leaf, ctx, info) => value  the §5 last-resort on a dispatch miss / a gate refusal.
  * @returns serve       async (leaf, ctx) => value  (+ serve.pool, serve.close()).
  */
@@ -35,7 +35,7 @@ function makeMethodServe( spec ) {
 	spec = spec || {};
 	const methods = spec.methods || {};
 	const keyOf = spec.keyOf || (( leaf ) => leaf.produces || leaf.id);
-	const pool = spec.pool || require('../../../lib/index.js').createInvokePool();
+	const pool = spec.pool || require('../../../lib/index.js').createWorkerPool();
 	const ownPool = !spec.pool;
 
 	async function serve( leaf, ctx ) {

@@ -42,7 +42,7 @@ const castHelper = ( proxy ) => async ( temp ) => {                    // provid
 };
 
 test('BODY SWAP — a pool-backed proxy is byte-invariant across a delegate refine (interface stays)', async () => {
-	const pool = Graph.createInvokePool();
+	const pool = Graph.createWorkerPool();
 	const proxy = makeSegmentProxy({ name: 'HotProxy', libraryKey: 'k', pool, castWhen: ['Task'],
 		contract: { write: ['Hot'], post: ['$Hot == true'] }, methodMap: V1,
 		buildSeed: ( scope ) => ({ lastRev: 0, nodes: [{ _id: 'IN', Node: true, temp: scope._.temp }, { _id: 'OUT', Node: true }],
@@ -64,7 +64,7 @@ test('BODY SWAP — a pool-backed proxy is byte-invariant across a delegate refi
 });
 
 test('INTERFACE PROTECTED — an OVER-WRITING refinement is refused by the P4 G1 gate (bad body cannot corrupt the caller)', async () => {
-	const pool = Graph.createInvokePool();
+	const pool = Graph.createWorkerPool();
 	const proxy = makeSegmentProxy({ name: 'HotProxy', libraryKey: 'k', pool, castWhen: ['Task'],
 		contract: { write: ['Hot'], post: ['$Hot == true'] }, methodMap: V1,
 		buildSeed: ( scope ) => ({ lastRev: 0, nodes: [{ _id: 'IN', Node: true, temp: scope._.temp }, { _id: 'OUT', Node: true }],
