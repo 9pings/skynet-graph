@@ -54,7 +54,7 @@ examples/
 | `f3-task-memory.js` | the JTMS memory (F3) | re-derive at 0 calls on a correction · **REOPEN with the reason** on a withdrawal · idempotent sync |
 | `f7-substrate.js` | the versionable substrate (F7) | revisions · structural diff · **rollback restores the rules** · fork = sandbox until an explicit merge |
 | `openai-client.js` | surface `sg serve` (OpenAI-compatible) | the standard OpenAI wire; repeat served local, **provenance headers** on every response |
-| `mcp-tools.js` | surface `sg mcp` (MCP tools) | structured answers AND **structured typed refusals**; no direct-write tool |
+| `mcp-tools.js` | the MCP toolkit (served by `mindsmith mcp`) | structured answers AND **structured typed refusals**; no direct-write tool |
 | `zoom-tool.js` | the `zoom` MCP tool (F2 on the agentic surface) | the HOST declares the plan; **bounded serving proven on the prompt strings** · a plan hole = typed refusal at **0 model calls** · the cost-ladder `economy` readout |
 
 Some accept `--live` (e.g. `FRONTIER_MODEL=<path.gguf> node c6-proxy.js --live`) to run the same flow on an

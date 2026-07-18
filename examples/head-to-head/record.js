@@ -237,7 +237,7 @@ async function classicFinqa() {
 			+ '\nAnswer with just the number (a decimal fraction, not a percentage).', maxTokens: 400, temperature: 0 });
 	const alone = { calls: take(), answer: num(aloneReply) };
 
-	// STEERED — the REAL surface, the same one the integrated demo runs (`sg mcp` + the forged stock):
+	// STEERED — the REAL surface, the same one the integrated demo runs (the MCP toolkit + the forged stock):
 	//   1. the model is handed the table and the MENU of certified shapes from the stock — never the gold,
 	//      never the operands. IT emits the ordered program (which op, which numbers).
 	//   2. the HARD `propose` lane gates that emission: the shape must be in the frozen referential AND every

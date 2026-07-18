@@ -158,7 +158,7 @@ function main() {
 	gap();
 	beat(6, 'And "the model weighs" is not a shrug — it ships as a contract. The run projects into a');
 	say('  JUDGMENT BRIEF (every thesis with its verbatim witnesses, its attackers, its standing) plus');
-	say('  a ready-to-run judge prompt. With `sg mcp`, the judge is the model calling the tool.');
+	say('  a ready-to-run judge prompt. Over MCP (mindsmith), the judge is the model calling the tool.');
 	const { buildCritiqueBrief, renderJudgePrompt } = require('../../plugins/critical-mind/brief.js');
 	const brief = buildCritiqueBrief(Object.assign({ topic: T.topic }, R));
 	const prompt = renderJudgePrompt(brief);

@@ -112,7 +112,7 @@ judging itself was measured and **refuted three times** (a low-quant self-audit 
 - Tree-of-Thoughts takes a `score` function; the docstring says out loud that it must not be the generator.
 - There is **no `reflect` / `refine` MCP tool**, on purpose — it would productise the refuted self-audit.
   `self_consistency` is the only tool from this catalog exposed, because a vote is not a judgment.
-  (The other tools on `sg mcp` — `critique`, `zoom` — expose capabilities, not catalog strategies,
+  (The other MCP tools — `critique`, `zoom` — expose capabilities, not catalog strategies,
   and both keep the same discipline: nothing in them self-scores.)
 
 ---

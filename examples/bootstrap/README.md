@@ -25,7 +25,7 @@ original-use tour in `../run-basic.js`.
 | `f3-task-memory.js` | the JTMS task memory (**F3**) | a corrected premise **re-derives at 0 model calls**; a withdrawn one leaves a **HOLE** and **REOPENS** the dependent tasks, with the reason |
 | `f7-substrate.js` | the versionable substrate (**F7**, no LLM at all) | every settle is a revision; diff is structural; **rollback restores the RULES too**; a fork is a sandbox until an explicit merge |
 | `openai-client.js` | surface `sg serve` (OpenAI-compatible) | the standard OpenAI wire; repeat served local, **provenance headers** on every response |
-| `mcp-tools.js` | surface `sg mcp` (MCP tools) | structured answers AND **structured typed refusals**; no direct-write tool |
+| `mcp-tools.js` | the MCP toolkit (served by `mindsmith mcp`) | structured answers AND **structured typed refusals**; no direct-write tool |
 
 The reasoning **strategies** (self-consistency, ReAct, Tree-of-Thoughts, …) are the sibling directory
 [`../strategies/`](../strategies/) — same rules, same smoke-runner. Two of the catalog's thirteen live
@@ -39,7 +39,7 @@ The reasoning **strategies** (self-consistency, ReAct, Tree-of-Thoughts, …) ar
 sg serve --frontier-model <path.gguf> --store ./stock.json
 
 # the same capabilities as MCP tools for an agent host:
-claude mcp add sg -- node bin/sg mcp --frontier-model <path.gguf> --store ./stock.json
+claude mcp add mindsmith -- mindsmith mcp     # the appliance serves this toolkit
 
 # typed QA appliance in one command:
 sg ask "your question" --concepts ./concepts --local-model <path.gguf>

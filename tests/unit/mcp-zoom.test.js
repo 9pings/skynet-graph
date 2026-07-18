@@ -105,7 +105,7 @@ test('MCP zoom — P5 wiring: with the C6 proxy wired, leaves ride the COST LADD
 		return { answer: String(num('revenue') - num('costs')), source: 'frontier', cached: false, arm: 'escalate', cost: 1 };
 	} };
 	const tool = zoomTool({ proxy });                              // NO critiqueAsk — the ladder alone serves
-	assert.ok(tool, 'zoom is available on the proxy wiring alone (sg mcp --store)');
+	assert.ok(tool, 'zoom is available on the proxy wiring alone (a --store-only host)');
 	const r = await tool.call({ task: 'Analyze the annual report', leaves: [
 		{ id: 'revenue', ask: 'the revenue figure' }, { id: 'costs', ask: 'the costs figure' },
 		{ id: 'margin', ask: 'revenue minus costs', needs: ['revenue', 'costs'] },

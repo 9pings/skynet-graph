@@ -23,15 +23,18 @@ measurement → shipped in the library behind a surface, with tests; not yet rep
 
 ## Where each capability is served
 
-| Feature | library | `sg mcp` | mindsmith `serve` | mindsmith `mcp` |
-|---|---|---|---|---|
-| F1 low-quant repair | ✓ | `ask` / `hint` / `propose` | ✓ (OpenAI endpoint) | ✓ `ask` / `hint` / `propose` |
-| F2 zoom | ✓ (bricks) | — (known gap, see F2) | — | — |
-| F3 task memory | ✓ | `state_recall` / `plan_sync` | — | — |
-| F4 think mode | ✓ | `propose` | — | `propose` |
-| F5 critical mind | ✓ (C9) | `critique` | — | `critique` |
-| F6 rooms | ✓ | `lattice_load` | rooms CLI | `lattice_load` |
-| F7 substrate | ✓ (the engine itself) | — | — | — |
+The MCP surface is served by **one bin — `mindsmith mcp`** (the toolkit itself lives here as a
+library, `lib/sg/mcp.js`; the former `sg mcp` command was removed to kill the duplication):
+
+| Feature | library | mindsmith `serve` | mindsmith `mcp` |
+|---|---|---|---|
+| F1 low-quant repair | ✓ | ✓ (OpenAI endpoint) | ✓ `ask` / `hint` / `propose` |
+| F2 zoom | ✓ | — | ✓ the `zoom` tool (host-declared plan, bounded serving) |
+| F3 task memory | ✓ | — | ✓ via the instance service (`notepad_*`, `plan_*` — `plan_sync` with the `reopen` op) |
+| F4 think mode | ✓ | — | ✓ `propose` |
+| F5 critical mind | ✓ (C9) | — | ✓ `critique` · persistent as a `dialectic` instance |
+| F6 rooms | ✓ | rooms CLI | ✓ `lattice_load` |
+| F7 substrate | ✓ (the engine itself) | — | — |
 
 [mindsmith](https://github.com/9pings/mindsmith) is the ready-made appliance over
 this library (an OpenAI-compatible local endpoint + `.sgc` rooms); everything else ships here.
@@ -199,7 +202,7 @@ discipline a prompt cannot provide, because a prompt can always be argued out of
 **How to use it, simply:**
 
 ```bash
-claude mcp add sg -- node bin/sg mcp --frontier-model <path.gguf> --stock ./methods.sgc
+claude mcp add mindsmith -- mindsmith mcp --room <dir-with-your-stock>
 # HARD lane: `propose {shape}` → admitted through the gate, or refused with the reason + gate-tested
 # options; `force:true` → recorded UNTRUSTED, never admission. SOFT lane: `hint` (advisory menu).
 ```
@@ -309,7 +312,7 @@ const cm = Graph.factories.createCriticalMind({ ask });
 const r  = await cm.run({ topic, statements, viewpoints });   // ledger + per-side synthesis + verdict|UNDECIDED
 ```
 
-Over MCP (both `sg mcp` and the mindsmith's `mcp`): the `critique` tool. Its **iteration
+Over MCP (`mindsmith mcp`): the `critique` tool. Its **iteration
 contract**: OPEN points and an UNDECIDED verdict are a *typed data request* — the host gathers real
 statements (web, docs, its own context) and calls `critique` again with `statements`; the frame
 upgrades to MATERIAL and the margin can move honestly.

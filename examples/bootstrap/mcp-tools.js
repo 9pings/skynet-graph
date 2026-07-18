@@ -3,15 +3,16 @@
  */
 'use strict';
 /**
- * BOOTSTRAP surface #2 — the MCP TOOLS server (`sg mcp`): the agentic surface, where the TYPED
- * capabilities are tools an MCP host (Claude Code, any client) consumes.
+ * BOOTSTRAP surface #2 — the MCP toolkit (lib/sg/mcp.js — the library `mindsmith mcp` serves):
+ * the agentic surface, where the TYPED capabilities are tools an MCP host (Claude Code, any
+ * client) consumes.
  * THE GUARANTEE SHOWN: `ask` returns data either way — the answer WITH provenance, or the TYPED REFUSAL
  * that names the missing requirement ({status:'refused', reason, missing[]} — never an error string, never
  * a wrong answer); the economy is visible through `metrics`; there is NO direct-write tool (learning goes
  * through ask-escalation or the version-gated `lattice_load`).
  *
  * Self-contained: drives the PURE server (the stdio transport is one line more). In production:
- *   claude mcp add sg -- node bin/sg mcp --frontier-model <path.gguf> --store ./stock.json
+ *   claude mcp add mindsmith -- mindsmith mcp
  */
 const assert = require('node:assert');
 const { createMcpServer, defaultTools } = require('../../lib/sg/mcp.js');

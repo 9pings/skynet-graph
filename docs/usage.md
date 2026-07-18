@@ -17,7 +17,7 @@
 
 ```bash
 npm install        # deps only; no compile
-npm test           # 1350 tests — 0 failures, 2 known skips (node --test)
+npm test           # ~1530 tests — 0 failures, 2 known skips (node --test)
 ```
 
 ```js
@@ -527,8 +527,9 @@ sg serve --frontier-model <path.gguf> --store ./stock.json            # → http
 # (simulated SSE). Add --studio to open the visual debugger on port+1 (live request lines in its trace
 # panel); Ctrl-C prints the economy report.
 
-# 2) sg mcp — the same capabilities as MCP TOOLS for an agent host (stdio JSON-RPC):
-claude mcp add sg -- node bin/sg mcp --frontier-model <path.gguf> --store ./stock.json [--stock <f.sgc>]
+# 2) MCP TOOLS for an agent host (stdio JSON-RPC) — served by the mindsmith appliance
+#    (the toolkit lives here as a library, lib/sg/mcp.js; sg ships no mcp command — one bin, no duplication):
+claude mcp add mindsmith -- mindsmith mcp     # npm i -g mindsmith
 # Base tools: ask (answer OR a STRUCTURED typed refusal naming the missing requirement), drift, metrics,
 # lattice_load (learning through the version-gated admission — there is NO direct-write tool),
 # methods_describe, lattice_rings, trace_tail (debug by applyId).
@@ -562,7 +563,7 @@ claude mcp add sg -- node bin/sg mcp --frontier-model <path.gguf> --store ./stoc
 #    generated from the plugin type descriptors; the former graph_invoke/graph_instances pool
 #    lane was removed: the pool is method-dispatch infra, lib/runtime/worker-pool.js.)
 
-# 2b) sg try — one-shot LIVE probe of an MCP tool feature (the SAME tool surface as sg mcp, no
+# 2b) sg try — one-shot LIVE probe of an MCP tool feature (the SAME defaultTools surface, no
 #     JSON-RPC piping). Human summary → stderr, THE ARTIFACT → stdout (pipe-friendly); --json = full payload.
 sg try critique --model ./models/model.gguf --prompt "Should we migrate to ESM?"
 #     → the FULL loop: debate → brief → the judge RUNS the judgePrompt; stdout = its DECISION/WHY/

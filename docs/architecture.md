@@ -223,8 +223,9 @@ Above the bricks sit the delivered **capabilities** (C1–C9 — appliance, dura
 library, reactive KG, self-mod, proxy cache, plan loop, mixture serve, and **C9 `createCriticalMind`**,
 the external critical mind), most of them packaged as **plugins** (§5b) whose factories are re-exported
 on the flat `Graph.factories.*` catalog, and the **serving surfaces**: `sg serve` (an
-OpenAI-compatible endpoint) and `sg mcp` (MCP tools, including the SOFT/HARD assistant lanes —
-`hint` / `state_recall` / `state_note` / `plan_sync` vs the gate-tested `propose` — and the `critique` tool).
+OpenAI-compatible endpoint) and the **MCP toolkit** (`lib/sg/mcp.js` — a library, served by the
+mindsmith appliance's `mindsmith mcp`: the SOFT/HARD assistant lanes — `hint` vs the gate-tested
+`propose` — plus `critique`, `self_consistency`, `zoom`, and mindsmith's instance service).
 Per-capability maturity, the measured numbers (including the critical mind's measured decidability
 bound), and the limits are consolidated in **[CAPABILITIES.md](CAPABILITIES.md)**.
 

@@ -414,9 +414,9 @@ footer{border-top:1px solid var(--edge); padding:44px 0 60px}
 <span class="cm">// rules live in files, not in code — so they can be read, diffed and versioned like data</span>
 <span class="k">const</span> g = Graph.fromDirs({ concepts: <span class="s">'./concepts'</span>, builtins: <span class="k">true</span>, seed });
 
-<span class="cm">// serve it to ANY OpenAI client, or to an agent as MCP tools:</span>
+<span class="cm">// serve it to ANY OpenAI client, or to an agent as MCP tools (via the mindsmith appliance):</span>
 <span class="k">sg serve</span> --frontier-model &lt;path.gguf&gt;   <span class="cm"># → http://127.0.0.1:4747/v1</span>
-<span class="k">sg mcp</span>   --frontier-model &lt;path.gguf&gt;   <span class="cm"># → ask · hint · propose · critique · …</span></div>
+<span class="k">mindsmith mcp</span>                           <span class="cm"># → ask · critique · zoom · instances · …</span></div>
   </div>
 </section>
 

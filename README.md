@@ -63,9 +63,10 @@ Where it sits in your setup — two zero-integration doors into one local loop:
 ```
  [your agent / app / any OpenAI client]
         │
-        ├─► OpenAI-compatible endpoint    sg serve  →  http://127.0.0.1:4747/v1
-        └─► MCP tools                     sg mcp    →  ask · zoom · hint · propose · state_recall · plan_sync · critique
-                      │
+        ├─► OpenAI-compatible endpoint    sg serve       →  http://127.0.0.1:4747/v1
+        └─► MCP tools                     mindsmith mcp  →  ask · critique · zoom · self_consistency
+                      │                   (the appliance      · hint · propose · named graph instances
+                      │                    serves this repo's mcp toolkit — one bin, no duplication)
                       ▼
         [typed reasoning graph]    plan · admission gates · typed ledger · JTMS memory
                       │
@@ -145,7 +146,7 @@ const g = Graph.fromDirs({
 
 ```bash
 sg serve --frontier-model <path.gguf> --store ./stock.json    # OpenAI endpoint → http://127.0.0.1:4747/v1
-claude mcp add sg -- node bin/sg mcp --frontier-model <path.gguf> --store ./stock.json   # MCP tools
+claude mcp add mindsmith -- mindsmith mcp     # MCP tools — served by the appliance (npm i -g mindsmith)
 sg studio                                                     # the visual debugger
 ```
 

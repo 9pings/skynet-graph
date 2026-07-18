@@ -1,5 +1,6 @@
 'use strict';
-// `sg mcp` — the MCP tools server (roadmap FINIR F2). Deterministic (stub backends, no GPU). Under test: the
+// The MCP toolkit (lib/sg/mcp.js — the LIBRARY `mindsmith mcp` serves; no sg bin). Deterministic (stub
+// backends, no GPU). Under test: the
 // PURE JSON-RPC dispatch (handshake, tools/list, tools/call, errors), the TYPED REFUSAL arriving STRUCTURED
 // (data, not an error string), the proxy economy visible through MCP, LEARNING THROUGH THE GATE (lattice_load
 // routes via loadLattice; NO direct-write tool exists), the explorer tools à nu, and the stdio wire framing.

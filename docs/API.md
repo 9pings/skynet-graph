@@ -526,17 +526,19 @@ Two zero-dep, zero-integration fronts over the combos (full guide: `doc/usage.md
   `startServeServer({handler, port, host})` is the node:http wrapper. Provenance on every completion:
   headers `x-sg-served-from|arm|cost|coverage|saved|sgc-version` + `usage.sg_*` mirror; `stream:true` is simulated SSE.
   The v1 wire contract: the query = the LAST user turn (a QA cache, not a dialog engine).
-- **`sg mcp`** — an MCP tools server (stdio JSON-RPC). `createMcpServer({tools, serverInfo})` is the pure
-  dispatcher; `defaultTools(wiring)` wires the base tools — `ask` (answer OR a STRUCTURED typed refusal),
-  `drift`, `metrics`, `lattice_load` (growth through `loadLattice` — the only registry write path),
-  `methods_describe`, `lattice_rings`, `trace_tail` — plus the ASSISTANT lanes: SOFT `hint` /
-  `state_recall` / `state_note` / `plan_sync` (the typed task delta, JTMS `reopen` included), HARD
-  `propose` (gate-tested; `force` → recorded-untrusted, never admission), and the C9 `critique`
-  tool (typed ledger + verdict or honest UNDECIDED; OPEN points + UNDECIDED = a typed data
-  request — re-call with `statements`). Named persistent graph instances are the mindsmith
-  instance service's typed tools (generated from the plugin type descriptors). `stockWiring(sgc)` /
-  `--stock <f.sgc>` wires `hint`/`propose` from a forged stock; `startMcpStdio` is the line-framed
-  transport.
+- **The MCP toolkit** (`lib/sg/mcp.js`) — a LIBRARY, served by the mindsmith appliance
+  (`mindsmith mcp`; sg ships no mcp command — one bin, no duplication).
+  `createMcpServer({tools, serverInfo})` is the pure JSON-RPC dispatcher; `defaultTools(wiring)`
+  wires the base tools — `ask` (answer OR a STRUCTURED typed refusal), `drift`, `metrics`,
+  `lattice_load` (growth through `loadLattice` — the only registry write path), `methods_describe`,
+  `lattice_rings`, `trace_tail` — plus the ASSISTANT lanes: SOFT `hint`, HARD `propose`
+  (gate-tested; `force` → recorded-untrusted, never admission), the C9 `critique` tool (typed
+  ledger + judgment brief + `judgePrompt`; OPEN points + UNDECIDED = a typed data request —
+  re-call with `statements`), `self_consistency` and `zoom`. Named persistent graph instances are
+  the mindsmith instance service's typed tools (generated from the plugin type descriptors — the
+  `state_recall`/`plan_sync` lanes are superseded by the `notepad`/`plan` instance types).
+  `stockWiring(sgc)` wires `hint`/`propose` from a forged stock; `startMcpStdio` is the
+  line-framed transport.
 - **`sg flow run <module.js>`** — the C2 durable runner as a CLI; the module exports
   `{ spec, runTask | makeRunTask(), keyOf?, STREAM? }`.
 - **Intake depth back-check** — `require('lib/providers/intake.js').makeProseBackCheck({ask, proseOf?,

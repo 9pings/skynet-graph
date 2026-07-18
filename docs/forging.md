@@ -1,7 +1,7 @@
 # Forging your own domain — the stock cookbook
 
 This is the recipe for turning a dataset **with a free oracle** into a certified `.sgc` stock — the
-fuel the serving surfaces run on (`sg mcp --stock` lanes, the `zoom` tool's cost ladder, mixture).
+fuel the serving surfaces run on (the MCP assistant lanes served by `mindsmith mcp`, the `zoom` tool's cost ladder, mixture).
 It is written to be followed by a person **or by an agent**: every step is a command, every claim in
 it is a number from a committed dossier, and the honest-reading rules are part of the recipe, not a
 footnote.
@@ -88,7 +88,7 @@ you got; never widen `--classes`/`--per` to chase it.
 ### 6. Use the stock
 
 ```sh
-node bin/sg mcp --frontier-model <gguf> --stock SG-Rooms/lib1/my-stock.sgc
+mindsmith mcp --room SG-Rooms/lib1        # every methods bundle in the room feeds hint/propose
 ```
 
 `hint` serves the certified-shape menu; `propose` gates a shape against the frozen referential;

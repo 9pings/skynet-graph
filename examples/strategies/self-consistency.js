@@ -14,7 +14,7 @@
  * Tier-0 — pure grammar, zero JS: there is no code of ours to trust in the decision.
  *
  * Deterministic, no model, no GPU:  node examples/strategies/self-consistency.js
- * Live counterpart: the `self_consistency` MCP tool (`sg mcp`) samples the k paths for real.
+ * Live counterpart: the `self_consistency` MCP tool (served by `mindsmith mcp`) samples the k paths for real.
  */
 const assert = require('node:assert');
 const { bootStrategy } = require('./_boot.js');
