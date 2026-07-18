@@ -1,0 +1,11 @@
+{
+  "name": "notepad-instance",
+  "version": "0.1.0",
+  "description": "Named persistent notepad — the first instance-type descriptor for the skynet-graph instance service.",
+  "main": "index.js",
+  "license": "AGPL-3.0-or-later",
+  "author": "Nathanael Braun <pp9ping@gmail.com>",
+  "keywords": ["skynet-graph", "skynet-graph-plugin", "instance", "notepad", "state-memory"],
+  "peerDependencies": { "skynet-graph": ">=1.3.0" },
+  "files": ["index.js", "descriptor.js", "sg-plugin.json", "README.md"]
+}

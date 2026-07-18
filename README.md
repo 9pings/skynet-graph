@@ -243,6 +243,7 @@ capabilities packaged as **plugins** under `plugins/`, each a self-contained, dr
 | `forge` | dataset + executable oracle → gold-gated `.sgc` method stock + sha256 dossier — what `sg forge` runs *(deps: learning)* |
 | `durable` | C2 — the durable workflow executor: checkpoint store + `compileMethod` + `runFlow` + audit (`createDurableRunner`) |
 | `mixture-serve` | C8 — the mixture-runtime server: a cheap local model oriented by a certified stock, the rest escalated to a bigger tier |
+| `notepad` | the first **instance-type descriptor** — a named persistent notepad (note/recall, attribution-first `by`); fixes the typed-action contract the instance service dispatches on |
 
 *(Fifteen plugins in total — the six strategy sets are grouped in the two rows above to keep the table
 readable; `sg plugin list plugins/` enumerates them all from their manifests without running any code.)*

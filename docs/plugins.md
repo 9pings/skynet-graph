@@ -156,7 +156,9 @@ kernel clients unless noted): `self-consistency` (+ the `sg mcp` `self_consisten
 state-in-graph + a thin deterministic search driver) · `planner` (C7 — grammar + projection engine +
 `createPlanLoop`) · `learning` (the DLL toolkit + `createLearningLibrary`) · `forge`
 (dataset→certified stock, depends on learning) · `durable` (C2 — checkpoint executor +
-`createDurableRunner`) · `mixture-serve` (C8). Every one of them passes `sg plugin validate` with
+`createDurableRunner`) · `mixture-serve` (C8) · `notepad` (the first **instance-type descriptor** —
+`entrypoints.descriptor`, the typed-action contract the instance service dispatches on; see
+`lib/plugins/descriptor.js`). Every one of them passes `sg plugin validate` with
 zero errors — the suite enforces it (`tests/unit/plugin-cli.test.js`).
 
 ## The strategy catalog — one kernel, deposited sets

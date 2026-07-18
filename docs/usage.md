@@ -473,9 +473,10 @@ const r  = await cm.run({ topic, statements, viewpoints });   // frame FREE/MATE
 
 A capability ships as a **plugin**: `{ sg-plugin.json manifest, concepts/<set>/ (grammar in files),
 optional providers.js (Tier-1), optional factory.js (the packaged factory), index.js (the npm
-auto-export) }`. The repo ships fifteen under `plugins/` — `reason-kernel` · `critical-mind` · the strategy pack
+auto-export) }`. The repo ships sixteen under `plugins/` — `reason-kernel` · `critical-mind` · the strategy pack
 (`self-consistency` · `refinement` · `socratic` · `least-to-most` · `analogical` · `react-loop` ·
-`tree-of-thoughts` · `mcts`) · `planner` · `learning` · `forge` · `durable` · `mixture-serve` —
+`tree-of-thoughts` · `mcts`) · `planner` · `learning` · `forge` · `durable` · `mixture-serve` ·
+`notepad` (the first instance-type descriptor) —
 and they are the pattern to copy; the full contract is **[plugins.md](plugins.md)**.
 
 The strategy pack is worth its own page: a reasoning strategy here is a **concept set you deposit** on

@@ -1,0 +1,16 @@
+{
+  // notepad — the FIRST instance-type descriptor (state-memory pillar: state_note/state_recall as
+  // actions on a named, persistent, attributable graph instance). Ships no grammar: its alphabet is
+  // plain typed facts (NoteEntry/seq/text + the runner-stamped `by`). The point of this plugin is the
+  // DESCRIPTOR FORM (`entrypoints.descriptor`) — the typed-action contract the instance service
+  // dispatches on and generates MCP tools from. Tier-1 by definition (the descriptor is readable JS).
+  "name": "notepad",
+  "version": "0.1.0",
+  "tier": 1,
+  "description": "Named persistent notepad — the first instance-service type descriptor: actions note/recall, attribution-first (`by`).",
+  "engine": "^1.3.0",
+  "concepts": [],
+  "providerNamespaces": [],
+  "entrypoints": { "descriptor": "./descriptor.js" },
+  "deps": []
+}
