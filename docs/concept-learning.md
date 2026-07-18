@@ -142,20 +142,12 @@ underfit → it grows → then a utility gate stops it; a 1-unit-sufficient task
 
 ## 4. File map · demos · tests
 
-| File | Role |
-|---|---|
-| `experiments/probabilistic-concepts/equilibrium.js` | DEQ: `solveFixpoint`, `implicitGrad`, `spectralRadius`, `numJac` |
-| `experiments/probabilistic-concepts/concept-net.js` | the population: `make/ring/chain/wide/unrollPopulation`, `train`, `grad`, `loss`, `evolve`, `bakePopulation` |
-| `lib/authoring/core/lifecycle.js` | the plasticity ledger `p∈[0,1]` (CLS annealing) |
-| `lib/providers/llm.js`, `experiments/probabilistic-concepts/ste.js` | plasticity wired into a real provider (temperature / noise) |
-| `examples/poc/equilibrium.js` | DEQ convergence + the ρ→1 regime + STE, narrated |
-| `examples/poc/concept-population.js` | a population: train → scale 2→6 → evolve form → distil |
-| `examples/poc/concept-bridge.js` | a frozen population served in the real engine |
-| `examples/poc/plasticity.js` | one knob p → LLM temperature + NN noise, annealing plastic→frozen |
-| `tests/unit/equilibrium*.test.js`, `tests/unit/concept-net*.test.js`, `tests/integration/concept-net-*.test.js` | the proofs |
-
-Run a demo: `node examples/poc/concept-population.js` (or `concept-bridge.js`, `equilibrium.js`,
-`plasticity.js`). Run the proofs: `npm test`.
+**Removed from the repo (2026-07-18).** The concept-net/equilibrium/ste module family, its POC demos
+and its test files were shelved research (moved to `experiments/` at the 07-16 decomposition, then
+dropped): the ideas and results above remain the record; what SHIPS from this arc is the plasticity
+ledger (`lib/authoring/core/lifecycle.js`, `p∈[0,1]` CLS annealing) and its wiring into the LLM
+provider (`lib/providers/llm.js` — temperature/noise as plasticity). Recover the removed code from
+git history if the arc is ever resumed.
 
 ## 5. Where this sits in the roadmap
 
